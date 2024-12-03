@@ -1,0 +1,29 @@
+*~
+.directory
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# poetry
+#poetry.lock
+
+# Distribution / packaging
+sdist/
+wheels/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
