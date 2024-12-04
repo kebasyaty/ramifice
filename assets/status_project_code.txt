@@ -1,7 +1,0 @@
-<p>
-  <a href="https://github.com/kebasyaty/<REPOSITORY-NAME>" alt="Status Project">
-    <img src="https://raw.githubusercontent.com/kebasyaty/<REPOSITORY-NAME>/assets/status_project/Status_Project-Development-.svg"
-      alt="Status Project">
-  </a>
-</p>
-
