@@ -27,7 +27,7 @@
 
 <p>
   <a href="https://github.com/kebasyaty/ramifice" alt="Status Project">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/assets/status_project/Status_Project-Beta-.svg"
+    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/assets/status_project/Status_Project-Development-.svg"
       alt="Status Project">
   </a>
 </p>
