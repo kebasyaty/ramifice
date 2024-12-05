@@ -2,13 +2,58 @@ name: Test
 
 on:
   push:
+    paths-ignore:
+      - "docs/**"
+      - "wheels/**"
+      - "examples/**"
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "wheels/**"
+      - "examples/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ["3.13", "3.12"]
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: Quansight-Labs/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          cache: pip
+          cache-dependency-path: |
+            "pyproject.toml"
+      - name: Test
+        run: |
+          python tests/tests.py
+
+  success:
+    permissions:
+      contents: none
+    needs: build
+    runs-on: ubuntu-latest
+    name: Test Successful
+    steps:
+      - name: Success
+        run: echo Test Successful
