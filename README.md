@@ -3,7 +3,7 @@
     <a href="https://github.com/kebasyaty/ramifice">
       <img
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/main/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/logo.svg">
     </a>
   </p>
   <p>
@@ -29,7 +29,7 @@
 
 <p>
   <a href="https://github.com/kebasyaty/ramifice" alt="Status Project">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/main/assets/status_project/Status_Project-Development-.svg"
+    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/status_project/Status_Project-Development-.svg"
       alt="Status Project">
   </a>
 </p>
