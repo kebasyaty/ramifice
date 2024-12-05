@@ -10,7 +10,7 @@
     <h1>ramifice</h1>
     <h3>???</h3>
     <p align="center">
-      <a href="https://github.com/kebasyaty/ramifice/actions/workflows/specs.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/specs.yml/badge.svg" alt="Build Status"></a>
+      <a href="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/specs.yml/badge.svg" alt="Build Status"></a>
       <a href="https://kebasyaty.github.io/ramifice/" alt="Docs"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
       <a href="https://crystal-lang.org/" alt="Crysta"><img src="https://img.shields.io/badge/crystal-v1.14.0%2B-CC342D" alt="Crysta"></a>
       <a href="https://github.com/kebasyaty/ramifice/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/ramifice" alt="GitHub release"></a>
