@@ -1,3 +1,4 @@
+# OS
 *~
 .directory
 .DS_Store
@@ -5,15 +6,40 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
 
 # poetry
 #poetry.lock
 
 # Distribution / packaging
+.eggs/
+.Python
+env/
+bin/
+build/
+develop-eggs/
 dist/
+eggs/
+lib/
+lib64/
+parts/
 sdist/
-wheels/
+var/
+wheelhouse/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+.pytest_cache
+coverage.xml
 
 # mypy
 .mypy_cache/
