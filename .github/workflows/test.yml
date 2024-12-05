@@ -28,27 +28,32 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         python-version: ["3.13", "3.12"]
+        poetry-version: ["latest", "main"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: Quansight-Labs/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
-          cache: pip
-          cache-dependency-path: |
-            "pyproject.toml"
+      - uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file.
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+      - name: Install the project dependencies
+        run: poetry install
       - name: Test
         run: |
-          python tests/tests.py
-      - name: Post Set up Python
-        run:  pip cache purge
+          poetry run python tests/tests.py
 
   success:
     permissions:
