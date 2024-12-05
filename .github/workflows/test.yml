@@ -47,6 +47,8 @@ jobs:
       - name: Test
         run: |
           python tests/tests.py
+      - name: Post Set up Python
+        run:  pip cache purge
 
   success:
     permissions:
