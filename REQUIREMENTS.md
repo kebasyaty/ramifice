@@ -1,1 +1,4 @@
-# add links
+- [poetry](https://pypi.org/project/poetry/ "poetry")
+- [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
+- [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
+- [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
