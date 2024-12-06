@@ -33,3 +33,47 @@
       alt="Status Project">
   </a>
 </p>
+
+## Documentation
+
+Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
+
+## Requirements
+
+[View the list of requirements.](https://github.com/kebasyaty/ramifice/blob/main/REQUIREMENTS.md "View the list of requirements.")
+
+## Installation
+
+```shell
+pip install ramifice
+```
+
+## Usage
+
+It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/main/examples "here").
+
+```python
+import ramifice
+```
+
+### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/main/examples "See more examples here.")
+
+## Contributing
+
+1. Fork it (<https://github.com/kebasyaty/ramifice/fork>)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+## Contributors
+
+- [kebasyaty](https://github.com/kebasyaty) Gennady Kostyunin - creator and maintainer
+
+## Changelog
+
+[View the change history.](https://github.com/kebasyaty/ramifice/blob/main/CHANGELOG.md "Changelog")
+
+## License
+
+**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
