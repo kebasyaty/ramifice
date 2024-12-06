@@ -44,9 +44,18 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 ## Installation
 
-```shell
-pip install ramifice
-```
+1. Install MongoDB (if not installed):<br>
+   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/info/FEDORA_INSTALL_MONGODB.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/info/UBUNTU_INSTALL_MONGODB.md)
+
+2. Install additional libraries (if not installed):<br>
+   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/info/FEDORA_ADDITIONAL_LIBRARIES.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/info/UBUNTU_ADDITIONAL_LIBRARIES.md)
+
+3. Run
+   ```shell
+   pip install ramifice
+   ```
 
 ## Usage
 
