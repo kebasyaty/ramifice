@@ -53,7 +53,7 @@ jobs:
         run: poetry install
       - name: Run tests
         run: |
-          poetry run python tests/tests.py
+          poetry run python -m unittest tests.tests
 
   success:
     permissions:
