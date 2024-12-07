@@ -33,11 +33,6 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     steps:
-      - name: Install sudo for Linux
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          apt update
-          apt install -y sudo
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -59,7 +54,7 @@ jobs:
       - name: Install Linux dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          sudo .github/workflows/linux-dependencies-install.sh
+          .ci/linux-dependencies-install.sh
       - name: Run tests
         run: |
           poetry run python -m unittest tests.tests

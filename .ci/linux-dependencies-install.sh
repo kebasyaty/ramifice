@@ -3,6 +3,8 @@
 set -e
 
 # Install OS dependencies
+apt update
+apt install -y sudo
 sudo apt install -y curl gnupg2 systemctl git
 
 # Install graphic libraries
