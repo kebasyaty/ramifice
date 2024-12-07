@@ -33,6 +33,7 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
+      image: ubuntu:latest
       options: --user root
 
     steps:
