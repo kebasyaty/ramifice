@@ -9,10 +9,6 @@ apt install -y sudo
 # Install OS dependencies
 sudo apt install -y curl gnupg2 systemctl git
 
-# Install graphic libraries
-sudo apt install -y libturbojpeg libturbojpeg0-dev \
-    libspng0 libspng-dev libwebp-dev libsharpyuv0 libsharpyuv-dev
-
 # Install MongoDB server
 curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
     sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
