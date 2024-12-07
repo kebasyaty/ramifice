@@ -54,7 +54,7 @@ jobs:
       - name: Install Linux dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          bash .github/workflows/linux-dependencies-install.sh
+          .github/workflows/linux-dependencies-install.sh
       - name: Run tests
         run: |
           poetry run python -m unittest tests.tests
