@@ -32,6 +32,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
+    container:
+      # image: crystallang/crystal:latest
+      options: --user root
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,6 +55,10 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          bash .github/workflows/linux-dependencies-install.sh
       - name: Run tests
         run: |
           poetry run python -m unittest tests.tests
