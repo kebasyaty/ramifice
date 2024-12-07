@@ -51,6 +51,10 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          .github/workflows/linux-dependencies-install.sh
       - name: Run tests
         run: |
           poetry run python -m unittest tests.tests
