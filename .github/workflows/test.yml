@@ -33,7 +33,6 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      # image: crystallang/crystal:latest
       options: --user root
 
     steps:
