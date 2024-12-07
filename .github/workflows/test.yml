@@ -32,9 +32,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
-    container:
+    # container:
       # image: crystallang/crystal:latest
-      options: --user root
+      # options: --user root
 
     steps:
       - uses: actions/checkout@v4
