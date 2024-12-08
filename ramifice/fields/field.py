@@ -13,11 +13,13 @@ class Field:
                  hint: str = "",
                  warning: list[str] | None = None,
                  errors: list[str] | None = None,
+                 field_type: str = "",
                  group: int = 0,
                  ):
         self.__id = ""
         self.__label = label
-        self.__field_type = __name__
+        self.__name = ""
+        self.__field_type = field_type
         self.__disabled = disabled
         self.__hide = hide
         self.__ignored = ignored
@@ -63,6 +65,10 @@ class Field:
     def field_type(self) -> str:
         """Field type - Class Name."""
         return self.__field_type
+
+    @field_type.setter
+    def field_type(self, value: str) -> None:
+        self.__field_type = value
 
     @property
     def disabled(self) -> bool:

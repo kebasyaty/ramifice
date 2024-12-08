@@ -17,12 +17,13 @@ class TextField(field.Field):
             errors: list[str] | None = None,
     ):
         super().__init__(
-            label,
-            disabled,
-            hide,
-            ignored,
-            hint,
-            warning,
-            errors,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            errors=errors,
+            field_type="TextField",
             group=1,
         )

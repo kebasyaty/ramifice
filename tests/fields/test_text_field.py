@@ -12,6 +12,7 @@ class TestTextField(unittest.TestCase):
         f = text_field.TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
         self.assertEqual(f.field_type, "TextField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
