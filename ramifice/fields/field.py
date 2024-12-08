@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractmethod
 
 class Field(metaclass=ABCMeta):
 
-    """An abstract class with common aiributs for all types of fields."""
+    """A abstract class of general attributes for all  types of fields of Model."""
 
     def __init__(self,
         label: str = "",
