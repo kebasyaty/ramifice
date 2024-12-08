@@ -61,7 +61,7 @@ jobs:
           bash .github/workflows/linux-dependencies-install.sh
       - name: Run tests
         run: |
-          poetry run python -m unittest tests.tests
+          python -m unittest discover tests/fields
 
   success:
     permissions:
