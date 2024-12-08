@@ -24,6 +24,6 @@ class TextField(field.Field):
             hint=hint,
             warning=warning,
             errors=errors,
-            field_type="TextField",
+            field_type=type(self).__name__,
             group=1,
         )

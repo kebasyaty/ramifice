@@ -66,10 +66,6 @@ class Field:
         """Field type - Class Name."""
         return self.__field_type
 
-    @field_type.setter
-    def field_type(self, value: str) -> None:
-        self.__field_type = value
-
     @property
     def disabled(self) -> bool:
         """Blocks access and modification of the element."""
