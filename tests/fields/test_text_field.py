@@ -19,7 +19,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 1)
+        self.assertEqual(f.group, "text")
         self.assertEqual(f.input_type, "text")
 
 
