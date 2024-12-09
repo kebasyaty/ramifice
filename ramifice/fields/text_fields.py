@@ -1,9 +1,9 @@
 """A field of Model for entering a text."""
 
-from . import (field, groups)
+from . import (field, text_group)
 
 
-class TextField(field.Field, groups.TextGroup):
+class TextField(field.Field, text_group.TextGroup):
     """A field of Model for entering a text."""
 
     def __init__(self,
@@ -35,7 +35,7 @@ class TextField(field.Field, groups.TextGroup):
                              field_type=type(self).__name__,
                              group='text',
                              )
-        groups.TextGroup.__init__(self,
+        text_group.TextGroup.__init__(self,
                                   input_type='text',
                                   default=default,
                                   placeholder=placeholder,
