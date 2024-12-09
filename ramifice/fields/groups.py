@@ -66,5 +66,5 @@ class TextGroup:
     # --------------------------------------------------------------------------
     @property
     def unique(self) -> bool:
-        """???"""
+        """The unique value of a field in a collection."""
         return self.__unique
