@@ -9,12 +9,14 @@ class TextGroup:
                  default: str = '',
                  placeholder: str = '',
                  required: bool = False,
+                 readonly: bool = False,
                  ):
         self.__input_type = input_type
         self.__value = ''
         self.__default = default
         self.__placeholder = placeholder
         self.__required = required
+        self.__readonly = readonly
     # --------------------------------------------------------------------------
 
     @property
@@ -52,3 +54,9 @@ class TextGroup:
     def required(self) -> bool:
         """Required field."""
         return self.__required
+
+    # --------------------------------------------------------------------------
+    @property
+    def readonly(self) -> bool:
+        """Specifies that the field cannot be modified by the user."""
+        return self.__readonly

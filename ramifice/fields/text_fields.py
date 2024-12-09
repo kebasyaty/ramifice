@@ -18,6 +18,7 @@ class TextField(field.Field, groups.TextGroup):
                  default: str = '',
                  placeholder: str = '',
                  required: bool = False,
+                 readonly: bool = False,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -34,6 +35,7 @@ class TextField(field.Field, groups.TextGroup):
                                   default=default,
                                   placeholder=placeholder,
                                   required=required,
+                                  readonly=readonly,
                                   )
         self.__textarea = textarea
         self.__use_editor = use_editor
