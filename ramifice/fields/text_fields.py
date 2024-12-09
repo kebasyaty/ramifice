@@ -15,6 +15,8 @@ class TextField(field.Field, groups.TextGroup):
                  warning: list[str] | None = None,
                  textarea: bool = False,
                  use_editor: bool = False,
+                 default: str = '',
+                 placeholder: str = '',
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -27,7 +29,9 @@ class TextField(field.Field, groups.TextGroup):
                              group='text',
                              )
         groups.TextGroup.__init__(self,
-                                  input_type='text'
+                                  input_type='text',
+                                  default=default,
+                                  placeholder=placeholder,
                                   )
         self.__textarea = textarea
         self.__use_editor = use_editor
