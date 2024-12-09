@@ -6,10 +6,13 @@ class TextGroup:
 
     def __init__(self,
                  input_type: str = "",
+                 default: str = '',
                  ):
         self.__input_type = input_type
-
+        self.__value = ''
+        self.__default = default
     # --------------------------------------------------------------------------
+
     @property
     def input_type(self) -> str:
         """\
@@ -17,3 +20,19 @@ class TextGroup:
         Html tag: input type="text".
         """
         return self.__input_type
+
+    # --------------------------------------------------------------------------
+    @property
+    def value(self) -> str:
+        """Sets the value of an element."""
+        return self.__value
+
+    @value.setter
+    def value(self, value: str) -> None:
+        self.__value = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def default(self) -> str:
+        """Value by default."""
+        return self.__default

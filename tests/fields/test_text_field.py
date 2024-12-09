@@ -23,6 +23,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.input_type, "text")
         self.assertFalse(f.textarea)
         self.assertFalse(f.use_editor)
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, '')
 
 
 if __name__ == '__main__':
