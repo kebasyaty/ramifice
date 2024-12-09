@@ -1,7 +1,6 @@
 """A field of Model for entering a text."""
 
-from . import field
-from .groups import text_group
+from .general import (field, text_group)
 
 
 class TextField(field.Field, text_group.TextGroup):
