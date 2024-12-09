@@ -10,6 +10,7 @@ class TextGroup:
                  placeholder: str = '',
                  required: bool = False,
                  readonly: bool = False,
+                 unique: bool = False,
                  ):
         self.__input_type = input_type
         self.__value = ''
@@ -17,6 +18,7 @@ class TextGroup:
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly
+        self.__unique = unique
     # --------------------------------------------------------------------------
 
     @property
@@ -60,3 +62,9 @@ class TextGroup:
     def readonly(self) -> bool:
         """Specifies that the field cannot be modified by the user."""
         return self.__readonly
+
+    # --------------------------------------------------------------------------
+    @property
+    def unique(self) -> bool:
+        """???"""
+        return self.__unique
