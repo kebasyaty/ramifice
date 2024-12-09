@@ -14,6 +14,7 @@ class TextField(field.Field, groups.TextGroup):
                  hint: str = "",
                  warning: list[str] | None = None,
                  textarea: bool = False,
+                 use_editor: bool = False,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -29,12 +30,17 @@ class TextField(field.Field, groups.TextGroup):
                                   input_type='text'
                                   )
         self.__textarea = textarea
+        self.__use_editor = use_editor
 
     # --------------------------------------------------------------------------
     @property
     def textarea(self) -> bool:
-        """\
-        Input type for a web form field.
-        Html tag: input type="text".
-        """
+        """For Html textarea."""
         return self.__textarea
+
+    # --------------------------------------------------------------------------
+    @property
+    def use_editor(self) -> bool:
+        """Whether or not to use your preferred text editor - 
+        CKEditor, TinyMCE, etc."""
+        return self.__use_editor
