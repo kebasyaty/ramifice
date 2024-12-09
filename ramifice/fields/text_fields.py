@@ -20,6 +20,7 @@ class TextField(field.Field, groups.TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
+                 maxlength: int | None = None,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -41,6 +42,7 @@ class TextField(field.Field, groups.TextGroup):
                                   )
         self.__textarea = textarea
         self.__use_editor = use_editor
+        self.__maxlength = maxlength
 
     # --------------------------------------------------------------------------
     @property
@@ -54,3 +56,9 @@ class TextField(field.Field, groups.TextGroup):
         """Whether or not to use your preferred text editor - 
         CKEditor, TinyMCE, etc."""
         return self.__use_editor
+
+    # --------------------------------------------------------------------------
+    @property
+    def maxlength(self) -> int | None:
+        """???"""
+        return self.__maxlength

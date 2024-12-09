@@ -29,6 +29,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        self.assertIsNone(f.maxlength)
 
 
 if __name__ == '__main__':
