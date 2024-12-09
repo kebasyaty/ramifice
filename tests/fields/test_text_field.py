@@ -1,7 +1,7 @@
 """Testing text fields."""
 
 import unittest
-from ramifice.fields import text_field
+from ramifice.fields import fields
 
 
 class TestTextFields(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_attributes_by_default(self):
         """Testing a parameters for TextField."""
-        f = text_field.TextField()
+        f = fields.TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
