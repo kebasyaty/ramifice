@@ -1,9 +1,9 @@
-"""Common aiributs for all types of fields."""
+"""General parameters for all types fields of Model."""
 
 
 class Field:
 
-    """A abstract class of general attributes for all  types of fields of Model."""
+    """A class of general parameters for all types fields of Model."""
 
     def __init__(self,
                  label: str = "",
@@ -14,7 +14,7 @@ class Field:
                  warning: list[str] | None = None,
                  errors: list[str] | None = None,
                  field_type: str = "",
-                 group: int = 0,
+                 group: str = "",
                  ):
         self.__id = ""
         self.__label = label
@@ -28,6 +28,7 @@ class Field:
         self.__errors = errors
         self.__group = group
 
+    # --------------------------------------------------------------------------
     @property
     def id(self) -> str:
         """\
@@ -40,6 +41,7 @@ class Field:
     def id(self, value: str) -> None:
         self.__id = value
 
+    # --------------------------------------------------------------------------
     @property
     def label(self) -> str:
         """Text label for a web form field."""
@@ -49,6 +51,7 @@ class Field:
     def label(self, value: str) -> None:
         self.__label = value
 
+    # --------------------------------------------------------------------------
     @property
     def name(self) -> str:
         """\
@@ -61,11 +64,13 @@ class Field:
     def name(self, value: str) -> None:
         self.__name = value
 
+    # --------------------------------------------------------------------------
     @property
     def field_type(self) -> str:
         """Field type - Class Name."""
         return self.__field_type
 
+    # --------------------------------------------------------------------------
     @property
     def disabled(self) -> bool:
         """Blocks access and modification of the element."""
@@ -75,6 +80,7 @@ class Field:
     def disabled(self, value: bool) -> None:
         self.__disabled = value
 
+    # --------------------------------------------------------------------------
     @property
     def hide(self) -> bool:
         """Hide field from user."""
@@ -84,6 +90,7 @@ class Field:
     def hide(self, value: bool) -> None:
         self.__hide = value
 
+    # --------------------------------------------------------------------------
     @property
     def ignored(self) -> bool:
         """If true, the value of this field is not saved in the database."""
@@ -93,6 +100,7 @@ class Field:
     def ignored(self, value: bool) -> None:
         self.__ignored = value
 
+    # --------------------------------------------------------------------------
     @property
     def hint(self) -> str:
         """\
@@ -105,6 +113,7 @@ class Field:
     def hint(self, value: str) -> None:
         self.__hint = value
 
+    # --------------------------------------------------------------------------
     @property
     def warning(self) -> list[str] | None:
         """Warning information."""
@@ -114,6 +123,7 @@ class Field:
     def warning(self, value: list[str]) -> None:
         self.__warning = value
 
+    # --------------------------------------------------------------------------
     @property
     def errors(self) -> list[str] | None:
         """WARNING: The value is determined automatically."""
@@ -123,8 +133,9 @@ class Field:
     def errors(self, value: list[str]) -> None:
         self.__errors = value
 
+    # --------------------------------------------------------------------------
     @property
-    def group(self) -> int:
+    def group(self) -> str:
         """\
         To optimize field traversal in the `check` method.
         WARNING: It is recommended not to change.
