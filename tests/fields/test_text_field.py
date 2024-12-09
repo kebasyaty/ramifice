@@ -21,6 +21,7 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.errors)
         self.assertEqual(f.group, "text")
         self.assertEqual(f.input_type, "text")
+        self.assertFalse(f.textarea)
 
 
 if __name__ == '__main__':

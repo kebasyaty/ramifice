@@ -13,6 +13,7 @@ class TextField(field.Field, groups.TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
+                 textarea: bool = False,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -27,3 +28,13 @@ class TextField(field.Field, groups.TextGroup):
         groups.TextGroup.__init__(self,
                                   input_type='text'
                                   )
+        self.__textarea = textarea
+
+    # --------------------------------------------------------------------------
+    @property
+    def textarea(self) -> bool:
+        """\
+        Input type for a web form field.
+        Html tag: input type="text".
+        """
+        return self.__textarea
