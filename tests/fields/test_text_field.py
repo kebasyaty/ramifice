@@ -8,7 +8,7 @@ class TestTextFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_attributes_by_default(self):
-        """Testing TextField."""
+        """Testing a parameters for TextField."""
         f = text_field.TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
