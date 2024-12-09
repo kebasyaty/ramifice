@@ -89,6 +89,6 @@ class TextField(field.Field, groups.TextGroup):
     def regex_err_msg(self) -> str:
         """\
         Error message.
-        Example: I18n.t("allowed_chars.interpolation",chars: "a-z, A-Z, 0-9, _")
+        Example: Allowed chars: a-z, A-Z, 0-9, _
         """
         return self.__regex_err_msg
