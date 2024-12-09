@@ -1,14 +1,14 @@
-"""Testing TextField."""
+"""Testing text fields."""
 
 import unittest
 from ramifice.fields import text_field
 
 
-class TestTextField(unittest.TestCase):
-    """Testing TextField."""
+class TestTextFields(unittest.TestCase):
+    """Testing parameters with default values."""
 
     def test_attributes_by_default(self):
-        """Testing atrabuts with default values."""
+        """Testing TextField."""
         f = text_field.TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
