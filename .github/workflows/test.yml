@@ -59,7 +59,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           bash .github/workflows/linux-dependencies-install.sh
-      - name: Run tests
+      - name: Run unittest
         run: |
           python -m unittest discover tests/fields
 

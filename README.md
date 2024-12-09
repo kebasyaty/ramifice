@@ -3,7 +3,7 @@
     <a href="https://github.com/kebasyaty/ramifice">
       <img
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/main/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/logo.svg">
     </a>
   </p>
   <p>
@@ -16,7 +16,7 @@
       <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI status"><img src="https://img.shields.io/pypi/status/ramifice.svg" alt="PyPI status"></a>
       <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI version fury.io"><img src="https://badge.fury.io/py/ramifice.svg" alt="PyPI version fury.io"></a>
       <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
-      <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
+      <a href="https://github.com/kebasyaty/ramifice/blob/v0/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
     </p>
     <div align="center">
@@ -29,7 +29,7 @@
 
 <p>
   <a href="https://github.com/kebasyaty/ramifice" alt="Status Project">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/main/assets/status_project/Status_Project-Development-.svg"
+    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/status_project/Status_Project-Development-.svg"
       alt="Status Project">
   </a>
 </p>
@@ -40,13 +40,13 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 ## Requirements
 
-[View the list of requirements.](https://github.com/kebasyaty/ramifice/blob/main/REQUIREMENTS.md "View the list of requirements.")
+[View the list of requirements.](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "View the list of requirements.")
 
 ## Installation
 
 1. Install MongoDB (if not installed):<br>
-   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/assets/FEDORA_INSTALL_MONGODB.md)
-   [![Ubuntu](https://img.shields.io/badge/Ubuntu-752107?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/assets/UBUNTU_INSTALL_MONGODB.md)
+   [![Fedora](https://img.shields.io/badge/Fedora-3e62ac?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/FEDORA_INSTALL_MONGODB.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/UBUNTU_INSTALL_MONGODB.md)
 
 2. Run
    ```shell
@@ -55,13 +55,13 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 ## Usage
 
-It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/main/examples "here").
+It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/v0/examples "here").
 
 ```python
 import ramifice
 ```
 
-### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/main/examples "See more examples here.")
+### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
 
 ## Contributing
 
@@ -77,8 +77,8 @@ import ramifice
 
 ## Changelog
 
-[View the change history.](https://github.com/kebasyaty/ramifice/blob/main/CHANGELOG.md "Changelog")
+[View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
 
 ## License
 
-**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
+**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/v0/LICENSE "MIT")**.**
