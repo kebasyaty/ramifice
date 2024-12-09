@@ -46,7 +46,7 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 1. Install MongoDB (if not installed):<br>
    [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/assets/FEDORA_INSTALL_MONGODB.md)
-   [![Ubuntu](https://img.shields.io/badge/Ubuntu-752107?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/assets/UBUNTU_INSTALL_MONGODB.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/main/assets/UBUNTU_INSTALL_MONGODB.md)
 
 2. Run
    ```shell
