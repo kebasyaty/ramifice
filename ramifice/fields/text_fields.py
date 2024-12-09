@@ -21,6 +21,7 @@ class TextField(field.Field, groups.TextGroup):
                  readonly: bool = False,
                  unique: bool = False,
                  maxlength: int | None = None,
+                 minlength: int | None = None,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -43,6 +44,7 @@ class TextField(field.Field, groups.TextGroup):
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
+        self.__minlength = minlength
 
     # --------------------------------------------------------------------------
     @property
@@ -60,5 +62,11 @@ class TextField(field.Field, groups.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def maxlength(self) -> int | None:
-        """???"""
+        """The maximum number of characters allowed in the text."""
         return self.__maxlength
+
+    # --------------------------------------------------------------------------
+    @property
+    def minlength(self) -> int | None:
+        """The minimum number of characters allowed in the text."""
+        return self.__minlength

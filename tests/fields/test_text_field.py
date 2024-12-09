@@ -30,6 +30,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertIsNone(f.maxlength)
+        self.assertIsNone(f.minlength)
 
 
 if __name__ == '__main__':
