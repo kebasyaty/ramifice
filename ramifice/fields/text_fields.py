@@ -23,6 +23,7 @@ class TextField(field.Field, groups.TextGroup):
                  maxlength: int | None = None,
                  minlength: int | None = None,
                  regex: str = '',
+                 regex_err_msg: str = '',
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -47,6 +48,7 @@ class TextField(field.Field, groups.TextGroup):
         self.__maxlength = maxlength
         self.__minlength = minlength
         self.__regex = regex
+        self.__regex_err_msg = regex_err_msg
 
     # --------------------------------------------------------------------------
     @property
@@ -78,6 +80,15 @@ class TextField(field.Field, groups.TextGroup):
     def regex(self) -> str:
         """\
         Regular expression to validate the `value`.
-        NOTE: **Example:** "^[a-zA-Z0-9_]+$"
+        Example: "^[a-zA-Z0-9_]+$"
         """
         return self.__regex
+
+    # --------------------------------------------------------------------------
+    @property
+    def regex_err_msg(self) -> str:
+        """\
+        Error message.
+        Example: I18n.t("allowed_chars.interpolation",chars: "a-z, A-Z, 0-9, _")
+        """
+        return self.__regex_err_msg

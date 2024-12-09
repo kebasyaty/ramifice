@@ -32,6 +32,7 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.maxlength)
         self.assertIsNone(f.minlength)
         self.assertEqual(f.regex, '')
+        self.assertEqual(f.regex_err_msg, '')
 
 
 if __name__ == '__main__':
