@@ -29,8 +29,8 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertIsNone(f.maxlength)
-        self.assertIsNone(f.minlength)
+        self.assertEqual(f.maxlength, 256)
+        self.assertEqual(f.minlength, 0)
         self.assertEqual(f.regex, '')
         self.assertEqual(f.regex_err_msg, '')
 
