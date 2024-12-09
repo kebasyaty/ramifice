@@ -20,6 +20,7 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
         self.assertEqual(f.group, 1)
+        self.assertEqual(f.input_type, "text")
 
 
 if __name__ == '__main__':
