@@ -17,6 +17,7 @@ class TextField(field.Field, groups.TextGroup):
                  use_editor: bool = False,
                  default: str = '',
                  placeholder: str = '',
+                 required: bool = False,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -32,6 +33,7 @@ class TextField(field.Field, groups.TextGroup):
                                   input_type='text',
                                   default=default,
                                   placeholder=placeholder,
+                                  required=required,
                                   )
         self.__textarea = textarea
         self.__use_editor = use_editor

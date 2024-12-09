@@ -8,11 +8,13 @@ class TextGroup:
                  input_type: str = "",
                  default: str = '',
                  placeholder: str = '',
+                 required: bool = False,
                  ):
         self.__input_type = input_type
         self.__value = ''
         self.__default = default
         self.__placeholder = placeholder
+        self.__required = required
     # --------------------------------------------------------------------------
 
     @property
@@ -44,3 +46,9 @@ class TextGroup:
     def placeholder(self) -> str:
         """Displays prompt text."""
         return self.__placeholder
+
+    # --------------------------------------------------------------------------
+    @property
+    def required(self) -> bool:
+        """Required field."""
+        return self.__required

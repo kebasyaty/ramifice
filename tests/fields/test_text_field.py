@@ -26,6 +26,7 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.value, '')
         self.assertEqual(f.default, '')
         self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
 
 
 if __name__ == '__main__':
