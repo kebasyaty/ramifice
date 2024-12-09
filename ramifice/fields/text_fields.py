@@ -22,6 +22,7 @@ class TextField(field.Field, groups.TextGroup):
                  unique: bool = False,
                  maxlength: int | None = None,
                  minlength: int | None = None,
+                 regex: str = '',
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -45,6 +46,7 @@ class TextField(field.Field, groups.TextGroup):
         self.__use_editor = use_editor
         self.__maxlength = maxlength
         self.__minlength = minlength
+        self.__regex = regex
 
     # --------------------------------------------------------------------------
     @property
@@ -55,7 +57,7 @@ class TextField(field.Field, groups.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def use_editor(self) -> bool:
-        """Whether or not to use your preferred text editor - 
+        """Whether or not to use your preferred text editor -
         CKEditor, TinyMCE, etc."""
         return self.__use_editor
 
@@ -70,3 +72,12 @@ class TextField(field.Field, groups.TextGroup):
     def minlength(self) -> int | None:
         """The minimum number of characters allowed in the text."""
         return self.__minlength
+
+    # --------------------------------------------------------------------------
+    @property
+    def regex(self) -> str:
+        """\
+        Regular expression to validate the `value`.
+        NOTE: **Example:** "^[a-zA-Z0-9_]+$"
+        """
+        return self.__regex
