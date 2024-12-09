@@ -1,6 +1,7 @@
 """A field of Model for entering a text."""
 
-from . import (field, text_group)
+from . import field
+from .groups import text_group
 
 
 class TextField(field.Field, text_group.TextGroup):
@@ -36,13 +37,13 @@ class TextField(field.Field, text_group.TextGroup):
                              group='text',
                              )
         text_group.TextGroup.__init__(self,
-                                  input_type='text',
-                                  default=default,
-                                  placeholder=placeholder,
-                                  required=required,
-                                  readonly=readonly,
-                                  unique=unique,
-                                  )
+                                      input_type='text',
+                                      default=default,
+                                      placeholder=placeholder,
+                                      required=required,
+                                      readonly=readonly,
+                                      unique=unique,
+                                      )
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
