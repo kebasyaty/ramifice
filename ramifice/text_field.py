@@ -31,7 +31,7 @@ class TextField(field.Field, text_group.TextGroup):
                              ignored=ignored,
                              hint=hint,
                              warning=warning,
-                             field_type=type(self).__name__,
+                             field_type='TextField',
                              group='text',
                              )
         text_group.TextGroup.__init__(self,
