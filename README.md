@@ -69,18 +69,6 @@ import ramifice
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
 
-## Contributing
-
-1. Fork it (<https://github.com/kebasyaty/ramifice/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
-
-## Contributors
-
-- [kebasyaty](https://github.com/kebasyaty) Gennady Kostyunin - creator and maintainer
-
 ## Changelog
 
 [View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
