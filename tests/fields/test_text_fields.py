@@ -7,8 +7,8 @@ from ramifice.fields import fields
 class TestTextFields(unittest.TestCase):
     """Testing parameters with default values."""
 
-    def test_attributes_by_default(self):
-        """Testing a parameters for TextField."""
+    def test_text_field(self):
+        """Testing a parameters by default for TextField."""
         f = fields.TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -32,6 +32,28 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.maxlength, 256)
         self.assertEqual(f.regex, '')
         self.assertEqual(f.regex_err_msg, '')
+
+    def test_url_field(self):
+        """Testing a parameters by default for URLField."""
+        f = fields.URLField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "URLField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "text")
+        self.assertEqual(f.input_type, "url")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertFalse(f.unique)
+        self.assertEqual(f.maxlength, 2083)
 
 
 if __name__ == '__main__':
