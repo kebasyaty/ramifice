@@ -8,7 +8,7 @@
   </p>
   <p>
     <h1>ramifice</h1>
-    <h3>???</h3>
+    <h3>ORM-like API MongoDB for Python language.</h3>
     <p align="center">
       <a href="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml/badge.svg" alt="Build Status"></a>
       <a href="https://kebasyaty.github.io/ramifice/" alt="Docs"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
@@ -20,7 +20,13 @@
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
     </p>
     <div align="center">
-      ???
+      Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a> and is more focused on web development.
+      <br>
+      For simulate relationship Many-to-One and Many-to-Many,
+      <br>
+      a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
+      <br>
+      The project is focused on web development.
     </div>
   </p>
 </div>
