@@ -31,7 +31,7 @@ class TextField(field.Field, text_group.TextGroup):
                              ignored=ignored,
                              hint=hint,
                              warning=warning,
-                             field_type=type(self).__name__,
+                             field_type='TextField',
                              group='text',
                              )
         text_group.TextGroup.__init__(self,
@@ -45,14 +45,13 @@ class TextField(field.Field, text_group.TextGroup):
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
-        self.__minlength = 0
         self.__regex = regex
         self.__regex_err_msg = regex_err_msg
 
     # --------------------------------------------------------------------------
     @property
     def textarea(self) -> bool:
-        """For Html textarea."""
+        """Use HTML tag Textarea?"""
         return self.__textarea
 
     # --------------------------------------------------------------------------
@@ -67,12 +66,6 @@ class TextField(field.Field, text_group.TextGroup):
     def maxlength(self) -> int:
         """The maximum number of characters allowed in the text."""
         return self.__maxlength
-
-    # --------------------------------------------------------------------------
-    @property
-    def minlength(self) -> int:
-        """The minimum number of characters allowed in the text."""
-        return self.__minlength
 
     # --------------------------------------------------------------------------
     @property
