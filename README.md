@@ -20,13 +20,13 @@
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
     </p>
     <div align="center">
-      Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a> and is more focused on web development.
+      Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
       <br>
       For simulate relationship Many-to-One and Many-to-Many,
       <br>
       a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
       <br>
-      The project is focused on web development.
+      The project is more concentrated for web development or for applications with a graphic interface.
     </div>
   </p>
 </div>
