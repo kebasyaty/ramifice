@@ -77,6 +77,29 @@ class TestTextFields(unittest.TestCase):
         self.assertTrue(f.unique)
         self.assertIsNone(f.slug_sources)
 
+    def test_phone_field(self):
+        """Testing a parameters by default for PhoneField."""
+        f = fields.PhoneField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "PhoneField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "text")
+        self.assertEqual(f.input_type, "tel")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertFalse(f.unique)
+        self.assertEqual(f.regex, '')
+        self.assertEqual(f.regex_err_msg, '')
+
 
 if __name__ == '__main__':
     unittest.main()
