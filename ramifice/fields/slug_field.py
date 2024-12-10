@@ -32,7 +32,7 @@ class SlugField(field.Field, text_group.TextGroup):
                              hint=hint,
                              warning=warning,
                              field_type='SlugField',
-                             group='text',
+                             group='slug',
                              )
         text_group.TextGroup.__init__(self,
                                       input_type='text',
