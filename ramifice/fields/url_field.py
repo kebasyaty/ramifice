@@ -1,10 +1,10 @@
-"""A field of Model for entering a URL."""
+"""A field of Model for entering a URL addresses."""
 
 from .general import (field, text_group)
 
 
 class URLField(field.Field, text_group.TextGroup):
-    """A field of Model for entering a URL."""
+    """Field for entering URL addresses."""
 
     def __init__(self,
                  label: str = "",
@@ -18,6 +18,11 @@ class URLField(field.Field, text_group.TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
+                 # Google Chrome: 2083
+                 # Edge: 2083
+                 # Internet Explorer: 2083
+                 # Safari: 80 000
+                 # Firefox: 65 536
                  maxlength: int = 2083,
                  ):
         field.Field.__init__(self,
