@@ -1,7 +1,7 @@
 """Testing text fields."""
 
 import unittest
-from ramifice.fields import fields
+from ramifice import fields
 
 
 class TestTextFields(unittest.TestCase):
