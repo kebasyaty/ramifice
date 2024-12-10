@@ -45,7 +45,6 @@ class TextField(field.Field, text_group.TextGroup):
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
-        self.__minlength = 0
         self.__regex = regex
         self.__regex_err_msg = regex_err_msg
 
@@ -67,12 +66,6 @@ class TextField(field.Field, text_group.TextGroup):
     def maxlength(self) -> int:
         """The maximum number of characters allowed in the text."""
         return self.__maxlength
-
-    # --------------------------------------------------------------------------
-    @property
-    def minlength(self) -> int:
-        """The minimum number of characters allowed in the text."""
-        return self.__minlength
 
     # --------------------------------------------------------------------------
     @property
