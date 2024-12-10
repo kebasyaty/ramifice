@@ -55,6 +55,28 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 2083)
 
+    def test_slug_field(self):
+        """Testing a parameters by default for SlugField."""
+        f = fields.SlugField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "SlugField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "text")
+        self.assertEqual(f.input_type, "text")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, ['hash'])
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertTrue(f.unique)
+        self.assertIsNone(f.slug_sources)
+
 
 if __name__ == '__main__':
     unittest.main()
