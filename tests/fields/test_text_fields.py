@@ -1,4 +1,4 @@
-"""Testing text fields."""
+"""Testing a parameters with default values for text fields."""
 
 import unittest
 from ramifice.fields import fields
