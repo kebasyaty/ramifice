@@ -51,7 +51,7 @@ class TextField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def textarea(self) -> bool:
-        """For Html textarea."""
+        """Use HTML tag Textarea?"""
         return self.__textarea
 
     # --------------------------------------------------------------------------
