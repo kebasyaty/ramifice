@@ -2,3 +2,4 @@
 - [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
 - [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
 - [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
+- [pymongo](https://pypi.org/project/pymongo/ "pymongo")
