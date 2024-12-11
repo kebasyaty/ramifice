@@ -1,10 +1,10 @@
-"""A field of Model for entering a text."""
+"""Field of Model for enter text."""
 
 from .general import (field, text_group)
 
 
 class TextField(field.Field, text_group.TextGroup):
-    """A field of Model for entering a text."""
+    """Field of Model for enter text."""
 
     def __init__(self,
                  label: str = "",
@@ -70,8 +70,7 @@ class TextField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def regex(self) -> str:
-        """\
-        Regular expression to validate the `value`.
+        """Regular expression to validate the `value`.
         Example: "^[a-zA-Z0-9_]+$"
         """
         return self.__regex
@@ -79,8 +78,7 @@ class TextField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def regex_err_msg(self) -> str:
-        """\
-        Error message.
+        """Error message.
         Example: Allowed chars: a-z, A-Z, 0-9, _
         """
         return self.__regex_err_msg

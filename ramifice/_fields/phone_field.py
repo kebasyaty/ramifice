@@ -1,18 +1,17 @@
-"""\
-A field of Model for entering phone number.
-WARNING: By default is used validator `Valid.phone_number?`.
-Examples:
-4812504203260 | +4812504203260 |
-+48 504 203 260 | +48 (12) 504-203-260 |
-+48 (12) 504 203 260 | +48.504.203.260 |
-+48-504-203-260 | 555.5555.555
-"""
+"""Field of Model for enter phone number."""
 
 from .general import (field, text_group)
 
 
 class PhoneField(field.Field, text_group.TextGroup):
-    """Field for entering Phone number."""
+    """Field of Model for enter phone number.
+    WARNING: By default is used validator `Valid.phone_number?`.
+    Examples:
+    4812504203260 | +4812504203260 |
+    +48 504 203 260 | +48 (12) 504-203-260 |
+    +48 (12) 504 203 260 | +48.504.203.260 |
+    +48-504-203-260 | 555.5555.555
+    """
 
     def __init__(self,
                  label: str = "",
@@ -53,8 +52,7 @@ class PhoneField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def regex(self) -> str:
-        """\
-        Regular expression to validate the `value`.
+        """Regular expression to validate the `value`.
         Example: "^.+$"
         """
         return self.__regex
@@ -62,8 +60,7 @@ class PhoneField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def regex_err_msg(self) -> str:
-        """\
-        Error message.
+        """Error message.
         Example: Invalid Phone
         """
         return self.__regex_err_msg
