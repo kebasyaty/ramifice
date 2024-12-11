@@ -62,6 +62,7 @@ jobs:
           bash .github/workflows/linux-dependencies-install.sh
       - name: Run unittest
         run: |
+          mongod --version
           python -m unittest discover tests/fields
 
   success:
