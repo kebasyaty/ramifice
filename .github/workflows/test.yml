@@ -33,7 +33,6 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      # image: ubuntu:latest
       image: mongodb/mongodb-community-server:latest
       options: --user root
 
