@@ -6,8 +6,9 @@ from .general import (field, password_group)
 class PasswordField(field.Field, password_group.PasswordGroup):
     """Field of Model for enter password.
     WARNING:
-    Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]+$
+    Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
     Valid characters by default: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+    Number of characters by default: from 8 to 256.
     """
 
     def __init__(self,
