@@ -2,7 +2,7 @@
 
 import unittest
 from ramifice.fields import (
-    TextField, URLField, SlugField, PhoneField, PasswordField)
+    TextField, URLField, SlugField, PhoneField, PasswordField, IPField)
 
 
 class TestTextFields(unittest.TestCase):
@@ -120,6 +120,27 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertEqual(f.regex, '')
         self.assertEqual(f.regex_err_msg, '')
+
+    def test_ip_field(self):
+        """Testing a parameters by default for IPField."""
+        f = IPField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "IPField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "text")
+        self.assertEqual(f.input_type, "text")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertFalse(f.unique)
 
 
 if __name__ == '__main__':
