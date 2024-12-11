@@ -33,7 +33,7 @@
 
 <hr>
 
-_PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
+_Supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
 <br>
 _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")_.
 
