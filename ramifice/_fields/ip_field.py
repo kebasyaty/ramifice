@@ -1,11 +1,10 @@
-"""Field of Model for enter URL addresses."""
-
+"""Field of Model for enter IP addresses."""
 
 from .general import (field, text_group)
 
 
-class URLField(field.Field, text_group.TextGroup):
-    """Field of Model for enter URL addresses."""
+class IPField(field.Field, text_group.TextGroup):
+    """Field of Model for enter IP addresses."""
 
     def __init__(self,
                  label: str = "",
@@ -19,12 +18,6 @@ class URLField(field.Field, text_group.TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
-                 # Google Chrome: 2083
-                 # Edge: 2083
-                 # Internet Explorer: 2083
-                 # Safari: 80 000
-                 # Firefox: 65 536
-                 maxlength: int = 2083,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -33,20 +26,14 @@ class URLField(field.Field, text_group.TextGroup):
                              ignored=ignored,
                              hint=hint,
                              warning=warning,
-                             field_type='URLField',
+                             field_type='IPField',
                              group='text',
                              )
         text_group.TextGroup.__init__(self,
-                                      input_type='url',
+                                      input_type='text',
                                       default=default,
                                       placeholder=placeholder,
                                       required=required,
                                       readonly=readonly,
                                       unique=unique,
                                       )
-        self.__maxlength = maxlength
-
-    @property
-    def maxlength(self) -> int:
-        """The maximum number of characters allowed in the text."""
-        return self.__maxlength
