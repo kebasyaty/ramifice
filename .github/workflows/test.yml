@@ -14,8 +14,8 @@ on:
       - "examples/**"
   workflow_dispatch:
 
-# permissions:
-  # contents: read
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -34,7 +34,7 @@ jobs:
 
     container:
       image: mongodb/mongodb-community-server:latest
-      # options: --user root
+      options: --user root
 
     steps:
       - uses: actions/checkout@v4
