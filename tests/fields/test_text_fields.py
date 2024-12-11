@@ -1,7 +1,7 @@
 """Testing a parameters with default values for text fields."""
 
 import unittest
-from ramifice.fields import fields
+from ramifice.fields import (TextField, URLField, SlugField, PhoneField)
 
 
 class TestTextFields(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_text_field(self):
         """Testing a parameters by default for TextField."""
-        f = fields.TextField()
+        f = TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -35,7 +35,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_url_field(self):
         """Testing a parameters by default for URLField."""
-        f = fields.URLField()
+        f = URLField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -57,7 +57,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_slug_field(self):
         """Testing a parameters by default for SlugField."""
-        f = fields.SlugField()
+        f = SlugField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -79,7 +79,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_phone_field(self):
         """Testing a parameters by default for PhoneField."""
-        f = fields.PhoneField()
+        f = PhoneField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
