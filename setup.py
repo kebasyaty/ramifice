@@ -1,4 +1,4 @@
-"""???"""
+"""Stub for PIP."""
 
 from __future__ import annotations
 
