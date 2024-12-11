@@ -1,14 +1,10 @@
-"""\
-The field of the Model for automatic generation of the string `slug`.
-Convenient to use for Url addresses.
-"""
+"""Field of Model for automatic generation of string `slug`."""
 
 from .general import (field, text_group)
 
 
 class SlugField(field.Field, text_group.TextGroup):
-    """\
-    The field of the Model for automatic generation of the string `slug`.
+    """Field of Model for automatic generation of string `slug`.
     Convenient to use for Url addresses.
     """
 
@@ -46,8 +42,7 @@ class SlugField(field.Field, text_group.TextGroup):
 
     @property
     def slug_sources(self) -> list[str] | None:
-        """\
-        Names of the fields whose contents will be used for the slug.
+        """Names of the fields whose contents will be used for the slug.
         The default is ['hash'].
         Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],
         """

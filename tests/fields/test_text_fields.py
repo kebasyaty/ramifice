@@ -1,7 +1,8 @@
 """Testing a parameters with default values for text fields."""
 
 import unittest
-from ramifice.fields import fields
+from ramifice.fields import (
+    TextField, URLField, SlugField, PhoneField, PasswordField)
 
 
 class TestTextFields(unittest.TestCase):
@@ -9,7 +10,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_text_field(self):
         """Testing a parameters by default for TextField."""
-        f = fields.TextField()
+        f = TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -35,7 +36,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_url_field(self):
         """Testing a parameters by default for URLField."""
-        f = fields.URLField()
+        f = URLField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -57,7 +58,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_slug_field(self):
         """Testing a parameters by default for SlugField."""
-        f = fields.SlugField()
+        f = SlugField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -79,7 +80,7 @@ class TestTextFields(unittest.TestCase):
 
     def test_phone_field(self):
         """Testing a parameters by default for PhoneField."""
-        f = fields.PhoneField()
+        f = PhoneField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -97,6 +98,26 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        self.assertEqual(f.regex, '')
+        self.assertEqual(f.regex_err_msg, '')
+
+    def test_password_field(self):
+        """Testing a parameters by default for PasswordField."""
+        f = PasswordField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "PasswordField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "password")
+        self.assertEqual(f.input_type, "password")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
         self.assertEqual(f.regex, '')
         self.assertEqual(f.regex_err_msg, '')
 

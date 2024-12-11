@@ -3,7 +3,7 @@
 
 class Field:
 
-    """A class of general parameters for all types fields of Model."""
+    """General parameters for all types fields of Model."""
 
     def __init__(self,
                  label: str = "",
