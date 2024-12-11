@@ -33,6 +33,10 @@
 
 <hr>
 
+_PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
+<br>
+_For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")_.
+
 <p>
   <a href="https://github.com/kebasyaty/ramifice" alt="Status Project">
     <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/status_project/Status_Project-Development-.svg"
