@@ -26,7 +26,7 @@ class PhoneField(field.Field, text_group.TextGroup):
                  readonly: bool = False,
                  unique: bool = False,
                  regex: str = '',
-                 regex_err_msg: str = '',
+                 regex_err_msg: list[str] | None = None,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -59,8 +59,8 @@ class PhoneField(field.Field, text_group.TextGroup):
 
     # --------------------------------------------------------------------------
     @property
-    def regex_err_msg(self) -> str:
+    def regex_err_msg(self) -> list[str] | None:
         """Error message.
-        Example: Invalid Phone
+        Example: ['Invalid Phone']
         """
         return self.__regex_err_msg
