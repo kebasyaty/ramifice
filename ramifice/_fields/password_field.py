@@ -1,9 +1,9 @@
 """Field of Model for enter password."""
 
-from .general import (field, password_group)
+from .general.field import Field
 
 
-class PasswordField(field.Field, password_group.PasswordGroup):
+class PasswordField(Field):
     """Field of Model for enter password.
     WARNING:
     Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
@@ -22,25 +22,53 @@ class PasswordField(field.Field, password_group.PasswordGroup):
                  regex: str = '',
                  regex_err_msg: list[str] | None = None,
                  ):
-        field.Field.__init__(self,
-                             label=label,
-                             disabled=False,
-                             hide=hide,
-                             ignored=ignored,
-                             hint=hint,
-                             warning=warning,
-                             field_type='PasswordField',
-                             group='password',
-                             )
-        password_group.PasswordGroup.__init__(self,
-                                              input_type='password',
-                                              placeholder=placeholder,
-                                              required=required,
-                                              )
+        Field.__init__(self,
+                       label=label,
+                       disabled=False,
+                       hide=hide,
+                       ignored=ignored,
+                       hint=hint,
+                       warning=warning,
+                       field_type='PasswordField',
+                       group='password',
+                       )
+        self.__input_type = 'password'
+        self.__value = ''
+        self.__placeholder = placeholder
+        self.__required = required
         self.__regex = regex
         self.__regex_err_msg = regex_err_msg
 
+    @property
+    def input_type(self) -> str:
+        """Input type for a web form field.
+        Html tag: input type="text".
+        """
+        return self.__input_type
+
     # --------------------------------------------------------------------------
+    @property
+    def value(self) -> str:
+        """Sets the value of an element."""
+        return self.__value
+
+    @value.setter
+    def value(self, value: str) -> None:
+        self.__value = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def placeholder(self) -> str:
+        """Displays prompt text."""
+        return self.__placeholder
+
+    # --------------------------------------------------------------------------
+    @property
+    def required(self) -> bool:
+        """Required field."""
+        return self.__required
+    # --------------------------------------------------------------------------
+
     @property
     def regex(self) -> str:
         """Regular expression to validate the `value`.
