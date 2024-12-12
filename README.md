@@ -59,8 +59,15 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
    [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/UBUNTU_INSTALL_MONGODB.md)
 
 2. Run
+
    ```shell
-   pip install ramifice
+   # https://python-poetry.org/
+   poetry new project_name
+   cd project_name
+   poetry add ramifice
+
+   # or
+   python -m pip install path/to/ramifice
    ```
 
 ## Usage
