@@ -1,9 +1,10 @@
 """Field of Model for enter text."""
 
-from .general import (field, text_group)
+from .general.field import Field
+from .general.text_group import TextGroup
 
 
-class TextField(field.Field, text_group.TextGroup):
+class TextField(Field, TextGroup):
     """Field of Model for enter text."""
 
     def __init__(self,
@@ -24,24 +25,24 @@ class TextField(field.Field, text_group.TextGroup):
                  regex: str = '',
                  regex_err_msg: list[str] | None = None,
                  ):
-        field.Field.__init__(self,
-                             label=label,
-                             disabled=disabled,
-                             hide=hide,
-                             ignored=ignored,
-                             hint=hint,
-                             warning=warning,
-                             field_type='TextField',
-                             group='text',
-                             )
-        text_group.TextGroup.__init__(self,
-                                      input_type='text',
-                                      default=default,
-                                      placeholder=placeholder,
-                                      required=required,
-                                      readonly=readonly,
-                                      unique=unique,
-                                      )
+        Field.__init__(self,
+                       label=label,
+                       disabled=disabled,
+                       hide=hide,
+                       ignored=ignored,
+                       hint=hint,
+                       warning=warning,
+                       field_type='TextField',
+                       group='text',
+                       )
+        TextGroup.__init__(self,
+                           input_type='text',
+                           default=default,
+                           placeholder=placeholder,
+                           required=required,
+                           readonly=readonly,
+                           unique=unique,
+                           )
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
