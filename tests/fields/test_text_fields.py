@@ -2,7 +2,7 @@
 
 import unittest
 from ramifice.fields import (
-    TextField, URLField, SlugField, PhoneField, PasswordField, IPField)
+    TextField, URLField, SlugField, PhoneField, PasswordField, IPField, HashField)
 
 
 class TestTextFields(unittest.TestCase):
@@ -141,6 +141,27 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+
+    def test_hash_field(self):
+        """Testing a parameters by default for HashField."""
+        f = HashField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "HashField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "hash")
+        self.assertEqual(f.input_type, "text")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertFalse(f.unique)
+        self.assertEqual(f.maxlength, 24)
 
 
 if __name__ == '__main__':
