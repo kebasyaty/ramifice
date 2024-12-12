@@ -49,7 +49,6 @@ class TextField(Field, TextGroup):
         self.__regex = regex
         self.__regex_err_msg = regex_err_msg
 
-    # --------------------------------------------------------------------------
     @property
     def textarea(self) -> bool:
         """Use HTML tag Textarea?"""
