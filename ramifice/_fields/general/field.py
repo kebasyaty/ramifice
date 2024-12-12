@@ -30,7 +30,7 @@ class Field:
 
     @property
     def id(self) -> str:
-        """\
+        """Identifier of document in string presentation.
         Format: <ModelName--field-name>.
         WARNING: The value is determined automatically.
         """
@@ -53,8 +53,7 @@ class Field:
     # --------------------------------------------------------------------------
     @property
     def name(self) -> str:
-        """\
-        Field name.
+        """Field name.
         WARNING: The value is determined automatically.
         """
         return self.__name
