@@ -39,8 +39,7 @@ class HashField(Field):
 
     @property
     def input_type(self) -> str:
-        """\
-        Input type for a web form field.
+        """Input type for a web form field.
         Html tag: input type="text".
         """
         return self.__input_type
