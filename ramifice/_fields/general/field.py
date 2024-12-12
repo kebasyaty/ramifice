@@ -28,10 +28,9 @@ class Field:
         self.__errors = errors
         self.__group = group
 
-    # --------------------------------------------------------------------------
     @property
     def id(self) -> str:
-        """\
+        """Identifier of document in string presentation.
         Format: <ModelName--field-name>.
         WARNING: The value is determined automatically.
         """
@@ -54,8 +53,7 @@ class Field:
     # --------------------------------------------------------------------------
     @property
     def name(self) -> str:
-        """\
-        Field name.
+        """Field name.
         WARNING: The value is determined automatically.
         """
         return self.__name
@@ -103,8 +101,7 @@ class Field:
     # --------------------------------------------------------------------------
     @property
     def hint(self) -> str:
-        """\
-        Additional explanation for the user.
+        """Additional explanation for the user.
         An alternative for the `placeholder` parameter.
         """
         return self.__hint
@@ -126,7 +123,8 @@ class Field:
     # --------------------------------------------------------------------------
     @property
     def errors(self) -> list[str] | None:
-        """WARNING: The value is determined automatically."""
+        """For accumulation of errors.
+        WARNING: The value is determined automatically."""
         return self.__errors
 
     @errors.setter
@@ -136,8 +134,7 @@ class Field:
     # --------------------------------------------------------------------------
     @property
     def group(self) -> str:
-        """\
-        To optimize field traversal in the `check` method.
+        """To optimize field traversal in the `check` method.
         WARNING: It is recommended not to change.
         """
         return self.__group

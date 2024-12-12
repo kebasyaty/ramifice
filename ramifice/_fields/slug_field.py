@@ -1,9 +1,10 @@
 """Field of Model for automatic generation of string `slug`."""
 
-from .general import (field, text_group)
+from .general.field import Field
+from .general.text_group import TextGroup
 
 
-class SlugField(field.Field, text_group.TextGroup):
+class SlugField(Field, TextGroup):
     """Field of Model for automatic generation of string `slug`.
     Convenient to use for Url addresses.
     """
@@ -20,24 +21,24 @@ class SlugField(field.Field, text_group.TextGroup):
                  # The default is ['hash'].
                  slug_sources: list[str] | None = None,
                  ):
-        field.Field.__init__(self,
-                             label=label,
-                             disabled=disabled,
-                             hide=hide,
-                             ignored=ignored,
-                             hint=hint,
-                             warning=warning,
-                             field_type='SlugField',
-                             group='slug',
-                             )
-        text_group.TextGroup.__init__(self,
-                                      input_type='text',
-                                      default=['hash'],
-                                      placeholder=placeholder,
-                                      required=False,
-                                      readonly=readonly,
-                                      unique=True,
-                                      )
+        Field.__init__(self,
+                       label=label,
+                       disabled=disabled,
+                       hide=hide,
+                       ignored=ignored,
+                       hint=hint,
+                       warning=warning,
+                       field_type='SlugField',
+                       group='slug',
+                       )
+        TextGroup.__init__(self,
+                           input_type='text',
+                           default=['hash'],
+                           placeholder=placeholder,
+                           required=False,
+                           readonly=readonly,
+                           unique=True,
+                           )
         self.__slug_sources = slug_sources
 
     @property

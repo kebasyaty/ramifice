@@ -1,10 +1,11 @@
 """Field of Model for enter URL addresses."""
 
 
-from .general import (field, text_group)
+from .general.field import Field
+from .general.text_group import TextGroup
 
 
-class URLField(field.Field, text_group.TextGroup):
+class URLField(Field, TextGroup):
     """Field of Model for enter URL addresses."""
 
     def __init__(self,
@@ -26,27 +27,27 @@ class URLField(field.Field, text_group.TextGroup):
                  # Firefox: 65 536
                  maxlength: int = 2083,
                  ):
-        field.Field.__init__(self,
-                             label=label,
-                             disabled=disabled,
-                             hide=hide,
-                             ignored=ignored,
-                             hint=hint,
-                             warning=warning,
-                             field_type='URLField',
-                             group='text',
-                             )
-        text_group.TextGroup.__init__(self,
-                                      input_type='url',
-                                      default=default,
-                                      placeholder=placeholder,
-                                      required=required,
-                                      readonly=readonly,
-                                      unique=unique,
-                                      )
+        Field.__init__(self,
+                       label=label,
+                       disabled=disabled,
+                       hide=hide,
+                       ignored=ignored,
+                       hint=hint,
+                       warning=warning,
+                       field_type='URLField',
+                       group='text',
+                       )
+        TextGroup.__init__(self,
+                           input_type='url',
+                           default=default,
+                           placeholder=placeholder,
+                           required=required,
+                           readonly=readonly,
+                           unique=unique,
+                           )
         self.__maxlength = maxlength
 
     @property
     def maxlength(self) -> int:
-        """The maximum number of characters allowed in the text."""
+        """Maximum allowed number of characters."""
         return self.__maxlength
