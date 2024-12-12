@@ -1,9 +1,10 @@
 """Field of Model for enter IP addresses."""
 
-from .general import (field, text_group)
+from .general.field import Field
+from .general.text_group import TextGroup
 
 
-class IPField(field.Field, text_group.TextGroup):
+class IPField(Field, TextGroup):
     """Field of Model for enter IP addresses."""
 
     def __init__(self,
@@ -19,21 +20,21 @@ class IPField(field.Field, text_group.TextGroup):
                  readonly: bool = False,
                  unique: bool = False,
                  ):
-        field.Field.__init__(self,
-                             label=label,
-                             disabled=disabled,
-                             hide=hide,
-                             ignored=ignored,
-                             hint=hint,
-                             warning=warning,
-                             field_type='IPField',
-                             group='text',
-                             )
-        text_group.TextGroup.__init__(self,
-                                      input_type='text',
-                                      default=default,
-                                      placeholder=placeholder,
-                                      required=required,
-                                      readonly=readonly,
-                                      unique=unique,
-                                      )
+        Field.__init__(self,
+                       label=label,
+                       disabled=disabled,
+                       hide=hide,
+                       ignored=ignored,
+                       hint=hint,
+                       warning=warning,
+                       field_type='IPField',
+                       group='text',
+                       )
+        TextGroup.__init__(self,
+                           input_type='text',
+                           default=default,
+                           placeholder=placeholder,
+                           required=required,
+                           readonly=readonly,
+                           unique=unique,
+                           )
