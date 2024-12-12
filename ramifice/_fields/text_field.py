@@ -64,7 +64,7 @@ class TextField(field.Field, text_group.TextGroup):
     # --------------------------------------------------------------------------
     @property
     def maxlength(self) -> int:
-        """The maximum number of characters allowed in the text."""
+        """Maximum allowed number of characters."""
         return self.__maxlength
 
     # --------------------------------------------------------------------------
