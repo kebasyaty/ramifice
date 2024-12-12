@@ -20,7 +20,7 @@ class PasswordField(field.Field, password_group.PasswordGroup):
                  placeholder: str = '',
                  required: bool = False,
                  regex: str = '',
-                 regex_err_msg: str = '',
+                 regex_err_msg: list[str] | None = None,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -50,10 +50,9 @@ class PasswordField(field.Field, password_group.PasswordGroup):
 
     # --------------------------------------------------------------------------
     @property
-    def regex_err_msg(self) -> str:
+    def regex_err_msg(self) -> list[str] | None:
         """Error message.
-        Example:
-        Allowed chars: a-z, A-Z, 0-9, _
-        Number of characters: from 8 to 16.
+        Example: ['Allowed chars: a-z, A-Z, 0-9, _',
+                  'Number of characters: from 8 to 16.']
         """
         return self.__regex_err_msg

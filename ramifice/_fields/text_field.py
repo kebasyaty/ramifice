@@ -22,7 +22,7 @@ class TextField(field.Field, text_group.TextGroup):
                  unique: bool = False,
                  maxlength: int = 256,
                  regex: str = '',
-                 regex_err_msg: str = '',
+                 regex_err_msg: list[str] | None = None,
                  ):
         field.Field.__init__(self,
                              label=label,
@@ -71,14 +71,14 @@ class TextField(field.Field, text_group.TextGroup):
     @property
     def regex(self) -> str:
         """Regular expression to validate the `value`.
-        Example: "^[a-zA-Z0-9_]+$"
+        Example: ^[a-zA-Z0-9_]+$
         """
         return self.__regex
 
     # --------------------------------------------------------------------------
     @property
-    def regex_err_msg(self) -> str:
+    def regex_err_msg(self) -> list[str] | None:
         """Error message.
-        Example: Allowed chars: a-z, A-Z, 0-9, _
+        Example: ['Allowed chars: a-z, A-Z, 0-9, _']
         """
         return self.__regex_err_msg
