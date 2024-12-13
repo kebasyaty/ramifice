@@ -40,6 +40,9 @@ class IntegerField(Field, NumberGroup):
                              readonly=readonly,
                              unique=unique,
                              )
+        assert (input_type in ['number', 'range']), f'{
+            input_type} - Invalid input type.'
+
         self.__input_type: str = input_type
         self.__value: int | None = None
         self.__default = default
