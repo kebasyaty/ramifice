@@ -1,7 +1,8 @@
 """Field of Model for enter identifier of document."""
 
-from .general.field import Field
+from bson.objectid import ObjectId
 from .general.text_group import TextGroup
+from .general.field import Field
 
 
 class HashField(Field, TextGroup):
@@ -43,3 +44,9 @@ class HashField(Field, TextGroup):
     def maxlength(self) -> int:
         """Maximum allowed number of characters."""
         return self.__maxlength
+
+    def object_id(self) -> ObjectId | None:
+        """Get ObjectId from value."""
+        _hash = self.value
+        _id = ObjectId(_hash) if not _hash is None else None
+        return _id
