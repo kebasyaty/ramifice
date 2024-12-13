@@ -8,3 +8,4 @@ from ._fields.password_field import PasswordField  # pylint: disable=unused-impo
 from ._fields.ip_field import IPField  # pylint: disable=unused-import
 from ._fields.hash_field import HashField  # pylint: disable=unused-import
 from ._fields.email_field import EmailField  # pylint: disable=unused-import
+from ._fields.color_field import ColorField  # pylint: disable=unused-import
