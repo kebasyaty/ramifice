@@ -10,3 +10,4 @@ from ._fields.hash_field import HashField  # pylint: disable=unused-import
 from ._fields.email_field import EmailField  # pylint: disable=unused-import
 from ._fields.color_field import ColorField  # pylint: disable=unused-import
 from ._fields.bool_field import BoolField  # pylint: disable=unused-import
+from ._fields.integer_field import IntegerField  # pylint: disable=unused-import
