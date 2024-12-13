@@ -1,6 +1,6 @@
 """Field of Model for enter identifier of document."""
 
-from pymongo.bson.objectid import ObjectId
+from bson.objectid import ObjectId
 from .general.text_group import TextGroup
 from .general.field import Field
 
