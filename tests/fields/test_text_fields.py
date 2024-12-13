@@ -3,7 +3,7 @@
 import unittest
 from ramifice.fields import (
     TextField, URLField, SlugField, PhoneField,
-    PasswordField, IPField, HashField, EmailField)
+    PasswordField, IPField, HashField, EmailField, ColorField)
 
 
 class TestTextFields(unittest.TestCase):
@@ -179,6 +179,27 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.input_type, "email")
         self.assertEqual(f.value, '')
         self.assertEqual(f.default, '')
+        self.assertEqual(f.placeholder, '')
+        self.assertFalse(f.required)
+        self.assertFalse(f.readonly)
+        self.assertFalse(f.unique)
+
+    def test_color_field(self):
+        """Testing a parameters by default for ColorField."""
+        f = ColorField()
+        self.assertEqual(f.id, "")
+        self.assertEqual(f.label, "")
+        self.assertEqual(f.name, "")
+        self.assertEqual(f.field_type, "ColorField")
+        self.assertFalse(f.disabled)
+        self.assertFalse(f.hide)
+        self.assertFalse(f.ignored)
+        self.assertIsNone(f.warning)
+        self.assertIsNone(f.errors)
+        self.assertEqual(f.group, "text")
+        self.assertEqual(f.input_type, "text")
+        self.assertEqual(f.value, '')
+        self.assertEqual(f.default, '#000000')
         self.assertEqual(f.placeholder, '')
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
