@@ -46,5 +46,7 @@ class ColorField(Field, TextGroup):
 
     @property
     def default(self) -> str:
-        """Value by default."""
+        """Value by default.
+        Default value is #000000 (black).
+        """
         return self.__default
