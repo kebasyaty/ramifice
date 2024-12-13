@@ -12,7 +12,7 @@ class TextGroup:
                  unique: bool = False,
                  ):
         self.__input_type = input_type
-        self.__value = ''
+        self.__value: str | None = None
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly
@@ -27,12 +27,12 @@ class TextGroup:
 
     # --------------------------------------------------------------------------
     @property
-    def value(self) -> str:
+    def value(self) -> str | None:
         """Sets the value of an element."""
         return self.__value
 
     @value.setter
-    def value(self, value: str) -> None:
+    def value(self, value: str | None) -> None:
         self.__value = value
 
     # --------------------------------------------------------------------------
