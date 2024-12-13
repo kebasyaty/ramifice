@@ -32,9 +32,14 @@ class IPField(Field, TextGroup):
                        )
         TextGroup.__init__(self,
                            input_type='text',
-                           default=default,
                            placeholder=placeholder,
                            required=required,
                            readonly=readonly,
                            unique=unique,
                            )
+        self.__default = default
+
+    @property
+    def default(self) -> str:
+        """Value by default."""
+        return self.__default

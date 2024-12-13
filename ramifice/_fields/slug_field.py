@@ -18,8 +18,7 @@ class SlugField(Field, TextGroup):
                  warning: list[str] | None = None,
                  placeholder: str = '',
                  readonly: bool = False,
-                 # The default is ['hash'].
-                 slug_sources: list[str] | None = None,
+                 slug_sources: list[str] = ['hash'],
                  ):
         Field.__init__(self,
                        label=label,
@@ -33,7 +32,6 @@ class SlugField(Field, TextGroup):
                        )
         TextGroup.__init__(self,
                            input_type='text',
-                           default=['hash'],
                            placeholder=placeholder,
                            required=False,
                            readonly=readonly,
@@ -42,7 +40,7 @@ class SlugField(Field, TextGroup):
         self.__slug_sources = slug_sources
 
     @property
-    def slug_sources(self) -> list[str] | None:
+    def slug_sources(self) -> list[str]:
         """Names of the fields whose contents will be used for the slug.
         The default is ['hash'].
         Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],

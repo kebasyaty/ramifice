@@ -39,13 +39,18 @@ class URLField(Field, TextGroup):
                        )
         TextGroup.__init__(self,
                            input_type='url',
-                           default=default,
                            placeholder=placeholder,
                            required=required,
                            readonly=readonly,
                            unique=unique,
                            )
+        self.__default = default
         self.__maxlength = maxlength
+
+    @property
+    def default(self) -> str:
+        """Value by default."""
+        return self.__default
 
     @property
     def maxlength(self) -> int:
