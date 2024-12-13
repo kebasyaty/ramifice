@@ -55,11 +55,9 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
-      - name: Create virtual environment
-        run: poetry shell
       - name: Run unittest
         run: |
-          python -m unittest discover tests/fields
+          poetry run python -m unittest discover tests/fields
 
   success:
     permissions:
