@@ -1,13 +1,11 @@
-"""Field of Model for automatic generation of string `slug`."""
+"""Field of Model for enter email address."""
 
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class SlugField(Field, TextGroup):
-    """Field of Model for automatic generation of string `slug`.
-    Convenient to use for Url addresses.
-    """
+class EmailField(Field, TextGroup):
+    """Field of Model for enter email address."""
 
     def __init__(self,
                  label: str = "",
@@ -16,9 +14,11 @@ class SlugField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
+                 default: str = '',
                  placeholder: str = '',
+                 required: bool = False,
                  readonly: bool = False,
-                 slug_sources: list[str] = ['hash'],
+                 unique: bool = False,
                  ):
         Field.__init__(self,
                        label=label,
@@ -27,22 +27,19 @@ class SlugField(Field, TextGroup):
                        ignored=ignored,
                        hint=hint,
                        warning=warning,
-                       field_type='SlugField',
-                       group='slug',
+                       field_type='EmailField',
+                       group='text',
                        )
         TextGroup.__init__(self,
-                           input_type='text',
+                           input_type='email',
                            placeholder=placeholder,
-                           required=False,
+                           required=required,
                            readonly=readonly,
-                           unique=True,
+                           unique=unique,
                            )
-        self.__slug_sources = slug_sources
+        self.__default = default
 
     @property
-    def slug_sources(self) -> list[str]:
-        """Names of the fields whose contents will be used for the slug.
-        The default is ['hash'].
-        Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],
-        """
-        return self.__slug_sources
+    def default(self) -> str:
+        """Value by default."""
+        return self.__default

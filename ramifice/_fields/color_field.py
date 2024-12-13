@@ -1,12 +1,15 @@
-"""Field of Model for automatic generation of string `slug`."""
+"""Field of Model for enter color code."""
 
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class SlugField(Field, TextGroup):
-    """Field of Model for automatic generation of string `slug`.
-    Convenient to use for Url addresses.
+class ColorField(Field, TextGroup):
+    """Field of Model for enter color code.
+    Default value is #000000 (black).
+    Examples: #fff | #f2f2f2 | #f2f2f200 | rgb(255,0,24) |
+              rgba(255,0,24,0.5) | rgba(#fff,0.5) | hsl(120,100%,50%) |
+              hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
     def __init__(self,
@@ -16,9 +19,11 @@ class SlugField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
+                 default: str = '#000000',
                  placeholder: str = '',
+                 required: bool = False,
                  readonly: bool = False,
-                 slug_sources: list[str] = ['hash'],
+                 unique: bool = False,
                  ):
         Field.__init__(self,
                        label=label,
@@ -27,22 +32,21 @@ class SlugField(Field, TextGroup):
                        ignored=ignored,
                        hint=hint,
                        warning=warning,
-                       field_type='SlugField',
-                       group='slug',
+                       field_type='ColorField',
+                       group='text',
                        )
         TextGroup.__init__(self,
                            input_type='text',
                            placeholder=placeholder,
-                           required=False,
+                           required=required,
                            readonly=readonly,
-                           unique=True,
+                           unique=unique,
                            )
-        self.__slug_sources = slug_sources
+        self.__default = default
 
     @property
-    def slug_sources(self) -> list[str]:
-        """Names of the fields whose contents will be used for the slug.
-        The default is ['hash'].
-        Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],
+    def default(self) -> str:
+        """Value by default.
+        Default value is #000000 (black).
         """
-        return self.__slug_sources
+        return self.__default

@@ -41,14 +41,19 @@ class PhoneField(Field, TextGroup):
                        )
         TextGroup.__init__(self,
                            input_type='tel',
-                           default=default,
                            placeholder=placeholder,
                            required=required,
                            readonly=readonly,
                            unique=unique,
                            )
+        self.__default = default
         self.__regex = regex
         self.__regex_err_msg = regex_err_msg
+
+    @property
+    def default(self) -> str:
+        """Value by default."""
+        return self.__default
 
     @property
     def regex(self) -> str:

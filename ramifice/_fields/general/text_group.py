@@ -6,7 +6,6 @@ class TextGroup:
 
     def __init__(self,
                  input_type: str = "",
-                 default: str | list[str] = '',
                  placeholder: str = '',
                  required: bool = False,
                  readonly: bool = False,
@@ -14,7 +13,6 @@ class TextGroup:
                  ):
         self.__input_type = input_type
         self.__value = ''
-        self.__default = default
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly
@@ -36,12 +34,6 @@ class TextGroup:
     @value.setter
     def value(self, value: str) -> None:
         self.__value = value
-
-    # --------------------------------------------------------------------------
-    @property
-    def default(self) -> str | list[str]:
-        """Value by default."""
-        return self.__default
 
     # --------------------------------------------------------------------------
     @property
