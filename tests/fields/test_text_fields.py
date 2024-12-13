@@ -71,12 +71,11 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.group, "slug")
         self.assertEqual(f.input_type, "text")
         self.assertEqual(f.value, '')
-        self.assertEqual(f.default, ['hash'])
         self.assertEqual(f.placeholder, '')
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertTrue(f.unique)
-        self.assertIsNone(f.slug_sources)
+        self.assertEqual(f.slug_sources, ['hash'])
 
     def test_phone_field(self):
         """Testing a parameters by default for PhoneField."""
