@@ -33,7 +33,7 @@ class PasswordField(Field):
                        group='password',
                        )
         self.__input_type = 'password'
-        self.__value = ''
+        self.__value: str | None = None
         self.__placeholder = placeholder
         self.__required = required
         self.__regex = regex
@@ -48,12 +48,12 @@ class PasswordField(Field):
 
     # --------------------------------------------------------------------------
     @property
-    def value(self) -> str:
+    def value(self) -> str | None:
         """Sets the value of an element."""
         return self.__value
 
     @value.setter
-    def value(self, value: str) -> None:
+    def value(self, value: str | None) -> None:
         self.__value = value
 
     # --------------------------------------------------------------------------
