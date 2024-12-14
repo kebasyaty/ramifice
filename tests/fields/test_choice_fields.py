@@ -21,7 +21,7 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.errors)
         self.assertEqual(f.group, 'choice')
         self.assertIsNone(f.value)
-        self.assertEqual(f.default, "")
+        self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)

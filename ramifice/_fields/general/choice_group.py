@@ -11,23 +11,12 @@ class ChoiceGroup:
                  unique: bool = False,
                  multiple: bool = False,
                  ):
-        self.__value: str | None = None
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly
         self.__unique = unique
         self.__multiple = multiple
 
-    @property
-    def value(self) -> str | None:
-        """Sets the value of an element."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: str | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
     @property
     def placeholder(self) -> str:
         """Displays prompt text."""
