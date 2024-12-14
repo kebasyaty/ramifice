@@ -5,7 +5,10 @@ from .general.date_group import DateGroup
 
 
 class DateField(Field, DateGroup):
-    """Field of Model for enter date."""
+    """Field of Model for enter date.
+    Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
+             yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
+    """
 
     def __init__(self,
                  label: str = "",
