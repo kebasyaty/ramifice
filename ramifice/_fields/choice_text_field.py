@@ -65,3 +65,16 @@ class ChoiceTextField(Field, ChoiceGroup):
         Example: [('value', 'Title'), ('value 2', 'Title 2')]
         """
         return self.__choices
+
+    # ---------------------------------------------------------------------------
+    def has_value(self) -> bool:
+        """Does the field value match the possible options in choices."""
+        value = self.__value
+        if value is None:
+            value = self.__default
+        choices = self.__choices
+        if value is not None and choices is not None:
+            for item in choices:
+                if value in item[0]:
+                    return True
+        return False
