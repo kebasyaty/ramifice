@@ -28,7 +28,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
         #
-        self.assertIsNone(f.has_value)
+        self.assertTrue(f.has_value())
 
     def test_choice_text_mult_field(self):
         """Testing a parameters by default for ChoiceTextMultField."""
@@ -51,7 +51,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
         #
-        self.assertIsNone(f.has_value)
+        self.assertTrue(f.has_value())
 
 
 if __name__ == '__main__':
