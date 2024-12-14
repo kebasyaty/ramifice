@@ -4,7 +4,7 @@ from .general.field import Field
 from .general.number_group import NumberGroup
 
 
-class IChoiceIntMultFieldField(Field, NumberGroup):
+class IntegerField(Field, NumberGroup):
     """Field of Model for enter (int) number."""
 
     def __init__(self,
