@@ -55,7 +55,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
     @property
     def choices(self) -> list[tuple[int, str]] | None:
         """ Html tag: select.
-        Example: [('value', 'Title'), ('value 2', 'Title 2')]
+        Example: [(1, 'Title'), (2, 'Title 2')]
         """
         return self.__choices
 
