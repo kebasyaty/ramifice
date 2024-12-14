@@ -1,11 +1,14 @@
-"""Type of selective field with static of elements."""
+"""Field of Model.
+Type of selective field with static of elements.
+"""
 
 from .general.field import Field
 from .general.choice_group import ChoiceGroup
 
 
 class ChoiceTextField(Field, ChoiceGroup):
-    """Type of selective field with static of elements.
+    """Field of Model.
+    Type of selective field with static of elements.
     With a single choice.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """
