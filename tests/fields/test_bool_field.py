@@ -4,7 +4,7 @@ import unittest
 from ramifice.fields import BoolField
 
 
-class TestTextFields(unittest.TestCase):
+class TestBooleanFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_bool_field(self):
