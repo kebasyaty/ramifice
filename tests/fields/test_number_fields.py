@@ -4,7 +4,7 @@ import unittest
 from ramifice.fields import (IntegerField, FloatField)
 
 
-class TestTextFields(unittest.TestCase):
+class TestNumberFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_integer_field(self):

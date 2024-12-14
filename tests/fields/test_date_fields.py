@@ -4,7 +4,7 @@ import unittest
 from ramifice.fields import (DateField, DateTimeField)
 
 
-class TestTextFields(unittest.TestCase):
+class TestDateFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_date_field(self):

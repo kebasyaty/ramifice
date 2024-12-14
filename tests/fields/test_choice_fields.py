@@ -4,7 +4,7 @@ import unittest
 from ramifice.fields import (ChoiceTextField, ChoiceTextMultField)
 
 
-class TestTextFields(unittest.TestCase):
+class TestChoiceFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_choice_text_field(self):
@@ -29,6 +29,14 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         #
         self.assertTrue(f.has_value())
+        f = ChoiceTextField(
+            default='value 2',
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertTrue(f.has_value())
+        f = ChoiceTextField(
+            default='value 3',
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertFalse(f.has_value())
         f = ChoiceTextField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
@@ -59,6 +67,14 @@ class TestTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         #
         self.assertTrue(f.has_value())
+        f = ChoiceTextMultField(
+            default=['value 2'],
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertTrue(f.has_value())
+        f = ChoiceTextMultField(
+            default=['value 3'],
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertFalse(f.has_value())
         f = ChoiceTextMultField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
