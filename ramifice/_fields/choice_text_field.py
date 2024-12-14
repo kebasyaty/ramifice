@@ -69,6 +69,7 @@ class ChoiceTextField(Field, ChoiceGroup):
     # ---------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
+        flag = False
         value = self.__value
         if value is None:
             value = self.__default
@@ -76,5 +77,8 @@ class ChoiceTextField(Field, ChoiceGroup):
         if value is not None and choices is not None:
             for item in choices:
                 if value in item[0]:
-                    return True
-        return False
+                    flag = True
+                    break
+        else:
+            flag = True
+        return flag
