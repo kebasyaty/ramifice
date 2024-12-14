@@ -17,9 +17,9 @@ class PasswordField(Field):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
-                 regex: str = '',
+                 regex: str = "",
                  regex_err_msg: list[str] | None = None,
                  ):
         Field.__init__(self,
@@ -42,7 +42,7 @@ class PasswordField(Field):
     @property
     def input_type(self) -> str:
         """Input type for a web form field.
-        Html tag: input type="text".
+        Html tag: input type="password".
         """
         return self.__input_type
 

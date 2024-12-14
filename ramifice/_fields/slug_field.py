@@ -16,7 +16,7 @@ class SlugField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  readonly: bool = False,
                  slug_sources: list[str] = ['hash'],
                  ):

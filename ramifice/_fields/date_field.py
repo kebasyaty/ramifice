@@ -1,11 +1,14 @@
-"""Field of Model for enter email address."""
+"""Field of Model for enter date."""
 
 from .general.field import Field
-from .general.text_group import TextGroup
+from .general.date_group import DateGroup
 
 
-class EmailField(Field, TextGroup):
-    """Field of Model for enter email address."""
+class DateField(Field, DateGroup):
+    """Field of Model for enter date.
+    Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
+             yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
+    """
 
     def __init__(self,
                  label: str = "",
@@ -19,6 +22,8 @@ class EmailField(Field, TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
+                 max_date: str | None = None,
+                 min_date: str | None = None,
                  ):
         Field.__init__(self,
                        label=label,
@@ -27,15 +32,17 @@ class EmailField(Field, TextGroup):
                        ignored=ignored,
                        hint=hint,
                        warning=warning,
-                       field_type='EmailField',
-                       group='text',
+                       field_type='DateField',
+                       group='date',
                        )
-        TextGroup.__init__(self,
-                           input_type='email',
+        DateGroup.__init__(self,
+                           input_type='date',
                            placeholder=placeholder,
                            required=required,
                            readonly=readonly,
                            unique=unique,
+                           max_date=max_date,
+                           min_date=min_date,
                            )
         self.__default = default
 

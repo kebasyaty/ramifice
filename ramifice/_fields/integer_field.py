@@ -15,7 +15,7 @@ class IntegerField(Field, NumberGroup):
                  hint: str = "",
                  warning: list[str] | None = None,
                  default: int | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
@@ -53,7 +53,7 @@ class IntegerField(Field, NumberGroup):
     @property
     def input_type(self) -> str:
         """Input type for a web form field.
-        Html tag: input type="number | range".
+        Html tag: input type="number|range".
         """
         return self.__input_type
 

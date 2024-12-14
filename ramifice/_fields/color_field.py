@@ -20,7 +20,7 @@ class ColorField(Field, TextGroup):
                  hint: str = "",
                  warning: list[str] | None = None,
                  default: str = '#000000',
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
