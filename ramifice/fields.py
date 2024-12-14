@@ -15,3 +15,4 @@ from ._fields.float_field import FloatField  # pylint: disable=unused-import
 from ._fields.date_field import DateField  # pylint: disable=unused-import
 from ._fields.date_time_field import DateTimeField  # pylint: disable=unused-import
 from ._fields.choice_text_field import ChoiceTextField  # pylint: disable=unused-import
+from ._fields.choice_text_mult_field import ChoiceTextMultField  # pylint: disable=unused-import
