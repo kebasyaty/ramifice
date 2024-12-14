@@ -59,6 +59,15 @@ class TestTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         #
         self.assertTrue(f.has_value())
+        f = ChoiceTextMultField(
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertTrue(f.has_value())
+        f.value = ['value 2']
+        self.assertTrue(f.has_value())
+        f.value = ['value 3']
+        self.assertFalse(f.has_value())
+        f.value = ['value 2', 'value 3']
+        self.assertFalse(f.has_value())
 
 
 if __name__ == '__main__':
