@@ -25,3 +25,4 @@ from ._fields.choice_int_dyn_field import ChoiceIntDynField  # pylint: disable=u
 from ._fields.choice_float_mult_field import ChoiceFloatMultField  # pylint: disable=unused-import
 from ._fields.choice_float_mult_dyn_field import ChoiceFloatMultDynField  # pylint: disable=unused-import
 from ._fields.choice_float_field import ChoiceFloatField  # pylint: disable=unused-import
+from ._fields.choice_float_dyn_field import ChoiceFloatDynField  # pylint: disable=unused-import

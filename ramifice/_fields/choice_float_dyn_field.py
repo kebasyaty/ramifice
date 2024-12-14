@@ -1,16 +1,17 @@
 """Field of Model.
-Type of selective integer field with static of elements.
+Type of selective float field with dynamic addition of elements.
 """
 
 from .general.field import Field
 from .general.choice_group import ChoiceGroup
 
 
-class ChoiceIntField(Field, ChoiceGroup):
+class ChoiceFloatDynField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective integer field with static of elements.
-    With a single choice.
-    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
+    Type of selective integer field with dynamic addition of elements.
+    For simulate relationship Many-to-One.
+    Element are (add|delete) via `ModelName.unit_manager(unit)` method.
+    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
 
     def __init__(self,
@@ -20,10 +21,9 @@ class ChoiceIntField(Field, ChoiceGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 default: int | None = None,
                  required: bool = False,
                  readonly: bool = False,
-                 choices: list[tuple[int, str]] | None = None
+                 choices: list[tuple[float, str]] | None = None
                  ):
         Field.__init__(self,
                        label=label,
@@ -32,35 +32,28 @@ class ChoiceIntField(Field, ChoiceGroup):
                        ignored=ignored,
                        hint=hint,
                        warning=warning,
-                       field_type='ChoiceIntField',
+                       field_type='ChoiceFloatDynField',
                        group='choice',
                        )
         ChoiceGroup.__init__(self,
                              required=required,
                              readonly=readonly,
                              )
-        self.__value: int | None = None
-        self.__default = default
+        self.__value: float | None = None
         self.__choices = choices
 
     @property
-    def value(self) -> int | None:
+    def value(self) -> float | None:
         """Sets the value of an element."""
         return self.__value
 
     @value.setter
-    def value(self, value: int | None) -> None:
+    def value(self, value: float | None) -> None:
         self.__value = value
 
     # --------------------------------------------------------------------------
     @property
-    def default(self) -> int | None:
-        """Value by default."""
-        return self.__default
-
-    # --------------------------------------------------------------------------
-    @property
-    def choices(self) -> list[tuple[int, str]] | None:
+    def choices(self) -> list[tuple[float, str]] | None:
         """ Html tag: select.
         Example: [(1, 'Title'), (2, 'Title 2')]
         """
@@ -71,8 +64,6 @@ class ChoiceIntField(Field, ChoiceGroup):
         """Does the field value match the possible options in choices."""
         flag = True
         value = self.__value
-        if value is None:
-            value = self.__default
         choices = self.__choices
         if value is not None and choices is not None:
             value_list = [item[0] for item in choices]

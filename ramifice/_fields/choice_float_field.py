@@ -1,5 +1,5 @@
 """Field of Model.
-Type of selective float float field with static of elements.
+Type of selective float field with static of elements.
 """
 
 from .general.field import Field
@@ -8,7 +8,7 @@ from .general.choice_group import ChoiceGroup
 
 class ChoiceFloatField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective integer float field with static of elements.
+    Type of selective integer float with static of elements.
     With a single choice.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """
