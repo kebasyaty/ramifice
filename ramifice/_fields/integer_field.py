@@ -15,7 +15,7 @@ class IntegerField(Field, NumberGroup):
                  hint: str = "",
                  warning: list[str] | None = None,
                  default: int | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,

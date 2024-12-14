@@ -15,7 +15,7 @@ class FloatField(Field, NumberGroup):
                  hint: str = "",
                  warning: list[str] | None = None,
                  default: float | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,

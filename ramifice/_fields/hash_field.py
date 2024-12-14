@@ -15,7 +15,7 @@ class HashField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 placeholder: str = '',
+                 placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
