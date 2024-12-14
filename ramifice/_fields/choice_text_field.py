@@ -33,7 +33,7 @@ class ChoiceTextField(Field, ChoiceGroup):
                        hint=hint,
                        warning=warning,
                        field_type='ChoiceTextField',
-                       group='text',
+                       group='choice',
                        )
         ChoiceGroup.__init__(self,
                              required=required,
