@@ -10,6 +10,8 @@ class DateGroup:
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
+                 max_date: str | None = None,
+                 min_date: str | None = None,
                  ):
         self.__input_type = input_type
         self.__value: str | None = None
@@ -17,6 +19,8 @@ class DateGroup:
         self.__required = required
         self.__readonly = readonly
         self.__unique = unique
+        self.__max_date = max_date
+        self.__min_date = min_date
 
     @property
     def input_type(self) -> str:
@@ -58,3 +62,15 @@ class DateGroup:
     def unique(self) -> bool:
         """The unique value of a field in a collection."""
         return self.__unique
+
+    # --------------------------------------------------------------------------
+    @property
+    def max_date(self) -> str | None:
+        """Maximum allowed date."""
+        return self.__max_date
+
+    # --------------------------------------------------------------------------
+    @property
+    def min_date(self) -> str | None:
+        """Minimum allowed date."""
+        return self.__min_date

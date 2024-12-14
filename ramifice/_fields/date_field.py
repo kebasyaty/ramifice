@@ -22,6 +22,8 @@ class DateField(Field, DateGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
+                 max_date: str | None = None,
+                 min_date: str | None = None,
                  ):
         Field.__init__(self,
                        label=label,
@@ -39,6 +41,8 @@ class DateField(Field, DateGroup):
                            required=required,
                            readonly=readonly,
                            unique=unique,
+                           max_date=max_date,
+                           min_date=min_date,
                            )
         self.__default = default
 
