@@ -12,3 +12,4 @@ from ._fields.color_field import ColorField  # pylint: disable=unused-import
 from ._fields.bool_field import BoolField  # pylint: disable=unused-import
 from ._fields.integer_field import IntegerField  # pylint: disable=unused-import
 from ._fields.float_field import FloatField  # pylint: disable=unused-import
+from ._fields.date_field import DateField  # pylint: disable=unused-import
