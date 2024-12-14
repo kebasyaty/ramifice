@@ -29,6 +29,13 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         #
         self.assertTrue(f.has_value())
+        f = ChoiceTextField(
+            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        self.assertTrue(f.has_value())
+        f.value = 'value 2'
+        self.assertTrue(f.has_value())
+        f.value = 'value 3'
+        self.assertFalse(f.has_value())
 
     def test_choice_text_mult_field(self):
         """Testing a parameters by default for ChoiceTextMultField."""
