@@ -23,7 +23,7 @@ class ChoiceTextDynField(Field, ChoiceGroup):
                  warning: list[str] | None = None,
                  required: bool = False,
                  readonly: bool = False,
-                 choices: list[tuple[str]] | None = None
+                 choices: list[tuple[str, str]] | None = None
                  ):
         Field.__init__(self,
                        label=label,
@@ -53,7 +53,7 @@ class ChoiceTextDynField(Field, ChoiceGroup):
 
     # --------------------------------------------------------------------------
     @property
-    def choices(self) -> list[tuple[str]] | None:
+    def choices(self) -> list[tuple[str, str]] | None:
         """ Html tag: select.
         Example: [('value', 'Title'), ('value 2', 'Title 2')]
         """
