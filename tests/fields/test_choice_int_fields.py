@@ -69,11 +69,11 @@ class TestChoiceIntegerFields(unittest.TestCase):
         #
         self.assertTrue(f.has_value())
         f = ChoiceIntMultField(
-            default=['value 2'],
+            default=[2],
             choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
         f = ChoiceIntMultField(
-            default=['value 3'],
+            default=[3],
             choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertFalse(f.has_value())
         f = ChoiceIntMultField(
