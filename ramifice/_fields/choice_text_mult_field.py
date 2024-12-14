@@ -67,7 +67,7 @@ class ChoiceTextMultField(Field, ChoiceGroup):
         """
         return self.__choices
 
-    # ---------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
