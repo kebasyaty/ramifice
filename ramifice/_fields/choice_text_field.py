@@ -75,10 +75,7 @@ class ChoiceTextField(Field, ChoiceGroup):
             value = self.__default
         choices = self.__choices
         if value is not None and choices is not None:
-            for item in choices:
-                if value in item[0]:
-                    flag = True
-                    break
-        else:
-            flag = True
+            value_list = [item[0] for item in choices]
+            if value not in value_list:
+                flag = False
         return flag
