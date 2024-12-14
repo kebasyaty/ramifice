@@ -1,5 +1,5 @@
 """Field of Model.
-Type of selective field with static of elements.
+Type of selective text field with static of elements.
 """
 
 from .general.field import Field
@@ -8,7 +8,7 @@ from .general.choice_group import ChoiceGroup
 
 class ChoiceTextField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective field with static of elements.
+    Type of selective text field with static of elements.
     With a single choice.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """
@@ -23,7 +23,7 @@ class ChoiceTextField(Field, ChoiceGroup):
                  default: str | None = None,
                  required: bool = False,
                  readonly: bool = False,
-                 choices: list[tuple[str]] | None = None
+                 choices: list[tuple[str, str]] | None = None
                  ):
         Field.__init__(self,
                        label=label,
@@ -60,7 +60,7 @@ class ChoiceTextField(Field, ChoiceGroup):
 
     # --------------------------------------------------------------------------
     @property
-    def choices(self) -> list[tuple[str]] | None:
+    def choices(self) -> list[tuple[str, str]] | None:
         """ Html tag: select.
         Example: [('value', 'Title'), ('value 2', 'Title 2')]
         """

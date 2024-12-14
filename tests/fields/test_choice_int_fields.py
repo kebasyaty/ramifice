@@ -1,21 +1,21 @@
-"""Testing a parameters with default values for selective text fields."""
+"""Testing a parameters with default values for selective integer fields."""
 
 import unittest
 from ramifice.fields import (
-    ChoiceTextField, ChoiceTextMultField,
-    ChoiceTextDynField, ChoiceTextMultDynField)
+    ChoiceIntField, ChoiceIntMultField,
+    ChoiceIntDynField, ChoiceIntMultDynField)
 
 
-class TestChoiceTextFields(unittest.TestCase):
+class TestChoiceIntegerFields(unittest.TestCase):
     """Testing parameters with default values."""
 
-    def test_choice_text_field(self):
-        """Testing a parameters by default for ChoiceTextField."""
-        f = ChoiceTextField()
+    def test_choice_int_field(self):
+        """Testing a parameters by default for ChoiceIntField."""
+        f = ChoiceIntField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextField')
+        self.assertEqual(f.field_type, 'ChoiceIntField')
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
@@ -31,29 +31,29 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         #
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(
-            default='value 2',
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntField(
+            default=2,
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(
-            default='value 3',
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntField(
+            default=3,
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertFalse(f.has_value())
-        f = ChoiceTextField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntField(
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f.value = 'value 2'
+        f.value = 2
         self.assertTrue(f.has_value())
-        f.value = 'value 3'
+        f.value = 3
         self.assertFalse(f.has_value())
 
-    def test_choice_text_mult_field(self):
-        """Testing a parameters by default for ChoiceTextMultField."""
-        f = ChoiceTextMultField()
+    def test_choice_int_mult_field(self):
+        """Testing a parameters by default for ChoiceIntMultField."""
+        f = ChoiceIntMultField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextMultField')
+        self.assertEqual(f.field_type, 'ChoiceIntMultField')
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
@@ -69,31 +69,31 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         #
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(
-            default=['value 2'],
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntMultField(
+            default=[2],
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(
-            default=['value 3'],
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntMultField(
+            default=[3],
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertFalse(f.has_value())
-        f = ChoiceTextMultField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntMultField(
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f.value = ['value 2']
+        f.value = [2]
         self.assertTrue(f.has_value())
-        f.value = ['value 3']
+        f.value = [3]
         self.assertFalse(f.has_value())
-        f.value = ['value 2', 'value 3']
+        f.value = [2, 3]
         self.assertFalse(f.has_value())
 
-    def test_choice_text_dyn_field(self):
-        """Testing a parameters by default for ChoiceTextDynField."""
-        f = ChoiceTextDynField()
+    def test_choice_int_dyn_field(self):
+        """Testing a parameters by default for ChoiceIntDynField."""
+        f = ChoiceIntDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextDynField')
+        self.assertEqual(f.field_type, 'ChoiceIntDynField')
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
@@ -108,21 +108,21 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         #
         self.assertTrue(f.has_value())
-        f = ChoiceTextDynField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntDynField(
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f.value = 'value 2'
+        f.value = 2
         self.assertTrue(f.has_value())
-        f.value = 'value 3'
+        f.value = 3
         self.assertFalse(f.has_value())
 
-    def test_choice_text_mult_dyn_field(self):
-        """Testing a parameters by default for ChoiceTextMultDynField."""
-        f = ChoiceTextMultDynField()
+    def test_choice_int_mult_dyn_field(self):
+        """Testing a parameters by default for ChoiceIntMultDynField."""
+        f = ChoiceIntMultDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextMultDynField')
+        self.assertEqual(f.field_type, 'ChoiceIntMultDynField')
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
@@ -137,14 +137,14 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         #
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultDynField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceIntMultDynField(
+            choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f.value = ['value 2']
+        f.value = [2]
         self.assertTrue(f.has_value())
-        f.value = ['value 3']
+        f.value = [3]
         self.assertFalse(f.has_value())
-        f.value = ['value 2', 'value 3']
+        f.value = [2, 3]
         self.assertFalse(f.has_value())
 
 
