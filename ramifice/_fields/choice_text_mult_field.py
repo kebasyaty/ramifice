@@ -1,5 +1,5 @@
 """Field of Model.
-Type of selective field with static of elements.
+Type of selective text field with static of elements.
 """
 
 from .general.field import Field
@@ -8,7 +8,7 @@ from .general.choice_group import ChoiceGroup
 
 class ChoiceTextMultField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective field with static of elements.
+    Type of selective text field with static of elements.
     With multiple choice.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """

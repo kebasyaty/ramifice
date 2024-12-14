@@ -1,5 +1,5 @@
 """Field of Model.
-Type of selective field with dynamic addition of elements.
+Type of selective text field with dynamic addition of elements.
 """
 
 from .general.field import Field
@@ -8,7 +8,7 @@ from .general.choice_group import ChoiceGroup
 
 class ChoiceTextMultDynField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective field with dynamic addition of elements.
+    Type of selective text field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
