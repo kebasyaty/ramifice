@@ -63,7 +63,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup):
     @property
     def choices(self) -> list[tuple[float, str]] | None:
         """ Html tag: select.
-        Example: [(1, 'Title'), (2, 'Title 2')]
+        Example: [(1.0, 'Title'), (2.0, 'Title 2')]
         """
         return self.__choices
 
