@@ -18,3 +18,4 @@ from ._fields.choice_text_field import ChoiceTextField  # pylint: disable=unused
 from ._fields.choice_text_mult_field import ChoiceTextMultField  # pylint: disable=unused-import
 from ._fields.choice_text_dyn_field import ChoiceTextDynField  # pylint: disable=unused-import
 from ._fields.choice_text_mult_dyn_field import ChoiceTextMultDynField  # pylint: disable=unused-import
+from ._fields.choice_int_mult_field import ChoiceIntMultField  # pylint: disable=unused-import
