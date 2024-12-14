@@ -2,7 +2,8 @@
 
 import unittest
 from ramifice.fields import (
-    ChoiceTextField, ChoiceTextMultField, ChoiceTextDynField, ChoiceTextMultDynField)
+    ChoiceTextField, ChoiceTextMultField,
+    ChoiceTextDynField, ChoiceTextMultDynField)
 
 
 class TestChoiceTextFields(unittest.TestCase):
