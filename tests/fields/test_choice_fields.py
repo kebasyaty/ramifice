@@ -26,6 +26,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        self.assertFalse(f.multiple)
 
 
 if __name__ == '__main__':
