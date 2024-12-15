@@ -60,7 +60,7 @@ class FloatField(Field, NumberGroup):
     # --------------------------------------------------------------------------
     @property
     def value(self) -> float | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter

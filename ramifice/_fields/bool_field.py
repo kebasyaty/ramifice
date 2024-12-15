@@ -37,7 +37,7 @@ class BoolField(Field):
     # --------------------------------------------------------------------------
     @property
     def value(self) -> bool | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter
