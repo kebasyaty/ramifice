@@ -34,6 +34,33 @@ class TestGlobalStore(unittest.TestCase):
         }
         self.assertEqual(REGEX, regex)
 
+    def test_regex_database_name(self):
+        """Testing a regular expression for `database_name`."""
+        p = REGEX['database_name']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('Database Name'))
+        self.assertIsNone(p.match(' DatabaseName'))
+        self.assertIsNone(p.match('5DatabaseName'))
+        self.assertIsNone(p.match('_DatabaseName'))
+        self.assertIsNone(p.match('-DatabaseName'))
+        # > 60 characters
+        self.assertIsNone(
+            p.match('LoremIpsumDolorSitAmetConsecteturAdipiscingElitIntegerLacinia'))
+        # Positive:
+        self.assertIsNotNone(p.match('D'))
+        self.assertIsNotNone(p.match('d'))
+        self.assertIsNotNone(p.match('test'))
+        self.assertIsNotNone(p.match('DatabaseName'))
+        self.assertIsNotNone(p.match('Database_Name'))
+        self.assertIsNotNone(p.match('Database-Name'))
+        self.assertIsNotNone(p.match('databaseName'))
+        self.assertIsNotNone(p.match('database_name'))
+        self.assertIsNotNone(p.match('database-name'))
+        self.assertIsNotNone(p.match('x4N83BGV26b3Npg2'))
+        self.assertIsNotNone(p.match('X4N83BGV26b3Npg2'))
+        self.assertIsNotNone(p.match('test_X4N83BGV26b3Npg2'))
+
 
 if __name__ == '__main__':
     unittest.main()
