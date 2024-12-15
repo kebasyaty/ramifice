@@ -9,7 +9,7 @@ MONGO_CLIENT: MongoClient | None = None
 # Mongo database caching.
 MONGO_DATABASE: Database | None = None
 # Database name.
-DATABASE_NAME: str = ''
+DATABASE_NAME: str | None = None
 # Super collection name.
 # Store technical data for Models migration into a database.
 # Store dynamic field data for simulate relationship Many-to-One and Many-to-Manyю.
