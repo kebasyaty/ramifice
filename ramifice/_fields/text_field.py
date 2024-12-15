@@ -16,7 +16,7 @@ class TextField(Field, TextGroup):
                  warning: list[str] | None = None,
                  textarea: bool = False,
                  use_editor: bool = False,
-                 default: str = "",
+                 default: str | None = None,
                  placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
@@ -50,7 +50,7 @@ class TextField(Field, TextGroup):
         self.__regex_err_msg = regex_err_msg
 
     @property
-    def default(self) -> str:
+    def default(self) -> str | None:
         """Value by default."""
         return self.__default
 

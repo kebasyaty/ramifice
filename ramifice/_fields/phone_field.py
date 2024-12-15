@@ -21,7 +21,7 @@ class PhoneField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 default: str = "",
+                 default: str | None = None,
                  placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
@@ -51,7 +51,7 @@ class PhoneField(Field, TextGroup):
         self.__regex_err_msg = regex_err_msg
 
     @property
-    def default(self) -> str:
+    def default(self) -> str | None:
         """Value by default."""
         return self.__default
 
