@@ -26,6 +26,8 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertEqual(f.target_dir, "")
         self.assertEqual(f.accept, "")
+        self.assertEqual(f.media_root, 'public/media/uploads')
+        self.assertEqual(f.media_url, '/media/uploads')
 
 
 if __name__ == '__main__':
