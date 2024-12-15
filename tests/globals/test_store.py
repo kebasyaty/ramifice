@@ -61,6 +61,24 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('X4N83BGV26b3Npg2'))
         self.assertIsNotNone(p.match('test_X4N83BGV26b3Npg2'))
 
+    def test_regex_service_name(self):
+        """Testing a regular expression for `service_name`."""
+        p = REGEX['service_name']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('Auto parts'))
+        self.assertIsNone(p.match('Auto Parts'))
+        self.assertIsNone(p.match('autoparts'))
+        self.assertIsNone(p.match('Auto_parts'))
+        self.assertIsNone(p.match('Auto-parts'))
+        self.assertIsNone(p.match('360AutoParts'))
+        # > 25 characters
+        self.assertIsNone(p.match('Loremipsumdolorsitametcons'))
+        # Positive:
+        self.assertIsNotNone(p.match('AutoParts'))
+        self.assertIsNotNone(p.match('Autoparts'))
+        self.assertIsNotNone(p.match('AutoParts360'))
+
 
 if __name__ == '__main__':
     unittest.main()
