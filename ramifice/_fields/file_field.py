@@ -39,3 +39,14 @@ class FileField(Field, FileGroup):
                            target_dir=target_dir,
                            accept=accept,
                            )
+
+        self.__value: str | None = None
+
+    @property
+    def value(self) -> str | None:
+        """Sets value of field."""
+        return self.__value
+
+    @value.setter
+    def value(self, value: str | None) -> None:
+        self.__value = value

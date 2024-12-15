@@ -12,7 +12,6 @@ class FileGroup:
                  accept: str = '',
                  ):
         self.__input_type = 'file'
-        self.__value: str | None = None
         self.__required = required
         self.__max_size = max_size
         self.__default = default
@@ -27,16 +26,6 @@ class FileGroup:
         Html tag: input type="file".
         """
         return self.__input_type
-
-    # --------------------------------------------------------------------------
-    @property
-    def value(self) -> str | None:
-        """Sets the value of an element."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: str | None) -> None:
-        self.__value = value
 
     # --------------------------------------------------------------------------
     @property
