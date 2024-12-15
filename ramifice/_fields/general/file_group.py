@@ -8,12 +8,16 @@ class FileGroup:
                  required: bool = False,
                  max_size: int = 2097152,  # 2 MB
                  default: str | None = None,
+                 target_dir: str = '',
+                 accept: str = '',
                  ):
         self.__input_type = 'file'
         self.__value: str | None = None
         self.__required = required
         self.__max_size = max_size
         self.__default = default
+        self.__target_dir = target_dir
+        self.__accept = accept
 
     @property
     def input_type(self) -> str:
@@ -53,3 +57,22 @@ class FileGroup:
         Example: 'public/media/default/nodoc.docx'
         """
         return self.__default
+
+    # --------------------------------------------------------------------------
+    @property
+    def target_dir(self) -> str | None:
+        """Directory for files inside media directory.
+        Example (file): 'files|resume|reports'
+        Example (image): 'avatars|photos|images'
+        """
+        return self.__target_dir
+
+    # --------------------------------------------------------------------------
+    @property
+    def accept(self) -> str | None:
+        """Describing which file types to allow.
+        HTML attribute: accept.
+        Example (file): '.pdf,.doc,.docx,application/msword'
+        Example (image): 'image/png,image/jpeg,image/webp'
+        """
+        return self.__accept

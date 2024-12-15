@@ -19,6 +19,8 @@ class FileField(Field, FileGroup):
                  required: bool = False,
                  max_size: int = 2097152,  # 2 MB
                  default: str | None = None,
+                 target_dir: str = '',
+                 accept: str = '',
                  ):
         Field.__init__(self,
                        label=label,
@@ -34,4 +36,6 @@ class FileField(Field, FileGroup):
                            required=required,
                            max_size=max_size,
                            default=default,
+                           target_dir=target_dir,
+                           accept=accept,
                            )
