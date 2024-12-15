@@ -5,6 +5,7 @@ class FileGroup:
     """General additional parameters for file fields."""
 
     def __init__(self,
+                 placeholder: str = '',
                  required: bool = False,
                  max_size: int = 2097152,  # 2 MB
                  default: str | None = None,
@@ -12,6 +13,7 @@ class FileGroup:
                  accept: str = '',
                  ):
         self.__input_type = 'file'
+        self.__placeholder = placeholder
         self.__required = required
         self.__max_size = max_size
         self.__default = default
@@ -26,6 +28,12 @@ class FileGroup:
         Html tag: input type="file".
         """
         return self.__input_type
+
+    # ---------------------------------------------------------------------------
+    @property
+    def placeholder(self) -> str:
+        """Displays prompt text."""
+        return self.__placeholder
 
     # --------------------------------------------------------------------------
     @property

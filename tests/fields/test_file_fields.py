@@ -23,6 +23,7 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.input_type, 'file')
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
+        self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertEqual(f.target_dir, "")
         self.assertEqual(f.accept, "")
