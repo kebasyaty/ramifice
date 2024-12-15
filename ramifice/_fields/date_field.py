@@ -17,7 +17,7 @@ class DateField(Field, DateGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 default: str = "",
+                 default: str | None = None,
                  placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
@@ -47,6 +47,6 @@ class DateField(Field, DateGroup):
         self.__default = default
 
     @property
-    def default(self) -> str:
+    def default(self) -> str | None:
         """Value by default."""
         return self.__default

@@ -46,7 +46,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup):
 
     @property
     def value(self) -> list[float] | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter

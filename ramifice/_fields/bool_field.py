@@ -13,6 +13,7 @@ class BoolField(Field):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
+                 default: bool | None = False,
                  ):
         Field.__init__(self,
                        label=label,
@@ -26,6 +27,7 @@ class BoolField(Field):
                        )
         self.__input_type = 'checkbox'
         self.__value: bool | None = None
+        self.__default = default
 
     @property
     def input_type(self) -> str:
@@ -37,9 +39,17 @@ class BoolField(Field):
     # --------------------------------------------------------------------------
     @property
     def value(self) -> bool | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter
     def value(self, value: bool | None) -> None:
         self.__value = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def default(self) -> bool | None:
+        """Default file path.
+        Example: 'public/media/default/nodoc.docx'
+        """
+        return self.__default

@@ -22,6 +22,7 @@ class TestBooleanFields(unittest.TestCase):
         self.assertEqual(f.group, 'bool')
         self.assertEqual(f.input_type, 'checkbox')
         self.assertIsNone(f.value)
+        self.assertFalse(f.default)
 
 
 if __name__ == '__main__':

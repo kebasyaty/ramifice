@@ -44,7 +44,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
 
     @property
     def value(self) -> list[int] | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter

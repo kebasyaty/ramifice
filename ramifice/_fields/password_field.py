@@ -49,7 +49,7 @@ class PasswordField(Field):
     # --------------------------------------------------------------------------
     @property
     def value(self) -> str | None:
-        """Sets the value of an element."""
+        """Sets value of field."""
         return self.__value
 
     @value.setter

@@ -26,3 +26,5 @@ from ._fields.choice_float_mult_field import ChoiceFloatMultField  # pylint: dis
 from ._fields.choice_float_mult_dyn_field import ChoiceFloatMultDynField  # pylint: disable=unused-import
 from ._fields.choice_float_field import ChoiceFloatField  # pylint: disable=unused-import
 from ._fields.choice_float_dyn_field import ChoiceFloatDynField  # pylint: disable=unused-import
+from ._fields.file_field import FileField  # pylint: disable=unused-import
+from ._fields.image_field import ImageField  # pylint: disable=unused-import

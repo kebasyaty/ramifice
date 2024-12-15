@@ -15,7 +15,7 @@ class URLField(Field, TextGroup):
                  ignored: bool = False,
                  hint: str = "",
                  warning: list[str] | None = None,
-                 default: str = "",
+                 default: str | None = None,
                  placeholder: str = "",
                  required: bool = False,
                  readonly: bool = False,
@@ -48,7 +48,7 @@ class URLField(Field, TextGroup):
         self.__maxlength = maxlength
 
     @property
-    def default(self) -> str:
+    def default(self) -> str | None:
         """Value by default."""
         return self.__default
 
