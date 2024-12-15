@@ -28,10 +28,9 @@ class FileField(Field, FileGroup):
                        hint=hint,
                        warning=warning,
                        field_type='FileField',
-                       group='text',
+                       group='file',
                        )
         FileGroup.__init__(self,
-                           input_type='text',
                            required=required,
                            max_size=max_size,
                            default=default,

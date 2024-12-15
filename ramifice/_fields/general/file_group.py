@@ -5,12 +5,11 @@ class FileGroup:
     """General additional parameters for file fields."""
 
     def __init__(self,
-                 input_type: str = "",
                  required: bool = False,
                  max_size: int = 2097152,  # 2 MB
                  default: str | None = None,
                  ):
-        self.__input_type = input_type
+        self.__input_type = 'file'
         self.__value: str | None = None
         self.__required = required
         self.__max_size = max_size
