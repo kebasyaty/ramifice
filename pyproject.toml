@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.13"
 pymongo = "^4.10.1"
+pillow = "^11.0.0"
 
 [tool.poetry.group.docs]
 optional = true

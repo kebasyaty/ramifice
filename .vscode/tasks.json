@@ -4,7 +4,10 @@
     {
       "label": "Python: Run unittest",
       "type": "shell",
-      "command": ["python -m unittest discover tests/fields;"],
+      "command": [
+        "poetry run python -m unittest discover tests/globals;",
+        "poetry run python -m unittest discover tests/fields;"
+      ],
       "problemMatcher": []
     }
   ]

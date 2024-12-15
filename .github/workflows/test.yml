@@ -57,6 +57,7 @@ jobs:
         run: poetry install
       - name: Run unittest
         run: |
+          poetry run python -m unittest discover tests/globals
           poetry run python -m unittest discover tests/fields
 
   success:
