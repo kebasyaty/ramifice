@@ -9,11 +9,15 @@ from ramifice.globals.store import (
 class TestGlobalStore(unittest.TestCase):
     """Testing variables in global store."""
 
-    def test_bool_field(self):
+    def test_global_variables(self):
         """Testing a values by default."""
+        global DATABASE_NAME  # pylint: disable=global-statement
+
         self.assertIsNone(MONGO_CLIENT)
         self.assertIsNone(MONGO_DATABASE)
         self.assertIsNone(DATABASE_NAME)
+        DATABASE_NAME = 'test'
+        self.assertEqual(DATABASE_NAME, 'test')
         self.assertEqual(SUPER_COLLECTION_NAME, 'SUPER_COLLECTION')
         regex = {
             'database_name': re.compile(r'^[a-zA-Z][-_a-zA-Z0-9]{0,59}$'),
