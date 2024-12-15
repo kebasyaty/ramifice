@@ -9,7 +9,7 @@ from ramifice.globals.store import (
 class TestGlobalStore(unittest.TestCase):
     """Testing variables in global store."""
 
-    def test_global_variables(self):
+    def test_values_by_default(self):
         """Testing a values by default."""
         global DATABASE_NAME  # pylint: disable=global-statement
 
