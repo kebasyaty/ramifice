@@ -14,7 +14,7 @@ DATABASE_NAME: str = ''
 # Store technical data for Models migration into a database.
 # Store dynamic field data for simulate relationship Many-to-One and Many-to-Manyю.
 SUPER_COLLECTION_NAME: str = 'SUPER_COLLECTION'
-# Regex caching.
+# Caching a patterns of regular expression.
 REGEX: dict[str, re.Pattern] = {
     'database_name': re.compile(r'^[a-zA-Z][-_a-zA-Z0-9]{0,59}$'),
     'service_name': re.compile(r'^[A-Z][a-zA-Z0-9]{0,24}$'),
