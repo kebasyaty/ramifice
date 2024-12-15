@@ -18,6 +18,8 @@ class FileGroup:
         self.__default = default
         self.__target_dir = target_dir
         self.__accept = accept
+        self.__media_root: str = 'public/media/uploads'
+        self.__media_url: str = '/media/uploads'
 
     @property
     def input_type(self) -> str:
@@ -76,3 +78,15 @@ class FileGroup:
         Example (image): 'image/png,image/jpeg,image/webp'
         """
         return self.__accept
+
+    # --------------------------------------------------------------------------
+    @property
+    def media_root(self) -> str:
+        """Root directory for storing media files."""
+        return self.__media_root
+
+    # --------------------------------------------------------------------------
+    @property
+    def media_url(self) -> str:
+        """URL address for media directory."""
+        return self.__media_url
