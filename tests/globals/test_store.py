@@ -224,6 +224,15 @@ class TestGlobalStore(unittest.TestCase):
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match('#f2ewq'))
+        self.assertIsNone(p.match('red'))
+        self.assertIsNone(p.match('green'))
+        self.assertIsNone(p.match('blue'))
+        self.assertIsNone(p.match('yellow'))
+        self.assertIsNone(p.match('orange'))
+        self.assertIsNone(p.match('purple'))
+        self.assertIsNone(p.match('white'))
+        self.assertIsNone(p.match('black'))
+        self.assertIsNone(p.match('grey'))
         # Positive:
         self.assertIsNotNone(p.match('#fff'))
         self.assertIsNotNone(p.match('#f2f2f2'))
