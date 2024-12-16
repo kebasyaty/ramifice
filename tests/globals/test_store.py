@@ -98,6 +98,27 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('ModelName360'))
         self.assertIsNotNone(p.match('MODELNAME360'))
 
+    def test_regex_get_type_marker(self):
+        """Testing a regular expression for `get_type_marker`."""
+        p = REGEX['get_type_marker']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('text'))
+        self.assertIsNone(p.match('integer'))
+        self.assertIsNone(p.match('float'))
+        self.assertIsNone(p.match('Tex'))
+        self.assertIsNone(p.match('Int'))
+        self.assertIsNone(p.match('Intege'))
+        self.assertIsNone(p.match('Floa'))
+        self.assertIsNone(p.match(''))
+        # Positive:
+        self.assertIsNotNone(p.match('Text'))
+        self.assertIsNotNone(p.match('TextField'))
+        self.assertIsNotNone(p.match('Integer'))
+        self.assertIsNotNone(p.match('IntegerField'))
+        self.assertIsNotNone(p.match('Float'))
+        self.assertIsNotNone(p.match('FloatField'))
+
 
 if __name__ == '__main__':
     unittest.main()
