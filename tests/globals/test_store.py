@@ -4,6 +4,7 @@ import unittest
 import re
 from ramifice.globals.store import (
     MONGO_CLIENT, MONGO_DATABASE, DATABASE_NAME, SUPER_COLLECTION_NAME, REGEX)
+from ramifice.globals.tools import date_parse
 
 
 class TestGlobalStore(unittest.TestCase):
@@ -187,6 +188,7 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('16-12-2024 09:33:15'))
         self.assertIsNotNone(p.match('12/12/2024 09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024 09:33:15'))
+        #
         self.assertIsNotNone(p.match('16-12-2024T09:33:15'))
         self.assertIsNotNone(p.match('12/12/2024T09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024T09:33:15'))
@@ -306,6 +308,14 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('555.5555.555'))
         self.assertIsNotNone(p.match('+48.504.203.260'))
         self.assertIsNotNone(p.match('+48-504-203-260'))
+
+    def test_tools_date_parse(self):
+        """Testing a method `date_parse()`."""
+        # Negative:
+        #
+        # Positive:
+        self.assertEqual(date_parse(
+            '16-12-2024').strftime('%Y-%m-%d'), '2024-12-16')
 
 
 if __name__ == '__main__':
