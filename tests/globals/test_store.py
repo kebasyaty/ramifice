@@ -246,17 +246,20 @@ class TestGlobalStore(unittest.TestCase):
     def test_regex_password(self):
         """Testing a regular expression for `password`."""
         p = REGEX['password']
+        digits = '0123456789'
+        ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
+        ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        symbols = '-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match(" "))
         self.assertIsNone(p.match('1234567'))
         # Positive:
         self.assertIsNotNone(p.match('12345678'))
-        self.assertIsNotNone(p.match('0123456789'))
-        self.assertIsNotNone(p.match('abcdefghijklmnopqrstuvwxyz'))
-        self.assertIsNotNone(p.match('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
-        self.assertIsNotNone(
-            p.match('-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'))
+        self.assertIsNotNone(p.match(digits))
+        self.assertIsNotNone(p.match(ascii_lowercase))
+        self.assertIsNotNone(p.match(ascii_uppercase))
+        self.assertIsNotNone(p.match(symbols))
         # self.assertIsNotNone(p.match(''))
         self.assertIsNotNone(p.match('9M,4%6]3ht7r{l59'))
         self.assertIsNotNone(p.match('2XT~m:L!Hz_723J('))
