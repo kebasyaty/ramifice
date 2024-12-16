@@ -218,6 +218,31 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('2024/12/16T09:33:15'))
         self.assertIsNotNone(p.match('2024.12.16T09:33:15'))
 
+    def test_regex_color_code(self):
+        """Testing a regular expression for `color_code`."""
+        p = REGEX['color_code']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('#f2ewq'))
+        # Positive:
+        self.assertIsNotNone(p.match('#fff'))
+        self.assertIsNotNone(p.match('#f2f2f2'))
+        self.assertIsNotNone(p.match('#F2F2F2'))
+        self.assertIsNotNone(p.match('#00000000'))
+        self.assertIsNotNone(p.match('rgb(255,0,24)'))
+        self.assertIsNotNone(p.match('rgb(255, 0, 24)'))
+        self.assertIsNotNone(p.match('rgba(255, 0, 24, .5)'))
+        self.assertIsNotNone(p.match('rgba(#fff, .5)'))
+        self.assertIsNotNone(p.match('rgba(#fff,.5)'))
+        self.assertIsNotNone(p.match('rgba(#FFF, .5)'))
+        self.assertIsNotNone(p.match('rgba(#FFF,.5)'))
+        self.assertIsNotNone(p.match('hsl(120, 100%, 50%)'))
+        self.assertIsNotNone(p.match('hsl(120,100%,50%)'))
+        self.assertIsNotNone(p.match('hsla(170, 23%, 25%, 0.2)'))
+        self.assertIsNotNone(p.match('hsla(170,23%,25%,0.2)'))
+        self.assertIsNotNone(p.match('0x00ffff'))
+        self.assertIsNotNone(p.match('0x00FFFF'))
+
 
 if __name__ == '__main__':
     unittest.main()
