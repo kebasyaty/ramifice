@@ -134,13 +134,19 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1/1/2024'))
         # Positive:
         self.assertIsNotNone(p.match('16-12-2024'))
-        self.assertIsNotNone(p.match('12/12/2024'))
+        self.assertIsNotNone(p.match('16/12/2024'))
         self.assertIsNotNone(p.match('16.12.2024'))
 
     def test_regex_date_parse_reverse(self):
         """Testing a regular expression for `date_parse_reverse`."""
         p = REGEX['date_parse_reverse']
         # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('1/1/2024'))
+        self.assertIsNone(p.match('2024/1/1'))
+        self.assertIsNone(p.match('1.1.2024'))
+        self.assertIsNone(p.match('1-1-2024'))
+        self.assertIsNone(p.match('1/1/2024'))
         self.assertIsNone(p.match('12/16/2024'))
         self.assertIsNone(p.match('16.12.2024'))
         self.assertIsNone(p.match('16-12-2024'))
@@ -185,10 +191,11 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1/1/2024T09:33:15'))
         # Positive:
         self.assertIsNotNone(p.match('16-12-2024 09:33:15'))
-        self.assertIsNotNone(p.match('12/12/2024 09:33:15'))
+        self.assertIsNotNone(p.match('16/12/2024 09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024 09:33:15'))
+        #
         self.assertIsNotNone(p.match('16-12-2024T09:33:15'))
-        self.assertIsNotNone(p.match('12/12/2024T09:33:15'))
+        self.assertIsNotNone(p.match('16/12/2024T09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024T09:33:15'))
 
     def test_regex_datetime_parse_reverse(self):
