@@ -134,7 +134,7 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1/1/2024'))
         # Positive:
         self.assertIsNotNone(p.match('16-12-2024'))
-        self.assertIsNotNone(p.match('12/12/2024'))
+        self.assertIsNotNone(p.match('16/12/2024'))
         self.assertIsNotNone(p.match('16.12.2024'))
 
     def test_regex_date_parse_reverse(self):
