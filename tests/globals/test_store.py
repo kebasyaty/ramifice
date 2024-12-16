@@ -163,6 +163,7 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1.1.2024'))
         self.assertIsNone(p.match('1-1-2024'))
         self.assertIsNone(p.match('1/1/2024'))
+        #
         self.assertIsNone(p.match('1/1/2024 09:33:15'))
         self.assertIsNone(p.match('2024.16.12 09:33:15'))
         self.assertIsNone(p.match('2024-12-16 09:33:15'))
@@ -172,6 +173,7 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1.1.2024 09:33:15'))
         self.assertIsNone(p.match('1-1-2024 09:33:15'))
         self.assertIsNone(p.match('1/1/2024 09:33:15'))
+        #
         self.assertIsNone(p.match('1/1/2024T09:33:15'))
         self.assertIsNone(p.match('2024.16.12T09:33:15'))
         self.assertIsNone(p.match('2024-12-16T09:33:15'))
@@ -188,6 +190,33 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('16-12-2024T09:33:15'))
         self.assertIsNotNone(p.match('12/12/2024T09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024T09:33:15'))
+
+    def test_regex_datetime_parse_reverse(self):
+        """Testing a regular expression for `datetime_parse_reverse`."""
+        p = REGEX['datetime_parse_reverse']
+        # Negative:
+        self.assertIsNone(p.match('12/16/2024'))
+        self.assertIsNone(p.match('16.12.2024'))
+        self.assertIsNone(p.match('16-12-2024'))
+        self.assertIsNone(p.match('16/12/2024'))
+        #
+        self.assertIsNone(p.match('12/16/2024 09:33:15'))
+        self.assertIsNone(p.match('16.12.2024 09:33:15'))
+        self.assertIsNone(p.match('16-12-2024 09:33:15'))
+        self.assertIsNone(p.match('16/12/2024 09:33:15'))
+        #
+        self.assertIsNone(p.match('12/16/2024T09:33:15'))
+        self.assertIsNone(p.match('16.12.2024T09:33:15'))
+        self.assertIsNone(p.match('16-12-2024T09:33:15'))
+        self.assertIsNone(p.match('16/12/2024T09:33:15'))
+        # Positive:
+        self.assertIsNotNone(p.match('2024-12-16 09:33:15'))
+        self.assertIsNotNone(p.match('2024/12/16 09:33:15'))
+        self.assertIsNotNone(p.match('2024.12.16 09:33:15'))
+        #
+        self.assertIsNotNone(p.match('2024-12-16T09:33:15'))
+        self.assertIsNotNone(p.match('2024/12/16T09:33:15'))
+        self.assertIsNotNone(p.match('2024.12.16T09:33:15'))
 
 
 if __name__ == '__main__':
