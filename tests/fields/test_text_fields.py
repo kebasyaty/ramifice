@@ -33,7 +33,6 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 256)
         self.assertEqual(f.regex, "")
-        self.assertIsNone(f.regex_err_msg)
 
     def test_url_field(self):
         """Testing a parameters by default for URLField."""
@@ -99,7 +98,6 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.regex, "")
-        self.assertIsNone(f.regex_err_msg)
 
     def test_password_field(self):
         """Testing a parameters by default for PasswordField."""
@@ -119,7 +117,6 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertEqual(f.regex, "")
-        self.assertIsNone(f.regex_err_msg)
 
     def test_ip_field(self):
         """Testing a parameters by default for IPField."""
