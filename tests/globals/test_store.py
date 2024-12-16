@@ -150,6 +150,45 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('2024/12/16'))
         self.assertIsNotNone(p.match('2024.12.16'))
 
+    def test_regex_datetime_parse(self):
+        """Testing a regular expression for `datetime_parse`."""
+        p = REGEX['datetime_parse']
+        # Negative:
+        self.assertIsNone(p.match('1/1/2024'))
+        self.assertIsNone(p.match('2024.16.12'))
+        self.assertIsNone(p.match('2024-12-16'))
+        self.assertIsNone(p.match('2024-1-1'))
+        self.assertIsNone(p.match('2024/12/16'))
+        self.assertIsNone(p.match('2024/1/1'))
+        self.assertIsNone(p.match('1.1.2024'))
+        self.assertIsNone(p.match('1-1-2024'))
+        self.assertIsNone(p.match('1/1/2024'))
+        self.assertIsNone(p.match('1/1/2024 09:33:15'))
+        self.assertIsNone(p.match('2024.16.12 09:33:15'))
+        self.assertIsNone(p.match('2024-12-16 09:33:15'))
+        self.assertIsNone(p.match('2024-1-1 09:33:15'))
+        self.assertIsNone(p.match('2024/12/16 09:33:15'))
+        self.assertIsNone(p.match('2024/1/1 09:33:15'))
+        self.assertIsNone(p.match('1.1.2024 09:33:15'))
+        self.assertIsNone(p.match('1-1-2024 09:33:15'))
+        self.assertIsNone(p.match('1/1/2024 09:33:15'))
+        self.assertIsNone(p.match('1/1/2024T09:33:15'))
+        self.assertIsNone(p.match('2024.16.12T09:33:15'))
+        self.assertIsNone(p.match('2024-12-16T09:33:15'))
+        self.assertIsNone(p.match('2024-1-1T09:33:15'))
+        self.assertIsNone(p.match('2024/12/16T09:33:15'))
+        self.assertIsNone(p.match('2024/1/1T09:33:15'))
+        self.assertIsNone(p.match('1.1.2024T09:33:15'))
+        self.assertIsNone(p.match('1-1-2024T09:33:15'))
+        self.assertIsNone(p.match('1/1/2024T09:33:15'))
+        # Positive:
+        self.assertIsNotNone(p.match('16-12-2024 09:33:15'))
+        self.assertIsNotNone(p.match('12/12/2024 09:33:15'))
+        self.assertIsNotNone(p.match('16.12.2024 09:33:15'))
+        self.assertIsNotNone(p.match('16-12-2024T09:33:15'))
+        self.assertIsNotNone(p.match('12/12/2024T09:33:15'))
+        self.assertIsNotNone(p.match('16.12.2024T09:33:15'))
+
 
 if __name__ == '__main__':
     unittest.main()
