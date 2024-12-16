@@ -29,7 +29,7 @@ class TestGlobalStore(unittest.TestCase):
             'datetime_parse': re.compile(r'^(?P<d>[0-9]{2})[-\/\.](?P<m>[0-9]{2})[-\/\.](?P<y>[0-9]{4})(?:T|\s)(?P<t>[0-9]{2}:[0-9]{2}:[0-9]{2})'),
             'datetime_parse_reverse': re.compile(r'^(?P<y>[0-9]{4})[-\/\.](?P<m>[0-9]{2})[-\/\.](?P<d>[0-9]{2})(?:T|\s)(?P<t>[0-9]{2}:[0-9]{2}:[0-9]{2})'),
             'color_code': re.compile(r'^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$', re.I),
-            'password': re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]+$'),
+            'password': re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
             'phone_number': re.compile(r'^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$'),
         }
         self.assertEqual(REGEX, regex)
@@ -242,6 +242,23 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('hsla(170,23%,25%,0.2)'))
         self.assertIsNotNone(p.match('0x00ffff'))
         self.assertIsNotNone(p.match('0x00FFFF'))
+
+    def test_regex_password(self):
+        """Testing a regular expression for `password`."""
+        p = REGEX['password']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match(" "))
+        self.assertIsNone(p.match('1234567'))
+        # Positive:
+        self.assertIsNotNone(p.match('12345678'))
+        self.assertIsNotNone(p.match('0123456789'))
+        self.assertIsNotNone(
+            p.match('-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'))
+        # self.assertIsNotNone(p.match(''))
+        self.assertIsNotNone(p.match('9M,4%6]3ht7r{l59'))
+        self.assertIsNotNone(p.match('2XT~m:L!Hz_723J('))
+        self.assertIsNotNone(p.match("d6'P30}e'#f^g3t5"))
 
 
 if __name__ == '__main__':
