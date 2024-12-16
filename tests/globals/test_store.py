@@ -253,9 +253,11 @@ class TestGlobalStore(unittest.TestCase):
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match(" "))
-        self.assertIsNone(p.match('1234567'))
+        self.assertIsNone(p.match('1234567'))  # < 8 characters
+        self.assertIsNone(p.match(('12345678' * 32) + '1'))  # > 256 characters
         # Positive:
-        self.assertIsNotNone(p.match('12345678'))
+        self.assertIsNotNone(p.match('12345678'))  # == 8 characters
+        self.assertIsNotNone(p.match(('12345678' * 32)))  # == 256 characters
         self.assertIsNotNone(p.match(digits))
         self.assertIsNotNone(p.match(ascii_lowercase))
         self.assertIsNotNone(p.match(ascii_uppercase))
