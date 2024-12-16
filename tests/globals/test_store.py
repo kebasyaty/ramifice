@@ -186,11 +186,11 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('1/1/2024T09:33:15'))
         # Positive:
         self.assertIsNotNone(p.match('16-12-2024 09:33:15'))
-        self.assertIsNotNone(p.match('12/12/2024 09:33:15'))
+        self.assertIsNotNone(p.match('16/12/2024 09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024 09:33:15'))
         #
         self.assertIsNotNone(p.match('16-12-2024T09:33:15'))
-        self.assertIsNotNone(p.match('12/12/2024T09:33:15'))
+        self.assertIsNotNone(p.match('16/12/2024T09:33:15'))
         self.assertIsNotNone(p.match('16.12.2024T09:33:15'))
 
     def test_regex_datetime_parse_reverse(self):
@@ -334,6 +334,22 @@ class TestGlobalStore(unittest.TestCase):
         # Positive:
         self.assertEqual(datetime_parse(
             '16-12-2024 09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '16/12/2024 09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '16.12.2024 09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '16-12-2024T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '16/12/2024T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '16.12.2024T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '2024-12-16T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '2024/12/16T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
+        self.assertEqual(datetime_parse(
+            '2024.12.16T09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')
 
 
 if __name__ == '__main__':
