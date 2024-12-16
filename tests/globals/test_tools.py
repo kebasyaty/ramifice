@@ -2,6 +2,7 @@
 
 import unittest
 from ramifice.globals.tools import (date_parse, datetime_parse)
+from ramifice.errors import (InvalidDate)
 
 
 class TestGlobalTools(unittest.TestCase):
@@ -10,8 +11,10 @@ class TestGlobalTools(unittest.TestCase):
     def test_tools_date_parse(self):
         """Testing a method `date_parse()`."""
         # Negative:
-        self.assertEqual(date_parse(
-            '16-12-2024').strftime('%Y-%m-%d'), '2024-12-16')
+        self.assertRaises(InvalidDate, date_parse, '1/1/2024')
+        self.assertRaises(InvalidDate, date_parse, '2024/1/1')
+        self.assertRaises(InvalidDate, date_parse, '1.1.2024')
+        self.assertRaises(InvalidDate, date_parse, '1/1/2024')
         # Positive:
         self.assertEqual(date_parse(
             '16-12-2024').strftime('%Y-%m-%d'), '2024-12-16')
