@@ -23,7 +23,6 @@ class TextField(Field, TextGroup):
                  unique: bool = False,
                  maxlength: int = 256,
                  regex: str = "",
-                 regex_err_msg: list[str] | None = None,
                  ):
         Field.__init__(self,
                        label=label,
@@ -47,7 +46,6 @@ class TextField(Field, TextGroup):
         self.__use_editor = use_editor
         self.__maxlength = maxlength
         self.__regex = regex
-        self.__regex_err_msg = regex_err_msg
 
     @property
     def default(self) -> str | None:
@@ -80,11 +78,3 @@ class TextField(Field, TextGroup):
         Example: ^[a-zA-Z0-9_]+$
         """
         return self.__regex
-
-    # --------------------------------------------------------------------------
-    @property
-    def regex_err_msg(self) -> list[str] | None:
-        """Error message.
-        Example: ['Allowed chars: a-z, A-Z, 0-9, _']
-        """
-        return self.__regex_err_msg
