@@ -142,6 +142,12 @@ class TestGlobalStore(unittest.TestCase):
         """Testing a regular expression for `date_parse_reverse`."""
         p = REGEX['date_parse_reverse']
         # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('1/1/2024'))
+        self.assertIsNone(p.match('2024/1/1'))
+        self.assertIsNone(p.match('1.1.2024'))
+        self.assertIsNone(p.match('1-1-2024'))
+        self.assertIsNone(p.match('1/1/2024'))
         self.assertIsNone(p.match('12/16/2024'))
         self.assertIsNone(p.match('16.12.2024'))
         self.assertIsNone(p.match('16-12-2024'))
@@ -312,7 +318,8 @@ class TestGlobalStore(unittest.TestCase):
     def test_tools_date_parse(self):
         """Testing a method `date_parse()`."""
         # Negative:
-        #
+        self.assertEqual(date_parse(
+            '16-12-2024').strftime('%Y-%m-%d'), '2024-12-16')
         # Positive:
         self.assertEqual(date_parse(
             '16-12-2024').strftime('%Y-%m-%d'), '2024-12-16')
