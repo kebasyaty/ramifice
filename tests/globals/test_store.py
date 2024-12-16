@@ -253,6 +253,8 @@ class TestGlobalStore(unittest.TestCase):
         # Positive:
         self.assertIsNotNone(p.match('12345678'))
         self.assertIsNotNone(p.match('0123456789'))
+        self.assertIsNotNone(p.match('abcdefghijklmnopqrstuvwxyz'))
+        self.assertIsNotNone(p.match('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
         self.assertIsNotNone(
             p.match('-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'))
         # self.assertIsNotNone(p.match(''))
