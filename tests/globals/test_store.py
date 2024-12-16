@@ -249,7 +249,7 @@ class TestGlobalStore(unittest.TestCase):
         digits = '0123456789'
         ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
         ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        symbols = '-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'
+        special_symbols = '-._!"`\'#%&,:;<>=@{}~$()*+/\\?[]^|'
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match(" "))
@@ -259,8 +259,9 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match(digits))
         self.assertIsNotNone(p.match(ascii_lowercase))
         self.assertIsNotNone(p.match(ascii_uppercase))
-        self.assertIsNotNone(p.match(symbols))
-        # self.assertIsNotNone(p.match(''))
+        self.assertIsNotNone(p.match(special_symbols))
+        self.assertIsNotNone(
+            p.match(digits + ascii_lowercase + ascii_uppercase + special_symbols))
         self.assertIsNotNone(p.match('9M,4%6]3ht7r{l59'))
         self.assertIsNotNone(p.match('2XT~m:L!Hz_723J('))
         self.assertIsNotNone(p.match("d6'P30}e'#f^g3t5"))
