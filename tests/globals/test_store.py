@@ -110,7 +110,6 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNone(p.match('Int'))
         self.assertIsNone(p.match('Intege'))
         self.assertIsNone(p.match('Floa'))
-        self.assertIsNone(p.match(''))
         # Positive:
         self.assertIsNotNone(p.match('Text'))
         self.assertIsNotNone(p.match('TextField'))
@@ -118,6 +117,25 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('IntegerField'))
         self.assertIsNotNone(p.match('Float'))
         self.assertIsNotNone(p.match('FloatField'))
+
+    def test_regex_date_parse(self):
+        """Testing a regular expression for `date_parse`."""
+        p = REGEX['date_parse']
+        # Negative:
+        self.assertIsNone(p.match(""))
+        self.assertIsNone(p.match('1/1/2024'))
+        self.assertIsNone(p.match('2024.16.12'))
+        self.assertIsNone(p.match('2024-12-16'))
+        self.assertIsNone(p.match('2024-1-1'))
+        self.assertIsNone(p.match('2024/12/16'))
+        self.assertIsNone(p.match('2024/1/1'))
+        self.assertIsNone(p.match('1.1.2024'))
+        self.assertIsNone(p.match('1-1-2024'))
+        self.assertIsNone(p.match('1/1/2024'))
+        # Positive:
+        self.assertIsNotNone(p.match('16-12-2024'))
+        self.assertIsNotNone(p.match('12/12/2024'))
+        self.assertIsNotNone(p.match('16.12.2024'))
 
 
 if __name__ == '__main__':
