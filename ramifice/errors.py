@@ -12,7 +12,17 @@ class InvalidDate(RamificeException):
     """Invalid date."""
 
     def __init__(self):
-        msg = 'Invalid date!'
+        msg = 'Invalid Date!'
+        super().__init__()
+        self.args = (msg)
+        self.errmsg = msg
+
+
+class InvalidDateTime(RamificeException):
+    """Invalid date and time."""
+
+    def __init__(self):
+        msg = 'Invalid Date and Time!'
         super().__init__()
         self.args = (msg)
         self.errmsg = msg
