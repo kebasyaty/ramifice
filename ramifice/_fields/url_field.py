@@ -1,6 +1,6 @@
 """Field of Model for enter URL addresses."""
 
-
+from urllib.parse import urlparse
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -44,6 +44,13 @@ class URLField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if __debug__:
+            if default is not None and default != '':
+                result = urlparse(default)
+                if not result.scheme or not result.netloc:
+                    raise AssertionError(
+                        'Parameter `default` - Invalid URL address.')
+
         self.__default = default
         self.__maxlength = maxlength
 
