@@ -31,6 +31,11 @@ class TestNumberFields(unittest.TestCase):
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
         self.assertEqual(f.step, int(1))
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type='numbe')
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type='rang')
 
     def test_float_field(self):
         """Testing `FloatField`."""
