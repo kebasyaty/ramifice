@@ -21,7 +21,7 @@ class IntegerField(Field, NumberGroup):
                  unique: bool = False,
                  max_number: int | None = None,
                  min_number: int | None = None,
-                 step: int = 1,
+                 step: int = int(1),
                  input_type: str = 'number',  # number | range
                  ):
         Field.__init__(self,
@@ -49,6 +49,15 @@ class IntegerField(Field, NumberGroup):
             if default is not None and not isinstance(default, int):
                 raise AssertionError(
                     'Parameter `default` - Not а number integer type!')
+            if max_number is not None and not isinstance(max_number, int):
+                raise AssertionError(
+                    'Parameter `max_number` - Not а number integer type!')
+            if min_number is not None and not isinstance(min_number, int):
+                raise AssertionError(
+                    'Parameter `min_number` - Not а number integer type!')
+            if not isinstance(step, int):
+                raise AssertionError(
+                    'Parameter `step` - Not а number integer type!')
 
         self.__input_type: str = input_type
         self.__value: int | None = None

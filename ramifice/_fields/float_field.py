@@ -21,7 +21,7 @@ class FloatField(Field, NumberGroup):
                  unique: bool = False,
                  max_number: int | None = None,
                  min_number: int | None = None,
-                 step: float = 1,
+                 step: float = float(1),
                  input_type: str = 'number',  # number | range
                  ):
         Field.__init__(self,
@@ -49,6 +49,15 @@ class FloatField(Field, NumberGroup):
             if default is not None and not isinstance(default, float):
                 raise AssertionError(
                     'Parameter `default` - Not а number float type!')
+            if max_number is not None and not isinstance(max_number, float):
+                raise AssertionError(
+                    'Parameter `max_number` - Not а number float type!')
+            if min_number is not None and not isinstance(min_number, float):
+                raise AssertionError(
+                    'Parameter `min_number` - Not а number float type!')
+            if not isinstance(step, float):
+                raise AssertionError(
+                    'Parameter `step` - Not а number float type!')
 
         self.__input_type: str = input_type
         self.__value: float | None = None
