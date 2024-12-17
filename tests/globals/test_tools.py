@@ -2,7 +2,7 @@
 
 import unittest
 from ramifice.globals.tools import (date_parse, datetime_parse)
-from ramifice.errors import (InvalidDate, InvalidDateTime)
+from ramifice.errors import (InvalidDateError, InvalidDateTimeError)
 
 
 class TestGlobalTools(unittest.TestCase):

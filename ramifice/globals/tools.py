@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from .store import REGEX
-from ..errors import (InvalidDate, InvalidDateTime)
+from ..errors import (InvalidDateError, InvalidDateTimeError)
 
 
 def date_parse(date: str) -> datetime:
@@ -13,7 +13,7 @@ def date_parse(date: str) -> datetime:
     md = REGEX['date_parse'].match(
         date) or REGEX['date_parse_reverse'].match(date)
     if md is None:
-        raise InvalidDate()
+        raise InvalidDateError()
     dt = datetime.strptime(
         f'{md.group('y')}-{md.group('m')}-{md.group('d')}', '%Y-%m-%d')
     return dt
@@ -29,7 +29,7 @@ def datetime_parse(date_time: str) -> datetime:
     md = REGEX['datetime_parse'].match(
         date_time) or REGEX['datetime_parse_reverse'].match(date_time)
     if md is None:
-        raise InvalidDateTime()
+        raise InvalidDateTimeError()
     dt = datetime.strptime(
         f'{md.group('y')}-{md.group('m')}-{md.group('d')}T{md.group('t')}', '%Y-%m-%dT%H:%M:%S')
     return dt
