@@ -33,11 +33,11 @@ class TestNumberFields(unittest.TestCase):
         self.assertEqual(f.step, int(1))
         # Additional check:
         with self.assertRaises(AssertionError):
+            IntegerField(input_type="")
+        with self.assertRaises(AssertionError):
             IntegerField(input_type='numbe')
         with self.assertRaises(AssertionError):
             IntegerField(input_type='rang')
-        with self.assertRaises(AssertionError):
-            IntegerField(input_type="")
         IntegerField(input_type='number')
         IntegerField(input_type='range')
 
