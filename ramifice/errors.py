@@ -9,20 +9,24 @@ class RamificeException(Exception):
 
 
 class InvalidDate(RamificeException):
-    """Invalid date."""
+    """Invalid date.
 
-    def __init__(self):
-        msg = 'Invalid Date!'
-        super().__init__()
-        self.args = (msg)
-        self.errmsg = msg
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message: str = 'Invalid Date!'):
+        self.message = message
+        super().__init__(self.message)
 
 
 class InvalidDateTime(RamificeException):
-    """Invalid date and time."""
+    """Invalid date and time.
 
-    def __init__(self):
-        msg = 'Invalid Date and Time!'
-        super().__init__()
-        self.args = (msg)
-        self.errmsg = msg
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message: str = 'Invalid Date and Time!'):
+        self.message = message
+        super().__init__(self.message)
