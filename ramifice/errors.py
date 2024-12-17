@@ -9,7 +9,7 @@ class RamificeException(Exception):
 
 
 class InvalidDate(RamificeException):
-    """Invalid date.
+    """Exception raised for invalid date.
 
     Attributes:
         message -- explanation of the error
@@ -21,7 +21,7 @@ class InvalidDate(RamificeException):
 
 
 class InvalidDateTime(RamificeException):
-    """Invalid date and time.
+    """Exception raised for invalid date and time.
 
     Attributes:
         message -- explanation of the error
