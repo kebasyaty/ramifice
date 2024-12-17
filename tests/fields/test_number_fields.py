@@ -1,11 +1,11 @@
-"""Testing a parameters with default values for number fields."""
+"""Testing number fields."""
 
 import unittest
 from ramifice.fields import (IntegerField, FloatField)
 
 
 class TestNumberFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing number fields."""
 
     def test_integer_field(self):
         """Testing `IntegerField`."""

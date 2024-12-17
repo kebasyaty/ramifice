@@ -1,4 +1,4 @@
-"""Testing a parameters with default values for selective float fields."""
+"""Testing selective float fields."""
 
 import unittest
 from ramifice.fields import (
@@ -6,8 +6,8 @@ from ramifice.fields import (
     ChoiceFloatDynField, ChoiceFloatMultDynField)
 
 
-class TestChoiceFloategerFields(unittest.TestCase):
-    """Testing parameters with default values."""
+class TestChoiceFloatFields(unittest.TestCase):
+    """Testing selective float fields."""
 
     def test_choice_float_field(self):
         """Testing `ChoiceFloatField`."""

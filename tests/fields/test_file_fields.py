@@ -1,11 +1,11 @@
-"""Testing a parameters with default values for file fields."""
+"""Testing file fields."""
 
 import unittest
 from ramifice.fields import (FileField, ImageField)
 
 
 class TestFileFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing file fields."""
 
     def test_file_field(self):
         """Testing `FileField`."""
