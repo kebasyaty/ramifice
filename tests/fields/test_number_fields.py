@@ -36,6 +36,10 @@ class TestNumberFields(unittest.TestCase):
             IntegerField(input_type='numbe')
         with self.assertRaises(AssertionError):
             IntegerField(input_type='rang')
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type="")
+        IntegerField(input_type='number')
+        IntegerField(input_type='range')
 
     def test_float_field(self):
         """Testing `FloatField`."""
