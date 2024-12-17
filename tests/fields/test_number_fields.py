@@ -40,6 +40,12 @@ class TestNumberFields(unittest.TestCase):
             IntegerField(input_type='rang')
         IntegerField(input_type='number')
         IntegerField(input_type='range')
+        with self.assertRaises(AssertionError):
+            IntegerField(default="")
+        with self.assertRaises(AssertionError):
+            IntegerField(default=float(12))
+        with self.assertRaises(AssertionError):
+            IntegerField(default=12.0)
 
     def test_float_field(self):
         """Testing `FloatField`."""
@@ -67,13 +73,19 @@ class TestNumberFields(unittest.TestCase):
         self.assertEqual(f.step, float(1))
         # Additional check:
         with self.assertRaises(AssertionError):
-            IntegerField(input_type="")
+            FloatField(input_type="")
         with self.assertRaises(AssertionError):
-            IntegerField(input_type='numbe')
+            FloatField(input_type='numbe')
         with self.assertRaises(AssertionError):
-            IntegerField(input_type='rang')
-        IntegerField(input_type='number')
-        IntegerField(input_type='range')
+            FloatField(input_type='rang')
+        FloatField(input_type='number')
+        FloatField(input_type='range')
+        with self.assertRaises(AssertionError):
+            FloatField(default="")
+        with self.assertRaises(AssertionError):
+            FloatField(default=int(12))
+        with self.assertRaises(AssertionError):
+            FloatField(default=12)
 
 
 if __name__ == '__main__':
