@@ -58,6 +58,9 @@ class IntegerField(Field, NumberGroup):
             if not isinstance(step, int):
                 raise AssertionError(
                     'Parameter `step` - Not а number integer type!')
+            if max_number is not None and min_number is not None and max_number <= min_number:
+                raise AssertionError(
+                    'The `max_number` parameter should be more than the `min_number`!')
 
         self.__input_type: str = input_type
         self.__value: int | None = None
