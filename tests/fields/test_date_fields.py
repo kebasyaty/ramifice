@@ -8,7 +8,8 @@ class TestDateFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_date_field(self):
-        """Testing a parameters by default for DateField."""
+        """Testing `DateField`."""
+        # Parameters by default:
         f = DateField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -31,7 +32,8 @@ class TestDateFields(unittest.TestCase):
         self.assertIsNone(f.min_date)
 
     def test_date_time_field(self):
-        """Testing a parameters by default for DateTimeField."""
+        """Testing `DateTimeField`."""
+        # Parameters by default:
         f = DateTimeField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")

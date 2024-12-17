@@ -10,7 +10,8 @@ class TestChoiceTextFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_choice_text_field(self):
-        """Testing a parameters by default for ChoiceTextField."""
+        """Testing `ChoiceTextField`."""
+        # Parameters by default:
         f = ChoiceTextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -29,7 +30,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextField(
             default='value 2',
@@ -48,7 +49,8 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_text_mult_field(self):
-        """Testing a parameters by default for ChoiceTextMultField."""
+        """Testing `ChoiceTextMultField`."""
+        # Parameters by default:
         f = ChoiceTextMultField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -67,7 +69,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
             default=['value 2'],
@@ -88,7 +90,8 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_text_dyn_field(self):
-        """Testing a parameters by default for ChoiceTextDynField."""
+        """Testing `ChoiceTextDynField`."""
+        # Parameters by default:
         f = ChoiceTextDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -106,7 +109,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextDynField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
@@ -117,7 +120,8 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_text_mult_dyn_field(self):
-        """Testing a parameters by default for ChoiceTextMultDynField."""
+        """Testing `ChoiceTextMultDynField`."""
+        # Parameters by default:
         f = ChoiceTextMultDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -135,7 +139,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextMultDynField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])

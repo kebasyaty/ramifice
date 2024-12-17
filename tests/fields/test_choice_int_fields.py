@@ -10,7 +10,8 @@ class TestChoiceIntegerFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_choice_int_field(self):
-        """Testing a parameters by default for ChoiceIntField."""
+        """Testing `ChoiceIntField`."""
+        # Parameters by default:
         f = ChoiceIntField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -29,7 +30,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceIntField(
             default=2,
@@ -48,7 +49,8 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_int_mult_field(self):
-        """Testing a parameters by default for ChoiceIntMultField."""
+        """Testing `ChoiceIntMultField`."""
+        # Parameters by default:
         f = ChoiceIntMultField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -67,7 +69,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceIntMultField(
             default=[2],
@@ -88,7 +90,8 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_int_dyn_field(self):
-        """Testing a parameters by default for ChoiceIntDynField."""
+        """Testing `ChoiceIntDynField`."""
+        # Parameters by default:
         f = ChoiceIntDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -106,7 +109,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceIntDynField(
             choices=[(1, 'Title'), (2, 'Title 2')])
@@ -117,7 +120,8 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_int_mult_dyn_field(self):
-        """Testing a parameters by default for ChoiceIntMultDynField."""
+        """Testing `ChoiceIntMultDynField`."""
+        # Parameters by default:
         f = ChoiceIntMultDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -135,7 +139,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceIntMultDynField(
             choices=[(1, 'Title'), (2, 'Title 2')])
