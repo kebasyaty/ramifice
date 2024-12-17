@@ -46,8 +46,9 @@ class FloatField(Field, NumberGroup):
                     'Parameter `input_type` - Invalid input type! ' +
                     'The permissible value of `number` or` range`.'
                 )
-            if default is not None and not isinstance(default, int):
-                raise AssertionError('Parameter `default` - Not a integer!')
+            if default is not None and not isinstance(default, float):
+                raise AssertionError(
+                    'Parameter `default` - Not а number float type!')
 
         self.__input_type: str = input_type
         self.__value: float | None = None

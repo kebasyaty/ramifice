@@ -47,7 +47,8 @@ class IntegerField(Field, NumberGroup):
                     'The permissible value of `number` or` range`.'
                 )
             if default is not None and not isinstance(default, int):
-                raise AssertionError('Parameter `default` - Not a integer!')
+                raise AssertionError(
+                    'Parameter `default` - Not а number integer type!')
 
         self.__input_type: str = input_type
         self.__value: int | None = None
