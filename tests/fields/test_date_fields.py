@@ -1,11 +1,11 @@
-"""Testing a parameters with default values for date|datetime fields."""
+"""Testing date|datetime fields."""
 
 import unittest
 from ramifice.fields import (DateField, DateTimeField)
 
 
 class TestDateFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing date|datetime fields."""
 
     def test_date_field(self):
         """Testing `DateField`."""

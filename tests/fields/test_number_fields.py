@@ -1,14 +1,15 @@
-"""Testing a parameters with default values for number fields."""
+"""Testing number fields."""
 
 import unittest
 from ramifice.fields import (IntegerField, FloatField)
 
 
 class TestNumberFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing number fields."""
 
     def test_integer_field(self):
-        """Testing a parameters by default for IntegerField."""
+        """Testing `IntegerField`."""
+        # Parameters by default:
         f = IntegerField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -30,9 +31,35 @@ class TestNumberFields(unittest.TestCase):
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
         self.assertEqual(f.step, int(1))
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type="")
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type='numbe')
+        with self.assertRaises(AssertionError):
+            IntegerField(input_type='rang')
+        IntegerField(input_type='number')
+        IntegerField(input_type='range')
+        with self.assertRaises(AssertionError):
+            IntegerField(default="")
+        with self.assertRaises(AssertionError):
+            IntegerField(default=float(12))
+        with self.assertRaises(AssertionError):
+            IntegerField(default=12.0)
+        with self.assertRaises(AssertionError):
+            IntegerField(max_number=12.0)
+        with self.assertRaises(AssertionError):
+            IntegerField(min_number=12.0)
+        with self.assertRaises(AssertionError):
+            IntegerField(step=12.0)
+        with self.assertRaises(AssertionError):
+            IntegerField(max_number=12, min_number=12)
+        with self.assertRaises(AssertionError):
+            IntegerField(max_number=12, min_number=13)
 
     def test_float_field(self):
-        """Testing a parameters by default for FloatField."""
+        """Testing `FloatField`."""
+        # Parameters by default:
         f = FloatField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -54,6 +81,31 @@ class TestNumberFields(unittest.TestCase):
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
         self.assertEqual(f.step, float(1))
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            FloatField(input_type="")
+        with self.assertRaises(AssertionError):
+            FloatField(input_type='numbe')
+        with self.assertRaises(AssertionError):
+            FloatField(input_type='rang')
+        FloatField(input_type='number')
+        FloatField(input_type='range')
+        with self.assertRaises(AssertionError):
+            FloatField(default="")
+        with self.assertRaises(AssertionError):
+            FloatField(default=int(12))
+        with self.assertRaises(AssertionError):
+            FloatField(default=12)
+        with self.assertRaises(AssertionError):
+            FloatField(max_number=12)
+        with self.assertRaises(AssertionError):
+            FloatField(min_number=12)
+        with self.assertRaises(AssertionError):
+            FloatField(step=12)
+        with self.assertRaises(AssertionError):
+            FloatField(max_number=12.0, min_number=12.0)
+        with self.assertRaises(AssertionError):
+            FloatField(max_number=12.0, min_number=13.0)
 
 
 if __name__ == '__main__':

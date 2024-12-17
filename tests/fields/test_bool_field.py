@@ -1,11 +1,11 @@
-"""Testing a parameters with default values for logical (boolean) field."""
+"""Testing logical (boolean) field."""
 
 import unittest
 from ramifice.fields import BoolField
 
 
-class TestBooleanFields(unittest.TestCase):
-    """Testing parameters with default values."""
+class TestBooleanField(unittest.TestCase):
+    """Testing logical (boolean) field"""
 
     def test_bool_field(self):
         """Testing `BoolField`."""

@@ -1,4 +1,4 @@
-"""Testing a parameters with default values for selective text fields."""
+"""Testing selective text fields."""
 
 import unittest
 from ramifice.fields import (
@@ -7,7 +7,7 @@ from ramifice.fields import (
 
 
 class TestChoiceTextFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing selective text fields."""
 
     def test_choice_text_field(self):
         """Testing `ChoiceTextField`."""

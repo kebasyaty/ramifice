@@ -1,4 +1,4 @@
-"""Testing a parameters with default values for text fields."""
+"""Testing text fields."""
 
 import unittest
 from ramifice.fields import (
@@ -7,7 +7,7 @@ from ramifice.fields import (
 
 
 class TestTextFields(unittest.TestCase):
-    """Testing parameters with default values."""
+    """Testing text fields."""
 
     def test_text_field(self):
         """Testing `TextField`."""
@@ -57,6 +57,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 2083)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            URLField(default="http//???")
 
     def test_slug_field(self):
         """Testing `SlugField`."""

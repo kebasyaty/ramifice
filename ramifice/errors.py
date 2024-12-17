@@ -8,7 +8,7 @@ class RamificeException(Exception):
         super().__init__(*args, **kwargs)
 
 
-class InvalidDate(RamificeException):
+class InvalidDateError(RamificeException):
     """Exception raised for invalid date.
 
     Attributes:
@@ -20,7 +20,7 @@ class InvalidDate(RamificeException):
         super().__init__(self.message)
 
 
-class InvalidDateTime(RamificeException):
+class InvalidDateTimeError(RamificeException):
     """Exception raised for invalid date and time.
 
     Attributes:
