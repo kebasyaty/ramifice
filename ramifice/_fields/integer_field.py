@@ -40,8 +40,14 @@ class IntegerField(Field, NumberGroup):
                              readonly=readonly,
                              unique=unique,
                              )
-        assert (input_type in ['number', 'range']), f'{
-            input_type} - Invalid input type.'
+        if __debug__:
+            if input_type not in ['number', 'range']:
+                raise AssertionError(
+                    'Parameter `input_type` - Invalid input type! ' +
+                    'The permissible value of `number` or` range`.'
+                )
+            if default is not None and not isinstance(default, int):
+                raise AssertionError('Parameter `default` - Not a integer!')
 
         self.__input_type: str = input_type
         self.__value: int | None = None

@@ -49,7 +49,7 @@ class URLField(Field, TextGroup):
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
                     raise AssertionError(
-                        'Parameter `default` - Invalid URL address.')
+                        'Parameter `default` - Invalid URL address!')
 
         self.__default = default
         self.__maxlength = maxlength
