@@ -44,7 +44,7 @@ class FloatField(Field, NumberGroup):
             if input_type not in ['number', 'range']:
                 raise AssertionError(
                     'Parameter `input_type` - Invalid input type! ' +
-                    'The permissible value of `number` or` range`.'
+                    'The permissible value of `number` or `range`.'
                 )
             if default is not None and not isinstance(default, float):
                 raise AssertionError(
