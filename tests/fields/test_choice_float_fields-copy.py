@@ -10,7 +10,8 @@ class TestChoiceFloategerFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_choice_float_field(self):
-        """Testing a parameters by default for ChoiceFloatField."""
+        """Testing `ChoiceFloatField`."""
+        # Parameters by default:
         f = ChoiceFloatField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -29,7 +30,7 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceFloatField(
             default=2.0,
@@ -48,7 +49,8 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_float_mult_field(self):
-        """Testing a parameters by default for ChoiceFloatMultField."""
+        """Testing `ChoiceFloatMultField`."""
+        # Parameters by default:
         f = ChoiceFloatMultField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -67,7 +69,7 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(
             default=[2.0],
@@ -88,7 +90,8 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_float_dyn_field(self):
-        """Testing a parameters by default for ChoiceFloatDynField."""
+        """Testing `ChoiceFloatDynField`."""
+        # Parameters by default:
         f = ChoiceFloatDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -106,7 +109,7 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceFloatDynField(
             choices=[(1.0, 'Title'), (2.0, 'Title 2')])
@@ -117,7 +120,8 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.has_value())
 
     def test_choice_float_mult_dyn_field(self):
-        """Testing a parameters by default for ChoiceFloatMultDynField."""
+        """Testing `ChoiceFloatMultDynField`."""
+        # Parameters by default:
         f = ChoiceFloatMultDynField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -135,7 +139,7 @@ class TestChoiceFloategerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        #
+        # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultDynField(
             choices=[(1.0, 'Title'), (2.0, 'Title 2')])

@@ -8,7 +8,8 @@ class TestBooleanFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_bool_field(self):
-        """Testing a parameters by default for BoolField."""
+        """Testing `BoolField`."""
+        # Parameters by default:
         f = BoolField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")

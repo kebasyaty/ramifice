@@ -8,7 +8,8 @@ class TestFileFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_file_field(self):
-        """Testing a parameters by default for FileField."""
+        """Testing `FileField`."""
+        # Parameters by default:
         f = FileField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -31,7 +32,8 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.media_url, '/media/uploads')
 
     def test_image_field(self):
-        """Testing a parameters by default for ImageField."""
+        """Testing `ImageField`."""
+        # Parameters by default:
         f = ImageField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")

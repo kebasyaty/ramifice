@@ -10,7 +10,8 @@ class TestTextFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_text_field(self):
-        """Testing a parameters by default for TextField."""
+        """Testing `TextField`."""
+        # Parameters by default:
         f = TextField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -35,7 +36,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.regex, "")
 
     def test_url_field(self):
-        """Testing a parameters by default for URLField."""
+        """Testing `URLField`."""
+        # Parameters by default:
         f = URLField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -57,7 +59,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.maxlength, 2083)
 
     def test_slug_field(self):
-        """Testing a parameters by default for SlugField."""
+        """Testing `SlugField`."""
+        # Parameters by default:
         f = SlugField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -78,7 +81,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.slug_sources, ['hash'])
 
     def test_phone_field(self):
-        """Testing a parameters by default for PhoneField."""
+        """Testing `PhoneField`."""
+        # Parameters by default:
         f = PhoneField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -100,7 +104,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.regex, "")
 
     def test_password_field(self):
-        """Testing a parameters by default for PasswordField."""
+        """Testing `PasswordField`."""
+        # Parameters by default:
         f = PasswordField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -119,7 +124,8 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.regex, "")
 
     def test_ip_field(self):
-        """Testing a parameters by default for IPField."""
+        """Testing `IPField`."""
+        # Parameters by default:
         f = IPField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -140,7 +146,8 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
 
     def test_hash_field(self):
-        """Testing a parameters by default for HashField."""
+        """Testing `HashField`."""
+        # Parameters by default:
         f = HashField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -159,11 +166,12 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 24)
-        #
+        # Methods:
         self.assertIsNone(f.object_id())
 
     def test_email_field(self):
-        """Testing a parameters by default for EmailField."""
+        """Testing `EmailField`."""
+        # Parameters by default:
         f = EmailField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -184,7 +192,8 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
 
     def test_color_field(self):
-        """Testing a parameters by default for ColorField."""
+        """Testing `ColorField`."""
+        # Parameters by default:
         f = ColorField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
