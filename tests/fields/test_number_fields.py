@@ -8,7 +8,8 @@ class TestNumberFields(unittest.TestCase):
     """Testing parameters with default values."""
 
     def test_integer_field(self):
-        """Testing a parameters by default for IntegerField."""
+        """Testing `IntegerField`."""
+        # Parameters by default:
         f = IntegerField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
@@ -32,7 +33,8 @@ class TestNumberFields(unittest.TestCase):
         self.assertEqual(f.step, int(1))
 
     def test_float_field(self):
-        """Testing a parameters by default for FloatField."""
+        """Testing `FloatField`."""
+        # Parameters by default:
         f = FloatField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
