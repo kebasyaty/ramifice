@@ -1,6 +1,7 @@
 """Field of Model for enter color code."""
 
 from typing import Any
+from ..globals.store import REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -46,6 +47,15 @@ class ColorField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if ColorField.debug:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                if REGEX['color_code'].match(default) is None:
+                    raise AssertionError(
+                        'Parameter `default` - Not а color code!')
+
         self.__default = default
 
     @property

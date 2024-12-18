@@ -63,14 +63,10 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertEqual(f.maxlength, 2083)
         # Additional check:
         with self.assertRaises(AssertionError):
             URLField(default='http://???')
-        with self.assertRaises(AssertionError):
-            URLField(maxlength='2083')
         URLField(default='https://www.google.com')
-        URLField(maxlength=65536)
 
     def test_slug_field(self):
         """Testing `SlugField`."""
@@ -195,10 +191,6 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertEqual(f.maxlength, 24)
-        # Additional check:
-        with self.assertRaises(AssertionError):
-            HashField(maxlength='24')
         # Methods:
         self.assertIsNone(f.object_id())
 
@@ -251,6 +243,12 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            ColorField(default=12)
+        with self.assertRaises(AssertionError):
+            ColorField(default='color')
+        ColorField(default='#000')
 
 
 if __name__ == '__main__':

@@ -29,6 +29,11 @@ class BoolField(Field):
                        field_type='BoolField',
                        group='bool',
                        )
+        if BoolField.debug:
+            if default is not None and not isinstance(default, bool):
+                raise AssertionError(
+                    'Parameter `default` - Not а `bool` type!')
+
         self.__input_type = 'checkbox'
         self.__value: bool | None = None
         self.__default = default
