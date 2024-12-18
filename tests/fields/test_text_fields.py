@@ -251,6 +251,12 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            ColorField(default=12)
+        with self.assertRaises(AssertionError):
+            ColorField(default='color')
+        ColorField(default='#000')
 
 
 if __name__ == '__main__':
