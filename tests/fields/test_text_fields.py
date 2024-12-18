@@ -34,6 +34,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 256)
         self.assertEqual(f.regex, "")
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            TextField(default=12)
 
     def test_url_field(self):
         """Testing `URLField`."""
