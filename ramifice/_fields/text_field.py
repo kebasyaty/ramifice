@@ -48,7 +48,7 @@ class TextField(Field, TextGroup):
         if TextField.debug:
             if default is not None and not isinstance(default, str):
                 raise AssertionError(
-                    'Parameter `default` - Not а string type!')
+                    'Parameter `default` - Not а `str` type!')
 
         self.__default = default
         self.__textarea = textarea

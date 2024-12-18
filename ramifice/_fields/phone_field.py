@@ -1,6 +1,7 @@
 """Field of Model for enter phone number."""
 
 from typing import Any
+import phonenumbers
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -44,6 +45,17 @@ class PhoneField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if PhoneField.debug:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                #
+                phone_default = phonenumbers.parse(default)
+                if phonenumbers.is_valid_number(phone_default):
+                    raise AssertionError(
+                        'Parameter `default` - Invalid Phone number!')
+
         self.__default = default
         self.__regex = regex
 
