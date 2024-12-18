@@ -1,6 +1,7 @@
 """Field of Model for enter email address."""
 
 from typing import Any
+from email_validator import validate_email, EmailNotValidError
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -41,6 +42,17 @@ class EmailField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if EmailField.debug:
+            if default is not None and default != '':
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                try:
+                    validate_email(default, check_deliverability=False)
+                except EmailNotValidError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid Email address!')  # pylint: disable=raise-missing-from
+
         self.__default = default
 
     @property

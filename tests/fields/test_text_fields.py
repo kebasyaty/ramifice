@@ -66,10 +66,10 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.maxlength, 2083)
         # Additional check:
         with self.assertRaises(AssertionError):
-            URLField(default="http://???")
+            URLField(default='http://???')
         with self.assertRaises(AssertionError):
             URLField(maxlength='2083')
-        URLField(default="https://www.google.com")
+        URLField(default='https://www.google.com')
         URLField(maxlength=65536)
 
     def test_slug_field(self):
@@ -223,6 +223,10 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            EmailField(default='x@x.x')
+        EmailField(default='x@x.xx')
 
     def test_color_field(self):
         """Testing `ColorField`."""
