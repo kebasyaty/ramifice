@@ -55,7 +55,7 @@ class HashField(Field, TextGroup):
         return self.__maxlength
 
     def object_id(self) -> ObjectId | None:
-        """Get ObjectId from value."""
+        """Get ObjectId from parameter `value`."""
         _hash = self.value
         _id = ObjectId(_hash) if _hash is not None else None
         return _id
