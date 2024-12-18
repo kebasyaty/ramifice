@@ -8,7 +8,7 @@ from .general.text_group import TextGroup
 
 class PhoneField(Field, TextGroup):
     """Field of Model for enter phone number.
-    WARNING: By default is used validator `Valid.phone_number?`.
+    WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
 
     debug: bool = True
