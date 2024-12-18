@@ -49,6 +49,9 @@ class TextField(Field, TextGroup):
             if default is not None and not isinstance(default, str):
                 raise AssertionError(
                     'Parameter `default` - Not а `str` type!')
+            if not isinstance(maxlength, int):
+                raise AssertionError(
+                    'Parameter `maxlength` - Not а `int` type!')
 
         self.__default = default
         self.__textarea = textarea

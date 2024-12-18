@@ -50,6 +50,9 @@ class URLField(Field, TextGroup):
                            )
         if URLField.debug:
             if default is not None and default != '':
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
                     raise AssertionError(

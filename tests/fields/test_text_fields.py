@@ -37,6 +37,10 @@ class TestTextFields(unittest.TestCase):
         # Additional check:
         with self.assertRaises(AssertionError):
             TextField(default=12)
+        with self.assertRaises(AssertionError):
+            TextField(maxlength='256')
+        TextField(default='Hello!')
+        TextField(maxlength=512)
 
     def test_url_field(self):
         """Testing `URLField`."""
