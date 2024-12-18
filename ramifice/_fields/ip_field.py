@@ -8,6 +8,9 @@ from .general.text_group import TextGroup
 class IPField(Field, TextGroup):
     """Field of Model for enter IP addresses."""
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

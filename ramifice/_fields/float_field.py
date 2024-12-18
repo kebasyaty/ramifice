@@ -8,6 +8,9 @@ from .general.number_group import NumberGroup
 class FloatField(Field, NumberGroup):
     """Field of Model for enter (float) number."""
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

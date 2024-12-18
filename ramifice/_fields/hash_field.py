@@ -9,6 +9,9 @@ from .general.field import Field
 class HashField(Field, TextGroup):
     """Field of Model for enter identifier of document."""
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

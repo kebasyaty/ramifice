@@ -8,12 +8,10 @@ from .general.text_group import TextGroup
 class PhoneField(Field, TextGroup):
     """Field of Model for enter phone number.
     WARNING: By default is used validator `Valid.phone_number?`.
-    Examples:
-    4812504203260 | +4812504203260 |
-    +48 504 203 260 | +48 (12) 504-203-260 |
-    +48 (12) 504 203 260 | +48.504.203.260 |
-    +48-504-203-260 | 555.5555.555
     """
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

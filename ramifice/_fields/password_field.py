@@ -12,6 +12,9 @@ class PasswordField(Field):
     Number of characters by default: from 8 to 256.
     """
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  hide: bool = False,

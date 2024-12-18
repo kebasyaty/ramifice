@@ -13,6 +13,9 @@ class DateTimeField(Field, DateGroup):
              yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
     """
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

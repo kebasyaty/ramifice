@@ -8,6 +8,9 @@ from .general.text_group import TextGroup
 class EmailField(Field, TextGroup):
     """Field of Model for enter email address."""
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

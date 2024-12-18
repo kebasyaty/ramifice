@@ -10,6 +10,9 @@ class SlugField(Field, TextGroup):
     Convenient to use for Url addresses.
     """
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

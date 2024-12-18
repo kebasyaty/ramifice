@@ -13,6 +13,9 @@ class ColorField(Field, TextGroup):
               hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,

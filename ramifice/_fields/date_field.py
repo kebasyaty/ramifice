@@ -11,6 +11,9 @@ class DateField(Field, DateGroup):
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
     """
 
+    debug: bool = True
+    meta: dict[str, Any] = {}
+
     def __init__(self,
                  label: str = "",
                  disabled: bool = False,
