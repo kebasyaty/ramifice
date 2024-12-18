@@ -57,6 +57,9 @@ class URLField(Field, TextGroup):
                 if not result.scheme or not result.netloc:
                     raise AssertionError(
                         'Parameter `default` - Invalid URL address!')
+            if not isinstance(maxlength, int):
+                raise AssertionError(
+                    'Parameter `maxlength` - Not а `int` type!')
 
         self.__default = default
         self.__maxlength = maxlength
