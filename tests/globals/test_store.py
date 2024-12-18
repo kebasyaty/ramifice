@@ -30,7 +30,6 @@ class TestGlobalStore(unittest.TestCase):
             'datetime_parse_reverse': re.compile(r'^(?P<y>[0-9]{4})[-\/\.](?P<m>[0-9]{2})[-\/\.](?P<d>[0-9]{2})(?:T|\s)(?P<t>[0-9]{2}:[0-9]{2}:[0-9]{2})'),
             'color_code': re.compile(r'^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$', re.I),
             'password': re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
-            'phone_number': re.compile(r'^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$'),
         }
         self.assertEqual(REGEX, regex)
 
@@ -285,34 +284,6 @@ class TestGlobalStore(unittest.TestCase):
         self.assertIsNotNone(p.match('9M,4%6]3ht7r{l59'))
         self.assertIsNotNone(p.match('2XT~m:L!Hz_723J('))
         self.assertIsNotNone(p.match("d6'P30}e'#f^g3t5"))
-
-    def test_regex_phone_number(self):
-        """Testing a regular expression for `phone_number`."""
-        p = REGEX['phone_number']
-        # Negative:
-        self.assertIsNone(p.match(""))
-        self.assertIsNone(p.match(" "))
-        self.assertIsNone(p.match('+48 504 203 260@@'))
-        self.assertIsNone(p.match('+55(123) 456-78-90-'))
-        self.assertIsNone(p.match('+55(123) - 456-78-90'))
-        self.assertIsNone(p.match('-'))
-        self.assertIsNone(p.match('()'))
-        self.assertIsNone(p.match('(21 7777'))
-        self.assertIsNone(p.match('+48 (21)'))
-        self.assertIsNone(p.match('+'))
-        self.assertIsNone(p.match('1'))
-        self.assertIsNone(p.match(' 1'))
-        # Positive:
-        self.assertIsNotNone(p.match('555-5555-555'))
-        self.assertIsNotNone(p.match('+48 504 203 260'))
-        self.assertIsNotNone(p.match('+48 (12) 504 203 260'))
-        self.assertIsNotNone(p.match('+48 (12) 504-203-260'))
-        self.assertIsNotNone(p.match('+4812504203260'))
-        self.assertIsNotNone(p.match('4812504203260'))
-        self.assertIsNotNone(p.match('+48 (12) 504.203.260'))
-        self.assertIsNotNone(p.match('555.5555.555'))
-        self.assertIsNotNone(p.match('+48.504.203.260'))
-        self.assertIsNotNone(p.match('+48-504-203-260'))
 
 
 if __name__ == '__main__':
