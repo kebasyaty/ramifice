@@ -225,8 +225,10 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         # Additional check:
         with self.assertRaises(AssertionError):
-            EmailField(default='x@x.x')
-        EmailField(default='x@x.xx')
+            EmailField(default=12)
+        with self.assertRaises(AssertionError):
+            EmailField(default='my+address@example.net')
+        EmailField(default='kebasyaty@gmail.com')
 
     def test_color_field(self):
         """Testing `ColorField`."""

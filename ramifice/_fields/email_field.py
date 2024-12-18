@@ -48,7 +48,7 @@ class EmailField(Field, TextGroup):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
                 try:
-                    validate_email(default, check_deliverability=False)
+                    validate_email(default, check_deliverability=True)
                 except EmailNotValidError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         'Parameter `default` - Invalid Email address!')  # pylint: disable=raise-missing-from
