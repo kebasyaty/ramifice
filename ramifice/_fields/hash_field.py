@@ -23,7 +23,6 @@ class HashField(Field, TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
-                 maxlength: int = 24,
                  ):
         Field.__init__(self,
                        label=label,
@@ -42,17 +41,6 @@ class HashField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if HashField.debug:
-            if not isinstance(maxlength, int):
-                raise AssertionError(
-                    'Parameter `maxlength` - Not а `int` type!')
-
-        self.__maxlength = maxlength
-
-    @property
-    def maxlength(self) -> int:
-        """Maximum allowed number of characters."""
-        return self.__maxlength
 
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""
