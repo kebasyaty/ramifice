@@ -52,16 +52,16 @@ class IntegerField(Field, NumberGroup):
                 )
             if default is not None and not isinstance(default, int):
                 raise AssertionError(
-                    'Parameter `default` - Not а number integer type!')
+                    'Parameter `default` - Not а number `int` type!')
             if max_number is not None and not isinstance(max_number, int):
                 raise AssertionError(
-                    'Parameter `max_number` - Not а number integer type!')
+                    'Parameter `max_number` - Not а number `int` type!')
             if min_number is not None and not isinstance(min_number, int):
                 raise AssertionError(
-                    'Parameter `min_number` - Not а number integer type!')
+                    'Parameter `min_number` - Not а number `int` type!')
             if not isinstance(step, int):
                 raise AssertionError(
-                    'Parameter `step` - Not а number integer type!')
+                    'Parameter `step` - Not а number `int` type!')
             if max_number is not None and min_number is not None and max_number <= min_number:
                 raise AssertionError(
                     'The `max_number` parameter should be more than the `min_number`!')

@@ -51,11 +51,16 @@ class TestNumberFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             IntegerField(min_number=12.0)
         with self.assertRaises(AssertionError):
-            IntegerField(step=12.0)
+            IntegerField(step=2.0)
         with self.assertRaises(AssertionError):
             IntegerField(max_number=12, min_number=12)
         with self.assertRaises(AssertionError):
             IntegerField(max_number=12, min_number=13)
+        IntegerField(default=12)
+        IntegerField(max_number=12)
+        IntegerField(min_number=12)
+        IntegerField(step=2)
+        IntegerField(max_number=13, min_number=12)
 
     def test_float_field(self):
         """Testing `FloatField`."""
