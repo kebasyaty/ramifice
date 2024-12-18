@@ -4,3 +4,5 @@
 - [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
 - [pymongo](https://pypi.org/project/pymongo/ "pymongo")
 - [pillow](https://pypi.org/project/pillow/ "pillow")
+- [phonenumbers](https://pypi.org/project/phonenumbers/ "phonenumbers")
+- [email-validator](https://pypi.org/project/email-validator/ "email-validator")
