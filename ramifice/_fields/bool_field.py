@@ -1,10 +1,14 @@
 """Field of Model for enter logical value."""
 
+from typing import Any
 from .general.field import Field
 
 
 class BoolField(Field):
     """Field of Model for enter logical value."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

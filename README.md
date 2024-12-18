@@ -62,6 +62,9 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 2. Run
 
    ```shell
+   pip install ramifice
+   
+   # or
    # https://python-poetry.org/
    poetry new project_name
    cd project_name

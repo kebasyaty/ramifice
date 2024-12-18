@@ -1,18 +1,18 @@
 """Field of Model for enter phone number."""
 
+from typing import Any
+import phonenumbers
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
 class PhoneField(Field, TextGroup):
     """Field of Model for enter phone number.
-    WARNING: By default is used validator `Valid.phone_number?`.
-    Examples:
-    4812504203260 | +4812504203260 |
-    +48 504 203 260 | +48 (12) 504-203-260 |
-    +48 (12) 504 203 260 | +48.504.203.260 |
-    +48-504-203-260 | 555.5555.555
+    WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -45,6 +45,19 @@ class PhoneField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if PhoneField.debug:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                try:
+                    phone_default = phonenumbers.parse(default)
+                    if not phonenumbers.is_valid_number(phone_default):
+                        raise AssertionError()
+                except:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid Phone number!')  # pylint: disable=raise-missing-from
+
         self.__default = default
         self.__regex = regex
 

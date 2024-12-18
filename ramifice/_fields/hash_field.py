@@ -1,5 +1,6 @@
 """Field of Model for enter identifier of document."""
 
+from typing import Any
 from bson.objectid import ObjectId
 from .general.text_group import TextGroup
 from .general.field import Field
@@ -7,6 +8,9 @@ from .general.field import Field
 
 class HashField(Field, TextGroup):
     """Field of Model for enter identifier of document."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -38,6 +42,11 @@ class HashField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if HashField.debug:
+            if not isinstance(maxlength, int):
+                raise AssertionError(
+                    'Parameter `maxlength` - Not а `int` type!')
+
         self.__maxlength = maxlength
 
     @property

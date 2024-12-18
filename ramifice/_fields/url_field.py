@@ -1,5 +1,6 @@
 """Field of Model for enter URL addresses."""
 
+from typing import Any
 from urllib.parse import urlparse
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -7,6 +8,9 @@ from .general.text_group import TextGroup
 
 class URLField(Field, TextGroup):
     """Field of Model for enter URL addresses."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -44,12 +48,18 @@ class URLField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if __debug__:
+        if URLField.debug:
             if default is not None and default != '':
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
                     raise AssertionError(
                         'Parameter `default` - Invalid URL address!')
+            if not isinstance(maxlength, int):
+                raise AssertionError(
+                    'Parameter `maxlength` - Not а `int` type!')
 
         self.__default = default
         self.__maxlength = maxlength

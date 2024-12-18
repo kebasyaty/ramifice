@@ -1,5 +1,6 @@
 """Field of Model for enter date."""
 
+from typing import Any
 from .general.field import Field
 from .general.date_group import DateGroup
 
@@ -9,6 +10,9 @@ class DateField(Field, DateGroup):
     Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
     """
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

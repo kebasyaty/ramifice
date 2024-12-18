@@ -1,11 +1,15 @@
 """Field of Model for enter (float) number."""
 
+from typing import Any
 from .general.field import Field
 from .general.number_group import NumberGroup
 
 
 class FloatField(Field, NumberGroup):
     """Field of Model for enter (float) number."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -21,7 +25,7 @@ class FloatField(Field, NumberGroup):
                  unique: bool = False,
                  max_number: int | None = None,
                  min_number: int | None = None,
-                 step: float = float(1),
+                 step: float = 1.0,
                  input_type: str = 'number',  # number | range
                  ):
         Field.__init__(self,
@@ -48,16 +52,16 @@ class FloatField(Field, NumberGroup):
                 )
             if default is not None and not isinstance(default, float):
                 raise AssertionError(
-                    'Parameter `default` - Not а number float type!')
+                    'Parameter `default` - Not а number `float` type!')
             if max_number is not None and not isinstance(max_number, float):
                 raise AssertionError(
-                    'Parameter `max_number` - Not а number float type!')
+                    'Parameter `max_number` - Not а number `float` type!')
             if min_number is not None and not isinstance(min_number, float):
                 raise AssertionError(
-                    'Parameter `min_number` - Not а number float type!')
+                    'Parameter `min_number` - Not а number `float` type!')
             if not isinstance(step, float):
                 raise AssertionError(
-                    'Parameter `step` - Not а number float type!')
+                    'Parameter `step` - Not а number `float` type!')
             if max_number is not None and min_number is not None and max_number <= min_number:
                 raise AssertionError(
                     'The `max_number` parameter should be more than the `min_number`!')

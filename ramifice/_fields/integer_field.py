@@ -1,11 +1,15 @@
 """Field of Model for enter (int) number."""
 
+from typing import Any
 from .general.field import Field
 from .general.number_group import NumberGroup
 
 
 class IntegerField(Field, NumberGroup):
     """Field of Model for enter (int) number."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -21,7 +25,7 @@ class IntegerField(Field, NumberGroup):
                  unique: bool = False,
                  max_number: int | None = None,
                  min_number: int | None = None,
-                 step: int = int(1),
+                 step: int = 1,
                  input_type: str = 'number',  # number | range
                  ):
         Field.__init__(self,
@@ -48,16 +52,16 @@ class IntegerField(Field, NumberGroup):
                 )
             if default is not None and not isinstance(default, int):
                 raise AssertionError(
-                    'Parameter `default` - Not а number integer type!')
+                    'Parameter `default` - Not а number `int` type!')
             if max_number is not None and not isinstance(max_number, int):
                 raise AssertionError(
-                    'Parameter `max_number` - Not а number integer type!')
+                    'Parameter `max_number` - Not а number `int` type!')
             if min_number is not None and not isinstance(min_number, int):
                 raise AssertionError(
-                    'Parameter `min_number` - Not а number integer type!')
+                    'Parameter `min_number` - Not а number `int` type!')
             if not isinstance(step, int):
                 raise AssertionError(
-                    'Parameter `step` - Not а number integer type!')
+                    'Parameter `step` - Not а number `int` type!')
             if max_number is not None and min_number is not None and max_number <= min_number:
                 raise AssertionError(
                     'The `max_number` parameter should be more than the `min_number`!')

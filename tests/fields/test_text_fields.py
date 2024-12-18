@@ -34,6 +34,13 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 256)
         self.assertEqual(f.regex, "")
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            TextField(default=12)
+        with self.assertRaises(AssertionError):
+            TextField(maxlength='256')
+        TextField(default='Hello!')
+        TextField(maxlength=512)
 
     def test_url_field(self):
         """Testing `URLField`."""
@@ -59,7 +66,11 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.maxlength, 2083)
         # Additional check:
         with self.assertRaises(AssertionError):
-            URLField(default="http//???")
+            URLField(default='http://???')
+        with self.assertRaises(AssertionError):
+            URLField(maxlength='2083')
+        URLField(default='https://www.google.com')
+        URLField(maxlength=65536)
 
     def test_slug_field(self):
         """Testing `SlugField`."""
@@ -105,6 +116,14 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.regex, "")
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            PhoneField(default=12)
+        with self.assertRaises(AssertionError):
+            PhoneField(default='Алло!')
+        with self.assertRaises(AssertionError):
+            PhoneField(default='+4002123456')
+        PhoneField(default='+447986123456')
 
     def test_password_field(self):
         """Testing `PasswordField`."""
@@ -147,6 +166,14 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            IPField(default=12)
+        with self.assertRaises(AssertionError):
+            IPField(default='some address')
+        with self.assertRaises(AssertionError):
+            IPField(default='127.0.')
+        IPField(default='127.0.0.1')
 
     def test_hash_field(self):
         """Testing `HashField`."""
@@ -169,6 +196,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 24)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            HashField(maxlength='24')
         # Methods:
         self.assertIsNone(f.object_id())
 
@@ -193,6 +223,12 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            EmailField(default=12)
+        with self.assertRaises(AssertionError):
+            EmailField(default='my+address@example.net')
+        EmailField(default='kebasyaty@gmail.com')
 
     def test_color_field(self):
         """Testing `ColorField`."""

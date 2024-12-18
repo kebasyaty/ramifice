@@ -1,5 +1,6 @@
 """Field of Model for enter date and time."""
 
+from typing import Any
 from .general.field import Field
 from .general.date_group import DateGroup
 
@@ -11,6 +12,9 @@ class DateTimeField(Field, DateGroup):
              yyyy-mm-dd hh:mm:ss | yyyy/mm/dd hh:mm:ss | yyyy.mm.dd hh:mm:ss |
              yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
     """
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
