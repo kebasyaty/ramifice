@@ -63,14 +63,10 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertEqual(f.maxlength, 2083)
         # Additional check:
         with self.assertRaises(AssertionError):
             URLField(default='http://???')
-        with self.assertRaises(AssertionError):
-            URLField(maxlength='2083')
         URLField(default='https://www.google.com')
-        URLField(maxlength=65536)
 
     def test_slug_field(self):
         """Testing `SlugField`."""

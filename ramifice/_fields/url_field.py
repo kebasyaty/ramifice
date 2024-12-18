@@ -7,7 +7,21 @@ from .general.text_group import TextGroup
 
 
 class URLField(Field, TextGroup):
-    """Field of Model for enter URL addresses."""
+    """Field of Model for enter URL addresses.
+
+    Attributes:
+    label -- Text label for a web form field.
+    disabled -- Blocks access and modification of the element.
+    hide -- Hide field from user.
+    ignored -- If true, the value of this field is not saved in the database.
+    hint -- An alternative for the `placeholder` parameter.
+    warning -- Warning information.
+    default -- Value by default.
+    placeholder -- Displays prompt text.
+    required -- Required field.
+    readonly -- Specifies that the field cannot be modified by the user.
+    unique -- The unique value of a field in a collection.
+    """
 
     debug: bool = True
     meta: dict[str, Any] = {}
@@ -24,12 +38,6 @@ class URLField(Field, TextGroup):
                  required: bool = False,
                  readonly: bool = False,
                  unique: bool = False,
-                 # Google Chrome: 2083
-                 # Edge: 2083
-                 # Internet Explorer: 2083
-                 # Safari: 80 000
-                 # Firefox: 65 536
-                 maxlength: int = 2083,
                  ):
         Field.__init__(self,
                        label=label,
@@ -57,19 +65,10 @@ class URLField(Field, TextGroup):
                 if not result.scheme or not result.netloc:
                     raise AssertionError(
                         'Parameter `default` - Invalid URL address!')
-            if not isinstance(maxlength, int):
-                raise AssertionError(
-                    'Parameter `maxlength` - Not а `int` type!')
 
         self.__default = default
-        self.__maxlength = maxlength
 
     @property
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
-
-    @property
-    def maxlength(self) -> int:
-        """Maximum allowed number of characters."""
-        return self.__maxlength
