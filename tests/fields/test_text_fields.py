@@ -108,6 +108,14 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.regex, "")
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            PhoneField(default=12)
+        with self.assertRaises(AssertionError):
+            PhoneField(default='Алло!')
+        with self.assertRaises(AssertionError):
+            PhoneField(default='+4002123456')
+        PhoneField(default='+447986123456')
 
     def test_password_field(self):
         """Testing `PasswordField`."""
