@@ -53,8 +53,7 @@ class PhoneField(Field, TextGroup):
                 try:
                     phone_default = phonenumbers.parse(default)
                     if not phonenumbers.is_valid_number(phone_default):
-                        raise AssertionError(
-                            'Parameter `default` - Invalid Phone number!')
+                        raise AssertionError()
                 except:
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         'Parameter `default` - Invalid Phone number!')  # pylint: disable=raise-missing-from
