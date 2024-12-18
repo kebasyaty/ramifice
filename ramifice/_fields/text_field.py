@@ -45,6 +45,11 @@ class TextField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if TextField.debug:
+            if default is not None and not isinstance(default, str):
+                raise AssertionError(
+                    'Parameter `default` - Not а string type!')
+
         self.__default = default
         self.__textarea = textarea
         self.__use_editor = use_editor
