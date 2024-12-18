@@ -42,6 +42,11 @@ class HashField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
+        if HashField.debug:
+            if not isinstance(maxlength, int):
+                raise AssertionError(
+                    'Parameter `maxlength` - Not а `int` type!')
+
         self.__maxlength = maxlength
 
     @property

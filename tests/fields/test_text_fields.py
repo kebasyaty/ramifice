@@ -188,6 +188,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 24)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            HashField(maxlength='24')
         # Methods:
         self.assertIsNone(f.object_id())
 
