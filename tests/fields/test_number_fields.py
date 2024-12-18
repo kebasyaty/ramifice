@@ -106,11 +106,16 @@ class TestNumberFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             FloatField(min_number=12)
         with self.assertRaises(AssertionError):
-            FloatField(step=12)
+            FloatField(step=2)
         with self.assertRaises(AssertionError):
             FloatField(max_number=12.0, min_number=12.0)
         with self.assertRaises(AssertionError):
             FloatField(max_number=12.0, min_number=13.0)
+        FloatField(default=12.0)
+        FloatField(max_number=12.0)
+        FloatField(min_number=12.0)
+        FloatField(step=2.0)
+        FloatField(max_number=13.0, min_number=12.0)
 
 
 if __name__ == '__main__':

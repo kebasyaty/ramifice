@@ -25,7 +25,7 @@ class IntegerField(Field, NumberGroup):
                  unique: bool = False,
                  max_number: int | None = None,
                  min_number: int | None = None,
-                 step: int = int(1),
+                 step: int = 1,
                  input_type: str = 'number',  # number | range
                  ):
         Field.__init__(self,
