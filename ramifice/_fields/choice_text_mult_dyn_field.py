@@ -2,6 +2,7 @@
 Type of selective text field with dynamic addition of elements.
 """
 
+from typing import Any
 from .general.field import Field
 from .general.choice_group import ChoiceGroup
 

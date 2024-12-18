@@ -1,5 +1,6 @@
 """Field of Model for enter URL addresses."""
 
+from typing import Any
 from urllib.parse import urlparse
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -7,6 +8,9 @@ from .general.text_group import TextGroup
 
 class URLField(Field, TextGroup):
     """Field of Model for enter URL addresses."""
+
+    debug: bool = True
+    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -44,7 +48,7 @@ class URLField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if __debug__:
+        if URLField.debug:
             if default is not None and default != '':
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:

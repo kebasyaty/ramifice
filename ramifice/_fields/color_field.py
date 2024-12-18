@@ -1,5 +1,6 @@
 """Field of Model for enter color code."""
 
+from typing import Any
 from .general.field import Field
 from .general.text_group import TextGroup
 
