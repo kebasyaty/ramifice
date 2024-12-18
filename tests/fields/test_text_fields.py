@@ -158,6 +158,14 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            IPField(default=12)
+        with self.assertRaises(AssertionError):
+            IPField(default='some address')
+        with self.assertRaises(AssertionError):
+            IPField(default='127.0.')
+        IPField(default='127.0.0.1')
 
     def test_hash_field(self):
         """Testing `HashField`."""

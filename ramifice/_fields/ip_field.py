@@ -51,7 +51,7 @@ class IPField(Field, TextGroup):
                     ipaddress.ip_address(default)
                 except ValueError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
-                        'Parameter `default` - Invalid Phone number!')  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid IP address!')  # pylint: disable=raise-missing-from
 
         self.__default = default
 
