@@ -44,7 +44,7 @@ class FloatField(Field, NumberGroup):
                              readonly=readonly,
                              unique=unique,
                              )
-        if __debug__:
+        if FloatField.debug:
             if input_type not in ['number', 'range']:
                 raise AssertionError(
                     'Parameter `input_type` - Invalid input type! ' +
