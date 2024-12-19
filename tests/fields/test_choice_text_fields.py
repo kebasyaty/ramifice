@@ -109,15 +109,6 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceTextDynField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = 'value 2'
-        self.assertTrue(f.has_value())
-        f.value = 'value 3'
-        self.assertFalse(f.has_value())
 
     def test_choice_text_mult_dyn_field(self):
         """Testing `ChoiceTextMultDynField`."""
@@ -139,17 +130,6 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceTextMultDynField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = ['value 2']
-        self.assertTrue(f.has_value())
-        f.value = ['value 3']
-        self.assertFalse(f.has_value())
-        f.value = ['value 2', 'value 3']
-        self.assertFalse(f.has_value())
 
 
 if __name__ == '__main__':

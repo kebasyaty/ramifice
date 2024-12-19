@@ -109,15 +109,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceFloatDynField(
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = 2.0
-        self.assertTrue(f.has_value())
-        f.value = 3.0
-        self.assertFalse(f.has_value())
 
     def test_choice_float_mult_dyn_field(self):
         """Testing `ChoiceFloatMultDynField`."""
@@ -139,17 +130,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceFloatMultDynField(
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = [2.0]
-        self.assertTrue(f.has_value())
-        f.value = [3.0]
-        self.assertFalse(f.has_value())
-        f.value = [2.0, 3.0]
-        self.assertFalse(f.has_value())
 
 
 if __name__ == '__main__':

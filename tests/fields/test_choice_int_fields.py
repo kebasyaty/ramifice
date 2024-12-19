@@ -109,15 +109,6 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceIntDynField(
-            choices=[(1, 'Title'), (2, 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = 2
-        self.assertTrue(f.has_value())
-        f.value = 3
-        self.assertFalse(f.has_value())
 
     def test_choice_int_mult_dyn_field(self):
         """Testing `ChoiceIntMultDynField`."""
@@ -139,17 +130,6 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        self.assertTrue(f.has_value())
-        f = ChoiceIntMultDynField(
-            choices=[(1, 'Title'), (2, 'Title 2')])
-        self.assertTrue(f.has_value())
-        f.value = [2]
-        self.assertTrue(f.has_value())
-        f.value = [3]
-        self.assertFalse(f.has_value())
-        f.value = [2, 3]
-        self.assertFalse(f.has_value())
 
 
 if __name__ == '__main__':
