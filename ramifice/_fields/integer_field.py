@@ -69,7 +69,7 @@ class IntegerField(Field, NumberGroup):
                 if max_number is not None and default > max_number:
                     raise AssertionError(
                         'Parameter `default` is more `max_number`!')
-                if max_number is not None and default < min_number:
+                if max_number is not None and default < min_number:  # type: ignore
                     raise AssertionError(
                         'Parameter `default` is less `min_number`!')
 
