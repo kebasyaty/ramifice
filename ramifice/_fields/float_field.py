@@ -44,15 +44,12 @@ class FloatField(Field, NumberGroup):
                              readonly=readonly,
                              unique=unique,
                              )
-        if __debug__:
+        if FloatField.debug:
             if input_type not in ['number', 'range']:
                 raise AssertionError(
                     'Parameter `input_type` - Invalid input type! ' +
                     'The permissible value of `number` or `range`.'
                 )
-            if default is not None and not isinstance(default, float):
-                raise AssertionError(
-                    'Parameter `default` - Not а number `float` type!')
             if max_number is not None and not isinstance(max_number, float):
                 raise AssertionError(
                     'Parameter `max_number` - Not а number `float` type!')
@@ -65,6 +62,16 @@ class FloatField(Field, NumberGroup):
             if max_number is not None and min_number is not None and max_number <= min_number:
                 raise AssertionError(
                     'The `max_number` parameter should be more than the `min_number`!')
+            if default is not None:
+                if not isinstance(default, float):
+                    raise AssertionError(
+                        'Parameter `default` - Not а number `float` type!')
+                if max_number is not None and default > max_number:
+                    raise AssertionError(
+                        'Parameter `default` is more `max_number`!')
+                if max_number is not None and default < min_number:  # type: ignore
+                    raise AssertionError(
+                        'Parameter `default` is less `min_number`!')
 
         self.__input_type: str = input_type
         self.__value: float | None = None

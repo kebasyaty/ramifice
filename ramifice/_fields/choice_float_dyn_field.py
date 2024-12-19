@@ -27,7 +27,6 @@ class ChoiceFloatDynField(Field, ChoiceGroup):
                  warning: list[str] | None = None,
                  required: bool = False,
                  readonly: bool = False,
-                 choices: list[tuple[float, str]] | None = None
                  ):
         Field.__init__(self,
                        label=label,
@@ -44,7 +43,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup):
                              readonly=readonly,
                              )
         self.__value: float | None = None
-        self.__choices = choices
+        self.__choices: list[tuple[float, str]] | None = None
 
     @property
     def value(self) -> float | None:
@@ -70,7 +69,8 @@ class ChoiceFloatDynField(Field, ChoiceGroup):
         value = self.__value
         choices = self.__choices
         if value is not None and choices is not None:
-            value_list = [item[0] for item in choices]
+            value_list = [item[0]
+                          for item in choices]  # pylint: disable=not-an-iterable
             if value not in value_list:
                 flag = False
         return flag

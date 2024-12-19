@@ -56,11 +56,16 @@ class TestNumberFields(unittest.TestCase):
             IntegerField(max_number=12, min_number=12)
         with self.assertRaises(AssertionError):
             IntegerField(max_number=12, min_number=13)
+        with self.assertRaises(AssertionError):
+            IntegerField(default=11, max_number=13, min_number=12)
+        with self.assertRaises(AssertionError):
+            IntegerField(default=14, max_number=13, min_number=12)
         IntegerField(default=12)
         IntegerField(max_number=12)
         IntegerField(min_number=12)
         IntegerField(step=2)
-        IntegerField(max_number=13, min_number=12)
+        IntegerField(default=12, max_number=13, min_number=12)
+        IntegerField(default=13, max_number=13, min_number=12)
 
     def test_float_field(self):
         """Testing `FloatField`."""
@@ -111,11 +116,17 @@ class TestNumberFields(unittest.TestCase):
             FloatField(max_number=12.0, min_number=12.0)
         with self.assertRaises(AssertionError):
             FloatField(max_number=12.0, min_number=13.0)
+        with self.assertRaises(AssertionError):
+            FloatField(default=14.0, max_number=13.0, min_number=12.0)
+        with self.assertRaises(AssertionError):
+            FloatField(default=11.0, max_number=13.0, min_number=12.0)
         FloatField(default=12.0)
         FloatField(max_number=12.0)
         FloatField(min_number=12.0)
         FloatField(step=2.0)
         FloatField(max_number=13.0, min_number=12.0)
+        FloatField(default=12.0, max_number=13.0, min_number=12.0)
+        FloatField(default=13.0, max_number=13.0, min_number=12.0)
 
 
 if __name__ == '__main__':

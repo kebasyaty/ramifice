@@ -26,7 +26,6 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
                  warning: list[str] | None = None,
                  required: bool = False,
                  readonly: bool = False,
-                 choices: list[tuple[int, str]] | None = None
                  ):
         Field.__init__(self,
                        label=label,
@@ -44,7 +43,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
                              multiple=True,
                              )
         self.__value: list[int] | None = None
-        self.__choices = choices
+        self.__choices: list[tuple[int, str]] | None = None
 
     @property
     def value(self) -> list[int] | None:
@@ -70,7 +69,8 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
         value = self.__value
         choices = self.__choices
         if value is not None and choices is not None:
-            value_list = [item[0] for item in choices]
+            value_list = [item[0]
+                          for item in choices]  # pylint: disable=not-an-iterable
             for item in value:
                 if item not in value_list:
                     flag = False
