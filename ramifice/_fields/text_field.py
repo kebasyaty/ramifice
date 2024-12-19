@@ -46,12 +46,16 @@ class TextField(Field, TextGroup):
                            unique=unique,
                            )
         if TextField.debug:
-            if default is not None and not isinstance(default, str):
-                raise AssertionError(
-                    'Parameter `default` - Not а `str` type!')
             if not isinstance(maxlength, int):
                 raise AssertionError(
                     'Parameter `maxlength` - Not а `int` type!')
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                if len(default) > maxlength:
+                    raise AssertionError(
+                        'Parameter `default` exceeds the size of `maxlength`!')
 
         self.__default = default
         self.__textarea = textarea
