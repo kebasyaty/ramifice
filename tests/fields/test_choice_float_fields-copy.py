@@ -78,6 +78,8 @@ class TestChoiceFloatFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(choices='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(choices=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(default='not list')
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(default=[])

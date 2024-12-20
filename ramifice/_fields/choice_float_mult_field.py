@@ -49,9 +49,13 @@ class ChoiceFloatMultField(Field, ChoiceGroup):
         self.__choices = choices
 
         if ChoiceFloatMultField.debug:
-            if choices is not None and not isinstance(choices, list):
-                raise AssertionError(
-                    'Parameter `choices` - Not а `list` type!')
+            if choices is not None:
+                if not isinstance(choices, list):
+                    raise AssertionError(
+                        'Parameter `choices` - Not а `list` type!')
+                if len(choices) == 0:
+                    raise AssertionError(
+                        'The `choices` parameter should not contain an empty list!')
             if default is not None:
                 if not isinstance(default, list):
                     raise AssertionError(
