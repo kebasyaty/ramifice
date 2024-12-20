@@ -259,6 +259,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             ColorField(default=12)
         with self.assertRaises(AssertionError):
+            ColorField(default="")
+        with self.assertRaises(AssertionError):
             ColorField(default='color')
         ColorField(default='#000')
 
