@@ -40,6 +40,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             TextField(maxlength='256')
         with self.assertRaises(AssertionError):
+            TextField(default="")
+        with self.assertRaises(AssertionError):
             TextField(default='Hello!', maxlength=3)
         TextField(default='Hello!')
         TextField(maxlength=512)

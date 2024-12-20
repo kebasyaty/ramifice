@@ -53,6 +53,9 @@ class TextField(Field, TextGroup):
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 if len(default) > maxlength:
                     raise AssertionError(
                         'Parameter `default` exceeds the size of `maxlength`!')
