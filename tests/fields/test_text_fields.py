@@ -229,6 +229,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             EmailField(default=12)
         with self.assertRaises(AssertionError):
+            EmailField(default="")
+        with self.assertRaises(AssertionError):
             EmailField(default='my+address@example.net')
         EmailField(default='kebasyaty@gmail.com')
 

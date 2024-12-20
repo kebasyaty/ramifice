@@ -43,10 +43,13 @@ class EmailField(Field, TextGroup):
                            unique=unique,
                            )
         if EmailField.debug:
-            if default is not None and default != '':
+            if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 try:
                     validate_email(default, check_deliverability=True)
                 except EmailNotValidError:
