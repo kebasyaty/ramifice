@@ -50,6 +50,13 @@ class DateTimeField(Field, DateGroup):
                            max_date=max_date,
                            min_date=min_date,
                            )
+
+        if DateTimeField.debug:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+
         self.__default = default
 
     @property

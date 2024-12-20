@@ -57,7 +57,7 @@ class URLField(Field, TextGroup):
                            unique=unique,
                            )
         if URLField.debug:
-            if default is not None and default != '':
+            if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')

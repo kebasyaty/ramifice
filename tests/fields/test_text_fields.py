@@ -67,6 +67,8 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         # Additional check:
         with self.assertRaises(AssertionError):
+            URLField(default="")
+        with self.assertRaises(AssertionError):
             URLField(default='http://???')
         URLField(default='https://www.google.com')
 
