@@ -2,6 +2,7 @@
 
 from typing import Any
 from urllib.parse import urlparse
+
 from .general.field import Field
 from .general.text_group import TextGroup
 

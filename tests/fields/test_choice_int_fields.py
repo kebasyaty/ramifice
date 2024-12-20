@@ -1,6 +1,7 @@
 """Testing selective integer fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceIntField, ChoiceIntMultField,
     ChoiceIntDynField, ChoiceIntMultDynField)

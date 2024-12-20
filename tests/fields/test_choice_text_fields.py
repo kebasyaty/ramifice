@@ -1,6 +1,7 @@
 """Testing selective text fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceTextField, ChoiceTextMultField,
     ChoiceTextDynField, ChoiceTextMultDynField)

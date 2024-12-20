@@ -1,6 +1,7 @@
 """Testing selective float fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceFloatField, ChoiceFloatMultField,
     ChoiceFloatDynField, ChoiceFloatMultDynField)

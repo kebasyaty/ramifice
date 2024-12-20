@@ -1,6 +1,7 @@
 """General purpose instrument set."""
 
 from datetime import datetime
+
 from .store import REGEX
 from ..errors import (InvalidDateError, InvalidDateTimeError)
 

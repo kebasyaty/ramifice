@@ -1,6 +1,7 @@
 """Testing text fields."""
 
 import unittest
+
 from ramifice.fields import (
     TextField, URLField, SlugField, PhoneField,
     PasswordField, IPField, HashField, EmailField, ColorField)

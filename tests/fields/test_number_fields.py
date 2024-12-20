@@ -1,6 +1,7 @@
 """Testing number fields."""
 
 import unittest
+
 from ramifice.fields import (IntegerField, FloatField)
 
 

@@ -1,7 +1,9 @@
 """Testing variables in global store."""
 
 import unittest
+
 import re
+
 from ramifice.globals.store import (
     MONGO_CLIENT, MONGO_DATABASE, DATABASE_NAME, SUPER_COLLECTION_NAME, REGEX)
 

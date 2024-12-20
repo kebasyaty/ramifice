@@ -3,6 +3,7 @@ Type of selective text field with static of elements.
 """
 
 from typing import Any
+
 from .general.field import Field
 from .general.choice_group import ChoiceGroup
 

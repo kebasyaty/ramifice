@@ -1,6 +1,7 @@
 """Testing logical (boolean) field."""
 
 import unittest
+
 from ramifice.fields import BoolField
 
 
