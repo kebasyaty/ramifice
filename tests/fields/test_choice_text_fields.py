@@ -78,6 +78,10 @@ class TestChoiceTextFields(unittest.TestCase):
             f = ChoiceTextMultField(
                 default=['value 3'],
                 choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(
+                default=['value 2', 'value 3'],
+                choices=[('value', 'Title'), ('value 2', 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
