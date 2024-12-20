@@ -122,6 +122,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             PhoneField(default=12)
         with self.assertRaises(AssertionError):
+            PhoneField(default="")
+        with self.assertRaises(AssertionError):
             PhoneField(default='Алло!')
         with self.assertRaises(AssertionError):
             PhoneField(default='+4002123456')
