@@ -44,7 +44,6 @@ class ChoiceIntMultField(Field, ChoiceGroup):
                              readonly=readonly,
                              multiple=True,
                              )
-
         self.__value: list[int] | None = None
         self.__default = default
         self.__choices = choices
