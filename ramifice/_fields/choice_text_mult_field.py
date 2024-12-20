@@ -44,6 +44,14 @@ class ChoiceTextMultField(Field, ChoiceGroup):
                              readonly=readonly,
                              multiple=True,
                              )
+        if ChoiceTextMultField.debug:
+            if choices is not None and not isinstance(choices, list):
+                raise AssertionError(
+                    'Parameter `choices` - Not а `list` type!')
+            if default is not None and not isinstance(default, list):
+                raise AssertionError(
+                    'Parameter `default` - Not а `list` type!')
+
         self.__value: list[str] | None = None
         self.__default = default
         self.__choices = choices
