@@ -1,6 +1,7 @@
 """Testing selective float fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceFloatField, ChoiceFloatMultField,
     ChoiceFloatDynField, ChoiceFloatMultDynField)
@@ -78,7 +79,11 @@ class TestChoiceFloatFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(choices='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(choices=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(default='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
                 default=[3.0],

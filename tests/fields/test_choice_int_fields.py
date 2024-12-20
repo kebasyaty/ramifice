@@ -1,6 +1,7 @@
 """Testing selective integer fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceIntField, ChoiceIntMultField,
     ChoiceIntDynField, ChoiceIntMultDynField)
@@ -78,7 +79,11 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(choices='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceIntMultField(choices=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceIntMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(
                 default=[3],

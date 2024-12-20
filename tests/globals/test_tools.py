@@ -1,6 +1,7 @@
 """Testing the global module `Tools`."""
 
 import unittest
+
 from ramifice.globals.tools import (date_parse, datetime_parse)
 from ramifice.errors import (InvalidDateError, InvalidDateTimeError)
 
@@ -36,14 +37,22 @@ class TestGlobalTools(unittest.TestCase):
         self.assertRaises(InvalidDateTimeError, datetime_parse, '2024/1/1')
         self.assertRaises(InvalidDateTimeError, datetime_parse, '1.1.2024')
         self.assertRaises(InvalidDateTimeError, datetime_parse, '1/1/2024')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1/1/2024 09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '2024/1/1 09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1.1.2024 09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1/1/2024 09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1/1/2024T09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '2024/1/1T09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1.1.2024T09:33:15')
-        self.assertRaises(InvalidDateTimeError, datetime_parse, '1/1/2024T09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1/1/2024 09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '2024/1/1 09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1.1.2024 09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1/1/2024 09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1/1/2024T09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '2024/1/1T09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1.1.2024T09:33:15')
+        self.assertRaises(InvalidDateTimeError,
+                          datetime_parse, '1/1/2024T09:33:15')
         # Positive:
         self.assertEqual(datetime_parse(
             '16-12-2024 09:33:15').strftime('%Y-%m-%dT%H:%M:%S'), '2024-12-16T09:33:15')

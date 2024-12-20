@@ -1,6 +1,9 @@
 """Field of Model for enter date."""
 
 from typing import Any
+
+from ..errors import InvalidDateError
+from ..globals.tools import date_parse
 from .general.field import Field
 from .general.date_group import DateGroup
 
@@ -48,6 +51,21 @@ class DateField(Field, DateGroup):
                            max_date=max_date,
                            min_date=min_date,
                            )
+
+        if DateField.debug:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
+                try:
+                    date_parse(default)
+                except InvalidDateError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid date!')  # pylint: disable=raise-missing-from
+
         self.__default = default
 
     @property

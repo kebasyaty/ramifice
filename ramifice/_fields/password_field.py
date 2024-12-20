@@ -1,6 +1,7 @@
 """Field of Model for enter password."""
 
 from typing import Any
+
 from .general.field import Field
 
 

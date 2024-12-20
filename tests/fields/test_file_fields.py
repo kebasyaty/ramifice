@@ -1,6 +1,7 @@
 """Testing file fields."""
 
 import unittest
+
 from ramifice.fields import (FileField, ImageField)
 
 

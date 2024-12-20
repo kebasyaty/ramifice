@@ -2,6 +2,7 @@
 
 from typing import Any
 import ipaddress
+
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -47,6 +48,9 @@ class IPField(Field, TextGroup):
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 try:
                     ipaddress.ip_address(default)
                 except ValueError:

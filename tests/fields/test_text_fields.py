@@ -1,6 +1,7 @@
 """Testing text fields."""
 
 import unittest
+
 from ramifice.fields import (
     TextField, URLField, SlugField, PhoneField,
     PasswordField, IPField, HashField, EmailField, ColorField)
@@ -40,6 +41,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             TextField(maxlength='256')
         with self.assertRaises(AssertionError):
+            TextField(default="")
+        with self.assertRaises(AssertionError):
             TextField(default='Hello!', maxlength=3)
         TextField(default='Hello!')
         TextField(maxlength=512)
@@ -66,6 +69,8 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         # Additional check:
+        with self.assertRaises(AssertionError):
+            URLField(default="")
         with self.assertRaises(AssertionError):
             URLField(default='http://???')
         URLField(default='https://www.google.com')
@@ -118,6 +123,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             PhoneField(default=12)
         with self.assertRaises(AssertionError):
+            PhoneField(default="")
+        with self.assertRaises(AssertionError):
             PhoneField(default='Алло!')
         with self.assertRaises(AssertionError):
             PhoneField(default='+4002123456')
@@ -167,6 +174,8 @@ class TestTextFields(unittest.TestCase):
         # Additional check:
         with self.assertRaises(AssertionError):
             IPField(default=12)
+        with self.assertRaises(AssertionError):
+            IPField(default="")
         with self.assertRaises(AssertionError):
             IPField(default='some address')
         with self.assertRaises(AssertionError):
@@ -221,6 +230,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             EmailField(default=12)
         with self.assertRaises(AssertionError):
+            EmailField(default="")
+        with self.assertRaises(AssertionError):
             EmailField(default='my+address@example.net')
         EmailField(default='kebasyaty@gmail.com')
 
@@ -248,6 +259,8 @@ class TestTextFields(unittest.TestCase):
         # Additional check:
         with self.assertRaises(AssertionError):
             ColorField(default=12)
+        with self.assertRaises(AssertionError):
+            ColorField(default="")
         with self.assertRaises(AssertionError):
             ColorField(default='color')
         ColorField(default='#000')

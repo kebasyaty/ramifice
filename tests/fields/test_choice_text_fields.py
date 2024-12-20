@@ -1,6 +1,7 @@
 """Testing selective text fields."""
 
 import unittest
+
 from ramifice.fields import (
     ChoiceTextField, ChoiceTextMultField,
     ChoiceTextDynField, ChoiceTextMultDynField)
@@ -35,6 +36,8 @@ class TestChoiceTextFields(unittest.TestCase):
             f = ChoiceTextField(choices='not list')
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(default=2)
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextField(default="")
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(
                 default='value 3',
@@ -78,7 +81,11 @@ class TestChoiceTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(choices='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(choices=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(default='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
                 default=['value 3'],

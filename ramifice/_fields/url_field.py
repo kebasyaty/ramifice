@@ -2,6 +2,7 @@
 
 from typing import Any
 from urllib.parse import urlparse
+
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -57,10 +58,13 @@ class URLField(Field, TextGroup):
                            unique=unique,
                            )
         if URLField.debug:
-            if default is not None and default != '':
+            if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
                     raise AssertionError(

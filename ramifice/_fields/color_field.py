@@ -1,6 +1,7 @@
 """Field of Model for enter color code."""
 
 from typing import Any
+
 from ..globals.store import REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -52,6 +53,9 @@ class ColorField(Field, TextGroup):
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 if REGEX['color_code'].match(default) is None:
                     raise AssertionError(
                         'Parameter `default` - Not а color code!')

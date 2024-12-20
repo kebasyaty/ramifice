@@ -2,6 +2,7 @@
 
 from typing import Any
 import phonenumbers
+
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -50,6 +51,9 @@ class PhoneField(Field, TextGroup):
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
                 try:
                     phone_default = phonenumbers.parse(default)
                     if not phonenumbers.is_valid_number(phone_default):

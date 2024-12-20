@@ -1,6 +1,7 @@
 """Field of Model for enter (int) number."""
 
 from typing import Any
+
 from .general.field import Field
 from .general.number_group import NumberGroup
 
