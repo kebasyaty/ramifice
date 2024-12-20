@@ -69,16 +69,25 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(choices='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(default='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(
+                default=[3.0],
+                choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+        with self.assertRaises(AssertionError):
+            f = ChoiceFloatMultField(
+                default=[2.0, 3.0],
+                choices=[(1.0, 'Title'), (2.0, 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(
             default=[2.0],
             choices=[(1.0, 'Title'), (2.0, 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(
-            default=[3.0],
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
-        self.assertFalse(f.has_value())
         f = ChoiceFloatMultField(
             choices=[(1.0, 'Title'), (2.0, 'Title 2')])
         self.assertTrue(f.has_value())
