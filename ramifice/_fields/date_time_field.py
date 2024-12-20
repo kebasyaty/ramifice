@@ -1,6 +1,8 @@
 """Field of Model for enter date and time."""
 
 from typing import Any
+from ..errors import InvalidDateTimeError
+from ..globals.tools import datetime_parse
 from .general.field import Field
 from .general.date_group import DateGroup
 
@@ -56,6 +58,14 @@ class DateTimeField(Field, DateGroup):
                 if not isinstance(default, str):
                     raise AssertionError(
                         'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
+                try:
+                    datetime_parse(default)
+                except InvalidDateTimeError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid date and time!')  # pylint: disable=raise-missing-from
 
         self.__default = default
 
