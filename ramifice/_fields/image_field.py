@@ -45,7 +45,6 @@ class ImageField(Field, FileGroup):
                            target_dir=target_dir,
                            accept=accept,
                            )
-
         self.__value: str | None = None
 
     @property

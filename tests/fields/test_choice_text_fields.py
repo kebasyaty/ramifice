@@ -30,16 +30,21 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextField(choices='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextField(default=2)
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextField(
+                default='value 3',
+                choices=[('value', 'Title'), ('value 2', 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextField(
             default='value 2',
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(
-            default='value 3',
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
-        self.assertFalse(f.has_value())
         f = ChoiceTextField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
@@ -69,16 +74,25 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(choices='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(default='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(
+                default=['value 3'],
+                choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(
+                default=['value 2', 'value 3'],
+                choices=[('value', 'Title'), ('value 2', 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
             default=['value 2'],
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(
-            default=['value 3'],
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
-        self.assertFalse(f.has_value())
         f = ChoiceTextMultField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())

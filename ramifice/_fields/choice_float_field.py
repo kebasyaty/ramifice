@@ -47,6 +47,18 @@ class ChoiceFloatField(Field, ChoiceGroup):
         self.__default = default
         self.__choices = choices
 
+        if ChoiceFloatField.debug:
+            if choices is not None and not isinstance(choices, list):
+                raise AssertionError(
+                    'Parameter `choices` - Not а `list` type!')
+            if default is not None and not isinstance(default, float):
+                raise AssertionError(
+                    'Parameter `default` - Not а `float` type!')
+            if default is not None and choices is not None and not self.has_value():
+                raise AssertionError(
+                    'Parameter `default` does not coincide with ' +
+                    'list of permissive values in `choicees`.')
+
     @property
     def value(self) -> float | None:
         """Sets value of field."""
