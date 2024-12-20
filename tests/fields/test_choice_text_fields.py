@@ -69,16 +69,21 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(choices=12)
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(default=12)
+        with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(
+                default=['value 3'],
+                choices=[('value', 'Title'), ('value 2', 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
             default=['value 2'],
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(
-            default=['value 3'],
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
-        self.assertFalse(f.has_value())
         f = ChoiceTextMultField(
             choices=[('value', 'Title'), ('value 2', 'Title 2')])
         self.assertTrue(f.has_value())
