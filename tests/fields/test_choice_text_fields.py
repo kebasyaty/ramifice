@@ -71,9 +71,9 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceTextMultField(choices=12)
+            f = ChoiceTextMultField(choices='not list')
         with self.assertRaises(AssertionError):
-            f = ChoiceTextMultField(default=12)
+            f = ChoiceTextMultField(default='not list')
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
                 default=['value 3'],
