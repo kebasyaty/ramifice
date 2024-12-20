@@ -36,6 +36,8 @@ class TestChoiceTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(default=2)
         with self.assertRaises(AssertionError):
+            f = ChoiceTextField(default="")
+        with self.assertRaises(AssertionError):
             f = ChoiceTextField(
                 default='value 3',
                 choices=[('value', 'Title'), ('value 2', 'Title 2')])

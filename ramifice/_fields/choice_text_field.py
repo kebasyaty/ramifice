@@ -51,13 +51,17 @@ class ChoiceTextField(Field, ChoiceGroup):
             if choices is not None and not isinstance(choices, list):
                 raise AssertionError(
                     'Parameter `choices` - Not а `list` type!')
-            if default is not None and not isinstance(default, str):
-                raise AssertionError(
-                    'Parameter `default` - Not а `str` type!')
-            if default is not None and choices is not None and not self.has_value():
-                raise AssertionError(
-                    'Parameter `default` does not coincide with ' +
-                    'list of permissive values in `choicees`.')
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError(
+                        'Parameter `default` - Not а `str` type!')
+                if len(default) == 0:
+                    raise AssertionError(
+                        'The `default` parameter should not contain an empty string!')
+                if choices is not None and not self.has_value():
+                    raise AssertionError(
+                        'Parameter `default` does not coincide with ' +
+                        'list of permissive values in `choicees`.')
 
     @property
     def value(self) -> str | None:
