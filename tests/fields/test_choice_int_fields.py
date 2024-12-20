@@ -78,6 +78,8 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(choices='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceIntMultField(choices=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default='not list')
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default=[])
