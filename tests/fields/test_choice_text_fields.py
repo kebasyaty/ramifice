@@ -82,6 +82,8 @@ class TestChoiceTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(default='not list')
         with self.assertRaises(AssertionError):
+            f = ChoiceTextMultField(default=[])
+        with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
                 default=['value 3'],
                 choices=[('value', 'Title'), ('value 2', 'Title 2')])
