@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.fields import (DateField, DateTimeField)
+from ramifice.fields import DateField, DateTimeField
 
 
 class TestDateFields(unittest.TestCase):

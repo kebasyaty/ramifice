@@ -2,9 +2,8 @@
 
 import unittest
 
-from ramifice.fields import (
-    ChoiceIntField, ChoiceIntMultField,
-    ChoiceIntDynField, ChoiceIntMultDynField)
+from ramifice.fields import (ChoiceIntDynField, ChoiceIntField,
+                             ChoiceIntMultDynField, ChoiceIntMultField)
 
 
 class TestChoiceIntegerFields(unittest.TestCase):
