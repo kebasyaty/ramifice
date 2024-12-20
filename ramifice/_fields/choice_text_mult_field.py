@@ -56,6 +56,12 @@ class ChoiceTextMultField(Field, ChoiceGroup):
         self.__default = default
         self.__choices = choices
 
+        if ChoiceTextMultField.debug:
+            if default is not None and choices is not None and not self.has_value():
+                raise AssertionError(
+                    'Parameter `default` does not coincide with ' +
+                    'list of permissive values in `choicees`.')
+
     @property
     def value(self) -> list[str] | None:
         """Sets value of field."""
