@@ -30,16 +30,25 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
+        # Additional check:
+        with self.assertRaises(AssertionError):
+            f = ChoiceIntField(choices='not list')
+        with self.assertRaises(AssertionError):
+            f = ChoiceIntField(default='2')
+        with self.assertRaises(AssertionError):
+            f = ChoiceIntField(
+                default=[3],
+                choices=[(1, 'Title'), (2, 'Title 2')])
+        with self.assertRaises(AssertionError):
+            f = ChoiceIntField(
+                default=[2, 3],
+                choices=[(1, 'Title'), (2, 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
         f = ChoiceIntField(
             default=2,
             choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(
-            default=3,
-            choices=[(1, 'Title'), (2, 'Title 2')])
-        self.assertFalse(f.has_value())
         f = ChoiceIntField(
             choices=[(1, 'Title'), (2, 'Title 2')])
         self.assertTrue(f.has_value())
