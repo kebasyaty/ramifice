@@ -44,7 +44,6 @@ class ChoiceFloatMultField(Field, ChoiceGroup):
                              readonly=readonly,
                              multiple=True,
                              )
-
         self.__value: list[float] | None = None
         self.__default = default
         self.__choices = choices
