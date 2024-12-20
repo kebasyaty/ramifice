@@ -37,11 +37,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
             f = ChoiceIntField(default='2')
         with self.assertRaises(AssertionError):
             f = ChoiceIntField(
-                default=[3],
-                choices=[(1, 'Title'), (2, 'Title 2')])
-        with self.assertRaises(AssertionError):
-            f = ChoiceIntField(
-                default=[2, 3],
+                default=3,
                 choices=[(1, 'Title'), (2, 'Title 2')])
         # Methods:
         self.assertTrue(f.has_value())
