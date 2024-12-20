@@ -4,8 +4,8 @@ from typing import Any
 
 from ..errors import InvalidDateError
 from ..globals.tools import date_parse
-from .general.field import Field
 from .general.date_group import DateGroup
+from .general.field import Field
 
 
 class DateField(Field, DateGroup):

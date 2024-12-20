@@ -1,6 +1,7 @@
 """Global storage for data cache."""
 
 import re
+
 from pymongo import MongoClient
 from pymongo.database import Database
 

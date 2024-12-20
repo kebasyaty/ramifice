@@ -4,8 +4,8 @@ Type of selective integer field with static of elements.
 
 from typing import Any
 
-from .general.field import Field
 from .general.choice_group import ChoiceGroup
+from .general.field import Field
 
 
 class ChoiceIntField(Field, ChoiceGroup):

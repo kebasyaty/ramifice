@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.fields import (FileField, ImageField)
+from ramifice.fields import FileField, ImageField
 
 
 class TestFileFields(unittest.TestCase):

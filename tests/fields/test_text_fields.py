@@ -2,9 +2,9 @@
 
 import unittest
 
-from ramifice.fields import (
-    TextField, URLField, SlugField, PhoneField,
-    PasswordField, IPField, HashField, EmailField, ColorField)
+from ramifice.fields import (ColorField, EmailField, HashField, IPField,
+                             PasswordField, PhoneField, SlugField, TextField,
+                             URLField)
 
 
 class TestTextFields(unittest.TestCase):

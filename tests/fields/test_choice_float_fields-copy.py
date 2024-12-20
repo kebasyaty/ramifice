@@ -2,9 +2,8 @@
 
 import unittest
 
-from ramifice.fields import (
-    ChoiceFloatField, ChoiceFloatMultField,
-    ChoiceFloatDynField, ChoiceFloatMultDynField)
+from ramifice.fields import (ChoiceFloatDynField, ChoiceFloatField,
+                             ChoiceFloatMultDynField, ChoiceFloatMultField)
 
 
 class TestChoiceFloatFields(unittest.TestCase):

@@ -1,7 +1,7 @@
 """Field of Model for enter IP addresses."""
 
-from typing import Any
 import ipaddress
+from typing import Any
 
 from .general.field import Field
 from .general.text_group import TextGroup

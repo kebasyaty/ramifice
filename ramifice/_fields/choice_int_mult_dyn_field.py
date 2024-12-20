@@ -4,8 +4,8 @@ Type of selective integer field with dynamic addition of elements.
 
 from typing import Any
 
-from .general.field import Field
 from .general.choice_group import ChoiceGroup
+from .general.field import Field
 
 
 class ChoiceIntMultDynField(Field, ChoiceGroup):
