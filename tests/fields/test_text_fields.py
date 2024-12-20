@@ -174,6 +174,8 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             IPField(default=12)
         with self.assertRaises(AssertionError):
+            IPField(default="")
+        with self.assertRaises(AssertionError):
             IPField(default='some address')
         with self.assertRaises(AssertionError):
             IPField(default='127.0.')
