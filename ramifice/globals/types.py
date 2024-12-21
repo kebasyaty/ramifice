@@ -21,6 +21,10 @@ class OutputData:
         """Status of output data."""
         return self.__valid
 
+    @valid.setter
+    def valid(self, value: bool) -> None:
+        self.__valid = value
+
     @property
     def update(self) -> bool:
         """How to use data?

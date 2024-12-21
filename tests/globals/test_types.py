@@ -14,3 +14,5 @@ class TestGlobalType(unittest.TestCase):
         self.assertEqual(d.data, {'field_name': 'value'})
         self.assertTrue(d.valid)
         self.assertFalse(d.update)
+        d.valid = False
+        self.assertFalse(d.valid)
