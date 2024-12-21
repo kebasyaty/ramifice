@@ -40,6 +40,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
                 default=3,
                 choices=[(1, 'Title'), (2, 'Title 2')])
         # Methods:
+        f = ChoiceIntField()
         self.assertTrue(f.has_value())
         f = ChoiceIntField(
             default=2,
@@ -92,6 +93,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
                 default=[2, 3],
                 choices=[(1, 'Title'), (2, 'Title 2')])
         # Methods:
+        f = ChoiceIntMultField()
         self.assertTrue(f.has_value())
         f = ChoiceIntMultField(
             default=[2],
