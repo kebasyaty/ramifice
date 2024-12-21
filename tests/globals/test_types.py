@@ -41,3 +41,19 @@ class TestGlobalType(unittest.TestCase):
         self.assertFalse(d.delete)
         self.assertEqual(d.extension, "")
         self.assertFalse(d.save_as_is)
+        d.path = 'path/file.txt'
+        d.url = '/path/file.txt'
+        d.name = 'file.txt'
+        d.size = 512
+        d.new_file_data = True
+        d.delete = True
+        d.extension = '.txt'
+        d.save_as_is = True
+        self.assertEqual(d.path, 'path/file.txt')
+        self.assertEqual(d.url, '/path/file.txt')
+        self.assertEqual(d.name, 'file.txt')
+        self.assertEqual(d.size, 512)
+        self.assertTrue(d.new_file_data)
+        self.assertTrue(d.delete)
+        self.assertEqual(d.extension, '.txt')
+        self.assertTrue(d.save_as_is)
