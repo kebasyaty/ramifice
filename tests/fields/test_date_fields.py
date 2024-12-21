@@ -1,6 +1,7 @@
 """Testing date|datetime fields."""
 
 import unittest
+from datetime import datetime
 
 from ramifice.fields import DateField, DateTimeField
 
@@ -94,6 +95,14 @@ class TestDateFields(unittest.TestCase):
         DateTimeField(default='20-12-2024 00:00:00',
                       max_date='21-12-2024 00:00:00',
                       min_date='19-12-2024 00:00:00')
+        # Methods:
+        f = DateTimeField()
+        self.assertIsNone(f.to_datetime())
+        f = DateTimeField(default='20-12-2024 00:00:00')
+        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
+        f = DateTimeField()
+        f.value = '20-12-2024 00:00:00'
+        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
 
 
 if __name__ == '__main__':
