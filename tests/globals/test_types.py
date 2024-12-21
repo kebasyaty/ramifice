@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.globals.types import OutputData
+from ramifice.globals.types import OutputData, Unit
 
 
 class TestGlobalType(unittest.TestCase):
@@ -16,3 +16,11 @@ class TestGlobalType(unittest.TestCase):
         self.assertFalse(d.update)
         d.valid = False
         self.assertFalse(d.valid)
+
+    def test_unit(self):
+        """Testing a class `Unit`."""
+        u = Unit(field='field_name', title='Title', value='value')
+        self.assertEqual(u.field, 'field_name')
+        self.assertEqual(u.title, 'Title')
+        self.assertEqual(u.value, 'value')
+        self.assertFalse(u.delete)
