@@ -92,6 +92,12 @@ class DateTimeField(Field, DateGroup):
                 except InvalidDateTimeError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         'Parameter `default` - Invalid date and time!')  # pylint: disable=raise-missing-from
+                if max_date is not None and datetime_parse(default) > datetime_parse(max_date):
+                    raise AssertionError(
+                        'Parameter `default` is more `max_date`!')
+                if min_date is not None and datetime_parse(default) < datetime_parse(min_date):
+                    raise AssertionError(
+                        'Parameter `default` is less `min_date`!')
 
         self.__default = default
 
