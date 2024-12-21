@@ -88,8 +88,12 @@ class TestDateFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             DateTimeField(default='20-12-2024 00:00:00',
                           min_date='21-12-2024 00:00:00')
-
-        DateTimeField(default='20-12-2024 15:27:26')
+        DateTimeField(max_date='20-12-2024 00:00:00')
+        DateTimeField(min_date='20-12-2024 00:00:00')
+        DateTimeField(default='20-12-2024 00:00:00')
+        DateTimeField(default='20-12-2024 00:00:00',
+                      max_date='21-12-2024 00:00:00',
+                      min_date='19-12-2024 00:00:00')
 
 
 if __name__ == '__main__':
