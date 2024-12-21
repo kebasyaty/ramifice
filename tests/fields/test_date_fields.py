@@ -65,6 +65,14 @@ class TestDateFields(unittest.TestCase):
         self.assertIsNone(f.min_date)
         # Additional check:
         with self.assertRaises(AssertionError):
+            DateTimeField(max_date=12)
+        with self.assertRaises(AssertionError):
+            DateTimeField(max_date="")
+        with self.assertRaises(AssertionError):
+            DateTimeField(min_date=12)
+        with self.assertRaises(AssertionError):
+            DateTimeField(min_date="")
+        with self.assertRaises(AssertionError):
             DateTimeField(default=12)
         with self.assertRaises(AssertionError):
             DateTimeField(default="")

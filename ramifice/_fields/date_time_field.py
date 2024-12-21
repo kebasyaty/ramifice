@@ -56,6 +56,20 @@ class DateTimeField(Field, DateGroup):
                            )
 
         if DateTimeField.debug:
+            if max_date is not None:
+                if not isinstance(max_date, str):
+                    raise AssertionError(
+                        'Parameter `max_date` - Not а `str` type!')
+                if len(max_date) == 0:
+                    raise AssertionError(
+                        'The `max_date` parameter should not contain an empty string!')
+            if min_date is not None:
+                if not isinstance(min_date, str):
+                    raise AssertionError(
+                        'Parameter `min_date` - Not а `str` type!')
+                if len(min_date) == 0:
+                    raise AssertionError(
+                        'The `min_date` parameter should not contain an empty string!')
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(
