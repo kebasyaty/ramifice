@@ -1,5 +1,6 @@
 """Field of Model for enter date."""
 
+from datetime import datetime
 from typing import Any
 
 from ..errors import InvalidDateError
@@ -53,6 +54,30 @@ class DateField(Field, DateGroup):
                            )
 
         if DateField.debug:
+            if max_date is not None:
+                if not isinstance(max_date, str):
+                    raise AssertionError(
+                        'Parameter `max_date` - Not а `str` type!')
+                if len(max_date) == 0:
+                    raise AssertionError(
+                        'The `max_date` parameter should not contain an empty string!')
+                try:
+                    date_parse(max_date)
+                except InvalidDateError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `max_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
+            if min_date is not None:
+                if not isinstance(min_date, str):
+                    raise AssertionError(
+                        'Parameter `min_date` - Not а `str` type!')
+                if len(min_date) == 0:
+                    raise AssertionError(
+                        'The `min_date` parameter should not contain an empty string!')
+                try:
+                    date_parse(min_date)
+                except InvalidDateError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `min_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(
@@ -64,7 +89,13 @@ class DateField(Field, DateGroup):
                     date_parse(default)
                 except InvalidDateError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
-                        'Parameter `default` - Invalid date!')  # pylint: disable=raise-missing-from
+                        'Parameter `default` - Invalid date and time!')  # pylint: disable=raise-missing-from
+                if max_date is not None and date_parse(default) > date_parse(max_date):
+                    raise AssertionError(
+                        'Parameter `default` is more `max_date`!')
+                if min_date is not None and date_parse(default) < date_parse(min_date):
+                    raise AssertionError(
+                        'Parameter `default` is less `min_date`!')
 
         self.__default = default
 
@@ -72,3 +103,11 @@ class DateField(Field, DateGroup):
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
+
+    def to_datetime(self) -> datetime | None:
+        """Convert parameter `value` or `default` into object of date and time."""
+        value = self.value
+        if value is None or len(value) == 0:
+            value = self.__default
+        date = date_parse(value) if value is not None else None
+        return date
