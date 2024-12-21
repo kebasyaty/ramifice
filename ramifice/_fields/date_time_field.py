@@ -63,6 +63,11 @@ class DateTimeField(Field, DateGroup):
                 if len(max_date) == 0:
                     raise AssertionError(
                         'The `max_date` parameter should not contain an empty string!')
+                try:
+                    datetime_parse(max_date)
+                except InvalidDateTimeError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `max_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
             if min_date is not None:
                 if not isinstance(min_date, str):
                     raise AssertionError(
@@ -70,6 +75,11 @@ class DateTimeField(Field, DateGroup):
                 if len(min_date) == 0:
                     raise AssertionError(
                         'The `min_date` parameter should not contain an empty string!')
+                try:
+                    datetime_parse(min_date)
+                except InvalidDateTimeError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        'Parameter `min_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

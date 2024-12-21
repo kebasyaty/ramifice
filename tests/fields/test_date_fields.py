@@ -69,9 +69,13 @@ class TestDateFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             DateTimeField(max_date="")
         with self.assertRaises(AssertionError):
+            DateTimeField(max_date='1/1/2024 00:00:00')
+        with self.assertRaises(AssertionError):
             DateTimeField(min_date=12)
         with self.assertRaises(AssertionError):
             DateTimeField(min_date="")
+        with self.assertRaises(AssertionError):
+            DateTimeField(min_date='1/1/2024 00:00:00')
         with self.assertRaises(AssertionError):
             DateTimeField(default=12)
         with self.assertRaises(AssertionError):
