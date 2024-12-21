@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.globals.types import OutputData, Unit
+from ramifice.globals.types import FileData, OutputData, Unit
 
 
 class TestGlobalType(unittest.TestCase):
@@ -29,3 +29,31 @@ class TestGlobalType(unittest.TestCase):
         self.assertEqual(u.title, 'Title')
         self.assertEqual(u.value, 'value')
         self.assertTrue(u.delete)
+
+    def test_file_data(self):
+        """Testing a class `FileData`."""
+        d = FileData()
+        self.assertEqual(d.path, "")
+        self.assertEqual(d.url, "")
+        self.assertEqual(d.name, "")
+        self.assertEqual(d.size, 0)
+        self.assertFalse(d.new_file_data)
+        self.assertFalse(d.delete)
+        self.assertEqual(d.extension, "")
+        self.assertFalse(d.save_as_is)
+        d.path = 'path/file.txt'
+        d.url = '/path/file.txt'
+        d.name = 'file.txt'
+        d.size = 512
+        d.new_file_data = True
+        d.delete = True
+        d.extension = '.txt'
+        d.save_as_is = True
+        self.assertEqual(d.path, 'path/file.txt')
+        self.assertEqual(d.url, '/path/file.txt')
+        self.assertEqual(d.name, 'file.txt')
+        self.assertEqual(d.size, 512)
+        self.assertTrue(d.new_file_data)
+        self.assertTrue(d.delete)
+        self.assertEqual(d.extension, '.txt')
+        self.assertTrue(d.save_as_is)
