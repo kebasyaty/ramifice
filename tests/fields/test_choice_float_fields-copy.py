@@ -40,6 +40,7 @@ class TestChoiceFloatFields(unittest.TestCase):
                 default=3.0,
                 choices=[(1.0, 'Title'), (2.0, 'Title 2')])
         # Methods:
+        f = ChoiceFloatField()
         self.assertTrue(f.has_value())
         f = ChoiceFloatField(
             default=2.0,
@@ -92,6 +93,7 @@ class TestChoiceFloatFields(unittest.TestCase):
                 default=[2.0, 3.0],
                 choices=[(1.0, 'Title'), (2.0, 'Title 2')])
         # Methods:
+        f = ChoiceFloatMultField()
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(
             default=[2.0],
