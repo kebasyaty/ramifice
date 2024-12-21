@@ -24,3 +24,8 @@ class TestGlobalType(unittest.TestCase):
         self.assertEqual(u.title, 'Title')
         self.assertEqual(u.value, 'value')
         self.assertFalse(u.delete)
+        u = Unit(field='field_name', title='Title', value='value', delete=True)
+        self.assertEqual(u.field, 'field_name')
+        self.assertEqual(u.title, 'Title')
+        self.assertEqual(u.value, 'value')
+        self.assertTrue(u.delete)
