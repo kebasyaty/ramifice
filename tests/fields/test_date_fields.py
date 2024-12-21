@@ -63,6 +63,14 @@ class TestDateFields(unittest.TestCase):
         DateField(default='20-12-2024',
                   max_date='21-12-2024',
                   min_date='19-12-2024')
+        # Methods:
+        f = DateField()
+        self.assertIsNone(f.to_datetime())
+        f = DateField(default='20-12-2024')
+        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
+        f = DateField()
+        f.value = '20-12-2024'
+        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
 
     def test_date_time_field(self):
         """Testing `DateTimeField`."""

@@ -1,5 +1,6 @@
 """Field of Model for enter date."""
 
+from datetime import datetime
 from typing import Any
 
 from ..errors import InvalidDateError
@@ -102,3 +103,11 @@ class DateField(Field, DateGroup):
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
+
+    def to_datetime(self) -> datetime | None:
+        """Convert parameter `value` or `default` into object of date and time."""
+        value = self.value
+        if value is None or len(value) == 0:
+            value = self.__default
+        date = date_parse(value) if value is not None else None
+        return date
