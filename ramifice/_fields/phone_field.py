@@ -1,6 +1,5 @@
 """Field of Model for enter phone number."""
 
-from typing import Any
 
 import phonenumbers
 
@@ -12,9 +11,6 @@ class PhoneField(Field, TextGroup):
     """Field of Model for enter phone number.
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -47,7 +43,7 @@ class PhoneField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if PhoneField.debug:
+        if __debug__:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

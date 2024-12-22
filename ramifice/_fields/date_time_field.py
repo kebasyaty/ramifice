@@ -1,7 +1,7 @@
 """Field of Model for enter date and time."""
 
 from datetime import datetime
-from typing import Any
+
 
 from ..errors import InvalidDateTimeError
 from ..globals.tools import datetime_parse
@@ -17,8 +17,7 @@ class DateTimeField(Field, DateGroup):
              yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
     """
 
-    debug: bool = True
-    meta: dict[str, Any] = {}
+
 
     def __init__(self,
                  label: str = "",
@@ -55,7 +54,7 @@ class DateTimeField(Field, DateGroup):
                            min_date=min_date,
                            )
 
-        if DateTimeField.debug:
+        if __debug__:
             if max_date is not None:
                 if not isinstance(max_date, str):
                     raise AssertionError(

@@ -1,7 +1,6 @@
 """Field of Model for enter IP addresses."""
 
 import ipaddress
-from typing import Any
 
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -9,9 +8,6 @@ from .general.text_group import TextGroup
 
 class IPField(Field, TextGroup):
     """Field of Model for enter IP addresses."""
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -43,7 +39,7 @@ class IPField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if IPField.debug:
+        if __debug__:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

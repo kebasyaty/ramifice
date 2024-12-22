@@ -1,6 +1,5 @@
 """Field of Model for enter color code."""
 
-from typing import Any
 
 from ..globals.store import REGEX
 from .general.field import Field
@@ -14,9 +13,6 @@ class ColorField(Field, TextGroup):
               rgba(255,0,24,0.5) | rgba(#fff,0.5) | hsl(120,100%,50%) |
               hsla(170,23%,25%,0.2) | 0x00ffff
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -48,7 +44,7 @@ class ColorField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if ColorField.debug:
+        if __debug__:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

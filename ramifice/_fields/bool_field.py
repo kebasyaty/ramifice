@@ -1,15 +1,11 @@
 """Field of Model for enter logical value."""
 
-from typing import Any
 
 from .general.field import Field
 
 
 class BoolField(Field):
     """Field of Model for enter logical value."""
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -30,7 +26,7 @@ class BoolField(Field):
                        field_type='BoolField',
                        group='bool',
                        )
-        if BoolField.debug:
+        if __debug__:
             if default is not None and not isinstance(default, bool):
                 raise AssertionError(
                     'Parameter `default` - Not а `bool` type!')

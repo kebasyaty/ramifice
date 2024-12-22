@@ -1,6 +1,5 @@
 """Field of Model for enter URL addresses."""
 
-from typing import Any
 from urllib.parse import urlparse
 
 from .general.field import Field
@@ -23,9 +22,6 @@ class URLField(Field, TextGroup):
     readonly -- Specifies that the field cannot be modified by the user.
     unique -- The unique value of a field in a collection.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -57,7 +53,7 @@ class URLField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if URLField.debug:
+        if __debug__:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

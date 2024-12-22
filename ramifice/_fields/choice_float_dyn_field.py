@@ -2,7 +2,6 @@
 Type of selective float field with dynamic addition of elements.
 """
 
-from typing import Any
 
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
@@ -15,9 +14,6 @@ class ChoiceFloatDynField(Field, ChoiceGroup):
     Element are (add|delete) via `ModelName.unit_manager(unit)` method.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

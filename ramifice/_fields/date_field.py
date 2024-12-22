@@ -1,7 +1,6 @@
 """Field of Model for enter date."""
 
 from datetime import datetime
-from typing import Any
 
 from ..errors import InvalidDateError
 from ..globals.tools import date_parse
@@ -14,9 +13,6 @@ class DateField(Field, DateGroup):
     Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -53,7 +49,7 @@ class DateField(Field, DateGroup):
                            min_date=min_date,
                            )
 
-        if DateField.debug:
+        if __debug__:
             if max_date is not None:
                 if not isinstance(max_date, str):
                     raise AssertionError(
