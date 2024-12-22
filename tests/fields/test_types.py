@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.globals.types import FileData, OutputData, Unit
+from ramifice._fields.general.types import FileData, OutputData, Unit
 
 
 class TestGlobalType(unittest.TestCase):
