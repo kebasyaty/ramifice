@@ -73,7 +73,7 @@ class FileData:
         self.__url = ""
         self.__name = ""
         self.__size = 0
-        self.__new_file_data = False
+        self.__new_file = False
         self.__delete = False
         self.__extension = ""
         self.__save_as_is = False
@@ -119,15 +119,15 @@ class FileData:
 
     # --------------------------------------------------------------------------
     @property
-    def new_file_data(self) -> bool:
+    def new_file(self) -> bool:
         """A sign of a new file.
         true - if there is no file in the database.
         """
-        return self.__new_file_data
+        return self.__new_file
 
-    @new_file_data.setter
-    def new_file_data(self, value: str) -> None:
-        self.__new_file_data = value
+    @new_file.setter
+    def new_file(self, value: str) -> None:
+        self.__new_file = value
 
     # --------------------------------------------------------------------------
     @property
