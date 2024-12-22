@@ -1,50 +1,30 @@
 """Import the fields of all types."""
 
-from ._fields.bool_field import BoolField  # pylint: disable=unused-import
-from ._fields.choice_float_dyn_field import (
-    ChoiceFloatDynField,  # pylint: disable=unused-import;
-)
-from ._fields.choice_float_field import (
-    ChoiceFloatField,  # pylint: disable=unused-import
-)
-from ._fields.choice_float_mult_dyn_field import (
-    ChoiceFloatMultDynField,  # pylint: disable=unused-import
-)
-from ._fields.choice_float_mult_field import (
-    ChoiceFloatMultField,  # pylint: disable=unused-import
-)
-from ._fields.choice_int_dyn_field import (
-    ChoiceIntDynField,  # pylint: disable=unused-import
-)
-from ._fields.choice_int_field import ChoiceIntField  # pylint: disable=unused-import
-from ._fields.choice_int_mult_dyn_field import (
-    ChoiceIntMultDynField,  # pylint: disable=unused-import
-)
-from ._fields.choice_int_mult_field import (
-    ChoiceIntMultField,  # pylint: disable=unused-import
-)
-from ._fields.choice_text_dyn_field import (
-    ChoiceTextDynField,  # pylint: disable=unused-import
-)
-from ._fields.choice_text_field import ChoiceTextField  # pylint: disable=unused-import
-from ._fields.choice_text_mult_dyn_field import (
-    ChoiceTextMultDynField,  # pylint: disable=unused-import
-)
-from ._fields.choice_text_mult_field import (
-    ChoiceTextMultField,  # pylint: disable=unused-import
-)
-from ._fields.color_field import ColorField  # pylint: disable=unused-import
-from ._fields.date_field import DateField  # pylint: disable=unused-import
-from ._fields.date_time_field import DateTimeField  # pylint: disable=unused-import
-from ._fields.email_field import EmailField  # pylint: disable=unused-import
-from ._fields.file_field import FileField  # pylint: disable=unused-import
-from ._fields.float_field import FloatField  # pylint: disable=unused-import
-from ._fields.hash_field import HashField  # pylint: disable=unused-import
-from ._fields.image_field import ImageField  # pylint: disable=unused-import
-from ._fields.integer_field import IntegerField  # pylint: disable=unused-import
-from ._fields.ip_field import IPField  # pylint: disable=unused-import
-from ._fields.password_field import PasswordField  # pylint: disable=unused-import
-from ._fields.phone_field import PhoneField  # pylint: disable=unused-import
-from ._fields.slug_field import SlugField  # pylint: disable=unused-import
-from ._fields.text_field import TextField  # pylint: disable=unused-import
-from ._fields.url_field import URLField  # pylint: disable=unused-import
+from ._fields.bool_field import BoolField
+from ._fields.choice_float_dyn_field import ChoiceFloatDynField
+from ._fields.choice_float_field import ChoiceFloatField
+from ._fields.choice_float_mult_dyn_field import ChoiceFloatMultDynField
+from ._fields.choice_float_mult_field import ChoiceFloatMultField
+from ._fields.choice_int_dyn_field import ChoiceIntDynField
+from ._fields.choice_int_field import ChoiceIntField
+from ._fields.choice_int_mult_dyn_field import ChoiceIntMultDynField
+from ._fields.choice_int_mult_field import ChoiceIntMultField
+from ._fields.choice_text_dyn_field import ChoiceTextDynField
+from ._fields.choice_text_field import ChoiceTextField
+from ._fields.choice_text_mult_dyn_field import ChoiceTextMultDynField
+from ._fields.choice_text_mult_field import ChoiceTextMultField
+from ._fields.color_field import ColorField
+from ._fields.date_field import DateField
+from ._fields.date_time_field import DateTimeField
+from ._fields.email_field import EmailField
+from ._fields.file_field import FileField
+from ._fields.float_field import FloatField
+from ._fields.hash_field import HashField
+from ._fields.image_field import ImageField
+from ._fields.integer_field import IntegerField
+from ._fields.ip_field import IPField
+from ._fields.password_field import PasswordField
+from ._fields.phone_field import PhoneField
+from ._fields.slug_field import SlugField
+from ._fields.text_field import TextField
+from ._fields.url_field import URLField
