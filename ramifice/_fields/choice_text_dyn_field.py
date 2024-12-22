@@ -67,7 +67,7 @@ class ChoiceTextDynField(Field, ChoiceGroup):
         flag = True
         value = self.__value
         choices = self.__choices
-        if value is not None and choices is not None:
+        if value and choices:
             value_list = [
                 item[0] for item in choices  # pylint: disable=not-an-iterable
             ]  # pylint: disable=not-an-iterable

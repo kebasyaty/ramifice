@@ -95,11 +95,9 @@ class ChoiceFloatMultField(Field, ChoiceGroup):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value
-        if value is None:
-            value = self.__default
+        value = self.__value or self.__default or None
         choices = self.__choices
-        if value is not None and choices is not None:
+        if value and choices:
             value_list = [item[0] for item in choices]
             for item in value:
                 if item not in value_list:
