@@ -1,6 +1,7 @@
 """Field of Model for upload image."""
 
 
+from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -42,13 +43,13 @@ class ImageField(Field, FileGroup):
                            target_dir=target_dir,
                            accept=accept,
                            )
-        self.__value: str | None = None
+        self.__value: ImageData | None = None
 
     @property
-    def value(self) -> str | None:
+    def value(self) -> ImageData | None:
         """Sets value of field."""
         return self.__value
 
     @value.setter
-    def value(self, value: str | None) -> None:
+    def value(self, value: ImageData | None) -> None:
         self.__value = value
