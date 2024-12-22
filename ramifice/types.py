@@ -178,6 +178,10 @@ class ImageData:
         self.__url_sm = ""
         self.__url_md = ""
         self.__url_lg = ""
+        self.__name = ""
+        self.__width = 0
+        self.__height = 0
+        self.__size = 0
 
     @property
     def path(self) -> str:
@@ -277,3 +281,43 @@ class ImageData:
     @url_lg.setter
     def url_lg(self, value: str) -> None:
         self.__url_lg = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def name(self) -> str:
+        """Name of original image."""
+        return self.__name
+
+    @name.setter
+    def name(self, value: str) -> None:
+        self.__name = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def width(self) -> int:
+        """Width in pixels of original image."""
+        return self.__width
+
+    @width.setter
+    def width(self, value: int) -> None:
+        self.__width = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def height(self) -> int:
+        """Height in pixels of original image."""
+        return self.__height
+
+    @height.setter
+    def height(self, value: int) -> None:
+        self.__height = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def size(self) -> int:
+        """Size in pixels of original image."""
+        return self.__size
+
+    @size.setter
+    def size(self, value: int) -> None:
+        self.__size = value
