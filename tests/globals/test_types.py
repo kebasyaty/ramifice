@@ -76,6 +76,8 @@ class TestGlobalTypes(unittest.TestCase):
         self.assertFalse(d.is_new_img)
         self.assertFalse(d.delete)
         self.assertEqual(d.extension, "")
+        self.assertEqual(d.images_dir_path, "")
+        self.assertEqual(d.images_dir_url, "")
         self.assertFalse(d.save_as_is)
         d.path = 'path/img.png'
         d.path_xs = 'path/xs.png'
@@ -92,6 +94,8 @@ class TestGlobalTypes(unittest.TestCase):
         d.is_new_img = True
         d.delete = True
         d.extension = '.png'
+        d.images_dir_path = 'path/0123456789abcdef'
+        d.images_dir_url = '/path/0123456789abcdef'
         d.save_as_is = True
         self.assertEqual(d.path, 'path/img.png')
         self.assertEqual(d.path_xs, 'path/xs.png')
@@ -108,4 +112,6 @@ class TestGlobalTypes(unittest.TestCase):
         self.assertTrue(d.is_new_img)
         self.assertTrue(d.delete)
         self.assertEqual(d.extension, '.png')
+        self.assertEqual(d.images_dir_path, 'path/0123456789abcdef')
+        self.assertEqual(d.images_dir_url, '/path/0123456789abcdef')
         self.assertTrue(d.save_as_is)

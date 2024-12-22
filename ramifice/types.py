@@ -186,6 +186,7 @@ class ImageData:
         self.__delete = False
         self.__extension = ""
         self.__images_dir_path = ""
+        self.__images_dir_url = ""
         self.__save_as_is = False
 
     @property
@@ -372,6 +373,16 @@ class ImageData:
     @images_dir_path.setter
     def images_dir_path(self, value: str) -> None:
         self.__images_dir_path = value
+
+    # ---------------------------------------------------------------------------
+    @property
+    def images_dir_url(self) -> str:
+        """URL path to target directory with images."""
+        return self.__images_dir_url
+
+    @images_dir_url.setter
+    def images_dir_url(self, value: str) -> None:
+        self.__images_dir_url = value
 
     # --------------------------------------------------------------------------
     @property
