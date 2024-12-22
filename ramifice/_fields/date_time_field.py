@@ -112,8 +112,5 @@ class DateTimeField(Field, DateGroup):
 
     def to_datetime(self) -> datetime | None:
         """Convert parameter `value` or `default` into object of date and time."""
-        value = self.value
-        if value is None or len(value) == 0:
-            value = self.__default
-        date = datetime_parse(value) if value is not None else None
-        return date
+        value = self.value or self.__default or None
+        return datetime_parse(value) if value is not None else None
