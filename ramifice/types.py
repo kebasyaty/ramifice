@@ -182,8 +182,10 @@ class ImageData:
         self.__width = 0
         self.__height = 0
         self.__size = 0
-        self.__new_img = False
+        self.__is_new_img = False
         self.__delete = False
+        self.__extension = ""
+        self.__images_dir_path = ""
 
     @property
     def path(self) -> str:
@@ -347,3 +349,25 @@ class ImageData:
     @delete.setter
     def delete(self, value: bool) -> None:
         self.__delete = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def extension(self) -> str:
+        """Image extension.
+        Examples: `.png|.jpeg|.jpg|.webp`.
+        """
+        return self.__extension
+
+    @extension.setter
+    def extension(self, value: str) -> None:
+        self.__extension = value
+
+    # ---------------------------------------------------------------------------
+    @property
+    def images_dir_path(self) -> str:
+        """Path to target directory with images."""
+        return self.__images_dir_path
+
+    @images_dir_path.setter
+    def images_dir_path(self, value: str) -> None:
+        self.__images_dir_path = value
