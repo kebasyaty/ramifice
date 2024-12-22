@@ -11,12 +11,13 @@ class NumberGroup:
     unique -- The unique value of a field in a collection.
     """
 
-    def __init__(self,
-                 placeholder: str = '',
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 ):
+    def __init__(
+        self,
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+    ):
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly

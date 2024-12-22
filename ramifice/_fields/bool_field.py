@@ -1,37 +1,37 @@
 """Field of Model for enter logical value."""
 
-
 from .general.field import Field
 
 
 class BoolField(Field):
     """Field of Model for enter logical value."""
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 default: bool | None = False,
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=disabled,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='BoolField',
-                       group='bool',
-                       )
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        default: bool | None = False,
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="BoolField",
+            group="bool",
+        )
         if __debug__:
             if default is not None and not isinstance(default, bool):
-                raise AssertionError(
-                    'Parameter `default` - Not а `bool` type!')
+                raise AssertionError("Parameter `default` - Not а `bool` type!")
 
-        self.__input_type = 'checkbox'
+        self.__input_type = "checkbox"
         self.__value: bool | None = None
         self.__default = default
 

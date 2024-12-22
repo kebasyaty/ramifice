@@ -21,17 +21,17 @@ class TestBooleanField(unittest.TestCase):
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'bool')
-        self.assertEqual(f.input_type, 'checkbox')
+        self.assertEqual(f.group, "bool")
+        self.assertEqual(f.input_type, "checkbox")
         self.assertIsNone(f.value)
         self.assertFalse(f.default)
         # Additional check:
         with self.assertRaises(AssertionError):
             BoolField(default=0)
         with self.assertRaises(AssertionError):
-            BoolField(default='False')
+            BoolField(default="False")
         BoolField(default=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

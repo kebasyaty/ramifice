@@ -13,23 +13,24 @@ class FileGroup:
     accept -- Describing which file types to allow.
     """
 
-    def __init__(self,
-                 placeholder: str = '',
-                 required: bool = False,
-                 max_size: int = 2097152,  # 2 MB
-                 default: str | None = None,
-                 target_dir: str = '',
-                 accept: str = '',
-                 ):
-        self.__input_type = 'file'
+    def __init__(
+        self,
+        placeholder: str = "",
+        required: bool = False,
+        max_size: int = 2097152,  # 2 MB
+        default: str | None = None,
+        target_dir: str = "",
+        accept: str = "",
+    ):
+        self.__input_type = "file"
         self.__placeholder = placeholder
         self.__required = required
         self.__max_size = max_size
         self.__default = default
         self.__target_dir = target_dir
         self.__accept = accept
-        self.__media_root: str = 'public/media/uploads'
-        self.__media_url: str = '/media/uploads'
+        self.__media_root: str = "public/media/uploads"
+        self.__media_url: str = "/media/uploads"
 
     @property
     def input_type(self) -> str:

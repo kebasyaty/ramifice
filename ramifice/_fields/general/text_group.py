@@ -12,13 +12,14 @@ class TextGroup:
     unique -- The unique value of a field in a collection.
     """
 
-    def __init__(self,
-                 input_type: str = "",
-                 placeholder: str = '',
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 ):
+    def __init__(
+        self,
+        input_type: str = "",
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+    ):
         self.__input_type = input_type
         self.__value: str | None = None
         self.__placeholder = placeholder

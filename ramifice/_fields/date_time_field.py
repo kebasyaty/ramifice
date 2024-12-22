@@ -16,84 +16,92 @@ class DateTimeField(Field, DateGroup):
              yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
     """
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 default: str | None = None,
-                 placeholder: str = "",
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 max_date: str | None = None,
-                 min_date: str | None = None,
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=disabled,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='DateTimeField',
-                       group='date',
-                       )
-        DateGroup.__init__(self,
-                           input_type='datetime',
-                           placeholder=placeholder,
-                           required=required,
-                           readonly=readonly,
-                           unique=unique,
-                           max_date=max_date,
-                           min_date=min_date,
-                           )
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        default: str | None = None,
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+        max_date: str | None = None,
+        min_date: str | None = None,
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="DateTimeField",
+            group="date",
+        )
+        DateGroup.__init__(
+            self,
+            input_type="datetime",
+            placeholder=placeholder,
+            required=required,
+            readonly=readonly,
+            unique=unique,
+            max_date=max_date,
+            min_date=min_date,
+        )
 
         if __debug__:
             if max_date is not None:
                 if not isinstance(max_date, str):
-                    raise AssertionError(
-                        'Parameter `max_date` - Not а `str` type!')
+                    raise AssertionError("Parameter `max_date` - Not а `str` type!")
                 if len(max_date) == 0:
                     raise AssertionError(
-                        'The `max_date` parameter should not contain an empty string!')
+                        "The `max_date` parameter should not contain an empty string!"
+                    )
                 try:
                     datetime_parse(max_date)
                 except InvalidDateTimeError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
-                        'Parameter `max_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
+                        "Parameter `max_date` - Invalid date and time!"
+                    )  # pylint: disable=raise-missing-from
             if min_date is not None:
                 if not isinstance(min_date, str):
-                    raise AssertionError(
-                        'Parameter `min_date` - Not а `str` type!')
+                    raise AssertionError("Parameter `min_date` - Not а `str` type!")
                 if len(min_date) == 0:
                     raise AssertionError(
-                        'The `min_date` parameter should not contain an empty string!')
+                        "The `min_date` parameter should not contain an empty string!"
+                    )
                 try:
                     datetime_parse(min_date)
                 except InvalidDateTimeError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
-                        'Parameter `min_date` - Invalid date and time!')  # pylint: disable=raise-missing-from
+                        "Parameter `min_date` - Invalid date and time!"
+                    )  # pylint: disable=raise-missing-from
             if default is not None:
                 if not isinstance(default, str):
-                    raise AssertionError(
-                        'Parameter `default` - Not а `str` type!')
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
                 if len(default) == 0:
                     raise AssertionError(
-                        'The `default` parameter should not contain an empty string!')
+                        "The `default` parameter should not contain an empty string!"
+                    )
                 try:
                     datetime_parse(default)
                 except InvalidDateTimeError:
                     raise AssertionError(  # pylint: disable=raise-missing-from
-                        'Parameter `default` - Invalid date and time!')  # pylint: disable=raise-missing-from
-                if max_date is not None and datetime_parse(default) > datetime_parse(max_date):
-                    raise AssertionError(
-                        'Parameter `default` is more `max_date`!')
-                if min_date is not None and datetime_parse(default) < datetime_parse(min_date):
-                    raise AssertionError(
-                        'Parameter `default` is less `min_date`!')
+                        "Parameter `default` - Invalid date and time!"
+                    )  # pylint: disable=raise-missing-from
+                if max_date is not None and datetime_parse(default) > datetime_parse(
+                    max_date
+                ):
+                    raise AssertionError("Parameter `default` is more `max_date`!")
+                if min_date is not None and datetime_parse(default) < datetime_parse(
+                    min_date
+                ):
+                    raise AssertionError("Parameter `default` is less `min_date`!")
 
         self.__default = default
 

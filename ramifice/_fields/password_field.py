@@ -1,6 +1,5 @@
 """Field of Model for enter password."""
 
-
 from .general.field import Field
 
 
@@ -12,27 +11,29 @@ class PasswordField(Field):
     Number of characters by default: from 8 to 256.
     """
 
-    def __init__(self,
-                 label: str = "",
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 placeholder: str = "",
-                 required: bool = False,
-                 regex: str = "",
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=False,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='PasswordField',
-                       group='password',
-                       )
-        self.__input_type = 'password'
+    def __init__(
+        self,
+        label: str = "",
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        placeholder: str = "",
+        required: bool = False,
+        regex: str = "",
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=False,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="PasswordField",
+            group="password",
+        )
+        self.__input_type = "password"
         self.__value: str | None = None
         self.__placeholder = placeholder
         self.__required = required
@@ -66,6 +67,7 @@ class PasswordField(Field):
     def required(self) -> bool:
         """Required field."""
         return self.__required
+
     # --------------------------------------------------------------------------
 
     @property

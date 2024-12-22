@@ -2,8 +2,12 @@
 
 import unittest
 
-from ramifice.fields import (ChoiceTextDynField, ChoiceTextField,
-                             ChoiceTextMultDynField, ChoiceTextMultField)
+from ramifice.fields import (
+    ChoiceTextDynField,
+    ChoiceTextField,
+    ChoiceTextMultDynField,
+    ChoiceTextMultField,
+)
 
 
 class TestChoiceTextFields(unittest.TestCase):
@@ -16,13 +20,13 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextField')
+        self.assertEqual(f.field_type, "ChoiceTextField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -32,28 +36,27 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceTextField(choices='not list')
+            f = ChoiceTextField(choices="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(default=2)
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(default="")
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(
-                default='value 3',
-                choices=[('value', 'Title'), ('value 2', 'Title 2')])
+                default="value 3", choices=[("value", "Title"), ("value 2", "Title 2")]
+            )
         # Methods:
         f = ChoiceTextField()
         self.assertTrue(f.has_value())
         f = ChoiceTextField(
-            default='value 2',
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+            default="value 2", choices=[("value", "Title"), ("value 2", "Title 2")]
+        )
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceTextField(choices=[("value", "Title"), ("value 2", "Title 2")])
         self.assertTrue(f.has_value())
-        f.value = 'value 2'
+        f.value = "value 2"
         self.assertTrue(f.has_value())
-        f.value = 'value 3'
+        f.value = "value 3"
         self.assertFalse(f.has_value())
 
     def test_choice_text_mult_field(self):
@@ -63,13 +66,13 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextMultField')
+        self.assertEqual(f.field_type, "ChoiceTextMultField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -79,36 +82,37 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceTextMultField(choices='not list')
+            f = ChoiceTextMultField(choices="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(choices=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceTextMultField(default='not list')
+            f = ChoiceTextMultField(default="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
-                default=['value 3'],
-                choices=[('value', 'Title'), ('value 2', 'Title 2')])
+                default=["value 3"],
+                choices=[("value", "Title"), ("value 2", "Title 2")],
+            )
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
-                default=['value 2', 'value 3'],
-                choices=[('value', 'Title'), ('value 2', 'Title 2')])
+                default=["value 2", "value 3"],
+                choices=[("value", "Title"), ("value 2", "Title 2")],
+            )
         # Methods:
         f = ChoiceTextMultField()
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
-            default=['value 2'],
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+            default=["value 2"], choices=[("value", "Title"), ("value 2", "Title 2")]
+        )
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(
-            choices=[('value', 'Title'), ('value 2', 'Title 2')])
+        f = ChoiceTextMultField(choices=[("value", "Title"), ("value 2", "Title 2")])
         self.assertTrue(f.has_value())
-        f.value = ['value 2']
+        f.value = ["value 2"]
         self.assertTrue(f.has_value())
-        f.value = ['value 3']
+        f.value = ["value 3"]
         self.assertFalse(f.has_value())
-        f.value = ['value 2', 'value 3']
+        f.value = ["value 2", "value 3"]
         self.assertFalse(f.has_value())
 
     def test_choice_text_dyn_field(self):
@@ -118,13 +122,13 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextDynField')
+        self.assertEqual(f.field_type, "ChoiceTextDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -139,13 +143,13 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceTextMultDynField')
+        self.assertEqual(f.field_type, "ChoiceTextMultDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -154,5 +158,5 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertTrue(f.multiple)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

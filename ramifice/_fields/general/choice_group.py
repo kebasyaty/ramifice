@@ -13,13 +13,14 @@ class ChoiceGroup:
     multiple -- Specifies that multiple options can be selected at once.
     """
 
-    def __init__(self,
-                 placeholder: str = '',
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 multiple: bool = False,
-                 ):
+    def __init__(
+        self,
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+        multiple: bool = False,
+    ):
         self.__placeholder = placeholder
         self.__required = required
         self.__readonly = readonly
