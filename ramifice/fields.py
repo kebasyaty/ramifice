@@ -2,7 +2,7 @@
 
 from ._fields.bool_field import BoolField  # pylint: disable=unused-import
 from ._fields.choice_float_dyn_field import (
-    ChoiceFloatDynField,  # pylint: disable=unused-import; pylint: disable=unused-import
+    ChoiceFloatDynField,  # pylint: disable=unused-import;
 )
 from ._fields.choice_float_field import (
     ChoiceFloatField,  # pylint: disable=unused-import
