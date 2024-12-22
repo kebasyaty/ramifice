@@ -186,6 +186,7 @@ class ImageData:
         self.__delete = False
         self.__extension = ""
         self.__images_dir_path = ""
+        self.__save_as_is = False
 
     @property
     def path(self) -> str:
@@ -371,3 +372,13 @@ class ImageData:
     @images_dir_path.setter
     def images_dir_path(self, value: str) -> None:
         self.__images_dir_path = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def save_as_is(self) -> bool:
+        """To copy data from a related document and use the same images."""
+        return self.__save_as_is
+
+    @save_as_is.setter
+    def save_as_is(self, value: bool) -> None:
+        self.__save_as_is = value
