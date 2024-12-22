@@ -83,6 +83,10 @@ class TestGlobalTypes(unittest.TestCase):
         d.path_md = 'path/md.png'
         d.path_lg = 'path/lg.png'
         d.url = '/path/img.png'
+        d.url_xs = '/path/xs.png'
+        d.url_sm = '/path/sm.png'
+        d.url_md = '/path/md.png'
+        d.url_lg = '/path/lg.png'
         d.name = 'img.png'
         d.size = 512
         d.is_new_img = True
@@ -95,6 +99,10 @@ class TestGlobalTypes(unittest.TestCase):
         self.assertEqual(d.path_md, 'path/md.png')
         self.assertEqual(d.path_lg, 'path/lg.png')
         self.assertEqual(d.url, '/path/img.png')
+        self.assertEqual(d.url_xs, '/path/xs.png')
+        self.assertEqual(d.url_sm, '/path/sm.png')
+        self.assertEqual(d.url_md, '/path/md.png')
+        self.assertEqual(d.url_lg, '/path/lg.png')
         self.assertEqual(d.name, 'img.png')
         self.assertEqual(d.size, 512)
         self.assertTrue(d.is_new_img)
