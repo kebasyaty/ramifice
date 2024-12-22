@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.types import FileData, OutputData, Unit
+from ramifice.types import FileData, ImageData, OutputData, Unit
 
 
 class TestGlobalTypes(unittest.TestCase):
@@ -45,7 +45,7 @@ class TestGlobalTypes(unittest.TestCase):
         d.url = '/path/file.txt'
         d.name = 'file.txt'
         d.size = 512
-        d.new_file_data = True
+        d.is_new_file = True
         d.delete = True
         d.extension = '.txt'
         d.save_as_is = True
@@ -56,4 +56,32 @@ class TestGlobalTypes(unittest.TestCase):
         self.assertTrue(d.is_new_file)
         self.assertTrue(d.delete)
         self.assertEqual(d.extension, '.txt')
+        self.assertTrue(d.save_as_is)
+
+    def test_image_data(self):
+        """Testing a class `ImageData`."""
+        d = ImageData()
+        self.assertEqual(d.path, "")
+        self.assertEqual(d.url, "")
+        self.assertEqual(d.name, "")
+        self.assertEqual(d.size, 0)
+        self.assertFalse(d.is_new_img)
+        self.assertFalse(d.delete)
+        self.assertEqual(d.extension, "")
+        self.assertFalse(d.save_as_is)
+        d.path = 'path/img.png'
+        d.url = '/path/img.png'
+        d.name = 'img.png'
+        d.size = 512
+        d.is_new_img = True
+        d.delete = True
+        d.extension = '.png'
+        d.save_as_is = True
+        self.assertEqual(d.path, 'path/img.png')
+        self.assertEqual(d.url, '/path/img.png')
+        self.assertEqual(d.name, 'img.png')
+        self.assertEqual(d.size, 512)
+        self.assertTrue(d.is_new_img)
+        self.assertTrue(d.delete)
+        self.assertEqual(d.extension, '.png')
         self.assertTrue(d.save_as_is)
