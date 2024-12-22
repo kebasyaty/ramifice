@@ -1,4 +1,4 @@
-"""Global data types."""
+"""A collection of additional data types."""
 
 from typing import Any
 
