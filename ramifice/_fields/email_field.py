@@ -1,7 +1,7 @@
 """Field of Model for enter email address."""
 
-from typing import Any
-from email_validator import validate_email, EmailNotValidError
+
+from email_validator import EmailNotValidError, validate_email
 
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -9,9 +9,6 @@ from .general.text_group import TextGroup
 
 class EmailField(Field, TextGroup):
     """Field of Model for enter email address."""
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -43,7 +40,7 @@ class EmailField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if EmailField.debug:
+        if __debug__:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError(

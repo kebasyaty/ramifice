@@ -3,9 +3,8 @@
 import re
 import unittest
 
-from ramifice.globals.store import (DATABASE_NAME, MONGO_CLIENT,
-                                    MONGO_DATABASE, REGEX,
-                                    SUPER_COLLECTION_NAME)
+from ramifice.store import (DATABASE_NAME, MONGO_CLIENT, MONGO_DATABASE, REGEX,
+                            SUPER_COLLECTION_NAME)
 
 
 class TestGlobalStore(unittest.TestCase):

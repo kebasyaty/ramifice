@@ -1,6 +1,5 @@
 """Field of Model for enter (float) number."""
 
-from typing import Any
 
 from .general.field import Field
 from .general.number_group import NumberGroup
@@ -8,9 +7,6 @@ from .general.number_group import NumberGroup
 
 class FloatField(Field, NumberGroup):
     """Field of Model for enter (float) number."""
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -45,7 +41,7 @@ class FloatField(Field, NumberGroup):
                              readonly=readonly,
                              unique=unique,
                              )
-        if FloatField.debug:
+        if __debug__:
             if input_type not in ['number', 'range']:
                 raise AssertionError(
                     'Parameter `input_type` - Invalid input type! ' +

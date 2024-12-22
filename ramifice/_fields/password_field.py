@@ -1,6 +1,5 @@
 """Field of Model for enter password."""
 
-from typing import Any
 
 from .general.field import Field
 
@@ -12,9 +11,6 @@ class PasswordField(Field):
     Valid characters by default: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
     Number of characters by default: from 8 to 256.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

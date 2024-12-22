@@ -1,6 +1,5 @@
 """Field of Model for upload file."""
 
-from typing import Any
 
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -10,9 +9,6 @@ class FileField(Field, FileGroup):
     """Field of Model for upload file.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

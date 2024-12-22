@@ -1,6 +1,5 @@
 """Field of Model for automatic generation of string `slug`."""
 
-from typing import Any
 
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -10,9 +9,6 @@ class SlugField(Field, TextGroup):
     """Field of Model for automatic generation of string `slug`.
     Convenient to use for Url addresses.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",

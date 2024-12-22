@@ -1,6 +1,5 @@
 """Field of Model for enter text."""
 
-from typing import Any
 
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -8,9 +7,6 @@ from .general.text_group import TextGroup
 
 class TextField(Field, TextGroup):
     """Field of Model for enter text."""
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -46,7 +42,7 @@ class TextField(Field, TextGroup):
                            readonly=readonly,
                            unique=unique,
                            )
-        if TextField.debug:
+        if __debug__:
             if not isinstance(maxlength, int):
                 raise AssertionError(
                     'Parameter `maxlength` - Not а `int` type!')

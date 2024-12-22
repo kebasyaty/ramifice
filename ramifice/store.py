@@ -1,4 +1,6 @@
-"""Global storage for data cache."""
+"""Global storage for caching objects.
+The purpose of caching is production optimization.
+"""
 
 import re
 

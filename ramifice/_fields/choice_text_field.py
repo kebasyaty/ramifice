@@ -2,7 +2,6 @@
 Type of selective text field with static of elements.
 """
 
-from typing import Any
 
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
@@ -14,9 +13,6 @@ class ChoiceTextField(Field, ChoiceGroup):
     With a single choice.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """
-
-    debug: bool = True
-    meta: dict[str, Any] = {}
 
     def __init__(self,
                  label: str = "",
@@ -48,7 +44,7 @@ class ChoiceTextField(Field, ChoiceGroup):
         self.__default = default
         self.__choices = choices
 
-        if ChoiceTextField.debug:
+        if __debug__:
             if choices is not None and not isinstance(choices, list):
                 raise AssertionError(
                     'Parameter `choices` - Not а `list` type!')
