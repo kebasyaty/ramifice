@@ -1,11 +1,11 @@
-"""Testing the module `fields/general/types`."""
+"""Testing the module `types`."""
 
 import unittest
 
-from ramifice._fields.general.types import FileData, OutputData, Unit
+from ramifice.types import FileData, OutputData, Unit
 
 
-class TestGeneralTypes(unittest.TestCase):
+class TestGlobalTypes(unittest.TestCase):
     """Testing the module `fields/general/types`."""
 
     def test_output_data(self):
