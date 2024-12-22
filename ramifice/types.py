@@ -182,7 +182,7 @@ class ImageData:
         self.__width = 0
         self.__height = 0
         self.__size = 0
-        self.__is_new_img_data = False
+        self.__new_img = False
         self.__delete = False
 
     @property
@@ -326,15 +326,15 @@ class ImageData:
 
     # --------------------------------------------------------------------------
     @property
-    def is_new_img_data(self) -> bool:
+    def is_new_img(self) -> bool:
         """A sign of a new image.
         True - If there is no this image in the database.
         """
-        return self.__is_new_img_data
+        return self.__is_new_img
 
-    @is_new_img_data.setter
-    def is_new_img_data(self, value: bool) -> None:
-        self.__is_new_img_data = value
+    @is_new_img.setter
+    def is_new_img(self, value: bool) -> None:
+        self.__is_new_img = value
 
     # --------------------------------------------------------------------------
     @property
