@@ -133,7 +133,7 @@ class FileData:
     @property
     def delete(self) -> bool:
         """If the file needs to be deleted: `delete=True`.
-        By default: True.
+        By default: False.
         """
         return self.__delete
 
@@ -182,6 +182,8 @@ class ImageData:
         self.__width = 0
         self.__height = 0
         self.__size = 0
+        self.__is_new_img_data = False
+        self.__delete = False
 
     @property
     def path(self) -> str:
@@ -321,3 +323,27 @@ class ImageData:
     @size.setter
     def size(self, value: int) -> None:
         self.__size = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def is_new_img_data(self) -> bool:
+        """A sign of a new image.
+        True - If there is no this image in the database.
+        """
+        return self.__is_new_img_data
+
+    @is_new_img_data.setter
+    def is_new_img_data(self, value: bool) -> None:
+        self.__is_new_img_data = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def delete(self) -> bool:
+        """If the image needs to be deleted: `delete=True`.
+        By default: False.
+        """
+        return self.__delete
+
+    @delete.setter
+    def delete(self, value: bool) -> None:
+        self.__delete = value
