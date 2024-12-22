@@ -162,3 +162,118 @@ class FileData:
     @save_as_is.setter
     def save_as_is(self, value: bool) -> None:
         self.__save_as_is = value
+
+
+class ImageData:
+    """Data type for `ImageField.value`."""
+
+    def __init__(self):
+        self.__path = ""
+        self.__path_xs = ""
+        self.__path_sm = ""
+        self.__path_md = ""
+        self.__path_lg = ""
+        self.__url = ""
+        self.__url_xs = ""
+        self.__url_sm = ""
+        self.__url_md = ""
+        self.__url_lg = ""
+
+    @property
+    def path(self) -> str:
+        """Path to a copy of original image."""
+        return self.__path
+
+    @path.setter
+    def path(self, value: str) -> None:
+        self.__path = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def path_xs(self) -> str:
+        """Path to miniature of image, size of `xs`."""
+        return self.__path_xs
+
+    @path_xs.setter
+    def path_xs(self, value: str) -> None:
+        self.__path_xs = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def path_sm(self) -> str:
+        """Path to miniature of image, size of `sm`."""
+        return self.__path_sm
+
+    @path_sm.setter
+    def path_sm(self, value: str) -> None:
+        self.__path_sm = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def path_md(self) -> str:
+        """Path to miniature of image, size of `md`."""
+        return self.__path_md
+
+    @path_md.setter
+    def path_md(self, value: str) -> None:
+        self.__path_md = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def path_lg(self) -> str:
+        """Path to miniature of image, size of `lg`."""
+        return self.__path_lg
+
+    @path_lg.setter
+    def path_lg(self, value: str) -> None:
+        self.__path_lg = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def url(self) -> str:
+        """URL path to a copy of original image."""
+        return self.__url
+
+    @url.setter
+    def url(self, value: str) -> None:
+        self.__url = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def url_xs(self) -> str:
+        """URL path to miniature of image, size of `xs`."""
+        return self.__url_xs
+
+    @url_xs.setter
+    def url_xs(self, value: str) -> None:
+        self.__url_xs = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def url_sm(self) -> str:
+        """URL path to miniature of image, size of `sm`."""
+        return self.__url_sm
+
+    @url_sm.setter
+    def url_sm(self, value: str) -> None:
+        self.__url_sm = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def url_md(self) -> str:
+        """URL path to miniature of image, size of `md`."""
+        return self.__url_md
+
+    @url_md.setter
+    def url_md(self, value: str) -> None:
+        self.__url_md = value
+
+    # --------------------------------------------------------------------------
+    @property
+    def url_lg(self) -> str:
+        """URL path to miniature of image, size of `lg`."""
+        return self.__url_lg
+
+    @url_lg.setter
+    def url_lg(self, value: str) -> None:
+        self.__url_lg = value
