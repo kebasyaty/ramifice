@@ -1,6 +1,5 @@
 """Field of Model for enter text."""
 
-
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -8,54 +7,57 @@ from .general.text_group import TextGroup
 class TextField(Field, TextGroup):
     """Field of Model for enter text."""
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 textarea: bool = False,
-                 use_editor: bool = False,
-                 default: str | None = None,
-                 placeholder: str = "",
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 maxlength: int = 256,
-                 regex: str = "",
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=disabled,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='TextField',
-                       group='text',
-                       )
-        TextGroup.__init__(self,
-                           input_type='text',
-                           placeholder=placeholder,
-                           required=required,
-                           readonly=readonly,
-                           unique=unique,
-                           )
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        textarea: bool = False,
+        use_editor: bool = False,
+        default: str | None = None,
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+        maxlength: int = 256,
+        regex: str = "",
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="TextField",
+            group="text",
+        )
+        TextGroup.__init__(
+            self,
+            input_type="text",
+            placeholder=placeholder,
+            required=required,
+            readonly=readonly,
+            unique=unique,
+        )
         if __debug__:
             if not isinstance(maxlength, int):
-                raise AssertionError(
-                    'Parameter `maxlength` - Not а `int` type!')
+                raise AssertionError("Parameter `maxlength` - Not а `int` type!")
             if default is not None:
                 if not isinstance(default, str):
-                    raise AssertionError(
-                        'Parameter `default` - Not а `str` type!')
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
                 if len(default) == 0:
                     raise AssertionError(
-                        'The `default` parameter should not contain an empty string!')
+                        "The `default` parameter should not contain an empty string!"
+                    )
                 if len(default) > maxlength:
                     raise AssertionError(
-                        'Parameter `default` exceeds the size of `maxlength`!')
+                        "Parameter `default` exceeds the size of `maxlength`!"
+                    )
 
         self.__default = default
         self.__textarea = textarea

@@ -15,14 +15,14 @@ class TestNumberFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'IntegerField')
+        self.assertEqual(f.field_type, "IntegerField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'integer')
-        self.assertEqual(f.input_type, 'number')
+        self.assertEqual(f.group, "integer")
+        self.assertEqual(f.input_type, "number")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -36,11 +36,11 @@ class TestNumberFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             IntegerField(input_type="")
         with self.assertRaises(AssertionError):
-            IntegerField(input_type='numbe')
+            IntegerField(input_type="numbe")
         with self.assertRaises(AssertionError):
-            IntegerField(input_type='rang')
-        IntegerField(input_type='number')
-        IntegerField(input_type='range')
+            IntegerField(input_type="rang")
+        IntegerField(input_type="number")
+        IntegerField(input_type="range")
         with self.assertRaises(AssertionError):
             IntegerField(default="")
         with self.assertRaises(AssertionError):
@@ -75,14 +75,14 @@ class TestNumberFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'FloatField')
+        self.assertEqual(f.field_type, "FloatField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'float')
-        self.assertEqual(f.input_type, 'number')
+        self.assertEqual(f.group, "float")
+        self.assertEqual(f.input_type, "number")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -96,11 +96,11 @@ class TestNumberFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             FloatField(input_type="")
         with self.assertRaises(AssertionError):
-            FloatField(input_type='numbe')
+            FloatField(input_type="numbe")
         with self.assertRaises(AssertionError):
-            FloatField(input_type='rang')
-        FloatField(input_type='number')
-        FloatField(input_type='range')
+            FloatField(input_type="rang")
+        FloatField(input_type="number")
+        FloatField(input_type="range")
         with self.assertRaises(AssertionError):
             FloatField(default="")
         with self.assertRaises(AssertionError):
@@ -130,5 +130,5 @@ class TestNumberFields(unittest.TestCase):
         FloatField(default=13.0, max_number=13.0, min_number=12.0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

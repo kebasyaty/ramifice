@@ -15,7 +15,7 @@ class InvalidDateError(RamificeException):
         message -- explanation of the error
     """
 
-    def __init__(self, message: str = 'Invalid Date!'):
+    def __init__(self, message: str = "Invalid Date!"):
         self.message = message
         super().__init__(self.message)
 
@@ -27,6 +27,6 @@ class InvalidDateTimeError(RamificeException):
         message -- explanation of the error
     """
 
-    def __init__(self, message: str = 'Invalid Date and Time!'):
+    def __init__(self, message: str = "Invalid Date and Time!"):
         self.message = message
         super().__init__(self.message)

@@ -2,8 +2,12 @@
 
 import unittest
 
-from ramifice.fields import (ChoiceFloatDynField, ChoiceFloatField,
-                             ChoiceFloatMultDynField, ChoiceFloatMultField)
+from ramifice.fields import (
+    ChoiceFloatDynField,
+    ChoiceFloatField,
+    ChoiceFloatMultDynField,
+    ChoiceFloatMultField,
+)
 
 
 class TestChoiceFloatFields(unittest.TestCase):
@@ -16,13 +20,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceFloatField')
+        self.assertEqual(f.field_type, "ChoiceFloatField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -32,22 +36,19 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatField(choices='not list')
+            f = ChoiceFloatField(choices="not list")
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatField(default='2.0')
+            f = ChoiceFloatField(default="2.0")
         with self.assertRaises(AssertionError):
             f = ChoiceFloatField(
-                default=3.0,
-                choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+                default=3.0, choices=[(1.0, "Title"), (2.0, "Title 2")]
+            )
         # Methods:
         f = ChoiceFloatField()
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(
-            default=2.0,
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+        f = ChoiceFloatField(default=2.0, choices=[(1.0, "Title"), (2.0, "Title 2")])
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+        f = ChoiceFloatField(choices=[(1.0, "Title"), (2.0, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = 2.0
         self.assertTrue(f.has_value())
@@ -61,13 +62,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceFloatMultField')
+        self.assertEqual(f.field_type, "ChoiceFloatMultField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -77,30 +78,29 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatMultField(choices='not list')
+            f = ChoiceFloatMultField(choices="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(choices=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatMultField(default='not list')
+            f = ChoiceFloatMultField(default="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[3.0],
-                choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+                default=[3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+            )
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[2.0, 3.0],
-                choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+                default=[2.0, 3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+            )
         # Methods:
         f = ChoiceFloatMultField()
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(
-            default=[2.0],
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+            default=[2.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+        )
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(
-            choices=[(1.0, 'Title'), (2.0, 'Title 2')])
+        f = ChoiceFloatMultField(choices=[(1.0, "Title"), (2.0, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = [2.0]
         self.assertTrue(f.has_value())
@@ -116,13 +116,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceFloatDynField')
+        self.assertEqual(f.field_type, "ChoiceFloatDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -137,13 +137,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceFloatMultDynField')
+        self.assertEqual(f.field_type, "ChoiceFloatMultDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -152,5 +152,5 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertTrue(f.multiple)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -2,8 +2,12 @@
 
 import unittest
 
-from ramifice.fields import (ChoiceIntDynField, ChoiceIntField,
-                             ChoiceIntMultDynField, ChoiceIntMultField)
+from ramifice.fields import (
+    ChoiceIntDynField,
+    ChoiceIntField,
+    ChoiceIntMultDynField,
+    ChoiceIntMultField,
+)
 
 
 class TestChoiceIntegerFields(unittest.TestCase):
@@ -16,13 +20,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceIntField')
+        self.assertEqual(f.field_type, "ChoiceIntField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -32,22 +36,17 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceIntField(choices='not list')
+            f = ChoiceIntField(choices="not list")
         with self.assertRaises(AssertionError):
-            f = ChoiceIntField(default='2')
+            f = ChoiceIntField(default="2")
         with self.assertRaises(AssertionError):
-            f = ChoiceIntField(
-                default=3,
-                choices=[(1, 'Title'), (2, 'Title 2')])
+            f = ChoiceIntField(default=3, choices=[(1, "Title"), (2, "Title 2")])
         # Methods:
         f = ChoiceIntField()
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(
-            default=2,
-            choices=[(1, 'Title'), (2, 'Title 2')])
+        f = ChoiceIntField(default=2, choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(
-            choices=[(1, 'Title'), (2, 'Title 2')])
+        f = ChoiceIntField(choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = 2
         self.assertTrue(f.has_value())
@@ -61,13 +60,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceIntMultField')
+        self.assertEqual(f.field_type, "ChoiceIntMultField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
@@ -77,30 +76,25 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertTrue(f.multiple)
         # Additional check:
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(choices='not list')
+            f = ChoiceIntMultField(choices="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(choices=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(default='not list')
+            f = ChoiceIntMultField(default="not list")
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(
-                default=[3],
-                choices=[(1, 'Title'), (2, 'Title 2')])
+            f = ChoiceIntMultField(default=[3], choices=[(1, "Title"), (2, "Title 2")])
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(
-                default=[2, 3],
-                choices=[(1, 'Title'), (2, 'Title 2')])
+                default=[2, 3], choices=[(1, "Title"), (2, "Title 2")]
+            )
         # Methods:
         f = ChoiceIntMultField()
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(
-            default=[2],
-            choices=[(1, 'Title'), (2, 'Title 2')])
+        f = ChoiceIntMultField(default=[2], choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(
-            choices=[(1, 'Title'), (2, 'Title 2')])
+        f = ChoiceIntMultField(choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = [2]
         self.assertTrue(f.has_value())
@@ -116,13 +110,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceIntDynField')
+        self.assertEqual(f.field_type, "ChoiceIntDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -137,13 +131,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, 'ChoiceIntMultDynField')
+        self.assertEqual(f.field_type, "ChoiceIntMultDynField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, 'choice')
+        self.assertEqual(f.group, "choice")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
@@ -152,5 +146,5 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertTrue(f.multiple)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

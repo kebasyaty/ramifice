@@ -2,7 +2,6 @@
 
 
 class Field:
-
     """General parameters for all types fields of Model.
 
     Attributes:
@@ -17,17 +16,18 @@ class Field:
     group -- To optimize field traversal in the `check` method.
     """
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 errors: list[str] | None = None,
-                 field_type: str = "",
-                 group: str = "",
-                 ):
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        errors: list[str] | None = None,
+        field_type: str = "",
+        group: str = "",
+    ):
         self.__id = ""
         self.__label = label
         self.__name = ""

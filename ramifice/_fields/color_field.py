@@ -1,6 +1,5 @@
 """Field of Model for enter color code."""
 
-
 from ..store import REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -14,47 +13,49 @@ class ColorField(Field, TextGroup):
               hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 default: str | None = '#000000',
-                 placeholder: str = "",
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=disabled,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='ColorField',
-                       group='text',
-                       )
-        TextGroup.__init__(self,
-                           input_type='text',
-                           placeholder=placeholder,
-                           required=required,
-                           readonly=readonly,
-                           unique=unique,
-                           )
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        default: str | None = "#000000",
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="ColorField",
+            group="text",
+        )
+        TextGroup.__init__(
+            self,
+            input_type="text",
+            placeholder=placeholder,
+            required=required,
+            readonly=readonly,
+            unique=unique,
+        )
         if __debug__:
             if default is not None:
                 if not isinstance(default, str):
-                    raise AssertionError(
-                        'Parameter `default` - Not а `str` type!')
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
                 if len(default) == 0:
                     raise AssertionError(
-                        'The `default` parameter should not contain an empty string!')
-                if REGEX['color_code'].match(default) is None:
-                    raise AssertionError(
-                        'Parameter `default` - Not а color code!')
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                if REGEX["color_code"].match(default) is None:
+                    raise AssertionError("Parameter `default` - Not а color code!")
 
         self.__default = default
 

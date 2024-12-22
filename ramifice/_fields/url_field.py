@@ -23,48 +23,50 @@ class URLField(Field, TextGroup):
     unique -- The unique value of a field in a collection.
     """
 
-    def __init__(self,
-                 label: str = "",
-                 disabled: bool = False,
-                 hide: bool = False,
-                 ignored: bool = False,
-                 hint: str = "",
-                 warning: list[str] | None = None,
-                 default: str | None = None,
-                 placeholder: str = "",
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 ):
-        Field.__init__(self,
-                       label=label,
-                       disabled=disabled,
-                       hide=hide,
-                       ignored=ignored,
-                       hint=hint,
-                       warning=warning,
-                       field_type='URLField',
-                       group='text',
-                       )
-        TextGroup.__init__(self,
-                           input_type='url',
-                           placeholder=placeholder,
-                           required=required,
-                           readonly=readonly,
-                           unique=unique,
-                           )
+    def __init__(
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        default: str | None = None,
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="URLField",
+            group="text",
+        )
+        TextGroup.__init__(
+            self,
+            input_type="url",
+            placeholder=placeholder,
+            required=required,
+            readonly=readonly,
+            unique=unique,
+        )
         if __debug__:
             if default is not None:
                 if not isinstance(default, str):
-                    raise AssertionError(
-                        'Parameter `default` - Not а `str` type!')
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
                 if len(default) == 0:
                     raise AssertionError(
-                        'The `default` parameter should not contain an empty string!')
+                        "The `default` parameter should not contain an empty string!"
+                    )
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
-                    raise AssertionError(
-                        'Parameter `default` - Invalid URL address!')
+                    raise AssertionError("Parameter `default` - Invalid URL address!")
 
         self.__default = default
 

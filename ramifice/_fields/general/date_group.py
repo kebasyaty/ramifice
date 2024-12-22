@@ -14,15 +14,16 @@ class DateGroup:
     min_date -- Minimum allowed date.
     """
 
-    def __init__(self,
-                 input_type: str = "",
-                 placeholder: str = '',
-                 required: bool = False,
-                 readonly: bool = False,
-                 unique: bool = False,
-                 max_date: str | None = None,
-                 min_date: str | None = None,
-                 ):
+    def __init__(
+        self,
+        input_type: str = "",
+        placeholder: str = "",
+        required: bool = False,
+        readonly: bool = False,
+        unique: bool = False,
+        max_date: str | None = None,
+        min_date: str | None = None,
+    ):
         self.__input_type = input_type
         self.__value: str | None = None
         self.__placeholder = placeholder

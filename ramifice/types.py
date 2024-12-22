@@ -36,7 +36,9 @@ class OutputData:
 class Unit:
     """Unit of information for `choices` parameter in dynamic field types."""
 
-    def __init__(self, field: str, title: str, value: float | int | str, delete: bool = False):
+    def __init__(
+        self, field: str, title: str, value: float | int | str, delete: bool = False
+    ):
         self.__field = field
         self.__title = title
         self.__value = value
