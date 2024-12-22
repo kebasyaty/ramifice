@@ -1,7 +1,7 @@
 """Field of Model for enter color code."""
 
 
-from ..globals.store import REGEX
+from ..store import REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
 

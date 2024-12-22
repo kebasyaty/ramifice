@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from ..errors import InvalidDateError, InvalidDateTimeError
+from .errors import InvalidDateError, InvalidDateTimeError
 from .store import REGEX
 
 

@@ -2,9 +2,8 @@
 
 from datetime import datetime
 
-
 from ..errors import InvalidDateTimeError
-from ..globals.tools import datetime_parse
+from ..tools import datetime_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
@@ -16,8 +15,6 @@ class DateTimeField(Field, DateGroup):
              yyyy-mm-dd hh:mm:ss | yyyy/mm/dd hh:mm:ss | yyyy.mm.dd hh:mm:ss |
              yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
     """
-
-
 
     def __init__(self,
                  label: str = "",
