@@ -1,8 +1,8 @@
 """Field of Model for upload file."""
 
 import datetime
+import os
 import uuid
-from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
 from ..types import FileData
@@ -80,7 +80,7 @@ class FileField(Field, FileGroup):
             date_str: str = ""  # current date for the directory name
             target_path: str = ""  # path to target file
             # Get file extension.
-            extension = Path(filename).suffix
+            extension = os.path.splitext(filename)[1]
             if len(extension) == 0:
                 raise FileHasNoExtensionError(
                     f"The file `{filename}` has no extension."
@@ -94,3 +94,5 @@ class FileField(Field, FileGroup):
             # Create path to target file.
             target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
+            if not os.path.exists(target_path):
+                os.makedirs(target_path)
