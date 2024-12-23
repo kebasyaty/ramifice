@@ -1,5 +1,6 @@
 """Field of Model for upload file."""
 
+import datetime
 import uuid
 from pathlib import Path
 
@@ -76,6 +77,7 @@ class FileField(Field, FileGroup):
         if base64 is not None and filename is not None:
             extension: str = ""
             target_name: str = ""
+            date_str: str = ""
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
@@ -86,3 +88,5 @@ class FileField(Field, FileGroup):
             base64 = base64.replace(",", "", 40)
             # Create target file name.
             target_name = f"{uuid.uuid4()}{extension}"
+            # Create the current date for the directory name.
+            date_str = datetime.datetime.now().strftime("%Y-%m-%d")
