@@ -80,3 +80,5 @@ class FileField(Field, FileGroup):
                 raise FileHasNoExtensionError(
                     f"The file `{filename}` has no extension."
                 )
+            # Prepare Base64 content.
+            base64 = base64.replace(",", "", 40)
