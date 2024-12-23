@@ -65,9 +65,9 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value
-        choices = self.__choices
-        if value and choices:
+        value = self.__value or None
+        choices = self.__choices or None
+        if value is not None and choices is not None:
             value_list = [
                 item[0] for item in choices  # pylint: disable=not-an-iterable
             ]  # pylint: disable=not-an-iterable
