@@ -6,11 +6,10 @@ from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceIntDynField(Field, ChoiceGroup):
+class ChoiceIntMultDynField(Field, ChoiceGroup):
     """Field of Model.
     Type of selective integer field with dynamic addition of elements.
-    For simulate relationship Many-to-One.
-    Element are (add|delete) via `ModelName.unit_manager(unit)` method.
+    For simulate relationship Many-to-Many.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
 
@@ -33,24 +32,25 @@ class ChoiceIntDynField(Field, ChoiceGroup):
             ignored=ignored,
             hint=hint,
             warning=warning,
-            field_type="ChoiceIntDynField",
+            field_type="ChoiceIntMultDynField",
             group="choice",
         )
         ChoiceGroup.__init__(
             self,
             required=required,
             readonly=readonly,
+            multiple=True,
         )
-        self.__value: int | None = None
+        self.__value: list[int] | None = None
         self.__choices: list[tuple[int, str]] | None = None
 
     @property
-    def value(self) -> int | None:
+    def value(self) -> list[int] | None:
         """Sets value of field."""
         return self.__value
 
     @value.setter
-    def value(self, value: int | None) -> None:
+    def value(self, value: list[int] | None) -> None:
         self.__value = value
 
     # --------------------------------------------------------------------------
@@ -61,16 +61,18 @@ class ChoiceIntDynField(Field, ChoiceGroup):
         """
         return self.__choices
 
-    # ---------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value
-        choices = self.__choices
-        if value and choices:
+        value = self.__value or None
+        choices = self.__choices or None
+        if value is not None and choices is not None:
             value_list = [
                 item[0] for item in choices  # pylint: disable=not-an-iterable
             ]  # pylint: disable=not-an-iterable
-            if value not in value_list:
-                flag = False
+            for item in value:
+                if item not in value_list:
+                    flag = False
+                    break
         return flag

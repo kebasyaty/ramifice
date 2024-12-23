@@ -1,5 +1,8 @@
 """Field of Model for upload file."""
 
+from pathlib import Path
+
+from ..errors import FileHasNoExtensionError
 from ..types import FileData
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -61,6 +64,19 @@ class FileField(Field, FileGroup):
         base64: str | None = None,
         filename: str | None = None,
         delete: bool = False,
-    ):
+    ) -> None:
         """Convert base64 to a file and save in the target directory."""
-        pass
+        base64 = base64 or None
+        filename = filename or None
+        value = FileData()
+        value.is_new_file = True
+        value.delete = delete
+        extension: str = ""
+
+        if base64 is not None and filename is not None:
+            # Get file extension.
+            extension = Path(filename).suffix
+            if len(extension) == 0:
+                raise FileHasNoExtensionError(
+                    f"The file `{filename}` has no extension."
+                )

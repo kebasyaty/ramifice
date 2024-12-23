@@ -3,6 +3,10 @@
 .directory
 .DS_Store
 
+# Ignore temporary media files
+/public/media/uploads/**
+!/public/media/uploads/.gitkeep
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

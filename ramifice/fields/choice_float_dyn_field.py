@@ -1,14 +1,14 @@
 """Field of Model.
-Type of selective text field with dynamic addition of elements.
+Type of selective float field with dynamic addition of elements.
 """
 
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceTextDynField(Field, ChoiceGroup):
+class ChoiceFloatDynField(Field, ChoiceGroup):
     """Field of Model.
-    Type of selective text field with dynamic addition of elements.
+    Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-One.
     Element are (add|delete) via `ModelName.unit_manager(unit)` method.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
@@ -33,7 +33,7 @@ class ChoiceTextDynField(Field, ChoiceGroup):
             ignored=ignored,
             hint=hint,
             warning=warning,
-            field_type="ChoiceTextDynField",
+            field_type="ChoiceFloatDynField",
             group="choice",
         )
         ChoiceGroup.__init__(
@@ -41,23 +41,23 @@ class ChoiceTextDynField(Field, ChoiceGroup):
             required=required,
             readonly=readonly,
         )
-        self.__value: str | None = None
-        self.__choices: list[tuple[str, str]] | None = None
+        self.__value: float | None = None
+        self.__choices: list[tuple[float, str]] | None = None
 
     @property
-    def value(self) -> str | None:
+    def value(self) -> float | None:
         """Sets value of field."""
         return self.__value
 
     @value.setter
-    def value(self, value: str | None) -> None:
+    def value(self, value: float | None) -> None:
         self.__value = value
 
     # --------------------------------------------------------------------------
     @property
-    def choices(self) -> list[tuple[str, str]] | None:
+    def choices(self) -> list[tuple[float, str]] | None:
         """Html tag: select.
-        Example: [('value', 'Title'), ('value 2', 'Title 2')]
+        Example: [(1, 'Title'), (2, 'Title 2')]
         """
         return self.__choices
 
@@ -65,9 +65,9 @@ class ChoiceTextDynField(Field, ChoiceGroup):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value
-        choices = self.__choices
-        if value and choices:
+        value = self.__value or None
+        choices = self.__choices or None
+        if value is not None and choices is not None:
             value_list = [
                 item[0] for item in choices  # pylint: disable=not-an-iterable
             ]  # pylint: disable=not-an-iterable
