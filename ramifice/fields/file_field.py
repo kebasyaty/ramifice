@@ -1,5 +1,6 @@
 """Field of Model for upload file."""
 
+import base64
 import datetime
 import os
 import uuid
@@ -63,18 +64,18 @@ class FileField(Field, FileGroup):
 
     def from_base64(
         self,
-        base64: str | None = None,
+        base64_str: str | None = None,
         filename: str | None = None,
         delete: bool = False,
     ) -> None:
         """Convert base64 to a file and save in the target directory."""
-        base64 = base64 or None
+        base64_str = base64_str or None
         filename = filename or None
         value = FileData()
         value.is_new_file = True
         value.delete = delete
 
-        if base64 is not None and filename is not None:
+        if base64_str is not None and filename is not None:
             extension: str = ""  # file extension
             target_name: str = ""  # target file name
             date_str: str = ""  # current date for the directory name
@@ -86,7 +87,7 @@ class FileField(Field, FileGroup):
                     f"The file `{filename}` has no extension."
                 )
             # Prepare Base64 content.
-            base64 = base64.replace(",", "", 40)
+            base64_str = base64_str.replace(",", "", 40)
             # Create target file name.
             target_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
@@ -96,3 +97,8 @@ class FileField(Field, FileGroup):
             # Create target directory if it does not exist.
             if not os.path.exists(target_path):
                 os.makedirs(target_path)
+            target_path += f"/{target_name}"
+            # Save file in target directory.
+            with open(target_path, mode="wb", encoding="utf-8") as open_f:
+                file_content = base64.b64decode(base64_str)
+                open_f.write(file_content)
