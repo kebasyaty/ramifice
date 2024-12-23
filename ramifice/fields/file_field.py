@@ -71,9 +71,9 @@ class FileField(Field, FileGroup):
         """Convert base64 to a file and save in the target directory."""
         base64_str = base64_str or None
         filename = filename or None
-        value = FileData()
-        value.is_new_file = True
-        value.delete = delete
+        f_data = FileData()
+        f_data.is_new_file = True
+        f_data.delete = delete
 
         if base64_str is not None and filename is not None:
             extension: str = ""  # file extension
@@ -97,8 +97,20 @@ class FileField(Field, FileGroup):
             # Create target directory if it does not exist.
             if not os.path.exists(target_path):
                 os.makedirs(target_path)
+            # Get file path.
             target_path += f"/{target_name}"
             # Save file in target directory.
             with open(target_path, mode="wb", encoding="utf-8") as open_f:
                 file_content = base64.b64decode(base64_str)
                 open_f.write(file_content)
+            # Add paths to target file.
+            f_data.path = target_path
+            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{target_name}"
+            # Add original file name.
+            f_data.name = filename
+            # Add file extension.
+            f_data.extension = extension
+            # Add file size.
+            f_data.size = os.path.getsize(target_path)
+        # FileData to value.
+        self.__value = f_data
