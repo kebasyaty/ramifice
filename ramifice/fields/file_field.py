@@ -61,6 +61,10 @@ class FileField(Field, FileGroup):
         base64: str | None = None,
         filename: str | None = None,
         delete: bool = False,
-    ):
+    ) -> None:
         """Convert base64 to a file and save in the target directory."""
-        pass
+        base64 = base64 or None
+        filename = filename or None
+        value = FileData()
+        value.is_new_file = True
+        value.delete = delete
