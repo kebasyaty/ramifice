@@ -1,5 +1,6 @@
 """Field of Model for upload file."""
 
+import uuid
 from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
@@ -71,9 +72,10 @@ class FileField(Field, FileGroup):
         value = FileData()
         value.is_new_file = True
         value.delete = delete
-        extension: str = ""
 
         if base64 is not None and filename is not None:
+            extension: str = ""
+            target_name: str = ""
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
@@ -82,3 +84,5 @@ class FileField(Field, FileGroup):
                 )
             # Prepare Base64 content.
             base64 = base64.replace(",", "", 40)
+            # Create target file name.
+            target_name = f"{uuid.uuid4()}{extension}"
