@@ -75,9 +75,10 @@ class FileField(Field, FileGroup):
         value.delete = delete
 
         if base64 is not None and filename is not None:
-            extension: str = ""
-            target_name: str = ""
-            date_str: str = ""
+            extension: str = ""  # file extension
+            target_name: str = ""  # target file name
+            date_str: str = ""  # current date for the directory name
+            target_path: str = ""  # path to target file
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
@@ -90,3 +91,5 @@ class FileField(Field, FileGroup):
             target_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
             date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+            # Create path to target file.
+            target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
