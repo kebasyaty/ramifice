@@ -93,3 +93,4 @@ class FileField(Field, FileGroup):
             date_str = datetime.datetime.now().strftime("%Y-%m-%d")
             # Create path to target file.
             target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            # Create target directory if it does not exist.
