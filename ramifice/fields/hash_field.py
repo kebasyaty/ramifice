@@ -44,6 +44,5 @@ class HashField(Field, TextGroup):
 
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""
-        _hash = self.value
-        _id = ObjectId(_hash) if _hash else None
-        return _id
+        value = self.value
+        return ObjectId(value) if value else None
