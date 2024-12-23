@@ -30,3 +30,15 @@ class InvalidDateTimeError(RamificeException):
     def __init__(self, message: str = "Invalid Date and Time!"):
         self.message = message
         super().__init__(self.message)
+
+
+class FileHasNoExtensionError(RamificeException):
+    """Exception raised If the file has no extension.
+
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message: str = "File has no extension!"):
+        self.message = message
+        super().__init__(self.message)
