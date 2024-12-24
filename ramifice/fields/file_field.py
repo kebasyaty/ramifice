@@ -91,7 +91,7 @@ class FileField(Field, FileGroup):
                 if item[1] == ",":
                     base64_str = base64_str[item[0] + 1 :]
                     break
-                elif item[0] == 40:
+                if item[0] == 40:
                     break
             # Create target file name.
             target_name = f"{uuid.uuid4()}{extension}"
@@ -106,8 +106,8 @@ class FileField(Field, FileGroup):
             target_path += f"/{target_name}"
             # Save file in target directory.
             with open(target_path, mode="wb", encoding="utf-8") as open_f:
-                file_content = base64.b64decode(base64_str)
-                open_f.write(file_content)
+                f_content = base64.b64decode(base64_str)
+                open_f.write(f_content)
             # Add paths to target file.
             f_data.path = target_path
             f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{target_name}"
