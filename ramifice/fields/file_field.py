@@ -1,6 +1,9 @@
 """Field of Model for upload file."""
 
-from pathlib import Path
+import base64
+import datetime
+import os
+import uuid
 
 from ..errors import FileHasNoExtensionError
 from ..types import FileData
@@ -61,22 +64,58 @@ class FileField(Field, FileGroup):
 
     def from_base64(
         self,
-        base64: str | None = None,
+        base64_str: str | None = None,
         filename: str | None = None,
         delete: bool = False,
     ) -> None:
         """Convert base64 to a file and save in the target directory."""
-        base64 = base64 or None
+        base64_str = base64_str or None
         filename = filename or None
-        value = FileData()
-        value.is_new_file = True
-        value.delete = delete
-        extension: str = ""
+        f_data = FileData()
+        f_data.is_new_file = True
+        f_data.delete = delete
 
-        if base64 is not None and filename is not None:
+        if base64_str is not None and filename is not None:
+            extension: str = ""  # file extension
+            target_name: str = ""  # target file name
+            date_str: str = ""  # current date for the directory name
+            target_path: str = ""  # path to target file
             # Get file extension.
-            extension = Path(filename).suffix
+            extension = os.path.splitext(filename)[1]
             if len(extension) == 0:
                 raise FileHasNoExtensionError(
                     f"The file `{filename}` has no extension."
                 )
+            # Prepare Base64 content.
+            for item in enumerate(base64_str):
+                if item[1] == ",":
+                    base64_str = base64_str[item[0] + 1 :]
+                    break
+                if item[0] == 40:
+                    break
+            # Create target file name.
+            target_name = f"{uuid.uuid4()}{extension}"
+            # Create the current date for the directory name.
+            date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+            # Create path to target file.
+            target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            # Create target directory if it does not exist.
+            if not os.path.exists(target_path):
+                os.makedirs(target_path)
+            # Get file path.
+            target_path += f"/{target_name}"
+            # Save file in target directory.
+            with open(target_path, mode="wb", encoding="utf-8") as open_f:
+                f_content = base64.b64decode(base64_str)
+                open_f.write(f_content)
+            # Add paths to target file.
+            f_data.path = target_path
+            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{target_name}"
+            # Add original file name.
+            f_data.name = filename
+            # Add file extension.
+            f_data.extension = extension
+            # Add file size.
+            f_data.size = os.path.getsize(target_path)
+        # FileData to value.
+        self.__value = f_data
