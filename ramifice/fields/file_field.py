@@ -87,7 +87,12 @@ class FileField(Field, FileGroup):
                     f"The file `{filename}` has no extension."
                 )
             # Prepare Base64 content.
-            base64_str = base64_str.replace(",", "", 40)
+            for item in enumerate(base64_str):
+                if item[1] == ",":
+                    base64_str = base64_str[item[0] + 1 :]
+                    break
+                elif item[0] == 40:
+                    break
             # Create target file name.
             target_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
