@@ -115,7 +115,7 @@ class FileField(Field, FileGroup):
             f_data.name = filename
             # Add file extension.
             f_data.extension = extension
-            # Add file size.
+            # Add file size (in bytes).
             f_data.size = os.path.getsize(target_path)
         # FileData to value.
         self.__value = f_data
