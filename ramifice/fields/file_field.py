@@ -1,9 +1,9 @@
 """Field of Model for upload file."""
 
-import base64
-import datetime
 import os
 import uuid
+from base64 import b64decode
+from datetime import datetime
 
 from ..errors import FileHasNoExtensionError
 from ..types import FileData
@@ -28,7 +28,7 @@ class FileField(Field, FileGroup):
         max_size: int = 2097152,  # 2 MB
         default: str | None = None,
         placeholder: str = "",
-        target_dir: str = "",
+        target_dir: str = "files",
         accept: str = "",
     ):
         Field.__init__(
@@ -96,7 +96,7 @@ class FileField(Field, FileGroup):
             # Create target file name.
             target_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+            date_str = datetime.now().strftime("%Y-%m-%d")
             # Create path to target file.
             target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
@@ -105,8 +105,8 @@ class FileField(Field, FileGroup):
             # Get file path.
             target_path += f"/{target_name}"
             # Save file in target directory.
-            with open(target_path, mode="wb", encoding="utf-8") as open_f:
-                f_content = base64.b64decode(base64_str)
+            with open(target_path, mode="wb") as open_f:
+                f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths to target file.
             f_data.path = target_path
@@ -117,5 +117,6 @@ class FileField(Field, FileGroup):
             f_data.extension = extension
             # Add file size (in bytes).
             f_data.size = os.path.getsize(target_path)
+
         # FileData to value.
         self.__value = f_data

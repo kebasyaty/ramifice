@@ -27,10 +27,18 @@ class TestFileFields(unittest.TestCase):
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
-        self.assertEqual(f.target_dir, "")
+        self.assertEqual(f.target_dir, "files")
         self.assertEqual(f.accept, "")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
+        # Methods:
+        # self.assertIsNone(f.from_base64("SGVsbG8gV29ybGQhCg==", "file_name.txt"))
+        # self.assertEqual(f.value.name, "file_name.txt")
+        # self.assertEqual(f.value.size, 13)
+        # self.assertTrue(f.value.is_new_file)
+        # self.assertEqual(f.value.extension, ".txt")
+        # self.assertFalse(f.value.delete)
+        # self.assertFalse(f.value.save_as_is)
 
     def test_image_field(self):
         """Testing `ImageField`."""
@@ -51,7 +59,7 @@ class TestFileFields(unittest.TestCase):
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
-        self.assertEqual(f.target_dir, "")
+        self.assertEqual(f.target_dir, "images")
         self.assertEqual(f.accept, "")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")

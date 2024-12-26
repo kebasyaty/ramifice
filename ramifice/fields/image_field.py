@@ -22,7 +22,7 @@ class ImageField(Field, FileGroup):
         max_size: int = 2097152,  # 2 MB
         default: str | None = None,
         placeholder: str = "",
-        target_dir: str = "",
+        target_dir: str = "images",
         accept: str = "",
     ):
         Field.__init__(
