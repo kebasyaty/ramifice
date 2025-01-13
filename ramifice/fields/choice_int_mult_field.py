@@ -2,6 +2,7 @@
 Type of selective integer field with static of elements.
 """
 
+from ..store import DEBUG
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
@@ -47,7 +48,7 @@ class ChoiceIntMultField(Field, ChoiceGroup):
         self.__default = default
         self.__choices = choices
 
-        if __debug__:
+        if DEBUG:
             if choices is not None:
                 if not isinstance(choices, list):
                     raise AssertionError("Parameter `choices` - Not а `list` type!")

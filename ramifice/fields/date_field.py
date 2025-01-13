@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from ..errors import InvalidDateError
+from ..store import DEBUG
 from ..tools import date_parse
 from .general.date_group import DateGroup
 from .general.field import Field
@@ -52,7 +53,7 @@ class DateField(Field, DateGroup):
             min_date=min_date,
         )
 
-        if __debug__:
+        if DEBUG:
             if max_date is not None:
                 if not isinstance(max_date, str):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")

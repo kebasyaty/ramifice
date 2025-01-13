@@ -1,5 +1,6 @@
 """Field of Model for enter text."""
 
+from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -44,7 +45,7 @@ class TextField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
-        if __debug__:
+        if DEBUG:
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
             if default is not None:
