@@ -90,10 +90,10 @@ class ImageField(Field, FileGroup):
                     break
                 if item[0] == 40:
                     break
-            # Directory name for the original image and its thumbnails.
-            general_dir = uuid.uuid4()
             # Create the current date for the directory name.
             date_str = datetime.now().strftime("%Y-%m-%d")
+            # Directory name for the original image and its thumbnails.
+            general_dir = uuid.uuid4()
             # Create path to target directory with images.
             imgs_dir_path = (
                 f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
