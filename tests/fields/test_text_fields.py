@@ -156,7 +156,6 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
-        self.assertEqual(f.regex, "")
 
     def test_ip_field(self):
         """Testing `IPField`."""

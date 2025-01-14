@@ -1,5 +1,6 @@
 """Field of Model for enter (float) number."""
 
+from ..store import DEBUG
 from .general.field import Field
 from .general.number_group import NumberGroup
 
@@ -43,7 +44,7 @@ class FloatField(Field, NumberGroup):
             readonly=readonly,
             unique=unique,
         )
-        if __debug__:
+        if DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
                     "Parameter `input_type` - Invalid input type! "

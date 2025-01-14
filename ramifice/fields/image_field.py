@@ -1,5 +1,11 @@
 """Field of Model for upload image."""
 
+import os
+import uuid
+from base64 import b64decode
+from datetime import datetime
+
+from ..errors import FileHasNoExtensionError
 from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -55,3 +61,71 @@ class ImageField(Field, FileGroup):
     @value.setter
     def value(self, value: ImageData | None) -> None:
         self.__value = value
+
+    # --------------------------------------------------------------------------
+    def from_base64(
+        self,
+        base64_str: str | None = None,
+        filename: str | None = None,
+        delete: bool = False,
+    ) -> None:
+        """Convert base64 to a file and save in the target directory."""
+        base64_str = base64_str or None
+        filename = filename or None
+        i_data = ImageData()
+        i_data.is_new_img = True
+        i_data.delete = delete
+
+        if base64_str is not None and filename is not None:
+            # Get file extension.
+            extension = os.path.splitext(filename)[1]
+            if len(extension) == 0:
+                raise FileHasNoExtensionError(
+                    f"The image `{filename}` has no extension."
+                )
+            # Prepare Base64 content.
+            for item in enumerate(base64_str):
+                if item[1] == ",":
+                    base64_str = base64_str[item[0] + 1 :]
+                    break
+                if item[0] == 40:
+                    break
+            # Create the current date for the directory name.
+            date_str = datetime.now().strftime("%Y-%m-%d")
+            # Directory name for the original image and its thumbnails.
+            general_dir = uuid.uuid4()
+            # Create path to target directory with images.
+            imgs_dir_path = (
+                f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
+            )
+            # Create url path to target directory with images.
+            imgs_dir_url = (
+                f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
+            )
+            # Create a new name for the original image.
+            new_original_name = f"original{extension}"
+            # Create path to main image.
+            main_img_path = f"{imgs_dir_path}/{new_original_name}"
+            # Create target directory if it does not exist.
+            if not os.path.exists(imgs_dir_path):
+                os.makedirs(imgs_dir_path)
+            # Save main image in target directory.
+            with open(main_img_path, mode="wb") as open_f:
+                f_content = b64decode(base64_str)
+                open_f.write(f_content)
+            # Add paths for main image.
+            i_data.path = main_img_path
+            i_data.url = f"{imgs_dir_url}/{new_original_name}"
+            # Add original image name.
+            i_data.name = filename
+            # Add image extension.
+            i_data.extension = extension
+            # Add path to target directory with images.
+            i_data.imgs_dir_path = imgs_dir_path
+            # Add url path to target directory with images.
+            i_data.imgs_dir_url = imgs_dir_url
+            # Add size of main image (in bytes).
+            i_data.size = os.path.getsize(main_img_path)
+
+        # FileData to value.
+        self.__value = i_data

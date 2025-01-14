@@ -7,6 +7,8 @@ import re
 from pymongo import MongoClient
 from pymongo.database import Database
 
+# To block the verification code, at the end of the migration to the database.
+DEBUG: bool = True
 # Mongo client caching.
 MONGO_CLIENT: MongoClient | None = None
 # Mongo database caching.

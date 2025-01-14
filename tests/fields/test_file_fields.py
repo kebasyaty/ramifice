@@ -63,6 +63,15 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.accept, "")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
+        # Methods:
+        # base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+        # self.assertIsNone(f.from_base64(base64_str, "img_name.png"))
+        # self.assertEqual(f.value.name, "img_name.png")
+        # self.assertEqual(f.value.size, 120)
+        # self.assertTrue(f.value.is_new_img)
+        # self.assertEqual(f.value.extension, ".png")
+        # self.assertFalse(f.value.delete)
+        # self.assertFalse(f.value.save_as_is)
 
 
 if __name__ == "__main__":

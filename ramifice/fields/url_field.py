@@ -2,6 +2,7 @@
 
 from urllib.parse import urlparse
 
+from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -56,7 +57,7 @@ class URLField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
-        if __debug__:
+        if DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

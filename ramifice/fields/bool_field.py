@@ -1,5 +1,6 @@
 """Field of Model for enter logical value."""
 
+from ..store import DEBUG
 from .general.field import Field
 
 
@@ -27,7 +28,7 @@ class BoolField(Field):
             field_type="BoolField",
             group="bool",
         )
-        if __debug__:
+        if DEBUG:
             if default is not None and not isinstance(default, bool):
                 raise AssertionError("Parameter `default` - Not а `bool` type!")
 

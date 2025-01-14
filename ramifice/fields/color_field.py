@@ -1,6 +1,6 @@
 """Field of Model for enter color code."""
 
-from ..store import REGEX
+from ..store import DEBUG, REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -46,7 +46,7 @@ class ColorField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
-        if __debug__:
+        if DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

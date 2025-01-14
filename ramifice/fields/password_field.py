@@ -20,7 +20,6 @@ class PasswordField(Field):
         warning: list[str] | None = None,
         placeholder: str = "",
         required: bool = False,
-        regex: str = "",
     ):
         Field.__init__(
             self,
@@ -37,7 +36,6 @@ class PasswordField(Field):
         self.__value: str | None = None
         self.__placeholder = placeholder
         self.__required = required
-        self.__regex = regex
 
     @property
     def input_type(self) -> str:
@@ -67,12 +65,3 @@ class PasswordField(Field):
     def required(self) -> bool:
         """Required field."""
         return self.__required
-
-    # --------------------------------------------------------------------------
-
-    @property
-    def regex(self) -> str:
-        """Regular expression to validate the `value`.
-        Example: ^[a-zA-Z0-9_]{8,16}$
-        """
-        return self.__regex

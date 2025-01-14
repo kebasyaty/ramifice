@@ -62,6 +62,7 @@ class FileField(Field, FileGroup):
     def value(self, value: FileData | None) -> None:
         self.__value = value
 
+    # --------------------------------------------------------------------------
     def from_base64(
         self,
         base64_str: str | None = None,
@@ -76,10 +77,6 @@ class FileField(Field, FileGroup):
         f_data.delete = delete
 
         if base64_str is not None and filename is not None:
-            extension: str = ""  # file extension
-            target_name: str = ""  # target file name
-            date_str: str = ""  # current date for the directory name
-            target_path: str = ""  # path to target file
             # Get file extension.
             extension = os.path.splitext(filename)[1]
             if len(extension) == 0:
