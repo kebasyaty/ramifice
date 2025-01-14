@@ -62,6 +62,7 @@ class FileField(Field, FileGroup):
     def value(self, value: FileData | None) -> None:
         self.__value = value
 
+    # --------------------------------------------------------------------------
     def from_base64(
         self,
         base64_str: str | None = None,
