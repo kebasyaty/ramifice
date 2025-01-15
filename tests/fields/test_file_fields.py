@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.errors import FileHasNoExtensionError
+# from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields import FileField, ImageField
 
 
@@ -89,11 +89,11 @@ class TestFileFields(unittest.TestCase):
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
         # Methods:
-        # self.assertIsNone(f.from_base64(self.img_base64_str, "img_name.png"))
-        # self.assertEqual(f.value.name, "img_name.png")
-        # self.assertEqual(f.value.size, 120)
+        # self.assertIsNone(f.from_path("public/media/default/no_photo.jpeg"))
+        # self.assertEqual(f.value.name, "no_photo.jpeg")
+        # self.assertEqual(f.value.size, 3832)
         # self.assertTrue(f.value.is_new_img)
-        # self.assertEqual(f.value.extension, ".png")
+        # self.assertEqual(f.value.extension, ".jpeg")
         # self.assertFalse(f.value.delete)
         # self.assertFalse(f.value.save_as_is)
 
