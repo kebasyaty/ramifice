@@ -2,6 +2,7 @@
 
 import unittest
 
+# from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields import FileField, ImageField
 
 
@@ -31,12 +32,26 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.accept, "")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
+        # Exception checking:
+        # with self.assertRaises(FileHasNoExtensionError):
+        #     f.from_base64("SGVsbG8gV29ybGQhCg==", "file_name")
+        # with self.assertRaises(FileHasNoExtensionError):
+        #     f.from_path("public/media/default/no_doc")
         # Methods:
+        # from_base64()
         # self.assertIsNone(f.from_base64("SGVsbG8gV29ybGQhCg==", "file_name.txt"))
         # self.assertEqual(f.value.name, "file_name.txt")
         # self.assertEqual(f.value.size, 13)
         # self.assertTrue(f.value.is_new_file)
         # self.assertEqual(f.value.extension, ".txt")
+        # self.assertFalse(f.value.delete)
+        # self.assertFalse(f.value.save_as_is)
+        # from_path()
+        # self.assertIsNone(f.from_path("public/media/default/no_doc.odt"))
+        # self.assertEqual(f.value.name, "no_doc.odt")
+        # self.assertEqual(f.value.size, 9843)
+        # self.assertTrue(f.value.is_new_file)
+        # self.assertEqual(f.value.extension, ".odt")
         # self.assertFalse(f.value.delete)
         # self.assertFalse(f.value.save_as_is)
 

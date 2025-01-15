@@ -32,7 +32,7 @@ class TestDateFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertIsNone(f.max_date)
         self.assertIsNone(f.min_date)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             DateField(max_date=12)
         with self.assertRaises(AssertionError):
@@ -91,7 +91,7 @@ class TestDateFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertIsNone(f.max_date)
         self.assertIsNone(f.min_date)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             DateTimeField(max_date=12)
         with self.assertRaises(AssertionError):
