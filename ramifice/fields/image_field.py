@@ -70,7 +70,9 @@ class ImageField(Field, FileGroup):
         filename: str | None = None,
         delete: bool = False,
     ) -> None:
-        """Convert base64 to a image and save in the target directory."""
+        """Convert base64 to a image,
+        get image information and save in the target directory.
+        """
         base64_str = base64_str or None
         filename = filename or None
         i_data = ImageData()

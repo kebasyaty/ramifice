@@ -2,12 +2,17 @@
 
 import unittest
 
-# from ramifice.errors import FileHasNoExtensionError
+from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields import FileField, ImageField
 
 
 class TestFileFields(unittest.TestCase):
     """Testing file fields."""
+
+    def setUp(self):
+        self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
+        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+        return super().setUp()
 
     def test_file_field(self):
         """Testing `FileField`."""
@@ -34,12 +39,12 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.media_url, "/media/uploads")
         # Exception checking:
         # with self.assertRaises(FileHasNoExtensionError):
-        #     f.from_base64("SGVsbG8gV29ybGQhCg==", "file_name")
+        #     f.from_base64(self.file_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
         # Methods:
         # from_base64()
-        # self.assertIsNone(f.from_base64("SGVsbG8gV29ybGQhCg==", "file_name.txt"))
+        # self.assertIsNone(f.from_base64(self.file_base64_str, "file_name.txt"))
         # self.assertEqual(f.value.name, "file_name.txt")
         # self.assertEqual(f.value.size, 13)
         # self.assertTrue(f.value.is_new_file)
@@ -78,9 +83,13 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.accept, "")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
+        # Exception checking:
+        # with self.assertRaises(FileHasNoExtensionError):
+        #     f.from_base64(self.img_base64_str, "file_name")
+        # with self.assertRaises(FileHasNoExtensionError):
+        #     f.from_path("public/media/default/no_doc")
         # Methods:
-        # base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
-        # self.assertIsNone(f.from_base64(base64_str, "img_name.png"))
+        # self.assertIsNone(f.from_base64(self.img_base64_str, "img_name.png"))
         # self.assertEqual(f.value.name, "img_name.png")
         # self.assertEqual(f.value.size, 120)
         # self.assertTrue(f.value.is_new_img)
