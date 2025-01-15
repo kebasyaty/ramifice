@@ -1,9 +1,11 @@
 """Field of Model for upload file."""
 
 import os
+import shutil
 import uuid
 from base64 import b64decode
 from datetime import datetime
+from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
 from ..types import FileData
@@ -69,7 +71,9 @@ class FileField(Field, FileGroup):
         filename: str | None = None,
         delete: bool = False,
     ) -> None:
-        """Convert base64 to a file and save in the target directory."""
+        """Convert base64 to a file,
+        get file information and save in the target directory.
+        """
         base64_str = base64_str or None
         filename = filename or None
         f_data = FileData()
@@ -78,7 +82,7 @@ class FileField(Field, FileGroup):
 
         if base64_str is not None and filename is not None:
             # Get file extension.
-            extension = os.path.splitext(filename)[1]
+            extension = Path(filename).suffix
             if len(extension) == 0:
                 raise FileHasNoExtensionError(
                     f"The file `{filename}` has no extension."
@@ -90,30 +94,75 @@ class FileField(Field, FileGroup):
                     break
                 if item[0] == 40:
                     break
-            # Create target file name.
-            target_name = f"{uuid.uuid4()}{extension}"
+            # Create new (uuid) file name.
+            f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
             date_str = datetime.now().strftime("%Y-%m-%d")
-            # Create path to target file.
-            target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            # Create path to target directory.
+            dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not os.path.exists(target_path):
-                os.makedirs(target_path)
-            # Get file path.
-            target_path += f"/{target_name}"
+            if not os.path.exists(dir_target_path):
+                os.makedirs(dir_target_path)
+            # Create path to target file.
+            f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            with open(target_path, mode="wb") as open_f:
+            with open(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths to target file.
-            f_data.path = target_path
-            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{target_name}"
+            f_data.path = f_target_path
+            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             f_data.name = filename
             # Add file extension.
             f_data.extension = extension
             # Add file size (in bytes).
-            f_data.size = os.path.getsize(target_path)
+            f_data.size = os.path.getsize(f_target_path)
+
+        # FileData to value.
+        self.__value = f_data
+
+    # --------------------------------------------------------------------------
+    def from_path(
+        self,
+        src_path: str | None = None,
+        delete: bool = False,
+    ) -> None:
+        """Get file information and copy the file to the target directory."""
+        src_path = src_path or None
+        f_data = FileData()
+        f_data.is_new_file = True
+        f_data.delete = delete
+
+        if src_path is not None:
+            # Get file extension.
+            extension = Path(src_path).suffix
+            if len(extension) == 0:
+                raise FileHasNoExtensionError(
+                    f"The file `{src_path}` has no extension."
+                )
+            # Create new (uuid) file name.
+            f_uuid_name = f"{uuid.uuid4()}{extension}"
+            # Create the current date for the directory name.
+            date_str = datetime.now().strftime("%Y-%m-%d")
+            # Create path to target directory.
+            dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            # Create target directory if it does not exist.
+            if not os.path.exists(dir_target_path):
+                os.makedirs(dir_target_path)
+            # Create path to target file.
+            f_target_path = f"{dir_target_path}/{f_uuid_name}"
+            # Save file in target directory.
+            shutil.copyfile(src_path, f_target_path)
+            # Add paths to target file.
+            f_data.path = f_target_path
+            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            # Add original file name.
+            f_data.name = os.path.basename(src_path)
+            # Add file extension.
+            f_data.extension = extension
+            # Add file size (in bytes).
+            f_data.size = os.path.getsize(f_target_path)
 
         # FileData to value.
         self.__value = f_data

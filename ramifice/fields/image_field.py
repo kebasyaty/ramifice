@@ -4,6 +4,7 @@ import os
 import uuid
 from base64 import b64decode
 from datetime import datetime
+from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
 from ..types import ImageData
@@ -69,7 +70,7 @@ class ImageField(Field, FileGroup):
         filename: str | None = None,
         delete: bool = False,
     ) -> None:
-        """Convert base64 to a file and save in the target directory."""
+        """Convert base64 to a image and save in the target directory."""
         base64_str = base64_str or None
         filename = filename or None
         i_data = ImageData()
@@ -78,7 +79,7 @@ class ImageField(Field, FileGroup):
 
         if base64_str is not None and filename is not None:
             # Get file extension.
-            extension = os.path.splitext(filename)[1]
+            extension = Path(filename).suffix
             if len(extension) == 0:
                 raise FileHasNoExtensionError(
                     f"The image `{filename}` has no extension."
