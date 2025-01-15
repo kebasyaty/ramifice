@@ -34,7 +34,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceIntField(choices="not list")
         with self.assertRaises(AssertionError):
@@ -74,7 +74,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(choices="not list")
         with self.assertRaises(AssertionError):

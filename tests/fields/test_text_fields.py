@@ -43,7 +43,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 256)
         self.assertEqual(f.regex, "")
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             TextField(default=12)
         with self.assertRaises(AssertionError):
@@ -76,7 +76,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             URLField(default="")
         with self.assertRaises(AssertionError):
@@ -127,7 +127,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.regex, "")
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             PhoneField(default=12)
         with self.assertRaises(AssertionError):
@@ -178,7 +178,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             IPField(default=12)
         with self.assertRaises(AssertionError):
@@ -233,7 +233,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             EmailField(default=12)
         with self.assertRaises(AssertionError):
@@ -263,7 +263,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             ColorField(default=12)
         with self.assertRaises(AssertionError):

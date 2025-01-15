@@ -34,7 +34,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(choices="not list")
         with self.assertRaises(AssertionError):
@@ -80,7 +80,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(choices="not list")
         with self.assertRaises(AssertionError):

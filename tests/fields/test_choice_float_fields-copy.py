@@ -34,7 +34,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceFloatField(choices="not list")
         with self.assertRaises(AssertionError):
@@ -76,7 +76,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(choices="not list")
         with self.assertRaises(AssertionError):

@@ -25,7 +25,7 @@ class TestBooleanField(unittest.TestCase):
         self.assertEqual(f.input_type, "checkbox")
         self.assertIsNone(f.value)
         self.assertFalse(f.default)
-        # Additional check:
+        # Exception checking:
         with self.assertRaises(AssertionError):
             BoolField(default=0)
         with self.assertRaises(AssertionError):
