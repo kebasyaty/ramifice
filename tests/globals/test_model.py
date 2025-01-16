@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice import Model
-from ramifice.fields import TextField
+from ramifice.fields import DateTimeField, HashField, TextField
 
 
 class User(Model):
@@ -11,7 +11,12 @@ class User(Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.username = TextField()
+        self.__username = TextField()
+
+    @property
+    def username(self):
+        """Username"""
+        return self.__username
 
 
 class TestModel(unittest.TestCase):
@@ -37,20 +42,11 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
         #
-        #
-        m2 = User()
-        #
-        self.assertEqual(m2.model_name(), "User")
-        self.assertEqual(m2.full_model_name(), "test_model.User")
-        self.assertEqual(Model.__subclasses__(), [User])
-        #
-        self.assertIsNone(m2.hash.value)
-        self.assertIsNone(m2.created_at.value)
-        self.assertIsNone(m2.updated_at.value)
-        self.assertIsNone(m2.username.value)
-        #
-        #
-        self.assertIsNone(m.hash.value)
-        self.assertIsNone(m.created_at.value)
-        self.assertIsNone(m.updated_at.value)
-        self.assertIsNone(m.username.value)
+        with self.assertRaises(AttributeError):
+            m.hash = HashField()
+        with self.assertRaises(AttributeError):
+            m.created_at = DateTimeField()
+        with self.assertRaises(AttributeError):
+            m.updated_at = DateTimeField()
+        with self.assertRaises(AttributeError):
+            m.username = TextField()
