@@ -15,3 +15,5 @@ class TestModel(unittest.TestCase):
         self.assertIsNotNone(Model.__dict__.get("hash"))
         self.assertIsNotNone(Model.__dict__.get("created_at"))
         self.assertIsNotNone(Model.__dict__.get("updated_at"))
+        self.assertIsNotNone(Model.__dict__.get("model_name"))
+        self.assertIsNotNone(Model.__dict__.get("full_model_name"))
