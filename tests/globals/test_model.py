@@ -8,6 +8,10 @@ from ramifice import Model
 class ModelName(Model):
     """For testing a instance `Model`."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.add_property()
+
 
 class TestModel(unittest.TestCase):
     """Testing the module `ramifice.model`."""
@@ -22,7 +26,6 @@ class TestModel(unittest.TestCase):
     def test_instance_model(self):
         """Testing a instance `Model`."""
         m = ModelName()
-        m.add_property()
         #
         self.assertEqual(m.model_name(), "ModelName")
         self.assertEqual(m.full_model_name(), "test_model.ModelName")
