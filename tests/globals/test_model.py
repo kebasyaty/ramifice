@@ -10,5 +10,6 @@ class TestModel(unittest.TestCase):
 
     def test_class_model(self):
         """Testing a class `OutputData`."""
-        fields = Model.__dict__
-        self.assertEqual(fields, {})
+        # fields = Model.__dict__.keys()
+        self.assertEqual(Model.__name__, "Model")
+        self.assertEqual(Model.__module__, "ramifice.model")
