@@ -27,3 +27,4 @@ class TestModel(unittest.TestCase):
         m = ModelName()
         self.assertEqual(m.model_name(), "ModelName")
         self.assertEqual(m.full_model_name(), "test_model.ModelName")
+        self.assertEqual(Model.__subclasses__(), [ModelName])
