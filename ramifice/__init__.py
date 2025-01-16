@@ -13,3 +13,5 @@
 # limitations under the License.
 
 """ORM-like API MongoDB for Python language."""
+
+from .model import Model
