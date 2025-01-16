@@ -1,12 +1,10 @@
-"""An abstraction for converting Python classes into Ramifice Model."""
-
-from abc import ABCMeta, abstractmethod
+"""For converting Python classes into Ramifice Model."""
 
 from .fields import DateTimeField, HashField
 
 
-class Model(metaclass=ABCMeta):
-    """An abstraction for converting Python classes into Ramifice Model."""
+class Model:
+    """For converting Python classes into Ramifice Model."""
 
     hash = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
     created_at = DateTimeField(
@@ -22,12 +20,10 @@ class Model(metaclass=ABCMeta):
         disabled=True,
     )
 
-    @abstractmethod
     def model_name(self) -> str:
         """Get Model name - Class name."""
         return self.__class__.__name__
 
-    @abstractmethod
     def full_model_name(self) -> str:
         """Get full Model name - Module name + . + Class name."""
         cls = self.__class__

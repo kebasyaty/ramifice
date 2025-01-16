@@ -5,6 +5,10 @@ import unittest
 from ramifice import Model
 
 
+class ModelName(Model):
+    """For testing a instance `Model`."""
+
+
 class TestModel(unittest.TestCase):
     """Testing the module `ramifice.model`."""
 
@@ -17,3 +21,9 @@ class TestModel(unittest.TestCase):
         self.assertIsNotNone(Model.__dict__.get("updated_at"))
         self.assertIsNotNone(Model.__dict__.get("model_name"))
         self.assertIsNotNone(Model.__dict__.get("full_model_name"))
+
+    def test_instance_model(self):
+        """Testing a instance `Model`."""
+        m = ModelName()
+        self.assertEqual(m.model_name(), "ModelName")
+        self.assertEqual(m.full_model_name(), "test_model.ModelName")
