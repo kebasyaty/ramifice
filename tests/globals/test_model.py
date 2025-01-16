@@ -3,14 +3,15 @@
 import unittest
 
 from ramifice import Model
+from ramifice.fields import TextField
 
 
-class ModelName(Model):
+class User(Model):
     """For testing a instance `Model`."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.add_property()
+        self.username = TextField()
 
 
 class TestModel(unittest.TestCase):
@@ -25,12 +26,31 @@ class TestModel(unittest.TestCase):
 
     def test_instance_model(self):
         """Testing a instance `Model`."""
-        m = ModelName()
+        m = User()
         #
-        self.assertEqual(m.model_name(), "ModelName")
-        self.assertEqual(m.full_model_name(), "test_model.ModelName")
-        self.assertEqual(Model.__subclasses__(), [ModelName])
+        self.assertEqual(m.model_name(), "User")
+        self.assertEqual(m.full_model_name(), "test_model.User")
+        self.assertEqual(Model.__subclasses__(), [User])
         #
         self.assertIsNone(m.hash.value)
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
+        self.assertIsNone(m.username.value)
+        #
+        #
+        m2 = User()
+        #
+        self.assertEqual(m2.model_name(), "User")
+        self.assertEqual(m2.full_model_name(), "test_model.User")
+        self.assertEqual(Model.__subclasses__(), [User])
+        #
+        self.assertIsNone(m2.hash.value)
+        self.assertIsNone(m2.created_at.value)
+        self.assertIsNone(m2.updated_at.value)
+        self.assertIsNone(m2.username.value)
+        #
+        #
+        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m.created_at.value)
+        self.assertIsNone(m.updated_at.value)
+        self.assertIsNone(m.username.value)

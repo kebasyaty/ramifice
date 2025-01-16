@@ -31,12 +31,3 @@ class Model:
         """Get full Model name - Module name + . + Class name."""
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
-
-    def add_property(self):
-        """Dynamically adding properties."""
-        for name in self.__dict__:
-
-            def getter(self):
-                return self.__dict__.get(name)  # pylint: disable=cell-var-from-loop
-
-            setattr(self.__class__, name, property(getter))
