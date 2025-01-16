@@ -6,19 +6,22 @@ from .fields import DateTimeField, HashField
 class Model:
     """For converting Python classes into Ramifice Model."""
 
-    hash = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
-    created_at = DateTimeField(
-        label="Created at",
-        warning=["When the document was created."],
-        hide=True,
-        disabled=True,
-    )
-    updated_at = DateTimeField(
-        label="Updated at",
-        warning=["When the document was updated."],
-        hide=True,
-        disabled=True,
-    )
+    def __init__(self):
+        self.hash = HashField(
+            label="Document ID", hide=True, ignored=True, disabled=True
+        )
+        self.created_at = DateTimeField(
+            label="Created at",
+            warning=["When the document was created."],
+            hide=True,
+            disabled=True,
+        )
+        self.updated_at = DateTimeField(
+            label="Updated at",
+            warning=["When the document was updated."],
+            hide=True,
+            disabled=True,
+        )
 
     def model_name(self) -> str:
         """Get Model name - Class name."""
@@ -28,3 +31,12 @@ class Model:
         """Get full Model name - Module name + . + Class name."""
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
+
+    def add_property(self):
+        """Dynamically adding properties."""
+        for name in self.__dict__:
+
+            def getter(self):
+                return self.__dict__.get(name)  # pylint: disable=cell-var-from-loop
+
+            setattr(self.__class__, name, property(getter))

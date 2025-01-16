@@ -16,15 +16,18 @@ class TestModel(unittest.TestCase):
         """Testing a class `Model`."""
         self.assertEqual(Model.__name__, "Model")
         self.assertEqual(Model.__module__, "ramifice.model")
-        self.assertIsNotNone(Model.__dict__.get("hash"))
-        self.assertIsNotNone(Model.__dict__.get("created_at"))
-        self.assertIsNotNone(Model.__dict__.get("updated_at"))
         self.assertIsNotNone(Model.__dict__.get("model_name"))
         self.assertIsNotNone(Model.__dict__.get("full_model_name"))
 
     def test_instance_model(self):
         """Testing a instance `Model`."""
         m = ModelName()
+        m.add_property()
+        #
         self.assertEqual(m.model_name(), "ModelName")
         self.assertEqual(m.full_model_name(), "test_model.ModelName")
         self.assertEqual(Model.__subclasses__(), [ModelName])
+        #
+        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m.created_at.value)
+        self.assertIsNone(m.updated_at.value)
