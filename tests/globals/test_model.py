@@ -10,6 +10,8 @@ class TestModel(unittest.TestCase):
 
     def test_class_model(self):
         """Testing a class `OutputData`."""
-        # fields = Model.__dict__.keys()
         self.assertEqual(Model.__name__, "Model")
         self.assertEqual(Model.__module__, "ramifice.model")
+        self.assertIsNotNone(Model.__dict__.get("hash"))
+        self.assertIsNotNone(Model.__dict__.get("created_at"))
+        self.assertIsNotNone(Model.__dict__.get("updated_at"))
