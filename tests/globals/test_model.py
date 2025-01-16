@@ -1,4 +1,4 @@
-"""Testing the module `Model`."""
+"""Testing the module `ramifice.model`."""
 
 import unittest
 
@@ -6,7 +6,7 @@ from ramifice import Model
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `Model`."""
+    """Testing the module `ramifice.model`."""
 
     def test_class_model(self):
         """Testing a class `OutputData`."""

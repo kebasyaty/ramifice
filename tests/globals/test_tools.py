@@ -1,4 +1,4 @@
-"""Testing the module `Tools`."""
+"""Testing the module `ramifice.tools`."""
 
 import unittest
 
@@ -7,7 +7,7 @@ from ramifice.tools import date_parse, datetime_parse
 
 
 class TestTools(unittest.TestCase):
-    """Testing the module `Tools`."""
+    """Testing the module `ramifice.tools`."""
 
     def test_tools_date_parse(self):
         """Testing a method `date_parse()`."""
