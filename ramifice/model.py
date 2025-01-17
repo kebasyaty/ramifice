@@ -1,5 +1,7 @@
 """For converting Python classes into Ramifice Model."""
 
+from bson.objectid import ObjectId
+
 from .fields import DateTimeField, HashField
 
 
@@ -46,3 +48,8 @@ class Model:
         """Get full Model name - Module name + . + Class name."""
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
+
+    def object_id(self) -> ObjectId | None:
+        """Get ObjectId from field `hash`."""
+        value = self.__hash.value
+        return ObjectId(value) if value else None
