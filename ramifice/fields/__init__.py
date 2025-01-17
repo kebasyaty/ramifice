@@ -1,4 +1,4 @@
-"""Available types of fields."""
+"""Available field types."""
 
 from .bool_field import BoolField
 from .choice_float_dyn_field import ChoiceFloatDynField

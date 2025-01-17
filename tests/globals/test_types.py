@@ -1,12 +1,12 @@
-"""Testing the global module `types`."""
+"""Testing the module `ramifice.types`."""
 
 import unittest
 
 from ramifice.types import FileData, ImageData, OutputData, Unit
 
 
-class TestGlobalTypes(unittest.TestCase):
-    """Testing the global module `types`."""
+class TestTypes(unittest.TestCase):
+    """Testing the module `ramifice.types`."""
 
     def test_output_data(self):
         """Testing a class `OutputData`."""

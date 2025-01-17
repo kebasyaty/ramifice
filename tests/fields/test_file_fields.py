@@ -9,10 +9,10 @@ from ramifice.fields import FileField, ImageField
 class TestFileFields(unittest.TestCase):
     """Testing file fields."""
 
-    def setUp(self):
-        self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
-        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
-        return super().setUp()
+    # def setUp(self):
+    #     self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
+    #     self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+    #     return super().setUp()
 
     def test_file_field(self):
         """Testing `FileField`."""
@@ -89,6 +89,15 @@ class TestFileFields(unittest.TestCase):
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
         # Methods:
+        # from_base64()
+        # self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
+        # self.assertEqual(f.value.name, "image_name.png")
+        # self.assertEqual(f.value.size, 120)
+        # self.assertTrue(f.value.is_new_img)
+        # self.assertEqual(f.value.extension, ".png")
+        # self.assertFalse(f.value.delete)
+        # self.assertFalse(f.value.save_as_is)
+        # from_path()
         # self.assertIsNone(f.from_path("public/media/default/no_photo.jpeg"))
         # self.assertEqual(f.value.name, "no_photo.jpeg")
         # self.assertEqual(f.value.size, 3832)
