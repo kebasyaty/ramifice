@@ -17,6 +17,9 @@ def meta(
 
     def decorator(cls):
         if cls.__dict__.get("META") is None:
+            if REGEX["service_name"].match(service_name) is None:
+                raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+            #
             cls.META = {
                 "service_name": service_name,
                 "fixture_name": fixture_name,
@@ -40,3 +43,4 @@ def caching(cls) -> None:
     #
     cls.META["model_name"] = model_name
     cls.META["full_model_name"] = model.full_model_name()
+    cls.META["collection_name"] = f"{cls.META["service_name"]}_{model_name}"
