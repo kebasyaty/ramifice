@@ -35,6 +35,16 @@ class TestModel(unittest.TestCase):
             "model_name": "User",
             "full_model_name": "test_meta__User",
             "collection_name": "Accounts_User",
+            "field_name_and_type_list": {
+                "created_at": "DateTimeField",
+                "updated_at": "DateTimeField",
+                "username": "TextField",
+            },
+            "field_name_params_list": {
+                "created_at": {"type": "DateTimeField", "group": "date"},
+                "updated_at": {"type": "DateTimeField", "group": "date"},
+                "username": {"type": "TextField", "group": "text"},
+            },
         }
         return super().setUp()
 
