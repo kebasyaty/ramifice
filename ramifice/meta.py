@@ -29,6 +29,7 @@ def meta(
                 "is_update_doc": is_update_doc,
                 "is_delete_doc": is_delete_doc,
             }
+            caching(cls)
         return cls
 
     return decorator

@@ -32,6 +32,9 @@ class TestModel(unittest.TestCase):
             "is_create_doc": True,
             "is_update_doc": True,
             "is_delete_doc": True,
+            "model_name": "User",
+            "full_model_name": "test_meta__User",
+            "collection_name": "Accounts_User",
         }
         return super().setUp()
 
