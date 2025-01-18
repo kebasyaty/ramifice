@@ -50,15 +50,24 @@ def caching(cls) -> None:
     field_name_and_type_list: dict[str, str] = {}
     # Format: <field_name, <type: field_type, group: field_group>>
     field_name_params_list: dict[str, dict[str, str]] = {}
+    # Get attributes value for fields of Model: id, name.
+    field_attrs: dict[str, dict[str, str]] = {}
     #
     for f_name, f_type in model.__dict__.items():
-        if not callable(f_type) and not f_type.ignored:
+        if not callable(f_type):
             f_name = f_name.split("__")[-1]
             f_type_str = f_type.__class__.__name__
-            field_name_and_type_list[f_name] = f_type_str
-            field_name_params_list[f_name] = {
-                "type": f_type_str,
-                "group": f_type.group,
+            field_attrs[f_name] = {
+                "id": f"{model_name}--{f_name.replace("_", "-")}",
+                "name": f_name,
             }
+            if not f_type.ignored:
+                field_name_and_type_list[f_name] = f_type_str
+                field_name_params_list[f_name] = {
+                    "type": f_type_str,
+                    "group": f_type.group,
+                }
+    #
     cls.META["field_name_and_type_list"] = field_name_and_type_list
     cls.META["field_name_params_list"] = field_name_params_list
+    cls.META["field_attrs"] = field_attrs

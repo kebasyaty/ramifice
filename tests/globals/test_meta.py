@@ -45,6 +45,12 @@ class TestModel(unittest.TestCase):
                 "updated_at": {"type": "DateTimeField", "group": "date"},
                 "username": {"type": "TextField", "group": "text"},
             },
+            "field_attrs": {
+                "hash": {"id": "User--hash", "name": "hash"},
+                "created_at": {"id": "User--created-at", "name": "created_at"},
+                "updated_at": {"id": "User--updated-at", "name": "updated_at"},
+                "username": {"id": "User--username", "name": "username"},
+            },
         }
         return super().setUp()
 
