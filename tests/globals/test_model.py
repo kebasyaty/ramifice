@@ -24,6 +24,7 @@ class TestModel(unittest.TestCase):
 
     def test_class_model(self):
         """Testing a class `Model`."""
+        self.assertIsNone(Model.META)
         self.assertEqual(Model.__name__, "Model")
         self.assertEqual(Model.__module__, "ramifice.model")
         self.assertIsNotNone(Model.__dict__.get("model_name"))
