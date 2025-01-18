@@ -1,5 +1,8 @@
 """Model parameters."""
 
+from .errors import DoesNotMatchRegexError
+from .store import REGEX
+
 
 def meta(
     service_name: str,
@@ -26,3 +29,14 @@ def meta(
         return cls
 
     return decorator
+
+
+def caching(cls) -> None:
+    """Add metadata to Model.META."""
+    model = cls()
+    model_name = model.model_name()
+    if REGEX["model_name"].match(model_name) is None:
+        raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+    #
+    cls.META["model_name"] = model_name
+    cls.META["full_model_name"] = model.full_model_name()
