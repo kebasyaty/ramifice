@@ -8,6 +8,8 @@ from .fields import DateTimeField, HashField
 class Model:
     """For converting Python classes into Ramifice Model."""
 
+    META = None
+
     def __init__(self):
         self.__hash = HashField(
             label="Document ID", hide=True, ignored=True, disabled=True
