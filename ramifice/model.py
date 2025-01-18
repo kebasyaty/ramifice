@@ -8,6 +8,8 @@ from .fields import DateTimeField, HashField
 class Model:
     """For converting Python classes into Ramifice Model."""
 
+    META = None
+
     def __init__(self):
         self.__hash = HashField(
             label="Document ID", hide=True, ignored=True, disabled=True
@@ -45,9 +47,9 @@ class Model:
         return self.__class__.__name__
 
     def full_model_name(self) -> str:
-        """Get full Model name - Module name + . + Class name."""
+        """Get full Model name - module_name + __ + ClassName."""
         cls = self.__class__
-        return f"{cls.__module__}.{cls.__name__}"
+        return f"{cls.__module__}__{cls.__name__}"
 
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from field `hash`."""

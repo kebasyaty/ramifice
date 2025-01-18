@@ -1,13 +1,14 @@
-"""Testing the module `ramifice.model`."""
+"""Testing the module `ramifice.meta`."""
 
 import unittest
 
-from ramifice import Model
+from ramifice import Meta, Model
 from ramifice.fields import DateTimeField, HashField, TextField
 
 
+@Meta(service_name="Accounts")
 class User(Model):
-    """For testing a instance `Model`."""
+    """Class for testing."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,22 +21,33 @@ class User(Model):
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.model`."""
+    """Testing the module `ramifice.meta`."""
 
-    def test_class_model(self):
-        """Testing a class `Model`."""
+    def setUp(self):
+        self.model_params = {
+            "service_name": "Accounts",
+            "fixture_name": None,
+            "db_query_docs_limit": 1000,
+            "is_migrat_model": True,
+            "is_create_doc": True,
+            "is_update_doc": True,
+            "is_delete_doc": True,
+        }
+        return super().setUp()
+
+    def test_class_user(self):
+        """Testing a class `User`."""
         self.assertIsNone(Model.META)
-        self.assertEqual(Model.__name__, "Model")
-        self.assertEqual(Model.__module__, "ramifice.model")
-        self.assertIsNotNone(Model.__dict__.get("model_name"))
-        self.assertIsNotNone(Model.__dict__.get("full_model_name"))
+        self.assertEqual(User.META, self.model_params)
+        self.assertEqual(User.__name__, "User")
+        self.assertEqual(User.__module__, "test_meta")
 
-    def test_instance_model(self):
-        """Testing a instance `Model`."""
+    def test_instance_user(self):
+        """Testing a instance `User`."""
         m = User()
         #
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "test_model__User")
+        self.assertEqual(m.full_model_name(), "test_meta__User")
         #
         self.assertIsNone(m.hash.value)
         self.assertIsNone(m.created_at.value)
