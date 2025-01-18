@@ -3,7 +3,7 @@
 
 def meta(
     service_name: str,
-    fixture_name: str,
+    fixture_name: str | None = None,
     db_query_docs_limit: int = 1000,
     is_migrat_model: bool = True,
     is_create_doc: bool = True,
