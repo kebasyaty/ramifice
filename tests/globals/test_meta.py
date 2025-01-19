@@ -2,11 +2,11 @@
 
 import unittest
 
-from ramifice import Meta, Model
+from ramifice import Model, meta
 from ramifice.fields import DateTimeField, HashField, TextField
 
 
-@Meta(service_name="Accounts")
+@meta(service_name="Accounts")
 class User(Model):
     """Class for testing."""
 
@@ -32,6 +32,32 @@ class TestModel(unittest.TestCase):
             "is_create_doc": True,
             "is_update_doc": True,
             "is_delete_doc": True,
+            "model_name": "User",
+            "full_model_name": "test_meta__User",
+            "collection_name": "Accounts_User",
+            "field_name_and_type_list": {
+                "created_at": "DateTimeField",
+                "updated_at": "DateTimeField",
+                "username": "TextField",
+            },
+            "field_name_params_list": {
+                "created_at": {"type": "DateTimeField", "group": "date"},
+                "updated_at": {"type": "DateTimeField", "group": "date"},
+                "username": {"type": "TextField", "group": "text"},
+            },
+            "field_attrs": {
+                "hash": {"id": "User--hash", "name": "hash"},
+                "created_at": {"id": "User--created-at", "name": "created_at"},
+                "updated_at": {"id": "User--updated-at", "name": "updated_at"},
+                "username": {"id": "User--username", "name": "username"},
+            },
+            "data_dynamic_fields": {},
+            "count_all_fields": 4,
+            "count_fields_for_migrating": 3,
+            "time_object_list": {
+                "created_at": {"default": None, "max_date": None, "min_date": None},
+                "updated_at": {"default": None, "max_date": None, "min_date": None},
+            },
         }
         return super().setUp()
 

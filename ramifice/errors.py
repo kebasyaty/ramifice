@@ -33,7 +33,7 @@ class InvalidDateTimeError(RamificeException):
 
 
 class FileHasNoExtensionError(RamificeException):
-    """Exception raised If the file has no extension.
+    """Exception raised if the file has no extension.
 
     Attributes:
         message -- explanation of the error
@@ -41,4 +41,16 @@ class FileHasNoExtensionError(RamificeException):
 
     def __init__(self, message: str = "File has no extension!"):
         self.message = message
+        super().__init__(self.message)
+
+
+class DoesNotMatchRegexError(RamificeException):
+    """Exception raised if does not match the regular expression.
+
+    Attributes:
+        regex_str -- regular expression in string representation
+    """
+
+    def __init__(self, regex_str: str):
+        self.message = f"Does not match the regular expression: {regex_str}"
         super().__init__(self.message)

@@ -80,6 +80,14 @@ class DateField(Field, DateGroup):
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         "Parameter `min_date` - Invalid date and time!"
                     )  # pylint: disable=raise-missing-from
+            if (
+                max_date is not None
+                and min_date is not None
+                and date_parse(max_date) <= date_parse(min_date)
+            ):
+                raise AssertionError(
+                    "The `max_date` parameter should be more than the `min_date`!"
+                )
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
