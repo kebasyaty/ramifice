@@ -52,6 +52,7 @@ class TestModel(unittest.TestCase):
                 "username": {"id": "User--username", "name": "username"},
             },
             "data_dynamic_fields": {},
+            "count_all_fields": 4,
         }
         return super().setUp()
 
