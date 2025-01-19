@@ -54,8 +54,10 @@ def caching(cls) -> None:
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
     data_dynamic_fields: dict[str, list[tuple[str | int | float, str]] | None] = {}
-    # ???
+    # Count all fields.
     count_all_fields = 0
+    # Count fields for migrating.
+    count_fields_for_migrating = 0
     #
     for f_name, f_type in model.__dict__.items():
         if not callable(f_type):
@@ -67,6 +69,7 @@ def caching(cls) -> None:
                 "name": f_name,
             }
             if not f_type.ignored:
+                count_fields_for_migrating += 1
                 field_name_and_type_list[f_name] = f_type_str
                 field_name_params_list[f_name] = {
                     "type": f_type_str,
@@ -80,3 +83,4 @@ def caching(cls) -> None:
     cls.META["field_attrs"] = field_attrs
     cls.META["data_dynamic_fields"] = data_dynamic_fields
     cls.META["count_all_fields"] = count_all_fields
+    cls.META["count_fields_for_migrating"] = count_fields_for_migrating
