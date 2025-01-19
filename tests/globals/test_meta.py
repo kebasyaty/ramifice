@@ -51,6 +51,7 @@ class TestModel(unittest.TestCase):
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
                 "username": {"id": "User--username", "name": "username"},
             },
+            "data_dynamic_fields": {},
         }
         return super().setUp()
 
