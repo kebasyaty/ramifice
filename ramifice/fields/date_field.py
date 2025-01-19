@@ -97,6 +97,14 @@ class DateField(Field, DateGroup):
                     raise AssertionError("Parameter `default` is more `max_date`!")
                 if min_date is not None and date_parse(default) < date_parse(min_date):
                     raise AssertionError("Parameter `default` is less `min_date`!")
+                if (
+                    max_date is not None
+                    and min_date is not None
+                    and date_parse(max_date) <= date_parse(min_date)
+                ):
+                    raise AssertionError(
+                        "Parameter `max_date` is less or equal `min_date`!"
+                    )
 
         self.__default = default
 
