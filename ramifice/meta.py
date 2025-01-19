@@ -19,7 +19,7 @@ def meta(
     """Caching metadata in Model.META"""
 
     def decorator(cls):
-        if cls.__dict__.get("META") is None:
+        if not cls.__dict__.get("META"):
             if REGEX["service_name"].match(service_name) is None:
                 raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
             #
