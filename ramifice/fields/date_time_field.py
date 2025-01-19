@@ -88,7 +88,7 @@ class DateTimeField(Field, DateGroup):
                 and datetime_parse(max_date) <= datetime_parse(min_date)
             ):
                 raise AssertionError(
-                    "Parameter `max_date` is less or equal `min_date`!"
+                    "The `max_date` parameter should be more than the `min_date`!"
                 )
             if default is not None:
                 if not isinstance(default, str):
