@@ -13,6 +13,8 @@ class User(Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__username = TextField()
+        #
+        self.inject()
 
     @property
     def username(self):
@@ -63,7 +65,7 @@ class TestModel(unittest.TestCase):
 
     def test_class_user(self):
         """Testing a class `User`."""
-        self.assertIsNone(Model.META)
+        self.assertFalse(bool(Model.META))
         self.assertEqual(User.META, self.model_params)
         self.assertEqual(User.__name__, "User")
         self.assertEqual(User.__module__, "test_meta")
@@ -79,6 +81,8 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
+        self.assertEqual(m.username.id, "User--username")
+        self.assertEqual(m.username.name, "username")
         self.assertIsNone(m.object_id())
         #
         with self.assertRaises(AttributeError):

@@ -19,7 +19,8 @@ def meta(
     """Caching metadata in Model.META"""
 
     def decorator(cls):
-        if not cls.__dict__.get("META"):
+        if not bool(cls.META):
+            model = cls()
             if REGEX["service_name"].match(service_name) is None:
                 raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
             #
@@ -32,15 +33,14 @@ def meta(
                 "is_update_doc": is_update_doc,
                 "is_delete_doc": is_delete_doc,
             }
-            caching(cls)
+            caching(cls, model)
         return cls
 
     return decorator
 
 
-def caching(cls) -> None:
+def caching(cls, model) -> None:
     """Add metadata to Model.META."""
-    model = cls()
     model_name = model.model_name()
     if REGEX["model_name"].match(model_name) is None:
         raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
@@ -66,7 +66,7 @@ def caching(cls) -> None:
     #
     for f_name, f_type in model.__dict__.items():
         if not callable(f_type):
-            f_name = f_name.split("__")[-1]
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
             f_type_str = f_type.__class__.__name__
             # Count all fields.
             count_all_fields += 1

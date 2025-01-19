@@ -63,11 +63,13 @@ class Model:
         Parameters: id, name, dynamic choices.
         """
         metadata = self.__class__.META
-        field_attrs = metadata["field_attrs"]
-        data_dynamic_fields = metadata["data_dynamic_fields"]
-        for f_name, f_type in self.__dict__.items():
-            if not callable(f_type):
-                f_type.id = field_attrs[f_name]["id"]
-                f_type.name = field_attrs[f_name]["name"]
-                if "Dyn" in f_name:
-                    f_type.choices = data_dynamic_fields[f_name]
+        if bool(metadata):
+            field_attrs = metadata["field_attrs"]
+            data_dynamic_fields = metadata["data_dynamic_fields"]
+            for f_name, f_type in self.__dict__.items():
+                f_name = f_name.rsplit("__", maxsplit=1)[-1]
+                if not callable(f_type):
+                    f_type.id = field_attrs[f_name]["id"]
+                    f_type.name = field_attrs[f_name]["name"]
+                    if "Dyn" in f_name:
+                        f_type.choices = data_dynamic_fields[f_name]
