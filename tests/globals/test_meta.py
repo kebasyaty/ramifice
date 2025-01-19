@@ -2,11 +2,11 @@
 
 import unittest
 
-from ramifice import Meta, Model
+from ramifice import Model, meta
 from ramifice.fields import DateTimeField, HashField, TextField
 
 
-@Meta(service_name="Accounts")
+@meta(service_name="Accounts")
 class User(Model):
     """Class for testing."""
 

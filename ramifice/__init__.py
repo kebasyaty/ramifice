@@ -14,5 +14,5 @@
 
 """ORM-like API MongoDB for Python language."""
 
-from .meta import meta as Meta
+from .meta import meta
 from .model import Model
