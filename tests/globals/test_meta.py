@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice import Model, meta
-from ramifice.fields import DateTimeField, HashField, TextField
+from ramifice.fields import ChoiceTextDynField, DateTimeField, HashField, TextField
 
 
 # Strict style
@@ -13,6 +13,7 @@ class User(Model):
 
     def __init__(self):
         self.__username = TextField()
+        self.__favorite_color = ChoiceTextDynField()
         #
         super().__init__()
 
@@ -23,6 +24,11 @@ class User(Model):
     def username(self) -> TextField:
         """Username"""
         return self.__username
+
+    @property
+    def favorite_color(self) -> ChoiceTextDynField:
+        """Favorite color"""
+        return self.__favorite_color
 
 
 # Simplified style
@@ -55,24 +61,30 @@ class TestModel(unittest.TestCase):
             "full_model_name": "test_meta__User",
             "collection_name": "Accounts_User",
             "field_name_and_type_list": {
+                "username": "TextField",
+                "favorite_color": "ChoiceTextDynField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
-                "username": "TextField",
             },
             "field_name_params_list": {
+                "username": {"type": "TextField", "group": "text"},
+                "favorite_color": {"type": "ChoiceTextDynField", "group": "choice"},
                 "created_at": {"type": "DateTimeField", "group": "date"},
                 "updated_at": {"type": "DateTimeField", "group": "date"},
-                "username": {"type": "TextField", "group": "text"},
             },
             "field_attrs": {
+                "username": {"id": "User--username", "name": "username"},
+                "favorite_color": {
+                    "id": "User--favorite-color",
+                    "name": "favorite_color",
+                },
                 "hash": {"id": "User--hash", "name": "hash"},
                 "created_at": {"id": "User--created-at", "name": "created_at"},
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
-                "username": {"id": "User--username", "name": "username"},
             },
             "data_dynamic_fields": {},
-            "count_all_fields": 4,
-            "count_fields_for_migrating": 3,
+            "count_all_fields": 5,
+            "count_fields_for_migrating": 4,
             "time_object_list": {
                 "created_at": {"default": None, "max_date": None, "min_date": None},
                 "updated_at": {"default": None, "max_date": None, "min_date": None},
@@ -90,20 +102,20 @@ class TestModel(unittest.TestCase):
             "full_model_name": "test_meta__UserProfile",
             "collection_name": "Profiles_UserProfile",
             "field_name_and_type_list": {
+                "profession": "TextField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
-                "profession": "TextField",
             },
             "field_name_params_list": {
+                "profession": {"type": "TextField", "group": "text"},
                 "created_at": {"type": "DateTimeField", "group": "date"},
                 "updated_at": {"type": "DateTimeField", "group": "date"},
-                "profession": {"type": "TextField", "group": "text"},
             },
             "field_attrs": {
+                "profession": {"id": "UserProfile--profession", "name": "profession"},
                 "hash": {"id": "UserProfile--hash", "name": "hash"},
                 "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
-                "profession": {"id": "UserProfile--profession", "name": "profession"},
             },
             "data_dynamic_fields": {},
             "count_all_fields": 4,
@@ -135,6 +147,7 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
+        self.assertIsNone(m.favorite_color.value)
         self.assertEqual(m.username.id, "User--username")
         self.assertEqual(m.username.name, "username")
         self.assertIsNone(m.object_id())
