@@ -28,6 +28,7 @@ class Model:
             hide=True,
             disabled=True,
         )
+        self.inject()
 
     @property
     def hash(self):

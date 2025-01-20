@@ -10,23 +10,32 @@ from ramifice.fields import DateTimeField, HashField, TextField
 class User(Model):
     """Class for testing."""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
         self.__username = TextField()
         #
-        self.inject()
+        super().__init__()
 
     @property
-    def username(self):
+    def username(self) -> TextField:
         """Username"""
         return self.__username
+
+
+@meta(service_name="Profiles")
+class UserProfile(Model):
+    """Class for testing."""
+
+    def __init__(self):
+        self.profession = TextField()
+        #
+        super().__init__()
 
 
 class TestModel(unittest.TestCase):
     """Testing the module `ramifice.meta`."""
 
     def setUp(self):
-        self.model_params = {
+        self.user_meta = {
             "service_name": "Accounts",
             "fixture_name": None,
             "db_query_docs_limit": 1000,
@@ -66,7 +75,7 @@ class TestModel(unittest.TestCase):
     def test_class_user(self):
         """Testing a class `User`."""
         self.assertFalse(bool(Model.META))
-        self.assertEqual(User.META, self.model_params)
+        self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
         self.assertEqual(User.__module__, "test_meta")
 
@@ -93,3 +102,18 @@ class TestModel(unittest.TestCase):
             m.updated_at = DateTimeField()
         with self.assertRaises(AttributeError):
             m.username = TextField()
+
+    def test_instance_user_profile(self):
+        """Testing a instance `UserProfile`."""
+        m = UserProfile()
+        #
+        self.assertEqual(m.model_name(), "UserProfile")
+        self.assertEqual(m.full_model_name(), "test_meta__UserProfile")
+        #
+        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m.created_at.value)
+        self.assertIsNone(m.updated_at.value)
+        self.assertIsNone(m.profession.value)
+        self.assertEqual(m.profession.id, "UserProfile--profession")
+        self.assertEqual(m.profession.name, "profession")
+        self.assertIsNone(m.object_id())
