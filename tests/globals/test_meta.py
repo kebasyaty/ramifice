@@ -16,6 +16,9 @@ class User(Model):
         #
         super().__init__()
 
+    def __str__(self):
+        return str(self.__username.value)
+
     @property
     def username(self) -> TextField:
         """Username"""
@@ -31,6 +34,9 @@ class UserProfile(Model):
         self.profession = TextField()
         #
         super().__init__()
+
+    def __str__(self):
+        return str(self.profession.value)
 
 
 class TestModel(unittest.TestCase):
@@ -120,6 +126,8 @@ class TestModel(unittest.TestCase):
         """Testing a instance `User`."""
         m = User()
         #
+        self.assertEqual(str(m), "None")
+        #
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "test_meta__User")
         #
@@ -150,6 +158,8 @@ class TestModel(unittest.TestCase):
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
         m = UserProfile()
+        #
+        self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "UserProfile")
         self.assertEqual(m.full_model_name(), "test_meta__UserProfile")
