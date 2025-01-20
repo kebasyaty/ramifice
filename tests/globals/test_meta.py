@@ -6,6 +6,7 @@ from ramifice import Model, meta
 from ramifice.fields import DateTimeField, HashField, TextField
 
 
+# Strict style
 @meta(service_name="Accounts")
 class User(Model):
     """Class for testing."""
@@ -21,6 +22,7 @@ class User(Model):
         return self.__username
 
 
+# Simplified style
 @meta(service_name="Profiles")
 class UserProfile(Model):
     """Class for testing."""
@@ -70,6 +72,41 @@ class TestModel(unittest.TestCase):
                 "updated_at": {"default": None, "max_date": None, "min_date": None},
             },
         }
+        self.user_profile_meta = {
+            "service_name": "Profiles",
+            "fixture_name": None,
+            "db_query_docs_limit": 1000,
+            "is_migrat_model": True,
+            "is_create_doc": True,
+            "is_update_doc": True,
+            "is_delete_doc": True,
+            "model_name": "UserProfile",
+            "full_model_name": "test_meta__UserProfile",
+            "collection_name": "Profiles_UserProfile",
+            "field_name_and_type_list": {
+                "created_at": "DateTimeField",
+                "updated_at": "DateTimeField",
+                "profession": "TextField",
+            },
+            "field_name_params_list": {
+                "created_at": {"type": "DateTimeField", "group": "date"},
+                "updated_at": {"type": "DateTimeField", "group": "date"},
+                "profession": {"type": "TextField", "group": "text"},
+            },
+            "field_attrs": {
+                "hash": {"id": "UserProfile--hash", "name": "hash"},
+                "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
+                "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
+                "profession": {"id": "UserProfile--profession", "name": "profession"},
+            },
+            "data_dynamic_fields": {},
+            "count_all_fields": 4,
+            "count_fields_for_migrating": 3,
+            "time_object_list": {
+                "created_at": {"default": None, "max_date": None, "min_date": None},
+                "updated_at": {"default": None, "max_date": None, "min_date": None},
+            },
+        }
         return super().setUp()
 
     def test_class_user(self):
@@ -102,6 +139,13 @@ class TestModel(unittest.TestCase):
             m.updated_at = DateTimeField()
         with self.assertRaises(AttributeError):
             m.username = TextField()
+
+    def test_class_user_profile(self):
+        """Testing a class `UserProfile`."""
+        self.assertFalse(bool(Model.META))
+        self.assertEqual(UserProfile.META, self.user_profile_meta)
+        self.assertEqual(UserProfile.__name__, "UserProfile")
+        self.assertEqual(UserProfile.__module__, "test_meta")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
