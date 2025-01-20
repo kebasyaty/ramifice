@@ -1,5 +1,7 @@
 """Field of Model for enter color code."""
 
+import json
+
 from ..store import DEBUG, REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -65,3 +67,16 @@ class ColorField(Field, TextGroup):
         Default value is #000000 (black).
         """
         return self.__default
+
+    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
+        """Convert the field object to a dictionary."""
+        json_dict: dict[str, str | bool | list[str] | None] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type
+        return json_dict
+
+    def to_json(self):
+        """Convert field object to a json string."""
+        return json.dumps(self.to_dict())

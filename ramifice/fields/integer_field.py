@@ -1,5 +1,7 @@
 """Field of Model for enter (int) number."""
 
+import json
+
 from ..store import DEBUG
 from .general.field import Field
 from .general.number_group import NumberGroup
@@ -125,3 +127,17 @@ class IntegerField(Field, NumberGroup):
     def step(self) -> int:
         """Increment step for numeric fields."""
         return self.__step
+
+    # --------------------------------------------------------------------------
+    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
+        """Convert the field object to a dictionary."""
+        json_dict: dict[str, str | int | bool | list[str] | None] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type
+        return json_dict
+
+    def to_json(self):
+        """Convert field object to a json string."""
+        return json.dumps(self.to_dict())
