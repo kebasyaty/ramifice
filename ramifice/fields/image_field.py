@@ -199,7 +199,10 @@ class ImageField(Field, FileGroup):
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
             if not callable(f_type):
-                json_dict[f_name] = f_type
+                if f_name != "value":
+                    json_dict[f_name] = f_type
+                else:
+                    json_dict[f_name] = f_type.to_dict() if f_type is not None else None
         return json_dict
 
     def to_json(self):
