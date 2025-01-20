@@ -1,5 +1,6 @@
 """Field of Model for enter URL addresses."""
 
+import json
 from urllib.parse import urlparse
 
 from ..store import DEBUG
@@ -75,3 +76,14 @@ class URLField(Field, TextGroup):
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
+
+    def to_json(self) -> str:
+        """Convert field object to a json string."""
+        json_dict: dict[
+            str, str | int | float | bool | list[str | int | float] | None
+        ] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type
+        return json.dumps(json_dict)
