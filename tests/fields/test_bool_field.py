@@ -31,6 +31,9 @@ class TestBooleanField(unittest.TestCase):
         with self.assertRaises(AssertionError):
             BoolField(default="False")
         BoolField(default=True)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "BoolField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "bool", "input_type": "checkbox", "value": null, "default": false}'
+        self.assertEqual(f.to_json(), json_str)
 
 
 if __name__ == "__main__":
