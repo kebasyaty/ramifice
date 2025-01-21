@@ -43,6 +43,9 @@ class TestFileFields(unittest.TestCase):
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
         # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "FileField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "file", "input_type": "file", "placeholder": "", "required": false, "max_size": 2097152, "default": null, "target_dir": "files", "accept": "", "media_root": "public/media/uploads", "media_url": "/media/uploads", "value": null}'
+        self.assertEqual(f.to_json(), json_str)
+        #
         # from_base64()
         # self.assertIsNone(f.from_base64(self.file_base64_str, "file_name.txt"))
         # self.assertEqual(f.value.name, "file_name.txt")
@@ -80,7 +83,7 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertEqual(f.target_dir, "images")
-        self.assertEqual(f.accept, "")
+        self.assertEqual(f.accept, "image/png,image/jpeg,image/webp")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
         # Exception checking:
@@ -89,6 +92,9 @@ class TestFileFields(unittest.TestCase):
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
         # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "ImageField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "image", "input_type": "file", "placeholder": "", "required": false, "max_size": 2097152, "default": null, "target_dir": "images", "accept": "image/png,image/jpeg,image/webp", "media_root": "public/media/uploads", "media_url": "/media/uploads", "value": null}'
+        self.assertEqual(f.to_json(), json_str)
+        #
         # from_base64()
         # self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
         # self.assertEqual(f.value.name, "image_name.png")

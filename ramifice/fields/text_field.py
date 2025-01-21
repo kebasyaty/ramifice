@@ -1,5 +1,7 @@
 """Field of Model for enter text."""
 
+import json
+
 from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -24,7 +26,6 @@ class TextField(Field, TextGroup):
         readonly: bool = False,
         unique: bool = False,
         maxlength: int = 256,
-        regex: str = "",
     ):
         Field.__init__(
             self,
@@ -64,7 +65,6 @@ class TextField(Field, TextGroup):
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
-        self.__regex = regex
 
     @property
     def default(self) -> str | None:
@@ -91,9 +91,15 @@ class TextField(Field, TextGroup):
         return self.__maxlength
 
     # --------------------------------------------------------------------------
-    @property
-    def regex(self) -> str:
-        """Regular expression to validate the `value`.
-        Example: ^[a-zA-Z0-9_]+$
-        """
-        return self.__regex
+    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
+        """Convert the field object to a dictionary."""
+        json_dict: dict[str, str | int | bool | list[str] | None] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type
+        return json_dict
+
+    def to_json(self):
+        """Convert field object to a json string."""
+        return json.dumps(self.to_dict())

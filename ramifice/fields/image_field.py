@@ -1,5 +1,6 @@
 """Field of Model for upload image."""
 
+import json
 import os
 import shutil
 import uuid
@@ -31,7 +32,7 @@ class ImageField(Field, FileGroup):
         default: str | None = None,
         placeholder: str = "",
         target_dir: str = "images",
-        accept: str = "",
+        accept: str = "image/png,image/jpeg,image/webp",
     ):
         Field.__init__(
             self,
@@ -190,3 +191,20 @@ class ImageField(Field, FileGroup):
 
         # FileData to value.
         self.__value = i_data
+
+    # --------------------------------------------------------------------------
+    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
+        """Convert the field object to a dictionary."""
+        json_dict: dict[str, str | int | bool | list[str] | None] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                if f_name != "value":
+                    json_dict[f_name] = f_type
+                else:
+                    json_dict[f_name] = f_type.to_dict() if f_type is not None else None
+        return json_dict
+
+    def to_json(self):
+        """Convert field object to a json string."""
+        return json.dumps(self.to_dict())

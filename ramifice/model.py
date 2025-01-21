@@ -1,5 +1,7 @@
 """For converting Python classes into Ramifice Model."""
 
+from typing import Any
+
 from bson.objectid import ObjectId
 
 from .fields import DateTimeField, HashField
@@ -8,7 +10,7 @@ from .fields import DateTimeField, HashField
 class Model:
     """For converting Python classes into Ramifice Model."""
 
-    META = None
+    META: dict[str, Any] = {}
 
     def __init__(self):
         self.__hash = HashField(
@@ -26,6 +28,7 @@ class Model:
             hide=True,
             disabled=True,
         )
+        self.inject()
 
     @property
     def hash(self):
@@ -55,3 +58,19 @@ class Model:
         """Get ObjectId from field `hash`."""
         value = self.__hash.value
         return ObjectId(value) if value else None
+
+    def inject(self) -> None:
+        """Injecting metadata from Model.META in params of fields.
+        Parameters: id, name, dynamic choices.
+        """
+        metadata = self.__class__.META
+        if bool(metadata):
+            field_attrs = metadata["field_attrs"]
+            data_dynamic_fields = metadata["data_dynamic_fields"]
+            for f_name, f_type in self.__dict__.items():
+                f_name = f_name.rsplit("__", maxsplit=1)[-1]
+                if not callable(f_type):
+                    f_type.id = field_attrs[f_name]["id"]
+                    f_type.name = field_attrs[f_name]["name"]
+                    if "Dyn" in f_name:
+                        f_type.choices = data_dynamic_fields[f_name]

@@ -32,6 +32,9 @@ class TestNumberFields(unittest.TestCase):
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
         self.assertEqual(f.step, int(1))
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "IntegerField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "integer", "placeholder": "", "required": false, "readonly": false, "unique": false, "input_type": "number", "value": null, "default": null, "max_number": null, "min_number": null, "step": 1}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             IntegerField(input_type="")
@@ -92,6 +95,9 @@ class TestNumberFields(unittest.TestCase):
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
         self.assertEqual(f.step, float(1))
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "FloatField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "float", "placeholder": "", "required": false, "readonly": false, "unique": false, "input_type": "number", "value": null, "default": null, "max_number": null, "min_number": null, "step": 1.0}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             FloatField(input_type="")

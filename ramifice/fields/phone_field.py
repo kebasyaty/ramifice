@@ -1,5 +1,7 @@
 """Field of Model for enter phone number."""
 
+import json
+
 import phonenumbers
 
 from ..store import DEBUG
@@ -25,7 +27,6 @@ class PhoneField(Field, TextGroup):
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-        regex: str = "",
     ):
         Field.__init__(
             self,
@@ -64,16 +65,22 @@ class PhoneField(Field, TextGroup):
                     )  # pylint: disable=raise-missing-from
 
         self.__default = default
-        self.__regex = regex
 
     @property
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
 
-    @property
-    def regex(self) -> str:
-        """Regular expression to validate the `value`.
-        Example: "^.+$"
-        """
-        return self.__regex
+    # --------------------------------------------------------------------------
+    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
+        """Convert the field object to a dictionary."""
+        json_dict: dict[str, str | bool | list[str] | None] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type
+        return json_dict
+
+    def to_json(self):
+        """Convert field object to a json string."""
+        return json.dumps(self.to_dict())
