@@ -27,7 +27,6 @@ class PhoneField(Field, TextGroup):
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-        regex: str = "",
     ):
         Field.__init__(
             self,
@@ -66,19 +65,11 @@ class PhoneField(Field, TextGroup):
                     )  # pylint: disable=raise-missing-from
 
         self.__default = default
-        self.__regex = regex
 
     @property
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
-
-    @property
-    def regex(self) -> str:
-        """Regular expression to validate the `value`.
-        Example: "^.+$"
-        """
-        return self.__regex
 
     # --------------------------------------------------------------------------
     def to_dict(self) -> dict[str, str | bool | list[str] | None]:

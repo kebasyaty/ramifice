@@ -109,6 +109,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertTrue(f.unique)
         self.assertEqual(f.slug_sources, ["hash"])
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "SlugField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "slug", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": true, "slug_sources": ["hash"]}'
+        self.assertEqual(f.to_json(), json_str)
 
     def test_phone_field(self):
         """Testing `PhoneField`."""
@@ -131,7 +134,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertEqual(f.regex, "")
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "PhoneField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "tel", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             PhoneField(default=12)
@@ -161,6 +166,9 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "PasswordField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "password", "input_type": "password", "value": null, "placeholder": "", "required": false}'
+        self.assertEqual(f.to_json(), json_str)
 
     def test_ip_field(self):
         """Testing `IPField`."""
@@ -183,6 +191,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "IPField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             IPField(default=12)
@@ -216,6 +227,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.unique)
         # Methods:
         self.assertIsNone(f.object_id())
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "HashField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false}'
+        self.assertEqual(f.to_json(), json_str)
 
     def test_email_field(self):
         """Testing `EmailField`."""
@@ -238,6 +252,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "EmailField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "email", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             EmailField(default=12)
@@ -268,6 +285,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "ColorField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": "#000000"}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             ColorField(default=12)
