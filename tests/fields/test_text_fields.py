@@ -42,7 +42,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertEqual(f.maxlength, 256)
-        self.assertEqual(f.regex, "")
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "TextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null, "textarea": false, "use_editor": false, "maxlength": 256}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             TextField(default=12)

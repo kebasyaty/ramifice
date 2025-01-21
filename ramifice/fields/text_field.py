@@ -26,7 +26,6 @@ class TextField(Field, TextGroup):
         readonly: bool = False,
         unique: bool = False,
         maxlength: int = 256,
-        regex: str = "",
     ):
         Field.__init__(
             self,
@@ -66,7 +65,6 @@ class TextField(Field, TextGroup):
         self.__textarea = textarea
         self.__use_editor = use_editor
         self.__maxlength = maxlength
-        self.__regex = regex
 
     @property
     def default(self) -> str | None:
@@ -91,14 +89,6 @@ class TextField(Field, TextGroup):
     def maxlength(self) -> int:
         """Maximum allowed number of characters."""
         return self.__maxlength
-
-    # --------------------------------------------------------------------------
-    @property
-    def regex(self) -> str:
-        """Regular expression to validate the `value`.
-        Example: ^[a-zA-Z0-9_]+$
-        """
-        return self.__regex
 
     # --------------------------------------------------------------------------
     def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
