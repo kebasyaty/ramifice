@@ -78,6 +78,9 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
+        # Methods:
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "URLField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "url", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null}'
+        self.assertEqual(f.to_json(), json_str)
         # Exception checking:
         with self.assertRaises(AssertionError):
             URLField(default="")
