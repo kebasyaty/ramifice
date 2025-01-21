@@ -32,7 +32,7 @@ class ImageField(Field, FileGroup):
         default: str | None = None,
         placeholder: str = "",
         target_dir: str = "images",
-        accept: str = "",
+        accept: str = "image/png,image/jpeg,image/webp",
     ):
         Field.__init__(
             self,
