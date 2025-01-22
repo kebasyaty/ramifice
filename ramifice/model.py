@@ -94,7 +94,7 @@ class Model:
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str):
+    def from_json(cls, json_str: str) -> Any:
         """Convert the JSON string to a Model instance."""
         model = cls()
         json_dict = json.loads(json_str)
