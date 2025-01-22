@@ -160,6 +160,9 @@ class TestModel(unittest.TestCase):
             m.updated_at = DateTimeField()
         with self.assertRaises(AttributeError):
             m.username = TextField()
+        # Methods:
+        json_str = '{"username": null, "favorite_color": null, "hash": null, "created_at": null, "updated_at": null}'
+        self.assertEqual(m.to_json(), json_str)
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
