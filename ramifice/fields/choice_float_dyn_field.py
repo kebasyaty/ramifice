@@ -3,6 +3,7 @@ Type of selective float field with dynamic addition of elements.
 """
 
 import json
+from typing import Any
 
 from .general.choice_group import ChoiceGroup
 from .general.field import Field

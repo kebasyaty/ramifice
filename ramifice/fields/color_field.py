@@ -1,6 +1,7 @@
 """Field of Model for enter color code."""
 
 import json
+from typing import Any
 
 from ..store import DEBUG, REGEX
 from .general.field import Field

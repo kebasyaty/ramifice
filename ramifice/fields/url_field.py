@@ -1,6 +1,7 @@
 """Field of Model for enter URL addresses."""
 
 import json
+from typing import Any
 from urllib.parse import urlparse
 
 from ..store import DEBUG
@@ -85,6 +86,14 @@ class URLField(Field, TextGroup):
             if not callable(f_type):
                 json_dict[f_name] = f_type
         return json_dict
+
+    @classmethod
+    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+        """Convert the JSON string to a Model instance."""
+        model = cls()
+        for f_name, f_type in json_dict.items():
+            model.__dict__[f_name] = f_type
+        return model
 
     def to_json(self):
         """Convert a dictionary of fields to a JSON string."""

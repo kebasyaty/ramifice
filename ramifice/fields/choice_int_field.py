@@ -3,6 +3,7 @@ Type of selective integer field with static of elements.
 """
 
 import json
+from typing import Any
 
 from ..store import DEBUG
 from .general.choice_group import ChoiceGroup

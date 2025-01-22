@@ -1,6 +1,7 @@
 """Field of Model for enter email address."""
 
 import json
+from typing import Any
 
 from email_validator import EmailNotValidError, validate_email
 

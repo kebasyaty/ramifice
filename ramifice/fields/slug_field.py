@@ -1,6 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
 import json
+from typing import Any
 
 from .general.field import Field
 from .general.text_group import TextGroup

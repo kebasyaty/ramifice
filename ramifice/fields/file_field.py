@@ -7,6 +7,7 @@ import uuid
 from base64 import b64decode
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..types import FileData

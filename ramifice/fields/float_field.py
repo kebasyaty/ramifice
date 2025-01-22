@@ -1,6 +1,7 @@
 """Field of Model for enter (float) number."""
 
 import json
+from typing import Any
 
 from ..store import DEBUG
 from .general.field import Field
