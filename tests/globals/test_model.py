@@ -10,8 +10,9 @@ class User(Model):
     """For testing a instance `Model`."""
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         self.__username = TextField()
+        #
+        super().__init__(*args, **kwargs)
 
     @property
     def username(self):
@@ -51,3 +52,8 @@ class TestModel(unittest.TestCase):
             m.updated_at = DateTimeField()
         with self.assertRaises(AttributeError):
             m.username = TextField()
+        # Methods:
+        json_str = (
+            '{"username": null, "hash": null, "created_at": null, "updated_at": null}'
+        )
+        self.assertEqual(m.to_json(), json_str)
