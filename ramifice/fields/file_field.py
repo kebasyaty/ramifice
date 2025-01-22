@@ -1,6 +1,5 @@
 """Field of Model for upload file."""
 
-import json
 import os
 import shutil
 import uuid
@@ -9,12 +8,13 @@ from datetime import datetime
 from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
+from ..tools import MixinJSON
 from ..types import FileData
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class FileField(Field, FileGroup):
+class FileField(Field, FileGroup, MixinJSON):
     """Field of Model for upload file.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -54,6 +54,8 @@ class FileField(Field, FileGroup):
             target_dir=target_dir,
             accept=accept,
         )
+        MixinJSON.__init__(self)
+
         self.__value: FileData | None = None
 
     @property
@@ -167,20 +169,3 @@ class FileField(Field, FileGroup):
 
         # FileData to value.
         self.__value = f_data
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | int | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                if f_name != "value":
-                    json_dict[f_name] = f_type
-                else:
-                    json_dict[f_name] = f_type.to_dict() if f_type is not None else None
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

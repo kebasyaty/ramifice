@@ -1,15 +1,14 @@
 """Field of Model for enter phone number."""
 
-import json
-
 import phonenumbers
 
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class PhoneField(Field, TextGroup):
+class PhoneField(Field, TextGroup, MixinJSON):
     """Field of Model for enter phone number.
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
@@ -47,6 +46,8 @@ class PhoneField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
+        MixinJSON.__init__(self)
+
         if DEBUG:
             if default is not None:
                 if not isinstance(default, str):
@@ -70,17 +71,3 @@ class PhoneField(Field, TextGroup):
     def default(self) -> str | None:
         """Value by default."""
         return self.__default
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

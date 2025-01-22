@@ -1,16 +1,15 @@
 """Field of Model for enter date."""
 
-import json
 from datetime import datetime
 
 from ..errors import InvalidDateError
 from ..store import DEBUG
-from ..tools import date_parse
+from ..tools import MixinJSON, date_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
 
-class DateField(Field, DateGroup):
+class DateField(Field, DateGroup, MixinJSON):
     """Field of Model for enter date.
     Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
@@ -53,6 +52,7 @@ class DateField(Field, DateGroup):
             max_date=max_date,
             min_date=min_date,
         )
+        MixinJSON.__init__(self)
 
         if DEBUG:
             if max_date is not None:
@@ -118,17 +118,3 @@ class DateField(Field, DateGroup):
         """Convert parameter `value` or `default` into object of date and time."""
         value = self.value or self.__default or None
         return date_parse(value) if value is not None else None
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

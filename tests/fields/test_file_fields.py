@@ -9,10 +9,10 @@ from ramifice.fields import FileField, ImageField
 class TestFileFields(unittest.TestCase):
     """Testing file fields."""
 
-    # def setUp(self):
-    #     self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
-    #     self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
-    #     return super().setUp()
+    def setUp(self):
+        self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
+        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+        return super().setUp()
 
     def test_file_field(self):
         """Testing `FileField`."""

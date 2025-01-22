@@ -2,14 +2,13 @@
 Type of selective text field with static of elements.
 """
 
-import json
-
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceTextMultField(Field, ChoiceGroup):
+class ChoiceTextMultField(Field, ChoiceGroup, MixinJSON):
     """Field of Model.
     Type of selective text field with static of elements.
     With multiple choice.
@@ -46,6 +45,8 @@ class ChoiceTextMultField(Field, ChoiceGroup):
             readonly=readonly,
             multiple=True,
         )
+        MixinJSON.__init__(self)
+
         self.__value: list[str] | None = None
         self.__default = default
         self.__choices = choices
@@ -107,19 +108,3 @@ class ChoiceTextMultField(Field, ChoiceGroup):
                     flag = False
                     break
         return flag
-
-    # --------------------------------------------------------------------------
-    def to_dict(
-        self,
-    ) -> dict[str, str | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

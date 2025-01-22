@@ -4,13 +4,13 @@ The purpose of caching is production optimization.
 
 import re
 
-from pymongo import MongoClient
+from pymongo import AsyncMongoClient
 from pymongo.database import Database
 
 # To block the verification code, at the end of the migration to the database.
 DEBUG: bool = True
 # Mongo client caching.
-MONGO_CLIENT: MongoClient | None = None
+MONGO_CLIENT: AsyncMongoClient | None = None
 # Mongo database caching.
 MONGO_DATABASE: Database | None = None
 # Database name.

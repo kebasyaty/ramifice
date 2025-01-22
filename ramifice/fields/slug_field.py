@@ -1,12 +1,11 @@
 """Field of Model for automatic generation of string `slug`."""
 
-import json
-
+from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class SlugField(Field, TextGroup):
+class SlugField(Field, TextGroup, MixinJSON):
     """Field of Model for automatic generation of string `slug`.
     Convenient to use for Url addresses.
     """
@@ -42,6 +41,8 @@ class SlugField(Field, TextGroup):
             readonly=readonly,
             unique=True,
         )
+        MixinJSON.__init__(self)
+
         self.__slug_sources = slug_sources
 
     @property
@@ -51,16 +52,3 @@ class SlugField(Field, TextGroup):
         Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],
         """
         return self.__slug_sources
-
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

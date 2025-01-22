@@ -1,13 +1,12 @@
 """Field of Model for enter (float) number."""
 
-import json
-
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.field import Field
 from .general.number_group import NumberGroup
 
 
-class FloatField(Field, NumberGroup):
+class FloatField(Field, NumberGroup, MixinJSON):
     """Field of Model for enter (float) number."""
 
     def __init__(
@@ -46,6 +45,8 @@ class FloatField(Field, NumberGroup):
             readonly=readonly,
             unique=unique,
         )
+        MixinJSON.__init__(self)
+
         if DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
@@ -127,17 +128,3 @@ class FloatField(Field, NumberGroup):
     def step(self) -> float:
         """Increment step for numeric fields."""
         return self.__step
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | float | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | float | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

@@ -2,14 +2,13 @@
 Type of selective float field with static of elements.
 """
 
-import json
-
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceFloatField(Field, ChoiceGroup):
+class ChoiceFloatField(Field, ChoiceGroup, MixinJSON):
     """Field of Model.
     Type of selective integer float with static of elements.
     With a single choice.
@@ -45,6 +44,8 @@ class ChoiceFloatField(Field, ChoiceGroup):
             required=required,
             readonly=readonly,
         )
+        MixinJSON.__init__(self)
+
         self.__value: float | None = None
         self.__default = default
         self.__choices = choices
@@ -83,7 +84,7 @@ class ChoiceFloatField(Field, ChoiceGroup):
         """
         return self.__choices
 
-    # ---------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
@@ -94,19 +95,3 @@ class ChoiceFloatField(Field, ChoiceGroup):
             if value not in value_list:
                 flag = False
         return flag
-
-    # --------------------------------------------------------------------------
-    def to_dict(
-        self,
-    ) -> dict[str, str | float | bool | list[str | float] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | float | bool | list[str | float] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

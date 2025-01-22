@@ -2,13 +2,12 @@
 Type of selective integer field with dynamic addition of elements.
 """
 
-import json
-
+from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceIntMultDynField(Field, ChoiceGroup):
+class ChoiceIntMultDynField(Field, ChoiceGroup, MixinJSON):
     """Field of Model.
     Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -43,6 +42,8 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
             readonly=readonly,
             multiple=True,
         )
+        MixinJSON.__init__(self)
+
         self.__value: list[int] | None = None
         self.__choices: list[tuple[int, str]] | None = None
 
@@ -78,19 +79,3 @@ class ChoiceIntMultDynField(Field, ChoiceGroup):
                     flag = False
                     break
         return flag
-
-    # --------------------------------------------------------------------------
-    def to_dict(
-        self,
-    ) -> dict[str, str | int | bool | list[str | int] | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | int | bool | list[str | int] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())

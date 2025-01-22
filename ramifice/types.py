@@ -1,7 +1,8 @@
 """A collection of additional data types."""
 
-import json
 from typing import Any
+
+from .tools import MixinJSON
 
 
 class OutputData:
@@ -68,10 +69,11 @@ class Unit:
         return self.__delete
 
 
-class FileData:
+class FileData(MixinJSON):
     """Data type for `FileField.value`."""
 
     def __init__(self):
+        MixinJSON.__init__(self)
         self.__path = ""
         self.__url = ""
         self.__name = ""
@@ -166,25 +168,12 @@ class FileData:
     def save_as_is(self, value: bool) -> None:
         self.__save_as_is = value
 
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | int | bool | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
 
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())
-
-
-class ImageData:
+class ImageData(MixinJSON):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
+        MixinJSON.__init__(self)
         self.__path = ""
         self.__path_xs = ""
         self.__path_sm = ""
@@ -410,17 +399,3 @@ class ImageData:
     @save_as_is.setter
     def save_as_is(self, value: bool) -> None:
         self.__save_as_is = value
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | None]:
-        """Convert the field object to a dictionary."""
-        json_dict: dict[str, str | int | bool | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    def to_json(self):
-        """Convert field object to a json string."""
-        return json.dumps(self.to_dict())
