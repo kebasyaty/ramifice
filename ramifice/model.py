@@ -1,14 +1,14 @@
 """For converting Python classes into Ramifice Model."""
 
-import json
 from typing import Any
 
 from bson.objectid import ObjectId
 
 from .fields import DateTimeField, HashField
+from .tools import MixinJSON
 
 
-class Model:
+class Model(MixinJSON):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
@@ -29,6 +29,7 @@ class Model:
             hide=True,
             disabled=True,
         )
+        MixinJSON.__init__(self)
         self.inject()
 
     @property
@@ -78,26 +79,3 @@ class Model:
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_name:
                         f_type.choices = data_dynamic_fields[f_name]
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, Any]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, Any] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type.value
-        return json_dict
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert the JSON string to a Model instance."""
-        model = cls()
-        json_dict = json.loads(json_str)
-        for f_name, f_type in json_dict.items():
-            model.__dict__[f_name] = f_type
-        return model
