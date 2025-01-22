@@ -53,7 +53,7 @@ class SlugField(Field, TextGroup):
         return self.__slug_sources
 
     def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert the field object to a dictionary."""
+        """Convert fields to a dictionary."""
         json_dict: dict[str, str | bool | list[str] | None] = {}
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
@@ -62,5 +62,5 @@ class SlugField(Field, TextGroup):
         return json_dict
 
     def to_json(self):
-        """Convert field object to a json string."""
+        """Convert a dictionary of fields to a JSON string."""
         return json.dumps(self.to_dict())
