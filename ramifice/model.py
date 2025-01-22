@@ -93,5 +93,8 @@ class Model:
         """Convert a dictionary of fields to a JSON string."""
         return json.dumps(self.to_dict())
 
-    def from_json(self) -> None:
+    def from_json(self, json_str: str) -> None:
         """Convert the JSON string to a Model instance."""
+        json_dict = json.loads(json_str)
+        for f_name, f_type in json_dict.items():
+            self.__dict__[f_name] = f_type
