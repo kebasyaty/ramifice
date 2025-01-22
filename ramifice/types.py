@@ -73,7 +73,7 @@ class FileData(MixinJSON):
     """Data type for `FileField.value`."""
 
     def __init__(self):
-        super().__init__()
+        MixinJSON.__init__(self)
         self.__path = ""
         self.__url = ""
         self.__name = ""
@@ -173,7 +173,7 @@ class ImageData(MixinJSON):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
-        super().__init__()
+        MixinJSON.__init__(self)
         self.__path = ""
         self.__path_xs = ""
         self.__path_sm = ""

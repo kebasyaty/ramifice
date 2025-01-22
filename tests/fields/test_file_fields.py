@@ -9,10 +9,10 @@ from ramifice.fields import FileField, ImageField
 class TestFileFields(unittest.TestCase):
     """Testing file fields."""
 
-    # def setUp(self):
-    #     self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
-    #     self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
-    #     return super().setUp()
+    def setUp(self):
+        self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
+        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+        return super().setUp()
 
     def test_file_field(self):
         """Testing `FileField`."""
@@ -62,6 +62,9 @@ class TestFileFields(unittest.TestCase):
         # self.assertEqual(f.value.extension, ".odt")
         # self.assertFalse(f.value.delete)
         # self.assertFalse(f.value.save_as_is)
+        f.from_base64(self.file_base64_str, "file_name.txt")
+        j = f.to_json()
+        print(j)
 
     def test_image_field(self):
         """Testing `ImageField`."""
