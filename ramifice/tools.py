@@ -50,7 +50,7 @@ class MixinJSON:
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
             if not callable(f_type):
-                if f_type.__dict__.get("to_dict") is None:
+                if f_type.__class__.__dict__.get("to_dict") is None:
                     json_dict[f_name] = f_type
                 else:
                     json_dict[f_name] = f_type.to_dict()
