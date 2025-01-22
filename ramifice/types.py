@@ -177,7 +177,7 @@ class FileData:
         return json_dict
 
     @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+    def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
         """Convert the JSON string to a Model instance."""
         model = cls()
         for f_name, f_type in json_dict.items():
@@ -436,7 +436,7 @@ class ImageData:
         return json_dict
 
     @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+    def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
         """Convert the JSON string to a Model instance."""
         model = cls()
         for f_name, f_type in json_dict.items():
