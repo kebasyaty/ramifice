@@ -179,20 +179,23 @@ class FileData:
     @classmethod
     def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
         """Convert the JSON string to a FileData instance."""
-        model = cls()
+        file_obj = cls()
         for f_name, f_type in json_dict.items():
-            model.__dict__[f_name] = f_type
-        return model
+            file_obj.__dict__[f_name] = f_type
+        return file_obj
 
     def to_json(self):
         """Convert a dictionary of fields to a JSON string."""
         return json.dumps(self.to_dict())
 
-    def from_json(self, json_str: str) -> None:
+    @classmethod
+    def from_json(cls, json_str: str) -> Any:
         """Convert the JSON string to a FileData instance."""
+        file_obj = cls()
         json_dict = json.loads(json_str)
         for f_name, f_type in json_dict.items():
-            self.__dict__[f_name] = f_type
+            file_obj.__dict__[f_name] = f_type
+        return file_obj
 
 
 class ImageData:
@@ -438,10 +441,10 @@ class ImageData:
     @classmethod
     def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
         """Convert the JSON string to a ImageData instance."""
-        model = cls()
+        img_obj = cls()
         for f_name, f_type in json_dict.items():
-            model.__dict__[f_name] = f_type
-        return model
+            img_obj.__dict__[f_name] = f_type
+        return img_obj
 
     def to_json(self):
         """Convert a dictionary of fields to a JSON string."""
@@ -450,8 +453,8 @@ class ImageData:
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert the JSON string to a ImageData instance."""
-        model = cls()
+        img_obj = cls()
         json_dict = json.loads(json_str)
         for f_name, f_type in json_dict.items():
-            model.__dict__[f_name] = f_type
-        return model
+            img_obj.__dict__[f_name] = f_type
+        return img_obj
