@@ -62,9 +62,6 @@ class TestFileFields(unittest.TestCase):
         # self.assertEqual(f.value.extension, ".odt")
         # self.assertFalse(f.value.delete)
         # self.assertFalse(f.value.save_as_is)
-        f.from_base64(self.file_base64_str, "file_name.txt")
-        j = f.to_json()
-        print(j)
 
     def test_image_field(self):
         """Testing `ImageField`."""
