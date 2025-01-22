@@ -50,7 +50,10 @@ class MixinJSON:
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
             if not callable(f_type):
-                json_dict[f_name] = f_type
+                if f_type.__dict__.get("to_dict") is None:
+                    json_dict[f_name] = f_type
+                else:
+                    json_dict[f_name] = f_type.to_dict()
         return json_dict
 
     @classmethod
@@ -58,7 +61,10 @@ class MixinJSON:
         """Convert JSON string to a object instance."""
         obj = cls()
         for f_name, f_type in json_dict.items():
-            obj.__dict__[f_name] = f_type
+            if not isinstance(f_type, dict):
+                obj.__dict__[f_name] = f_type
+            else:
+                obj.__dict__[f_name] = cls.from_dict(f_type)
         return obj
 
     def to_json(self):
@@ -68,8 +74,5 @@ class MixinJSON:
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        obj = cls()
         json_dict = json.loads(json_str)
-        for f_name, f_type in json_dict.items():
-            obj.__dict__[f_name] = f_type
-        return obj
+        return cls.from_dict(json_dict)
