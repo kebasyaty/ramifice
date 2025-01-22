@@ -60,7 +60,6 @@ class MixinJSON:
         """Convert object instance to a JSON string."""
         return json.dumps(self.to_dict())
 
-    # --------------------------------------------------------------------------
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
