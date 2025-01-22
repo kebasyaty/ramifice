@@ -121,6 +121,14 @@ class ChoiceTextMultField(Field, ChoiceGroup):
                 json_dict[f_name] = f_type
         return json_dict
 
+    @classmethod
+    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+        """Convert the JSON string to a Model instance."""
+        f_obj = cls()
+        for f_name, f_type in json_dict.items():
+            f_obj.__dict__[f_name] = f_type
+        return f_obj
+
     def to_json(self):
         """Convert a dictionary of fields to a JSON string."""
         return json.dumps(self.to_dict())
