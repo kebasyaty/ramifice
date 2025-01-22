@@ -92,3 +92,6 @@ class Model:
     def to_json(self):
         """Convert a dictionary of fields to a JSON string."""
         return json.dumps(self.to_dict())
+
+    def from_json(self) -> None:
+        """Convert the JSON string to a Model instance."""
