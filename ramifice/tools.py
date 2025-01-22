@@ -56,6 +56,11 @@ class MixinJSON:
                     json_dict[f_name] = f_type.to_dict()
         return json_dict
 
+    def to_json(self):
+        """Convert object instance to a JSON string."""
+        return json.dumps(self.to_dict())
+
+    # --------------------------------------------------------------------------
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
@@ -66,10 +71,6 @@ class MixinJSON:
             else:
                 obj.__dict__[f_name] = cls.from_dict(f_type)
         return obj
-
-    def to_json(self):
-        """Convert object instance to a JSON string."""
-        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
