@@ -2,14 +2,12 @@
 Type of selective float field with dynamic addition of elements.
 """
 
-import json
-from typing import Any
-
+from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceFloatMultDynField(Field, ChoiceGroup):
+class ChoiceFloatMultDynField(Field, ChoiceGroup, MixinJSON):
     """Field of Model.
     Type of selective float field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -44,6 +42,8 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup):
             readonly=readonly,
             multiple=True,
         )
+        MixinJSON.__init__(self)
+
         self.__value: list[float] | None = None
         self.__choices: list[tuple[float, str]] | None = None
 
@@ -79,27 +79,3 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup):
                     flag = False
                     break
         return flag
-
-    # --------------------------------------------------------------------------
-    def to_dict(
-        self,
-    ) -> dict[str, str | float | bool | list[str | float] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | float | bool | list[str | float] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())

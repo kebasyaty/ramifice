@@ -1,7 +1,8 @@
 """A collection of additional data types."""
 
-import json
 from typing import Any
+
+from .tools import MixinJSON
 
 
 class OutputData:
@@ -68,10 +69,11 @@ class Unit:
         return self.__delete
 
 
-class FileData:
+class FileData(MixinJSON):
     """Data type for `FileField.value`."""
 
     def __init__(self):
+        super().__init__()
         self.__path = ""
         self.__url = ""
         self.__name = ""
@@ -166,42 +168,12 @@ class FileData:
     def save_as_is(self, value: bool) -> None:
         self.__save_as_is = value
 
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | int | bool | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
 
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
-        """Convert the JSON string to a FileData instance."""
-        file_obj = cls()
-        for f_name, f_type in json_dict.items():
-            file_obj.__dict__[f_name] = f_type
-        return file_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert the JSON string to a FileData instance."""
-        file_obj = cls()
-        json_dict = json.loads(json_str)
-        for f_name, f_type in json_dict.items():
-            file_obj.__dict__[f_name] = f_type
-        return file_obj
-
-
-class ImageData:
+class ImageData(MixinJSON):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
+        super().__init__()
         self.__path = ""
         self.__path_xs = ""
         self.__path_sm = ""
@@ -427,34 +399,3 @@ class ImageData:
     @save_as_is.setter
     def save_as_is(self, value: bool) -> None:
         self.__save_as_is = value
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | int | bool | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, str | int | bool | None]) -> Any:
-        """Convert the JSON string to a ImageData instance."""
-        img_obj = cls()
-        for f_name, f_type in json_dict.items():
-            img_obj.__dict__[f_name] = f_type
-        return img_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert the JSON string to a ImageData instance."""
-        img_obj = cls()
-        json_dict = json.loads(json_str)
-        for f_name, f_type in json_dict.items():
-            img_obj.__dict__[f_name] = f_type
-        return img_obj

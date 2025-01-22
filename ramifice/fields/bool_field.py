@@ -1,13 +1,11 @@
 """Field of Model for enter logical value."""
 
-import json
-from typing import Any
-
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.field import Field
 
 
-class BoolField(Field):
+class BoolField(Field, MixinJSON):
     """Field of Model for enter logical value."""
 
     def __init__(
@@ -31,6 +29,8 @@ class BoolField(Field):
             field_type="BoolField",
             group="bool",
         )
+        MixinJSON.__init__(self)
+
         if DEBUG:
             if default is not None and not isinstance(default, bool):
                 raise AssertionError("Parameter `default` - Not а `bool` type!")
@@ -63,25 +63,3 @@ class BoolField(Field):
         Example: 'public/media/default/nodoc.docx'
         """
         return self.__default
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())

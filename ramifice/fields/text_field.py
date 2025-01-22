@@ -1,14 +1,12 @@
 """Field of Model for enter text."""
 
-import json
-from typing import Any
-
 from ..store import DEBUG
+from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class TextField(Field, TextGroup):
+class TextField(Field, TextGroup, MixinJSON):
     """Field of Model for enter text."""
 
     def __init__(
@@ -47,6 +45,8 @@ class TextField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
+        MixinJSON.__init__(self)
+
         if DEBUG:
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
@@ -90,25 +90,3 @@ class TextField(Field, TextGroup):
     def maxlength(self) -> int:
         """Maximum allowed number of characters."""
         return self.__maxlength
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | int | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())

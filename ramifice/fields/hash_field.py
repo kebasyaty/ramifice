@@ -1,15 +1,13 @@
 """Field of Model for enter identifier of document."""
 
-import json
-from typing import Any
-
 from bson.objectid import ObjectId
 
+from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class HashField(Field, TextGroup):
+class HashField(Field, TextGroup, MixinJSON):
     """Field of Model for enter identifier of document."""
 
     def __init__(
@@ -44,29 +42,9 @@ class HashField(Field, TextGroup):
             readonly=readonly,
             unique=unique,
         )
+        MixinJSON.__init__(self)
 
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""
         value = self.value
         return ObjectId(value) if value else None
-
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())

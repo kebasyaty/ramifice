@@ -1,17 +1,15 @@
 """Field of Model for enter date and time."""
 
-import json
 from datetime import datetime
-from typing import Any
 
 from ..errors import InvalidDateTimeError
 from ..store import DEBUG
-from ..tools import datetime_parse
+from ..tools import MixinJSON, datetime_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
 
-class DateTimeField(Field, DateGroup):
+class DateTimeField(Field, DateGroup, MixinJSON):
     """Field of Model for enter date and time.
     Formats: dd-mm-yyyy hh:mm:ss | dd/mm/yyyy hh:mm:ss | dd.mm.yyyy hh:mm:ss |
              dd-mm-yyyyThh:mm:ss | dd/mm/yyyyThh:mm:ss | dd.mm.yyyyThh:mm:ss |
@@ -56,6 +54,7 @@ class DateTimeField(Field, DateGroup):
             max_date=max_date,
             min_date=min_date,
         )
+        MixinJSON.__init__(self)
 
         if DEBUG:
             if max_date is not None:
@@ -125,25 +124,3 @@ class DateTimeField(Field, DateGroup):
         """Convert parameter `value` or `default` into object of date and time."""
         value = self.value or self.__default or None
         return datetime_parse(value) if value is not None else None
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | bool | list[str] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                json_dict[f_name] = f_type
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())

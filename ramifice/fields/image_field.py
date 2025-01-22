@@ -1,21 +1,20 @@
 """Field of Model for upload image."""
 
-import json
 import os
 import shutil
 import uuid
 from base64 import b64decode
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 from ..errors import FileHasNoExtensionError
+from ..tools import MixinJSON
 from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class ImageField(Field, FileGroup):
+class ImageField(Field, FileGroup, MixinJSON):
     """Field of Model for upload image.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -55,6 +54,8 @@ class ImageField(Field, FileGroup):
             target_dir=target_dir,
             accept=accept,
         )
+        MixinJSON.__init__(self)
+
         self.__value: ImageData | None = None
 
     @property
@@ -192,28 +193,3 @@ class ImageField(Field, FileGroup):
 
         # FileData to value.
         self.__value = i_data
-
-    # --------------------------------------------------------------------------
-    def to_dict(self) -> dict[str, str | int | bool | list[str] | None]:
-        """Convert fields to a dictionary."""
-        json_dict: dict[str, str | int | bool | list[str] | None] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                if f_name != "value":
-                    json_dict[f_name] = f_type
-                else:
-                    json_dict[f_name] = f_type.to_dict() if f_type is not None else None
-        return json_dict
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert the JSON string to a Model instance."""
-        f_obj = cls()
-        for f_name, f_type in json_dict.items():
-            f_obj.__dict__[f_name] = f_type
-        return f_obj
-
-    def to_json(self):
-        """Convert a dictionary of fields to a JSON string."""
-        return json.dumps(self.to_dict())
