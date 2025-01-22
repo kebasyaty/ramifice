@@ -1,5 +1,6 @@
 """For converting Python classes into Ramifice Model."""
 
+import json
 from typing import Any
 
 from bson.objectid import ObjectId
@@ -45,6 +46,7 @@ class Model:
         """When the document was updated"""
         return self.__updated_at
 
+    # --------------------------------------------------------------------------
     def model_name(self) -> str:
         """Get Model name - Class name."""
         return self.__class__.__name__
@@ -54,11 +56,13 @@ class Model:
         cls = self.__class__
         return f"{cls.__module__}__{cls.__name__}"
 
+    # --------------------------------------------------------------------------
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from field `hash`."""
         value = self.__hash.value
         return ObjectId(value) if value else None
 
+    # --------------------------------------------------------------------------
     def inject(self) -> None:
         """Injecting metadata from Model.META in params of fields.
         Parameters: id, name, dynamic choices.
@@ -74,3 +78,17 @@ class Model:
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_name:
                         f_type.choices = data_dynamic_fields[f_name]
+
+    # --------------------------------------------------------------------------
+    def to_dict(self) -> dict[str, Any]:
+        """Convert fields to a dictionary."""
+        json_dict: dict[str, Any] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                json_dict[f_name] = f_type.value
+        return json_dict
+
+    def to_json(self):
+        """Convert a dictionary of fields to a JSON string."""
+        return json.dumps(self.to_dict())
