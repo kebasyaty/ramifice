@@ -56,7 +56,7 @@ class MixinJSON:
                     json_dict[f_name] = f_type.to_dict()
         return json_dict
 
-    def to_json(self):
+    def to_json(self) -> str:
         """Convert object instance to a JSON string."""
         return json.dumps(self.to_dict())
 
