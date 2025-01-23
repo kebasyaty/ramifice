@@ -95,6 +95,6 @@ class Model(MixinJSON):
                     json_dict[f_name] = value.to_dict()
         return json_dict
 
-    def to_json_2(self):
+    def to_json_2(self) -> str:
         """Convert model.field.value (without web attributes) to a JSON string."""
         return json.dumps(self.to_dict_2())
