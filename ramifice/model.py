@@ -83,7 +83,7 @@ class Model(MixinJSON):
 
     # --------------------------------------------------------------------------
     def to_dict_2(self) -> dict[str, Any]:
-        """Convert model.field.value (without web attributes) to a dictionary."""
+        """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
@@ -96,5 +96,5 @@ class Model(MixinJSON):
         return json_dict
 
     def to_json_2(self) -> str:
-        """Convert model.field.value (without web attributes) to a JSON string."""
+        """Convert model.field.value (only the `value` attribute) to a JSON string."""
         return json.dumps(self.to_dict_2())
