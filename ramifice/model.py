@@ -82,7 +82,7 @@ class Model(MixinJSON):
                         f_type.choices = data_dynamic_fields[f_name]
 
     # --------------------------------------------------------------------------
-    def to_dict_2(self) -> dict[str, Any]:
+    def to_dict_only_value(self) -> dict[str, Any]:
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
         for f_name, f_type in self.__dict__.items():
@@ -95,6 +95,6 @@ class Model(MixinJSON):
                     json_dict[f_name] = value.to_dict()
         return json_dict
 
-    def to_json_2(self) -> str:
+    def to_json_only_value(self) -> str:
         """Convert model.field.value (only the `value` attribute) to a JSON string."""
-        return json.dumps(self.to_dict_2())
+        return json.dumps(self.to_dict_only_value())
