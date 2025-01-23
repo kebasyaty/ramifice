@@ -50,10 +50,10 @@ class MixinJSON:
         for f_name, f_type in self.__dict__.items():
             f_name = f_name.rsplit("__", maxsplit=1)[-1]
             if not callable(f_type):
-                try:
-                    json_dict[f_name] = f_type.to_dict()
-                except AttributeError:
+                if not hasattr(f_type, "to_dict"):
                     json_dict[f_name] = f_type
+                else:
+                    json_dict[f_name] = f_type.to_dict()
         return json_dict
 
     def to_json(self):
