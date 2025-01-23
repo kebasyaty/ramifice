@@ -1,5 +1,6 @@
 """For converting Python classes into Ramifice Model."""
 
+import json
 from typing import Any
 
 from bson.objectid import ObjectId
@@ -79,3 +80,21 @@ class Model(MixinJSON):
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_name:
                         f_type.choices = data_dynamic_fields[f_name]
+
+    # --------------------------------------------------------------------------
+    def to_dict_2(self) -> dict[str, Any]:
+        """Convert model.field.value (without web attributes) to a dictionary."""
+        json_dict: dict[str, Any] = {}
+        for f_name, f_type in self.__dict__.items():
+            f_name = f_name.rsplit("__", maxsplit=1)[-1]
+            if not callable(f_type):
+                value = f_type.value
+                if not hasattr(value, "to_dict"):
+                    json_dict[f_name] = value
+                else:
+                    json_dict[f_name] = value.to_dict()
+        return json_dict
+
+    def to_json_2(self):
+        """Convert model.field.value (without web attributes) to a JSON string."""
+        return json.dumps(self.to_dict_2())
