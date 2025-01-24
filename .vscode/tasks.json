@@ -6,8 +6,13 @@
       "type": "shell",
       "command": [
         "poetry run python -m unittest tests/test_mongo.py;",
-        "poetry run python -m unittest discover tests/globals;",
-        "poetry run python -m unittest discover tests/fields;"
+        "poetry run python -m unittest tests/test_store.py;",
+        "poetry run python -m unittest tests/test_tools.py;",
+        "poetry run python -m unittest tests/test_types.py;",
+        "poetry run python -m unittest discover tests/fields;",
+        "poetry run python -m unittest tests/test_model.py;",
+        "poetry run python -m unittest tests/test_meta.py;",
+        "poetry run python -m unittest tests/test_migration.py;"
       ],
       "problemMatcher": []
     }
