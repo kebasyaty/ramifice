@@ -26,14 +26,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-noble"]
         python-version: ["3.13"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      image: mongodb/mongodb-community-server:7.0.16-ubuntu2204
+      image: ubuntu:noble
       options: --user root
 
     steps:
@@ -55,6 +55,10 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          bash .github/workflows/linux-dependencies-install.sh
       - name: Run unittest
         run: |
           poetry run python -m unittest tests/test_mongo.py
