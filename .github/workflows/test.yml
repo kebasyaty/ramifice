@@ -33,7 +33,7 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      image: debian/stable
+      image: debian/latest
       options: --user root
 
     steps:
