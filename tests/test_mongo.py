@@ -28,9 +28,10 @@ class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(doc_count, 1)
         # Remove one document from a collection.
         await collection.delete_one({"x": 1})
+        # Count the number of remaining documents in the collection.
         doc_count = await collection.count_documents({})
         self.assertEqual(doc_count, 0)
-        # Count the number of remaining documents in the collection.
+        # Delete a test database.
         await client.drop_database(db.name)
         # Close the connection with Mongodb.
         await client.close()
