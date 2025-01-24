@@ -26,20 +26,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04"]
+        os: ["ubuntu-latest"]
         python-version: ["3.13.1"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      image: mongodb/mongodb-community-server:7.0.16-ubuntu2204
+      image: debian/stable
       options: --user root
 
     steps:
       - uses: actions/checkout@v4
-      - name: Get MongoDB version
-        run: mongod --version
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          bash .github/workflows/linux-dependencies-install.sh
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
