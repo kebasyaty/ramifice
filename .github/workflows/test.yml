@@ -23,38 +23,17 @@ concurrency:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ["ubuntu-22.04"]
-        python-version: ["3.13"]
-        poetry-version: ["latest"]
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} Python ${{ matrix.python-version }}
+    runs-on: ubuntu-noble
 
     container:
-      image: mongodb/mongodb-community-server:7.0-ubuntu2204
+      image: python:3.13.1
       options: --user root
 
     steps:
       - uses: actions/checkout@v4
-      - name: Get MongoDB version
-        run: mongod --version
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Setup a local virtual environment (if no poetry.toml file)
+      - name: Install Linux dependencies
         run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file.
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          bash .github/workflows/linux-dependencies-install.sh
       - name: Install the project dependencies
         run: poetry install
       - name: Run unittest
@@ -72,7 +51,7 @@ jobs:
     permissions:
       contents: none
     needs: build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-noble
     name: Test Successful
     steps:
       - name: Success
