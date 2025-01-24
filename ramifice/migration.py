@@ -36,7 +36,7 @@ class Monitor:
         Super collection contains data of Models state and dynamic field data.
         """
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
-        # Fetch a Cursor pointing to the super collection.
+        # Update model_exists for ModelState in super collection.
         async for model_state_doc in super_collection.find():
             q_filter = {"collection_name": model_state_doc["collection_name"]}
             update = {"$set": {"model_exists": False}}
