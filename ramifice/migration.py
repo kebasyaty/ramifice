@@ -7,6 +7,7 @@ your database schema.
 from pymongo import AsyncMongoClient
 
 from . import errors, store
+from .errors import NoModelsForMigrationError
 from .model import Model
 
 
@@ -73,3 +74,6 @@ class Monitor:
         model_list = [
             model for model in Model.__subclasses__() if model.META["is_migrat_model"]
         ]
+        # Raise the exception if there are no models for migration.
+        if len(model_list) == 0:
+            raise NoModelsForMigrationError()
