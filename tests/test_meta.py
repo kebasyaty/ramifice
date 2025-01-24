@@ -58,7 +58,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "User",
-            "full_model_name": "test_meta__User",
+            "full_model_name": "tests.test_meta.User",
             "collection_name": "Accounts_User",
             "field_name_and_type_list": {
                 "username": "TextField",
@@ -99,7 +99,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "UserProfile",
-            "full_model_name": "test_meta__UserProfile",
+            "full_model_name": "tests.test_meta.UserProfile",
             "collection_name": "Profiles_UserProfile",
             "field_name_and_type_list": {
                 "profession": "TextField",
@@ -132,7 +132,7 @@ class TestModel(unittest.TestCase):
         self.assertFalse(bool(Model.META))
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "test_meta")
+        self.assertEqual(User.__module__, "tests.test_meta")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
@@ -141,7 +141,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "test_meta__User")
+        self.assertEqual(m.full_model_name(), "tests.test_meta.User")
         #
         self.assertIsNone(m.hash.value)
         self.assertIsNone(m.created_at.value)
@@ -171,7 +171,7 @@ class TestModel(unittest.TestCase):
         self.assertFalse(bool(Model.META))
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "test_meta")
+        self.assertEqual(UserProfile.__module__, "tests.test_meta")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
@@ -180,7 +180,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "test_meta__UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
         #
         self.assertIsNone(m.hash.value)
         self.assertIsNone(m.created_at.value)

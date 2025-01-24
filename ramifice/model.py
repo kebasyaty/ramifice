@@ -54,9 +54,9 @@ class Model(MixinJSON):
         return self.__class__.__name__
 
     def full_model_name(self) -> str:
-        """Get full Model name - module_name + __ + ClassName."""
+        """Get full Model name - module_name + . + ClassName."""
         cls = self.__class__
-        return f"{cls.__module__}__{cls.__name__}"
+        return f"{cls.__module__}.{cls.__name__}"
 
     # --------------------------------------------------------------------------
     def object_id(self) -> ObjectId | None:
