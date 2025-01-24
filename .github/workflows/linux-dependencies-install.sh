@@ -8,12 +8,12 @@ apt update
 apt install -y curl gnupg2 systemctl git
 
 # Install pipX
-sudo apt install pipx
+sudo apt install -y pipx
 pipx ensurepath
 pipx
 
 # Install Poetry
-pipx install poetry
+pipx install -y poetry
 
 # Install MongoDB server
 curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
