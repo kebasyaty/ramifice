@@ -20,13 +20,17 @@ class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
         # Inserting a Document:
         await collection.insert_one({"x": 1})
         self.assertEqual(await db.list_collection_names(), ["test-collection"])
+        # Find one document.
         doc = await collection.find_one({"x": 1})
         self.assertEqual(doc.get("x"), 1)
+        # Calculate the number of all documents in the collection.
         doc_count = await collection.count_documents({})
         self.assertEqual(doc_count, 1)
+        # Remove one document from a collection.
         await collection.delete_one({"x": 1})
         doc_count = await collection.count_documents({})
         self.assertEqual(doc_count, 0)
+        # Count the number of remaining documents in the collection.
         await client.drop_database(db.name)
-        #
+        # Close the connection with Mongodb.
         await client.close()
