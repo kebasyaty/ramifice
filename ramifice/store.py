@@ -7,7 +7,7 @@ import re
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
-# To block the verification code, at the end of the migration to the database.
+# For block the verification code, at the end of the migration to the database.
 DEBUG: bool = True
 # Mongo client caching.
 MONGO_CLIENT: AsyncMongoClient | None = None
