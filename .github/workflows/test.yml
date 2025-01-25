@@ -27,16 +27,17 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
+        mongodb-version: ["8.0"]
         python-version: ["3.13.1"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
+    name: ${{ matrix.os }} Python ${{ matrix.python-version }} MongoDB ${{ matrix.mongodb-version }}
 
     steps:
-      - name: Start mongo
-        id: start-mongo
-        run: docker run --rm -d -p 27017:27017 --name mongo mongo:8
       - uses: actions/checkout@v4
+      - uses: supercharge/mongodb-github-action@1.12.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -65,9 +66,6 @@ jobs:
           poetry run python -m unittest tests/test_model.py
           poetry run python -m unittest tests/test_meta.py
           poetry run python -m unittest tests/test_migration.py
-      - name: Stop MongoDB
-        run: |
-          docker rm -f mongo
 
   success:
     permissions:
