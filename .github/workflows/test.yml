@@ -26,20 +26,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-24.04"]
+        os: ["ubuntu-latest"]
         python-version: ["3.13.1"]
-        poetry-version: ["2.0.1"]
+        poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
-
-    # container:
-      # image: ubuntu:24.04
-      # options: --user root
 
     steps:
       - name: Start mongo
         id: start-mongo
-        run: docker run --rm -d -p 27017:27017 --name mongo  mongo:6.0
+        run: docker run --rm -d -p 27017:27017 --name mongo mongo:latest
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
