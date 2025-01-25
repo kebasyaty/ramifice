@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run MongoDB server
-        run: docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
+        run: mongod
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
