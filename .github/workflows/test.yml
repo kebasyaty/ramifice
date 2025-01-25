@@ -26,26 +26,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-24.04"]
         python-version: ["3.13.1"]
         poetry-version: ["2.0.1"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
-    services:
-      mongo:
-        image: mongo:6
-        options: >-
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 27017:27017
 
     # container:
-      # image: mongo:latest
+      # image: ubuntu:24.04
       # options: --user root
 
     steps:
+      - name: Start mongo
+        id: start-mongo
+        run: docker run --rm -d -p 27017:27017 --name mongo  mongo:6.0
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -75,6 +69,9 @@ jobs:
           poetry run python -m unittest tests/test_model.py
           poetry run python -m unittest tests/test_meta.py
           poetry run python -m unittest tests/test_migration.py
+      - name: Stop MongoDB
+        run: |
+          docker rm -f mongo
 
   success:
     permissions:
