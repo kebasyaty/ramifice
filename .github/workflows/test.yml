@@ -27,13 +27,12 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
-        python-version: ["3.13.1"]
+        python-version: ["latest"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      # image: ubuntu:24.04
       mongodb/mongodb-community-server:latest
       options: --user root
 
