@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
-        python-version: ["latest"]
+        python-version: ["3.13.1"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
