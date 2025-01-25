@@ -8,13 +8,13 @@ from datetime import datetime
 from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from ..types import FileData
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class FileField(Field, FileGroup, MixinJSON):
+class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -54,7 +54,7 @@ class FileField(Field, FileGroup, MixinJSON):
             target_dir=target_dir,
             accept=accept,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: FileData | None = None
 

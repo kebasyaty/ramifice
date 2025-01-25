@@ -2,12 +2,12 @@
 Type of selective float field with dynamic addition of elements.
 """
 
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceFloatMultDynField(Field, ChoiceGroup, MixinJSON):
+class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
     Type of selective float field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -42,7 +42,7 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, MixinJSON):
             readonly=readonly,
             multiple=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: list[float] | None = None
         self.__choices: list[tuple[float, str]] | None = None

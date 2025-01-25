@@ -2,13 +2,13 @@
 Type of selective float field with static of elements.
 """
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceFloatMultField(Field, ChoiceGroup, MixinJSON):
+class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
     Type of selective float field with static of elements.
     With multiple choice.
@@ -45,7 +45,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, MixinJSON):
             readonly=readonly,
             multiple=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: list[float] | None = None
         self.__default = default

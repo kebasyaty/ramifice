@@ -2,12 +2,12 @@
 
 from bson.objectid import ObjectId
 
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class HashField(Field, TextGroup, MixinJSON):
+class HashField(Field, TextGroup, JsonMixin):
     """Field of Model for enter identifier of document."""
 
     def __init__(
@@ -42,7 +42,7 @@ class HashField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""

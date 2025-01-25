@@ -1,12 +1,12 @@
 """Field of Model for enter text."""
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class TextField(Field, TextGroup, MixinJSON):
+class TextField(Field, TextGroup, JsonMixin):
     """Field of Model for enter text."""
 
     def __init__(
@@ -45,7 +45,7 @@ class TextField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if not isinstance(maxlength, int):

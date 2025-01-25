@@ -1,11 +1,11 @@
 """Field of Model for automatic generation of string `slug`."""
 
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class SlugField(Field, TextGroup, MixinJSON):
+class SlugField(Field, TextGroup, JsonMixin):
     """Field of Model for automatic generation of string `slug`.
     Convenient to use for Url addresses.
     """
@@ -41,7 +41,7 @@ class SlugField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__slug_sources = slug_sources
 

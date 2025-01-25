@@ -1,11 +1,11 @@
 """Field of Model for enter logical value."""
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.field import Field
 
 
-class BoolField(Field, MixinJSON):
+class BoolField(Field, JsonMixin):
     """Field of Model for enter logical value."""
 
     def __init__(
@@ -29,7 +29,7 @@ class BoolField(Field, MixinJSON):
             field_type="BoolField",
             group="bool",
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None and not isinstance(default, bool):

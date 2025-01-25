@@ -3,13 +3,13 @@
 from datetime import datetime
 
 from ..errors import InvalidDateError
+from ..mixins import JsonMixin, date_parse
 from ..store import DEBUG
-from ..tools import MixinJSON, date_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
 
-class DateField(Field, DateGroup, MixinJSON):
+class DateField(Field, DateGroup, JsonMixin):
     """Field of Model for enter date.
     Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
@@ -52,7 +52,7 @@ class DateField(Field, DateGroup, MixinJSON):
             max_date=max_date,
             min_date=min_date,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if max_date is not None:

@@ -4,7 +4,7 @@ import json
 from typing import Any
 
 
-class MixinJSON:
+class JsonMixin:
     """Complect of methods for converting custom object to JSON and back to an object."""
 
     def to_dict(self) -> dict[str, Any]:
