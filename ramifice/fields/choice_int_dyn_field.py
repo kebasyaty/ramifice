@@ -2,12 +2,12 @@
 Type of selective integer field with dynamic addition of elements.
 """
 
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceIntDynField(Field, ChoiceGroup, MixinJSON):
+class ChoiceIntDynField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
     Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-One.
@@ -42,7 +42,7 @@ class ChoiceIntDynField(Field, ChoiceGroup, MixinJSON):
             required=required,
             readonly=readonly,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: int | None = None
         self.__choices: list[tuple[int, str]] | None = None

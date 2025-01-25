@@ -25,6 +25,7 @@ class Monitor:
     """Monitoring and updating database state for application."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):
+        store.DEBUG = False
         db_name_regex = store.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
             raise errors.DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
@@ -77,3 +78,5 @@ class Monitor:
         # Raise the exception if there are no models for migration.
         if len(model_list) == 0:
             raise NoModelsForMigrationError()
+        # ModelState.is_model_exist to False in super collection.
+        await self.refresh()

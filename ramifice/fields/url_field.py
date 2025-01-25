@@ -2,13 +2,13 @@
 
 from urllib.parse import urlparse
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class URLField(Field, TextGroup, MixinJSON):
+class URLField(Field, TextGroup, JsonMixin):
     """Field of Model for enter URL addresses.
 
     Attributes:
@@ -58,7 +58,7 @@ class URLField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None:

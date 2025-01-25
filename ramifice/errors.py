@@ -15,8 +15,8 @@ class InvalidDateError(RamificeException):
         message -- explanation of the error
     """
 
-    def __init__(self):
-        self.message = "Invalid Date!"
+    def __init__(self, message: str = "Invalid Date!"):
+        self.message = message
         super().__init__(self.message)
 
 
@@ -27,8 +27,8 @@ class InvalidDateTimeError(RamificeException):
         message -- explanation of the error
     """
 
-    def __init__(self):
-        self.message = "Invalid Date and Time!"
+    def __init__(self, message: str = "Invalid Date and Time!"):
+        self.message = message
         super().__init__(self.message)
 
 
@@ -39,8 +39,8 @@ class FileHasNoExtensionError(RamificeException):
         message -- explanation of the error
     """
 
-    def __init__(self):
-        self.message = "File has no extension!"
+    def __init__(self, message: str = "File has no extension!"):
+        self.message = message
         super().__init__(self.message)
 
 
@@ -57,11 +57,7 @@ class DoesNotMatchRegexError(RamificeException):
 
 
 class NoModelsForMigrationError(RamificeException):
-    """Exception raised if no Models for migration.
-
-    Attributes:
-        message -- explanation of the error
-    """
+    """Exception raised if no Models for migration."""
 
     def __init__(self):
         self.message = "No Models for Migration!"

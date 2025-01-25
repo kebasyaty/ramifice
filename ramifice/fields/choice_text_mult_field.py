@@ -2,13 +2,13 @@
 Type of selective text field with static of elements.
 """
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceTextMultField(Field, ChoiceGroup, MixinJSON):
+class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
     Type of selective text field with static of elements.
     With multiple choice.
@@ -45,7 +45,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, MixinJSON):
             readonly=readonly,
             multiple=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: list[str] | None = None
         self.__default = default

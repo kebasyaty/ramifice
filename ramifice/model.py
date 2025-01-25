@@ -6,10 +6,10 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from .fields import DateTimeField, HashField
-from .tools import MixinJSON
+from .mixins import JsonMixin
 
 
-class Model(MixinJSON):
+class Model(JsonMixin):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
@@ -30,7 +30,7 @@ class Model(MixinJSON):
             hide=True,
             disabled=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
         self.inject()
 
     @property

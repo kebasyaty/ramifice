@@ -2,13 +2,13 @@
 
 from email_validator import EmailNotValidError, validate_email
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class EmailField(Field, TextGroup, MixinJSON):
+class EmailField(Field, TextGroup, JsonMixin):
     """Field of Model for enter email address."""
 
     def __init__(
@@ -44,7 +44,7 @@ class EmailField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None:

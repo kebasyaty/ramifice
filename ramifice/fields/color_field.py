@@ -1,12 +1,12 @@
 """Field of Model for enter color code."""
 
+from ..mixins import JsonMixin
 from ..store import DEBUG, REGEX
-from ..tools import MixinJSON
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
-class ColorField(Field, TextGroup, MixinJSON):
+class ColorField(Field, TextGroup, JsonMixin):
     """Field of Model for enter color code.
     Default value is #000000 (black).
     Examples: #fff | #f2f2f2 | #f2f2f200 | rgb(255,0,24) |
@@ -47,7 +47,7 @@ class ColorField(Field, TextGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None:

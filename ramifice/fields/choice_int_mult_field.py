@@ -2,13 +2,13 @@
 Type of selective integer field with static of elements.
 """
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
 
-class ChoiceIntMultField(Field, ChoiceGroup, MixinJSON):
+class ChoiceIntMultField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
     Type of selective integer field with static of elements.
     With multiple choice.
@@ -45,7 +45,7 @@ class ChoiceIntMultField(Field, ChoiceGroup, MixinJSON):
             readonly=readonly,
             multiple=True,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__value: list[int] | None = None
         self.__default = default

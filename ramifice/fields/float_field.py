@@ -1,12 +1,12 @@
 """Field of Model for enter (float) number."""
 
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..tools import MixinJSON
 from .general.field import Field
 from .general.number_group import NumberGroup
 
 
-class FloatField(Field, NumberGroup, MixinJSON):
+class FloatField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (float) number."""
 
     def __init__(
@@ -45,7 +45,7 @@ class FloatField(Field, NumberGroup, MixinJSON):
             readonly=readonly,
             unique=unique,
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if input_type not in ["number", "range"]:

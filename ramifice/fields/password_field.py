@@ -1,10 +1,10 @@
 """Field of Model for enter password."""
 
-from ..tools import MixinJSON
+from ..mixins import JsonMixin
 from .general.field import Field
 
 
-class PasswordField(Field, MixinJSON):
+class PasswordField(Field, JsonMixin):
     """Field of Model for enter password.
     WARNING:
     Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
@@ -33,7 +33,7 @@ class PasswordField(Field, MixinJSON):
             field_type="PasswordField",
             group="password",
         )
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
 
         self.__input_type = "password"
         self.__value: str | None = None

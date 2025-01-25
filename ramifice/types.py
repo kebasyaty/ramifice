@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from .tools import MixinJSON
+from .mixins import JsonMixin
 
 
 class OutputData:
@@ -35,13 +35,13 @@ class OutputData:
         return self.__update
 
 
-class Unit(MixinJSON):
+class Unit(JsonMixin):
     """Unit of information for `choices` parameter in dynamic field types."""
 
     def __init__(
         self, field: str, title: str, value: float | int | str, delete: bool = False
     ):
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
         self.__field = field
         self.__title = title
         self.__value = value
@@ -70,11 +70,11 @@ class Unit(MixinJSON):
         return self.__delete
 
 
-class FileData(MixinJSON):
+class FileData(JsonMixin):
     """Data type for `FileField.value`."""
 
     def __init__(self):
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
         self.__path = ""
         self.__url = ""
         self.__name = ""
@@ -170,11 +170,11 @@ class FileData(MixinJSON):
         self.__save_as_is = value
 
 
-class ImageData(MixinJSON):
+class ImageData(JsonMixin):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
-        MixinJSON.__init__(self)
+        JsonMixin.__init__(self)
         self.__path = ""
         self.__path_xs = ""
         self.__path_sm = ""
