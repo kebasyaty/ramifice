@@ -33,7 +33,7 @@ jobs:
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
     services:
       mongo:
-        image: mongo:latest
+        image: mongo:6
         options: >-
           --health-interval 10s
           --health-timeout 5s
