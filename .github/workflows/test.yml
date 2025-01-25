@@ -26,24 +26,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: ["latest"]
+        os: ["ubuntu-24.04"]
+        python-version: ["3.13.1"]
         poetry-version: ["latest"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }}
 
     container:
-      image: mongodb/mongodb-community-server:latest
+      image: ubuntu:24.04
       options: --user root
 
     steps:
       - uses: actions/checkout@v4
-      - name: Run MongoDB server
-        run: |
-          apt update
-          apt install -y curl gnupg2 systemctl git
-          mongod --version
-          systemctl start mongod
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -61,6 +55,10 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
+      - name: Install Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          bash .github/workflows/linux-dependencies-install.sh
       - name: Run unittest
         run: |
           poetry run python -m unittest tests/test_mongo.py
