@@ -80,3 +80,4 @@ class Monitor:
             raise NoModelsForMigrationError()
         # ModelState.is_model_exist to False in super collection.
         await self.refresh()
+        #
