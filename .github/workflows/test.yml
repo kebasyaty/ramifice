@@ -32,11 +32,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
 
-    container:
-      image: ubuntu:24.04
-      options: --user root
+    # container:
+      # image: ubuntu:24.04
+      # options: --user root
 
     steps:
+      - name: Start mongo
+        id: start-mongo
+        run: docker run --rm -d -p 27017:27017 --name mongo  mongo:6.0
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -55,10 +58,6 @@ jobs:
           key: venv-${{ hashFiles('poetry.lock') }}
       - name: Install the project dependencies
         run: poetry install
-      - name: Install Linux dependencies
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          bash .github/workflows/linux-dependencies-install.sh
       - name: Run unittest
         run: |
           poetry run python -m unittest tests/test_mongo.py
@@ -70,6 +69,9 @@ jobs:
           poetry run python -m unittest tests/test_model.py
           poetry run python -m unittest tests/test_meta.py
           poetry run python -m unittest tests/test_migration.py
+      - name: Stop MongoDB
+        run: |
+          docker rm -f mongo
 
   success:
     permissions:
