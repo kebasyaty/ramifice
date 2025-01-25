@@ -27,13 +27,13 @@ class JsonMixin:
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
         obj = cls()
-        for f_name, f_type in obj.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                if not hasattr(f_type, "from_dict"):
-                    obj.__dict__[f_name] = json_dict[f_name]
-                else:
-                    obj.__dict__[f_name] = f_type.from_dict(json_dict[f_name])
+        obj_dict = {key: val for key, val in obj.__dict__.items() if not callable(val)}
+        for key, val in obj_dict.items():
+            f_name = key.rsplit("__", maxsplit=1)[-1]
+            if not hasattr(val.__class__, "from_dict"):
+                obj.__dict__[key] = json_dict[f_name]
+            else:
+                obj.__dict__[key] = val.__class__.from_dict(json_dict[f_name])
         return obj
 
     @classmethod

@@ -24,9 +24,13 @@ class TestJsonMixin(unittest.TestCase):
 
     def test_to_json(self):
         """Testing a method `to_json`."""
+        x = 3
+        print(x.__class__)
         m = UserProfile()
         json_str = m.to_json()
-        print(json_str)
+        m2 = UserProfile.from_json(json_str)
+        self.assertEqual(m.profession.choices, [(1, "Musician"), (2, "Artist")])
+        self.assertEqual(m2.profession.choices, [[1, "Musician"], [2, "Artist"]])
 
 
 if __name__ == "__main__":

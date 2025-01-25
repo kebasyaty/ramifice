@@ -62,6 +62,7 @@ jobs:
       - name: Run unittest
         run: |
           poetry run python -m unittest tests/test_mongo.py
+          poetry run python -m unittest tests/test_mixins.py
           poetry run python -m unittest tests/test_store.py
           poetry run python -m unittest tests/test_tools.py
           poetry run python -m unittest tests/test_types.py
