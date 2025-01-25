@@ -31,10 +31,19 @@ jobs:
         poetry-version: ["2.0.1"]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} Python ${{ matrix.python-version }} Poetry ${{ matrix.poetry-version }}
+    services:
+      mongo:
+        image: mongo:latest
+        options: >-
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 27017:27017
 
-    container:
-      image: mongo:latest
-      options: --user root
+    # container:
+      # image: mongo:latest
+      # options: --user root
 
     steps:
       - uses: actions/checkout@v4
