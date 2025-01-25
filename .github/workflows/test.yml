@@ -35,7 +35,9 @@ jobs:
     steps:
       - name: Start mongo
         id: start-mongo
-        run: docker run --rm -d -p 27017:27017 --name mongo mongo:latest
+        run: |
+          docker run --rm -d -p 27017:27017 --name mongo mongo:latest
+          mongo --version
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
