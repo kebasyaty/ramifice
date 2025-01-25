@@ -38,6 +38,7 @@ class Monitor:
         """Get access to the super collection.
         Super collection contains data of Models state and dynamic field data.
         """
+        # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
         # Update is_model_exist for ModelState in super collection.
         async for model_state_doc in super_collection.find():
@@ -49,9 +50,9 @@ class Monitor:
         """Delete data for non-existent Models from a super collection,
         delete collections associated with those Models.
         """
-        # Get database of application.
+        # Get access to database.
         database = store.MONGO_DATABASE  # type: ignore
-        # Get super collection.
+        # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
         # Delete data for non-existent Models.
         async for model_state_doc in super_collection.find():
@@ -80,3 +81,10 @@ class Monitor:
             raise NoModelsForMigrationError()
         # ModelState.is_model_exist to False in super collection.
         await self.refresh()
+        # Get access to database.
+        database = store.MONGO_DATABASE  # type: ignore
+        # Get access to super collection.
+        super_collection = database[store.SUPER_COLLECTION_NAME]  # type: ignore
+        #
+        for model_class in model_list:
+            pass
