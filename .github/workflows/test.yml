@@ -40,9 +40,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run MongoDB server
         run: |
-          docker pull mongodb/mongodb-community-server:latest
-          docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
-          docker container ls
+          apt install -y curl gnupg2 systemctl git
+          mongod --version
+          systemctl start mongod
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
