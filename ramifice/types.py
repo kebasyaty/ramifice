@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from .tools import JsonMixin
+from .mixins import JsonMixin
 
 
 class OutputData:
