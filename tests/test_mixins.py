@@ -3,7 +3,36 @@
 import unittest
 
 from ramifice import Model, meta
-from ramifice.fields import ChoiceIntField
+from ramifice.fields import (
+    BoolField,
+    ChoiceFloatDynField,
+    ChoiceFloatField,
+    ChoiceFloatMultDynField,
+    ChoiceFloatMultField,
+    ChoiceIntDynField,
+    ChoiceIntField,
+    ChoiceIntMultDynField,
+    ChoiceIntMultField,
+    ChoiceTextDynField,
+    ChoiceTextField,
+    ChoiceTextMultDynField,
+    ChoiceTextMultField,
+    ColorField,
+    DateField,
+    DateTimeField,
+    EmailField,
+    FileField,
+    FloatField,
+    HashField,
+    ImageField,
+    IntegerField,
+    IPField,
+    PasswordField,
+    PhoneField,
+    SlugField,
+    TextField,
+    URLField,
+)
 from ramifice.mixins import JsonMixin
 
 
@@ -28,12 +57,39 @@ class User(Model):
     """For testing the Ramifice fields."""
 
     def __init__(self):
-        self.profession = ChoiceIntField(choices=[(1, "Musician"), (2, "Artist")])
+        self.url = URLField()
+        self.txt = TextField()
+        self.slug = SlugField()
+        self.phone = PhoneField()
+        self.password = PasswordField()
+        self.ip = IPField()
+        self.num_int = IntegerField()
+        self.num_float = FloatField()
+        self.img = ImageField()
+        self.hash2 = HashField()
+        self.file = FileField()
+        self.email = EmailField()
+        self.date_time = DateTimeField()
+        self.date = DateField()
+        self.color = ColorField()
+        self.bool = BoolField()
+        self.choice_float_dyn = ChoiceFloatDynField()
+        self.choice_float = ChoiceFloatField()
+        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
+        self.choice_float_mult = ChoiceFloatMultField()
+        self.choice_int_dyn = ChoiceIntDynField()
+        self.choice_int_mult_dyn = ChoiceIntMultDynField()
+        self.choice_int_mult = ChoiceIntMultField()
+        self.choice_txt_dyn = ChoiceTextDynField()
+        self.choice_txt = ChoiceTextField()
+        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
+        self.choice_txt_mult = ChoiceTextMultField()
+        self.choice_int = ChoiceIntField(choices=[(1, "Musician"), (2, "Artist")])
         #
         super().__init__()
 
     def __str__(self):
-        return str(self.profession.value)
+        return str(self.txt.value)
 
 
 class TestJsonMixin(unittest.TestCase):
@@ -59,8 +115,8 @@ class TestJsonMixin(unittest.TestCase):
         m = User()
         json_str = m.to_json()
         m2 = User.from_json(json_str)
-        self.assertEqual(m.profession.choices, [(1, "Musician"), (2, "Artist")])
-        self.assertEqual(m2.profession.choices, [[1, "Musician"], [2, "Artist"]])
+        self.assertEqual(m.choice_int.choices, [(1, "Musician"), (2, "Artist")])
+        self.assertEqual(m2.choice_int.choices, [[1, "Musician"], [2, "Artist"]])
 
 
 if __name__ == "__main__":
