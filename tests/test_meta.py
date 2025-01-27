@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice import Model, meta
-from ramifice.fields import ChoiceTextDynField, DateTimeField, HashField, TextField
+from ramifice.fields import ChoiceTextDynField, TextField
 
 
 @meta(service_name="Accounts")

@@ -6,19 +6,9 @@ your database schema.
 
 from pymongo import AsyncMongoClient
 
-from . import errors, store
-from .errors import NoModelsForMigrationError
+from . import store
+from .errors import DoesNotMatchRegexError, NoModelsForMigrationError
 from .model import Model
-
-
-class ModelState:
-    """For control state of Model in the super collection."""
-
-    def __init__(self):
-        self.collection_name = ""
-        self.field_name_and_type_list = {}
-        self.data_dynamic_fields = {}
-        self.is_model_exist = False
 
 
 class Monitor:
@@ -28,7 +18,7 @@ class Monitor:
         store.DEBUG = False
         db_name_regex = store.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
-            raise errors.DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
+            raise DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
         #
         store.DATABASE_NAME = database_name
         store.MONGO_CLIENT = mongo_client
@@ -40,9 +30,9 @@ class Monitor:
         """
         # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
-        # Update is_model_exist for ModelState in super collection.
-        async for model_state_doc in super_collection.find():
-            q_filter = {"collection_name": model_state_doc["collection_name"]}
+        # Update a state Models in super collection.
+        async for model_state in super_collection.find():
+            q_filter = {"collection_name": model_state["collection_name"]}
             update = {"$set": {"is_model_exist": False}}
             super_collection.update_one(q_filter, update)
 
@@ -55,16 +45,14 @@ class Monitor:
         # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
         # Delete data for non-existent Models.
-        async for model_state_doc in super_collection.find():
-            if model_state_doc["is_model_exist"] is False:
+        async for model_state in super_collection.find():
+            if model_state["is_model_exist"] is False:
                 # Get the name of the collection associated with the Model.
-                model_collection_name = model_state_doc.get("collection_name")
+                collection_name = model_state["collection_name"]
                 # Delete data for non-existent Model.
-                await super_collection.delete_one(
-                    {"collection_name": model_collection_name}
-                )
+                await super_collection.delete_one({"collection_name": collection_name})
                 # Delete collection associated with non-existent Model.
-                await database.drop_collection(model_collection_name)  # type: ignore
+                await database.drop_collection(collection_name)  # type: ignore
 
     async def migrat(self) -> None:
         """Run migration process:
@@ -79,7 +67,7 @@ class Monitor:
         # Raise the exception if there are no models for migration.
         if len(model_list) == 0:
             raise NoModelsForMigrationError()
-        # ModelState.is_model_exist to False in super collection.
+        # Update a state Models in super collection.
         await self.refresh()
         # Get access to database.
         database = store.MONGO_DATABASE  # type: ignore
@@ -87,4 +75,20 @@ class Monitor:
         super_collection = database[store.SUPER_COLLECTION_NAME]  # type: ignore
         #
         for model_class in model_list:
-            pass
+            # Get metadata of current Model.
+            metadata = model_class.META
+            # Get state of current Model.
+            model_state = await super_collection.find_one(
+                {"collection_name": metadata["collection_name"]}
+            )
+            if model_state is not None:
+                model_state["is_model_exist"] = True
+            else:
+                # Create a state for new Model.
+                model_state = {
+                    "collection_name": metadata["collection_name"],
+                    "field_name_and_type_list": metadata["field_name_and_type_list"],
+                    "data_dynamic_fields": metadata["data_dynamic_fields"],
+                    "is_model_exist": True,
+                }
+                await super_collection.insert_one(model_state)

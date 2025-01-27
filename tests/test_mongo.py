@@ -11,7 +11,7 @@ class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
     async def test_connection_mongo_client(self):
         """Connection with AsyncMongoClient."""
         # Making a Connection with MongoClient:
-        client = AsyncMongoClient(host="localhost", port=27017)
+        client = AsyncMongoClient()
         # Getting a Database:
         db = client["test-database"]
         self.assertEqual(db.name, "test-database")
