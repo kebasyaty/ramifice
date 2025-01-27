@@ -1,15 +1,14 @@
 """For converting Python classes into Ramifice Model."""
 
-import json
 from typing import Any
 
 from bson.objectid import ObjectId
 
 from .fields import DateTimeField, HashField
-from .mixins import JsonMixin
+from .mixins import ModelJsonMixin
 
 
-class Model(JsonMixin):
+class Model(ModelJsonMixin):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
@@ -30,7 +29,7 @@ class Model(JsonMixin):
             hide=True,
             disabled=True,
         )
-        JsonMixin.__init__(self)
+        ModelJsonMixin.__init__(self)
         self.inject()
 
     @property
@@ -80,21 +79,3 @@ class Model(JsonMixin):
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_name:
                         f_type.choices = data_dynamic_fields[f_name]
-
-    # --------------------------------------------------------------------------
-    def to_dict_only_value(self) -> dict[str, Any]:
-        """Convert model.field.value (only the `value` attribute) to a dictionary."""
-        json_dict: dict[str, Any] = {}
-        for f_name, f_type in self.__dict__.items():
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
-            if not callable(f_type):
-                value = f_type.value
-                if not hasattr(value, "to_dict"):
-                    json_dict[f_name] = value
-                else:
-                    json_dict[f_name] = value.to_dict()
-        return json_dict
-
-    def to_json_only_value(self) -> str:
-        """Convert model.field.value (only the `value` attribute) to a JSON string."""
-        return json.dumps(self.to_dict_only_value())
