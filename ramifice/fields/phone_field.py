@@ -65,9 +65,4 @@ class PhoneField(Field, TextGroup, JsonMixin):
                         "Parameter `default` - Invalid Phone number!"
                     )  # pylint: disable=raise-missing-from
 
-        self.__default = default
-
-    @property
-    def default(self) -> str | None:
-        """Value by default."""
-        return self.__default
+        self.default = default

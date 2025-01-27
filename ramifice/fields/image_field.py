@@ -56,18 +56,8 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         )
         FileJsonMixin.__init__(self)
 
-        self.__value: ImageData | None = None
+        self.value: ImageData | None = None
 
-    @property
-    def value(self) -> ImageData | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: ImageData | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
     def from_base64(
         self,
         base64_str: str | None = None,
@@ -135,7 +125,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.size = os.path.getsize(main_img_path)
 
         # FileData to value.
-        self.__value = i_data
+        self.value = i_data
 
     # --------------------------------------------------------------------------
     def from_path(
@@ -192,4 +182,4 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.size = os.path.getsize(main_img_path)
 
         # FileData to value.
-        self.__value = i_data
+        self.value = i_data

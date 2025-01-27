@@ -6,32 +6,20 @@ from ramifice import Model, meta
 from ramifice.fields import ChoiceTextDynField, DateTimeField, HashField, TextField
 
 
-# Strict style
 @meta(service_name="Accounts")
 class User(Model):
     """Class for testing."""
 
     def __init__(self):
-        self.__username = TextField()
-        self.__favorite_color = ChoiceTextDynField()
+        self.username = TextField()
+        self.favorite_color = ChoiceTextDynField()
         #
         super().__init__()
 
     def __str__(self):
-        return str(self.__username.value)
-
-    @property
-    def username(self) -> TextField:
-        """Username"""
-        return self.__username
-
-    @property
-    def favorite_color(self) -> ChoiceTextDynField:
-        """Favorite color"""
-        return self.__favorite_color
+        return str(self.username.value)
 
 
-# Simplified style
 @meta(service_name="Profiles")
 class UserProfile(Model):
     """Class for testing."""
@@ -151,15 +139,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.username.id, "User--username")
         self.assertEqual(m.username.name, "username")
         self.assertIsNone(m.object_id())
-        #
-        with self.assertRaises(AttributeError):
-            m.hash = HashField()
-        with self.assertRaises(AttributeError):
-            m.created_at = DateTimeField()
-        with self.assertRaises(AttributeError):
-            m.updated_at = DateTimeField()
-        with self.assertRaises(AttributeError):
-            m.username = TextField()
         # Methods:
         json_str = '{"username": {"id": "User--username", "label": "", "name": "username", "field_type": "TextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null, "textarea": false, "use_editor": false, "maxlength": 256}, "favorite_color": {"id": "User--favorite-color", "label": "", "name": "favorite_color", "field_type": "ChoiceTextDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "choices": null}, "hash": {"id": "User--hash", "label": "Document ID", "name": "hash", "field_type": "HashField", "disabled": true, "hide": true, "ignored": true, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false}, "created_at": {"id": "User--created-at", "label": "Created at", "name": "created_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was created."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}, "updated_at": {"id": "User--updated-at", "label": "Updated at", "name": "updated_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was updated."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}}'
         self.assertEqual(m.to_json(), json_str)

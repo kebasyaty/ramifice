@@ -46,9 +46,9 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.__value: int | None = None
-        self.__default = default
-        self.__choices = choices
+        self.value: int | None = None
+        self.default = default
+        self.choices = choices
 
         if DEBUG:
             if choices is not None and not isinstance(choices, list):
@@ -61,35 +61,11 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
                     + "list of permissive values in `choicees`."
                 )
 
-    @property
-    def value(self) -> int | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: int | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
-    @property
-    def default(self) -> int | None:
-        """Value by default."""
-        return self.__default
-
-    # --------------------------------------------------------------------------
-    @property
-    def choices(self) -> list[tuple[int, str]] | None:
-        """Html tag: select.
-        Example: [(1, 'Title'), (2, 'Title 2')]
-        """
-        return self.__choices
-
-    # ---------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value or self.__default or None
-        choices = self.__choices or None
+        value = self.value or self.default or None
+        choices = self.choices or None
         if value is not None and choices is not None:
             value_list = [item[0] for item in choices]
             if value not in value_list:

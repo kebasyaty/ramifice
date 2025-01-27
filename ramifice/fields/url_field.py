@@ -72,9 +72,4 @@ class URLField(Field, TextGroup, JsonMixin):
                 if not result.scheme or not result.netloc:
                     raise AssertionError("Parameter `default` - Invalid URL address!")
 
-        self.__default = default
-
-    @property
-    def default(self) -> str | None:
-        """Value by default."""
-        return self.__default
+        self.default = default

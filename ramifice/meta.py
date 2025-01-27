@@ -66,7 +66,6 @@ def caching(cls, model) -> None:
     #
     for f_name, f_type in model.__dict__.items():
         if not callable(f_type):
-            f_name = f_name.rsplit("__", maxsplit=1)[-1]
             f_type_str = f_type.__class__.__name__
             # Count all fields.
             count_all_fields += 1

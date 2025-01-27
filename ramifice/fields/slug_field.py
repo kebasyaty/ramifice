@@ -43,12 +43,4 @@ class SlugField(Field, TextGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.__slug_sources = slug_sources
-
-    @property
-    def slug_sources(self) -> list[str]:
-        """Names of the fields whose contents will be used for the slug.
-        The default is ['hash'].
-        Examples: ['title'] | ['hash', 'username'] | ['email', 'first_name'],
-        """
-        return self.__slug_sources
+        self.slug_sources = slug_sources
