@@ -5,7 +5,9 @@ from typing import Any
 
 
 class JsonMixin:
-    """Complect of methods for converting Fields to JSON and back."""
+    """Complect of methods for converting Fields to JSON and back.
+    For fields FileField and ImageField is used FileJsonMixin.
+    """
 
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
