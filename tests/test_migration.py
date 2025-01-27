@@ -2,18 +2,49 @@
 
 import unittest
 
-from ramifice.migration import ModelState
+from pymongo import AsyncMongoClient
 
-# from pymongo import AsyncMongoClient
+from ramifice import Model, meta
+from ramifice.fields import ChoiceTextDynField, TextField
+from ramifice.migration import Monitor
+
+
+@meta(service_name="Accounts")
+class User(Model):
+    """Class for testing."""
+
+    def __init__(self):
+        self.username = TextField()
+        self.favorite_color = ChoiceTextDynField()
+        #
+        super().__init__()
+
+    def __str__(self):
+        return str(self.username.value)
 
 
 class TestMigration(unittest.IsolatedAsyncioTestCase):
     """Testing the module `ramifice.migration`."""
 
-    async def test_class_model_state(self):
-        """Testing a class `ModelState`."""
-        ms = ModelState()
-        self.assertEqual(ms.collection_name, "")
-        self.assertEqual(ms.field_name_and_type_list, {})
-        self.assertEqual(ms.data_dynamic_fields, {})
-        self.assertFalse(ms.is_model_exist)
+    async def test_monitor(self):
+        """Testing a `Monitor`."""
+        # To generate a key (This is not an advertisement):
+        # https://randompasswordgen.com/
+        unique_key = "23x9QdB2zb7nsG6H"
+        database_name = f"test_{unique_key}"
+
+        # Delete database before test.
+        # (if the test fails)
+        client = AsyncMongoClient()
+        await client.drop_database(database_name)
+        await client.close()
+
+        client = AsyncMongoClient()
+        await Monitor(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrat()
+
+        # Delete database after test.
+        await client.drop_database(database_name)
+        await client.close()
