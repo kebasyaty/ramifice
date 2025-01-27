@@ -44,36 +44,21 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.__value: list[str] | None = None
-        self.__choices: list[tuple[str, str]] | None = None
+        self.value: list[str] | None = None
+        self.choices: list[tuple[str, str]] | None = None
 
-    @property
-    def value(self) -> list[str] | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: list[str] | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
-    @property
-    def choices(self) -> list[tuple[str, str]] | None:
-        """Html tag: select.
-        Example: [('value', 'Title'), ('value 2', 'Title 2')]
-        """
-        return self.__choices
-
-    # --------------------------------------------------------------------------
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.__value or None
-        choices = self.__choices or None
+        value = self.value or None
+        choices = self.choices or None
         if value is not None and choices is not None:
             value_list = [
-                item[0] for item in choices  # pylint: disable=not-an-iterable
-            ]  # pylint: disable=not-an-iterable
+                item[0]
+                # pylint: disable=not-an-iterable
+                for item in choices
+            ]
+            # pylint: disable=not-an-iterable
             for item in value:
                 if item not in value_list:
                     flag = False

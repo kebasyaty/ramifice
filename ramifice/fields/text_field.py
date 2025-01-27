@@ -62,31 +62,7 @@ class TextField(Field, TextGroup, JsonMixin):
                         "Parameter `default` exceeds the size of `maxlength`!"
                     )
 
-        self.__default = default
-        self.__textarea = textarea
-        self.__use_editor = use_editor
-        self.__maxlength = maxlength
-
-    @property
-    def default(self) -> str | None:
-        """Value by default."""
-        return self.__default
-
-    # --------------------------------------------------------------------------
-    @property
-    def textarea(self) -> bool:
-        """Use HTML tag Textarea?"""
-        return self.__textarea
-
-    # --------------------------------------------------------------------------
-    @property
-    def use_editor(self) -> bool:
-        """Whether or not to use your preferred text editor -
-        CKEditor, TinyMCE, etc."""
-        return self.__use_editor
-
-    # --------------------------------------------------------------------------
-    @property
-    def maxlength(self) -> int:
-        """Maximum allowed number of characters."""
-        return self.__maxlength
+        self.default = default
+        self.textarea = textarea
+        self.use_editor = use_editor
+        self.maxlength = maxlength

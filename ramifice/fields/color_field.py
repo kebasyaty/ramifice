@@ -60,11 +60,4 @@ class ColorField(Field, TextGroup, JsonMixin):
                 if REGEX["color_code"].match(default) is None:
                     raise AssertionError("Parameter `default` - Not а color code!")
 
-        self.__default = default
-
-    @property
-    def default(self) -> str | None:
-        """Value by default.
-        Default value is #000000 (black).
-        """
-        return self.__default
+        self.default = default

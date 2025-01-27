@@ -114,14 +114,9 @@ class DateTimeField(Field, DateGroup, JsonMixin):
                 ):
                     raise AssertionError("Parameter `default` is less `min_date`!")
 
-        self.__default = default
-
-    @property
-    def default(self) -> str | None:
-        """Value by default."""
-        return self.__default
+        self.default = default
 
     def to_datetime(self) -> datetime | None:
         """Convert parameter `value` or `default` into object of date and time."""
-        value = self.value or self.__default or None
+        value = self.value or self.default or None
         return datetime_parse(value) if value is not None else None

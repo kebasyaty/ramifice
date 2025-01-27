@@ -8,13 +8,13 @@ from datetime import datetime
 from pathlib import Path
 
 from ..errors import FileHasNoExtensionError
-from ..mixins import JsonMixin
+from ..mixins import FileJsonMixin
 from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class ImageField(Field, FileGroup, JsonMixin):
+class ImageField(Field, FileGroup, FileJsonMixin):
     """Field of Model for upload image.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -54,20 +54,10 @@ class ImageField(Field, FileGroup, JsonMixin):
             target_dir=target_dir,
             accept=accept,
         )
-        JsonMixin.__init__(self)
+        FileJsonMixin.__init__(self)
 
-        self.__value: ImageData | None = None
+        self.value: ImageData | None = None
 
-    @property
-    def value(self) -> ImageData | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: ImageData | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
     def from_base64(
         self,
         base64_str: str | None = None,
@@ -135,7 +125,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             i_data.size = os.path.getsize(main_img_path)
 
         # FileData to value.
-        self.__value = i_data
+        self.value = i_data
 
     # --------------------------------------------------------------------------
     def from_path(
@@ -192,4 +182,4 @@ class ImageField(Field, FileGroup, JsonMixin):
             i_data.size = os.path.getsize(main_img_path)
 
         # FileData to value.
-        self.__value = i_data
+        self.value = i_data

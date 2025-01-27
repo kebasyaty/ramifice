@@ -81,50 +81,9 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                 if max_number is not None and default < min_number:  # type: ignore
                     raise AssertionError("Parameter `default` is less `min_number`!")
 
-        self.__input_type: str = input_type
-        self.__value: int | None = None
-        self.__default = default
-        self.__max_number = max_number
-        self.__min_number = min_number
-        self.__step = step
-
-    @property
-    def input_type(self) -> str:
-        """Input type for a web form field.
-        Html tag: input type="number|range".
-        """
-        return self.__input_type
-
-    # --------------------------------------------------------------------------
-    @property
-    def value(self) -> int | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: int | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
-    @property
-    def default(self) -> int | None:
-        """Value by default."""
-        return self.__default
-
-    # --------------------------------------------------------------------------
-    @property
-    def max_number(self) -> int | None:
-        """Maximum allowed number."""
-        return self.__max_number
-
-    # --------------------------------------------------------------------------
-    @property
-    def min_number(self) -> int | None:
-        """Minimum allowed number."""
-        return self.__min_number
-
-    # --------------------------------------------------------------------------
-    @property
-    def step(self) -> int:
-        """Increment step for numeric fields."""
-        return self.__step
+        self.input_type: str = input_type
+        self.value: int | None = None
+        self.default = default
+        self.max_number = max_number
+        self.min_number = min_number
+        self.step = step

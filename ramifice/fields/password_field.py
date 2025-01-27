@@ -35,36 +35,7 @@ class PasswordField(Field, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.__input_type = "password"
-        self.__value: str | None = None
-        self.__placeholder = placeholder
-        self.__required = required
-
-    @property
-    def input_type(self) -> str:
-        """Input type for a web form field.
-        Html tag: input type="password".
-        """
-        return self.__input_type
-
-    # --------------------------------------------------------------------------
-    @property
-    def value(self) -> str | None:
-        """Sets value of field."""
-        return self.__value
-
-    @value.setter
-    def value(self, value: str | None) -> None:
-        self.__value = value
-
-    # --------------------------------------------------------------------------
-    @property
-    def placeholder(self) -> str:
-        """Displays prompt text."""
-        return self.__placeholder
-
-    # --------------------------------------------------------------------------
-    @property
-    def required(self) -> bool:
-        """Required field."""
-        return self.__required
+        self.input_type = "password"
+        self.value: str | None = None
+        self.placeholder = placeholder
+        self.required = required

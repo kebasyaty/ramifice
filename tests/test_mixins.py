@@ -52,7 +52,7 @@ class StandardTypes(JsonMixin):
         self.x9 = None
 
 
-@meta(service_name="Profiles")
+@meta(service_name="Accounts")
 class User(Model):
     """For testing the Ramifice fields."""
 
@@ -113,10 +113,16 @@ class TestJsonMixin(unittest.TestCase):
     def test_ramifice_fields(self):
         """Testing the Ramifice fields."""
         m = User()
+        #
         json_str = m.to_json()
         m2 = User.from_json(json_str)
         self.assertEqual(m.choice_int.choices, [(1, "Musician"), (2, "Artist")])
         self.assertEqual(m2.choice_int.choices, [[1, "Musician"], [2, "Artist"]])
+        #
+        json_str = m.to_json_only_value()
+        m3 = User.from_json_only_value(json_str)
+        self.assertEqual(m.choice_int.choices, [(1, "Musician"), (2, "Artist")])
+        self.assertEqual(m3.choice_int.choices, [(1, "Musician"), (2, "Artist")])
 
 
 if __name__ == "__main__":

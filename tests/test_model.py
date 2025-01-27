@@ -10,14 +10,9 @@ class User(Model):
     """For testing a instance `Model`."""
 
     def __init__(self, *args, **kwargs):
-        self.__username = TextField()
+        self.username = TextField()
         #
         super().__init__(*args, **kwargs)
-
-    @property
-    def username(self):
-        """Username"""
-        return self.__username
 
 
 class TestModel(unittest.TestCase):
@@ -43,15 +38,6 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
         self.assertIsNone(m.object_id())
-        #
-        with self.assertRaises(AttributeError):
-            m.hash = HashField()
-        with self.assertRaises(AttributeError):
-            m.created_at = DateTimeField()
-        with self.assertRaises(AttributeError):
-            m.updated_at = DateTimeField()
-        with self.assertRaises(AttributeError):
-            m.username = TextField()
         # Methods:
         json_str = '{"username": {"id": "", "label": "", "name": "", "field_type": "TextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null, "textarea": false, "use_editor": false, "maxlength": 256}, "hash": {"id": "", "label": "Document ID", "name": "", "field_type": "HashField", "disabled": true, "hide": true, "ignored": true, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false}, "created_at": {"id": "", "label": "Created at", "name": "", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was created."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}, "updated_at": {"id": "", "label": "Updated at", "name": "", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was updated."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}}'
         self.assertEqual(m.to_json(), json_str)
