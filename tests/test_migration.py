@@ -31,9 +31,20 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         # To generate a key (This is not an advertisement):
         # https://randompasswordgen.com/
         unique_key = "23x9QdB2zb7nsG6H"
+        database_name = f"test_{unique_key}"
+
+        # Delete database before test.
+        # (if the test fails)
+        client = AsyncMongoClient()
+        await client.drop_database(database_name)
+        await client.close()
+
         client = AsyncMongoClient()
         await Monitor(
-            database_name=f"test_{unique_key}",
+            database_name=database_name,
             mongo_client=client,
         ).migrat()
+
+        # Delete database after test.
+        await client.drop_database(database_name)
         await client.close()
