@@ -4,6 +4,8 @@ your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
 """
 
+from typing import Any
+
 from pymongo import AsyncMongoClient
 
 from . import store
@@ -35,6 +37,27 @@ class Monitor:
             q_filter = {"collection_name": model_state["collection_name"]}
             update = {"$set": {"is_model_exist": False}}
             super_collection.update_one(q_filter, update)
+
+    async def state(self, metadata: dict[str, Any]) -> dict[str, Any]:
+        """Get the state of the current model from a super collection."""
+        # Get access to super collection.
+        super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
+        # Get state of current Model.
+        model_state = await super_collection.find_one(
+            {"collection_name": metadata["collection_name"]}
+        )
+        if model_state is not None:
+            model_state["is_model_exist"] = True
+        else:
+            # Create a state for new Model.
+            model_state = {
+                "collection_name": metadata["collection_name"],
+                "field_name_and_type_list": metadata["field_name_and_type_list"],
+                "data_dynamic_fields": metadata["data_dynamic_fields"],
+                "is_model_exist": True,
+            }
+            await super_collection.insert_one(model_state)
+        return model_state
 
     async def napalm(self) -> None:
         """Delete data for non-existent Models from a super collection,
@@ -78,18 +101,5 @@ class Monitor:
         for model_class in model_list:
             # Get metadata of current Model.
             metadata = model_class.META
-            # Get state of current Model.
-            model_state = await super_collection.find_one(
-                {"collection_name": metadata["collection_name"]}
-            )
-            if model_state is not None:
-                model_state["is_model_exist"] = True
-            else:
-                # Create a state for new Model.
-                model_state = {
-                    "collection_name": metadata["collection_name"],
-                    "field_name_and_type_list": metadata["field_name_and_type_list"],
-                    "data_dynamic_fields": metadata["data_dynamic_fields"],
-                    "is_model_exist": True,
-                }
-                await super_collection.insert_one(model_state)
+            # Get the state of the current model from a super collection.
+            model_state = await self.state(metadata)
