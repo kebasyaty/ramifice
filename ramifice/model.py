@@ -130,3 +130,20 @@ class Model:
         """Convert JSON string to a object instance."""
         json_dict = json.loads(json_str)
         return cls.from_dict_only_value(json_dict)
+
+    # --------------------------------------------------------------------------
+    def refrash_fields(self, value_dict: dict[str, Any]) -> None:
+        """Partial or complete update a value of fields."""
+        for name, data in value_dict.items():
+            field_data: Any | None = self.__dict__.get(name)
+            if field_data is not None:
+                if isinstance(field_data, FileField):
+                    self.__dict__[name].value = (
+                        FileData.from_dict(data) if bool(data) else None
+                    )
+                elif isinstance(field_data, ImageField):
+                    self.__dict__[name].value = (
+                        ImageData.from_dict(data) if bool(data) else None
+                    )
+                else:
+                    self.__dict__[name].value = data

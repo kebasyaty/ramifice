@@ -4,11 +4,14 @@ your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
 """
 
+from typing import Any
+
 from pymongo import AsyncMongoClient
 
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError
 from .model import Model
+from .types import FileData, ImageData
 
 
 class Monitor:
@@ -24,17 +27,48 @@ class Monitor:
         store.MONGO_CLIENT = mongo_client
         store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
 
-    async def refresh(self) -> None:
-        """Get access to the super collection.
-        Super collection contains data of Models state and dynamic field data.
+    def model_list(self) -> list[Any]:
+        """Get Model list."""
+        model_list = [
+            model for model in Model.__subclasses__() if model.META["is_migrat_model"]
+        ]
+        # Raise the exception if there are no models for migration.
+        if len(model_list) == 0:
+            raise NoModelsForMigrationError()
+        return model_list
+
+    async def reset(self) -> None:
+        """Reset the condition of the models in a super collection.
+        Switch the `is_model_exist` parameter in the condition `False`.
         """
         # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
-        # Update a state Models in super collection.
+        # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
             update = {"$set": {"is_model_exist": False}}
             super_collection.update_one(q_filter, update)
+
+    async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
+        """Get the state of the current model from a super collection."""
+        # Get access to super collection.
+        super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
+        # Get state of current Model.
+        model_state = await super_collection.find_one(
+            {"collection_name": metadata["collection_name"]}
+        )
+        if model_state is not None:
+            model_state["is_model_exist"] = True
+        else:
+            # Create a state for new Model.
+            model_state = {
+                "collection_name": metadata["collection_name"],
+                "field_name_and_type_list": metadata["field_name_and_type_list"],
+                "data_dynamic_fields": metadata["data_dynamic_fields"],
+                "is_model_exist": True,
+            }
+            await super_collection.insert_one(model_state)
+        return model_state
 
     async def napalm(self) -> None:
         """Delete data for non-existent Models from a super collection,
@@ -61,14 +95,10 @@ class Monitor:
         3) Check changes in models and (if necessary) apply in appropriate collections.
         """
         # Get Model list.
-        model_list = [
-            model for model in Model.__subclasses__() if model.META["is_migrat_model"]
-        ]
-        # Raise the exception if there are no models for migration.
-        if len(model_list) == 0:
-            raise NoModelsForMigrationError()
-        # Update a state Models in super collection.
-        await self.refresh()
+        model_list = self.model_list()
+        # Reset the condition of the models in a super collection.
+        # Switch the `is_model_exist` parameter in the condition `False`.
+        await self.reset()
         # Get access to database.
         database = store.MONGO_DATABASE  # type: ignore
         # Get access to super collection.
@@ -77,18 +107,44 @@ class Monitor:
         for model_class in model_list:
             # Get metadata of current Model.
             metadata = model_class.META
-            # Get state of current Model.
-            model_state = await super_collection.find_one(
-                {"collection_name": metadata["collection_name"]}
-            )
-            if model_state is not None:
-                model_state["is_model_exist"] = True
-            else:
-                # Create a state for new Model.
-                model_state = {
-                    "collection_name": metadata["collection_name"],
-                    "field_name_and_type_list": metadata["field_name_and_type_list"],
-                    "data_dynamic_fields": metadata["data_dynamic_fields"],
-                    "is_model_exist": True,
-                }
-                await super_collection.insert_one(model_state)
+            # Get the state of the current model from a super collection.
+            model_state = await self.model_state(metadata)
+            # Review change of fields in the current Model and (if necessary)
+            # update documents in the appropriate Collection.
+            if (
+                model_state["field_name_and_type_list"]
+                != metadata["field_name_and_type_list"]
+            ):
+                # Get a list of new fields.
+                new_fields: list[str] = []
+                for field_name, field_type in metadata[
+                    "field_name_and_type_list"
+                ].items():
+                    old_field_type: str | None = model_state[
+                        "field_name_and_type_list"
+                    ].get(field_name)
+                    if old_field_type is None or old_field_type != field_type:
+                        new_fields.append(field_name)
+                # Get collection for current Model.
+                model_collection = database[model_state["collection_name"]]  # type: ignore
+                # Add new fields with default value or
+                # update existing fields whose field type has changed.
+                async for doc in model_collection.find():
+                    for field_name in new_fields:
+                        field_type_2: str | None = metadata[
+                            "field_name_and_type_list"
+                        ].get(field_name)
+                        if field_type_2 is not None:
+                            if field_type_2 == "FileField":
+                                file = FileData()
+                                file.delete = True
+                                doc[field_name] = file.to_dict()
+                            elif field_type_2 == "ImageField":
+                                img = ImageData()
+                                img.delete = True
+                                doc[field_name] = img.to_dict()
+                            else:
+                                doc[field_name] = None
+                    #
+                    fresh_model = model_class()
+                    fresh_model = model_class.refrash_fields(doc)
