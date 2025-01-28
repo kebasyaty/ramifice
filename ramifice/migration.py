@@ -11,6 +11,7 @@ from pymongo import AsyncMongoClient
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError
 from .model import Model
+from .types import FileData, ImageData
 
 
 class Monitor:
@@ -108,3 +109,41 @@ class Monitor:
             metadata = model_class.META
             # Get the state of the current model from a super collection.
             model_state = await self.model_state(metadata)
+            # Review change of fields in the current Model and (if necessary)
+            # update documents in the appropriate Collection.
+            if (
+                model_state["field_name_and_type_list"]
+                != metadata["field_name_and_type_list"]
+            ):
+                # Get a list of new fields.
+                new_fields: list[str] = []
+                for field_name, field_type in metadata[
+                    "field_name_and_type_list"
+                ].items():
+                    old_field_type: str | None = model_state[
+                        "field_name_and_type_list"
+                    ].get(field_name)
+                    if old_field_type is None or old_field_type != field_type:
+                        new_fields.append(field_name)
+                # Get collection for current Model.
+                model_collection = database[model_state["collection_name"]]  # type: ignore
+                # Add new fields with default value or
+                # update existing fields whose field type has changed.
+                async for doc in model_collection.find():
+                    for field_name in new_fields:
+                        field_type_2: str | None = metadata[
+                            "field_name_and_type_list"
+                        ].get(field_name)
+                        if field_type_2 is not None:
+                            if field_type_2 == "FileField":
+                                file = FileData()
+                                file.delete = True
+                                doc[field_name] = file.to_dict()
+                            elif field_type_2 == "ImageField":
+                                img = ImageData()
+                                img.delete = True
+                                doc[field_name] = img.to_dict()
+                            else:
+                                doc[field_name] = None
+                    #
+                    fresh_model = model_class.from_dict_only_value(doc)
