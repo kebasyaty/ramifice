@@ -146,4 +146,5 @@ class Monitor:
                             else:
                                 doc[field_name] = None
                     #
-                    fresh_model = model_class.from_dict_only_value(doc)
+                    fresh_model = model_class()
+                    fresh_model = model_class.refrash_fields(doc)
