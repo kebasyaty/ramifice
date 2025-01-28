@@ -30,7 +30,8 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         """Testing a `Monitor`."""
         # To generate a key (This is not an advertisement):
         # https://randompasswordgen.com/
-        unique_key = "23x9QdB2zb7nsG6H"
+        unique_key = "alo0V9Q76Yr4r15z"
+        # max 60
         database_name = f"test_{unique_key}"
 
         # Delete database before test.
