@@ -26,6 +26,16 @@ class Monitor:
         store.MONGO_CLIENT = mongo_client
         store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
 
+    def model_list(self) -> list[Any]:
+        """Get Model list."""
+        model_list = [
+            model for model in Model.__subclasses__() if model.META["is_migrat_model"]
+        ]
+        # Raise the exception if there are no models for migration.
+        if len(model_list) == 0:
+            raise NoModelsForMigrationError()
+        return model_list
+
     async def reset(self) -> None:
         """Reset the condition of the models in a super collection.
         Switch the `is_model_exist` parameter in the condition `False`.
@@ -38,7 +48,7 @@ class Monitor:
             update = {"$set": {"is_model_exist": False}}
             super_collection.update_one(q_filter, update)
 
-    async def state(self, metadata: dict[str, Any]) -> dict[str, Any]:
+    async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
@@ -84,12 +94,7 @@ class Monitor:
         3) Check changes in models and (if necessary) apply in appropriate collections.
         """
         # Get Model list.
-        model_list = [
-            model for model in Model.__subclasses__() if model.META["is_migrat_model"]
-        ]
-        # Raise the exception if there are no models for migration.
-        if len(model_list) == 0:
-            raise NoModelsForMigrationError()
+        model_list = self.model_list()
         # Reset the condition of the models in a super collection.
         # Switch the `is_model_exist` parameter in the condition `False`.
         await self.reset()
@@ -102,4 +107,4 @@ class Monitor:
             # Get metadata of current Model.
             metadata = model_class.META
             # Get the state of the current model from a super collection.
-            model_state = await self.state(metadata)
+            model_state = await self.model_state(metadata)
