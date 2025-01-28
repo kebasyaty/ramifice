@@ -80,7 +80,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
 
     async def test_monitor(self):
         """Testing a `Monitor`."""
-        # To generate a key (This is not an advertisement):
+        # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
         unique_key = "alo0V9Q76Yr4r15z"
         # Maximum number of characters 60
