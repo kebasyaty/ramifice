@@ -24,13 +24,13 @@ class Monitor:
         store.MONGO_CLIENT = mongo_client
         store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
 
-    async def refresh(self) -> None:
-        """Get access to the super collection.
-        Super collection contains data of Models state and dynamic field data.
+    async def reset(self) -> None:
+        """Reset the condition of the models in a super collection.
+        Switch the `is_model_exist` parameter in the condition `False`.
         """
         # Get access to super collection.
         super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore
-        # Update a state Models in super collection.
+        # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
             update = {"$set": {"is_model_exist": False}}
@@ -67,8 +67,9 @@ class Monitor:
         # Raise the exception if there are no models for migration.
         if len(model_list) == 0:
             raise NoModelsForMigrationError()
-        # Update a state Models in super collection.
-        await self.refresh()
+        # Reset the condition of the models in a super collection.
+        # Switch the `is_model_exist` parameter in the condition `False`.
+        await self.reset()
         # Get access to database.
         database = store.MONGO_DATABASE  # type: ignore
         # Get access to super collection.
