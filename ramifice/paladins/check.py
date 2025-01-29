@@ -41,7 +41,7 @@ class CheckMixin(TextGroupMixin):
             "field_data": None,
         }
         #
-        # Start checking all fields.
+        # Run checking fields.
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
@@ -51,6 +51,7 @@ class CheckMixin(TextGroupMixin):
             err_msg = error_map.get(field_name)
             if bool(err_msg):
                 field_data.errors.append(err_msg)
+            # Checking the fields by groups.
             if not field_data.ignored:
                 group = field_data.group
                 if group == "text":
