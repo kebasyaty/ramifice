@@ -5,12 +5,13 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
+from .extra import Extra
 from .fields import DateTimeField, FileField, HashField, ImageField
 from .paladins import CheckMixin
 from .types import FileData, ImageData
 
 
-class Model(CheckMixin):
+class Model(Extra, CheckMixin):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
