@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice import Model
-from ramifice.fields import DateTimeField, HashField, TextField
+from ramifice.fields import TextField
 
 
 class User(Model):
