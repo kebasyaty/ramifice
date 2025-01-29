@@ -9,10 +9,10 @@ from ramifice.fields import TextField
 class User(Model):
     """For testing a instance `Model`."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.username = TextField()
         #
-        super().__init__(*args, **kwargs)
+        super().__init__()
 
 
 class TestModel(unittest.TestCase):

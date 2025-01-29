@@ -9,19 +9,19 @@ from ramifice.fields import TextField
 class User(Model):
     """For testing a `Extra`."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.username = TextField()
         #
-        super().__init__(*args, **kwargs)
+        super().__init__()
 
 
 class User2(Model):
     """For testing a `Extra`."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.username = TextField()
         #
-        super().__init__(*args, **kwargs)
+        super().__init__()
 
     def add_validation(self) -> dict[str, str]:
         """It is supposed to be use to additional validation of fields.
