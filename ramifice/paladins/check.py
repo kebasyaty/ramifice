@@ -31,6 +31,12 @@ class CheckMixin:
             result_map["_id"] = doc_id
         # Is there any incorrect data?
         is_error_symptom: bool = False
+        # Errors from additional validation of fields.
+        error_map: dict[str, str] = self.add_validation()  # type: ignore[attr-defined]
+        # Current error message.
+        err_msg: str | None = None
+        #
+        # Start checking all fields.
 
         #
         #
