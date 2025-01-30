@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 from .. import store
 from ..types import OutputData
 from .groups import (
+    BoolGroupMixin,
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
@@ -25,6 +26,7 @@ class CheckMixin(
     ImageGroupMixin,
     FileGroupMixin,
     ChoiceGroupMixin,
+    BoolGroupMixin,
 ):
     """Validation of Model data before saving to the database."""
 
@@ -85,6 +87,8 @@ class CheckMixin(
                     self.file_group(params)
                 elif group == "choice":
                     self.choice_group(params)
+                elif group == "bool":
+                    self.bool_group(params)
 
         #
         #

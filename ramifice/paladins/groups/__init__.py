@@ -1,5 +1,6 @@
 """Paladins - Model instance methods."""
 
+from .bool_group import BoolGroupMixin
 from .choice_group import ChoiceGroupMixin
 from .date_group import DateGroupMixin
 from .file_group import FileGroupMixin

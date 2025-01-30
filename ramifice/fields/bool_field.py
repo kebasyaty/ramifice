@@ -1,12 +1,12 @@
-"""Field of Model for enter logical value."""
+"""Field of Model for enter boolean value."""
 
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.field import Field
 
 
-class BoolField(Field, JsonMixin):
-    """Field of Model for enter logical value."""
+class BooleanField(Field, JsonMixin):
+    """Field of Model for enter boolean value."""
 
     def __init__(
         self,
@@ -26,7 +26,7 @@ class BoolField(Field, JsonMixin):
             ignored=ignored,
             hint=hint,
             warning=warning,
-            field_type="BoolField",
+            field_type="BooleanField",
             group="bool",
         )
         JsonMixin.__init__(self)
