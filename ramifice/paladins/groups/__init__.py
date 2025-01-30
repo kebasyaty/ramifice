@@ -1,6 +1,7 @@
 """Paladins - Model instance methods."""
 
 from .date_group import DateGroupMixin
+from .file_group import FileGroupMixin
 from .float_group import FloatGroupMixin
 from .image_group import ImageGroupMixin
 from .integer_group import IntegerGroupMixin

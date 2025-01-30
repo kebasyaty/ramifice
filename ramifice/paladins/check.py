@@ -8,6 +8,7 @@ from .. import store
 from ..types import OutputData
 from .groups import (
     DateGroupMixin,
+    FileGroupMixin,
     FloatGroupMixin,
     ImageGroupMixin,
     IntegerGroupMixin,
@@ -16,7 +17,12 @@ from .groups import (
 
 
 class CheckMixin(
-    TextGroupMixin, IntegerGroupMixin, FloatGroupMixin, DateGroupMixin, ImageGroupMixin
+    TextGroupMixin,
+    IntegerGroupMixin,
+    FloatGroupMixin,
+    DateGroupMixin,
+    ImageGroupMixin,
+    FileGroupMixin,
 ):
     """Validation of Model data before saving to the database."""
 
@@ -73,6 +79,8 @@ class CheckMixin(
                     self.date_group(params)
                 elif group == "image":
                     self.image_group(params)
+                elif group == "file":
+                    self.file_group(params)
 
         #
         #
