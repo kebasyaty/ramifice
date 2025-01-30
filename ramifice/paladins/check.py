@@ -6,10 +6,18 @@ from bson.objectid import ObjectId
 
 from .. import store
 from ..types import OutputData
-from .groups import DateGroupMixin, FloatGroupMixin, IntegerGroupMixin, TextGroupMixin
+from .groups import (
+    DateGroupMixin,
+    FloatGroupMixin,
+    ImageGroupMixin,
+    IntegerGroupMixin,
+    TextGroupMixin,
+)
 
 
-class CheckMixin(TextGroupMixin, IntegerGroupMixin, FloatGroupMixin, DateGroupMixin):
+class CheckMixin(
+    TextGroupMixin, IntegerGroupMixin, FloatGroupMixin, DateGroupMixin, ImageGroupMixin
+):
     """Validation of Model data before saving to the database."""
 
     async def check(self, is_save: bool = False) -> OutputData:
@@ -63,6 +71,8 @@ class CheckMixin(TextGroupMixin, IntegerGroupMixin, FloatGroupMixin, DateGroupMi
                     self.float_group(params)
                 elif group == "date":
                     self.date_group(params)
+                elif group == "image":
+                    self.image_group(params)
 
         #
         #
