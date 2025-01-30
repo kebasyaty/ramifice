@@ -6,3 +6,4 @@
 - [pillow](https://pypi.org/project/pillow/ "pillow")
 - [phonenumbers](https://pypi.org/project/phonenumbers/ "phonenumbers")
 - [email-validator](https://pypi.org/project/email-validator/ "email-validator")
+- [termcolor](https://pypi.org/project/termcolor/ "termcolor")
