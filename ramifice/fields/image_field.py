@@ -62,7 +62,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         self,
         base64_str: str | None = None,
         filename: str | None = None,
-        delete: bool = False,
+        is_delete: bool = False,
     ) -> None:
         """Convert base64 to a image,
         get image information and save in the target directory.
@@ -71,7 +71,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         filename = filename or None
         i_data = ImageData()
         i_data.is_new_img = True
-        i_data.delete = delete
+        i_data.is_delete = is_delete
 
         if base64_str is not None and filename is not None:
             # Get file extension.
@@ -131,13 +131,13 @@ class ImageField(Field, FileGroup, FileJsonMixin):
     def from_path(
         self,
         src_path: str | None = None,
-        delete: bool = False,
+        is_delete: bool = False,
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
         i_data = ImageData()
         i_data.is_new_img = True
-        i_data.delete = delete
+        i_data.is_delete = is_delete
 
         if src_path is not None:
             # Get file extension.
