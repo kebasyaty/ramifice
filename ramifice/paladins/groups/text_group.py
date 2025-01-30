@@ -40,3 +40,6 @@ class TextGroupMixin:
                     f"The number {len(value)} must not be less than min={minlength} !"
                 )
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        # Validation the `unique` field attribute.
+        if field.unique:
+            pass
