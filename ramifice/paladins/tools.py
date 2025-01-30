@@ -44,6 +44,8 @@ class ToolsMixin:
         """For accumulating errors to ModelName.field_name.errors"""
         if not params["field_data"].hide:
             params["field_data"].errors.appand(err_msg)
+            if not params["is_error_symptom"]:
+                params["is_error_symptom"] = True
         else:
             msg = (
                 f">>hidden field<< - Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
