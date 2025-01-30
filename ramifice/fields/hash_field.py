@@ -44,6 +44,8 @@ class HashField(Field, TextGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
+        self.alerts: list[str] | None = None
+
     def object_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""
         value = self.value
