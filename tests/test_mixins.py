@@ -4,7 +4,7 @@ import unittest
 
 from ramifice import Model, meta
 from ramifice.fields import (
-    BoolField,
+    BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
     ChoiceFloatMultDynField,
@@ -72,7 +72,7 @@ class User(Model):
         self.date_time = DateTimeField()
         self.date = DateField()
         self.color = ColorField()
-        self.bool = BoolField()
+        self.bool = BooleanField()
         self.choice_float_dyn = ChoiceFloatDynField()
         self.choice_float = ChoiceFloatField()
         self.choice_float_mult_dyn = ChoiceFloatMultDynField()

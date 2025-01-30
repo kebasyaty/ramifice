@@ -5,11 +5,13 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
+from .extra import Extra
 from .fields import DateTimeField, FileField, HashField, ImageField
+from .paladins import CheckMixin
 from .types import FileData, ImageData
 
 
-class Model:
+class Model(Extra, CheckMixin):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
@@ -30,6 +32,7 @@ class Model:
             hide=True,
             disabled=True,
         )
+        super().__init__()
         self.inject()
 
     def model_name(self) -> str:
