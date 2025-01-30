@@ -11,6 +11,7 @@ pymongo = "^4.10.1"
 pillow = "^11.0.0"
 phonenumbers = "^8.13.52"
 email-validator = "^2.2.0"
+termcolor = "^2.5.0"
 
 [tool.poetry.group.docs]
 optional = true
