@@ -21,7 +21,7 @@ class TextGroupMixin:
         value = field.value or field.default
         if value is None:
             if field.required:
-                pass
+                self.accumulate_error("Required field!", params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"] = None
             return
