@@ -9,3 +9,4 @@ from .hash_group import HashGroupMixin
 from .image_group import ImageGroupMixin
 from .integer_group import IntegerGroupMixin
 from .text_group import TextGroupMixin
+from .slug_group import SlugGroupMixin
