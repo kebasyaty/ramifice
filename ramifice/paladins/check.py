@@ -12,6 +12,7 @@ from .groups import (
     DateGroupMixin,
     FileGroupMixin,
     FloatGroupMixin,
+    HashGroupMixin,
     ImageGroupMixin,
     IntegerGroupMixin,
     TextGroupMixin,
@@ -27,6 +28,7 @@ class CheckMixin(
     FileGroupMixin,
     ChoiceGroupMixin,
     BoolGroupMixin,
+    HashGroupMixin,
 ):
     """Validation of Model data before saving to the database."""
 
@@ -89,6 +91,8 @@ class CheckMixin(
                     self.choice_group(params)
                 elif group == "bool":
                     self.bool_group(params)
+                elif group == "hash":
+                    self.hash_group(params)
 
         #
         #
