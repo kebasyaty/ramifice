@@ -6,7 +6,7 @@ from .mixins import JsonMixin
 
 
 class OutputData:
-    """Output data type for the `Model.check()` method."""
+    """Output data type for the `ModelName.check()` method."""
 
     def __init__(self, data: dict[str, Any], is_valid: bool, is_update: bool):
         self.data = data

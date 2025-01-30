@@ -18,6 +18,7 @@ from .groups import (
     PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
+    ToolsMixin,
 )
 
 
@@ -33,6 +34,7 @@ class CheckMixin(
     HashGroupMixin,
     SlugGroupMixin,
     PasswordGroupMixin,
+    ToolsMixin,
 ):
     """Validation of Model data before saving to the database."""
 

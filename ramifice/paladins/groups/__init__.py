@@ -11,3 +11,4 @@ from .integer_group import IntegerGroupMixin
 from .password_group import PasswordGroupMixin
 from .slug_group import SlugGroupMixin
 from .text_group import TextGroupMixin
+from ..tools import ToolsMixin

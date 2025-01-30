@@ -62,3 +62,15 @@ class NoModelsForMigrationError(RamificeException):
     def __init__(self):
         self.message = "No Models for Migration!"
         super().__init__(self.message)
+
+
+class PanicError(RamificeException):
+    """Exception raised for cases of which should not be.
+
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
