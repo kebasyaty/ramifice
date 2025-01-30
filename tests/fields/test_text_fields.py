@@ -218,6 +218,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
+        self.assertIsNone(f.alerts)
         self.assertEqual(f.group, "hash")
         self.assertEqual(f.input_type, "text")
         self.assertIsNone(f.value)
@@ -228,7 +229,7 @@ class TestTextFields(unittest.TestCase):
         # Methods:
         self.assertIsNone(f.object_id())
         # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "HashField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false}'
+        json_str = '{"id": "", "label": "", "name": "", "field_type": "HashField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "alerts": null}'
         self.assertEqual(f.to_json(), json_str)
 
     def test_email_field(self):
