@@ -33,9 +33,9 @@ class ToolsMixin:
                     is_err = True
                 # field name
                 print(colored(field_name, "green", attrs=["bold"]), end="")
-                print(colored(" => ", "blue", attrs=["bold"]), end="")
+                print(colored(" =>", "blue", attrs=["bold"]))
                 # error messages
-                print(colored(" || ".join(field_data.errors), "red", attrs=["bold"]))
+                print(colored("\n".join(field_data.errors), "red"))
         if bool(self.hash.alerts):  # type: ignore[attr-defined]
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))
