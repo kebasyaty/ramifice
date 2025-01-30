@@ -2,6 +2,8 @@
 
 from typing import Any
 
+from termcolor import colored
+
 from ..errors import PanicError
 
 
@@ -26,19 +28,19 @@ class ToolsMixin:
             if bool(field_data.errors):
                 # title
                 if not is_err:
-                    print("\nERRORS:")
-                    print(f"Model: `{self.full_model_name()}`")  # type: ignore[attr-defined]
+                    print(colored("\nERRORS:", "red", attrs=["bold"]))
+                    print(colored(f"Model: `{self.full_model_name()}`", "blue", attrs=["bold"]))  # type: ignore[attr-defined]
                     is_err = True
                 # field name
-                print(field_name, end="")
-                print(" => ", end="")
+                print(colored(field_name, "green", attrs=["bold"]), end="")
+                print(colored(" => ", "blue", attrs=["bold"]), end="")
                 # error messages
-                print(" || ".join(field_data.errors))
+                print(colored(" || ".join(field_data.errors), "red", attrs=["bold"]))
         if bool(self.hash.alerts):  # type: ignore[attr-defined]
             # title
-            print("AlERTS:")
+            print(colored("AlERTS:", "yellow", attrs=["bold"]))
             # messages
-            print("\n".join(self.hash.alerts), end="\n\n")  # type: ignore[attr-defined]
+            print(colored("\n".join(self.hash.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
 
     def accumulate_error(self, err_msg: str, params: dict[str, Any]) -> None:
         """For accumulating errors to ModelName.field_name.errors"""
