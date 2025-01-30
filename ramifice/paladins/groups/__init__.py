@@ -8,5 +8,6 @@ from .float_group import FloatGroupMixin
 from .hash_group import HashGroupMixin
 from .image_group import ImageGroupMixin
 from .integer_group import IntegerGroupMixin
-from .text_group import TextGroupMixin
+from .password_group import PasswordGroupMixin
 from .slug_group import SlugGroupMixin
+from .text_group import TextGroupMixin

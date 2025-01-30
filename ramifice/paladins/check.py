@@ -15,6 +15,7 @@ from .groups import (
     HashGroupMixin,
     ImageGroupMixin,
     IntegerGroupMixin,
+    PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
 )
@@ -31,6 +32,7 @@ class CheckMixin(
     BoolGroupMixin,
     HashGroupMixin,
     SlugGroupMixin,
+    PasswordGroupMixin,
 ):
     """Validation of Model data before saving to the database."""
 
@@ -97,6 +99,8 @@ class CheckMixin(
                     self.hash_group(params)
                 elif group == "slug":
                     self.slug_group(params)
+                elif group == "password":
+                    self.password_group(params)
 
         #
         #
