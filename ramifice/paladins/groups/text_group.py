@@ -16,3 +16,12 @@ class TextGroupMixin:
 
     def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
+        field = params["field_data"]
+        # Get current value.
+        value = field.value or field.default
+        if value is None:
+            if field.required:
+                pass
+            if params["is_save"]:
+                params["result_map"] = None
+            return
