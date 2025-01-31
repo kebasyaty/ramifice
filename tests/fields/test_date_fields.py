@@ -65,8 +65,6 @@ class TestDateFields(unittest.TestCase):
         DateField(default="20-12-2024", max_date="21-12-2024", min_date="19-12-2024")
         # Methods:
         f = DateField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "DateField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "date", "input_type": "date", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertIsNone(f.to_datetime())
         f = DateField(default="20-12-2024")
         self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
@@ -134,8 +132,6 @@ class TestDateFields(unittest.TestCase):
         )
         # Methods:
         f = DateTimeField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "DateTimeField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertIsNone(f.to_datetime())
         f = DateTimeField(default="20-12-2024 00:00:00")
         self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))

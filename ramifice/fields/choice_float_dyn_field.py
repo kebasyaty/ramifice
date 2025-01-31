@@ -45,7 +45,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: float | None = None
-        self.choices: list[tuple[float, str]] | None = None
+        self.choices: dict[str, float] | None = None
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
@@ -53,11 +53,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         value = self.value or None
         choices = self.choices or None
         if value is not None and choices is not None:
-            value_list = [
-                item[0]
-                # pylint: disable=not-an-iterable
-                for item in choices
-            ]
+            value_list = choices.values()
             # pylint: disable=not-an-iterable
             if value not in value_list:
                 flag = False

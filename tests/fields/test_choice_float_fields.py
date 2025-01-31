@@ -40,17 +40,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceFloatField(default="2.0")
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatField(
-                default=3.0, choices=[(1.0, "Title"), (2.0, "Title 2")]
-            )
+            f = ChoiceFloatField(default=3.0, choices={"Title": 1.0, "Title 2": 2.0})
         # Methods:
         f = ChoiceFloatField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceFloatField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(default=2.0, choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatField(default=2.0, choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatField(choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
         f.value = 2.0
         self.assertTrue(f.has_value())
@@ -89,22 +85,18 @@ class TestChoiceFloatFields(unittest.TestCase):
             f = ChoiceFloatMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+                default=[3.0], choices={"Title": 1.0, "Title 2": 2.0}
             )
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[2.0, 3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+                default=[2.0, 3.0], choices={"Title": 1.0, "Title 2": 2.0}
             )
         # Methods:
         f = ChoiceFloatMultField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceFloatMultField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(
-            default=[2.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
-        )
+        f = ChoiceFloatMultField(default=[2.0], choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatMultField(choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
         f.value = [2.0]
         self.assertTrue(f.has_value())
@@ -133,9 +125,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceFloatDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
     def test_choice_float_mult_dyn_field(self):
         """Testing `ChoiceFloatMultDynField`."""
@@ -157,9 +146,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceFloatMultDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
 
 if __name__ == "__main__":

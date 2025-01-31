@@ -31,7 +31,7 @@ class PasswordField(Field, JsonMixin):
             hint=hint,
             warning=warning,
             field_type="PasswordField",
-            group="password",
+            group="pass",
         )
         JsonMixin.__init__(self)
 

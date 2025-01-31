@@ -26,7 +26,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         default: list[float] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[float, str]] | None = None,
+        choices: dict[str, float] | None = None,
     ):
         Field.__init__(
             self,
@@ -53,8 +53,8 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
 
         if DEBUG:
             if choices is not None:
-                if not isinstance(choices, list):
-                    raise AssertionError("Parameter `choices` - Not а `list` type!")
+                if not isinstance(choices, dict):
+                    raise AssertionError("Parameter `choices` - Not а `dict` type!")
                 if len(choices) == 0:
                     raise AssertionError(
                         "The `choices` parameter should not contain an empty list!"
@@ -78,7 +78,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         value = self.value or self.default or None
         choices = self.choices or None
         if value is not None and choices is not None:
-            value_list = [item[0] for item in choices]
+            value_list = choices.values()
             for item in value:
                 if item not in value_list:
                     flag = False

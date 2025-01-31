@@ -26,7 +26,7 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         default: int | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[int, str]] | None = None,
+        choices: dict[str, int] | None = None,
     ):
         Field.__init__(
             self,
@@ -51,8 +51,8 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         self.choices = choices
 
         if DEBUG:
-            if choices is not None and not isinstance(choices, list):
-                raise AssertionError("Parameter `choices` - Not а `list` type!")
+            if choices is not None and not isinstance(choices, dict):
+                raise AssertionError("Parameter `choices` - Not а `dict` type!")
             if default is not None and not isinstance(default, int):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if default is not None and choices is not None and not self.has_value():
@@ -67,7 +67,7 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         value = self.value or self.default or None
         choices = self.choices or None
         if value is not None and choices is not None:
-            value_list = [item[0] for item in choices]
+            value_list = choices.values()
             if value not in value_list:
                 flag = False
         return flag

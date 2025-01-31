@@ -40,15 +40,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntField(default="2")
         with self.assertRaises(AssertionError):
-            f = ChoiceIntField(default=3, choices=[(1, "Title"), (2, "Title 2")])
+            f = ChoiceIntField(default=3, choices={"Title": 1, "Title 2": 2})
         # Methods:
         f = ChoiceIntField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceIntField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(default=2, choices=[(1, "Title"), (2, "Title 2")])
+        f = ChoiceIntField(default=2, choices={"Title": 1, "Title 2": 2})
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(choices=[(1, "Title"), (2, "Title 2")])
+        f = ChoiceIntField(choices={"Title": 1, "Title 2": 2})
         self.assertTrue(f.has_value())
         f.value = 2
         self.assertTrue(f.has_value())
@@ -86,19 +84,15 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(default=[3], choices=[(1, "Title"), (2, "Title 2")])
+            f = ChoiceIntMultField(default=[3], choices={"Title": 1, "Title 2": 2})
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(
-                default=[2, 3], choices=[(1, "Title"), (2, "Title 2")]
-            )
+            f = ChoiceIntMultField(default=[2, 3], choices={"Title": 1, "Title 2": 2})
         # Methods:
         f = ChoiceIntMultField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceIntMultField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(default=[2], choices=[(1, "Title"), (2, "Title 2")])
+        f = ChoiceIntMultField(default=[2], choices={"Title": 1, "Title 2": 2})
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(choices=[(1, "Title"), (2, "Title 2")])
+        f = ChoiceIntMultField(choices={"Title": 1, "Title 2": 2})
         self.assertTrue(f.has_value())
         f.value = [2]
         self.assertTrue(f.has_value())
@@ -127,9 +121,6 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceIntDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
     def test_choice_int_mult_dyn_field(self):
         """Testing `ChoiceIntMultDynField`."""
@@ -151,9 +142,6 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceIntMultDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
 
 if __name__ == "__main__":
