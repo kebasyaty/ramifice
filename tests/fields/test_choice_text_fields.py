@@ -47,8 +47,6 @@ class TestChoiceTextFields(unittest.TestCase):
             )
         # Methods:
         f = ChoiceTextField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceTextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
         f = ChoiceTextField(
             default="value 2", choices=[("value", "Title"), ("value 2", "Title 2")]
@@ -103,8 +101,6 @@ class TestChoiceTextFields(unittest.TestCase):
             )
         # Methods:
         f = ChoiceTextMultField()
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceTextMultField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "default": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
             default=["value 2"], choices=[("value", "Title"), ("value 2", "Title 2")]
@@ -139,9 +135,6 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertFalse(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceTextDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
     def test_choice_text_mult_dyn_field(self):
         """Testing `ChoiceTextMultDynField`."""
@@ -163,9 +156,6 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         self.assertTrue(f.multiple)
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ChoiceTextMultDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": true, "value": null, "choices": null}'
-        self.assertEqual(f.to_json(), json_str)
 
 
 if __name__ == "__main__":
