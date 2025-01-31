@@ -53,8 +53,8 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
 
         if DEBUG:
             if choices is not None:
-                if not isinstance(choices, list):
-                    raise AssertionError("Parameter `choices` - Not а `list` type!")
+                if not isinstance(choices, dict):
+                    raise AssertionError("Parameter `choices` - Not а `dict` type!")
                 if len(choices) == 0:
                     raise AssertionError(
                         "The `choices` parameter should not contain an empty list!"

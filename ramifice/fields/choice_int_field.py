@@ -51,8 +51,8 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         self.choices = choices
 
         if DEBUG:
-            if choices is not None and not isinstance(choices, list):
-                raise AssertionError("Parameter `choices` - Not а `list` type!")
+            if choices is not None and not isinstance(choices, dict):
+                raise AssertionError("Parameter `choices` - Not а `dict` type!")
             if default is not None and not isinstance(default, int):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if default is not None and choices is not None and not self.has_value():

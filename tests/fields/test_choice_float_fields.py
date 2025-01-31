@@ -40,15 +40,13 @@ class TestChoiceFloatFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceFloatField(default="2.0")
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatField(
-                default=3.0, choices=[(1.0, "Title"), (2.0, "Title 2")]
-            )
+            f = ChoiceFloatField(default=3.0, choices={"Title": 1.0, "Title 2": 2.0})
         # Methods:
         f = ChoiceFloatField()
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(default=2.0, choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatField(default=2.0, choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
-        f = ChoiceFloatField(choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatField(choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
         f.value = 2.0
         self.assertTrue(f.has_value())
@@ -87,20 +85,18 @@ class TestChoiceFloatFields(unittest.TestCase):
             f = ChoiceFloatMultField(default=[])
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+                default=[3.0], choices={"Title": 1.0, "Title 2": 2.0}
             )
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(
-                default=[2.0, 3.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
+                default=[2.0, 3.0], choices={"Title": 1.0, "Title 2": 2.0}
             )
         # Methods:
         f = ChoiceFloatMultField()
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(
-            default=[2.0], choices=[(1.0, "Title"), (2.0, "Title 2")]
-        )
+        f = ChoiceFloatMultField(default=[2.0], choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
-        f = ChoiceFloatMultField(choices=[(1.0, "Title"), (2.0, "Title 2")])
+        f = ChoiceFloatMultField(choices={"Title": 1.0, "Title 2": 2.0})
         self.assertTrue(f.has_value())
         f.value = [2.0]
         self.assertTrue(f.has_value())

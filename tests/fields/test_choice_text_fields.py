@@ -43,16 +43,16 @@ class TestChoiceTextFields(unittest.TestCase):
             f = ChoiceTextField(default="")
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(
-                default="value 3", choices=[("value", "Title"), ("value 2", "Title 2")]
+                default="value 3", choices={"Title": "value", "Title 2": "value 2"}
             )
         # Methods:
         f = ChoiceTextField()
         self.assertTrue(f.has_value())
         f = ChoiceTextField(
-            default="value 2", choices=[("value", "Title"), ("value 2", "Title 2")]
+            default="value 2", choices={"Title": "value", "Title 2": "value 2"}
         )
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(choices=[("value", "Title"), ("value 2", "Title 2")])
+        f = ChoiceTextField(choices={"Title": "value", "Title 2": "value 2"})
         self.assertTrue(f.has_value())
         f.value = "value 2"
         self.assertTrue(f.has_value())
@@ -92,21 +92,21 @@ class TestChoiceTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
                 default=["value 3"],
-                choices=[("value", "Title"), ("value 2", "Title 2")],
+                choices={"Title": "value", "Title 2": "value 2"},
             )
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(
                 default=["value 2", "value 3"],
-                choices=[("value", "Title"), ("value 2", "Title 2")],
+                choices={"Title": "value", "Title 2": "value 2"},
             )
         # Methods:
         f = ChoiceTextMultField()
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
-            default=["value 2"], choices=[("value", "Title"), ("value 2", "Title 2")]
+            default=["value 2"], choices={"Title": "value", "Title 2": "value 2"}
         )
         self.assertTrue(f.has_value())
-        f = ChoiceTextMultField(choices=[("value", "Title"), ("value 2", "Title 2")])
+        f = ChoiceTextMultField(choices={"Title": "value", "Title 2": "value 2"})
         self.assertTrue(f.has_value())
         f.value = ["value 2"]
         self.assertTrue(f.has_value())
