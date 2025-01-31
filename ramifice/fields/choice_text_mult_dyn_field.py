@@ -53,11 +53,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         value = self.value or None
         choices = self.choices or None
         if value is not None and choices is not None:
-            value_list = [
-                item[0]
-                # pylint: disable=not-an-iterable
-                for item in choices
-            ]
+            value_list = choices.values()
             # pylint: disable=not-an-iterable
             for item in value:
                 if item not in value_list:
