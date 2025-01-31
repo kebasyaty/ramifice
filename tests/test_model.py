@@ -37,4 +37,4 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
-        self.assertIsNone(m.object_id())
+        self.assertIsNone(m.to_obj_id())

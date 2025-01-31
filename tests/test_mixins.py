@@ -84,7 +84,7 @@ class User(Model):
         self.choice_txt = ChoiceTextField()
         self.choice_txt_mult_dyn = ChoiceTextMultDynField()
         self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
+        self.choice_int = ChoiceIntField(choices={"Title": 1, "Title 2": 2})
         #
         super().__init__()
 

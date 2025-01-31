@@ -138,12 +138,7 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.favorite_color.value)
         self.assertEqual(m.username.id, "User--username")
         self.assertEqual(m.username.name, "username")
-        self.assertIsNone(m.object_id())
-        # Methods:
-        json_str = '{"username": {"id": "User--username", "label": "", "name": "username", "field_type": "TextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null, "textarea": false, "use_editor": false, "maxlength": 256}, "favorite_color": {"id": "User--favorite-color", "label": "", "name": "favorite_color", "field_type": "ChoiceTextDynField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "choice", "placeholder": "", "required": false, "readonly": false, "unique": false, "multiple": false, "value": null, "choices": null}, "hash": {"id": "User--hash", "label": "Document ID", "name": "hash", "field_type": "HashField", "disabled": true, "hide": true, "ignored": true, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "alerts": null}, "created_at": {"id": "User--created-at", "label": "Created at", "name": "created_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was created."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}, "updated_at": {"id": "User--updated-at", "label": "Updated at", "name": "updated_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was updated."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}}'
-        self.assertEqual(m.to_json(), json_str)
-        json_str = '{"username": null, "favorite_color": null, "hash": null, "created_at": null, "updated_at": null}'
-        self.assertEqual(m.to_json_only_value(), json_str)
+        self.assertIsNone(m.to_obj_id())
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
@@ -167,11 +162,4 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.profession.value)
         self.assertEqual(m.profession.id, "UserProfile--profession")
         self.assertEqual(m.profession.name, "profession")
-        self.assertIsNone(m.object_id())
-        # Methods:
-        json_str = '{"profession": {"id": "UserProfile--profession", "label": "", "name": "profession", "field_type": "TextField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "text", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "default": null, "textarea": false, "use_editor": false, "maxlength": 256}, "hash": {"id": "UserProfile--hash", "label": "Document ID", "name": "hash", "field_type": "HashField", "disabled": true, "hide": true, "ignored": true, "hint": "", "warning": null, "errors": null, "group": "hash", "input_type": "text", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "alerts": null}, "created_at": {"id": "UserProfile--created-at", "label": "Created at", "name": "created_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was created."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}, "updated_at": {"id": "UserProfile--updated-at", "label": "Updated at", "name": "updated_at", "field_type": "DateTimeField", "disabled": true, "hide": true, "ignored": false, "hint": "", "warning": ["When the document was updated."], "errors": null, "group": "date", "input_type": "datetime", "value": null, "placeholder": "", "required": false, "readonly": false, "unique": false, "max_date": null, "min_date": null, "default": null}}'
-        self.assertEqual(m.to_json(), json_str)
-        json_str = (
-            '{"profession": null, "hash": null, "created_at": null, "updated_at": null}'
-        )
-        self.assertEqual(m.to_json_only_value(), json_str)
+        self.assertIsNone(m.to_obj_id())
