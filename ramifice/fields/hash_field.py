@@ -46,7 +46,7 @@ class HashField(Field, TextGroup, JsonMixin):
 
         self.alerts: list[str] | None = None
 
-    def to_object_id(self) -> ObjectId | None:
+    def to_obj_id(self) -> ObjectId | None:
         """Get ObjectId from parameter `value`."""
         value = self.value
-        return ObjectId(value) if value else None
+        return ObjectId(value) if bool(value) else None

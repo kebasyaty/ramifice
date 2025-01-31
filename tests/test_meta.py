@@ -138,7 +138,7 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.favorite_color.value)
         self.assertEqual(m.username.id, "User--username")
         self.assertEqual(m.username.name, "username")
-        self.assertIsNone(m.to_object_id())
+        self.assertIsNone(m.to_obj_id())
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
@@ -162,4 +162,4 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.profession.value)
         self.assertEqual(m.profession.id, "UserProfile--profession")
         self.assertEqual(m.profession.name, "profession")
-        self.assertIsNone(m.to_object_id())
+        self.assertIsNone(m.to_obj_id())
