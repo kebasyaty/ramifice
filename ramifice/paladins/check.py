@@ -13,27 +13,27 @@ from .groups import (
     FileGroupMixin,
     FloatGroupMixin,
     HashGroupMixin,
-    ImageGroupMixin,
-    IntegerGroupMixin,
-    PasswordGroupMixin,
+    ImgGroupMixin,
+    IntGroupMixin,
+    PassGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
-    ToolsMixin,
 )
+from .tools import ToolsMixin
 
 
 class CheckMixin(
-    TextGroupMixin,
-    IntegerGroupMixin,
-    FloatGroupMixin,
-    DateGroupMixin,
-    ImageGroupMixin,
-    FileGroupMixin,
-    ChoiceGroupMixin,
     BoolGroupMixin,
+    ChoiceGroupMixin,
+    DateGroupMixin,
+    FileGroupMixin,
+    FloatGroupMixin,
     HashGroupMixin,
+    ImgGroupMixin,
+    IntGroupMixin,
+    PassGroupMixin,
     SlugGroupMixin,
-    PasswordGroupMixin,
+    TextGroupMixin,
     ToolsMixin,
 ):
     """Validation of Model data before saving to the database."""
@@ -83,14 +83,14 @@ class CheckMixin(
                 params["field_data"] = field_data
                 if group == "text":
                     self.text_group(params)
-                elif group == "integer":
-                    self.integer_group(params)
+                elif group == "int":
+                    self.int_group(params)
                 elif group == "float":
                     self.float_group(params)
                 elif group == "date":
                     self.date_group(params)
-                elif group == "image":
-                    self.image_group(params)
+                elif group == "img":
+                    self.img_group(params)
                 elif group == "file":
                     self.file_group(params)
                 elif group == "choice":
@@ -101,8 +101,8 @@ class CheckMixin(
                     self.hash_group(params)
                 elif group == "slug":
                     self.slug_group(params)
-                elif group == "password":
-                    self.password_group(params)
+                elif group == "pass":
+                    self.pass_group(params)
 
         #
         #
