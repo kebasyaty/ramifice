@@ -29,11 +29,11 @@ class ToolsMixin:
                 # title
                 if not is_err:
                     print(colored("\nERRORS:", "red", attrs=["bold"]))
-                    print(colored(f"Model: `{self.full_model_name()}`", "blue", attrs=["bold"]))  # type: ignore[attr-defined]
+                    print(colored("Model: ", "blue", attrs=["bold"]), end="")
+                    print(colored(f"`{self.full_model_name()}`", "blue"))  # type: ignore[attr-defined]
                     is_err = True
                 # field name
-                print(colored(field_name, "green", attrs=["bold"]), end="")
-                print(colored(" =>", "blue", attrs=["bold"]))
+                print(colored(f"{field_name}:", "green", attrs=["bold"]))
                 # error messages
                 print(colored("\n".join(field_data.errors), "red"))
         if bool(self.hash.alerts):  # type: ignore[attr-defined]
