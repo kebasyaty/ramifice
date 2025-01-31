@@ -45,7 +45,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: list[int] | None = None
-        self.choices: list[tuple[int, str]] | None = None
+        self.choices: dict[str, int] | None = None
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""

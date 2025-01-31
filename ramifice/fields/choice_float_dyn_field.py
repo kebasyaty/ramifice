@@ -45,7 +45,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: float | None = None
-        self.choices: list[tuple[float, str]] | None = None
+        self.choices: dict[str, float] | None = None
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""

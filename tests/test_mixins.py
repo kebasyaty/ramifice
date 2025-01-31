@@ -96,7 +96,7 @@ class TestJsonMixin(unittest.TestCase):
     """Testing the class `JsonMixin`."""
 
     def test_standard_types(self):
-        """Testing standard types."""
+        """Testing standard types to JSON."""
         x = StandardTypes()
         json_str = x.to_json()
         y = StandardTypes.from_json(json_str)
@@ -110,19 +110,21 @@ class TestJsonMixin(unittest.TestCase):
         self.assertEqual(x.x8, y.x8)
         self.assertEqual(x.x9, y.x9)
 
-    def test_ramifice_fields(self):
-        """Testing the Ramifice fields."""
+    def test_fields(self):
+        """Testing the Ramifice fields to JSON."""
         m = User()
         #
         json_str = m.to_json()
         m2 = User.from_json(json_str)
-        self.assertEqual(m.choice_int.choices, [(1, "Musician"), (2, "Artist")])
-        self.assertEqual(m2.choice_int.choices, [[1, "Musician"], [2, "Artist"]])
+        for name, data in m.__dict__.items():
+            if not callable(data):
+                self.assertEqual(m2.__dict__[name].__dict__, data.__dict__)
         #
         json_str = m.to_json_only_value()
         m3 = User.from_json_only_value(json_str)
-        self.assertEqual(m.choice_int.choices, [(1, "Musician"), (2, "Artist")])
-        self.assertEqual(m3.choice_int.choices, [(1, "Musician"), (2, "Artist")])
+        for name, data in m.__dict__.items():
+            if not callable(data):
+                self.assertEqual(m3.__dict__[name].__dict__, data.__dict__)
 
 
 if __name__ == "__main__":

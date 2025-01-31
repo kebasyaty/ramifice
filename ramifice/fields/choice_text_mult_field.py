@@ -26,7 +26,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         default: list[str] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[str, str]] | None = None,
+        choices: dict[str, str] | None = None,
     ):
         Field.__init__(
             self,

@@ -26,7 +26,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         default: list[float] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[float, str]] | None = None,
+        choices: dict[str, float] | None = None,
     ):
         Field.__init__(
             self,

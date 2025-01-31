@@ -26,7 +26,7 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         default: int | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[int, str]] | None = None,
+        choices: dict[str, int] | None = None,
     ):
         Field.__init__(
             self,
