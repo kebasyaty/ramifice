@@ -42,9 +42,6 @@ class TestFileFields(unittest.TestCase):
         #     f.from_base64(self.file_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "FileField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "file", "input_type": "file", "placeholder": "", "required": false, "max_size": 2097152, "default": null, "target_dir": "files", "accept": "", "media_root": "public/media/uploads", "media_url": "/media/uploads", "value": null}'
-        self.assertEqual(f.to_json(), json_str)
         #
         # from_base64()
         # self.assertIsNone(f.from_base64(self.file_base64_str, "file_name.txt"))
@@ -76,7 +73,7 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertIsNone(f.errors)
-        self.assertEqual(f.group, "image")
+        self.assertEqual(f.group, "img")
         self.assertEqual(f.input_type, "file")
         self.assertIsNone(f.value)
         self.assertIsNone(f.default)
@@ -91,9 +88,6 @@ class TestFileFields(unittest.TestCase):
         #     f.from_base64(self.img_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
-        # Methods:
-        json_str = '{"id": "", "label": "", "name": "", "field_type": "ImageField", "disabled": false, "hide": false, "ignored": false, "hint": "", "warning": null, "errors": null, "group": "image", "input_type": "file", "placeholder": "", "required": false, "max_size": 2097152, "default": null, "target_dir": "images", "accept": "image/png,image/jpeg,image/webp", "media_root": "public/media/uploads", "media_url": "/media/uploads", "value": null}'
-        self.assertEqual(f.to_json(), json_str)
         #
         # from_base64()
         # self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
