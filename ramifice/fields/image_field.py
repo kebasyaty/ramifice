@@ -43,7 +43,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             hint=hint,
             warning=warning,
             field_type="ImageField",
-            group="image",
+            group="img",
         )
         FileGroup.__init__(
             self,
