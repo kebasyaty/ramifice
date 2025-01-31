@@ -209,7 +209,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
         # Methods:
-        self.assertIsNone(f.object_id())
+        self.assertIsNone(f.to_object_id())
 
     def test_email_field(self):
         """Testing `EmailField`."""

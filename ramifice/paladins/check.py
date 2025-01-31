@@ -42,7 +42,7 @@ class CheckMixin(
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
-        doc_id: ObjectId | None = self.object_id()  # type: ignore[attr-defined]
+        doc_id: ObjectId | None = self.to_object_id()  # type: ignore[attr-defined]
         # Does the document exist in the database?
         is_update: bool = bool(doc_id)
         result_map: dict[str, Any] = {}

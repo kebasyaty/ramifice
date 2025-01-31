@@ -45,7 +45,7 @@ class Model(Extra, CheckMixin):
         return f"{cls.__module__}.{cls.__name__}"
 
     # --------------------------------------------------------------------------
-    def object_id(self) -> ObjectId | None:
+    def to_object_id(self) -> ObjectId | None:
         """Get ObjectId from field `hash`."""
         value = self.hash.value
         return ObjectId(value) if value else None
