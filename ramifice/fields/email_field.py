@@ -62,3 +62,13 @@ class EmailField(Field, TextGroup, JsonMixin):
                     )  # pylint: disable=raise-missing-from
 
         self.default = default
+
+    def is_valid(self) -> bool:
+        """Validate Email address."""
+        value = str(self.value or self.default)
+        flag = True
+        try:
+            validate_email(value, check_deliverability=True)
+        except EmailNotValidError:
+            flag = False
+        return flag
