@@ -96,7 +96,7 @@ class TestTools(unittest.TestCase):
         self.assertTrue(is_url("https://www.google.com"))
 
     def test_is_ip(self):
-        """Testing a method `is_url()`."""
+        """Testing a method `is_ip()`."""
         self.assertFalse(is_ip("127.0."))
         self.assertTrue(is_ip("127.0.0.1"))
 
