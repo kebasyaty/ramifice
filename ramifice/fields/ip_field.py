@@ -62,3 +62,13 @@ class IPField(Field, TextGroup, JsonMixin):
                     )  # pylint: disable=raise-missing-from
 
         self.default = default
+
+    def is_valid(self) -> bool:
+        """Validate IP address."""
+        flag = True
+        value = str(self.value or self.default)
+        try:
+            ipaddress.ip_address(value)
+        except ValueError:
+            flag = False
+        return flag
