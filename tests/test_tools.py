@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice.errors import InvalidDateError, InvalidDateTimeError
-from ramifice.tools import date_parse, datetime_parse
+from ramifice.tools import date_parse, datetime_parse, is_email
 
 
 class TestTools(unittest.TestCase):
@@ -76,6 +76,11 @@ class TestTools(unittest.TestCase):
             datetime_parse("2024.12.16T09:33:15").strftime("%Y-%m-%dT%H:%M:%S"),
             "2024-12-16T09:33:15",
         )
+
+    def test_is_emale(self):
+        """Testing a method `is_email()`."""
+        self.assertFalse(is_email("my+address@example.net"))
+        self.assertTrue(is_email("kebasyaty@gmail.com"))
 
 
 if __name__ == "__main__":
