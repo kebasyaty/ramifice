@@ -46,20 +46,20 @@ class TextGroupMixin:
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.
         field_type = field.field_type
-        if field_type == "EmailField":
+        if "Email" in field_type:
             try:
                 emailinfo = validate_email(value, check_deliverability=True)
                 value = emailinfo.normalized
             except EmailNotValidError:
                 err_msg = "Invalid Email address!"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        elif field_type == "URLField":
+        elif "URL" in field_type:
             pass
-        elif field_type == "IPField":
+        elif "IP" in field_type:
             pass
-        elif field_type == "ColorField":
+        elif "Color" in field_type:
             pass
-        elif field_type == "PhoneField":
+        elif "Phone" in field_type:
             pass
         # Insert result.
         if params["is_save"]:
