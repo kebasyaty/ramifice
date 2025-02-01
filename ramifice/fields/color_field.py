@@ -61,3 +61,11 @@ class ColorField(Field, TextGroup, JsonMixin):
                     raise AssertionError("Parameter `default` - Not а color code!")
 
         self.default = default
+
+    def is_valid(self) -> bool:
+        """Validate color code."""
+        flag = True
+        value = str(self.value or self.default)
+        if REGEX["color_code"].match(value) is None:
+            flag = False
+        return flag
