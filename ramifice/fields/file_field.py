@@ -59,6 +59,13 @@ class FileField(Field, FileGroup, FileJsonMixin):
 
         self.value: FileData | None = None
 
+    def __str__(self):
+        title = str(None)
+        value = self.value
+        if value is not None:
+            title = str(value)
+        return title
+
     def from_base64(
         self,
         base64_str: str | None = None,

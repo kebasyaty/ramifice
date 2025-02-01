@@ -62,6 +62,9 @@ class ColorField(Field, TextGroup, JsonMixin):
 
         self.default = default
 
+    def __str__(self):
+        return str(self.value)
+
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Color code."""
         flag = True

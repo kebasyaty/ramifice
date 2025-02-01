@@ -72,6 +72,9 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
                         + "list of permissive values in `choicees`."
                     )
 
+    def __str__(self):
+        return str(self.value)
+
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True

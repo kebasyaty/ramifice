@@ -38,3 +38,6 @@ class BooleanField(Field, JsonMixin):
         self.input_type = "checkbox"
         self.value: bool | None = None
         self.default = default
+
+    def __str__(self):
+        return str(self.value)
