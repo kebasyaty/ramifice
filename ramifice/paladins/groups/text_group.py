@@ -4,9 +4,7 @@ URLField | TextField | PhoneField
 | IPField | EmailField | ColorField
 """
 
-import ipaddress
 from typing import Any
-from urllib.parse import urlparse
 
 from email_validator import EmailNotValidError, validate_email
 
@@ -55,21 +53,18 @@ class TextGroupMixin:
             except EmailNotValidError:
                 err_msg = "Invalid Email address !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        elif "URL" in field_type:
-            result = urlparse(value)
-            if not result.scheme or not result.netloc:
-                err_msg = "Invalid URL address !"
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        elif "IP" in field_type:
-            try:
-                ipaddress.ip_address(value)
-            except ValueError:
-                err_msg = "Invalid IP address !"
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        elif "Color" in field_type:
-            pass
-        elif "Phone" in field_type:
-            pass
+        elif "URL" in field_type and not field.is_valid(value):
+            err_msg = "Invalid URL address !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "IP" in field_type and not field.is_valid(value):
+            err_msg = "Invalid IP address !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "Color" in field_type and not field.is_valid(value):
+            err_msg = "Invalid Color code !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "Phone" in field_type and not field.is_valid(value):
+            err_msg = "Invalid Phone number !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

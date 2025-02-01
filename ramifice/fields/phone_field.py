@@ -66,3 +66,12 @@ class PhoneField(Field, TextGroup, JsonMixin):
                     )  # pylint: disable=raise-missing-from
 
         self.default = default
+
+    def is_valid(self, value: str | None = None) -> bool:
+        """Validate Phone number."""
+        flag = True
+        value = str(value or self.value or self.default)
+        phone = phonenumbers.parse(value)
+        if not phonenumbers.is_valid_number(phone):
+            flag = False
+        return flag

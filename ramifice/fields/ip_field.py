@@ -63,10 +63,10 @@ class IPField(Field, TextGroup, JsonMixin):
 
         self.default = default
 
-    def is_valid(self) -> bool:
+    def is_valid(self, value: str | None = None) -> bool:
         """Validate IP address."""
         flag = True
-        value = str(self.value or self.default)
+        value = str(value or self.value or self.default)
         try:
             ipaddress.ip_address(value)
         except ValueError:
