@@ -74,7 +74,7 @@ def is_ip(value: str) -> bool:
 
 
 def is_color(value: str) -> bool:
-    """Validate color code."""
+    """Validate Color code."""
     flag = True
     if REGEX["color_code"].match(value) is None:
         flag = False
