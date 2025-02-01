@@ -6,6 +6,8 @@ URLField | TextField | PhoneField
 
 from typing import Any
 
+from email_validator import EmailNotValidError, validate_email
+
 
 class TextGroupMixin:
     """Group for checking text fields.
@@ -28,18 +30,37 @@ class TextGroupMixin:
             return
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
-        if maxlength is not None:
-            if len(value) > maxlength:
-                err_msg = f"The number {len(value)} must not be greater than max={maxlength} !"
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        if maxlength is not None and len(value) > maxlength:
+            err_msg = (
+                f"The number {len(value)} must not be greater than max={maxlength} !"
+            )
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `minlength` field attribute.
         minlength = field.__dict__.get("minlength")
-        if minlength is not None:
-            if len(value) < minlength:
-                err_msg = (
-                    f"The number {len(value)} must not be less than min={minlength} !"
-                )
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        if minlength is not None and len(value) < minlength:
+            err_msg = f"The number {len(value)} must not be less than min={minlength} !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
-        if field.unique:
+        if field.unique and not self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+            err_msg = "Is not unique !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        # Validation Email, Url, IP, Color, Phone.
+        field_type = field.field_type
+        if field_type == "EmailField":
+            try:
+                emailinfo = validate_email(value, check_deliverability=True)
+                value = emailinfo.normalized
+            except EmailNotValidError:
+                err_msg = "Invalid Email address!"
+                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif field_type == "URLField":
             pass
+        elif field_type == "IPField":
+            pass
+        elif field_type == "ColorField":
+            pass
+        elif field_type == "PhoneField":
+            pass
+        # Insert result.
+        if params["is_save"]:
+            params["result_map"][field.name] = value

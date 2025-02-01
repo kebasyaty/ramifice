@@ -1,5 +1,6 @@
 """Tools - A set of additional auxiliary methods for Paladins."""
 
+from datetime import datetime
 from typing import Any
 
 from termcolor import colored
@@ -55,3 +56,15 @@ class ToolsMixin:
                 + f" => {err_msg}"
             )
             raise PanicError(msg)
+
+    def check_uniqueness(
+        self, value: str | int | float | datetime, params: dict[str, Any]
+    ) -> bool:
+        """Check the uniqueness of the value in the collection."""
+        q_filter = {
+            "$and": [
+                {"_id": {"$ne": params["doc_id"]}},
+                {params["field_data"].name: value},
+            ],
+        }
+        return params["collection"].find_one(q_filter) is None
