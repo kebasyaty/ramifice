@@ -4,6 +4,7 @@ URLField | TextField | PhoneField
 | IPField | EmailField | ColorField
 """
 
+import ipaddress
 from typing import Any
 from urllib.parse import urlparse
 
@@ -60,7 +61,11 @@ class TextGroupMixin:
                 err_msg = "Invalid URL address !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "IP" in field_type:
-            pass
+            try:
+                ipaddress.ip_address(value)
+            except ValueError:
+                err_msg = "Invalid IP address !"
+                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "Color" in field_type:
             pass
         elif "Phone" in field_type:
