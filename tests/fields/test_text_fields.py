@@ -240,6 +240,10 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             EmailField(default="my+address@example.net")
         EmailField(default="kebasyaty@gmail.com")
+        # Methods:
+        self.assertFalse(f.is_valid())
+        self.assertFalse(f.is_valid("my+address@example.net"))
+        self.assertTrue(f.is_valid("kebasyaty@gmail.com"))
 
     def test_color_field(self):
         """Testing `ColorField`."""
