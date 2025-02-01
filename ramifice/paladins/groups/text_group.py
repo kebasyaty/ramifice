@@ -5,6 +5,7 @@ URLField | TextField | PhoneField
 """
 
 from typing import Any
+from urllib.parse import urlparse
 
 from email_validator import EmailNotValidError, validate_email
 
@@ -51,10 +52,13 @@ class TextGroupMixin:
                 emailinfo = validate_email(value, check_deliverability=True)
                 value = emailinfo.normalized
             except EmailNotValidError:
-                err_msg = "Invalid Email address!"
+                err_msg = "Invalid Email address !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "URL" in field_type:
-            pass
+            result = urlparse(value)
+            if not result.scheme or not result.netloc:
+                err_msg = "Invalid URL address !"
+                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "IP" in field_type:
             pass
         elif "Color" in field_type:

@@ -73,3 +73,12 @@ class URLField(Field, TextGroup, JsonMixin):
                     raise AssertionError("Parameter `default` - Invalid URL address!")
 
         self.default = default
+
+    def is_valid(self) -> bool:
+        """Validate URL address."""
+        flag = True
+        value = str(self.value or self.default)
+        result = urlparse(value)
+        if not result.scheme or not result.netloc:
+            flag = False
+        return flag
