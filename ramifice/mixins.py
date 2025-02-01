@@ -1,6 +1,7 @@
 """Complect of mixins."""
 
 import json
+from abc import ABCMeta, abstractmethod
 from typing import Any
 
 
@@ -36,7 +37,7 @@ class JsonMixin:
         return cls.from_dict(json_dict)
 
 
-class FileJsonMixin:
+class FileJsonMixin(metaclass=ABCMeta):
     """Complect of methods for converting FileField and ImageField to JSON and back."""
 
     def to_dict(self) -> dict[str, Any]:
@@ -55,17 +56,9 @@ class FileJsonMixin:
         return json.dumps(self.to_dict())
 
     @classmethod
+    @abstractmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            if name != "value":
-                obj.__dict__[name] = data
-            else:
-                obj.__dict__[name] = (
-                    obj.__dict__[name].__class__.from_dict(data) if bool(data) else None
-                )
-        return obj
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:

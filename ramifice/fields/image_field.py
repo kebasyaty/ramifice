@@ -6,6 +6,7 @@ import uuid
 from base64 import b64decode
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import FileJsonMixin
@@ -183,3 +184,14 @@ class ImageField(Field, FileGroup, FileJsonMixin):
 
         # FileData to value.
         self.value = i_data
+
+    @classmethod
+    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+        """Convert JSON string to a object instance."""
+        obj = cls()
+        for name, data in json_dict.items():
+            if name != "value" or data is None:
+                obj.__dict__[name] = data
+            else:
+                obj.__dict__[name] = ImageData.from_dict(data)
+        return obj
