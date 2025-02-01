@@ -46,21 +46,25 @@ class TextGroupMixin:
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.
         field_type = field.field_type
-        if field_type == "EmailField":
+        if "Email" in field_type:
             try:
                 emailinfo = validate_email(value, check_deliverability=True)
                 value = emailinfo.normalized
             except EmailNotValidError:
-                err_msg = "Invalid Email address!"
+                err_msg = "Invalid Email address !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        elif field_type == "URLField":
-            pass
-        elif field_type == "IPField":
-            pass
-        elif field_type == "ColorField":
-            pass
-        elif field_type == "PhoneField":
-            pass
+        elif "URL" in field_type and not field.is_valid(value):
+            err_msg = "Invalid URL address !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "IP" in field_type and not field.is_valid(value):
+            err_msg = "Invalid IP address !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "Color" in field_type and not field.is_valid(value):
+            err_msg = "Invalid Color code !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        elif "Phone" in field_type and not field.is_valid(value):
+            err_msg = "Invalid Phone number !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

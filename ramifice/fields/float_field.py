@@ -87,3 +87,6 @@ class FloatField(Field, NumberGroup, JsonMixin):
         self.max_number = max_number
         self.min_number = min_number
         self.step = step
+
+    def __str__(self):
+        return str(self.value)

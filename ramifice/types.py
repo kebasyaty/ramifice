@@ -41,6 +41,10 @@ class FileData(JsonMixin):
         self.extension = ""
         self.save_as_is = False
 
+    def __str__(self):
+        name = self.name or None
+        return str(name)
+
 
 class ImageData(JsonMixin):
     """Data type for `ImageField.value`."""
@@ -67,3 +71,7 @@ class ImageData(JsonMixin):
         self.imgs_dir_path = ""
         self.imgs_dir_url = ""
         self.save_as_is = False
+
+    def __str__(self):
+        name = self.name or None
+        return str(name)

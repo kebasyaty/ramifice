@@ -39,3 +39,6 @@ class PasswordField(Field, JsonMixin):
         self.value: str | None = None
         self.placeholder = placeholder
         self.required = required
+
+    def __str__(self):
+        return str(self.value)

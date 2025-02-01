@@ -60,9 +60,24 @@ class PhoneField(Field, TextGroup, JsonMixin):
                     phone_default = phonenumbers.parse(default)
                     if not phonenumbers.is_valid_number(phone_default):
                         raise AssertionError()
-                except:
+                except phonenumbers.phonenumberutil.NumberParseException:
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         "Parameter `default` - Invalid Phone number!"
                     )  # pylint: disable=raise-missing-from
 
         self.default = default
+
+    def __str__(self):
+        return str(self.value)
+
+    def is_valid(self, value: str | None = None) -> bool:
+        """Validate Phone number."""
+        flag = True
+        value = str(value or self.value or self.default)
+        try:
+            phone = phonenumbers.parse(value)
+            if not phonenumbers.is_valid_number(phone):
+                flag = False
+        except phonenumbers.phonenumberutil.NumberParseException:
+            flag = False
+        return flag
