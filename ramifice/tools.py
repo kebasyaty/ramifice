@@ -84,7 +84,10 @@ def is_color(value: str) -> bool:
 def is_phone(value: str) -> bool:
     """Validate Phone number."""
     flag = True
-    phone = phonenumbers.parse(value)
-    if not phonenumbers.is_valid_number(phone):
+    try:
+        phone = phonenumbers.parse(value)
+        if not phonenumbers.is_valid_number(phone):
+            flag = False
+    except phonenumbers.phonenumberutil.NumberParseException:
         flag = False
     return flag
