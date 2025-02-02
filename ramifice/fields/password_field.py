@@ -1,6 +1,7 @@
 """Field of Model for enter password."""
 
 from ..mixins import JsonMixin
+from ..store import REGEX
 from .general.field import Field
 
 
@@ -12,7 +13,7 @@ class PasswordField(Field, JsonMixin):
     Number of characters by default: from 8 to 256.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         hide: bool = False,
@@ -42,3 +43,11 @@ class PasswordField(Field, JsonMixin):
 
     def __str__(self):
         return str(self.value)
+
+    def is_valid(self, value: str | None = None) -> bool:
+        """Validate Password."""
+        flag = True
+        value = str(value or self.value)
+        if not REGEX["password"].match(value):
+            flag = False
+        return flag

@@ -13,7 +13,7 @@ class ChoiceGroup:
     multiple -- Specifies that multiple options can be selected at once.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         placeholder: str = "",
         required: bool = False,

@@ -44,6 +44,17 @@ def datetime_parse(date_time: str) -> datetime:
     return dt
 
 
+def normal_email(email: str) -> str | None:
+    """Normalizing email address."""
+    normal: str | None = None
+    try:
+        emailinfo = validate_email(str(email), check_deliverability=False)
+        normal = emailinfo.normalized
+    except EmailNotValidError:
+        pass
+    return normal
+
+
 def is_email(value: str) -> bool:
     """Validate Email address."""
     flag = True

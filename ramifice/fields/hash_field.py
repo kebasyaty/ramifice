@@ -10,7 +10,7 @@ from .general.text_group import TextGroup
 class HashField(Field, TextGroup, JsonMixin):
     """Field of Model for enter identifier of document."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,
@@ -44,7 +44,7 @@ class HashField(Field, TextGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.alerts: list[str] | None = None
+        self.alerts: list[str] = []
 
     def __str__(self):
         return str(self.value)

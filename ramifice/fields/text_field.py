@@ -9,7 +9,7 @@ from .general.text_group import TextGroup
 class TextField(Field, TextGroup, JsonMixin):
     """Field of Model for enter text."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,

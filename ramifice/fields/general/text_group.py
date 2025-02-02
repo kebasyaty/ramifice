@@ -12,7 +12,7 @@ class TextGroup:
     unique -- The unique value of a field in a collection.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         input_type: str = "",
         placeholder: str = "",
