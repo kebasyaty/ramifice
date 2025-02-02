@@ -162,6 +162,13 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
+        # Methods:
+        self.assertFalse(f.is_valid())
+        self.assertFalse(f.is_valid("пока-пока"))
+        self.assertFalse(f.is_valid("再見-再見-再見"))
+        self.assertFalse(f.is_valid("1234567"))
+        self.assertFalse(f.is_valid(("12345678" * 32) + "1"))  # > 256 characters
+        self.assertTrue(f.is_valid("12345678"))
 
     def test_ip_field(self):
         """Testing `IPField`."""
