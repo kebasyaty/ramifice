@@ -13,7 +13,7 @@ class FileGroup:
     accept -- Describing which file types to allow.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         placeholder: str = "",
         required: bool = False,

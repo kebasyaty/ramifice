@@ -10,7 +10,7 @@ class SlugField(Field, TextGroup, JsonMixin):
     Convenient to use for Url addresses.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,

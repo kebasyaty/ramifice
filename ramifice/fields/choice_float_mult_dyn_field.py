@@ -14,7 +14,7 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,

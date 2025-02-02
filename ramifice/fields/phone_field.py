@@ -13,7 +13,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,

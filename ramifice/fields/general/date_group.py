@@ -14,7 +14,7 @@ class DateGroup:
     min_date -- Minimum allowed date.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         input_type: str = "",
         placeholder: str = "",

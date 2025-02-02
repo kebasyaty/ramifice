@@ -16,7 +16,7 @@ class Field:
     group -- To optimize field traversal in the `check` method.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         label: str = "",
         disabled: bool = False,
@@ -24,7 +24,8 @@ class Field:
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        errors: list[str] | None = None,
+        # pylint: disable=dangerous-default-value
+        errors: list[str] = [],
         field_type: str = "",
         group: str = "",
     ):
