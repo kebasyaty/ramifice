@@ -66,21 +66,6 @@ class EmailField(Field, TextGroup, JsonMixin):
     def __str__(self):
         return str(self.value)
 
-    @property
-    def value(self) -> str | None:
-        """Sets value of field."""
-        return self.value
-
-    @value.setter
-    def value(self, value: str | None) -> None:
-        if value is not None:
-            try:
-                emailinfo = validate_email(value, check_deliverability=False)
-                value = emailinfo.normalized
-            except EmailNotValidError:
-                self.errors.append("Invalid Email address !")
-        self.value = value
-
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Email address."""
         value = str(value or self.value or self.default)
