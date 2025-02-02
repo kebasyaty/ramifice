@@ -48,7 +48,7 @@ def normal_email(email: str) -> str | None:
     """Normalizing email address."""
     normal: str | None = None
     try:
-        emailinfo = validate_email(email, check_deliverability=False)
+        emailinfo = validate_email(str(email), check_deliverability=False)
         normal = emailinfo.normalized
     except EmailNotValidError:
         pass

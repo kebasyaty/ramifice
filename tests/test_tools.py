@@ -11,6 +11,7 @@ from ramifice.tools import (
     is_ip,
     is_phone,
     is_url,
+    normal_email,
 )
 
 
@@ -84,6 +85,15 @@ class TestTools(unittest.TestCase):
             datetime_parse("2024.12.16T09:33:15").strftime("%Y-%m-%dT%H:%M:%S"),
             "2024-12-16T09:33:15",
         )
+
+    def test_normal_email(self):
+        """Testing a method `normal_email()`."""
+        self.assertIsNone(normal_email("???"))
+        self.assertIsNone(normal_email(None))
+        self.assertEqual(
+            normal_email("my+address@example.net"), "my+address@example.net"
+        )
+        self.assertEqual(normal_email("kebasyaty@gmail.com"), "kebasyaty@gmail.com")
 
     def test_is_emale(self):
         """Testing a method `is_email()`."""
