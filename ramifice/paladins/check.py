@@ -11,10 +11,9 @@ from .groups import (
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    FloatGroupMixin,
     HashGroupMixin,
     ImgGroupMixin,
-    IntGroupMixin,
+    NumGroupMixin,
     PassGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
@@ -27,10 +26,9 @@ class CheckMixin(
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    FloatGroupMixin,
     HashGroupMixin,
     ImgGroupMixin,
-    IntGroupMixin,
+    NumGroupMixin,
     PassGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
@@ -83,10 +81,8 @@ class CheckMixin(
                 params["field_data"] = field_data
                 if group == "text":
                     self.text_group(params)
-                elif group == "int":
-                    self.int_group(params)
-                elif group == "float":
-                    self.float_group(params)
+                elif group == "num":
+                    self.num_group(params)
                 elif group == "date":
                     self.date_group(params)
                 elif group == "img":

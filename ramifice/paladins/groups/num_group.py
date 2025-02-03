@@ -1,17 +1,19 @@
 """Group for checking integer fields.
-Supported fields: IntegerField
+Supported fields:
+IntegerField | FloatField
 """
 
 from typing import Any
 
 
-class IntGroupMixin:
+class NumGroupMixin:
     """Group for checking integer fields.
-    Supported fields: IntegerField
+    Supported fields:
+    IntegerField | FloatField
     """
 
-    def int_group(self, params: dict[str, Any]) -> None:
-        """Checking integer fields."""
+    def num_group(self, params: dict[str, Any]) -> None:
+        """Checking number fields."""
         field = params["field_data"]
         # Get current value.
         value = field.value or field.default

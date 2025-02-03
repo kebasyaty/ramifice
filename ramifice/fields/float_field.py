@@ -36,7 +36,7 @@ class FloatField(Field, NumberGroup, JsonMixin):
             hint=hint,
             warning=warning,
             field_type="FloatField",
-            group="float",
+            group="num",
         )
         NumberGroup.__init__(
             self,
