@@ -26,7 +26,7 @@ class TextGroupMixin:
                 err_msg = "Required field !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
-                params["result_map"] = None
+                params["result_map"][field.name] = None
             return
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
