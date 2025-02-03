@@ -16,7 +16,7 @@ class TextGroupMixin:
     | IPField | EmailField | ColorField
     """
 
-    def text_group(self, params: dict[str, Any]) -> None:
+    async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         field = params["field_data"]
         # Get current value.
@@ -26,22 +26,20 @@ class TextGroupMixin:
                 err_msg = "Required field !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
-                params["result_map"] = None
+                params["result_map"][field.name] = None
             return
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
-            err_msg = (
-                f"The number {len(value)} must not be greater than max={maxlength} !"
-            )
+            err_msg = f"The length of the string exceeds maxlength={maxlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `minlength` field attribute.
         minlength = field.__dict__.get("minlength")
         if minlength is not None and len(value) < minlength:
-            err_msg = f"The number {len(value)} must not be less than min={minlength} !"
+            err_msg = f"The length of the string is less than minlength={minlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
-        if field.unique and not self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+        if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
             err_msg = "Is not unique !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.

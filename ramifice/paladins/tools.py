@@ -11,11 +11,11 @@ from ..errors import PanicError
 class ToolsMixin:
     """A set of additional auxiliary methods for Paladins."""
 
-    def is_valid(self) -> bool:
+    async def is_valid(self) -> bool:
         """Check data validity.
         The main use is to check data from web forms.
         """
-        output_data = self.check()  # type: ignore[attr-defined]
+        output_data = await self.check()  # type: ignore[attr-defined]
         return output_data.is_valid
 
     def print_err(self) -> None:
@@ -26,7 +26,7 @@ class ToolsMixin:
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if bool(field_data.errors):
+            if len(field_data.errors) > 0:
                 # title
                 if not is_err:
                     print(colored("\nERRORS:", "red", attrs=["bold"]))
@@ -34,19 +34,22 @@ class ToolsMixin:
                     print(colored(f"`{self.full_model_name()}`", "blue"))  # type: ignore[attr-defined]
                     is_err = True
                 # field name
-                print(colored(f"{field_name}:", "green", attrs=["bold"]))
+                print(colored("Field: ", "green", attrs=["bold"]), end="")
+                print(colored(f"`{field_name}`:", "green"))
                 # error messages
                 print(colored("\n".join(field_data.errors), "red"))
-        if bool(self.hash.alerts):  # type: ignore[attr-defined]
+        if len(self.hash.alerts) > 0:  # type: ignore[attr-defined]
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))
             # messages
             print(colored("\n".join(self.hash.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
+        else:
+            print(end="\n\n")
 
     def accumulate_error(self, err_msg: str, params: dict[str, Any]) -> None:
         """For accumulating errors to ModelName.field_name.errors"""
         if not params["field_data"].hide:
-            params["field_data"].errors.appand(err_msg)
+            params["field_data"].errors.append(err_msg)
             if not params["is_error_symptom"]:
                 params["is_error_symptom"] = True
         else:
@@ -57,8 +60,10 @@ class ToolsMixin:
             )
             raise PanicError(msg)
 
-    def check_uniqueness(
-        self, value: str | int | float | datetime, params: dict[str, Any]
+    async def check_uniqueness(
+        self,
+        value: str | int | float | datetime,
+        params: dict[str, Any],
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
         q_filter = {
@@ -67,4 +72,4 @@ class ToolsMixin:
                 {params["field_data"].name: value},
             ],
         }
-        return params["collection"].find_one(q_filter) is None
+        return await params["collection"].find_one(q_filter) is None

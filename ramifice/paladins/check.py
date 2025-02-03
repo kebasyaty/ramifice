@@ -11,10 +11,9 @@ from .groups import (
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    FloatGroupMixin,
     HashGroupMixin,
     ImgGroupMixin,
-    IntGroupMixin,
+    NumGroupMixin,
     PassGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
@@ -27,10 +26,9 @@ class CheckMixin(
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    FloatGroupMixin,
     HashGroupMixin,
     ImgGroupMixin,
-    IntGroupMixin,
+    NumGroupMixin,
     PassGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
@@ -38,6 +36,7 @@ class CheckMixin(
 ):
     """Validation of Model data before saving to the database."""
 
+    # pylint: disable=too-many-branches
     async def check(self, is_save: bool = False) -> OutputData:
         """Validation of Model data before saving to the database."""
 
@@ -61,7 +60,6 @@ class CheckMixin(
             "is_save": is_save,
             "is_update": is_update,  # Does the document exist in the database?
             "is_error_symptom": False,  # Is there any incorrect data?
-            "error_map": error_map,
             "result_map": {},  # Data to save or update to the database.
             "collection": store.MONGO_DATABASE[self.__class__.META["collection_name"]],  # type: ignore[index, attr-defined]
             "field_data": None,
@@ -82,11 +80,9 @@ class CheckMixin(
                 group = field_data.group
                 params["field_data"] = field_data
                 if group == "text":
-                    self.text_group(params)
-                elif group == "int":
-                    self.int_group(params)
-                elif group == "float":
-                    self.float_group(params)
+                    await self.text_group(params)
+                elif group == "num":
+                    await self.num_group(params)
                 elif group == "date":
                     self.date_group(params)
                 elif group == "img":

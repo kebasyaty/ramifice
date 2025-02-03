@@ -19,13 +19,13 @@ class PassGroupMixin:
             params["field_data"].value = None
             return
         # Get current value.
-        value = field.value or field.default
+        value = field.value
         if value is None:
             if field.required:
                 err_msg = "Required field !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
-                params["result_map"] = None
+                params["result_map"][field.name] = None
             return
         # Validation Passwor.
         if not field.is_valid(value):

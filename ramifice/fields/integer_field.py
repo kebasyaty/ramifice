@@ -36,7 +36,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
             hint=hint,
             warning=warning,
             field_type="IntegerField",
-            group="int",
+            group="num",
         )
         NumberGroup.__init__(
             self,
