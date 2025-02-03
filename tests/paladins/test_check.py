@@ -98,11 +98,11 @@ class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrat()
 
-        m = User()
-        if not await m.is_valid():
-            print(m.print_err())
-        else:
-            print("!!!>>YES<<!!!")
+        # m = User()
+        # if not await m.is_valid():
+        #     m.print_err()
+        # else:
+        #     print("!!!>>YES<<!!!")
 
         # Delete database after test.
         await client.drop_database(database_name)

@@ -43,6 +43,8 @@ class ToolsMixin:
             print(colored("AlERTS:", "yellow", attrs=["bold"]))
             # messages
             print(colored("\n".join(self.hash.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
+        else:
+            print(end="\n\n")
 
     def accumulate_error(self, err_msg: str, params: dict[str, Any]) -> None:
         """For accumulating errors to ModelName.field_name.errors"""
