@@ -59,7 +59,9 @@ class ToolsMixin:
             raise PanicError(msg)
 
     async def check_uniqueness(
-        self, value: str | int | float | datetime, params: dict[str, Any]
+        self,
+        value: str | int | float | list[str | int | float] | datetime,
+        params: dict[str, Any],
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
         q_filter = {

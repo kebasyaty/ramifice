@@ -60,7 +60,6 @@ class CheckMixin(
             "is_save": is_save,
             "is_update": is_update,  # Does the document exist in the database?
             "is_error_symptom": False,  # Is there any incorrect data?
-            "error_map": error_map,
             "result_map": {},  # Data to save or update to the database.
             "collection": store.MONGO_DATABASE[self.__class__.META["collection_name"]],  # type: ignore[index, attr-defined]
             "field_data": None,
