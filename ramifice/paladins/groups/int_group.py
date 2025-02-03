@@ -14,7 +14,7 @@ class IntGroupMixin:
         """Checking integer fields."""
         field = params["field_data"]
         # Get current value.
-        value: int | None = field.value or field.default
+        value = field.value or field.default
         if value is None:
             if field.required:
                 err_msg = "Required field !"
@@ -22,7 +22,6 @@ class IntGroupMixin:
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
-        value = int(value)
         # Validation the `max_number` field attribute.
         max_number = field.__dict__["max_number"]
         if max_number is not None and value > max_number:

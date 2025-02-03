@@ -20,7 +20,7 @@ class TextGroupMixin:
         """Checking text fields."""
         field = params["field_data"]
         # Get current value.
-        value: str | None = field.value or field.default
+        value = field.value or field.default
         if value is None:
             if field.required:
                 err_msg = "Required field !"
@@ -28,7 +28,6 @@ class TextGroupMixin:
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
-        value = str(value)
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
