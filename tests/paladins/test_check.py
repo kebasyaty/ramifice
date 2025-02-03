@@ -2,6 +2,8 @@
 
 import unittest
 
+from pymongo import AsyncMongoClient
+
 from ramifice import Model, meta
 from ramifice.fields import (
     BooleanField,
@@ -33,6 +35,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
+from ramifice.migration import Monitor
 
 
 @meta(service_name="Accounts")
@@ -51,7 +54,7 @@ class User(Model):
         self.img = ImageField()
         self.hash2 = HashField()
         self.file = FileField()
-        self.email = EmailField()
+        self.email = EmailField(required=True)
         self.date_time = DateTimeField()
         self.date = DateField()
         self.color = ColorField()
@@ -77,11 +80,33 @@ class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
 
     async def test_check(self):
         """Testing the method `check`."""
+        # To generate a key (this is not an advertisement):
+        # https://randompasswordgen.com/
+        unique_key = "46JP99c338j47gR0"
+        # Maximum number of characters 60
+        database_name = f"test_{unique_key}"
+
+        # Delete database before test.
+        # (if the test fails)
+        client = AsyncMongoClient()
+        await client.drop_database(database_name)
+        await client.close()
+
+        client = AsyncMongoClient()
+        await Monitor(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrat()
+
         m = User()
         if not m.is_valid:
             print(m.print_err())
         else:
             print("!!!>>YES<<!!!")
+
+        # Delete database after test.
+        await client.drop_database(database_name)
+        await client.close()
 
 
 if __name__ == "__main__":

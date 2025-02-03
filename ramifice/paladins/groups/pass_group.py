@@ -19,7 +19,7 @@ class PassGroupMixin:
             params["field_data"].value = None
             return
         # Get current value.
-        value = field.value or field.default
+        value = field.value
         if value is None:
             if field.required:
                 err_msg = "Required field !"
