@@ -60,7 +60,7 @@ class ToolsMixin:
 
     async def check_uniqueness(
         self,
-        value: str | int | float | list[str | int | float] | datetime,
+        value: str | int | float | datetime,
         params: dict[str, Any],
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
