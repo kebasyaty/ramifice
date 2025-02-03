@@ -16,7 +16,7 @@ class TextGroupMixin:
     | IPField | EmailField | ColorField
     """
 
-    def text_group(self, params: dict[str, Any]) -> None:
+    async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         field = params["field_data"]
         # Get current value.
@@ -39,7 +39,7 @@ class TextGroupMixin:
             err_msg = f"The length of the string is less than minlength={minlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
-        if field.unique and not self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+        if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
             err_msg = "Is not unique !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.

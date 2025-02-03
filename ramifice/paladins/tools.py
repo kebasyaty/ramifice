@@ -57,7 +57,7 @@ class ToolsMixin:
             )
             raise PanicError(msg)
 
-    def check_uniqueness(
+    async def check_uniqueness(
         self, value: str | int | float | datetime, params: dict[str, Any]
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
@@ -67,4 +67,4 @@ class ToolsMixin:
                 {params["field_data"].name: value},
             ],
         }
-        return params["collection"].find_one(q_filter) is None
+        return await params["collection"].find_one(q_filter) is None

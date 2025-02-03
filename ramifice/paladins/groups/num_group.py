@@ -12,7 +12,7 @@ class NumGroupMixin:
     IntegerField | FloatField
     """
 
-    def num_group(self, params: dict[str, Any]) -> None:
+    async def num_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         field = params["field_data"]
         # Get current value.
@@ -39,7 +39,7 @@ class NumGroupMixin:
             )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
-        if field.unique and not self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+        if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
             err_msg = "Is not unique !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.

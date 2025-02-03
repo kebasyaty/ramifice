@@ -36,6 +36,7 @@ class CheckMixin(
 ):
     """Validation of Model data before saving to the database."""
 
+    # pylint: disable=too-many-branches
     async def check(self, is_save: bool = False) -> OutputData:
         """Validation of Model data before saving to the database."""
 
@@ -80,9 +81,9 @@ class CheckMixin(
                 group = field_data.group
                 params["field_data"] = field_data
                 if group == "text":
-                    self.text_group(params)
+                    await self.text_group(params)
                 elif group == "num":
-                    self.num_group(params)
+                    await self.num_group(params)
                 elif group == "date":
                     self.date_group(params)
                 elif group == "img":
