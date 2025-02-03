@@ -99,7 +99,7 @@ class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
         ).migrat()
 
         m = User()
-        if not m.is_valid:
+        if not await m.is_valid():
             print(m.print_err())
         else:
             print("!!!>>YES<<!!!")

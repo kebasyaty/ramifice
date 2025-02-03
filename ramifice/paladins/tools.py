@@ -26,7 +26,7 @@ class ToolsMixin:
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if bool(field_data.errors):
+            if len(self.field_data.errors) > 0:  # type: ignore[attr-defined]
                 # title
                 if not is_err:
                     print(colored("\nERRORS:", "red", attrs=["bold"]))
@@ -34,10 +34,11 @@ class ToolsMixin:
                     print(colored(f"`{self.full_model_name()}`", "blue"))  # type: ignore[attr-defined]
                     is_err = True
                 # field name
-                print(colored(f"{field_name}:", "green", attrs=["bold"]))
+                print(colored("Field: ", "green", attrs=["bold"]), end="")
+                print(colored(f"`{field_name}`:", "green"))
                 # error messages
                 print(colored("\n".join(field_data.errors), "red"))
-        if bool(self.hash.alerts):  # type: ignore[attr-defined]
+        if len(self.hash.alerts) > 0:  # type: ignore[attr-defined]
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))
             # messages
