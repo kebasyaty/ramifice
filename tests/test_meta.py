@@ -74,8 +74,8 @@ class TestModel(unittest.TestCase):
             "count_all_fields": 5,
             "count_fields_for_migrating": 4,
             "time_object_list": {
-                "created_at": {"default": None, "max_date": None, "min_date": None},
-                "updated_at": {"default": None, "max_date": None, "min_date": None},
+                "created_at": {"max_date": None, "min_date": None},
+                "updated_at": {"max_date": None, "min_date": None},
             },
         }
         self.user_profile_meta = {
@@ -109,8 +109,8 @@ class TestModel(unittest.TestCase):
             "count_all_fields": 4,
             "count_fields_for_migrating": 3,
             "time_object_list": {
-                "created_at": {"default": None, "max_date": None, "min_date": None},
-                "updated_at": {"default": None, "max_date": None, "min_date": None},
+                "created_at": {"max_date": None, "min_date": None},
+                "updated_at": {"max_date": None, "min_date": None},
             },
         }
         return super().setUp()

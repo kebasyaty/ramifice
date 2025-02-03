@@ -56,7 +56,7 @@ def caching(cls, model) -> None:
     # Get attributes value for fields of Model: id, name.
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
-    data_dynamic_fields: dict[str, list[tuple[str | int | float, str]] | None] = {}
+    data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
     # Count all fields.
     count_all_fields = 0
     # Count fields for migrating.
@@ -77,9 +77,6 @@ def caching(cls, model) -> None:
             # Caching `datetime` objects for (date|date and time) fields.
             if "Date" in f_type_str:
                 if "Time" in f_type_str:
-                    dt_default = (
-                        datetime_parse(f_type.default) if f_type.default else None
-                    )
                     dt_max = (
                         datetime_parse(f_type.max_date) if f_type.max_date else None
                     )
@@ -87,16 +84,13 @@ def caching(cls, model) -> None:
                         datetime_parse(f_type.min_date) if f_type.min_date else None
                     )
                     time_object_list[f_name] = {
-                        "default": dt_default,
                         "max_date": dt_max,
                         "min_date": dt_min,
                     }
                 else:
-                    dt_default = date_parse(f_type.default) if f_type.default else None
                     dt_max = date_parse(f_type.max_date) if f_type.max_date else None
                     dt_min = date_parse(f_type.min_date) if f_type.min_date else None
                     time_object_list[f_name] = {
-                        "default": dt_default,
                         "max_date": dt_max,
                         "min_date": dt_min,
                     }

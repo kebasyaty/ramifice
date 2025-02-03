@@ -20,7 +20,7 @@ class TextGroupMixin:
         """Checking text fields."""
         field = params["field_data"]
         # Get current value.
-        value = field.value or field.default
+        value = field.value or field.default or None
         if value is None:
             if field.required:
                 err_msg = "Required field !"
@@ -29,14 +29,9 @@ class TextGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Validation the `maxlength` field attribute.
-        maxlength = field.__dict__.get("maxlength")
+        maxlength = field.maxlength
         if maxlength is not None and len(value) > maxlength:
             err_msg = f"The length of the string exceeds maxlength={maxlength} !"
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-        # Validation the `minlength` field attribute.
-        minlength = field.__dict__.get("minlength")
-        if minlength is not None and len(value) < minlength:
-            err_msg = f"The length of the string is less than minlength={minlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
