@@ -28,7 +28,6 @@ class DateField(Field, DateGroup, JsonMixin):
         placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
-        unique: bool = False,
         max_date: str | None = None,
         min_date: str | None = None,
     ):
@@ -49,7 +48,7 @@ class DateField(Field, DateGroup, JsonMixin):
             placeholder=placeholder,
             required=required,
             readonly=readonly,
-            unique=unique,
+            unique=False,
             max_date=max_date,
             min_date=min_date,
         )

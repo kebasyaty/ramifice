@@ -20,7 +20,7 @@ class TextGroupMixin:
         """Checking text fields."""
         field = params["field_data"]
         # Get current value.
-        value = field.value or field.default
+        value = field.value or field.default or None
         if value is None:
             if field.required:
                 err_msg = "Required field !"

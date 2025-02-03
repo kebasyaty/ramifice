@@ -16,7 +16,9 @@ class NumGroupMixin:
         """Checking number fields."""
         field = params["field_data"]
         # Get current value.
-        value = field.value or field.default
+        value = field.value
+        if value is None:
+            value = field.default
         if value is None:
             if field.required:
                 err_msg = "Required field !"
