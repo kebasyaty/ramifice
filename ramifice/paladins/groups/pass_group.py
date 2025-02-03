@@ -25,7 +25,7 @@ class PassGroupMixin:
                 err_msg = "Required field !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
-                params["result_map"] = None
+                params["result_map"][field.name] = None
             return
         # Validation Passwor.
         if not field.is_valid(value):
