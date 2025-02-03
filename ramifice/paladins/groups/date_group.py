@@ -42,3 +42,13 @@ class DateGroupMixin:
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         #
         time_object_list = self.__class__.META["time_object_list"]  # type: ignore[attr-defined]
+        # Validation the `max_date` field attribute.
+        max_date = field.__dict__["max_date"]
+        if max_date is not None and value > max_date:
+            err_msg = f"The date {value} must not be greater than max={max_date} !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+        # Validation the `min_date` field attribute.
+        min_date = field.__dict__["min_date"]
+        if min_date is not None and value < min_date:
+            err_msg = f"The date {value} must not be less than min={min_date} !"
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]

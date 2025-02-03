@@ -29,16 +29,12 @@ class NumGroupMixin:
         # Validation the `max_number` field attribute.
         max_number = field.__dict__["max_number"]
         if max_number is not None and value > max_number:
-            err_msg = (
-                f"The value {value} must not be greater than max_number={max_number} !"
-            )
+            err_msg = f"The value {value} must not be greater than max={max_number} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_number` field attribute.
         min_number = field.__dict__["min_number"]
         if min_number is not None and value < min_number:
-            err_msg = (
-                f"The value {value} must not be less than min_number={min_number} !"
-            )
+            err_msg = f"The value {value} must not be less than min={min_number} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
