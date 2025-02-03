@@ -31,14 +31,12 @@ class TextGroupMixin:
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
-            err_msg = f"The number {len(value)} must not be greater than maxlength={maxlength} !"
+            err_msg = f"The length of the string exceeds maxlength={maxlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `minlength` field attribute.
         minlength = field.__dict__.get("minlength")
         if minlength is not None and len(value) < minlength:
-            err_msg = (
-                f"The number {len(value)} must not be less than minlength={minlength} !"
-            )
+            err_msg = f"The length of the string is less than minlength={minlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not self.check_uniqueness(value, params):  # type: ignore[attr-defined]
