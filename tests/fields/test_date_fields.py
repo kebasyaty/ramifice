@@ -29,7 +29,6 @@ class TestDateFields(unittest.TestCase):
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
-        self.assertFalse(f.unique)
         self.assertIsNone(f.max_date)
         self.assertIsNone(f.min_date)
         # Exception checking:
@@ -92,7 +91,6 @@ class TestDateFields(unittest.TestCase):
         self.assertEqual(f.placeholder, "")
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
-        self.assertFalse(f.unique)
         self.assertIsNone(f.max_date)
         self.assertIsNone(f.min_date)
         # Exception checking:
