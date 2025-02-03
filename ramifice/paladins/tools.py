@@ -26,7 +26,7 @@ class ToolsMixin:
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if len(self.field_data.errors) > 0:  # type: ignore[attr-defined]
+            if len(field_data.errors) > 0:
                 # title
                 if not is_err:
                     print(colored("\nERRORS:", "red", attrs=["bold"]))
