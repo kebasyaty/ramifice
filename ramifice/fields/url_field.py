@@ -25,7 +25,8 @@ class URLField(Field, TextGroup, JsonMixin):
     unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,

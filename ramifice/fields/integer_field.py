@@ -9,7 +9,9 @@ from .general.number_group import NumberGroup
 class IntegerField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (int) number."""
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,

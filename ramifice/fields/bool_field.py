@@ -8,7 +8,8 @@ from .general.field import Field
 class BooleanField(Field, JsonMixin):
     """Field of Model for enter boolean value."""
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -16,7 +17,7 @@ class BooleanField(Field, JsonMixin):
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: bool | None = False,
+        default: bool = False,
     ):
         Field.__init__(
             self,

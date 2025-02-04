@@ -11,7 +11,8 @@ from .general.text_group import TextGroup
 class IPField(Field, TextGroup, JsonMixin):
     """Field of Model for enter IP addresses."""
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
