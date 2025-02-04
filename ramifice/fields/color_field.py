@@ -14,7 +14,8 @@ class ColorField(Field, TextGroup, JsonMixin):
               hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,

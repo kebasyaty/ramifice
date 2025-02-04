@@ -13,7 +13,8 @@ class PasswordField(Field, JsonMixin):
     Number of characters by default: from 8 to 256.
     """
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    def __init__(
         self,
         label: str = "",
         hide: bool = False,

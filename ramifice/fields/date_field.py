@@ -16,7 +16,9 @@ class DateField(Field, DateGroup, JsonMixin):
              yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
     """
 
-    def __init__(  # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-branches
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
