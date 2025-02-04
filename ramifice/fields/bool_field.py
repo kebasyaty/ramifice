@@ -16,7 +16,7 @@ class BooleanField(Field, JsonMixin):
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: bool | None = False,
+        default: bool = False,
     ):
         Field.__init__(
             self,
