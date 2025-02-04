@@ -41,8 +41,12 @@ class TextGroupMixin:
         field_type = field.field_type
         if "Email" in field_type:
             try:
-                emailinfo = validate_email(value, check_deliverability=True)
+                emailinfo = validate_email(
+                    value,
+                    check_deliverability=self.__class__.META["is_migrat_model"],  # type: ignore[attr-defined]
+                )
                 value = emailinfo.normalized
+                params["field_data"].value = value
             except EmailNotValidError:
                 err_msg = "Invalid Email address !"
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
