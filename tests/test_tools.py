@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice.errors import InvalidDateError, InvalidDateTimeError
-from ramifice.tools import (
+from ramifice.tools import (  # get_file_size,
     date_parse,
     datetime_parse,
     is_color,
@@ -13,6 +13,7 @@ from ramifice.tools import (
     is_phone,
     is_url,
     normal_email,
+    to_human_size,
 )
 
 
@@ -138,6 +139,15 @@ class TestTools(unittest.TestCase):
         self.assertFalse(is_mongo_id(""))
         self.assertFalse(is_mongo_id("nviy349ghugh"))
         self.assertTrue(is_mongo_id("666f6f2d6261722d71757578"))
+
+    def test_to_human_size(self):
+        """Testing a method `to_human_size()`."""
+        self.assertEqual(to_human_size(2097152), "2.0 MB")
+
+    # def test_get_file_size(self):
+    #     """Testing a method `get_file_size()`."""
+    #     path = "public/media/default/no_doc.odt"
+    #     self.assertEqual(get_file_size(path), "9.61 KB")
 
 
 if __name__ == "__main__":
