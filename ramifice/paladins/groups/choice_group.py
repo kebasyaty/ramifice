@@ -22,7 +22,7 @@ class ChoiceGroupMixin:
         """Checking choice fields."""
         field = params["field_data"]
         # Get current value.
-        value = field.value or field.default or None
+        value = field.value or field.__dict__.get("default") or None
         if value is None:
             if field.required:
                 err_msg = "Required field !"
