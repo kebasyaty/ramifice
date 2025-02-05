@@ -2,9 +2,11 @@
 
 import ipaddress
 from datetime import datetime
+from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
+from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
 from .errors import InvalidDateError, InvalidDateTimeError
@@ -44,18 +46,18 @@ def datetime_parse(date_time: str) -> datetime:
     return dt
 
 
-def normal_email(email: str) -> str | None:
+def normal_email(email: str | bytes) -> str | None:
     """Normalizing email address."""
     normal: str | None = None
     try:
-        emailinfo = validate_email(str(email), check_deliverability=False)
+        emailinfo = validate_email(email, check_deliverability=False)
         normal = emailinfo.normalized
     except EmailNotValidError:
         pass
     return normal
 
 
-def is_email(value: str) -> bool:
+def is_email(value: str | bytes) -> bool:
     """Validate Email address."""
     flag = True
     try:
@@ -74,7 +76,7 @@ def is_url(value: str) -> bool:
     return flag
 
 
-def is_ip(value: str) -> bool:
+def is_ip(value: str | int) -> bool:
     """Validate IP address."""
     flag = True
     try:
@@ -102,3 +104,8 @@ def is_phone(value: str) -> bool:
     except phonenumbers.phonenumberutil.NumberParseException:
         flag = False
     return flag
+
+
+def is_mongo_id(value: Any) -> bool:
+    """Validation of the Mongodb identifier."""
+    return ObjectId.is_valid(value)
