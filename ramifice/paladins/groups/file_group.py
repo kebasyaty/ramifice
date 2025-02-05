@@ -2,6 +2,7 @@
 Supported fields: FileField
 """
 
+import os
 from typing import Any
 
 from ...tools import to_human_size
@@ -58,3 +59,16 @@ class FileGroupMixin:
             )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             return
+        # Return if there is no need to save.
+        if not params["is_save"]:
+            if value.is_new_file:
+                os.remove(value.path)
+                params["field_data"].value = None
+            return
+        # Insert result.
+        if params["is_save"]:
+            if value.is_new_file or value.save_as_is:
+                value.is_new_file = False
+                value.is_delete = False
+                value.save_as_is = True
+                params["result_map"][field.name] = value
