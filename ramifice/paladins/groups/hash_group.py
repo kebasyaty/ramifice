@@ -22,9 +22,9 @@ class HashGroupMixin:
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
-        # Validation of the Mongodb identifier in a string form.
+        # Validation of the MongoDB identifier in a string form.
         if not field.is_valid(value):
-            err_msg = "Required field !"
+            err_msg = "Invalid MongoDB ID !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
