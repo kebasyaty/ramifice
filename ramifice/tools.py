@@ -57,48 +57,48 @@ def normal_email(email: str | bytes) -> str | None:
     return normal
 
 
-def is_email(value: str | bytes) -> bool:
+def is_email(email: str | bytes) -> bool:
     """Validate Email address."""
     flag = True
     try:
-        validate_email(value, check_deliverability=True)
+        validate_email(email, check_deliverability=True)
     except EmailNotValidError:
         flag = False
     return flag
 
 
-def is_url(value: str) -> bool:
+def is_url(url: str) -> bool:
     """Validate URL address."""
     flag = True
-    result = urlparse(value)
+    result = urlparse(url)
     if not result.scheme or not result.netloc:
         flag = False
     return flag
 
 
-def is_ip(value: str | int) -> bool:
+def is_ip(address: str | int) -> bool:
     """Validate IP address."""
     flag = True
     try:
-        ipaddress.ip_address(value)
+        ipaddress.ip_address(address)
     except ValueError:
         flag = False
     return flag
 
 
-def is_color(value: str) -> bool:
+def is_color(color_code: str) -> bool:
     """Validate Color code."""
     flag = True
-    if REGEX["color_code"].match(value) is None:
+    if REGEX["color_code"].match(color_code) is None:
         flag = False
     return flag
 
 
-def is_phone(value: str) -> bool:
+def is_phone(number: str) -> bool:
     """Validate Phone number."""
     flag = True
     try:
-        phone = phonenumbers.parse(value)
+        phone = phonenumbers.parse(number)
         if not phonenumbers.is_valid_number(phone):
             flag = False
     except phonenumbers.phonenumberutil.NumberParseException:
@@ -106,6 +106,6 @@ def is_phone(value: str) -> bool:
     return flag
 
 
-def is_mongo_id(value: Any) -> bool:
+def is_mongo_id(oid: Any) -> bool:
     """Validation of the Mongodb identifier."""
-    return ObjectId.is_valid(value)
+    return ObjectId.is_valid(oid)
