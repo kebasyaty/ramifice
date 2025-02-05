@@ -133,7 +133,7 @@ class TestTools(unittest.TestCase):
         self.assertTrue(is_phone("+447986123456"))
 
     def test_is_mongo_id(self):
-        """Testing a method `is_phone()`."""
+        """Testing a method `is_mongo_id()`."""
         self.assertFalse(is_mongo_id(None))
         self.assertFalse(is_mongo_id(""))
         self.assertFalse(is_mongo_id("nviy349ghugh"))
