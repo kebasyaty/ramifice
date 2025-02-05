@@ -57,5 +57,5 @@ class HashField(Field, TextGroup, JsonMixin):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validation of the Mongodb identifier in a string form."""
-        value = str(value or self.value)
+        value = value or self.value
         return ObjectId.is_valid(value)
