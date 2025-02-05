@@ -46,22 +46,22 @@ def datetime_parse(date_time: str) -> datetime:
     return dt
 
 
-def normal_email(email: str | bytes) -> str | None:
+def normal_email(email: str) -> str | None:
     """Normalizing email address."""
     normal: str | None = None
     try:
-        emailinfo = validate_email(email, check_deliverability=False)
+        emailinfo = validate_email(str(email), check_deliverability=False)
         normal = emailinfo.normalized
     except EmailNotValidError:
         pass
     return normal
 
 
-def is_email(email: str | bytes) -> bool:
+def is_email(email: str) -> bool:
     """Validate Email address."""
     flag = True
     try:
-        validate_email(email, check_deliverability=True)
+        validate_email(str(email), check_deliverability=True)
     except EmailNotValidError:
         flag = False
     return flag
@@ -70,7 +70,7 @@ def is_email(email: str | bytes) -> bool:
 def is_url(url: str) -> bool:
     """Validate URL address."""
     flag = True
-    result = urlparse(url)
+    result = urlparse(str(url))
     if not result.scheme or not result.netloc:
         flag = False
     return flag
@@ -80,7 +80,7 @@ def is_ip(address: str | int) -> bool:
     """Validate IP address."""
     flag = True
     try:
-        ipaddress.ip_address(address)
+        ipaddress.ip_address(str(address))
     except ValueError:
         flag = False
     return flag
@@ -89,7 +89,7 @@ def is_ip(address: str | int) -> bool:
 def is_color(color_code: str) -> bool:
     """Validate Color code."""
     flag = True
-    if REGEX["color_code"].match(color_code) is None:
+    if REGEX["color_code"].match(str(color_code)) is None:
         flag = False
     return flag
 
@@ -98,7 +98,7 @@ def is_phone(number: str) -> bool:
     """Validate Phone number."""
     flag = True
     try:
-        phone = phonenumbers.parse(number)
+        phone = phonenumbers.parse(str(number))
         if not phonenumbers.is_valid_number(phone):
             flag = False
     except phonenumbers.phonenumberutil.NumberParseException:
