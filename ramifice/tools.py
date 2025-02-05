@@ -1,6 +1,8 @@
 """A collection of auxiliary tools."""
 
 import ipaddress
+import math
+import os
 from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
@@ -44,6 +46,20 @@ def datetime_parse(date_time: str) -> datetime:
         "%Y-%m-%dT%H:%M:%S",
     )
     return dt
+
+
+def to_human_size(size: int) -> str:
+    """Convert number of bytes to readable format."""
+    idx = int(math.floor(math.log(size) / math.log(1024)))
+    size = size if size < 1024 else abs(round(size / pow(1024, idx), 2))
+    order = ["bytes", "KB", "MB", "GB", "TB"][idx]
+    return f"{size} {order}"
+
+
+def get_file_size(path: str) -> str:
+    """Get human readable version of file size."""
+    size = os.path.getsize(path)
+    return to_human_size(size)
 
 
 def normal_email(email: str) -> str | None:
