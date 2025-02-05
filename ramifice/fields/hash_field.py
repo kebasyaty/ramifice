@@ -54,3 +54,8 @@ class HashField(Field, TextGroup, JsonMixin):
         """Get ObjectId from parameter `value`."""
         value = self.value
         return ObjectId(value) if bool(value) else None
+
+    def is_valid(self, value: str | None = None) -> bool:
+        """Validation of the Mongodb identifier in a string form."""
+        oid = value or self.value
+        return ObjectId.is_valid(oid)

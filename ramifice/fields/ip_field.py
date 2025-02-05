@@ -70,9 +70,9 @@ class IPField(Field, TextGroup, JsonMixin):
     def is_valid(self, value: str | None = None) -> bool:
         """Validate IP address."""
         flag = True
-        value = str(value or self.value or self.default)
+        address = str(value or self.value or self.default)
         try:
-            ipaddress.ip_address(value)
+            ipaddress.ip_address(address)
         except ValueError:
             flag = False
         return flag

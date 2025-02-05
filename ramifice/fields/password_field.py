@@ -48,7 +48,7 @@ class PasswordField(Field, JsonMixin):
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Password."""
         flag = True
-        value = str(value or self.value)
-        if not REGEX["password"].match(value):
+        password = str(value or self.value)
+        if not REGEX["password"].match(password):
             flag = False
         return flag

@@ -2,9 +2,11 @@
 
 import ipaddress
 from datetime import datetime
+from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
+from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
 from .errors import InvalidDateError, InvalidDateTimeError
@@ -55,50 +57,55 @@ def normal_email(email: str) -> str | None:
     return normal
 
 
-def is_email(value: str) -> bool:
+def is_email(email: str) -> bool:
     """Validate Email address."""
     flag = True
     try:
-        validate_email(value, check_deliverability=True)
+        validate_email(str(email), check_deliverability=True)
     except EmailNotValidError:
         flag = False
     return flag
 
 
-def is_url(value: str) -> bool:
+def is_url(url: str) -> bool:
     """Validate URL address."""
     flag = True
-    result = urlparse(value)
+    result = urlparse(str(url))
     if not result.scheme or not result.netloc:
         flag = False
     return flag
 
 
-def is_ip(value: str) -> bool:
+def is_ip(address: str | int) -> bool:
     """Validate IP address."""
     flag = True
     try:
-        ipaddress.ip_address(value)
+        ipaddress.ip_address(str(address))
     except ValueError:
         flag = False
     return flag
 
 
-def is_color(value: str) -> bool:
+def is_color(color_code: str) -> bool:
     """Validate Color code."""
     flag = True
-    if REGEX["color_code"].match(value) is None:
+    if REGEX["color_code"].match(str(color_code)) is None:
         flag = False
     return flag
 
 
-def is_phone(value: str) -> bool:
+def is_phone(number: str) -> bool:
     """Validate Phone number."""
     flag = True
     try:
-        phone = phonenumbers.parse(value)
+        phone = phonenumbers.parse(str(number))
         if not phonenumbers.is_valid_number(phone):
             flag = False
     except phonenumbers.phonenumberutil.NumberParseException:
         flag = False
     return flag
+
+
+def is_mongo_id(oid: Any) -> bool:
+    """Validation of the Mongodb identifier."""
+    return ObjectId.is_valid(oid)

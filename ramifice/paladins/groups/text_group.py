@@ -42,7 +42,7 @@ class TextGroupMixin:
         if "Email" in field_type:
             try:
                 emailinfo = validate_email(
-                    value,
+                    str(value),
                     check_deliverability=self.__class__.META["is_migrat_model"],  # type: ignore[attr-defined]
                 )
                 value = emailinfo.normalized
