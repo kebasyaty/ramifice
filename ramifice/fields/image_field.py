@@ -153,6 +153,11 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.name = filename
             # Add image extension.
             i_data.extension = extension
+            # Transform extension to the upper register and delete the point.
+            ext_upper = extension[1:].upper()
+            if ext_upper == "JPG":
+                ext_upper = "JPEG"
+            i_data.ext_upper = ext_upper
             # Add path to target directory with images.
             i_data.imgs_dir_path = imgs_dir_path
             # Add url path to target directory with images.
@@ -210,6 +215,11 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.name = os.path.basename(src_path)
             # Add image extension.
             i_data.extension = extension
+            # Transform extension to the upper register and delete the point.
+            ext_upper = extension[1:].upper()
+            if ext_upper == "JPG":
+                ext_upper = "JPEG"
+            i_data.ext_upper = ext_upper
             # Add path to target directory with images.
             i_data.imgs_dir_path = imgs_dir_path
             # Add url path to target directory with images.

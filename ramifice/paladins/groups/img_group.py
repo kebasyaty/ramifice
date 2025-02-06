@@ -74,10 +74,8 @@ class ImgGroupMixin:
                 imgs_dir_url = value.imgs_dir_url
                 extension = value.extension
                 thumbnails = dict(sorted(thumbnails.items(), key=lambda item: item[1]))
-                # Transform extension to the upper register and delete the point.
-                ext_upper = extension[1:].upper()
-                if ext_upper == "JPG":
-                    ext_upper = "JPEG"
+                # Extension to the upper register and delete the point.
+                ext_upper = value.ext_upper
                 # Get image file.
                 with Image.open(path) as img:
                     for size_name, max_size in thumbnails.items():

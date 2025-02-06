@@ -71,6 +71,8 @@ class ImageData(JsonMixin):
         self.imgs_dir_path = ""
         self.imgs_dir_url = ""
         self.save_as_is = False
+        # Extension to the upper register and delete the point.
+        self.ext_upper = ""
 
     def __str__(self):
         name = self.name or None
