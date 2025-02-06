@@ -74,6 +74,10 @@ class ImgGroupMixin:
                 imgs_dir_url = value.imgs_dir_url
                 extension = value.extension
                 thumbnails = dict(sorted(thumbnails.items(), key=lambda item: item[1]))
+                # Transform extension to the upper register and delete the point.
+                ext_upper = extension[1:].upper()
+                if ext_upper == "JPG":
+                    ext_upper = "JPEG"
                 # Get image file.
                 with Image.open(path) as img:
                     for size_name, max_size in thumbnails.items():
@@ -82,16 +86,19 @@ class ImgGroupMixin:
                         if size_name == "lg":
                             value.path_lg = f"{imgs_dir_path}/lg{extension}"
                             value.url_lg = f"{imgs_dir_url}/lg{extension}"
-                            img.save(value.path_lg, "JPEG")
+                            img.save(value.path_lg, ext_upper)
                         elif size_name == "md":
                             value.path_md = f"{imgs_dir_path}/md{extension}"
                             value.url_md = f"{imgs_dir_url}/md{extension}"
+                            img.save(value.path_md, ext_upper)
                         elif size_name == "sm":
                             value.path_sm = f"{imgs_dir_path}/sm{extension}"
                             value.url_sm = f"{imgs_dir_url}/sm{extension}"
+                            img.save(value.path_sm, ext_upper)
                         elif size_name == "xs":
                             value.path_xs = f"{imgs_dir_path}/xs{extension}"
                             value.url_xs = f"{imgs_dir_url}/xs{extension}"
+                            img.save(value.path_xs, ext_upper)
         # Insert result.
         if params["is_save"]:
             if value.is_new_img or value.save_as_is:
