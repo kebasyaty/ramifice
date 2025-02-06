@@ -10,6 +10,7 @@ from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import FileJsonMixin
+from ..store import DEBUG
 from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -59,6 +60,29 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             accept=accept,
         )
         FileJsonMixin.__init__(self)
+
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+            if thumbnails is not None:
+                if not isinstance(thumbnails, dict):
+                    raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
+                if len(thumbnails) == 0:
+                    raise AssertionError(
+                        "The `thumbnails` parameter should not contain an empty dictionary!"
+                    )
+                size_name_list = ["xs", "sm", "md", "lg"]
+                for size_name in thumbnails.keys():
+                    if size_name not in size_name_list:
+                        raise AssertionError(
+                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!"
+                            + " Allowed names: xs, sm, md, lg."
+                        )
 
         self.value: ImageData | None = None
         # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
