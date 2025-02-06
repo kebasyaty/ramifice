@@ -83,27 +83,29 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.accept, "image/png,image/jpeg,image/webp")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
-        # Exception checking:
+        # # Exception checking:
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.img_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
-        #
-        # from_base64()
+
+        # # from_base64()
         # self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
         # self.assertEqual(f.value.name, "image_name.png")
         # self.assertEqual(f.value.size, 120)
         # self.assertTrue(f.value.is_new_img)
         # self.assertEqual(f.value.extension, ".png")
-        # self.assertFalse(f.value.delete)
+        # self.assertEqual(f.value.ext_upper, "PNG")
+        # self.assertFalse(f.value.is_delete)
         # self.assertFalse(f.value.save_as_is)
-        # from_path()
+        # # from_path()
         # self.assertIsNone(f.from_path("public/media/default/no_photo.jpeg"))
         # self.assertEqual(f.value.name, "no_photo.jpeg")
         # self.assertEqual(f.value.size, 3832)
         # self.assertTrue(f.value.is_new_img)
         # self.assertEqual(f.value.extension, ".jpeg")
-        # self.assertFalse(f.value.delete)
+        # self.assertEqual(f.value.ext_upper, "JPEG")
+        # self.assertFalse(f.value.is_delete)
         # self.assertFalse(f.value.save_as_is)
 
 

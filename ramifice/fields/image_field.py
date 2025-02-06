@@ -10,6 +10,7 @@ from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import FileJsonMixin
+from ..store import DEBUG
 from ..types import ImageData
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -35,6 +36,8 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         placeholder: str = "",
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
+        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        thumbnails: dict[str, int] | None = None,
     ):
         Field.__init__(
             self,
@@ -58,14 +61,38 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         )
         FileJsonMixin.__init__(self)
 
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+            if thumbnails is not None:
+                if not isinstance(thumbnails, dict):
+                    raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
+                if len(thumbnails) == 0:
+                    raise AssertionError(
+                        "The `thumbnails` parameter should not contain an empty dictionary!"
+                    )
+                size_name_list = ["xs", "sm", "md", "lg"]
+                for size_name in thumbnails.keys():
+                    if size_name not in size_name_list:
+                        raise AssertionError(
+                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!"
+                            + " Allowed names: xs, sm, md, lg."
+                        )
+
         self.value: ImageData | None = None
+        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        self.thumbnails = thumbnails
 
     def __str__(self):
-        title = str(None)
         value = self.value
         if value is not None:
-            title = str(value)
-        return title
+            value = value.name
+        return str(value)
 
     def from_base64(
         self,
@@ -126,6 +153,11 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.name = filename
             # Add image extension.
             i_data.extension = extension
+            # Transform extension to the upper register and delete the point.
+            ext_upper = extension[1:].upper()
+            if ext_upper == "JPG":
+                ext_upper = "JPEG"
+            i_data.ext_upper = ext_upper
             # Add path to target directory with images.
             i_data.imgs_dir_path = imgs_dir_path
             # Add url path to target directory with images.
@@ -183,6 +215,11 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             i_data.name = os.path.basename(src_path)
             # Add image extension.
             i_data.extension = extension
+            # Transform extension to the upper register and delete the point.
+            ext_upper = extension[1:].upper()
+            if ext_upper == "JPG":
+                ext_upper = "JPEG"
+            i_data.ext_upper = ext_upper
             # Add path to target directory with images.
             i_data.imgs_dir_path = imgs_dir_path
             # Add url path to target directory with images.

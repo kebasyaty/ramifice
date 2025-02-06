@@ -10,6 +10,7 @@ from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import FileJsonMixin
+from ..store import DEBUG
 from ..types import FileData
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -58,14 +59,22 @@ class FileField(Field, FileGroup, FileJsonMixin):
         )
         FileJsonMixin.__init__(self)
 
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+
         self.value: FileData | None = None
 
     def __str__(self):
-        title = str(None)
         value = self.value
         if value is not None:
-            title = str(value)
-        return title
+            value = value.name
+        return str(value)
 
     def from_base64(
         self,
