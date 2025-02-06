@@ -73,3 +73,19 @@ class ToolsMixin:
             ],
         }
         return await params["collection"].find_one(q_filter) is None
+
+    def calc_thumb_size(self, width: int, height: int, max_size: int) -> dict[str, int]:
+        """Calculate the maximum sizes for a thumbnail.
+        Output format: dict[width: int, height: int]"""
+        if width > height:
+            if width > max_size:
+                return {
+                    "width": max_size,
+                    "height": int(height * (max_size / width)),
+                }
+        elif height > max_size:
+            return {
+                "width": int((width * (max_size / height))),
+                "height": max_size,
+            }
+        return {"width": width, "height": height}
