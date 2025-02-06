@@ -81,6 +81,7 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(d.imgs_dir_path, "")
         self.assertEqual(d.imgs_dir_url, "")
         self.assertFalse(d.save_as_is)
+        self.assertEqual(d.ext_upper, "")
         d.path = "path/img.png"
         d.path_xs = "path/xs.png"
         d.path_sm = "path/sm.png"
@@ -101,6 +102,7 @@ class TestTypes(unittest.TestCase):
         d.imgs_dir_path = "path/0123456789abcdef"
         d.imgs_dir_url = "/path/0123456789abcdef"
         d.save_as_is = True
+        d.ext_upper = "PNG"
         self.assertEqual(d.path, "path/img.png")
         self.assertEqual(d.path_xs, "path/xs.png")
         self.assertEqual(d.path_sm, "path/sm.png")
@@ -121,3 +123,4 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(d.imgs_dir_path, "path/0123456789abcdef")
         self.assertEqual(d.imgs_dir_url, "/path/0123456789abcdef")
         self.assertTrue(d.save_as_is)
+        self.assertEqual(d.ext_upper, "PNG")
