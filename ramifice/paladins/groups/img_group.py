@@ -66,3 +66,7 @@ class ImgGroupMixin:
         # Create thumbnails.
         if value.is_new_img:
             thumbnails = field.thumbnails
+            if thumbnails is not None:
+                path = value.path
+                imgs_dir_path = value.imgs_dir_path
+                imgs_dir_url = value.imgs_dir_url
