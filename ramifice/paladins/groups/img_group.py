@@ -79,13 +79,17 @@ class ImgGroupMixin:
                 width, height = image.size
                 for size_name, max_size in thumbnails.items():
                     if size_name == "lg":
-                        pass
+                        value.path_lg = f"{imgs_dir_path}/lg{extension}"
+                        value.url_lg = f"{imgs_dir_url}/lg{extension}"
                     elif size_name == "md":
-                        pass
+                        value.path_md = f"{imgs_dir_path}/md{extension}"
+                        value.url_md = f"{imgs_dir_url}/md{extension}"
                     elif size_name == "sm":
-                        pass
+                        value.path_sm = f"{imgs_dir_path}/sm{extension}"
+                        value.url_sm = f"{imgs_dir_url}/sm{extension}"
                     elif size_name == "xs":
-                        pass
+                        value.path_xs = f"{imgs_dir_path}/xs{extension}"
+                        value.url_xs = f"{imgs_dir_url}/xs{extension}"
         # Insert result.
         if params["is_save"]:
             if value.is_new_img or value.save_as_is:
