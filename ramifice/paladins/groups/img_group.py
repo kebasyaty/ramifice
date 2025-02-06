@@ -5,6 +5,8 @@ Supported fields: ImageField
 import shutil
 from typing import Any
 
+from PIL import Image
+
 from ...tools import to_human_size
 
 
@@ -70,3 +72,24 @@ class ImgGroupMixin:
                 path = value.path
                 imgs_dir_path = value.imgs_dir_path
                 imgs_dir_url = value.imgs_dir_url
+                extension = value.extension
+                thumbnails = dict(sorted(thumbnails.items(), key=lambda item: item[1]))
+                # Get image file.
+                image = Image.open(path)
+                width, height = image.size
+                for size_name, max_size in thumbnails.items():
+                    if size_name == "lg":
+                        pass
+                    elif size_name == "md":
+                        pass
+                    elif size_name == "sm":
+                        pass
+                    elif size_name == "xs":
+                        pass
+        # Insert result.
+        if params["is_save"]:
+            if value.is_new_img or value.save_as_is:
+                value.is_new_img = False
+                value.is_delete = False
+                value.save_as_is = True
+                params["result_map"][field.name] = value
