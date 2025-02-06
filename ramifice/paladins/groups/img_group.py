@@ -75,21 +75,23 @@ class ImgGroupMixin:
                 extension = value.extension
                 thumbnails = dict(sorted(thumbnails.items(), key=lambda item: item[1]))
                 # Get image file.
-                image = Image.open(path)
-                width, height = image.size
-                for size_name, max_size in thumbnails.items():
-                    if size_name == "lg":
-                        value.path_lg = f"{imgs_dir_path}/lg{extension}"
-                        value.url_lg = f"{imgs_dir_url}/lg{extension}"
-                    elif size_name == "md":
-                        value.path_md = f"{imgs_dir_path}/md{extension}"
-                        value.url_md = f"{imgs_dir_url}/md{extension}"
-                    elif size_name == "sm":
-                        value.path_sm = f"{imgs_dir_path}/sm{extension}"
-                        value.url_sm = f"{imgs_dir_url}/sm{extension}"
-                    elif size_name == "xs":
-                        value.path_xs = f"{imgs_dir_path}/xs{extension}"
-                        value.url_xs = f"{imgs_dir_url}/xs{extension}"
+                with Image.open(path) as img:
+                    for size_name, max_size in thumbnails.items():
+                        size = max_size, max_size
+                        img.thumbnail(size)
+                        if size_name == "lg":
+                            value.path_lg = f"{imgs_dir_path}/lg{extension}"
+                            value.url_lg = f"{imgs_dir_url}/lg{extension}"
+                            img.save(value.path_lg, "JPEG")
+                        elif size_name == "md":
+                            value.path_md = f"{imgs_dir_path}/md{extension}"
+                            value.url_md = f"{imgs_dir_url}/md{extension}"
+                        elif size_name == "sm":
+                            value.path_sm = f"{imgs_dir_path}/sm{extension}"
+                            value.url_sm = f"{imgs_dir_url}/sm{extension}"
+                        elif size_name == "xs":
+                            value.path_xs = f"{imgs_dir_path}/xs{extension}"
+                            value.url_xs = f"{imgs_dir_url}/xs{extension}"
         # Insert result.
         if params["is_save"]:
             if value.is_new_img or value.save_as_is:
