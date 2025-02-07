@@ -36,7 +36,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         placeholder: str = "",
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
-        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ):
         Field.__init__(
@@ -86,7 +86,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                         )
 
         self.value: ImageData | None = None
-        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
 
     def __str__(self):
