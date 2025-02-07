@@ -76,12 +76,13 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                     raise AssertionError(
                         "The `thumbnails` parameter should not contain an empty dictionary!"
                     )
-                size_name_list = ["xs", "sm", "md", "lg"]
+                size_name_list = ["lg", "md", "sm", "xs"]
                 for size_name in thumbnails.keys():
                     if size_name not in size_name_list:
                         raise AssertionError(
-                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!"
-                            + " Allowed names: xs, sm, md, lg."
+                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!\n"
+                            + " Allowed names: lg, md, sm, xs.\n"
+                            + " Use all sizes is not necessary.",
                         )
 
         self.value: ImageData | None = None
