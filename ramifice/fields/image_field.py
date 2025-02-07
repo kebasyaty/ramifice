@@ -36,7 +36,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         placeholder: str = "",
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
-        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ):
         Field.__init__(
@@ -76,16 +76,17 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                     raise AssertionError(
                         "The `thumbnails` parameter should not contain an empty dictionary!"
                     )
-                size_name_list = ["xs", "sm", "md", "lg"]
+                size_name_list = ["lg", "md", "sm", "xs"]
                 for size_name in thumbnails.keys():
                     if size_name not in size_name_list:
                         raise AssertionError(
-                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!"
-                            + " Allowed names: xs, sm, md, lg."
+                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!\n"
+                            + " Allowed names: lg, md, sm, xs.\n"
+                            + " Use all sizes is not necessary.",
                         )
 
         self.value: ImageData | None = None
-        # Example: {"xs": 150, "sm": 300, "md": 600, "lg": 1200}
+        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
 
     def __str__(self):
