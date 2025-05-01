@@ -38,6 +38,10 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
         # Exception checking:
+        with self.assertRaises(AssertionError):
+            FileField(default=12)
+        with self.assertRaises(AssertionError):
+            FileField(default="")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.file_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
