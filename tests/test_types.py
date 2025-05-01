@@ -2,15 +2,15 @@
 
 import unittest
 
-from ramifice.types import FileData, ImageData, OutputData, Unit
+from ramifice.types import FileData, ImageData, ResultCheck, Unit
 
 
 class TestTypes(unittest.TestCase):
     """Testing the module `ramifice.types`."""
 
     def test_output_data(self):
-        """Testing a class `OutputData`."""
-        d = OutputData(data={"field_name": "value"}, is_valid=True, is_update=False)
+        """Testing a class `ResultCheck`."""
+        d = ResultCheck(data={"field_name": "value"}, is_valid=True, is_update=False)
         self.assertEqual(d.data, {"field_name": "value"})
         self.assertTrue(d.is_valid)
         self.assertFalse(d.is_update)

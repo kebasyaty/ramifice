@@ -5,7 +5,7 @@ from typing import Any
 from .mixins import JsonMixin
 
 
-class OutputData:
+class ResultCheck:
     """Output data type for the `ModelName.check()` method."""
 
     def __init__(self, data: dict[str, Any], is_valid: bool, is_update: bool):
