@@ -1,11 +1,13 @@
 """Validation of Model data before saving to the database."""
 
+import os
+import shutil
 from typing import Any
 
 from bson.objectid import ObjectId
 
 from .. import store
-from ..types import ResultCheck
+from ..types import FileData, ImageData, ResultCheck
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -46,7 +48,7 @@ class CheckMixin(
         is_update: bool = bool(doc_id)
         result_map: dict[str, Any] = {}
         # Create an identifier for a new document.
-        if is_update is False:
+        if not is_update:
             doc_id = ObjectId()
         if is_save:
             if not is_update:
@@ -100,6 +102,52 @@ class CheckMixin(
                 elif group == "pass":
                     self.pass_group(params)
 
+        # Actions in case of error.
+        if params["is_error_symptom"] and is_save:
+            # Reset the ObjectId for a new document.
+            if not is_update:
+                self.hash.value = None  # type: ignore[attr-defined]
+            # Delete orphaned files.
+            curr_doc: dict[str, Any] | None = (
+                await params["collection"].find_one({"_id": doc_id})
+                if is_update
+                else None
+            )
+            file_data: FileData | None = None
+            img_data: ImageData | None = None
+            json_dict: dict[str, Any] | None = None
+            for field_name, field_data in self.__dict__.items():
+                if callable(field_data) or field_data.ignored:
+                    continue
+                group = field_data.group
+                if group == "file":
+                    file_data = field_data.value
+                    if file_data is not None:
+                        if file_data.is_new_file:
+                            os.remove(file_data.path)
+                        field_data.value = None
+                        file_data = None
+                    if curr_doc is not None:
+                        json_dict = curr_doc[field_name]
+                        if json_dict is not None:
+                            field_data.value = FileData.from_dict(json_dict)
+                            json_dict = None
+                    else:
+                        field_data.value = None
+                elif group == "img":
+                    img_data = field_data.value
+                    if img_data is not None:
+                        if img_data.is_new_img:
+                            shutil.rmtree(img_data.imgs_dir_path)
+                        field_data.value = None
+                        img_data = None
+                    if curr_doc is not None:
+                        json_dict = curr_doc[field_name]
+                        if json_dict is not None:
+                            field_data.value = ImageData.from_dict(json_dict)
+                            json_dict = None
+                    else:
+                        field_data.value = None
         #
         #
         return ResultCheck(
