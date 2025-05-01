@@ -5,7 +5,7 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from .. import store
-from ..types import OutputData
+from ..types import ResultCheck
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -37,7 +37,7 @@ class CheckMixin(
     """Validation of Model data before saving to the database."""
 
     # pylint: disable=too-many-branches
-    async def check(self, is_save: bool = False) -> OutputData:
+    async def check(self, is_save: bool = False) -> ResultCheck:
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
@@ -102,7 +102,7 @@ class CheckMixin(
 
         #
         #
-        return OutputData(
+        return ResultCheck(
             data=result_map,
             is_valid=not params["is_error_symptom"],
             is_update=is_update,
