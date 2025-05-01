@@ -77,6 +77,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                         "The `thumbnails` parameter should not contain an empty dictionary!"
                     )
                 size_name_list = ["lg", "md", "sm", "xs"]
+                curr_size_thumb: int = 0
                 for size_name in thumbnails.keys():
                     if size_name not in size_name_list:
                         raise AssertionError(
@@ -84,6 +85,15 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                             + " Allowed names: lg, md, sm, xs.\n"
                             + " Use all sizes is not necessary.",
                         )
+                    max_size_thumb: int | None = thumbnails.get(size_name)
+                    if max_size_thumb is not None:
+                        if curr_size_thumb > 0 and max_size_thumb >= curr_size_thumb:
+                            raise AssertionError(
+                                "The `thumbnails` parameter -> "
+                                + f"The `{size_name}` key should be less than a previous size!"
+                                + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
+                            )
+                        curr_size_thumb = max_size_thumb
 
         self.value: ImageData | None = None
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
