@@ -83,7 +83,19 @@ class TestFileFields(unittest.TestCase):
         self.assertEqual(f.accept, "image/png,image/jpeg,image/webp")
         self.assertEqual(f.media_root, "public/media/uploads")
         self.assertEqual(f.media_url, "/media/uploads")
-        # # Exception checking:
+        # Exception checking:
+        with self.assertRaises(AssertionError):
+            ImageField(default=12)
+        with self.assertRaises(AssertionError):
+            ImageField(default="")
+        with self.assertRaises(AssertionError):
+            ImageField(thumbnails=[])
+        with self.assertRaises(AssertionError):
+            ImageField(thumbnails={})
+        with self.assertRaises(AssertionError):
+            ImageField(thumbnails={"bad_key": 120})
+        with self.assertRaises(AssertionError):
+            ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 301})
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.img_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
