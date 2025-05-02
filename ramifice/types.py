@@ -2,7 +2,6 @@
 
 from typing import Any
 
-from .commons import ToolsMixin as CommonToolsMixin
 from .mixins import JsonMixin
 
 
@@ -28,7 +27,7 @@ class Unit(JsonMixin):
         self.is_delete = is_delete
 
 
-class FileData(JsonMixin, CommonToolsMixin):
+class FileData(JsonMixin):
     """Data type for `FileField.value`."""
 
     def __init__(self):
@@ -46,8 +45,16 @@ class FileData(JsonMixin, CommonToolsMixin):
         name = self.name or None
         return str(name)
 
+    @classmethod
+    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+        """Convert Mongo document to a object instance."""
+        obj = cls()
+        for name, data in mongo_doc.items():
+            obj.__dict__[name] = data
+        return obj
 
-class ImageData(JsonMixin, CommonToolsMixin):
+
+class ImageData(JsonMixin):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
@@ -78,3 +85,11 @@ class ImageData(JsonMixin, CommonToolsMixin):
     def __str__(self):
         name = self.name or None
         return str(name)
+
+    @classmethod
+    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+        """Convert Mongo document to a object instance."""
+        obj = cls()
+        for name, data in mongo_doc.items():
+            obj.__dict__[name] = data
+        return obj
