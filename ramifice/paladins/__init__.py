@@ -4,7 +4,7 @@ from .check import CheckMixin
 from .tools import ToolsMixin
 
 
-class Paladins(CheckMixin, ToolsMixin):
+class Paladins(ToolsMixin, CheckMixin):
     """Paladins - Model instance methods."""
 
     def __init__(self):

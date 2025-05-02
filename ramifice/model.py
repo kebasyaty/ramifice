@@ -5,13 +5,14 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
+from .commons import Commons
 from .extra import Extra
 from .fields import DateTimeField, FileField, HashField, ImageField
 from .paladins import Paladins
 from .types import FileData, ImageData
 
 
-class Model(Extra, Paladins):
+class Model(Paladins, Commons, Extra):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
