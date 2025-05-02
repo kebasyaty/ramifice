@@ -113,7 +113,7 @@ class CheckMixin(
             )
             file_data: FileData | None = None
             img_data: ImageData | None = None
-            json_dict: dict[str, Any] | None = None
+            mongo_doc: dict[str, Any] | None = None
             for field_name, field_data in self.__dict__.items():
                 if callable(field_data) or field_data.ignored:
                     continue
@@ -126,10 +126,10 @@ class CheckMixin(
                         field_data.value = None
                         file_data = None
                     if curr_doc is not None:
-                        json_dict = curr_doc[field_name]
-                        if json_dict is not None:
-                            field_data.value = FileData.from_dict(json_dict)
-                            json_dict = None
+                        mongo_doc = curr_doc[field_name]
+                        if mongo_doc is not None:
+                            field_data.value = FileData.from_doc(mongo_doc)
+                            mongo_doc = None
                     else:
                         field_data.value = None
                 elif group == "img":
@@ -140,10 +140,10 @@ class CheckMixin(
                         field_data.value = None
                         img_data = None
                     if curr_doc is not None:
-                        json_dict = curr_doc[field_name]
-                        if json_dict is not None:
-                            field_data.value = ImageData.from_dict(json_dict)
-                            json_dict = None
+                        mongo_doc = curr_doc[field_name]
+                        if mongo_doc is not None:
+                            field_data.value = ImageData.from_doc(mongo_doc)
+                            mongo_doc = None
                     else:
                         field_data.value = None
         #

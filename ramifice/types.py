@@ -2,6 +2,7 @@
 
 from typing import Any
 
+from .commons import ToolsMixin as CommonToolsMixin
 from .mixins import JsonMixin
 
 
@@ -27,7 +28,7 @@ class Unit(JsonMixin):
         self.is_delete = is_delete
 
 
-class FileData(JsonMixin):
+class FileData(JsonMixin, CommonToolsMixin):
     """Data type for `FileField.value`."""
 
     def __init__(self):
@@ -46,7 +47,7 @@ class FileData(JsonMixin):
         return str(name)
 
 
-class ImageData(JsonMixin):
+class ImageData(JsonMixin, CommonToolsMixin):
     """Data type for `ImageField.value`."""
 
     def __init__(self):
