@@ -1,4 +1,4 @@
-"""Paladins - Model instance methods."""
+"""Groups - Model instance methods for specific processing of fields."""
 
 from .bool_group import BoolGroupMixin
 from .choice_group import ChoiceGroupMixin

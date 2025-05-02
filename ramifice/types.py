@@ -45,6 +45,14 @@ class FileData(JsonMixin):
         name = self.name or None
         return str(name)
 
+    @classmethod
+    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+        """Convert Mongo document to a object instance."""
+        obj = cls()
+        for name, data in mongo_doc.items():
+            obj.__dict__[name] = data
+        return obj
+
 
 class ImageData(JsonMixin):
     """Data type for `ImageField.value`."""
@@ -77,3 +85,11 @@ class ImageData(JsonMixin):
     def __str__(self):
         name = self.name or None
         return str(name)
+
+    @classmethod
+    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+        """Convert Mongo document to a object instance."""
+        obj = cls()
+        for name, data in mongo_doc.items():
+            obj.__dict__[name] = data
+        return obj
