@@ -99,6 +99,8 @@ class TestFileFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             ImageField(thumbnails={"bad_key": 120})
         with self.assertRaises(AssertionError):
+            ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 300})
+        with self.assertRaises(AssertionError):
             ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 301})
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.img_base64_str, "file_name")
