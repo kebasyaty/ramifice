@@ -57,6 +57,26 @@ class TestTypes(unittest.TestCase):
         self.assertTrue(d.is_delete)
         self.assertEqual(d.extension, ".txt")
         self.assertTrue(d.save_as_is)
+        # test from_doc method
+        mongo_doc = {
+            "path": "path/file.txt",
+            "url": "/path/file.txt",
+            "name": "file.txt",
+            "size": 512,
+            "is_new_file": False,
+            "is_delete": False,
+            "extension": ".txt",
+            "save_as_is": True,
+        }
+        d = FileData.from_doc(mongo_doc)
+        self.assertEqual(d.path, "path/file.txt")
+        self.assertEqual(d.url, "/path/file.txt")
+        self.assertEqual(d.name, "file.txt")
+        self.assertEqual(d.size, 512)
+        self.assertFalse(d.is_new_file)
+        self.assertFalse(d.is_delete)
+        self.assertEqual(d.extension, ".txt")
+        self.assertTrue(d.save_as_is)
 
     def test_image_data(self):
         """Testing a class `ImageData`."""
