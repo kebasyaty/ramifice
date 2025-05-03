@@ -80,18 +80,20 @@ class ToolsMixin:
         for name, data in mongo_doc.items():
             if data is None:
                 continue
+            if name == "_id":
+                self.__dict__["hash"].value = str(data)
+                continue
             field = self.__dict__[name]
             if field.group != "pass":
-                if name != "_id":
-                    if field.group == "date":
-                        if field.input_type == "date":
-                            data = data.strftime("%Y-%m-%d")
-                        else:
-                            data = data.strftime("%Y-%m-%dT%H:%M:%S")
-                    elif field.group == "file":
-                        data = FileData.from_doc(data)
-                    elif field.group == "img":
-                        data = ImageData.from_doc(data)
-                else:
-                    data = str(data)
+                if field.group == "date":
+                    if field.input_type == "date":
+                        data = data.strftime("%Y-%m-%d")
+                    else:
+                        data = data.strftime("%Y-%m-%dT%H:%M:%S")
+                elif field.group == "file":
+                    data = FileData.from_doc(data)
+                elif field.group == "img":
+                    data = ImageData.from_doc(data)
                 field.value = data
+            else:
+                field.value = None
