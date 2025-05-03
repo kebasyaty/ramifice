@@ -54,7 +54,27 @@ class SaveMixin:
             # Refresh Model.
             self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
         else:
-            pass
+            # Create doc.
+            today = datetime.now()
+            checked_data["created_at"] = today
+            checked_data["updated_at"] = today
+            # Run hook.
+            self.pre_create()  # type: ignore[index, attr-defined]
+            # Insert doc.
+            collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+            # Run hook.
+            self.post_create()  # type: ignore[index, attr-defined]
+            #
+            mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
+            if mongo_doc is not None:
+                self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            else:
+                msg = (
+                    f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                    + "Method: `save` => "
+                    + "The document was not created."
+                )
+                raise PanicError(msg)
         #
         # If everything is completed successfully.
         return True
