@@ -75,8 +75,8 @@ class ToolsMixin:
         }
         return await params["collection"].find_one(q_filter) is None
 
-    def from_doc(self, mongo_doc: dict[str, Any]):
-        """Convert Mongo document to a object instance."""
+    def update_from_doc(self, mongo_doc: dict[str, Any]):
+        """Update object instance from Mongo document."""
         for name, data in mongo_doc.items():
             if data is None:
                 continue
