@@ -8,7 +8,7 @@ from ramifice.types import FileData, ImageData, ResultCheck, Unit
 class TestTypes(unittest.TestCase):
     """Testing the module `ramifice.types`."""
 
-    def test_output_data(self):
+    def test_result_check(self):
         """Testing a class `ResultCheck`."""
         d = ResultCheck(data={"field_name": "value"}, is_valid=True, is_update=False)
         self.assertEqual(d.data, {"field_name": "value"})
@@ -55,6 +55,26 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(d.size, 512)
         self.assertTrue(d.is_new_file)
         self.assertTrue(d.is_delete)
+        self.assertEqual(d.extension, ".txt")
+        self.assertTrue(d.save_as_is)
+        # test from_doc method
+        mongo_doc = {
+            "path": "path/file.txt",
+            "url": "/path/file.txt",
+            "name": "file.txt",
+            "size": 512,
+            "is_new_file": False,
+            "is_delete": False,
+            "extension": ".txt",
+            "save_as_is": True,
+        }
+        d = FileData.from_doc(mongo_doc)
+        self.assertEqual(d.path, "path/file.txt")
+        self.assertEqual(d.url, "/path/file.txt")
+        self.assertEqual(d.name, "file.txt")
+        self.assertEqual(d.size, 512)
+        self.assertFalse(d.is_new_file)
+        self.assertFalse(d.is_delete)
         self.assertEqual(d.extension, ".txt")
         self.assertTrue(d.save_as_is)
 
@@ -119,6 +139,52 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(d.size, 512)
         self.assertTrue(d.is_new_img)
         self.assertTrue(d.is_delete)
+        self.assertEqual(d.extension, ".png")
+        self.assertEqual(d.imgs_dir_path, "path/0123456789abcdef")
+        self.assertEqual(d.imgs_dir_url, "/path/0123456789abcdef")
+        self.assertTrue(d.save_as_is)
+        self.assertEqual(d.ext_upper, "PNG")
+        # test from_doc method
+        mongo_doc = {
+            "path": "path/img.png",
+            "path_xs": "path/xs.png",
+            "path_sm": "path/sm.png",
+            "path_md": "path/md.png",
+            "path_lg": "path/lg.png",
+            "url": "/path/img.png",
+            "url_xs": "/path/xs.png",
+            "url_sm": "/path/sm.png",
+            "url_md": "/path/md.png",
+            "url_lg": "/path/lg.png",
+            "name": "img.png",
+            "width": 512,
+            "height": 512,
+            "size": 512,
+            "is_new_img": False,
+            "is_delete": False,
+            "extension": ".png",
+            "imgs_dir_path": "path/0123456789abcdef",
+            "imgs_dir_url": "/path/0123456789abcdef",
+            "save_as_is": True,
+            "ext_upper": "PNG",
+        }
+        d = ImageData.from_doc(mongo_doc)
+        self.assertEqual(d.path, "path/img.png")
+        self.assertEqual(d.path_xs, "path/xs.png")
+        self.assertEqual(d.path_sm, "path/sm.png")
+        self.assertEqual(d.path_md, "path/md.png")
+        self.assertEqual(d.path_lg, "path/lg.png")
+        self.assertEqual(d.url, "/path/img.png")
+        self.assertEqual(d.url_xs, "/path/xs.png")
+        self.assertEqual(d.url_sm, "/path/sm.png")
+        self.assertEqual(d.url_md, "/path/md.png")
+        self.assertEqual(d.url_lg, "/path/lg.png")
+        self.assertEqual(d.name, "img.png")
+        self.assertEqual(d.width, 512)
+        self.assertEqual(d.height, 512)
+        self.assertEqual(d.size, 512)
+        self.assertFalse(d.is_new_img)
+        self.assertFalse(d.is_delete)
         self.assertEqual(d.extension, ".png")
         self.assertEqual(d.imgs_dir_path, "path/0123456789abcdef")
         self.assertEqual(d.imgs_dir_url, "/path/0123456789abcdef")
