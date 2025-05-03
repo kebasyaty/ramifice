@@ -71,7 +71,7 @@ class Monitor:
     def new_fields(
         self, metadata: dict[str, Any], model_state: dict[str, Any]
     ) -> list[str]:
-        """???"""
+        """Get a list of new fields that were added to Model."""
         new_fields: list[str] = []
         for field_name, field_type in metadata["field_name_and_type_list"].items():
             old_field_type: str | None = model_state["field_name_and_type_list"].get(
