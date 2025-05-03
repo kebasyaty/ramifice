@@ -8,7 +8,7 @@ from ramifice.types import FileData, ImageData, ResultCheck, Unit
 class TestTypes(unittest.TestCase):
     """Testing the module `ramifice.types`."""
 
-    def test_output_data(self):
+    def test_result_check(self):
         """Testing a class `ResultCheck`."""
         d = ResultCheck(data={"field_name": "value"}, is_valid=True, is_update=False)
         self.assertEqual(d.data, {"field_name": "value"})
