@@ -147,4 +147,4 @@ class Monitor:
                             else:
                                 mongo_doc[field_name] = None
                     #
-                    model = model_class.from_doc(mongo_doc)
+                    model_instance = model_class.from_doc(mongo_doc)
