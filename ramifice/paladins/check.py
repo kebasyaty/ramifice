@@ -5,6 +5,7 @@ import shutil
 from typing import Any
 
 from bson.objectid import ObjectId
+from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..types import FileData, ImageData, ResultCheck
@@ -37,7 +38,9 @@ class CheckMixin(
     """Validation of Model data before saving to the database."""
 
     # pylint: disable=too-many-branches
-    async def check(self, is_save: bool = False) -> ResultCheck:
+    async def check(
+        self, is_save: bool = False, collection: AsyncCollection | None = None
+    ) -> ResultCheck:
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
@@ -61,7 +64,7 @@ class CheckMixin(
             "is_update": is_update,  # Does the document exist in the database?
             "is_error_symptom": False,  # Is there any incorrect data?
             "result_map": {},  # Data to save or update to the database.
-            "collection": store.MONGO_DATABASE[self.__class__.META["collection_name"]],  # type: ignore[index, attr-defined]
+            "collection": collection or store.MONGO_DATABASE[self.__class__.META["collection_name"]],  # type: ignore[index, attr-defined]
             "field_data": None,
         }
         #

@@ -2,6 +2,8 @@
 
 from datetime import datetime
 
+from pymongo.asynchronous.collection import AsyncCollection
+
 from .. import store
 from ..errors import PanicError
 
@@ -21,9 +23,9 @@ class SaveMixin:
             )
             raise PanicError(msg)
         # Get collection.
-        collection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
+        collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Check and get ResultCheck.
-        result_check = self.check(is_save=True)  # type: ignore[attr-defined]
+        result_check = self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # Reset the alerts to exclude duplicates.
         self.hash.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
@@ -62,7 +64,7 @@ class SaveMixin:
             # Run hook.
             self.pre_create()  # type: ignore[index, attr-defined]
             # Insert doc.
-            collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+            await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
             # Run hook.
             self.post_create()  # type: ignore[index, attr-defined]
             # Refresh Model.
