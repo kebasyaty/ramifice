@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.paladins.check`."""
+"""Testing module `ramifice.paladins.check`."""
 
 import unittest
 
