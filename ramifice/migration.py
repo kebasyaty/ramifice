@@ -193,3 +193,10 @@ class Monitor:
                 filter={"collection_name": model_state["collection_name"]},
                 replacement=model_state,
             )
+
+        # Delete data for non-existent Models from a
+        # super collection and delete collections associated with those Models.
+        await self.napalm()
+        # Run indexing and apply fixture to current Model.
+        for model_class in self.model_list:
+            pass
