@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import Any
 
 from pymongo import AsyncMongoClient
+from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
 from . import store
@@ -42,17 +43,17 @@ class Monitor:
         Switch the `is_model_exist` parameter in the condition `False`.
         """
         # Get access to super collection.
-        super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
             update = {"$set": {"is_model_exist": False}}
-            super_collection.update_one(q_filter, update)
+            await super_collection.update_one(q_filter, update)
 
     async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
-        super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Get state of current Model.
         model_state = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
@@ -90,7 +91,7 @@ class Monitor:
         # Get access to database.
         database = store.MONGO_DATABASE
         # Get access to super collection.
-        super_collection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:
@@ -113,7 +114,7 @@ class Monitor:
         # Get access to database.
         database = store.MONGO_DATABASE
         # Get access to super collection.
-        super_collection = database[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = database[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         #
         for model_class in self.model_list:
             # Get metadata of current Model.
@@ -129,7 +130,7 @@ class Monitor:
                 # Get a list of new fields.
                 new_fields: list[str] = self.new_fields(metadata, model_state)
                 # Get collection for current Model.
-                model_collection = database[model_state["collection_name"]]  # type: ignore[index]
+                model_collection: AsyncCollection = database[model_state["collection_name"]]  # type: ignore[index]
                 # Add new fields with default value or
                 # update existing fields whose field type has changed.
                 async for mongo_doc in model_collection.find():
@@ -172,7 +173,7 @@ class Monitor:
                     # Update date and time.
                     checked_data["updated_at"] = datetime.now()
                     # Update the document in the database.
-                    model_collection.replace_one(
+                    await model_collection.replace_one(
                         filter={"_id": checked_data["_id"]}, replacement=checked_data
                     )
             #
@@ -189,14 +190,27 @@ class Monitor:
                 "field_name_and_type_list"
             ]
             # Refresh state of current Model.
-            super_collection.replace_one(
+            await super_collection.replace_one(
                 filter={"collection_name": model_state["collection_name"]},
                 replacement=model_state,
             )
-
+        #
         # Delete data for non-existent Models from a
         # super collection and delete collections associated with those Models.
         await self.napalm()
         # Run indexing and apply fixture to current Model.
         for model_class in self.model_list:
-            pass
+            # Run indexing.
+            model_class.indexing()
+            # Apply fixture to current Model.
+            fixture_name: str | None = model_class.META["fixture_name"]
+            if fixture_name is not None:
+                collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index, attr-defined]
+                    model_class.META["collection_name"]
+                ]
+                if collection.estimated_document_count() == 0:
+                    model_instance = model_class()
+                    await model_instance.apply_fixture(
+                        fixture_name=fixture_name,
+                        collection=collection,
+                    )
