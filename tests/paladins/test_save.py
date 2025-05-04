@@ -76,13 +76,13 @@ class User(Model):
 
 
 class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing module `ramifice.paladins.check`."""
+    """Testing module `ramifice.paladins.save`."""
 
     async def test_check(self):
-        """Testing method `check`."""
+        """Testing method `save`."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
-        unique_key = "46JP99c338j47gR0"
+        unique_key = "6n0O1c1iO630ItaX"
         # Maximum number of characters 60
         database_name = f"test_{unique_key}"
 
