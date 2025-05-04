@@ -101,7 +101,7 @@ class TestPaladinsSave(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        self.assertTrue(await m.is_valid())
+        self.assertTrue(await m.is_valid())  # self.assertTrue(await m.save())
         # if not await m.is_valid():
         #     m.print_err()
         # else:
