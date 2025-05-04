@@ -173,11 +173,23 @@ class Monitor:
                     checked_data["updated_at"] = datetime.now()
                     # Update the document in the database.
                     model_collection.replace_one(
-                        {"_id": checked_data["_id"]}, checked_data
+                        filter={"_id": checked_data["_id"]}, replacement=checked_data
                     )
             #
             # Refresh the dynamic fields data for the current model.
+            meta_dyn_field_list: list[str] = metadata["data_dynamic_fields"].keys()
             for field_name, field_data in model_state["data_dynamic_fields"].items():
                 field_type = metadata["field_name_and_type_list"].get(field_name)
-                if field_type is not None:
-                    pass
+                if field_type is not None and field_name in meta_dyn_field_list:
+                    model_state["field_name_and_type_list"][field_name] = field_type
+                    metadata["data_dynamic_fields"][field_name] = field_data
+            #
+            model_state["data_dynamic_field"] = metadata["data_dynamic_fields"]
+            model_state["field_name_and_type_list"] = metadata[
+                "field_name_and_type_list"
+            ]
+            # Refresh state of current Model.
+            super_collection.replace_one(
+                filter={"collection_name": model_state["collection_name"]},
+                replacement=model_state,
+            )
