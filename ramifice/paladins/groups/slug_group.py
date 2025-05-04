@@ -16,6 +16,8 @@ class SlugGroupMixin:
 
     def slug_group(self, params: dict[str, Any]) -> None:
         """Checking slug fields."""
+        if not params["is_save"]:
+            return
         field = params["field_data"]
         raw_str_list: list[str] = []
         slug_sources = field.slug_sources
@@ -24,9 +26,9 @@ class SlugGroupMixin:
             if callable(field_data):
                 continue
             if field_name in slug_sources:
-                value = field.value
+                value = field_data.value
                 if value is None:
-                    value = field.default
+                    value = field_data.__dict__.get("default")
                 if value is not None:
                     raw_str_list.append(value)
                 else:
