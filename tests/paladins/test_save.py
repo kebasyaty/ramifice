@@ -76,10 +76,10 @@ class User(Model):
 
 
 class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing the module `ramifice.paladins.check`."""
+    """Testing module `ramifice.paladins.check`."""
 
     async def test_check(self):
-        """Testing the method `check`."""
+        """Testing method `check`."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
         unique_key = "46JP99c338j47gR0"
