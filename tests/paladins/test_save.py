@@ -1,4 +1,4 @@
-"""Testing module `ramifice.paladins.check`."""
+"""Testing module `ramifice.paladins.save`."""
 
 import unittest
 
@@ -75,14 +75,14 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing module `ramifice.paladins.check`."""
+class TestPaladinsSave(unittest.IsolatedAsyncioTestCase):
+    """Testing module `ramifice.paladins.save`."""
 
-    async def test_check(self):
-        """Testing method `check`."""
+    async def test_save(self):
+        """Testing method `save`."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
-        unique_key = "46JP99c338j47gR0"
+        unique_key = "6n0O1c1iO630ItaX"
         # Maximum number of characters 60
         database_name = f"test_{unique_key}"
 
@@ -101,8 +101,8 @@ class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        # self.assertTrue(await m.is_valid())
-        if not await m.is_valid():
+        # self.assertTrue(await m.save())
+        if not await m.save():
             m.print_err()
         # ----------------------------------------------------------------------
         #

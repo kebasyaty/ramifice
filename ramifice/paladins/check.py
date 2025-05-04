@@ -57,14 +57,17 @@ class CheckMixin(
             result_map["_id"] = doc_id
         # Errors from additional validation of fields.
         error_map: dict[str, str] = self.add_validation() or {}  # type: ignore[attr-defined]
-        #
+        # Get Model collection.
+        if collection is None:
+            collection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,
             "is_save": is_save,
             "is_update": is_update,  # Does the document exist in the database?
             "is_error_symptom": False,  # Is there any incorrect data?
             "result_map": {},  # Data to save or update to the database.
-            "collection": collection or store.MONGO_DATABASE[self.__class__.META["collection_name"]],  # type: ignore[index, attr-defined]
+            "collection": collection,
             "field_data": None,
         }
         #
@@ -110,9 +113,7 @@ class CheckMixin(
                 self.hash.value = None  # type: ignore[attr-defined]
             # Delete orphaned files.
             curr_doc: dict[str, Any] | None = (
-                await params["collection"].find_one({"_id": doc_id})
-                if is_update
-                else None
+                await collection.find_one({"_id": doc_id}) if is_update else None
             )
             file_data: FileData | None = None
             img_data: ImageData | None = None

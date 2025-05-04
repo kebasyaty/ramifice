@@ -29,7 +29,7 @@ class TextGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Validation the `maxlength` field attribute.
-        maxlength = field.maxlength
+        maxlength = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
             err_msg = f"The length of the string exceeds maxlength={maxlength} !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
