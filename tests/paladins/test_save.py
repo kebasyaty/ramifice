@@ -102,7 +102,7 @@ class TestPaladinsSave(unittest.IsolatedAsyncioTestCase):
         # ----------------------------------------------------------------------
         m = User()
         self.assertTrue(await m.is_valid())  # self.assertTrue(await m.save())
-        # if not await m.is_valid():
+        # if not await m.save():
         #     m.print_err()
         # else:
         #     print("!!!>>OK<<!!!")
