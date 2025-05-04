@@ -7,11 +7,12 @@ your database schema.
 from typing import Any
 
 from pymongo import AsyncMongoClient
+from termcolor import colored
 
 from . import store
-from .errors import DoesNotMatchRegexError, NoModelsForMigrationError
+from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
-from .types import FileData, ImageData
+from .types import FileData, ImageData, ResultCheck
 
 
 class Monitor:
@@ -148,3 +149,10 @@ class Monitor:
                                 mongo_doc[field_name] = None
                     #
                     model_instance = model_class.from_doc(mongo_doc)
+                    result_check: ResultCheck = await model_instance.check(
+                        is_save=True, collection=model_collection
+                    )
+                    if not result_check.is_valid:
+                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
+                        model_instance.print_err()
+                        raise PanicError("")

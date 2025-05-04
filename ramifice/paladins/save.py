@@ -6,6 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
+from ..types import ResultCheck
 
 
 class SaveMixin:
@@ -25,7 +26,7 @@ class SaveMixin:
         # Get collection.
         collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Check and get ResultCheck.
-        result_check = self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+        result_check: ResultCheck = self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # Reset the alerts to exclude duplicates.
         self.hash.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
