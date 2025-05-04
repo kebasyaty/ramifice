@@ -18,6 +18,7 @@ class SlugGroupMixin:
         """Checking slug fields."""
         if not params["is_save"]:
             return
+        #
         field = params["field_data"]
         raw_str_list: list[str] = []
         slug_sources = field.slug_sources
