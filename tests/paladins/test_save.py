@@ -98,6 +98,9 @@ class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrat()
 
+        m = User()
+        self.assertTrue(await m.is_valid())
+
         # m = User()
         # if not await m.is_valid():
         #     m.print_err()
