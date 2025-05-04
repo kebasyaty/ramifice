@@ -4,6 +4,7 @@ your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
 """
 
+from datetime import datetime
 from typing import Any
 
 from pymongo import AsyncMongoClient
@@ -166,3 +167,4 @@ class Monitor:
                             == "PasswordField"
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
+                            checked_data["updated_at"] = datetime.now()
