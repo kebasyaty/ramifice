@@ -78,7 +78,7 @@ class User(Model):
 class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
     """Testing module `ramifice.paladins.save`."""
 
-    async def test_check(self):
+    async def test_save(self):
         """Testing method `save`."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
