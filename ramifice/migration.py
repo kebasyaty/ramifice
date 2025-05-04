@@ -130,7 +130,7 @@ class Monitor:
                 model_collection = database[model_state["collection_name"]]  # type: ignore[index]
                 # Add new fields with default value or
                 # update existing fields whose field type has changed.
-                async for doc in model_collection.find():
+                async for mongo_doc in model_collection.find():
                     for field_name in new_fields:
                         field_type: str | None = metadata[
                             "field_name_and_type_list"
@@ -139,13 +139,12 @@ class Monitor:
                             if field_type == "FileField":
                                 file = FileData()
                                 file.is_delete = True
-                                doc[field_name] = file.to_dict()
+                                mongo_doc[field_name] = file.to_dict()
                             elif field_type == "ImageField":
                                 img = ImageData()
                                 img.is_delete = True
-                                doc[field_name] = img.to_dict()
+                                mongo_doc[field_name] = img.to_dict()
                             else:
-                                doc[field_name] = None
+                                mongo_doc[field_name] = None
                     #
-                    fresh_model = model_class()
-                    fresh_model = model_class.refrash_fields(doc)
+                    model = model_class.from_doc(mongo_doc)
