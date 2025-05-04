@@ -54,7 +54,7 @@ class User(Model):
         self.img = ImageField()
         self.hash2 = HashField()
         self.file = FileField()
-        self.email = EmailField(required=True)
+        self.email = EmailField()
         self.date_time = DateTimeField()
         self.date = DateField()
         self.color = ColorField()
@@ -100,12 +100,10 @@ class TestPaladinsSave(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        # m = User()
-        # self.assertTrue(await m.is_valid())  # self.assertTrue(await m.save())
-        # if not await m.save():
-        #     m.print_err()
-        # else:
-        #     print("!!!>>OK<<!!!")
+        m = User()
+        # self.assertTrue(await m.save())
+        if not await m.save():
+            m.print_err()
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
