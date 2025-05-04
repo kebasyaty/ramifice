@@ -155,4 +155,14 @@ class Monitor:
                     if not result_check.is_valid:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         model_instance.print_err()
-                        raise PanicError("")
+                        raise PanicError("Migration failed.")
+                    checked_data = result_check.data
+                    for field_name, field_type in metadata[
+                        "field_name_and_type_list"
+                    ].items():
+                        if (
+                            field_type == "PasswordField"
+                            and model_state["field_name_and_type_list"].get(field_name)
+                            == "PasswordField"
+                        ):
+                            checked_data[field_name] = mongo_doc[field_name]
