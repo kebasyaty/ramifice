@@ -134,9 +134,9 @@ class Monitor:
                 # update existing fields whose field type has changed.
                 async for mongo_doc in model_collection.find():
                     for field_name in new_fields:
-                        field_type: str | None = metadata[
-                            "field_name_and_type_list"
-                        ].get(field_name)
+                        field_type = metadata["field_name_and_type_list"].get(
+                            field_name
+                        )
                         if field_type is not None:
                             if field_type == "FileField":
                                 file = FileData()
@@ -157,7 +157,9 @@ class Monitor:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         model_instance.print_err()
                         raise PanicError("Migration failed.")
+                    # Get checked data.
                     checked_data = result_check.data
+                    # Add password from mongo_doc to checked_data.
                     for field_name, field_type in metadata[
                         "field_name_and_type_list"
                     ].items():
@@ -167,4 +169,15 @@ class Monitor:
                             == "PasswordField"
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
-                            checked_data["updated_at"] = datetime.now()
+                    # Update date and time.
+                    checked_data["updated_at"] = datetime.now()
+                    # Update the document in the database.
+                    model_collection.replace_one(
+                        {"_id": checked_data["_id"]}, checked_data
+                    )
+            #
+            # Refresh the dynamic fields data for the current model.
+            for field_name, field_data in model_state["data_dynamic_fields"].items():
+                field_type = metadata["field_name_and_type_list"].get(field_name)
+                if field_type is not None:
+                    pass
