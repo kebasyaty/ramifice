@@ -104,6 +104,7 @@ class TestPaladinsSave(unittest.IsolatedAsyncioTestCase):
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
+        self.assertEqual(await m.__class__.estimated_document_count(), 1)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
