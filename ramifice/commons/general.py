@@ -5,6 +5,7 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
+from pymongo.results import BulkWriteResult
 
 from .. import store
 from ..tools import model_is_migrated
@@ -101,3 +102,30 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document count.
         return collection.database
+
+    @classmethod
+    async def bulk_write(
+        cls,
+        requests,
+        ordered=True,
+        bypass_document_validation=None,
+        session=None,
+        comment=None,
+        let=None,
+    ) -> BulkWriteResult:
+        """Executes multiple write operations.
+        An error will be raised if the requests parameter is empty.
+        """
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document count.
+        return await collection.bulk_write(
+            requests=requests,
+            ordered=ordered,
+            bypass_document_validation=bypass_document_validation,
+            session=session,
+            comment=comment,
+            let=let,
+        )
