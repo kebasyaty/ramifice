@@ -4,6 +4,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
+from pymongo.asynchronous.database import AsyncDatabase
 
 from .. import store
 from ..tools import model_is_migrated
@@ -90,3 +91,13 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document count.
         return collection.full_name
+
+    @classmethod
+    async def database(cls) -> AsyncDatabase:
+        """The ~pymongo.asynchronous.database.AsyncDatabase that this AsyncCollection is a part of."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document count.
+        return collection.database
