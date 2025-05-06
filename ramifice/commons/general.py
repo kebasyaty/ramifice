@@ -78,3 +78,15 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document count.
         return collection.name
+
+    @classmethod
+    async def full_name(cls) -> str:
+        """The full name of this AsyncCollection.
+        The full name is of the form database_name.collection_name.
+        """
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document count.
+        return collection.full_name
