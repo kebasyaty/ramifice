@@ -68,3 +68,13 @@ class GeneralMixin:
             hint=hint,
             **kwargs
         )
+
+    @classmethod
+    async def name(cls) -> str:
+        """Get collection name."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document count.
+        return collection.name
