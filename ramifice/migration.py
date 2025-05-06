@@ -116,9 +116,9 @@ class Monitor:
         # Get access to super collection.
         super_collection: AsyncCollection = database[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         #
-        for model_class in self.model_list:
+        for cls_model in self.model_list:
             # Get metadata of current Model.
-            metadata = model_class.META
+            metadata = cls_model.META
             # Get the state of the current model from a super collection.
             model_state = await self.model_state(metadata)
             # Review change of fields in the current Model and (if necessary)
@@ -150,13 +150,13 @@ class Monitor:
                             else:
                                 mongo_doc[field_name] = None
                     #
-                    model_instance = model_class.from_doc(mongo_doc)
-                    result_check: ResultCheck = await model_instance.check(
+                    inst_model = cls_model.from_doc(mongo_doc)
+                    result_check: ResultCheck = await inst_model.check(
                         is_save=True, collection=model_collection
                     )
                     if not result_check.is_valid:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
-                        model_instance.print_err()
+                        inst_model.print_err()
                         raise PanicError("Migration failed.")
                     # Get checked data.
                     checked_data = result_check.data
@@ -199,17 +199,17 @@ class Monitor:
         # super collection and delete collections associated with those Models.
         await self.napalm()
         # Run indexing and apply fixture to current Model.
-        for model_class in self.model_list:
+        for cls_model in self.model_list:
             # Run indexing.
-            model_class.indexing()
+            cls_model.indexing()
             # Apply fixture to current Model.
-            fixture_name: str | None = model_class.META["fixture_name"]
+            fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
                 collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index, attr-defined]
-                    model_class.META["collection_name"]
+                    cls_model.META["collection_name"]
                 ]
                 if collection.estimated_document_count() == 0:
-                    model_instance = model_class()
+                    model_instance = cls_model()
                     await model_instance.apply_fixture(
                         fixture_name=fixture_name,
                         collection=collection,

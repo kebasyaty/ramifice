@@ -11,7 +11,7 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from .errors import InvalidDateError, InvalidDateTimeError
+from .errors import InvalidDateError, InvalidDateTimeError, PanicError
 from .store import REGEX
 
 
@@ -125,3 +125,14 @@ def is_phone(number: str) -> bool:
 def is_mongo_id(oid: Any) -> bool:
     """Validation of the Mongodb identifier."""
     return ObjectId.is_valid(oid)
+
+
+def model_is_migrated(cls_model: Any):
+    """Check if this model is migrated to database."""
+    if not cls_model.META["is_migrat_model"]:
+        msg = (
+            f"Model: `{cls_model.META["full_model_name"]}` > "
+            + "Param: `is_migrat_model` (False) => "
+            + "This Model is not migrated to database!"
+        )
+        raise PanicError(msg)

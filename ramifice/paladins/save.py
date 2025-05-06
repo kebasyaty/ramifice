@@ -6,6 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
+from ..tools import model_is_migrated
 from ..types import ResultCheck
 
 
@@ -16,13 +17,8 @@ class SaveMixin:
         """Create or update document in database.
         This method pre-uses the `check` method.
         """
-        if not self.__class__.META["is_migrat_model"]:  # type: ignore[attr-defined]
-            msg = (
-                f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
-                + "Param: `is_migrat_model` (False) => "
-                + "This Model is not migrated to database!"
-            )
-            raise PanicError(msg)
+        # Check if this model is migrated to database.
+        model_is_migrated(self.__class__)
         # Get collection.
         collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Check and get ResultCheck.
