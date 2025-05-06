@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta
+from ramifice import Model, meta, store
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -109,6 +109,14 @@ class TestCommonGeneral(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await User.estimated_document_count(), 1)
         self.assertEqual(await User.count_documents({}), 1)
         self.assertEqual(await User.count_documents({"_id": m.hash.to_obj_id()}), 1)
+        self.assertEqual(User.collection_name(), "Accounts_User")
+        self.assertEqual(
+            User.collection_full_name(), "test_3H38935riZ53ML5u.Accounts_User"
+        )
+        self.assertEqual(User.database(), store.MONGO_DATABASE)
+        self.assertEqual(
+            User.collection(), store.MONGO_DATABASE[User.META["collection_name"]]
+        )
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

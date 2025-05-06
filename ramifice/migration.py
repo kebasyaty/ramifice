@@ -14,7 +14,7 @@ from termcolor import colored
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
-from .types import FileData, ImageData, ResultCheck
+from .types import CheckResult, FileData, ImageData
 
 
 class Monitor:
@@ -151,7 +151,7 @@ class Monitor:
                                 mongo_doc[field_name] = None
                     #
                     inst_model = cls_model.from_doc(mongo_doc)
-                    result_check: ResultCheck = await inst_model.check(
+                    result_check: CheckResult = await inst_model.check(
                         is_save=True, collection=model_collection
                     )
                     if not result_check.is_valid:

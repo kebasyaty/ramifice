@@ -7,7 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from .. import store
 from ..errors import PanicError
 from ..tools import model_is_migrated
-from ..types import ResultCheck
+from ..types import CheckResult
 
 
 class SaveMixin:
@@ -21,8 +21,8 @@ class SaveMixin:
         model_is_migrated(self.__class__)
         # Get collection.
         collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Check and get ResultCheck.
-        result_check: ResultCheck = await self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+        # Check and get CheckResult.
+        result_check: CheckResult = await self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # Reset the alerts to exclude duplicates.
         self.hash.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
