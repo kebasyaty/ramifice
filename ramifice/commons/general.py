@@ -21,7 +21,7 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return await collection.estimated_document_count(comment=comment, **kwargs)
 
     @classmethod
@@ -31,7 +31,7 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return await collection.count_documents(
             filter=filter, session=session, comment=comment, **kwargs
         )
@@ -45,7 +45,7 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return await collection.aggregate(
             pipeline=pipeline, session=session, let=let, comment=comment, **kwargs
         )
@@ -61,7 +61,7 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return await collection.distinct(
             key=key,
             filter=filter,
@@ -72,17 +72,17 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def name(cls) -> str:
+    def collection_name(cls) -> str:
         """Get collection name."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return collection.name
 
     @classmethod
-    async def full_name(cls) -> str:
+    def collection_full_name(cls) -> str:
         """The full name of this AsyncCollection.
         The full name is of the form database_name.collection_name.
         """
@@ -90,18 +90,28 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return collection.full_name
 
     @classmethod
-    async def database(cls) -> AsyncDatabase:
-        """The ~pymongo.asynchronous.database.AsyncDatabase that this AsyncCollection is a part of."""
+    def database(cls) -> AsyncDatabase:
+        """Get AsyncBatabase for the current Model."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return collection.database
+
+    @classmethod
+    def collection(cls) -> AsyncCollection:
+        """Get AsyncCollection for the current Model."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        #
+        return collection
 
     @classmethod
     async def bulk_write(
@@ -120,7 +130,7 @@ class GeneralMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document count.
+        #
         return await collection.bulk_write(
             requests=requests,
             ordered=ordered,
