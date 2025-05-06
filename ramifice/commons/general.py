@@ -20,7 +20,7 @@ class GeneralMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document count.
         return await collection.estimated_document_count(comment=comment, **kwargs)
 
@@ -35,7 +35,7 @@ class GeneralMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document count.
         return await collection.count_documents(
             filter=filter, session=session, comment=comment, **kwargs
