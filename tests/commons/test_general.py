@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > SaveMixin > save` method."""
+"""Testing `Ramifice > Commons > General` methods."""
 
 import unittest
 
@@ -75,14 +75,14 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinSave(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > SaveMixin > save` method."""
+class TestCommonGeneral(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Commons > General` methods."""
 
-    async def test_save(self):
-        """Testing method `save`."""
+    async def test_general_methods(self):
+        """Testing General methods."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
-        unique_key = "6n0O1c1iO630ItaX"
+        unique_key = "3H38935riZ53ML5u"
         # Maximum number of characters 60
         database_name = f"test_{unique_key}"
 
@@ -100,11 +100,15 @@ class TestPaladinSave(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
+        self.assertEqual(await User.estimated_document_count(), 0)
+        self.assertEqual(await User.count_documents({}), 0)
         m = User()
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)
+        self.assertEqual(await User.count_documents({}), 1)
+        self.assertEqual(await User.count_documents({"_id": m.hash.to_obj_id()}), 1)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

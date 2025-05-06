@@ -1,4 +1,4 @@
-"""Testing module `ramifice.paladins.check`."""
+"""Testing `Ramifice > Paladins > CheckMixin > check` method."""
 
 import unittest
 
@@ -75,11 +75,11 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinsCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing module `ramifice.paladins.check`."""
+class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Paladins > CheckMixin > check` method."""
 
     async def test_check(self):
-        """Testing method `check`."""
+        """Testing `check` method."""
         # To generate a key (this is not an advertisement):
         # https://randompasswordgen.com/
         unique_key = "46JP99c338j47gR0"
