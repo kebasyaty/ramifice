@@ -148,7 +148,7 @@ class ToolsMixin:
             raise PanicError(msg)
         # Run hook.
         self.pre_delete()  # type: ignore[index, attr-defined]
-        # Delete doc.
+        # Delete document.
         mongo_doc = await collection.find_one_and_delete(
             filter={"_id": doc_id},
             projection=projection,
@@ -166,6 +166,9 @@ class ToolsMixin:
                 + "The document was not deleted, the document is absent in the database."
             )
             raise PanicError(msg)
+        # Delete orphaned files.
+        if delete_files:
+            pass
         # Run hook.
         self.post_delete()  # type: ignore[index, attr-defined]
         #
