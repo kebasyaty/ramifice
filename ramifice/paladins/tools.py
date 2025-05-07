@@ -3,9 +3,12 @@
 from datetime import datetime
 from typing import Any
 
+from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
+from .. import store
 from ..errors import PanicError
+from ..tools import model_is_migrated
 from ..types import CheckResult, FileData, ImageData
 
 
@@ -77,7 +80,7 @@ class ToolsMixin:
 
     def ignored_fields_to_none(self):
         """Reset the values ​​of ignored fields to None."""
-        for field_name, field_data in self.__dict__.items():
+        for _, field_data in self.__dict__.items():
             if (
                 not callable(field_data)
                 and field_data.ignored
@@ -107,3 +110,19 @@ class ToolsMixin:
                 field.value = data
             else:
                 field.value = None
+
+    async def delete(self, delete_files: bool = True):
+        """Delete document from database."""
+        cls_model = self.__class__
+        # Check if this model is migrated to database.
+        model_is_migrated(cls_model)
+        # Get collection.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
+        #
+        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            msg = (
+                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "Param: `is_delete_doc` (False) => "
+                + "Documents of this Model cannot be removed from the database!"
+            )
+            raise PanicError(msg)
