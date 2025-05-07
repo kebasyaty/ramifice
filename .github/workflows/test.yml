@@ -21,10 +21,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  COVERAGE_CORE: sysmon
-  FORCE_COLOR: 1
-
 jobs:
   build:
     strategy:
