@@ -111,18 +111,47 @@ class ToolsMixin:
             else:
                 field.value = None
 
-    async def delete(self, delete_files: bool = True):
+    async def delete(
+        self,
+        delete_files: bool = True,
+        projection=None,
+        sort=None,
+        hint=None,
+        session=None,
+        let=None,
+        comment=None,
+        **kwargs,
+    ) -> dict[str, Any]:
         """Delete document from database."""
+        mongo_doc: dict[str, Any] = {}
         cls_model = self.__class__
         # Check if this model is migrated to database.
         model_is_migrated(cls_model)
         # Get collection.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
-        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+        if not cls_model.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
                 + "Param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             raise PanicError(msg)
+        # Get documet ID.
+        doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
+        if doc_id is not None:
+            # Run hook.
+            self.pre_delete()  # type: ignore[index, attr-defined]
+            # Delete doc.
+            mongo_doc = await collection.find_one_and_delete(
+                filter={"_id": doc_id},
+                projection=projection,
+                sort=sort,
+                hint=hint,
+                session=session,
+                let=let,
+                comment=comment,
+                **kwargs,
+            )
+        #
+        return mongo_doc
