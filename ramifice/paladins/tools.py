@@ -159,5 +159,12 @@ class ToolsMixin:
             comment=comment,
             **kwargs,
         )
+        if not bool(mongo_doc):
+            msg = (
+                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "Method: `delete` => "
+                + "The document was not deleted, the document is absent in the database."
+            )
+            raise PanicError(msg)
         #
         return mongo_doc
