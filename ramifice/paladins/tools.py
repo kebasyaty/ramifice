@@ -166,5 +166,7 @@ class ToolsMixin:
                 + "The document was not deleted, the document is absent in the database."
             )
             raise PanicError(msg)
+        # Run hook.
+        self.post_delete()  # type: ignore[index, attr-defined]
         #
         return mongo_doc
