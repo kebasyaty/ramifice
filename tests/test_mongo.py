@@ -35,3 +35,7 @@ class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
         await client.drop_database(db.name)
         # Close the connection with Mongodb.
         await client.close()
+
+
+if __name__ == "__main__":
+    unittest.main()

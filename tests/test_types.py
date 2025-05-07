@@ -190,3 +190,7 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(d.imgs_dir_url, "/path/0123456789abcdef")
         self.assertTrue(d.save_as_is)
         self.assertEqual(d.ext_upper, "PNG")
+
+
+if __name__ == "__main__":
+    unittest.main()

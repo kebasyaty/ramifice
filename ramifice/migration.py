@@ -195,6 +195,9 @@ class Monitor:
                 replacement=model_state,
             )
         #
+        # Block the verification code.
+        store.DEBUG = False
+        #
         # Delete data for non-existent Models from a
         # super collection and delete collections associated with those Models.
         await self.napalm()

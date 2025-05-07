@@ -38,3 +38,7 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
         self.assertIsNone(m.to_obj_id())
+
+
+if __name__ == "__main__":
+    unittest.main()

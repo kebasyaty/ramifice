@@ -21,6 +21,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  COVERAGE_CORE: sysmon
+  FORCE_COLOR: 1
+
 jobs:
   build:
     strategy:
@@ -35,6 +39,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: supercharge/mongodb-github-action@1.12.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
@@ -74,7 +80,7 @@ jobs:
     permissions:
       contents: none
     needs: build
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     name: Test Successful
     steps:
       - name: Success
