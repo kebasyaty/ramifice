@@ -102,7 +102,6 @@ class ImgGroupMixin:
         # Insert result.
         if params["is_save"]:
             if value.is_new_img or value.save_as_is:
-                value.is_new_img = False
                 value.is_delete = False
                 value.save_as_is = True
                 params["result_map"][field.name] = value
