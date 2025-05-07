@@ -159,6 +159,7 @@ class ToolsMixin:
             comment=comment,
             **kwargs,
         )
+        # If the document failed to delete.
         if not bool(mongo_doc):
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
