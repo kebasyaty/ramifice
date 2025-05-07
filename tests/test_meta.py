@@ -163,3 +163,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.profession.id, "UserProfile--profession")
         self.assertEqual(m.profession.name, "profession")
         self.assertIsNone(m.to_obj_id())
+
+
+if __name__ == "__main__":
+    unittest.main()

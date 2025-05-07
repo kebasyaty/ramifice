@@ -78,3 +78,7 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m2.post_update())
         self.assertIsNone(m2.pre_delete())
         self.assertIsNone(m2.post_delete())
+
+
+if __name__ == "__main__":
+    unittest.main()

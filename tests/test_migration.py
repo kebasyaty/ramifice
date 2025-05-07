@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta
+from ramifice import Model, meta, store
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -92,12 +92,20 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         await client.drop_database(database_name)
         await client.close()
 
+        self.assertTrue(store.DEBUG)
+
         client = AsyncMongoClient()
         await Monitor(
             database_name=database_name,
             mongo_client=client,
         ).migrat()
 
+        self.assertFalse(store.DEBUG)
+
         # Delete database after test.
         await client.drop_database(database_name)
         await client.close()
+
+
+if __name__ == "__main__":
+    unittest.main()
