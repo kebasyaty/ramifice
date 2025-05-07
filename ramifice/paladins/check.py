@@ -134,8 +134,6 @@ class CheckMixin(
                         if mongo_doc is not None:
                             field_data.value = FileData.from_doc(mongo_doc)
                             mongo_doc = None
-                    else:
-                        field_data.value = None
                 elif group == "img":
                     img_data = field_data.value
                     if img_data is not None:
@@ -148,8 +146,6 @@ class CheckMixin(
                         if mongo_doc is not None:
                             field_data.value = ImageData.from_doc(mongo_doc)
                             mongo_doc = None
-                    else:
-                        field_data.value = None
         #
         #
         return CheckResult(
