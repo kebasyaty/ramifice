@@ -139,19 +139,25 @@ class ToolsMixin:
             raise PanicError(msg)
         # Get documet ID.
         doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
-        if doc_id is not None:
-            # Run hook.
-            self.pre_delete()  # type: ignore[index, attr-defined]
-            # Delete doc.
-            mongo_doc = await collection.find_one_and_delete(
-                filter={"_id": doc_id},
-                projection=projection,
-                sort=sort,
-                hint=hint,
-                session=session,
-                let=let,
-                comment=comment,
-                **kwargs,
+        if doc_id is None:
+            msg = (
+                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "Field: `hash` > "
+                + "Param: `value` => Hash is missing."
             )
+            raise PanicError(msg)
+        # Run hook.
+        self.pre_delete()  # type: ignore[index, attr-defined]
+        # Delete doc.
+        mongo_doc = await collection.find_one_and_delete(
+            filter={"_id": doc_id},
+            projection=projection,
+            sort=sort,
+            hint=hint,
+            session=session,
+            let=let,
+            comment=comment,
+            **kwargs,
+        )
         #
         return mongo_doc
