@@ -66,7 +66,7 @@ class CheckMixin(
             "is_save": is_save,
             "is_update": is_update,  # Does the document exist in the database?
             "is_error_symptom": False,  # Is there any incorrect data?
-            "result_map": {},  # Data to save or update to the database.
+            "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
             "field_data": None,
         }
