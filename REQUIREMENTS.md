@@ -8,4 +8,3 @@
 - [email-validator](https://pypi.org/project/email-validator/ "email-validator")
 - [termcolor](https://pypi.org/project/termcolor/ "termcolor")
 - [python-slugify](https://pypi.org/project/python-slugify/ "python-slugify")
-- [argon2-cffi](https://pypi.org/project/argon2-cffi/ "argon2-cffi")
