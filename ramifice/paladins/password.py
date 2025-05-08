@@ -1,5 +1,7 @@
 """Verification, replacement and recoverang of password."""
 
+from typing import Any
+
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
@@ -31,13 +33,15 @@ class PasswordMixin:
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get password hash.
-        mongo_doc = collection.find_one({"_id": doc_id})
+        mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         if mongo_doc is None:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
                 + "Method: `verify_password` => "
-                + f"There is no document with ID `{self.hash.value}` in the database."
+                + f"There is no document with ID `{self.hash.value}` in the database."  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)
+        #
+        pass_hash = mongo_doc.get(field_name)
 
         return True
