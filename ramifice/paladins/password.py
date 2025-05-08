@@ -33,7 +33,7 @@ class PasswordMixin:
             raise PanicError(msg)
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get password hash.
+        # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         if mongo_doc is None:
             msg = (
@@ -42,7 +42,7 @@ class PasswordMixin:
                 + f"There is no document with ID `{self.hash.value}` in the database."  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)
-        #
+        # Get password hash.
         pass_hash = mongo_doc.get(field_name)
         if pass_hash is None:
             msg = (
@@ -51,6 +51,12 @@ class PasswordMixin:
                 + f"The model does not have a field `{field_name}`."  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)
+        # Password verification.
         ph = PasswordHasher()
-
-        return True
+        is_valid: bool = False
+        try:
+            is_valid = ph.verify(pass_hash, password)
+        except:
+            pass
+        #
+        return is_valid
