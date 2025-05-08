@@ -2,6 +2,7 @@
 
 from typing import Any
 
+from argon2 import PasswordHasher
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
@@ -43,5 +44,13 @@ class PasswordMixin:
             raise PanicError(msg)
         #
         pass_hash = mongo_doc.get(field_name)
+        if pass_hash is None:
+            msg = (
+                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "Method: `verify_password` => "
+                + f"The model does not have a field `{field_name}`."  # type: ignore[index, attr-defined]
+            )
+            raise PanicError(msg)
+        ph = PasswordHasher()
 
         return True
