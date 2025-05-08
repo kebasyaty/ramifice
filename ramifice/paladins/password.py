@@ -1,8 +1,8 @@
 """Verification, replacement and recoverang of password."""
 
+import hashlib
 from typing import Any
 
-from argon2 import PasswordHasher
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
@@ -43,8 +43,8 @@ class PasswordMixin:
             )
             raise PanicError(msg)
         # Get password hash.
-        pass_hash = mongo_doc.get(field_name)
-        if pass_hash is None:
+        curr_pass_byte: bytes | None = mongo_doc.get(field_name)
+        if curr_pass_byte is None:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
                 + "Method: `verify_password` => "
@@ -52,11 +52,11 @@ class PasswordMixin:
             )
             raise PanicError(msg)
         # Password verification.
-        ph = PasswordHasher()
         is_valid: bool = False
-        try:
-            is_valid = ph.verify(pass_hash, password)
-        except:
-            pass
+        prob_pass_byte: bytes = password.encode("utf-8")
+        _hash = hashlib.sha256(prob_pass_byte)
+        _hash.update(prob_pass_byte)
+        if curr_pass_byte == _hash.digest():
+            is_valid = True
         #
         return is_valid
