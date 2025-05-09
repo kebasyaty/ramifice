@@ -162,5 +162,8 @@ async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncColl
                 if value is not None:
                     if group == "file" or group == "img":
                         field_data.from_path(value)
+                    elif group == "bool":
+                        field_data.value = True if value == "True" else False
+
                     else:
-                        field_data.value = value
+                        field_data.value = None if value == "None" else value
