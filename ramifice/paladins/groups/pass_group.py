@@ -2,8 +2,9 @@
 Supported fields: PasswordField
 """
 
-import hashlib
 from typing import Any
+
+from argon2 import PasswordHasher
 
 
 class PassGroupMixin:
@@ -33,7 +34,6 @@ class PassGroupMixin:
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
-            password = value.encode("utf-8")
-            _hash = hashlib.sha256(password)
-            _hash.update(password)
-            params["result_map"][field.name] = _hash.digest()
+            ph = PasswordHasher()
+            hash: str = ph.hash(value)
+            params["result_map"][field.name] = hash

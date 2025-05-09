@@ -80,11 +80,8 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
 
     async def test_monitor(self):
         """Testing a `Monitor`."""
-        # To generate a key (this is not an advertisement):
-        # https://randompasswordgen.com/
-        unique_key = "alo0V9Q76Yr4r15z"
-        # Maximum number of characters 60
-        database_name = f"test_{unique_key}"
+        # Maximum number of characters 60.
+        database_name = "test_monitor_migration"
 
         # Delete database before test.
         # (if the test fails)
