@@ -14,6 +14,7 @@ from termcolor import colored
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
+from .tools import apply_fixture
 from .types import CheckResult, FileData, ImageData
 
 
@@ -212,8 +213,7 @@ class Monitor:
                     cls_model.META["collection_name"]
                 ]
                 if collection.estimated_document_count() == 0:
-                    model_instance = cls_model()
-                    await model_instance.apply_fixture(
+                    await apply_fixture(
                         fixture_name=fixture_name,
                         collection=collection,
                     )
