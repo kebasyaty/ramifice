@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > CheckMixin > check` method."""
+"""Testing `Ramifice > Paladins > CheckMixin module."""
 
 import unittest
 
@@ -76,15 +76,12 @@ class User(Model):
 
 
 class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > CheckMixin > check` method."""
+    """Testing `Ramifice > Paladins > CheckMixin module."""
 
-    async def test_check(self):
+    async def test_check_mixin(self):
         """Testing `check` method."""
-        # To generate a key (this is not an advertisement):
-        # https://randompasswordgen.com/
-        unique_key = "46JP99c338j47gR0"
-        # Maximum number of characters 60
-        database_name = f"test_{unique_key}"
+        # Maximum number of characters 60.
+        database_name = "test_check_mixin"
 
         # Delete database before test.
         # (if the test fails)
