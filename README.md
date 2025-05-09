@@ -61,15 +61,11 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 2. Run
 
-   ```shell
-   pip install ramifice
-   
-   # or
-   # https://python-poetry.org/
-   poetry new project_name
-   cd project_name
-   poetry add ramifice
-   ```
+```shell
+pip install ramifice
+# or
+poetry add ramifice
+```
 
 ## Usage
 
@@ -88,3 +84,9 @@ import ramifice
 ## License
 
 **This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
+
+## Install for development of Ramifice
+
+```shell
+poetry install --with dev docs
+```

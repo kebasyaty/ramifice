@@ -975,7 +975,7 @@ version = "6.0.2"
 description = "YAML parser and emitter for Python"
 optional = false
 python-versions = ">=3.8"
-groups = ["docs"]
+groups = ["main", "docs"]
 files = [
     {file = "PyYAML-6.0.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:0a9a2848a5b7feac301353437eb7d5957887edbf81d56e903999a75a3d743086"},
     {file = "PyYAML-6.0.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:29717114e51c84ddfba879543fb232a6ed60086602313ca38cce623c1d62cfbf"},
@@ -1213,6 +1213,18 @@ files = [
 ]
 
 [[package]]
+name = "types-pyyaml"
+version = "6.0.12.20250402"
+description = "Typing stubs for PyYAML"
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "types_pyyaml-6.0.12.20250402-py3-none-any.whl", hash = "sha256:652348fa9e7a203d4b0d21066dfb00760d3cbd5a15ebb7cf8d33c88a49546681"},
+    {file = "types_pyyaml-6.0.12.20250402.tar.gz", hash = "sha256:d7c13c3e6d335b6af4b0122a01ff1d270aba84ab96d1a1a1063ecba3e13ec075"},
+]
+
+[[package]]
 name = "unidecode"
 version = "1.3.8"
 description = "ASCII transliterations of Unicode text"
@@ -1288,4 +1300,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "042c99512374dfbf0191742fef0f29db46e66c21f8f113d9b4491f8b8d0b3d2f"
+content-hash = "15535aa2a1d6c717b91838db75a97592b5489531d3d274213a14558a3d33a8b4"

@@ -8,11 +8,15 @@ from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
+import yaml
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
+from pymongo.asynchronous.collection import AsyncCollection
+from termcolor import colored
 
 from .errors import InvalidDateError, InvalidDateTimeError, PanicError
 from .store import REGEX
+from .types import CheckResult
 
 
 def date_parse(date: str) -> datetime:
@@ -127,7 +131,7 @@ def is_mongo_id(oid: Any) -> bool:
     return ObjectId.is_valid(oid)
 
 
-def model_is_migrated(cls_model: Any):
+def model_is_migrated(cls_model: Any) -> None:
     """Check if this model is migrated to database."""
     if not cls_model.META["is_migrat_model"]:
         msg = (
@@ -136,3 +140,53 @@ def model_is_migrated(cls_model: Any):
             + "This Model is not migrated to database!"
         )
         raise PanicError(msg)
+
+
+async def apply_fixture(
+    fixture_name: str, cls_model: Any, collection: AsyncCollection
+) -> None:
+    """Apply fixture for current Model.
+    Fixtures - To populate the database with pre-created data.
+    """
+    fixture_path: str = f"config/fixtures/{fixture_name}.yml"
+    data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
+
+    with open(fixture_path, "r") as file:
+        data_yaml = yaml.safe_load(file)
+    if data_yaml is not None:
+        if isinstance(data_yaml, dict):
+            data_yaml = [data_yaml]
+        for data in data_yaml:
+            inst_model = cls_model()
+            for field_name, field_data in inst_model.__dict__.items():
+                if callable(field_data) or field_data.ignored:
+                    continue
+                group = field_data.group
+                value: Any | None = data.get(field_name)
+                if value is not None:
+                    if group == "file" or group == "img":
+                        field_data.from_path(value)
+                    elif group == "bool":
+                        field_data.value = True if value == "True" else False
+                    else:
+                        field_data.value = None if value == "None" else value
+            # Check and get CheckResult.
+            result_check: CheckResult = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+            # If the check fails.
+            if not result_check.is_valid:
+                print(colored("\nFIXTURE:", "red", attrs=["bold"]))
+                print(colored(fixture_path, "blue", attrs=["bold"]))
+                inst_model.print_err()
+                raise PanicError("!!!")
+            # Get data for document.
+            checked_data: dict[str, Any] = result_check.data
+            # Add date and time.
+            today = datetime.now()
+            checked_data["created_at"] = today
+            checked_data["updated_at"] = today
+            # Run hook.
+            inst_model.pre_create()  # type: ignore[index, attr-defined]
+            # Insert doc.
+            await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+            # Run hook.
+            inst_model.post_create()  # type: ignore[index, attr-defined]
