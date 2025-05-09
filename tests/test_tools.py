@@ -149,10 +149,6 @@ class TestTools(unittest.TestCase):
     #     path = "public/media/default/no_doc.odt"
     #     self.assertEqual(get_file_size(path), "9.61 KB")
 
-    def test_apply_fixture(self):
-        """Testing a method `apply_fixture`."""
-        pass
-
 
 if __name__ == "__main__":
     unittest.main()
