@@ -79,8 +79,6 @@ class PasswordMixin:
         doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Get document.
-        mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         # Create hash of new passwor.
         ph = PasswordHasher()
         hash: str = ph.hash(new_password)
