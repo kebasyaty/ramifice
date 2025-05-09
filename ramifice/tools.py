@@ -12,9 +12,11 @@ import yaml
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 from pymongo.asynchronous.collection import AsyncCollection
+from termcolor import colored
 
 from .errors import InvalidDateError, InvalidDateTimeError, PanicError
 from .store import REGEX
+from .types import CheckResult
 
 
 def date_parse(date: str) -> datetime:
@@ -129,7 +131,7 @@ def is_mongo_id(oid: Any) -> bool:
     return ObjectId.is_valid(oid)
 
 
-def model_is_migrated(cls_model: Any):
+def model_is_migrated(cls_model: Any) -> None:
     """Check if this model is migrated to database."""
     if not cls_model.META["is_migrat_model"]:
         msg = (
@@ -140,7 +142,9 @@ def model_is_migrated(cls_model: Any):
         raise PanicError(msg)
 
 
-async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncCollection):
+async def apply_fixture(
+    fixture_name: str, cls_model: Any, collection: AsyncCollection
+) -> None:
     """Apply fixture for current Model.
     Fixtures - To populate the database with pre-created data.
     """
@@ -166,3 +170,11 @@ async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncColl
                         field_data.value = True if value == "True" else False
                     else:
                         field_data.value = None if value == "None" else value
+            # Check and get CheckResult.
+            result_check: CheckResult = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+            # If the check fails.
+            if not result_check.is_valid:
+                print(colored("\nFIXTURE:", "red", attrs=["bold"]))
+                print(colored(fixture_path, "blue", attrs=["bold"]))
+                inst_model.print_err()
+                raise PanicError("!!!")
