@@ -74,3 +74,12 @@ class PanicError(RamificeException):
     def __init__(self, message: str):
         self.message = message
         super().__init__(self.message)
+
+
+class OldPassNotMatchError(RamificeException):
+    """Exception raised if when updating the password,
+    the old password does not match."""
+
+    def __init__(self):
+        self.message = "Old password does not match!"
+        super().__init__(self.message)

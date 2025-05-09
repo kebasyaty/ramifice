@@ -6,7 +6,7 @@ from argon2 import PasswordHasher
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..errors import PanicError
+from ..errors import OldPassNotMatchError, PanicError
 from ..tools import model_is_migrated
 
 
@@ -64,3 +64,24 @@ class PasswordMixin:
             await collection.update_one({"_id": doc_id}, {"$set": {field_name: hash}})
         #
         return is_valid
+
+    async def update_password(
+        self,
+        old_password: str,
+        new_password: str,
+        field_name: str = "password",
+    ):
+        """For replace or recover password."""
+        cls_model = self.__class__
+        if not await self.verify_password(old_password, field_name):
+            raise OldPassNotMatchError()
+        # Get documet ID.
+        doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
+        # Get collection for current Model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document.
+        mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
+        # Create hash of new passwor.
+        ph = PasswordHasher()
+        hash: str = ph.hash(new_password)
+        await collection.update_one({"_id": doc_id}, {"$set": {field_name: hash}})
