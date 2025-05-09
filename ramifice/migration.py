@@ -216,4 +216,5 @@ class Monitor:
                     await apply_fixture(
                         fixture_name=fixture_name,
                         collection=collection,
+                        cls_model=cls_model,
                     )

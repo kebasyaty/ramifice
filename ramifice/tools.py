@@ -8,6 +8,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
+import yaml
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 from pymongo.asynchronous.collection import AsyncCollection
@@ -139,7 +140,27 @@ def model_is_migrated(cls_model: Any):
         raise PanicError(msg)
 
 
-async def apply_fixture(fixture_name: str, collection: AsyncCollection):
+async def apply_fixture(fixture_name: str, collection: AsyncCollection, cls_model: Any):
     """Apply fixture for current Model.
     Fixtures - To populate the database with pre-created data.
     """
+    fixture_path: str = f"config/fixtures/{fixture_name}.yml"
+    data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
+
+    with open(fixture_path, "r") as file:
+        data_yaml = yaml.safe_load(file)
+    if data_yaml is not None:
+        if isinstance(data_yaml, dict):
+            data_yaml = [data_yaml]
+        for data in data_yaml:
+            inst_model = cls_model()
+            for field_name, field_data in inst_model.__dict__.items():
+                if callable(field_data) or field_data.ignored:
+                    continue
+                group = field_data.group
+                value: Any | None = data.get(field_name)
+                if value is not None:
+                    if group == "file" or group == "img":
+                        field_data.from_path(value)
+                    else:
+                        field_data.value = value
