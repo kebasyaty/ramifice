@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
+from pymongo.asynchronous.collection import AsyncCollection
 
 from .errors import InvalidDateError, InvalidDateTimeError, PanicError
 from .store import REGEX
@@ -136,3 +137,9 @@ def model_is_migrated(cls_model: Any):
             + "This Model is not migrated to database!"
         )
         raise PanicError(msg)
+
+
+async def apply_fixture(fixture_name: str, collection: AsyncCollection):
+    """Apply fixture for current Model.
+    Fixtures - To populate the database with pre-created data.
+    """
