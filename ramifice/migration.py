@@ -215,6 +215,6 @@ class Monitor:
                 if collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,
-                        collection=collection,
                         cls_model=cls_model,
+                        collection=collection,
                     )

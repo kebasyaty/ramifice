@@ -140,7 +140,7 @@ def model_is_migrated(cls_model: Any):
         raise PanicError(msg)
 
 
-async def apply_fixture(fixture_name: str, collection: AsyncCollection, cls_model: Any):
+async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncCollection):
     """Apply fixture for current Model.
     Fixtures - To populate the database with pre-created data.
     """
