@@ -46,6 +46,7 @@ class TestPaladinPassword(unittest.IsolatedAsyncioTestCase):
         password = "12345678"
         new_password = "new_12345678"
         password_2 = "123456789"
+        new_password_2 = "new_123456789"
         m.password.value = password
         m.password_2.value = password_2
         # self.assertTrue(await m.save())
@@ -58,6 +59,8 @@ class TestPaladinPassword(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(await m.verify_password("123", "password_2"))
         await m.update_password(password, new_password)
         self.assertTrue(await m.verify_password(new_password))
+        await m.update_password(password_2, new_password_2, "password_2")
+        self.assertTrue(await m.verify_password(new_password_2, "password_2"))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
