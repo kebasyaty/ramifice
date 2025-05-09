@@ -178,3 +178,15 @@ async def apply_fixture(
                 print(colored(fixture_path, "blue", attrs=["bold"]))
                 inst_model.print_err()
                 raise PanicError("!!!")
+            # Get data for document.
+            checked_data: dict[str, Any] = result_check.data
+            # Add date and time.
+            today = datetime.now()
+            checked_data["created_at"] = today
+            checked_data["updated_at"] = today
+            # Run hook.
+            inst_model.pre_create()  # type: ignore[index, attr-defined]
+            # Insert doc.
+            await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+            # Run hook.
+            inst_model.post_create()  # type: ignore[index, attr-defined]

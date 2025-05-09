@@ -1,6 +1,7 @@
 """Create or update document in database."""
 
 from datetime import datetime
+from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
@@ -37,7 +38,7 @@ class SaveMixin:
             self.ignored_fields_to_none()  # type: ignore[index, attr-defined]
             return False
         # Get data for document.
-        checked_data = result_check.data
+        checked_data: dict[str, Any] = result_check.data
         # Create or update a document in database.
         if result_check.is_update:
             # Update date and time.
@@ -54,7 +55,7 @@ class SaveMixin:
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
         else:
-            # Create doc.
+            # Add date and time.
             today = datetime.now()
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
