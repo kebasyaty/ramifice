@@ -38,7 +38,7 @@ from ramifice.fields import (
 from ramifice.migration import Monitor
 
 
-@meta(service_name="Accounts")
+@meta(service_name="Accounts", fixture_name="User")
 class User(Model):
     """Class for testing."""
 
@@ -97,10 +97,7 @@ class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        m = User()
-        # self.assertTrue(await m.is_valid())
-        if not await m.is_valid():
-            m.print_err()
+        self.assertEqual(await User.estimated_document_count(), 1)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
