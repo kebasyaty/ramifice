@@ -43,7 +43,7 @@ class PasswordMixin:
             )
             raise PanicError(msg)
         # Get password hash.
-        hash = mongo_doc.get(field_name)
+        hash: str | None = mongo_doc.get(field_name)
         if hash is None:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
@@ -58,5 +58,9 @@ class PasswordMixin:
             is_valid = ph.verify(hash, password)
         except:
             pass
+        #
+        if is_valid and ph.check_needs_rehash(hash):
+            hash = ph.hash(password)
+            await collection.update_one({"_id": doc_id}, {"$set": {field_name: hash}})
         #
         return is_valid
