@@ -44,13 +44,13 @@ class SaveMixin:
             # Update date and time.
             checked_data["updated_at"] = datetime.now()
             # Run hook.
-            self.pre_update()  # type: ignore[index, attr-defined]
+            await self.pre_update()  # type: ignore[index, attr-defined]
             # Update doc.
             await collection.update_one(
                 {"_id": checked_data["_id"]}, {"$set": checked_data}
             )
             # Run hook.
-            self.post_update()  # type: ignore[index, attr-defined]
+            await self.post_update()  # type: ignore[index, attr-defined]
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
@@ -60,11 +60,11 @@ class SaveMixin:
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.
-            self.pre_create()  # type: ignore[index, attr-defined]
+            await self.pre_create()  # type: ignore[index, attr-defined]
             # Insert doc.
             await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
             # Run hook.
-            self.post_create()  # type: ignore[index, attr-defined]
+            await self.post_create()  # type: ignore[index, attr-defined]
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is not None:

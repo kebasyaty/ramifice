@@ -185,8 +185,8 @@ async def apply_fixture(
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.
-            inst_model.pre_create()  # type: ignore[index, attr-defined]
+            await inst_model.pre_create()  # type: ignore[index, attr-defined]
             # Insert doc.
             await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
             # Run hook.
-            inst_model.post_create()  # type: ignore[index, attr-defined]
+            await inst_model.post_create()  # type: ignore[index, attr-defined]
