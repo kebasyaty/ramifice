@@ -136,7 +136,7 @@ def model_is_migrated(cls_model: Any) -> None:
     if not cls_model.META["is_migrat_model"]:
         msg = (
             f"Model: `{cls_model.META["full_model_name"]}` > "
-            + "Param: `is_migrat_model` (False) => "
+            + "META param: `is_migrat_model` (False) => "
             + "This Model is not migrated to database!"
         )
         raise PanicError(msg)
