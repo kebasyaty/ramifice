@@ -177,10 +177,6 @@ async def apply_fixture(
                     value = json.loads(value)
                 elif group == "file" or group == "img":
                     field_data.from_path(value)
-                elif group == "bool":
-                    field_data.value = (
-                        True if value == True or value == "True" else False
-                    )
                 else:
                     field_data.value = value
         # Check and get CheckResult.
