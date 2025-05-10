@@ -104,4 +104,4 @@ class ImgGroupMixin:
             if value.is_new_img or value.save_as_is:
                 value.is_delete = False
                 value.save_as_is = True
-                params["result_map"][field.name] = value
+                params["result_map"][field.name] = value.to_dict()
