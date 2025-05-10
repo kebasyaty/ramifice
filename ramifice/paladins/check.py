@@ -147,16 +147,16 @@ class CheckMixin(
                             field_data.value = ImageData.from_doc(mongo_doc)
                             mongo_doc = None
         elif is_save:
-            for _, field_data in self.__dict__.items():
+            for field_name, field_data in self.__dict__.items():
                 if callable(field_data) or field_data.ignored:
                     continue
                 group = field_data.group
                 if group == "file":
-                    file_data = field_data.value
+                    file_data = result_map.get(field_name)
                     if file_data is not None:
                         file_data.is_new_file = False
                 elif group == "img":
-                    img_data = field_data.value
+                    img_data = result_map.get(field_name)
                     if img_data is not None:
                         img_data.is_new_img = False
         #
