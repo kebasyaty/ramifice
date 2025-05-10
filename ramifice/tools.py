@@ -3,7 +3,6 @@
 import ipaddress
 import math
 import os
-import pprint
 from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
@@ -201,7 +200,6 @@ async def apply_fixture(
         # Run hook.
         await inst_model.pre_create()  # type: ignore[index, attr-defined]
         # Insert doc.
-        pprint.pprint(checked_data)
         await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
         # Run hook.
         await inst_model.post_create()  # type: ignore[index, attr-defined]
