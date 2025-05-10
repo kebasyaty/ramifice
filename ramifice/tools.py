@@ -156,7 +156,7 @@ async def apply_fixture(
     if bool(data_yaml):
         msg = (
             f"Model: `{cls_model.META["full_model_name"]}` > "
-            + "META param: `fixture_name` ({fixture_name}) => "
+            + f"META param: `fixture_name` ({fixture_name}) => "
             + "It seems that fixture is empty or it has incorrect contents!"
         )
         raise PanicError(msg)

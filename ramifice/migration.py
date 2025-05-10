@@ -212,7 +212,7 @@ class Monitor:
                 collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index, attr-defined]
                     cls_model.META["collection_name"]
                 ]
-                if collection.estimated_document_count() == 0:
+                if await collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,
                         cls_model=cls_model,

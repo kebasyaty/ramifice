@@ -58,8 +58,8 @@ class TestModel(unittest.IsolatedAsyncioTestCase):
 
     async def test_extra_methods(self):
         """Testing a `Model` and extra methods."""
-        self.assertIsNone(User.indexing())
-        self.assertIsNone(User2.indexing())
+        self.assertIsNone(await User.indexing())
+        self.assertIsNone(await User2.indexing())
         #
         m = User()
         self.assertEqual(await m.add_validation(), {})

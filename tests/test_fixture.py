@@ -97,7 +97,7 @@ class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        self.assertEqual(await User.estimated_document_count(), 1)
+        self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
