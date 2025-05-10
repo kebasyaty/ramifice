@@ -115,37 +115,30 @@ class CheckMixin(
             curr_doc: dict[str, Any] | None = (
                 await collection.find_one({"_id": doc_id}) if is_update else None
             )
-            file_data: FileData | None = None
-            img_data: ImageData | None = None
-            mongo_doc: dict[str, Any] | None = None
             for field_name, field_data in self.__dict__.items():
                 if callable(field_data) or field_data.ignored:
                     continue
                 group = field_data.group
                 if group == "file":
-                    file_data = field_data.value
+                    file_data = result_map.get(field_name)
                     if file_data is not None:
                         if file_data.is_new_file:
                             os.remove(file_data.path)
                         field_data.value = None
-                        file_data = None
                     if curr_doc is not None:
                         mongo_doc = curr_doc[field_name]
                         if mongo_doc is not None:
                             field_data.value = FileData.from_doc(mongo_doc)
-                            mongo_doc = None
                 elif group == "img":
-                    img_data = field_data.value
+                    img_data = result_map.get(field_name)
                     if img_data is not None:
                         if img_data.is_new_img:
                             shutil.rmtree(img_data.imgs_dir_path)
                         field_data.value = None
-                        img_data = None
                     if curr_doc is not None:
                         mongo_doc = curr_doc[field_name]
                         if mongo_doc is not None:
                             field_data.value = ImageData.from_doc(mongo_doc)
-                            mongo_doc = None
         elif is_save:
             for field_name, field_data in self.__dict__.items():
                 if callable(field_data) or field_data.ignored:
