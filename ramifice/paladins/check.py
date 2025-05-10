@@ -150,7 +150,6 @@ class CheckMixin(
                         file_data["is_new_file"] = False
                 elif group == "img":
                     img_data = result_map.get(field_name)
-                    print(img_data)
                     if img_data is not None:
                         img_data["is_new_img"] = False
         #

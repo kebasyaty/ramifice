@@ -173,7 +173,7 @@ async def apply_fixture(
             if value == "None":
                 value = None
             if value is not None:
-                if group == "num" or group == "choice":
+                if "Mult" in field_data.field_type:
                     value = json.loads(value)
                 elif group == "file" or group == "img":
                     field_data.from_path(value)
