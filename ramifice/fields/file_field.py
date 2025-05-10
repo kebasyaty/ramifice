@@ -149,9 +149,8 @@ class FileField(Field, FileGroup, FileJsonMixin):
             # Get file extension.
             extension = Path(src_path).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(
-                    f"The file `{src_path}` has no extension."
-                )
+                msg = f"The file `{src_path}` has no extension."
+                raise FileHasNoExtensionError(msg)
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.

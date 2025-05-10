@@ -47,7 +47,7 @@ class DeleteMixin:
             )
             raise PanicError(msg)
         # Run hook.
-        self.pre_delete()  # type: ignore[index, attr-defined]
+        await self.pre_delete()  # type: ignore[index, attr-defined]
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Delete document.
@@ -89,6 +89,6 @@ class DeleteMixin:
                     file_data = None
             field_data.value = None
         # Run hook.
-        self.post_delete()  # type: ignore[index, attr-defined]
+        await self.post_delete()  # type: ignore[index, attr-defined]
         #
         return mongo_doc

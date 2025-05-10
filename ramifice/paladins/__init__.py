@@ -4,10 +4,10 @@ from .check import CheckMixin
 from .delete import DeleteMixin
 from .password import PasswordMixin
 from .save import SaveMixin
-from .tools import ToolsMixin
+from .tools import ToolMixin
 
 
-class Paladins(ToolsMixin, CheckMixin, SaveMixin, PasswordMixin, DeleteMixin):
+class Paladins(ToolMixin, CheckMixin, SaveMixin, PasswordMixin, DeleteMixin):
     """Paladins - Model instance methods."""
 
     def __init__(self):

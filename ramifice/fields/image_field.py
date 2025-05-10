@@ -195,9 +195,8 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             # Get file extension.
             extension = Path(src_path).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(
-                    f"The image `{src_path}` has no extension."
-                )
+                msg = f"The image `{src_path}` has no extension."
+                raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
             date_str = datetime.now().strftime("%Y-%m-%d")
             # Directory name for the original image and its thumbnails.

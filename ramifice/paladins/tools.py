@@ -10,7 +10,7 @@ from ..tools import model_is_migrated
 from ..types import CheckResult, FileData, ImageData
 
 
-class ToolsMixin:
+class ToolMixin:
     """A set of additional auxiliary methods for Paladins."""
 
     async def is_valid(self) -> bool:

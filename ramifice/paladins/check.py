@@ -56,7 +56,7 @@ class CheckMixin(
                 self.hash.value = str(doc_id)  # type: ignore[attr-defined]
             result_map["_id"] = doc_id
         # Errors from additional validation of fields.
-        error_map: dict[str, str] = self.add_validation() or {}  # type: ignore[attr-defined]
+        error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
         # Get Model collection.
         if collection is None:
             collection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]

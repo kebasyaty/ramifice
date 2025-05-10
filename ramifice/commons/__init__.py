@@ -1,10 +1,10 @@
 """Commons - Model class methods."""
 
 from .general import GeneralMixin
-from .tools import ToolsMixin
+from .tools import ToolMixin
 
 
-class Commons(ToolsMixin, GeneralMixin):
+class Commons(ToolMixin, GeneralMixin):
     """Commons - Model class methods."""
 
     def __init__(self):
