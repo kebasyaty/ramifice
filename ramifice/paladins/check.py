@@ -122,8 +122,8 @@ class CheckMixin(
                 if group == "file":
                     file_data = result_map.get(field_name)
                     if file_data is not None:
-                        if file_data.is_new_file:
-                            os.remove(file_data.path)
+                        if file_data["is_new_file"]:
+                            os.remove(file_data["path"])
                         field_data.value = None
                     if curr_doc is not None:
                         mongo_doc = curr_doc[field_name]
@@ -132,8 +132,8 @@ class CheckMixin(
                 elif group == "img":
                     img_data = result_map.get(field_name)
                     if img_data is not None:
-                        if img_data.is_new_img:
-                            shutil.rmtree(img_data.imgs_dir_path)
+                        if img_data["is_new_img"]:
+                            shutil.rmtree(img_data["imgs_dir_path"])
                         field_data.value = None
                     if curr_doc is not None:
                         mongo_doc = curr_doc[field_name]
@@ -147,11 +147,12 @@ class CheckMixin(
                 if group == "file":
                     file_data = result_map.get(field_name)
                     if file_data is not None:
-                        file_data.is_new_file = False
+                        file_data["is_new_file"] = False
                 elif group == "img":
                     img_data = result_map.get(field_name)
+                    print(img_data)
                     if img_data is not None:
-                        img_data.is_new_img = False
+                        img_data["is_new_img"] = False
         #
         #
         return CheckResult(
