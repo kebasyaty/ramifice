@@ -12,7 +12,7 @@ from .paladins import Paladins
 from .types import FileData, ImageData
 
 
-class Model(Commons, Paladins, Extra):
+class Model(Extra, Paladins, Commons):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}

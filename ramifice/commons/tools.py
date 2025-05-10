@@ -5,7 +5,7 @@ from typing import Any
 from ..types import FileData, ImageData
 
 
-class ToolsMixin:
+class ToolMixin:
     """A set of additional auxiliary methods for Commons."""
 
     @classmethod
