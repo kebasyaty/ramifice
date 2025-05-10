@@ -153,7 +153,7 @@ async def apply_fixture(
 
     with open(fixture_path, "r") as file:
         data_yaml = yaml.safe_load(file)
-    if bool(data_yaml):
+    if not bool(data_yaml):
         msg = (
             f"Model: `{cls_model.META["full_model_name"]}` > "
             + f"META param: `fixture_name` ({fixture_name}) => "
@@ -169,13 +169,15 @@ async def apply_fixture(
                 continue
             group = field_data.group
             value: Any | None = data.get(field_name)
+            if value == "None":
+                value = None
             if value is not None:
                 if group == "file" or group == "img":
                     field_data.from_path(value)
                 elif group == "bool":
                     field_data.value = True if value == "True" else False
                 else:
-                    field_data.value = None if value == "None" else value
+                    field_data.value = value
         # Check and get CheckResult.
         result_check: CheckResult = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # If the check fails.
