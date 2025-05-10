@@ -205,7 +205,7 @@ class Monitor:
         # Run indexing and apply fixture to current Model.
         for cls_model in self.model_list:
             # Run indexing.
-            cls_model.indexing()
+            await cls_model.indexing()
             # Apply fixture to current Model.
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
