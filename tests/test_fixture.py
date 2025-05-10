@@ -75,6 +75,43 @@ class User(Model):
         super().__init__()
 
 
+@meta(service_name="Accounts", fixture_name="User2")
+class User2(Model):
+    """Class for testing."""
+
+    def __init__(self):
+        self.url = URLField()
+        self.txt = TextField()
+        self.slug = SlugField()
+        self.phone = PhoneField()
+        self.password = PasswordField()
+        self.ip = IPField()
+        self.num_int = IntegerField()
+        self.num_float = FloatField()
+        self.img = ImageField()
+        self.hash2 = HashField()
+        self.file = FileField()
+        self.email = EmailField()
+        self.date_time = DateTimeField()
+        self.date = DateField()
+        self.color = ColorField()
+        self.bool = BooleanField()
+        self.choice_float_dyn = ChoiceFloatDynField()
+        self.choice_float = ChoiceFloatField()
+        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
+        self.choice_float_mult = ChoiceFloatMultField()
+        self.choice_int_dyn = ChoiceIntDynField()
+        self.choice_int_mult_dyn = ChoiceIntMultDynField()
+        self.choice_int_mult = ChoiceIntMultField()
+        self.choice_txt_dyn = ChoiceTextDynField()
+        self.choice_txt = ChoiceTextField()
+        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
+        self.choice_txt_mult = ChoiceTextMultField()
+        self.choice_int = ChoiceIntField()
+        #
+        super().__init__()
+
+
 class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
     """Testing `Ramifice > Tools > apply_fixture method."""
 
@@ -98,6 +135,7 @@ class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         self.assertEqual(await User.estimated_document_count(), 1)
+        self.assertEqual(await User2.estimated_document_count(), 2)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
