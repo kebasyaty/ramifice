@@ -3,6 +3,7 @@
 import ipaddress
 import math
 import os
+import pprint
 from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
@@ -172,10 +173,15 @@ async def apply_fixture(
             if value == "None":
                 value = None
             if value is not None:
-                if group == "file" or group == "img":
+                if group == "num":
+                    if field_data.field_type == "IntegerField":
+                        field_data.value = int(value)
+                    else:
+                        field_data.value = float(value)
+                elif group == "file" or group == "img":
                     field_data.from_path(value)
                 elif group == "bool":
-                    field_data.value = True if value == "True" else False
+                    field_data.value = True if value == "True" or value else False
                 else:
                     field_data.value = value
         # Check and get CheckResult.
@@ -195,6 +201,7 @@ async def apply_fixture(
         # Run hook.
         await inst_model.pre_create()  # type: ignore[index, attr-defined]
         # Insert doc.
+        pprint.pprint(checked_data)
         await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
         # Run hook.
         await inst_model.post_create()  # type: ignore[index, attr-defined]
