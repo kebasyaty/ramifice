@@ -136,6 +136,12 @@ class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
         # ----------------------------------------------------------------------
         self.assertEqual(await User.estimated_document_count(), 1)
         self.assertEqual(await User2.estimated_document_count(), 2)
+        await Monitor(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrat()
+        self.assertEqual(await User.estimated_document_count(), 1)
+        self.assertEqual(await User2.estimated_document_count(), 2)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
