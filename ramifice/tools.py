@@ -1,7 +1,6 @@
 """Global collection of auxiliary tools."""
 
 import ipaddress
-import json
 import math
 import os
 from datetime import datetime
@@ -173,9 +172,7 @@ async def apply_fixture(
             if value == "None":
                 value = None
             if value is not None:
-                if "Mult" in field_data.field_type:
-                    value = json.loads(value)
-                elif group == "file" or group == "img":
+                if group == "file" or group == "img":
                     field_data.from_path(value)
                 else:
                     field_data.value = value
