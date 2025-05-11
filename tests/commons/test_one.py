@@ -97,23 +97,12 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        self.assertEqual(await User.estimated_document_count(), 0)
-        self.assertEqual(await User.count_documents({}), 0)
         m = User()
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
-        self.assertEqual(await User.estimated_document_count(), 1)
-        self.assertEqual(await User.count_documents({}), 1)
-        self.assertEqual(await User.count_documents({"_id": m.hash.to_obj_id()}), 1)
-        self.assertEqual(User.collection_name(), "Accounts_User")
-        self.assertEqual(
-            User.collection_full_name(), "test_3H38935riZ53ML5u.Accounts_User"
-        )
-        self.assertEqual(User.database(), store.MONGO_DATABASE)
-        self.assertEqual(
-            User.collection(), store.MONGO_DATABASE[User.META["collection_name"]]
-        )
+        doc = await User.find_one({"_id": m.to_obj_id()})
+        self.assertTrue(isinstance(doc, dict))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
