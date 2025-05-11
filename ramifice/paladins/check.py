@@ -107,51 +107,52 @@ class CheckMixin(
                     self.pass_group(params)
 
         # Actions in case of error.
-        if params["is_error_symptom"] and is_save:
-            # Reset the ObjectId for a new document.
-            if not is_update:
-                self.hash.value = None  # type: ignore[attr-defined]
-            # Delete orphaned files.
-            curr_doc: dict[str, Any] | None = (
-                await collection.find_one({"_id": doc_id}) if is_update else None
-            )
-            for field_name, field_data in self.__dict__.items():
-                if callable(field_data) or field_data.ignored:
-                    continue
-                group = field_data.group
-                if group == "file":
-                    file_data = result_map.get(field_name)
-                    if file_data is not None:
-                        if file_data["is_new_file"]:
-                            os.remove(file_data["path"])
-                        field_data.value = None
-                    if curr_doc is not None:
-                        mongo_doc = curr_doc[field_name]
-                        if mongo_doc is not None:
-                            field_data.value = FileData.from_doc(mongo_doc)
-                elif group == "img":
-                    img_data = result_map.get(field_name)
-                    if img_data is not None:
-                        if img_data["is_new_img"]:
-                            shutil.rmtree(img_data["imgs_dir_path"])
-                        field_data.value = None
-                    if curr_doc is not None:
-                        mongo_doc = curr_doc[field_name]
-                        if mongo_doc is not None:
-                            field_data.value = ImageData.from_doc(mongo_doc)
-        elif is_save:
-            for field_name, field_data in self.__dict__.items():
-                if callable(field_data) or field_data.ignored:
-                    continue
-                group = field_data.group
-                if group == "file":
-                    file_data = result_map.get(field_name)
-                    if file_data is not None:
-                        file_data["is_new_file"] = False
-                elif group == "img":
-                    img_data = result_map.get(field_name)
-                    if img_data is not None:
-                        img_data["is_new_img"] = False
+        if is_save:
+            if params["is_error_symptom"]:
+                # Reset the ObjectId for a new document.
+                if not is_update:
+                    self.hash.value = None  # type: ignore[attr-defined]
+                # Delete orphaned files.
+                curr_doc: dict[str, Any] | None = (
+                    await collection.find_one({"_id": doc_id}) if is_update else None
+                )
+                for field_name, field_data in self.__dict__.items():
+                    if callable(field_data) or field_data.ignored:
+                        continue
+                    group = field_data.group
+                    if group == "file":
+                        file_data = result_map.get(field_name)
+                        if file_data is not None:
+                            if file_data["is_new_file"]:
+                                os.remove(file_data["path"])
+                            field_data.value = None
+                        if curr_doc is not None:
+                            mongo_doc = curr_doc[field_name]
+                            if mongo_doc is not None:
+                                field_data.value = FileData.from_doc(mongo_doc)
+                    elif group == "img":
+                        img_data = result_map.get(field_name)
+                        if img_data is not None:
+                            if img_data["is_new_img"]:
+                                shutil.rmtree(img_data["imgs_dir_path"])
+                            field_data.value = None
+                        if curr_doc is not None:
+                            mongo_doc = curr_doc[field_name]
+                            if mongo_doc is not None:
+                                field_data.value = ImageData.from_doc(mongo_doc)
+            else:
+                for field_name, field_data in self.__dict__.items():
+                    if callable(field_data) or field_data.ignored:
+                        continue
+                    group = field_data.group
+                    if group == "file":
+                        file_data = result_map.get(field_name)
+                        if file_data is not None:
+                            file_data["is_new_file"] = False
+                    elif group == "img":
+                        img_data = result_map.get(field_name)
+                        if img_data is not None:
+                            img_data["is_new_img"] = False
         #
         #
         return CheckResult(
