@@ -14,7 +14,7 @@ class OneMixin:
 
     @classmethod
     async def find_one(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
-        """Find document."""
+        """Find a single document."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
@@ -25,7 +25,7 @@ class OneMixin:
 
     @classmethod
     async def find_one_to_instance(cls, filter=None, *args, **kwargs) -> Any | None:
-        """Find document and convert it to a Model instance."""
+        """Find a single document and convert it to a Model instance."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
@@ -40,7 +40,7 @@ class OneMixin:
 
     @classmethod
     async def find_one_to_json(cls, filter=None, *args, **kwargs) -> str | None:
-        """Find document and convert it to a json string."""
+        """Find a single document and convert it to a json string."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
@@ -58,7 +58,7 @@ class OneMixin:
     async def delete_one(
         cls, filter, collation=None, hint=None, session=None, let=None, comment=None
     ) -> DeleteResult:
-        """Delete one document."""
+        """Find a single document and delete it."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
@@ -71,5 +71,35 @@ class OneMixin:
             session=session,
             let=let,
             comment=comment,
+        )
+        return result
+
+    @classmethod
+    async def find_one_and_delete(
+        cls,
+        filter,
+        projection=None,
+        sort=None,
+        hint=None,
+        session=None,
+        let=None,
+        comment=None,
+        **kwargs
+    ) -> dict[str, Any]:
+        """Find a single document and delete it, return original."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document.
+        result: dict[str, Any] = await collection.find_one_and_delete(
+            filter=filter,
+            projection=projection,
+            sort=sort,
+            hint=hint,
+            session=session,
+            let=let,
+            comment=comment,
+            **kwargs
         )
         return result
