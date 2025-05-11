@@ -101,8 +101,11 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
+        #
         doc = await User.find_one({"_id": m.to_obj_id()})
         self.assertTrue(isinstance(doc, dict))
+        model = await User.find_one_to_instance({"_id": m.to_obj_id()})
+        self.assertEqual(model.hash.value, m.hash.value)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
