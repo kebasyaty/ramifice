@@ -183,6 +183,7 @@ async def apply_fixture(
         result_check: CheckResult = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # If the check fails.
         if not result_check.is_valid:
+            await collection.database.drop_collection(collection.name)
             print(colored("\nFIXTURE:", "red", attrs=["bold"]))
             print(colored(fixture_path, "blue", attrs=["bold"]))
             inst_model.print_err()
@@ -196,6 +197,9 @@ async def apply_fixture(
         # Run hook.
         await inst_model.pre_create()  # type: ignore[index, attr-defined]
         # Insert doc.
-        await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+        try:
+            await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+        except:
+            await collection.database.drop_collection(collection.name)
         # Run hook.
         await inst_model.post_create()  # type: ignore[index, attr-defined]
