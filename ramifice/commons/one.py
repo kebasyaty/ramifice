@@ -24,7 +24,9 @@ class OneMixin:
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            pass
+            # Convert document to Model instance.
+            inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            mongo_doc = inst_model.to_dict()
         return mongo_doc
 
     @classmethod
