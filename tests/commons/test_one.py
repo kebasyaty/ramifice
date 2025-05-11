@@ -108,6 +108,8 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(model.hash.value, m.hash.value)
         json_str = await User.find_one_to_json({"_id": m.to_obj_id()})
         self.assertEqual(json_str, m.to_json())
+        await User.delete_one({"_id": m.to_obj_id()})
+        self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
