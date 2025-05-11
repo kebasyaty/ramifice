@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Commons > General` methods."""
+"""Testing `Ramifice > Commons > GeneraMixin` methods."""
 
 import unittest
 
@@ -76,7 +76,7 @@ class User(Model):
 
 
 class TestCommonGeneral(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Commons > General` methods."""
+    """Testing `Ramifice > Commons > GeneralMixin` methods."""
 
     async def test_general_methods(self):
         """Testing General methods."""

@@ -1,10 +1,10 @@
-"""Testing `Ramifice > Paladins > SaveMixin > save method."""
+"""Testing `Ramifice > Commons > OneMixin` methods."""
 
 import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta
+from ramifice import Model, meta, store
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -75,13 +75,16 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinSave(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > SaveMixin > save method."""
+class TestCommonOne(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Commons > OneMixin` methods."""
 
-    async def test_save_mixin(self):
-        """Testing `save` method."""
-        # Maximum number of characters 60.
-        database_name = "test_save_mixin"
+    async def test_general_methods(self):
+        """Testing General methods."""
+        # To generate a key (this is not an advertisement):
+        # https://randompasswordgen.com/
+        unique_key = "3H38935riZ53ML5u"
+        # Maximum number of characters 60
+        database_name = f"test_{unique_key}"
 
         # Delete database before test.
         # (if the test fails)
@@ -97,15 +100,23 @@ class TestPaladinSave(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
+        self.assertEqual(await User.estimated_document_count(), 0)
+        self.assertEqual(await User.count_documents({}), 0)
         m = User()
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)
-        result = await m.delete()
-        self.assertTrue(isinstance(result, dict))
-        self.assertEqual(len(result), 31)
-        self.assertEqual(await User.estimated_document_count(), 0)
+        self.assertEqual(await User.count_documents({}), 1)
+        self.assertEqual(await User.count_documents({"_id": m.hash.to_obj_id()}), 1)
+        self.assertEqual(User.collection_name(), "Accounts_User")
+        self.assertEqual(
+            User.collection_full_name(), "test_3H38935riZ53ML5u.Accounts_User"
+        )
+        self.assertEqual(User.database(), store.MONGO_DATABASE)
+        self.assertEqual(
+            User.collection(), store.MONGO_DATABASE[User.META["collection_name"]]
+        )
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

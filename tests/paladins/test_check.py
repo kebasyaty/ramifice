@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > CheckMixin module."""
+"""Testing `Ramifice > Paladins > CheckMixin > check method."""
 
 import unittest
 
@@ -76,7 +76,7 @@ class User(Model):
 
 
 class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > CheckMixin module."""
+    """Testing `Ramifice > Paladins > CheckMixin > check method."""
 
     async def test_check_mixin(self):
         """Testing `check` method."""
