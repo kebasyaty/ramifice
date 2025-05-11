@@ -13,7 +13,9 @@ class OneMixin:
     """Requests like `find one`."""
 
     @classmethod
-    async def find_one_as_doc(cls, filter=None, *args, **kwargs) -> Any | None:
+    async def find_one_as_doc(
+        cls, filter=None, *args, **kwargs
+    ) -> dict[str, Any] | None:
         """Find document."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
@@ -21,6 +23,8 @@ class OneMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        if mongo_doc is not None:
+            pass
         return mongo_doc
 
     @classmethod
@@ -39,7 +43,7 @@ class OneMixin:
         return inst_model
 
     @classmethod
-    async def find_one_to_json(cls, filter=None, *args, **kwargs) -> Any | None:
+    async def find_one_to_json(cls, filter=None, *args, **kwargs) -> str | None:
         """Find document and convert it to a json string."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
