@@ -40,7 +40,7 @@ class OneMixin:
 
     @classmethod
     async def find_one_to_json(cls, filter=None, *args, **kwargs) -> str | None:
-        """Find a single document and convert it to a json string."""
+        """Find a single document and convert it to a JSON string."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
