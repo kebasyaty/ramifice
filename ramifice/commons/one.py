@@ -13,9 +13,7 @@ class OneMixin:
     """Requests like `find one`."""
 
     @classmethod
-    async def find_one_as_doc(
-        cls, filter=None, *args, **kwargs
-    ) -> dict[str, Any] | None:
+    async def find_one(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
         """Find document."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
@@ -23,10 +21,6 @@ class OneMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
-        if mongo_doc is not None:
-            # Convert document to Model instance.
-            inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
-            mongo_doc = inst_model.to_dict()
         return mongo_doc
 
     @classmethod
