@@ -120,7 +120,6 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         doc = await User.find_one_and_delete({"_id": m.to_obj_id()})
         self.assertEqual(str(doc["_id"]), m.hash.value)
         self.assertEqual(await User.estimated_document_count(), 0)
-        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
