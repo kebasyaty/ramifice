@@ -104,12 +104,23 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         #
         doc = await User.find_one({"_id": m.to_obj_id()})
         self.assertTrue(isinstance(doc, dict))
+        #
         model = await User.find_one_to_instance({"_id": m.to_obj_id()})
         self.assertEqual(model.hash.value, m.hash.value)
+        #
         json_str = await User.find_one_to_json({"_id": m.to_obj_id()})
         self.assertEqual(json_str, m.to_json())
+        #
         await User.delete_one({"_id": m.to_obj_id()})
         self.assertEqual(await User.estimated_document_count(), 0)
+        #
+        m = User()
+        if not await m.save():
+            m.print_err()
+        doc = await User.find_one_and_delete({"_id": m.to_obj_id()})
+        self.assertEqual(str(doc["_id"]), m.hash.value)
+        self.assertEqual(await User.estimated_document_count(), 0)
+        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
