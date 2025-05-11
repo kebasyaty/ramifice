@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > CheckMixin > check method."""
+"""Testing `Ramifice > Paladins > CheckMixin` module."""
 
 import unittest
 
@@ -75,13 +75,13 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > CheckMixin > check method."""
+class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Paladins > CheckMixin` module."""
 
-    async def test_check_mixin(self):
+    async def test_check_method(self):
         """Testing `check` method."""
         # Maximum number of characters 60.
-        database_name = "test_check_mixin"
+        database_name = "test_check_method"
 
         # Delete database before test.
         # (if the test fails)

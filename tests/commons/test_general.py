@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Commons > GeneraMixin` methods."""
+"""Testing `Ramifice > Commons > GeneraMixin` module."""
 
 import unittest
 
@@ -75,16 +75,13 @@ class User(Model):
         super().__init__()
 
 
-class TestCommonGeneral(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Commons > GeneralMixin` methods."""
+class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Commons > GeneralMixin` module."""
 
-    async def test_general_methods(self):
-        """Testing General methods."""
-        # To generate a key (this is not an advertisement):
-        # https://randompasswordgen.com/
-        unique_key = "3H38935riZ53ML5u"
-        # Maximum number of characters 60
-        database_name = f"test_{unique_key}"
+    async def test_general_mixin_methods(self):
+        """Testing GeneralMixin methods."""
+        # Maximum number of characters 60.
+        database_name = "test_general_mixin_methods"
 
         # Delete database before test.
         # (if the test fails)

@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > PsswordMixin module."""
+"""Testing `Ramifice > Paladins > PsswordMixin` module."""
 
 import unittest
 
@@ -20,13 +20,13 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinPassword(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > PsswordMixin module."""
+class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Paladins > PsswordMixin` module."""
 
-    async def test_pssword_mixin(self):
+    async def test_pssword_methods(self):
         """Testing PsswordMixin module."""
         # Maximum number of characters 60.
-        database_name = "test_pssword_mixin"
+        database_name = "test_pssword_methods"
 
         # Delete database before test.
         # (if the test fails)
