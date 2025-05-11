@@ -3,6 +3,7 @@
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
+from pymongo.results import DeleteResult
 
 from .. import store
 from ..tools import model_is_migrated
@@ -52,3 +53,23 @@ class OneMixin:
             inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
             json_str = inst_model.to_json()
         return json_str
+
+    @classmethod
+    async def delete_one(
+        cls, filter, collation=None, hint=None, session=None, let=None, comment=None
+    ) -> DeleteResult:
+        """Delete one document."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document.
+        result: DeleteResult = await collection.delete_one(
+            filter=filter,
+            collation=collation,
+            hint=hint,
+            session=session,
+            let=let,
+            comment=comment,
+        )
+        return result
