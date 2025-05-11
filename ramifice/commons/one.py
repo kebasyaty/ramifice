@@ -36,3 +36,19 @@ class OneMixin:
             # Convert document to Model instance.
             inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
         return inst_model
+
+    @classmethod
+    async def find_one_to_json(cls, filter=None, *args, **kwargs) -> Any | None:
+        """Find document and convert it to a json string."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document.
+        json_str: str | None = None
+        mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        if mongo_doc is not None:
+            # Convert document to Model instance.
+            inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            json_str = inst_model.to_json()
+        return json_str
