@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > SaveMixin module."""
+"""Testing `Ramifice > Paladins > SaveMixin` module."""
 
 import unittest
 
@@ -75,13 +75,13 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinSave(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > SaveMixin module."""
+class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Paladins > SaveMixin` module."""
 
-    async def test_save_mixin(self):
-        """Testing method `save`."""
+    async def test_save_method(self):
+        """Testing `save` method."""
         # Maximum number of characters 60.
-        database_name = "test_save_mixin"
+        database_name = "test_save_method"
 
         # Delete database before test.
         # (if the test fails)
