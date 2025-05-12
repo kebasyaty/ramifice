@@ -111,9 +111,6 @@ class DateField(Field, DateGroup, JsonMixin):
 
         self.default = default
 
-    def __str__(self):
-        return str(self.value)
-
     def to_datetime(self) -> datetime | None:
         """Convert parameter `value` or `default` into object of date and time."""
         value = self.value or self.default or None

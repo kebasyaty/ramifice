@@ -42,9 +42,6 @@ class PasswordField(Field, JsonMixin):
         self.placeholder = placeholder
         self.required = required
 
-    def __str__(self):
-        return str(self.value)
-
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Password."""
         flag = True

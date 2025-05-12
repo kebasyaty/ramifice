@@ -46,6 +46,3 @@ class SlugField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.slug_sources = slug_sources
-
-    def __str__(self):
-        return str(self.value)
