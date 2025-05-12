@@ -118,7 +118,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         if not await m.save():
             m.print_err()
         doc = await User.find_one_and_delete({"_id": m._id.value})
-        self.assertEqual(str(doc["_id"]), m._id.value)
+        self.assertEqual(doc["_id"], m._id.value)
         self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #
