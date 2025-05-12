@@ -24,7 +24,7 @@ class SaveMixin:
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # Reset the alerts to exclude duplicates.
-        self.hash.alerts = []  # type: ignore[index, attr-defined]
+        self._id.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
         if not result_check["is_update"] and not self.__class__.META["is_create_doc"]:  # type: ignore[index, attr-defined]
             self.hash.alerts.append("It is forbidden to create new documents !")  # type: ignore[index, attr-defined]

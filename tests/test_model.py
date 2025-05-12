@@ -33,11 +33,10 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "tests.test_model.User")
         #
-        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
-        self.assertIsNone(m.to_obj_id())
 
 
 if __name__ == "__main__":
