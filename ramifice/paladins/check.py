@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..types import CheckResult, FileData, ImageData
+from ..types import FileData, ImageData
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -40,7 +40,7 @@ class CheckMixin(
     # pylint: disable=too-many-branches
     async def check(
         self, is_save: bool = False, collection: AsyncCollection | None = None
-    ) -> CheckResult:
+    ) -> dict[str, Any]:
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
@@ -155,7 +155,7 @@ class CheckMixin(
                             img_data["is_new_img"] = False
         #
         #
-        return CheckResult(
+        return dict(
             data=result_map,
             is_valid=not params["is_error_symptom"],
             is_update=is_update,

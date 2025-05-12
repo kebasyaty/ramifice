@@ -5,15 +5,6 @@ from typing import Any
 from .mixins import JsonMixin
 
 
-class CheckResult:
-    """Output data type for the `ModelName.check()` method."""
-
-    def __init__(self, data: dict[str, Any], is_valid: bool, is_update: bool):
-        self.data = data
-        self.is_valid = is_valid
-        self.is_update = is_update
-
-
 class Unit(JsonMixin):
     """Unit of information for `choices` parameter in dynamic field types."""
 

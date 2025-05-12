@@ -7,7 +7,7 @@ from termcolor import colored
 
 from ..errors import PanicError
 from ..tools import model_is_migrated
-from ..types import CheckResult, FileData, ImageData
+from ..types import FileData, ImageData
 
 
 class ToolMixin:
@@ -17,8 +17,8 @@ class ToolMixin:
         """Check data validity.
         The main use is to check data from web forms.
         """
-        result_check: CheckResult = await self.check()  # type: ignore[attr-defined]
-        return result_check.is_valid
+        result_check: dict[str, Any] = await self.check()  # type: ignore[attr-defined]
+        return result_check["is_valid"]
 
     def print_err(self) -> None:
         """Printing errors to the console.

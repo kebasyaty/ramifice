@@ -15,7 +15,7 @@ from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
 from .tools import apply_fixture
-from .types import CheckResult, FileData, ImageData
+from .types import FileData, ImageData
 
 
 class Monitor:
@@ -152,15 +152,15 @@ class Monitor:
                                 mongo_doc[field_name] = None
                     #
                     inst_model = cls_model.from_doc(mongo_doc)
-                    result_check: CheckResult = await inst_model.check(
+                    result_check: dict[str, Any] = await inst_model.check(
                         is_save=True, collection=model_collection
                     )
-                    if not result_check.is_valid:
+                    if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
                         raise PanicError("Migration failed.")
                     # Get checked data.
-                    checked_data = result_check.data
+                    checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.
                     for field_name, field_type in metadata[
                         "field_name_and_type_list"
