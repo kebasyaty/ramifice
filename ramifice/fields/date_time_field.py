@@ -92,7 +92,7 @@ class DateTimeField(Field, DateGroup):
         """Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
-            obj.__dict__[name] = data
+            obj.__dict__[name] = data if name != "value" else datetime_parse(data)
         return obj
 
     @classmethod
