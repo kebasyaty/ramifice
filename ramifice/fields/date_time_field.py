@@ -2,7 +2,6 @@
 
 from datetime import datetime
 
-from ..errors import InvalidDateTimeError
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from ..tools import datetime_parse
