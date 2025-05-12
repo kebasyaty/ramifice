@@ -94,7 +94,4 @@ class ToolMixin:
                 self.__dict__["hash"].value = str(data)
                 continue
             field = self.__dict__[name]
-            if field.group != "pass":
-                field.value = data
-            else:
-                field.value = None
+            field.value = data if field.group != "pass" else None
