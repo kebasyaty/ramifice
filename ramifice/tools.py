@@ -16,7 +16,6 @@ from termcolor import colored
 
 from .errors import InvalidDateError, InvalidDateTimeError, PanicError
 from .store import REGEX
-from .types import CheckResult
 
 
 def date_parse(date: str) -> datetime:
@@ -176,17 +175,17 @@ async def apply_fixture(
                     field_data.from_path(value)
                 else:
                     field_data.value = value
-        # Check and get CheckResult.
-        result_check: CheckResult = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+        # Check Model.
+        result_check: dict[str, Any] = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # If the check fails.
-        if not result_check.is_valid:
+        if not result_check["is_valid"]:
             await collection.database.drop_collection(collection.name)
             print(colored("\nFIXTURE:", "red", attrs=["bold"]))
             print(colored(fixture_path, "blue", attrs=["bold"]))
             inst_model.print_err()
             raise PanicError("!!!")
         # Get data for document.
-        checked_data: dict[str, Any] = result_check.data
+        checked_data: dict[str, Any] = result_check["data"]
         # Add date and time.
         today = datetime.now()
         checked_data["created_at"] = today

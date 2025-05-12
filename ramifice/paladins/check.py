@@ -8,7 +8,6 @@ from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..types import CheckResult, FileData, ImageData
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -40,7 +39,7 @@ class CheckMixin(
     # pylint: disable=too-many-branches
     async def check(
         self, is_save: bool = False, collection: AsyncCollection | None = None
-    ) -> CheckResult:
+    ) -> dict[str, Any]:
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
@@ -127,9 +126,7 @@ class CheckMixin(
                                 os.remove(file_data["path"])
                             field_data.value = None
                         if curr_doc is not None:
-                            mongo_doc = curr_doc[field_name]
-                            if mongo_doc is not None:
-                                field_data.value = FileData.from_doc(mongo_doc)
+                            field_data.value = curr_doc[field_name]
                     elif group == "img":
                         img_data = result_map.get(field_name)
                         if img_data is not None:
@@ -137,9 +134,7 @@ class CheckMixin(
                                 shutil.rmtree(img_data["imgs_dir_path"])
                             field_data.value = None
                         if curr_doc is not None:
-                            mongo_doc = curr_doc[field_name]
-                            if mongo_doc is not None:
-                                field_data.value = ImageData.from_doc(mongo_doc)
+                            field_data.value = curr_doc[field_name]
             else:
                 for field_name, field_data in self.__dict__.items():
                     if callable(field_data) or field_data.ignored:
@@ -155,7 +150,7 @@ class CheckMixin(
                             img_data["is_new_img"] = False
         #
         #
-        return CheckResult(
+        return dict(
             data=result_map,
             is_valid=not params["is_error_symptom"],
             is_update=is_update,

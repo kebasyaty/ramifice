@@ -15,7 +15,7 @@ from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
 from .tools import apply_fixture
-from .types import CheckResult, FileData, ImageData
+from .types import FILE_DATA_TYPE, IMAGE_DATA_TYPE
 
 
 class Monitor:
@@ -141,26 +141,26 @@ class Monitor:
                         )
                         if field_type is not None:
                             if field_type == "FileField":
-                                file = FileData()
-                                file.is_delete = True
-                                mongo_doc[field_name] = file.to_dict()
+                                file_data = FILE_DATA_TYPE.copy()
+                                file_data["is_delete"] = True
+                                mongo_doc[field_name] = file_data
                             elif field_type == "ImageField":
-                                img = ImageData()
-                                img.is_delete = True
-                                mongo_doc[field_name] = img.to_dict()
+                                img_data = IMAGE_DATA_TYPE.copy()
+                                img_data["is_delete"] = True
+                                mongo_doc[field_name] = img_data
                             else:
                                 mongo_doc[field_name] = None
                     #
                     inst_model = cls_model.from_doc(mongo_doc)
-                    result_check: CheckResult = await inst_model.check(
+                    result_check: dict[str, Any] = await inst_model.check(
                         is_save=True, collection=model_collection
                     )
-                    if not result_check.is_valid:
+                    if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
                         raise PanicError("Migration failed.")
                     # Get checked data.
-                    checked_data = result_check.data
+                    checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.
                     for field_name, field_type in metadata[
                         "field_name_and_type_list"

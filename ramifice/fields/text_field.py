@@ -67,6 +67,3 @@ class TextField(Field, TextGroup, JsonMixin):
         self.textarea = textarea
         self.use_editor = use_editor
         self.maxlength = maxlength
-
-    def __str__(self):
-        return str(self.value)

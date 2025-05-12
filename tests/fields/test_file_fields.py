@@ -42,27 +42,27 @@ class TestFileFields(unittest.TestCase):
             FileField(default=12)
         with self.assertRaises(AssertionError):
             FileField(default="")
+        #
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.file_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
-        #
-        # from_base64()
+        # # from_base64
         # self.assertIsNone(f.from_base64(self.file_base64_str, "file_name.txt"))
-        # self.assertEqual(f.value.name, "file_name.txt")
-        # self.assertEqual(f.value.size, 13)
-        # self.assertTrue(f.value.is_new_file)
-        # self.assertEqual(f.value.extension, ".txt")
-        # self.assertFalse(f.value.delete)
-        # self.assertFalse(f.value.save_as_is)
-        # from_path()
+        # self.assertEqual(f.value["name"], "file_name.txt")
+        # self.assertEqual(f.value["size"], 13)
+        # self.assertTrue(f.value["is_new_file"])
+        # self.assertEqual(f.value["extension"], ".txt")
+        # self.assertFalse(f.value["is_delete"])
+        # self.assertFalse(f.value["save_as_is"])
+        # # from_path
         # self.assertIsNone(f.from_path("public/media/default/no_doc.odt"))
-        # self.assertEqual(f.value.name, "no_doc.odt")
-        # self.assertEqual(f.value.size, 9843)
-        # self.assertTrue(f.value.is_new_file)
-        # self.assertEqual(f.value.extension, ".odt")
-        # self.assertFalse(f.value.delete)
-        # self.assertFalse(f.value.save_as_is)
+        # self.assertEqual(f.value["name"], "no_doc.odt")
+        # self.assertEqual(f.value["size"], 9843)
+        # self.assertTrue(f.value["is_new_file"])
+        # self.assertEqual(f.value["extension"], ".odt")
+        # self.assertFalse(f.value["is_delete"])
+        # self.assertFalse(f.value["save_as_is"])
 
     def test_image_field(self):
         """Testing `ImageField`."""
@@ -102,29 +102,30 @@ class TestFileFields(unittest.TestCase):
             ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 300})
         with self.assertRaises(AssertionError):
             ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 301})
+        #
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_base64(self.img_base64_str, "file_name")
         # with self.assertRaises(FileHasNoExtensionError):
         #     f.from_path("public/media/default/no_doc")
 
-        # # from_base64()
+        # # from_base64
         # self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
-        # self.assertEqual(f.value.name, "image_name.png")
-        # self.assertEqual(f.value.size, 120)
-        # self.assertTrue(f.value.is_new_img)
-        # self.assertEqual(f.value.extension, ".png")
-        # self.assertEqual(f.value.ext_upper, "PNG")
-        # self.assertFalse(f.value.is_delete)
-        # self.assertFalse(f.value.save_as_is)
-        # # from_path()
+        # self.assertEqual(f.value["name"], "image_name.png")
+        # self.assertEqual(f.value["size"], 120)
+        # self.assertTrue(f.value["is_new_img"])
+        # self.assertEqual(f.value["extension"], ".png")
+        # self.assertEqual(f.value["ext_upper"], "PNG")
+        # self.assertFalse(f.value["is_delete"])
+        # self.assertFalse(f.value["save_as_is"])
+        # # from_path
         # self.assertIsNone(f.from_path("public/media/default/no_photo.jpeg"))
-        # self.assertEqual(f.value.name, "no_photo.jpeg")
-        # self.assertEqual(f.value.size, 3832)
-        # self.assertTrue(f.value.is_new_img)
-        # self.assertEqual(f.value.extension, ".jpeg")
-        # self.assertEqual(f.value.ext_upper, "JPEG")
-        # self.assertFalse(f.value.is_delete)
-        # self.assertFalse(f.value.save_as_is)
+        # self.assertEqual(f.value["name"], "no_photo.jpeg")
+        # self.assertEqual(f.value["size"], 3832)
+        # self.assertTrue(f.value["is_new_img"])
+        # self.assertEqual(f.value["extension"], ".jpeg")
+        # self.assertEqual(f.value["ext_upper"], "JPEG")
+        # self.assertFalse(f.value["is_delete"])
+        # self.assertFalse(f.value["save_as_is"])
 
 
 if __name__ == "__main__":

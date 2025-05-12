@@ -9,14 +9,14 @@ from pathlib import Path
 from typing import Any
 
 from ..errors import FileHasNoExtensionError
-from ..mixins import FileJsonMixin
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..types import ImageData
+from ..types import IMAGE_DATA_TYPE
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class ImageField(Field, FileGroup, FileJsonMixin):
+class ImageField(Field, FileGroup, JsonMixin):
     """Field of Model for upload image.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -59,7 +59,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             target_dir=target_dir,
             accept=accept,
         )
-        FileJsonMixin.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None:
@@ -95,15 +95,9 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                             )
                         curr_size_thumb = max_size_thumb
 
-        self.value: ImageData | None = None
+        self.value: dict[str, Any] | None = None
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
-
-    def __str__(self):
-        value = self.value
-        if value is not None:
-            value = value.name
-        return str(value)
 
     def from_base64(
         self,
@@ -116,9 +110,9 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         """
         base64_str = base64_str or None
         filename = filename or None
-        i_data = ImageData()
-        i_data.is_new_img = True
-        i_data.is_delete = is_delete
+        i_data = IMAGE_DATA_TYPE.copy()
+        i_data["is_new_img"] = True
+        i_data["is_delete"] = is_delete
 
         if base64_str is not None and filename is not None:
             # Get file extension.
@@ -158,25 +152,25 @@ class ImageField(Field, FileGroup, FileJsonMixin):
                 f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths for main image.
-            i_data.path = main_img_path
-            i_data.url = f"{imgs_dir_url}/{new_original_name}"
+            i_data["path"] = main_img_path
+            i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
-            i_data.name = filename
+            i_data["name"] = filename
             # Add image extension.
-            i_data.extension = extension
+            i_data["extension"] = extension
             # Transform extension to the upper register and delete the point.
             ext_upper = extension[1:].upper()
             if ext_upper == "JPG":
                 ext_upper = "JPEG"
-            i_data.ext_upper = ext_upper
+            i_data["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            i_data.imgs_dir_path = imgs_dir_path
+            i_data["imgs_dir_path"] = imgs_dir_path
             # Add url path to target directory with images.
-            i_data.imgs_dir_url = imgs_dir_url
+            i_data["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            i_data.size = os.path.getsize(main_img_path)
+            i_data["size"] = os.path.getsize(main_img_path)
 
-        # FileData to value.
+        # to value.
         self.value = i_data
 
     # --------------------------------------------------------------------------
@@ -187,9 +181,9 @@ class ImageField(Field, FileGroup, FileJsonMixin):
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
-        i_data = ImageData()
-        i_data.is_new_img = True
-        i_data.is_delete = is_delete
+        i_data = IMAGE_DATA_TYPE.copy()
+        i_data["is_new_img"] = True
+        i_data["is_delete"] = is_delete
 
         if src_path is not None:
             # Get file extension.
@@ -219,25 +213,25 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             # Save main image in target directory.
             shutil.copyfile(src_path, main_img_path)
             # Add paths for main image.
-            i_data.path = main_img_path
-            i_data.url = f"{imgs_dir_url}/{new_original_name}"
+            i_data["path"] = main_img_path
+            i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
-            i_data.name = os.path.basename(src_path)
+            i_data["name"] = os.path.basename(src_path)
             # Add image extension.
-            i_data.extension = extension
+            i_data["extension"] = extension
             # Transform extension to the upper register and delete the point.
             ext_upper = extension[1:].upper()
             if ext_upper == "JPG":
                 ext_upper = "JPEG"
-            i_data.ext_upper = ext_upper
+            i_data["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            i_data.imgs_dir_path = imgs_dir_path
+            i_data["imgs_dir_path"] = imgs_dir_path
             # Add url path to target directory with images.
-            i_data.imgs_dir_url = imgs_dir_url
+            i_data["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            i_data.size = os.path.getsize(main_img_path)
+            i_data["size"] = os.path.getsize(main_img_path)
 
-        # FileData to value.
+        # to value.
         self.value = i_data
 
     @classmethod
@@ -245,8 +239,5 @@ class ImageField(Field, FileGroup, FileJsonMixin):
         """Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
-            if name != "value" or data is None:
-                obj.__dict__[name] = data
-            else:
-                obj.__dict__[name] = ImageData.from_dict(data)
+            obj.__dict__[name] = data
         return obj

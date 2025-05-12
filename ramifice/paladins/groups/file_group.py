@@ -38,7 +38,7 @@ class FileGroupMixin:
         if value is None:
             return
         # If the file needs to be delete.
-        if value.is_delete and len(value.path) == 0:
+        if value["is_delete"] and len(value.path) == 0:
             default = field.default or None
             # If necessary, use the default value.
             if default is not None:
@@ -53,7 +53,7 @@ class FileGroupMixin:
                     self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                 return
         # Accumulate an error if the file size exceeds the maximum value.
-        if value.size > field.max_size:
+        if value["size"] > field.max_size:
             err_msg = (
                 f"File size exceeds the maximum value {to_human_size(field.max_size)} !"
             )
@@ -61,13 +61,13 @@ class FileGroupMixin:
             return
         # Return if there is no need to save.
         if not params["is_save"]:
-            if value.is_new_file:
-                os.remove(value.path)
+            if value["is_new_file"]:
+                os.remove(value["path"])
                 params["field_data"].value = None
             return
         # Insert result.
         if params["is_save"]:
-            if value.is_new_file or value.save_as_is:
-                value.is_delete = False
-                value.save_as_is = True
-                params["result_map"][field.name] = value.to_dict()
+            if value["is_new_file"] or value["save_as_is"]:
+                value["is_delete"] = False
+                value["save_as_is"] = True
+                params["result_map"][field.name] = value
