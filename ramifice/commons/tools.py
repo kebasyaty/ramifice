@@ -2,8 +2,6 @@
 
 from typing import Any
 
-from ..types import ImageData
-
 
 class ToolMixin:
     """A set of additional auxiliary methods for Commons."""
@@ -25,8 +23,6 @@ class ToolMixin:
                         data = data.strftime("%Y-%m-%d")
                     else:
                         data = data.strftime("%Y-%m-%dT%H:%M:%S")
-                elif field.group == "img":
-                    data = ImageData.from_doc(data)
                 field.value = data
             else:
                 field.value = None

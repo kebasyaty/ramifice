@@ -30,43 +30,28 @@ FILE_DATA_TYPE = dict(
     save_as_is=False,
 )
 
-
-class ImageData(JsonMixin):
-    """Data type for `ImageField.value`."""
-
-    def __init__(self):
-        JsonMixin.__init__(self)
-        self.path = ""
-        self.path_xs = ""
-        self.path_sm = ""
-        self.path_md = ""
-        self.path_lg = ""
-        self.url = ""
-        self.url_xs = ""
-        self.url_sm = ""
-        self.url_md = ""
-        self.url_lg = ""
-        self.name = ""
-        self.width = 0
-        self.height = 0
-        self.size = 0
-        self.is_new_img = False
-        self.is_delete = False
-        self.extension = ""
-        self.imgs_dir_path = ""
-        self.imgs_dir_url = ""
-        self.save_as_is = False
-        # Extension to the upper register and delete the point.
-        self.ext_upper = ""
-
-    def __str__(self):
-        name = self.name or None
-        return str(name)
-
-    @classmethod
-    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
-        """Convert Mongo document to a object instance."""
-        obj = cls()
-        for name, data in mongo_doc.items():
-            obj.__dict__[name] = data
-        return obj
+# For `ImageField.value`.
+IMAGE_DATA_TYPE = dict(
+    path="",
+    path_xs="",
+    path_sm="",
+    path_md="",
+    path_lg="",
+    url="",
+    url_xs="",
+    url_sm="",
+    url_md="",
+    url_lg="",
+    name="",
+    width=0,
+    height=0,
+    size=0,
+    is_new_img=False,
+    is_delete=False,
+    extension="",
+    imgs_dir_path="",
+    imgs_dir_url="",
+    save_as_is=False,
+    # Extension to the upper register and delete the point.
+    ext_upper="",
+)

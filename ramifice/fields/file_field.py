@@ -11,6 +11,7 @@ from typing import Any
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
+from ..types import FILE_DATA_TYPE
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -80,16 +81,7 @@ class FileField(Field, FileGroup, JsonMixin):
         """
         base64_str = base64_str or None
         filename = filename or None
-        f_data = dict(
-            path="",
-            url="",
-            name="",
-            size=0,
-            is_new_file=False,
-            is_delete=False,
-            extension="",
-            save_as_is=False,
-        )
+        f_data = FILE_DATA_TYPE.copy()
         f_data["is_new_file"] = True
         f_data["is_delete"] = is_delete
 
@@ -145,16 +137,7 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        f_data = dict(
-            path="",
-            url="",
-            name="",
-            size=0,
-            is_new_file=False,
-            is_delete=False,
-            extension="",
-            save_as_is=False,
-        )
+        f_data = FILE_DATA_TYPE.copy()
         f_data["is_new_file"] = True
         f_data["is_delete"] = is_delete
 

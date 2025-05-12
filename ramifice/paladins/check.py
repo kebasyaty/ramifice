@@ -8,7 +8,6 @@ from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..types import ImageData
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -135,9 +134,7 @@ class CheckMixin(
                                 shutil.rmtree(img_data["imgs_dir_path"])
                             field_data.value = None
                         if curr_doc is not None:
-                            mongo_doc = curr_doc[field_name]
-                            if mongo_doc is not None:
-                                field_data.value = ImageData.from_doc(mongo_doc)
+                            field_data.value = curr_doc[field_name]
             else:
                 for field_name, field_data in self.__dict__.items():
                     if callable(field_data) or field_data.ignored:
