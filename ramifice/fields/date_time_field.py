@@ -28,12 +28,12 @@ class DateTimeField(Field, DateGroup, JsonMixin):
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: str | None = None,
+        default: datetime | None = None,
         placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
-        max_date: str | None = None,
-        min_date: str | None = None,
+        max_date: datetime | None = None,
+        min_date: datetime | None = None,
     ):
         Field.__init__(
             self,
@@ -60,64 +60,21 @@ class DateTimeField(Field, DateGroup, JsonMixin):
 
         if DEBUG:
             if max_date is not None:
-                if not isinstance(max_date, str):
+                if not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
-                if len(max_date) == 0:
-                    raise AssertionError(
-                        "The `max_date` parameter should not contain an empty string!"
-                    )
-                try:
-                    datetime_parse(max_date)
-                except InvalidDateTimeError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `max_date` - Invalid date and time!"
-                    )  # pylint: disable=raise-missing-from
             if min_date is not None:
-                if not isinstance(min_date, str):
+                if not isinstance(min_date, datetime):
                     raise AssertionError("Parameter `min_date` - Not а `str` type!")
-                if len(min_date) == 0:
-                    raise AssertionError(
-                        "The `min_date` parameter should not contain an empty string!"
-                    )
-                try:
-                    datetime_parse(min_date)
-                except InvalidDateTimeError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `min_date` - Invalid date and time!"
-                    )  # pylint: disable=raise-missing-from
-            if (
-                max_date is not None
-                and min_date is not None
-                and datetime_parse(max_date) <= datetime_parse(min_date)
-            ):
+            if max_date is not None and min_date is not None and max_date <= min_date:
                 raise AssertionError(
                     "The `max_date` parameter should be more than the `min_date`!"
                 )
             if default is not None:
-                if not isinstance(default, str):
+                if not isinstance(default, datetime):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                try:
-                    datetime_parse(default)
-                except InvalidDateTimeError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid date and time!"
-                    )  # pylint: disable=raise-missing-from
-                if max_date is not None and datetime_parse(default) > datetime_parse(
-                    max_date
-                ):
+                if max_date is not None and default > max_date:
                     raise AssertionError("Parameter `default` is more `max_date`!")
-                if min_date is not None and datetime_parse(default) < datetime_parse(
-                    min_date
-                ):
+                if min_date is not None and default < min_date:
                     raise AssertionError("Parameter `default` is less `min_date`!")
 
         self.default = default
-
-    def to_datetime(self) -> datetime | None:
-        """Convert parameter `value` or `default` into object of date and time."""
-        value = self.value or self.default or None
-        return datetime_parse(value) if value is not None else None

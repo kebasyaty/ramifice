@@ -1,5 +1,7 @@
 """General additional parameters for date|datetime fields."""
 
+from datetime import datetime
+
 
 class DateGroup:
     """General additional parameters for date|datetime fields.
@@ -21,11 +23,11 @@ class DateGroup:
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-        max_date: str | None = None,
-        min_date: str | None = None,
+        max_date: datetime | None = None,
+        min_date: datetime | None = None,
     ):
         self.input_type = input_type
-        self.value: str | None = None
+        self.value: datetime | None = None
         self.placeholder = placeholder
         self.required = required
         self.readonly = readonly
