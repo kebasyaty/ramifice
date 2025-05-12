@@ -2,13 +2,19 @@
 
 from bson.objectid import ObjectId
 
-from ..mixins import JsonMixin
 from .general.field import Field
-from .general.text_group import TextGroup
 
 
-class HashField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter identifier of document."""
+class HashField(Field):
+    """Field of Model for enter identifier of document.
+
+    Attributes:
+    input_type -- Input type for a web form field.
+    placeholder -- Displays prompt text.
+    required -- Required field.
+    readonly -- Specifies that the field cannot be modified by the user.
+    unique -- The unique value of a field in a collection.
+    """
 
     # pylint: disable=too-many-arguments
     def __init__(
@@ -35,14 +41,11 @@ class HashField(Field, TextGroup, JsonMixin):
             field_type="HashField",
             group="hash",
         )
-        TextGroup.__init__(
-            self,
-            input_type="text",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
 
+        self.input_type = "text"
+        self.value: ObjectId | None = None
+        self.placeholder = placeholder
+        self.required = required
+        self.readonly = readonly
+        self.unique = unique
         self.alerts: list[str] = []
