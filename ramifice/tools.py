@@ -130,6 +130,11 @@ def is_mongo_id(oid: Any) -> bool:
     return ObjectId.is_valid(oid)
 
 
+def hash_to_obj_id(hash: str) -> ObjectId | None:
+    """Get ObjectId from hash string."""
+    return ObjectId(hash) if bool(hash) else None
+
+
 def model_is_migrated(cls_model: Any) -> None:
     """Check if this model is migrated to database."""
     if not cls_model.META["is_migrat_model"]:

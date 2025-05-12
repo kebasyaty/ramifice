@@ -81,15 +81,12 @@ class ToolMixin:
             if (
                 not callable(field_data)
                 and field_data.ignored
-                and field_data.name != "hash"
+                and field_data.name != "_id"
             ):
                 field_data.value = None
 
     def update_from_doc(self, mongo_doc: dict[str, Any]):
         """Update object instance from Mongo document."""
         for name, data in mongo_doc.items():
-            if name != "_id":
-                field = self.__dict__[name]
-                field.value = data if field.group != "pass" else None
-            else:
-                self.__dict__["hash"].value = str(data)
+            field = self.__dict__[name]
+            field.value = data if field.group != "pass" else None

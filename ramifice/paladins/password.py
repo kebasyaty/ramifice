@@ -23,7 +23,7 @@ class PasswordMixin:
         # Check if this model is migrated to database.
         model_is_migrated(cls_model)
         # Get documet ID.
-        doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
+        doc_id = self._id.value  # type: ignore[index, attr-defined]
         if doc_id is None:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
@@ -76,7 +76,7 @@ class PasswordMixin:
         if not await self.verify_password(old_password, field_name):
             raise OldPassNotMatchError()
         # Get documet ID.
-        doc_id = self.to_obj_id()  # type: ignore[index, attr-defined]
+        doc_id = self._id.value  # type: ignore[index, attr-defined]
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create hash of new passwor.

@@ -11,10 +11,7 @@ class ToolMixin:
         """Create object instance from Mongo document."""
         obj = cls()
         for name, data in mongo_doc.items():
-            if name != "_id":
-                field = obj.__dict__[name]
-                field.value = data if field.group != "pass" else None
-            else:
-                obj.__dict__["hash"].value = str(data)
+            field = obj.__dict__[name]
+            field.value = data if field.group != "pass" else None
 
         return obj

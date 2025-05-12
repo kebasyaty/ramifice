@@ -43,7 +43,7 @@ class CheckMixin(
         """Validation of Model data before saving to the database."""
 
         # Get the document ID.
-        doc_id: ObjectId | None = self.to_obj_id()  # type: ignore[attr-defined]
+        doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
         # Does the document exist in the database?
         is_update: bool = bool(doc_id)
         result_map: dict[str, Any] = {}
@@ -52,7 +52,7 @@ class CheckMixin(
             doc_id = ObjectId()
         if is_save:
             if not is_update:
-                self.hash.value = str(doc_id)  # type: ignore[attr-defined]
+                self._id.value = doc_id  # type: ignore[attr-defined]
             result_map["_id"] = doc_id
         # Errors from additional validation of fields.
         error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]

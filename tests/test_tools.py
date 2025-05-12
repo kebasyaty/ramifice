@@ -2,10 +2,14 @@
 
 import unittest
 
+from bson.errors import InvalidId
+from bson.objectid import ObjectId
+
 from ramifice.errors import InvalidDateError, InvalidDateTimeError
 from ramifice.tools import (  # get_file_size,
     date_parse,
     datetime_parse,
+    hash_to_obj_id,
     is_color,
     is_email,
     is_ip,
@@ -139,6 +143,17 @@ class TestTools(unittest.TestCase):
         self.assertFalse(is_mongo_id(""))
         self.assertFalse(is_mongo_id("nviy349ghugh"))
         self.assertTrue(is_mongo_id("666f6f2d6261722d71757578"))
+
+    def test_hash_to_obj_id(self):
+        """Testing a method `hash_to_obj_id`."""
+        self.assertIsNone(hash_to_obj_id(None))
+        self.assertIsNone(hash_to_obj_id(""))
+        with self.assertRaises(InvalidId):
+            hash_to_obj_id("nviy349ghugh")
+        self.assertEqual(
+            hash_to_obj_id("666f6f2d6261722d71757578"),
+            ObjectId("666f6f2d6261722d71757578"),
+        )
 
     def test_to_human_size(self):
         """Testing a method `to_human_size`."""

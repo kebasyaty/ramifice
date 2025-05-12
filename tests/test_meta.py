@@ -66,7 +66,7 @@ class TestModel(unittest.TestCase):
                     "id": "User--favorite-color",
                     "name": "favorite_color",
                 },
-                "hash": {"id": "User--hash", "name": "hash"},
+                "_id": {"id": "User---id", "name": "_id"},
                 "created_at": {"id": "User--created-at", "name": "created_at"},
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
             },
@@ -97,7 +97,7 @@ class TestModel(unittest.TestCase):
             },
             "field_attrs": {
                 "profession": {"id": "UserProfile--profession", "name": "profession"},
-                "hash": {"id": "UserProfile--hash", "name": "hash"},
+                "_id": {"id": "UserProfile---id", "name": "_id"},
                 "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },
@@ -123,14 +123,13 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "tests.test_meta.User")
         #
-        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)
         self.assertIsNone(m.favorite_color.value)
         self.assertEqual(m.username.id, "User--username")
         self.assertEqual(m.username.name, "username")
-        self.assertIsNone(m.to_obj_id())
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
@@ -148,13 +147,12 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "UserProfile")
         self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
         #
-        self.assertIsNone(m.hash.value)
+        self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.profession.value)
         self.assertEqual(m.profession.id, "UserProfile--profession")
         self.assertEqual(m.profession.name, "profession")
-        self.assertIsNone(m.to_obj_id())
 
 
 if __name__ == "__main__":

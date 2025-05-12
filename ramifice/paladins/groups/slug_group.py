@@ -31,7 +31,7 @@ class SlugGroupMixin:
                 if value is None:
                     value = field_data.__dict__.get("default")
                 if value is not None:
-                    raw_str_list.append(value)
+                    raw_str_list.append(value if field_name != "_id" else str(value))
                 else:
                     err_msg = (
                         f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
