@@ -13,17 +13,10 @@ class ToolMixin:
         for name, data in mongo_doc.items():
             if data is None:
                 continue
-            if name == "_id":
-                obj.__dict__["hash"].value = str(data)
-                continue
-            field = obj.__dict__[name]
-            if field.group != "pass":
-                if field.group == "date":
-                    if field.input_type == "date":
-                        data = data.strftime("%Y-%m-%d")
-                    else:
-                        data = data.strftime("%Y-%m-%dT%H:%M:%S")
-                field.value = data
+            if name != "_id":
+                field = obj.__dict__[name]
+                field.value = data if field.group != "pass" else None
             else:
-                field.value = None
+                obj.__dict__["hash"].value = str(data)
+
         return obj
