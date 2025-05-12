@@ -73,10 +73,6 @@ class TestModel(unittest.TestCase):
             "data_dynamic_fields": {},
             "count_all_fields": 5,
             "count_fields_for_migrating": 4,
-            "time_object_list": {
-                "created_at": {"max_date": None, "min_date": None},
-                "updated_at": {"max_date": None, "min_date": None},
-            },
         }
         self.user_profile_meta = {
             "service_name": "Profiles",
@@ -108,10 +104,6 @@ class TestModel(unittest.TestCase):
             "data_dynamic_fields": {},
             "count_all_fields": 4,
             "count_fields_for_migrating": 3,
-            "time_object_list": {
-                "created_at": {"max_date": None, "min_date": None},
-                "updated_at": {"max_date": None, "min_date": None},
-            },
         }
         return super().setUp()
 

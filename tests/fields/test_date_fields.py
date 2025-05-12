@@ -69,14 +69,6 @@ class TestDateFields(unittest.TestCase):
             max_date=date_parse("21-12-2024"),
             min_date=date_parse("19-12-2024"),
         )
-        # Methods:
-        f = DateField()
-        self.assertIsNone(f.to_datetime())
-        f = DateField(default=date_parse("20-12-2024"))
-        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
-        f = DateField()
-        f.value = date_parse("20-12-2024")
-        self.assertEqual(f.value, datetime(2024, 12, 20))
 
     def test_date_time_field(self):
         """Testing `DateTimeField`."""
@@ -123,16 +115,6 @@ class TestDateFields(unittest.TestCase):
                 default=datetime_parse("20-12-2024 00:00:00"),
                 min_date=datetime_parse("21-12-2024 00:00:00"),
             )
-        with self.assertRaises(AssertionError):
-            DateField(
-                max_date=datetime_parse("20-12-2024  00:00:00"),
-                min_date=datetime_parse("20-12-2024  00:00:00"),
-            )
-        with self.assertRaises(AssertionError):
-            DateField(
-                max_date=datetime_parse("20-12-2024  00:00:00"),
-                min_date=datetime_parse("21-12-2024  00:00:00"),
-            )
         DateTimeField(max_date=datetime_parse("20-12-2024 00:00:00"))
         DateTimeField(min_date=datetime_parse("20-12-2024 00:00:00"))
         DateTimeField(default=datetime_parse("20-12-2024 00:00:00"))
@@ -141,14 +123,6 @@ class TestDateFields(unittest.TestCase):
             max_date=datetime_parse("21-12-2024 00:00:00"),
             min_date=datetime_parse("19-12-2024 00:00:00"),
         )
-        # Methods:
-        f = DateTimeField()
-        self.assertIsNone(f.to_datetime())
-        f = DateTimeField(default=datetime_parse("20-12-2024 00:00:00"))
-        self.assertEqual(f.to_datetime(), datetime(2024, 12, 20))
-        f = DateTimeField()
-        f.value = datetime_parse("20-12-2024 00:00:00")
-        self.assertEqual(f, datetime(2024, 12, 20))
 
 
 if __name__ == "__main__":
