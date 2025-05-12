@@ -11,12 +11,7 @@ from .general.field import Field
 
 
 class DateTimeField(Field, DateGroup, JsonMixin):
-    """Field of Model for enter date and time.
-    Formats: dd-mm-yyyy hh:mm:ss | dd/mm/yyyy hh:mm:ss | dd.mm.yyyy hh:mm:ss |
-             dd-mm-yyyyThh:mm:ss | dd/mm/yyyyThh:mm:ss | dd.mm.yyyyThh:mm:ss |
-             yyyy-mm-dd hh:mm:ss | yyyy/mm/dd hh:mm:ss | yyyy.mm.dd hh:mm:ss |
-             yyyy-mm-ddThh:mm:ss | yyyy/mm/ddThh:mm:ss | yyyy.mm.ddThh:mm:ss
-    """
+    """Field of Model for enter date and time."""
 
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-branches

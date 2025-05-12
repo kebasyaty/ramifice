@@ -11,10 +11,7 @@ from .general.field import Field
 
 
 class DateField(Field, DateGroup, JsonMixin):
-    """Field of Model for enter date.
-    Formats: dd-mm-yyyy | dd/mm/yyyy | dd.mm.yyyy |
-             yyyy-mm-dd | yyyy/mm/dd | yyyy.mm.dd
-    """
+    """Field of Model for enter date."""
 
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-branches
