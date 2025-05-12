@@ -78,9 +78,10 @@ class DateTimeField(Field, DateGroup):
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
-                json_dict[name] = (
-                    data if name != "value" else data.strftime("%Y-%m-%dT%H:%M:%S")
-                )
+                if name == "value":
+                    if data is not None:
+                        data = data.strftime("%Y-%m-%dT%H:%M:%S")
+                json_dict[name] = data
         return json_dict
 
     def to_json(self) -> str:
@@ -92,7 +93,10 @@ class DateTimeField(Field, DateGroup):
         """Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
-            obj.__dict__[name] = data if name != "value" else datetime_parse(data)
+            if name == "value":
+                if data is not None:
+                    data = datetime_parse(data)
+            obj.__dict__[name] = data
         return obj
 
     @classmethod
