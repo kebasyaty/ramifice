@@ -173,6 +173,12 @@ async def apply_fixture(
             if value is not None:
                 if group == "file" or group == "img":
                     field_data.from_path(value)
+                elif group == "date":
+                    field_data.value = (
+                        date_parse(value)
+                        if field_data.field_type == "DateField"
+                        else datetime_parse(value)
+                    )
                 else:
                     field_data.value = value
         # Check Model.

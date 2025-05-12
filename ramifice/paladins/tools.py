@@ -76,7 +76,7 @@ class ToolMixin:
         return await params["collection"].find_one(q_filter) is None
 
     def ignored_fields_to_none(self):
-        """Reset the values ​​of ignored fields to None."""
+        """Reset the values of ignored fields to None."""
         for _, field_data in self.__dict__.items():
             if (
                 not callable(field_data)
@@ -88,18 +88,8 @@ class ToolMixin:
     def update_from_doc(self, mongo_doc: dict[str, Any]):
         """Update object instance from Mongo document."""
         for name, data in mongo_doc.items():
-            if data is None:
-                continue
-            if name == "_id":
-                self.__dict__["hash"].value = str(data)
-                continue
-            field = self.__dict__[name]
-            if field.group != "pass":
-                if field.group == "date":
-                    if field.input_type == "date":
-                        data = data.strftime("%Y-%m-%d")
-                    else:
-                        data = data.strftime("%Y-%m-%dT%H:%M:%S")
-                field.value = data
+            if name != "_id":
+                field = self.__dict__[name]
+                field.value = data if field.group != "pass" else None
             else:
-                field.value = None
+                self.__dict__["hash"].value = str(data)

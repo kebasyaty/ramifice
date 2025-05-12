@@ -61,8 +61,6 @@ def caching(cls, model) -> None:
     count_all_fields = 0
     # Count fields for migrating.
     count_fields_for_migrating = 0
-    # Caching `datetime` objects for (date|date and time) fields.
-    time_object_list: dict[str, dict[str, datetime | None]] = {}
     #
     for f_name, f_type in model.__dict__.items():
         if not callable(f_type):
@@ -74,26 +72,6 @@ def caching(cls, model) -> None:
                 "id": f"{model_name}--{f_name.replace("_", "-")}",
                 "name": f_name,
             }
-            # Caching `datetime` objects for (date|date and time) fields.
-            if "Date" in f_type_str:
-                if "Time" in f_type_str:
-                    dt_max = (
-                        datetime_parse(f_type.max_date) if f_type.max_date else None
-                    )
-                    dt_min = (
-                        datetime_parse(f_type.min_date) if f_type.min_date else None
-                    )
-                    time_object_list[f_name] = {
-                        "max_date": dt_max,
-                        "min_date": dt_min,
-                    }
-                else:
-                    dt_max = date_parse(f_type.max_date) if f_type.max_date else None
-                    dt_min = date_parse(f_type.min_date) if f_type.min_date else None
-                    time_object_list[f_name] = {
-                        "max_date": dt_max,
-                        "min_date": dt_min,
-                    }
             #
             if not f_type.ignored:
                 # Count fields for migrating.
@@ -115,4 +93,3 @@ def caching(cls, model) -> None:
     cls.META["data_dynamic_fields"] = data_dynamic_fields
     cls.META["count_all_fields"] = count_all_fields
     cls.META["count_fields_for_migrating"] = count_fields_for_migrating
-    cls.META["time_object_list"] = time_object_list
