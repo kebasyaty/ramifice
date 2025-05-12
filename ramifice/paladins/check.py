@@ -52,7 +52,7 @@ class CheckMixin(
             doc_id = ObjectId()
         if is_save:
             if not is_update:
-                self.hash.value = str(doc_id)  # type: ignore[attr-defined]
+                self.hash.value = doc_id  # type: ignore[attr-defined]
             result_map["_id"] = doc_id
         # Errors from additional validation of fields.
         error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
