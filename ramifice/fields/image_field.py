@@ -176,7 +176,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             # Add size of main image (in bytes).
             i_data.size = os.path.getsize(main_img_path)
 
-        # FileData to value.
+        # to value.
         self.value = i_data
 
     # --------------------------------------------------------------------------
@@ -237,7 +237,7 @@ class ImageField(Field, FileGroup, FileJsonMixin):
             # Add size of main image (in bytes).
             i_data.size = os.path.getsize(main_img_path)
 
-        # FileData to value.
+        # to value.
         self.value = i_data
 
     @classmethod

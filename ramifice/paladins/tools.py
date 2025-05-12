@@ -7,7 +7,7 @@ from termcolor import colored
 
 from ..errors import PanicError
 from ..tools import model_is_migrated
-from ..types import FileData, ImageData
+from ..types import ImageData
 
 
 class ToolMixin:
@@ -101,8 +101,6 @@ class ToolMixin:
                         data = data.strftime("%Y-%m-%d")
                     else:
                         data = data.strftime("%Y-%m-%dT%H:%M:%S")
-                elif field.group == "file":
-                    data = FileData.from_doc(data)
                 elif field.group == "img":
                     data = ImageData.from_doc(data)
                 field.value = data

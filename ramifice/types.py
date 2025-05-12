@@ -18,31 +18,17 @@ class Unit(JsonMixin):
         self.is_delete = is_delete
 
 
-class FileData(JsonMixin):
-    """Data type for `FileField.value`."""
-
-    def __init__(self):
-        JsonMixin.__init__(self)
-        self.path = ""
-        self.url = ""
-        self.name = ""
-        self.size = 0
-        self.is_new_file = False
-        self.is_delete = False
-        self.extension = ""
-        self.save_as_is = False
-
-    def __str__(self):
-        name = self.name or None
-        return str(name)
-
-    @classmethod
-    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
-        """Convert Mongo document to a object instance."""
-        obj = cls()
-        for name, data in mongo_doc.items():
-            obj.__dict__[name] = data
-        return obj
+# For `FileField.value`.
+FILE_DATA_TYPE = dict(
+    path="",
+    url="",
+    name="",
+    size=0,
+    is_new_file=False,
+    is_delete=False,
+    extension="",
+    save_as_is=False,
+)
 
 
 class ImageData(JsonMixin):

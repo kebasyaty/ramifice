@@ -9,14 +9,13 @@ from pathlib import Path
 from typing import Any
 
 from ..errors import FileHasNoExtensionError
-from ..mixins import FileJsonMixin
+from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..types import FileData
 from .general.field import Field
 from .general.file_group import FileGroup
 
 
-class FileField(Field, FileGroup, FileJsonMixin):
+class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file.
     How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
     """
@@ -57,7 +56,7 @@ class FileField(Field, FileGroup, FileJsonMixin):
             target_dir=target_dir,
             accept=accept,
         )
-        FileJsonMixin.__init__(self)
+        JsonMixin.__init__(self)
 
         if DEBUG:
             if default is not None:
@@ -68,13 +67,7 @@ class FileField(Field, FileGroup, FileJsonMixin):
                         "The `default` parameter should not contain an empty string!"
                     )
 
-        self.value: FileData | None = None
-
-    def __str__(self):
-        value = self.value
-        if value is not None:
-            value = value.name
-        return str(value)
+        self.value: dict[str, Any] | None = None
 
     def from_base64(
         self,
@@ -87,9 +80,18 @@ class FileField(Field, FileGroup, FileJsonMixin):
         """
         base64_str = base64_str or None
         filename = filename or None
-        f_data = FileData()
-        f_data.is_new_file = True
-        f_data.is_delete = is_delete
+        f_data = dict(
+            path="",
+            url="",
+            name="",
+            size=0,
+            is_new_file=False,
+            is_delete=False,
+            extension="",
+            save_as_is=False,
+        )
+        f_data["is_new_file"] = True
+        f_data["is_delete"] = is_delete
 
         if base64_str is not None and filename is not None:
             # Get file extension.
@@ -121,16 +123,18 @@ class FileField(Field, FileGroup, FileJsonMixin):
                 f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths to target file.
-            f_data.path = f_target_path
-            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            f_data["path"] = f_target_path
+            f_data["url"] = (
+                f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            )
             # Add original file name.
-            f_data.name = filename
+            f_data["name"] = filename
             # Add file extension.
-            f_data.extension = extension
+            f_data["extension"] = extension
             # Add file size (in bytes).
-            f_data.size = os.path.getsize(f_target_path)
+            f_data["size"] = os.path.getsize(f_target_path)
 
-        # FileData to value.
+        # to value.
         self.value = f_data
 
     # --------------------------------------------------------------------------
@@ -141,9 +145,18 @@ class FileField(Field, FileGroup, FileJsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        f_data = FileData()
-        f_data.is_new_file = True
-        f_data.is_delete = is_delete
+        f_data = dict(
+            path="",
+            url="",
+            name="",
+            size=0,
+            is_new_file=False,
+            is_delete=False,
+            extension="",
+            save_as_is=False,
+        )
+        f_data["is_new_file"] = True
+        f_data["is_delete"] = is_delete
 
         if src_path is not None:
             # Get file extension.
@@ -165,25 +178,16 @@ class FileField(Field, FileGroup, FileJsonMixin):
             # Save file in target directory.
             shutil.copyfile(src_path, f_target_path)
             # Add paths to target file.
-            f_data.path = f_target_path
-            f_data.url = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            f_data["path"] = f_target_path
+            f_data["url"] = (
+                f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            )
             # Add original file name.
-            f_data.name = os.path.basename(src_path)
+            f_data["name"] = os.path.basename(src_path)
             # Add file extension.
-            f_data.extension = extension
+            f_data["extension"] = extension
             # Add file size (in bytes).
-            f_data.size = os.path.getsize(f_target_path)
+            f_data["size"] = os.path.getsize(f_target_path)
 
-        # FileData to value.
+        # to value.
         self.value = f_data
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            if name != "value" or data is None:
-                obj.__dict__[name] = data
-            else:
-                obj.__dict__[name] = FileData.from_dict(data)
-        return obj

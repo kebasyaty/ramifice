@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..types import FileData, ImageData
+from ..types import ImageData
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -127,9 +127,7 @@ class CheckMixin(
                                 os.remove(file_data["path"])
                             field_data.value = None
                         if curr_doc is not None:
-                            mongo_doc = curr_doc[field_name]
-                            if mongo_doc is not None:
-                                field_data.value = FileData.from_doc(mongo_doc)
+                            field_data.value = curr_doc[field_name]
                     elif group == "img":
                         img_data = result_map.get(field_name)
                         if img_data is not None:

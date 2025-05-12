@@ -34,7 +34,7 @@ from ramifice.fields import (
     URLField,
 )
 from ramifice.mixins import JsonMixin
-from ramifice.types import FileData, ImageData
+from ramifice.types import FILE_DATA_TYPE, ImageData
 
 
 class StandardTypes(JsonMixin):
@@ -130,7 +130,7 @@ class TestJsonMixin(unittest.TestCase):
         #
         m = User()
         m.img.value = ImageData()
-        m.file.value = FileData()
+        m.file.value = FILE_DATA_TYPE.copy()
         #
         json_str = m.to_json()
         m2 = User.from_json(json_str)
@@ -138,9 +138,9 @@ class TestJsonMixin(unittest.TestCase):
             if not callable(data):
                 data2 = m2.__dict__["img"].__dict__["value"].__dict__[name]
                 self.assertEqual(data, data2)
-        for name, data in m.__dict__["file"].__dict__["value"].__dict__.items():
+        for name, data in m.__dict__["file"].__dict__["value"].items():
             if not callable(data):
-                data2 = m2.__dict__["file"].__dict__["value"].__dict__[name]
+                data2 = m2.__dict__["file"].__dict__["value"][name]
                 self.assertEqual(data, data2)
         #
         json_str = m.to_json_only_value()
@@ -149,9 +149,9 @@ class TestJsonMixin(unittest.TestCase):
             if not callable(data):
                 data2 = m2.__dict__["img"].__dict__["value"].__dict__[name]
                 self.assertEqual(data, data2)
-        for name, data in m.__dict__["file"].__dict__["value"].__dict__.items():
+        for name, data in m.__dict__["file"].__dict__["value"].items():
             if not callable(data):
-                data2 = m2.__dict__["file"].__dict__["value"].__dict__[name]
+                data2 = m2.__dict__["file"].__dict__["value"][name]
                 self.assertEqual(data, data2)
 
 

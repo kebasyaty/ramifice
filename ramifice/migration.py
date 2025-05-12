@@ -15,7 +15,7 @@ from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .model import Model
 from .tools import apply_fixture
-from .types import FileData, ImageData
+from .types import FILE_DATA_TYPE, ImageData
 
 
 class Monitor:
@@ -141,9 +141,9 @@ class Monitor:
                         )
                         if field_type is not None:
                             if field_type == "FileField":
-                                file = FileData()
-                                file.is_delete = True
-                                mongo_doc[field_name] = file.to_dict()
+                                file_data = FILE_DATA_TYPE.copy()
+                                file_data["is_delete"] = True
+                                mongo_doc[field_name] = file_data
                             elif field_type == "ImageField":
                                 img = ImageData()
                                 img.is_delete = True

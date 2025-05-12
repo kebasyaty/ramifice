@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.types import FileData, ImageData, Unit
+from ramifice.types import ImageData, Unit
 
 
 class TestTypes(unittest.TestCase):
@@ -20,54 +20,6 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(u.title, "Title")
         self.assertEqual(u.value, "value")
         self.assertTrue(u.is_delete)
-
-    def test_file_data(self):
-        """Testing a class `FileData`."""
-        d = FileData()
-        self.assertEqual(d.path, "")
-        self.assertEqual(d.url, "")
-        self.assertEqual(d.name, "")
-        self.assertEqual(d.size, 0)
-        self.assertFalse(d.is_new_file)
-        self.assertFalse(d.is_delete)
-        self.assertEqual(d.extension, "")
-        self.assertFalse(d.save_as_is)
-        d.path = "path/file.txt"
-        d.url = "/path/file.txt"
-        d.name = "file.txt"
-        d.size = 512
-        d.is_new_file = True
-        d.is_delete = True
-        d.extension = ".txt"
-        d.save_as_is = True
-        self.assertEqual(d.path, "path/file.txt")
-        self.assertEqual(d.url, "/path/file.txt")
-        self.assertEqual(d.name, "file.txt")
-        self.assertEqual(d.size, 512)
-        self.assertTrue(d.is_new_file)
-        self.assertTrue(d.is_delete)
-        self.assertEqual(d.extension, ".txt")
-        self.assertTrue(d.save_as_is)
-        # test from_doc method
-        mongo_doc = {
-            "path": "path/file.txt",
-            "url": "/path/file.txt",
-            "name": "file.txt",
-            "size": 512,
-            "is_new_file": False,
-            "is_delete": False,
-            "extension": ".txt",
-            "save_as_is": True,
-        }
-        d = FileData.from_doc(mongo_doc)
-        self.assertEqual(d.path, "path/file.txt")
-        self.assertEqual(d.url, "/path/file.txt")
-        self.assertEqual(d.name, "file.txt")
-        self.assertEqual(d.size, 512)
-        self.assertFalse(d.is_new_file)
-        self.assertFalse(d.is_delete)
-        self.assertEqual(d.extension, ".txt")
-        self.assertTrue(d.save_as_is)
 
     def test_image_data(self):
         """Testing a class `ImageData`."""
