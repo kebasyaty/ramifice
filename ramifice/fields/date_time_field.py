@@ -1,15 +1,16 @@
 """Field of Model for enter date and time."""
 
+import json
 from datetime import datetime
+from typing import Any
 
-from ..mixins import JsonMixin
 from ..store import DEBUG
 from ..tools import datetime_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
 
-class DateTimeField(Field, DateGroup, JsonMixin):
+class DateTimeField(Field, DateGroup):
     """Field of Model for enter date and time."""
 
     # pylint: disable=too-many-arguments
@@ -50,7 +51,6 @@ class DateTimeField(Field, DateGroup, JsonMixin):
             max_date=max_date,
             min_date=min_date,
         )
-        JsonMixin.__init__(self)
 
         if DEBUG:
             if max_date is not None:
@@ -72,3 +72,31 @@ class DateTimeField(Field, DateGroup, JsonMixin):
                     raise AssertionError("Parameter `default` is less `min_date`!")
 
         self.default = default
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert object instance to a dictionary."""
+        json_dict: dict[str, Any] = {}
+        for name, data in self.__dict__.items():
+            if not callable(data):
+                json_dict[name] = (
+                    data if name != "value" else data.strftime("%Y-%m-%dT%H:%M:%S")
+                )
+        return json_dict
+
+    def to_json(self) -> str:
+        """Convert object instance to a JSON string."""
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+        """Convert JSON string to a object instance."""
+        obj = cls()
+        for name, data in json_dict.items():
+            obj.__dict__[name] = data
+        return obj
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Any:
+        """Convert JSON string to a object instance."""
+        json_dict = json.loads(json_str)
+        return cls.from_dict(json_dict)
