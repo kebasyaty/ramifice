@@ -15,6 +15,6 @@ class ToolMixin:
                 field = obj.__dict__[name]
                 field.value = data if field.group != "pass" else None
             else:
-                obj.__dict__["hash"].value = str(data)
+                obj.__dict__["hash"].value = data
 
         return obj
