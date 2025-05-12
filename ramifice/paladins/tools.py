@@ -95,11 +95,6 @@ class ToolMixin:
                 continue
             field = self.__dict__[name]
             if field.group != "pass":
-                if field.group == "date":
-                    if field.input_type == "date":
-                        data = data.strftime("%Y-%m-%d")
-                    else:
-                        data = data.strftime("%Y-%m-%dT%H:%M:%S")
                 field.value = data
             else:
                 field.value = None
