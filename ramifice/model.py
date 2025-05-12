@@ -17,7 +17,7 @@ class Model(Extra, Paladins, Commons):
     META: dict[str, Any] = {}
 
     def __init__(self):
-        self.hash = HashField(
+        self._id = HashField(
             label="Document ID", hide=True, ignored=True, disabled=True
         )
         self.created_at = DateTimeField(
@@ -47,7 +47,7 @@ class Model(Extra, Paladins, Commons):
     # --------------------------------------------------------------------------
     def to_obj_id(self) -> ObjectId | None:
         """Get ObjectId from field `hash`."""
-        value = self.hash.value
+        value = self._id.value
         return ObjectId(value) if bool(value) else None
 
     # --------------------------------------------------------------------------

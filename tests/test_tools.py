@@ -2,6 +2,7 @@
 
 import unittest
 
+from bson.errors import InvalidId
 from bson.objectid import ObjectId
 
 from ramifice.errors import InvalidDateError, InvalidDateTimeError
@@ -147,7 +148,8 @@ class TestTools(unittest.TestCase):
         """Testing a method `hash_to_obj_id`."""
         self.assertIsNone(hash_to_obj_id(None))
         self.assertIsNone(hash_to_obj_id(""))
-        self.assertIsNone(hash_to_obj_id("nviy349ghugh"))
+        with self.assertRaises(InvalidId):
+            hash_to_obj_id("nviy349ghugh")
         self.assertEqual(
             hash_to_obj_id("666f6f2d6261722d71757578"),
             ObjectId("666f6f2d6261722d71757578"),
