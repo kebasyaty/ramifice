@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 
 from .commons import Commons
 from .extra import Extra
-from .fields import DateTimeField, FileField, HashField, ImageField
+from .fields import DateTimeField, HashField
 from .paladins import Paladins
 
 
@@ -43,12 +43,6 @@ class Model(Extra, Paladins, Commons):
         """Get full Model name - module_name + . + ClassName."""
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
-
-    # --------------------------------------------------------------------------
-    def to_obj_id(self) -> ObjectId | None:
-        """Get ObjectId from field `hash`."""
-        value = self._id.value
-        return ObjectId(value) if bool(value) else None
 
     # --------------------------------------------------------------------------
     def inject(self) -> None:
