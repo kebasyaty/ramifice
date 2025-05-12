@@ -130,7 +130,7 @@ def is_mongo_id(oid: Any) -> bool:
     return ObjectId.is_valid(oid)
 
 
-def hash_to_obj_id(self, hash: str) -> ObjectId | None:
+def hash_to_obj_id(hash: str) -> ObjectId | None:
     """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None
 
