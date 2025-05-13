@@ -88,6 +88,7 @@ class Model(Extra, Paladins, Commons):
         json_dict = json.loads(json_str)
         return cls.from_dict(json_dict)
 
+    # --------------------------------------------------------------------------
     def to_dict_only_value(self) -> dict[str, Any]:
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
@@ -118,7 +119,6 @@ class Model(Extra, Paladins, Commons):
         json_dict = json.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
-    # --------------------------------------------------------------------------
     def refrash_fields(self, value_dict: dict[str, Any]) -> None:
         """Partial or complete update a value of fields."""
         for name, data in value_dict.items():
