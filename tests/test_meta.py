@@ -54,12 +54,6 @@ class TestModel(unittest.TestCase):
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
             },
-            "field_name_params_list": {
-                "username": {"type": "TextField", "group": "text"},
-                "favorite_color": {"type": "ChoiceTextDynField", "group": "choice"},
-                "created_at": {"type": "DateTimeField", "group": "date"},
-                "updated_at": {"type": "DateTimeField", "group": "date"},
-            },
             "field_attrs": {
                 "username": {"id": "User--username", "name": "username"},
                 "favorite_color": {
@@ -89,11 +83,6 @@ class TestModel(unittest.TestCase):
                 "profession": "TextField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
-            },
-            "field_name_params_list": {
-                "profession": {"type": "TextField", "group": "text"},
-                "created_at": {"type": "DateTimeField", "group": "date"},
-                "updated_at": {"type": "DateTimeField", "group": "date"},
             },
             "field_attrs": {
                 "profession": {"id": "UserProfile--profession", "name": "profession"},

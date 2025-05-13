@@ -51,8 +51,6 @@ def caching(cls, model) -> None:
     # Get a dictionary of field names and types.
     # Format: <field_name, field_type>
     field_name_and_type: dict[str, str] = {}
-    # Format: <field_name, <type: field_type, group: field_group>>
-    field_name_params_list: dict[str, dict[str, str]] = {}
     # Get attributes value for fields of Model: id, name.
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
@@ -78,17 +76,11 @@ def caching(cls, model) -> None:
                 count_fields_for_migrating += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
-                # Format: <field_name, <type: field_type, group: field_group>>
-                field_name_params_list[f_name] = {
-                    "type": f_type_str,
-                    "group": f_type.group,
-                }
                 # Build data migration storage for dynamic fields.
                 if "Dyn" in f_name:
                     data_dynamic_fields[f_name] = None
     #
     cls.META["field_name_and_type"] = field_name_and_type
-    cls.META["field_name_params_list"] = field_name_params_list
     cls.META["field_attrs"] = field_attrs
     cls.META["data_dynamic_fields"] = data_dynamic_fields
     cls.META["count_all_fields"] = count_all_fields
