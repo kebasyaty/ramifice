@@ -94,11 +94,7 @@ class Model(Extra, Paladins, Commons):
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
-                value = data.value
-                if not hasattr(value, "to_dict"):
-                    json_dict[name] = value
-                else:
-                    json_dict[name] = value.to_dict()
+                json_dict[name] = data.value
         return json_dict
 
     def to_json_only_value(self) -> str:
