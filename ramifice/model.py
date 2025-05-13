@@ -144,6 +144,6 @@ class Model(Extra, Paladins, Commons):
         return cls.from_dict_only_value(json_dict)
 
     def refrash_fields(self, only_value_dict: dict[str, Any]) -> None:
-        """Partial or complete update a value of fields."""
+        """Partial or complete update a `value` of fields."""
         for name, data in only_value_dict.items():
             self.__dict__[name].value = data
