@@ -79,7 +79,7 @@ class DateTimeField(Field, DateGroup):
         for name, data in self.__dict__.items():
             if not callable(data):
                 if name == "value" and data is not None:
-                    json_dict[name] = data.strftime("%Y-%m-%dT%H:%M:%S")
+                    json_dict[name] = data.strftime("%Y-%m-%d %H:%M:%S")
                 else:
                     json_dict[name] = data
         return json_dict

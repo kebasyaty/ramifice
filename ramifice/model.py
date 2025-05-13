@@ -102,7 +102,7 @@ class Model(Extra, Paladins, Commons):
                     value = (
                         value.strftime("%Y-%m-%d")
                         if data.field_type == "DateField"
-                        else value.strftime("%Y-%m-%dT%H:%M:%S")
+                        else value.strftime("%Y-%m-%d %H:%M:%S")
                     )
                 elif group == "hash":
                     value = str(value)
