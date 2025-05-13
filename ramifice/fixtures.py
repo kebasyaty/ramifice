@@ -1,4 +1,6 @@
-"""???"""
+"""Fixtures - To populate the database with pre-created data.
+Runs automatically during Model migration.
+"""
 
 from datetime import datetime
 from typing import Any
@@ -15,7 +17,7 @@ async def apply_fixture(
     fixture_name: str, cls_model: Any, collection: AsyncCollection
 ) -> None:
     """Apply fixture for current Model.
-    Fixtures - To populate the database with pre-created data.
+    Runs automatically during Model migration.
     """
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
