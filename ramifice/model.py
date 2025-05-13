@@ -93,8 +93,22 @@ class Model(Extra, Paladins, Commons):
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
-            if not callable(data):
-                json_dict[name] = data.value
+            if callable(data):
+                continue
+            value = data.value
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        value.strftime("%Y-%m-%d")
+                        if data.field_type == "DateField"
+                        else value.strftime("%Y-%m-%dT%H:%M:%S")
+                    )
+                elif group == "hash":
+                    value = str(value)
+                elif group == "pass":
+                    value = None
+            json_dict[name] = value
         return json_dict
 
     def to_json_only_value(self) -> str:
