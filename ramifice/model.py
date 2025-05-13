@@ -9,6 +9,7 @@ from .commons import Commons
 from .extra import Extra
 from .fields import DateTimeField, HashField
 from .paladins import Paladins
+from .tools import date_parse, datetime_parse
 
 
 class Model(Extra, Paladins, Commons):
@@ -119,8 +120,21 @@ class Model(Extra, Paladins, Commons):
     def from_dict_only_value(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
         obj = cls()
-        for name, data in json_dict.items():
-            obj.__dict__[name].value = data
+        for name, data in obj.__dict__.items():
+            if callable(data):
+                continue
+            value = json_dict[name]
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        date_parse(value)
+                        if data.field_type == "DateField"
+                        else datetime_parse(value)
+                    )
+                elif group == "hash":
+                    value = ObjectId(value)
+            obj.__dict__[name].value = value
         return obj
 
     @classmethod
