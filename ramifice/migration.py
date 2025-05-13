@@ -65,7 +65,7 @@ class Monitor:
             # Create a state for new Model.
             model_state = {
                 "collection_name": metadata["collection_name"],
-                "field_name_and_type_list": metadata["field_name_and_type_list"],
+                "field_name_and_type": metadata["field_name_and_type"],
                 "data_dynamic_fields": metadata["data_dynamic_fields"],
                 "is_model_exist": True,
             }
@@ -77,8 +77,8 @@ class Monitor:
     ) -> list[str]:
         """Get a list of new fields that were added to Model."""
         new_fields: list[str] = []
-        for field_name, field_type in metadata["field_name_and_type_list"].items():
-            old_field_type: str | None = model_state["field_name_and_type_list"].get(
+        for field_name, field_type in metadata["field_name_and_type"].items():
+            old_field_type: str | None = model_state["field_name_and_type"].get(
                 field_name
             )
             if old_field_type is None or old_field_type != field_type:
@@ -124,10 +124,7 @@ class Monitor:
             model_state = await self.model_state(metadata)
             # Review change of fields in the current Model and (if necessary)
             # update documents in the appropriate Collection.
-            if (
-                model_state["field_name_and_type_list"]
-                != metadata["field_name_and_type_list"]
-            ):
+            if model_state["field_name_and_type"] != metadata["field_name_and_type"]:
                 # Get a list of new fields.
                 new_fields: list[str] = self.new_fields(metadata, model_state)
                 # Get collection for current Model.
@@ -136,9 +133,7 @@ class Monitor:
                 # update existing fields whose field type has changed.
                 async for mongo_doc in model_collection.find():
                     for field_name in new_fields:
-                        field_type = metadata["field_name_and_type_list"].get(
-                            field_name
-                        )
+                        field_type = metadata["field_name_and_type"].get(field_name)
                         if field_type is not None:
                             if field_type == "FileField":
                                 file_data = FILE_DATA_TYPE.copy()
@@ -163,11 +158,11 @@ class Monitor:
                     checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.
                     for field_name, field_type in metadata[
-                        "field_name_and_type_list"
+                        "field_name_and_type"
                     ].items():
                         if (
                             field_type == "PasswordField"
-                            and model_state["field_name_and_type_list"].get(field_name)
+                            and model_state["field_name_and_type"].get(field_name)
                             == "PasswordField"
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
@@ -181,15 +176,13 @@ class Monitor:
             # Refresh the dynamic fields data for the current model.
             meta_dyn_field_list: list[str] = metadata["data_dynamic_fields"].keys()
             for field_name, field_data in model_state["data_dynamic_fields"].items():
-                field_type = metadata["field_name_and_type_list"].get(field_name)
+                field_type = metadata["field_name_and_type"].get(field_name)
                 if field_type is not None and field_name in meta_dyn_field_list:
-                    model_state["field_name_and_type_list"][field_name] = field_type
+                    model_state["field_name_and_type"][field_name] = field_type
                     metadata["data_dynamic_fields"][field_name] = field_data
             #
             model_state["data_dynamic_field"] = metadata["data_dynamic_fields"]
-            model_state["field_name_and_type_list"] = metadata[
-                "field_name_and_type_list"
-            ]
+            model_state["field_name_and_type"] = metadata["field_name_and_type"]
             # Refresh state of current Model.
             await super_collection.replace_one(
                 filter={"collection_name": model_state["collection_name"]},

@@ -48,7 +48,7 @@ class TestModel(unittest.TestCase):
             "model_name": "User",
             "full_model_name": "tests.test_meta.User",
             "collection_name": "Accounts_User",
-            "field_name_and_type_list": {
+            "field_name_and_type": {
                 "username": "TextField",
                 "favorite_color": "ChoiceTextDynField",
                 "created_at": "DateTimeField",
@@ -85,7 +85,7 @@ class TestModel(unittest.TestCase):
             "model_name": "UserProfile",
             "full_model_name": "tests.test_meta.UserProfile",
             "collection_name": "Profiles_UserProfile",
-            "field_name_and_type_list": {
+            "field_name_and_type": {
                 "profession": "TextField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
