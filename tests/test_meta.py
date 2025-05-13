@@ -48,17 +48,11 @@ class TestModel(unittest.TestCase):
             "model_name": "User",
             "full_model_name": "tests.test_meta.User",
             "collection_name": "Accounts_User",
-            "field_name_and_type_list": {
+            "field_name_and_type": {
                 "username": "TextField",
                 "favorite_color": "ChoiceTextDynField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
-            },
-            "field_name_params_list": {
-                "username": {"type": "TextField", "group": "text"},
-                "favorite_color": {"type": "ChoiceTextDynField", "group": "choice"},
-                "created_at": {"type": "DateTimeField", "group": "date"},
-                "updated_at": {"type": "DateTimeField", "group": "date"},
             },
             "field_attrs": {
                 "username": {"id": "User--username", "name": "username"},
@@ -66,7 +60,7 @@ class TestModel(unittest.TestCase):
                     "id": "User--favorite-color",
                     "name": "favorite_color",
                 },
-                "_id": {"id": "User---id", "name": "_id"},
+                "_id": {"id": "User--id", "name": "_id"},
                 "created_at": {"id": "User--created-at", "name": "created_at"},
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
             },
@@ -85,19 +79,14 @@ class TestModel(unittest.TestCase):
             "model_name": "UserProfile",
             "full_model_name": "tests.test_meta.UserProfile",
             "collection_name": "Profiles_UserProfile",
-            "field_name_and_type_list": {
+            "field_name_and_type": {
                 "profession": "TextField",
                 "created_at": "DateTimeField",
                 "updated_at": "DateTimeField",
             },
-            "field_name_params_list": {
-                "profession": {"type": "TextField", "group": "text"},
-                "created_at": {"type": "DateTimeField", "group": "date"},
-                "updated_at": {"type": "DateTimeField", "group": "date"},
-            },
             "field_attrs": {
                 "profession": {"id": "UserProfile--profession", "name": "profession"},
-                "_id": {"id": "UserProfile---id", "name": "_id"},
+                "_id": {"id": "UserProfile--id", "name": "_id"},
                 "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },

@@ -9,6 +9,7 @@ from .commons import Commons
 from .extra import Extra
 from .fields import DateTimeField, HashField
 from .paladins import Paladins
+from .tools import date_parse, datetime_parse
 
 
 class Model(Extra, Paladins, Commons):
@@ -88,16 +89,27 @@ class Model(Extra, Paladins, Commons):
         json_dict = json.loads(json_str)
         return cls.from_dict(json_dict)
 
+    # --------------------------------------------------------------------------
     def to_dict_only_value(self) -> dict[str, Any]:
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
-            if not callable(data):
-                value = data.value
-                if not hasattr(value, "to_dict"):
-                    json_dict[name] = value
-                else:
-                    json_dict[name] = value.to_dict()
+            if callable(data):
+                continue
+            value = data.value
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        value.strftime("%Y-%m-%d")
+                        if data.field_type == "DateField"
+                        else value.strftime("%Y-%m-%d %H:%M:%S")
+                    )
+                elif group == "hash":
+                    value = str(value)
+                elif group == "pass":
+                    value = None
+            json_dict[name] = value
         return json_dict
 
     def to_json_only_value(self) -> str:
@@ -108,8 +120,21 @@ class Model(Extra, Paladins, Commons):
     def from_dict_only_value(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
         obj = cls()
-        for name, data in json_dict.items():
-            obj.__dict__[name].value = data
+        for name, data in obj.__dict__.items():
+            if callable(data):
+                continue
+            value = json_dict.get(name)
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        date_parse(value)
+                        if data.field_type == "DateField"
+                        else datetime_parse(value)
+                    )
+                elif group == "hash":
+                    value = ObjectId(value)
+            obj.__dict__[name].value = value
         return obj
 
     @classmethod
@@ -118,8 +143,20 @@ class Model(Extra, Paladins, Commons):
         json_dict = json.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
-    # --------------------------------------------------------------------------
-    def refrash_fields(self, value_dict: dict[str, Any]) -> None:
-        """Partial or complete update a value of fields."""
-        for name, data in value_dict.items():
-            self.__dict__[name].value = data
+    def refrash_fields(self, only_value_dict: dict[str, Any]) -> None:
+        """Partial or complete update a `value` of fields."""
+        for name, data in self.__dict__.items():
+            if callable(data):
+                continue
+            value = only_value_dict.get(name)
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        date_parse(value)
+                        if data.field_type == "DateField"
+                        else datetime_parse(value)
+                    )
+                elif group == "hash":
+                    value = ObjectId(value)
+            self.__dict__[name].value = value

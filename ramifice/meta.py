@@ -1,8 +1,8 @@
 """Caching metadata in Model.META"""
 
-from datetime import datetime
+import os
 
-from .errors import DoesNotMatchRegexError
+from .errors import DoesNotMatchRegexError, PanicError
 from .store import REGEX
 from .tools import date_parse, datetime_parse
 
@@ -23,6 +23,15 @@ def meta(
             model = cls()
             if REGEX["service_name"].match(service_name) is None:
                 raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+            if fixture_name is not None:
+                fixture_path = f"config/fixtures/{fixture_name}.yml"
+                if not os.path.exists(fixture_path):
+                    msg = (
+                        f"Model: `{cls.META["full_model_name"]}` > "
+                        + f"META param: `fixture_name` => "
+                        + f"Fixture the `{fixture_path}` not exists!"
+                    )
+                    raise PanicError(msg)
             #
             cls.META = {
                 "service_name": service_name,
@@ -50,9 +59,7 @@ def caching(cls, model) -> None:
     cls.META["collection_name"] = f"{cls.META["service_name"]}_{model_name}"
     # Get a dictionary of field names and types.
     # Format: <field_name, field_type>
-    field_name_and_type_list: dict[str, str] = {}
-    # Format: <field_name, <type: field_type, group: field_group>>
-    field_name_params_list: dict[str, dict[str, str]] = {}
+    field_name_and_type: dict[str, str] = {}
     # Get attributes value for fields of Model: id, name.
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
@@ -69,7 +76,7 @@ def caching(cls, model) -> None:
             count_all_fields += 1
             # Get attributes value for fields of Model: id, name.
             field_attrs[f_name] = {
-                "id": f"{model_name}--{f_name.replace("_", "-")}",
+                "id": f"{model_name}--{f_name.replace("_", "-") if f_name != '_id' else 'id'}",
                 "name": f_name,
             }
             #
@@ -77,18 +84,12 @@ def caching(cls, model) -> None:
                 # Count fields for migrating.
                 count_fields_for_migrating += 1
                 # Get a dictionary of field names and types.
-                field_name_and_type_list[f_name] = f_type_str
-                # Format: <field_name, <type: field_type, group: field_group>>
-                field_name_params_list[f_name] = {
-                    "type": f_type_str,
-                    "group": f_type.group,
-                }
+                field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
                 if "Dyn" in f_name:
                     data_dynamic_fields[f_name] = None
     #
-    cls.META["field_name_and_type_list"] = field_name_and_type_list
-    cls.META["field_name_params_list"] = field_name_params_list
+    cls.META["field_name_and_type"] = field_name_and_type
     cls.META["field_attrs"] = field_attrs
     cls.META["data_dynamic_fields"] = data_dynamic_fields
     cls.META["count_all_fields"] = count_all_fields

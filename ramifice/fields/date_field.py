@@ -79,8 +79,9 @@ class DateField(Field, DateGroup):
         for name, data in self.__dict__.items():
             if not callable(data):
                 if name == "value" and data is not None:
-                    data = data.strftime("%Y-%m-%d")
-                json_dict[name] = data
+                    json_dict[name] = data.strftime("%Y-%m-%d")
+                else:
+                    json_dict[name] = data
         return json_dict
 
     def to_json(self) -> str:
@@ -93,8 +94,9 @@ class DateField(Field, DateGroup):
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
-                data = date_parse(data)
-            obj.__dict__[name] = data
+                obj.__dict__[name] = date_parse(data)
+            else:
+                obj.__dict__[name] = data
         return obj
 
     @classmethod

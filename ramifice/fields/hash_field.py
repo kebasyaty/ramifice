@@ -59,8 +59,9 @@ class HashField(Field):
         for name, data in self.__dict__.items():
             if not callable(data):
                 if name == "value" and data is not None:
-                    data = str(data)
-                json_dict[name] = data
+                    json_dict[name] = str(data)
+                else:
+                    json_dict[name] = data
         return json_dict
 
     def to_json(self) -> str:
@@ -73,8 +74,9 @@ class HashField(Field):
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
-                data = ObjectId(data)
-            obj.__dict__[name] = data
+                obj.__dict__[name] = ObjectId(data)
+            else:
+                obj.__dict__[name] = data
         return obj
 
     @classmethod
