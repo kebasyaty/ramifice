@@ -123,7 +123,7 @@ class Model(Extra, Paladins, Commons):
         for name, data in obj.__dict__.items():
             if callable(data):
                 continue
-            value = json_dict[name]
+            value = json_dict.get(name)
             if value is not None:
                 group = data.group
                 if group == "date":
@@ -145,5 +145,18 @@ class Model(Extra, Paladins, Commons):
 
     def refrash_fields(self, only_value_dict: dict[str, Any]) -> None:
         """Partial or complete update a `value` of fields."""
-        for name, data in only_value_dict.items():
-            self.__dict__[name].value = data
+        for name, data in self.__dict__.items():
+            if callable(data):
+                continue
+            value = only_value_dict.get(name)
+            if value is not None:
+                group = data.group
+                if group == "date":
+                    value = (
+                        date_parse(value)
+                        if data.field_type == "DateField"
+                        else datetime_parse(value)
+                    )
+                elif group == "hash":
+                    value = ObjectId(value)
+            self.__dict__[name].value = value
