@@ -1,8 +1,8 @@
 """Caching metadata in Model.META"""
 
-from datetime import datetime
+import os
 
-from .errors import DoesNotMatchRegexError
+from .errors import DoesNotMatchRegexError, PanicError
 from .store import REGEX
 from .tools import date_parse, datetime_parse
 
@@ -23,6 +23,15 @@ def meta(
             model = cls()
             if REGEX["service_name"].match(service_name) is None:
                 raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+            if fixture_name is not None:
+                fixture_path = f"config/fixtures/{fixture_name}.yml"
+                if not os.path.exists(fixture_path):
+                    msg = (
+                        f"Model: `{cls.META["full_model_name"]}` > "
+                        + f"META param: `fixture_name` => "
+                        + f"Fixture the `{fixture_path}` not exists!"
+                    )
+                    raise PanicError(msg)
             #
             cls.META = {
                 "service_name": service_name,
