@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Tools > apply_fixture method."""
+"""Testing `Ramifice > Tools > Fixtures module."""
 
 import unittest
 
@@ -112,13 +112,13 @@ class User2(Model):
         super().__init__()
 
 
-class TestPaladinCheck(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Tools > apply_fixture method."""
+class TestFixtures(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Tools > Fixtures module."""
 
-    async def test_apply_fixture(self):
-        """Testing `apply_fixture` method."""
+    async def test_apply_fixtures(self):
+        """Testing apply fixtures."""
         # Maximum number of characters 60.
-        database_name = "test_apply_fixture"
+        database_name = "test_apply_fixtures"
 
         # Delete database before test.
         # (if the test fails)

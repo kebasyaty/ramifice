@@ -13,8 +13,8 @@ from termcolor import colored
 
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
+from .fixtures import apply_fixture
 from .model import Model
-from .tools import apply_fixture
 from .types import FILE_DATA_TYPE, IMAGE_DATA_TYPE
 
 
