@@ -66,7 +66,7 @@ class TestModel(unittest.TestCase):
                     "id": "User--favorite-color",
                     "name": "favorite_color",
                 },
-                "_id": {"id": "User---id", "name": "_id"},
+                "_id": {"id": "User--id", "name": "_id"},
                 "created_at": {"id": "User--created-at", "name": "created_at"},
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
             },
@@ -97,7 +97,7 @@ class TestModel(unittest.TestCase):
             },
             "field_attrs": {
                 "profession": {"id": "UserProfile--profession", "name": "profession"},
-                "_id": {"id": "UserProfile---id", "name": "_id"},
+                "_id": {"id": "UserProfile--id", "name": "_id"},
                 "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },

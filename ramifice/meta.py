@@ -69,7 +69,7 @@ def caching(cls, model) -> None:
             count_all_fields += 1
             # Get attributes value for fields of Model: id, name.
             field_attrs[f_name] = {
-                "id": f"{model_name}--{f_name.replace("_", "-")}",
+                "id": f"{model_name}--{f_name.replace("_", "-") if f_name != '_id' else 'id'}",
                 "name": f_name,
             }
             #
