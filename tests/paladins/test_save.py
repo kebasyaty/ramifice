@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > SaveMixin` module."""
+"""Testing `Ramifice > QPaladinsMixin > SaveMixin` module."""
 
 import unittest
 
@@ -77,7 +77,7 @@ class User(Model):
 
 
 class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > SaveMixin` module."""
+    """Testing `Ramifice > QPaladinsMixin > SaveMixin` module."""
 
     async def test_save_method(self):
         """Testing `save` method."""

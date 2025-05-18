@@ -5,14 +5,14 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from .commons import Commons
-from .extra import Extra
+from .commons import QCommonsMixin
+from .extra import ExtraMixin
 from .fields import DateTimeField, HashField
-from .paladins import Paladins
+from .paladins import QPaladinsMixin
 from .tools import date_parse, datetime_parse
 
 
-class Model(Extra, Paladins, Commons):
+class Model(QPaladinsMixin, QCommonsMixin, ExtraMixin):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}

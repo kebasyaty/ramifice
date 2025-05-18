@@ -7,7 +7,7 @@ from .save import SaveMixin
 from .tools import ToolMixin
 
 
-class Paladins(ToolMixin, CheckMixin, SaveMixin, PasswordMixin, DeleteMixin):
+class QPaladinsMixin(ToolMixin, CheckMixin, SaveMixin, PasswordMixin, DeleteMixin):
     """Paladins - Model instance methods."""
 
     def __init__(self):

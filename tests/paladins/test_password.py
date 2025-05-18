@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Paladins > PsswordMixin` module."""
+"""Testing `Ramifice > QPaladinsMixin > PsswordMixin` module."""
 
 import unittest
 
@@ -21,7 +21,7 @@ class User(Model):
 
 
 class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > PsswordMixin` module."""
+    """Testing `Ramifice > QPaladinsMixin > PsswordMixin` module."""
 
     async def test_pssword_methods(self):
         """Testing PsswordMixin module."""

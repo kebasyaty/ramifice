@@ -3,7 +3,7 @@
 from abc import ABCMeta
 
 
-class Extra(metaclass=ABCMeta):
+class ExtraMixin(metaclass=ABCMeta):
     """Hook methods and additional validation of fields."""
 
     async def add_validation(self) -> dict[str, str]:

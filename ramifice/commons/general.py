@@ -112,30 +112,3 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
         return collection
-
-    @classmethod
-    async def bulk_write(
-        cls,
-        requests,
-        ordered=True,
-        bypass_document_validation=None,
-        session=None,
-        comment=None,
-        let=None,
-    ) -> BulkWriteResult:
-        """Executes multiple write operations.
-        An error will be raised if the requests parameter is empty.
-        """
-        # Check if this model is migrated to database.
-        model_is_migrated(cls)
-        # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        #
-        return await collection.bulk_write(
-            requests=requests,
-            ordered=ordered,
-            bypass_document_validation=bypass_document_validation,
-            session=session,
-            comment=comment,
-            let=let,
-        )

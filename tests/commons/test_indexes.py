@@ -1,8 +1,8 @@
-"""Testing `Ramifice > QPaladinsMixin > CheckMixin` module."""
+"""Testing `Ramifice > QCommonsMixi > IndexMixin` module."""
 
 import unittest
 
-from pymongo import AsyncMongoClient
+from pymongo import ASCENDING, DESCENDING, AsyncMongoClient, IndexModel
 
 from ramifice import Model, meta
 from ramifice.fields import (
@@ -74,14 +74,25 @@ class User(Model):
         #
         super().__init__()
 
+    @classmethod
+    async def indexing(cls) -> None:
+        """For set up and start indexing."""
+        await cls.create_index(["email"], name="idx_email")
+        #
+        index_1 = IndexModel(
+            [("color", DESCENDING), ("url", ASCENDING)], name="idx_color_url"
+        )
+        index_2 = IndexModel([("text", DESCENDING)], name="idx_text")
+        await cls.create_indexes([index_1, index_2])
 
-class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > QPaladinsMixin > CheckMixin` module."""
 
-    async def test_check_method(self):
-        """Testing `check` method."""
+class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > QCommonsMixin > IndexMixin` module."""
+
+    async def test_index_mixin_methods(self):
+        """Testing OneMixin methods."""
         # Maximum number of characters 60.
-        database_name = "test_check_method"
+        database_name = "test_index_mixin_methods"
 
         # Delete database before test.
         # (if the test fails)
@@ -98,9 +109,15 @@ class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        # self.assertTrue(await m.is_valid())
-        if not await m.is_valid():
+        m.email.value = "kebasyaty@gmail.com"
+        # self.assertTrue(await m.save())
+        if not await m.save():
             m.print_err()
+        #
+        mongo_doc = await User.find_one({"email": "kebasyaty@gmail.com"})
+        self.assertEqual(mongo_doc["email"], "kebasyaty@gmail.com")
+        await User.drop_index("idx_email")
+        await User.drop_indexes()
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
