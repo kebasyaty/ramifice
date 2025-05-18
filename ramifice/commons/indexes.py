@@ -31,6 +31,17 @@ class IndexMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Create index.
+        # Get information.
         result = await collection.index_information(session=session, comment=comment)
         return result
+
+    @classmethod
+    async def list_indexes(cls, session=None, comment=None) -> Any:
+        """Get a cursor over the index documents for this collection."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get cursor.
+        cursor = await collection.list_indexes(session=session, comment=comment)
+        return cursor
