@@ -23,3 +23,14 @@ class IndexMixin:
             keys=keys, session=session, comment=comment, **kwargs
         )
         return result
+
+    @classmethod
+    async def index_information(cls, session=None, comment=None) -> Any:
+        """Get information on this collection’s indexes."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Create index.
+        result = await collection.index_information(session=session, comment=comment)
+        return result
