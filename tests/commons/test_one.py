@@ -1,4 +1,4 @@
-"""Testing `Ramifice > Commons > OneMixin` module."""
+"""Testing `Ramifice > QCommonsMixin > OneMixin` module."""
 
 import unittest
 
@@ -76,7 +76,7 @@ class User(Model):
 
 
 class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Commons > OneMixin` module."""
+    """Testing `Ramifice > QCommonsMixin > OneMixin` module."""
 
     async def test_one_mixin_methods(self):
         """Testing OneMixin methods."""
