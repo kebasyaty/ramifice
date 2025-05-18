@@ -2,6 +2,7 @@
 
 import unittest
 
+from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
 from ramifice import Model, meta
@@ -98,9 +99,19 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        # self.assertTrue(await m.save())
+        # Create doc.
         if not await m.save():
             m.print_err()
+        self.assertTrue(isinstance(m._id.value, ObjectId))
+        doc_id = m._id.value
+        # Update doc.
+        if not await m.save():
+            m.print_err()
+        self.assertEqual(m._id.value, doc_id)
+        # Update doc.
+        if not await m.save():
+            m.print_err()
+        self.assertEqual(m._id.value, doc_id)
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await m.delete()
         self.assertTrue(isinstance(result, dict))
