@@ -97,7 +97,7 @@ class ManyMixin:
         session=None,
         allow_disk_use=None,
     ) -> str | None:
-        """Find documents matching with Model."""
+        """Find documents matching with Model and convert to a json string."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
