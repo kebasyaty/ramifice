@@ -103,15 +103,15 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         if not await m.save():
             m.print_err()
         self.assertTrue(isinstance(m._id.value, ObjectId))
-        doc_id = m._id.value
+        doc_id = str(m._id.value)
         # Update doc.
         if not await m.save():
             m.print_err()
-        self.assertEqual(m._id.value, doc_id)
+        self.assertEqual(str(m._id.value), doc_id)
         # Update doc.
         if not await m.save():
             m.print_err()
-        self.assertEqual(m._id.value, doc_id)
+        self.assertEqual(str(m._id.value), doc_id)
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await m.delete()
         self.assertTrue(isinstance(result, dict))
