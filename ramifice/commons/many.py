@@ -12,6 +12,7 @@ from ..tools import model_is_migrated
 class ManyMixin:
     """Queries like `find many`."""
 
+    @classmethod
     async def find_many(
         cls,
         filter=None,
