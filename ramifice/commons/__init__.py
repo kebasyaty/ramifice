@@ -5,7 +5,7 @@ from .indexes import IndexMixin
 from .many import ManyMixin
 from .one import OneMixin
 from .tools import ToolMixin
-from .unit import UnitMixin
+from .units import UnitMixin
 
 
 class QCommonsMixin(
