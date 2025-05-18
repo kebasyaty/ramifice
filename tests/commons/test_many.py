@@ -109,6 +109,18 @@ class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
         docs_json = await User.find_many_to_json()
         self.assertTrue(isinstance(docs_json, str))
         self.assertTrue(len(docs_json) > 0)
+        self.assertEqual(await User.estimated_document_count(), 1)
+        await User.delete_many({})
+        self.assertEqual(await User.estimated_document_count(), 0)
+        m = User()
+        await m.save()
+        m = User()
+        await m.save()
+        m = User()
+        await m.save()
+        self.assertEqual(await User.estimated_document_count(), 3)
+        await User.delete_many({})
+        self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
