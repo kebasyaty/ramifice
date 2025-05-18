@@ -33,7 +33,6 @@ class ManyMixin:
         min=None,
         return_key=False,
         show_record_id=False,
-        snapshot=False,
         comment=None,
         session=None,
         allow_disk_use=None,

@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta, store
+from ramifice import Model, meta
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -105,7 +105,7 @@ class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
         doc_list = await User.find_many()
         self.assertTrue(isinstance(doc_list, list))
         self.assertEqual(len(doc_list), 1)
-        self.assertEqual(len(doc_list[0]), 30)
+        self.assertEqual(len(doc_list[0]), 31)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

@@ -20,7 +20,7 @@ class ToolMixin:
     @classmethod
     def mongo_doc_to_model_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Convert the Mongo document to the Model document."""
-        doc: dict[str, Any] = {}
+        doc: dict[str, Any] = {"_id": str(mongo_doc["_id"])}
         for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
             value = mongo_doc[f_name]
             if value is not None:
