@@ -13,14 +13,29 @@ class IndexMixin:
 
     @classmethod
     async def create_index(cls, keys, session=None, comment=None, **kwargs) -> str:
-        """This is a convenience method for creating a single index."""
+        """Creates an index on this collection."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create index.
-        result = await collection.create_index(
+        result: str = await collection.create_index(
             keys=keys, session=session, comment=comment, **kwargs
+        )
+        return result
+
+    @classmethod
+    async def create_indexes(
+        cls, indexes, session=None, comment=None, **kwargs
+    ) -> list[str]:
+        """Create one or more indexes on this collection."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Create index.
+        result: list[str] = await collection.create_indexes(
+            indexes=indexes, session=session, comment=comment, **kwargs
         )
         return result
 

@@ -2,7 +2,7 @@
 
 import unittest
 
-from pymongo import AsyncMongoClient
+from pymongo import ASCENDING, DESCENDING, AsyncMongoClient, IndexModel
 
 from ramifice import Model, meta
 from ramifice.fields import (
@@ -78,6 +78,12 @@ class User(Model):
     async def indexing(cls) -> None:
         """For set up and start indexing."""
         await cls.create_index("email")
+        #
+        index1 = IndexModel(
+            [("color", DESCENDING), ("url", ASCENDING)], name="color_url"
+        )
+        index2 = IndexModel([("text", DESCENDING)])
+        await cls.create_indexes([index1, index2])
 
 
 class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
