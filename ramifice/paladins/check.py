@@ -149,7 +149,6 @@ class CheckMixin(
                         if img_data is not None:
                             img_data["is_new_img"] = False
         #
-        #
         return dict(
             data=result_map,
             is_valid=not params["is_error_symptom"],

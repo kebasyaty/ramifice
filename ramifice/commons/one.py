@@ -6,6 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.results import DeleteResult
 
 from .. import store
+from ..errors import PanicError
 from ..tools import model_is_migrated
 
 
@@ -61,6 +62,14 @@ class OneMixin:
         """Find a single document and delete it."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
+        # Raises a panic if the Model cannot be removed.
+        if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+            msg = (
+                f"Model: `{cls.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "META param: `is_delete_doc` (False) => "
+                + "Documents of this Model cannot be removed from the database!"
+            )
+            raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
@@ -84,11 +93,19 @@ class OneMixin:
         session=None,
         let=None,
         comment=None,
-        **kwargs
+        **kwargs,
     ) -> dict[str, Any]:
         """Find a single document and delete it, return original."""
         # Check if this model is migrated to database.
         model_is_migrated(cls)
+        # Raises a panic if the Model cannot be removed.
+        if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+            msg = (
+                f"Model: `{cls.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                + "META param: `is_delete_doc` (False) => "
+                + "Documents of this Model cannot be removed from the database!"
+            )
+            raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
@@ -100,6 +117,6 @@ class OneMixin:
             session=session,
             let=let,
             comment=comment,
-            **kwargs
+            **kwargs,
         )
         return result

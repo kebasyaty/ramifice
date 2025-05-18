@@ -1,8 +1,7 @@
-"""Testing `Ramifice > Paladins > SaveMixin` module."""
+"""Testing `Ramifice > Commons > ManyMixin` module."""
 
 import unittest
 
-from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
 from ramifice import Model, meta
@@ -76,13 +75,13 @@ class User(Model):
         super().__init__()
 
 
-class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > Paladins > SaveMixin` module."""
+class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > Commons > ManyMixin` module."""
 
-    async def test_save_method(self):
-        """Testing `save` method."""
+    async def test_many_mixin_methods(self):
+        """Testing OneMixin methods."""
         # Maximum number of characters 60.
-        database_name = "test_save_method"
+        database_name = "test_many_mixin_methods"
 
         # Delete database before test.
         # (if the test fails)
@@ -99,24 +98,28 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        # Create doc.
-        if not await m.save():
-            m.print_err()
-        self.assertTrue(isinstance(m._id.value, ObjectId))
-        doc_id = str(m._id.value)
-        # Update doc.
-        if not await m.save():
-            m.print_err()
-        self.assertEqual(str(m._id.value), doc_id)
-        # Update doc.
+        # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         #
-        self.assertEqual(str(m._id.value), doc_id)
+        doc_list = await User.find_many()
+        self.assertTrue(isinstance(doc_list, list))
+        self.assertEqual(len(doc_list), 1)
+        self.assertEqual(len(doc_list[0]), 31)
+        docs_json = await User.find_many_to_json()
+        self.assertTrue(isinstance(docs_json, str))
+        self.assertTrue(len(docs_json) > 0)
         self.assertEqual(await User.estimated_document_count(), 1)
-        result = await m.delete()
-        self.assertTrue(isinstance(result, dict))
-        self.assertEqual(len(result), 31)
+        await User.delete_many({})
+        self.assertEqual(await User.estimated_document_count(), 0)
+        m = User()
+        await m.save()
+        m = User()
+        await m.save()
+        m = User()
+        await m.save()
+        self.assertEqual(await User.estimated_document_count(), 3)
+        await User.delete_many({})
         self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #

@@ -29,11 +29,11 @@ class DeleteMixin:
         cls_model = self.__class__
         # Check if this model is migrated to database.
         model_is_migrated(cls_model)
-        #
+        # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
-                + "Param: `is_delete_doc` (False) => "
+                + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             raise PanicError(msg)
