@@ -64,7 +64,6 @@ class ManyMixin:
             min=min,
             return_key=return_key,
             show_record_id=show_record_id,
-            snapshot=snapshot,
             comment=comment,
             session=session,
             allow_disk_use=allow_disk_use,
