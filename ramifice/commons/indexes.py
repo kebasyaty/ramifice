@@ -25,6 +25,20 @@ class IndexMixin:
         return result
 
     @classmethod
+    async def drop_index(
+        cls, index_or_name, session=None, comment=None, **kwargs
+    ) -> None:
+        """Drops the specified index on this collection."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Delete index.
+        await collection.drop_index(
+            index_or_name=index_or_name, session=session, comment=comment, **kwargs
+        )
+
+    @classmethod
     async def create_indexes(
         cls, indexes, session=None, comment=None, **kwargs
     ) -> list[str]:
@@ -33,11 +47,21 @@ class IndexMixin:
         model_is_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
-        # Create index.
+        # Create indexes.
         result: list[str] = await collection.create_indexes(
             indexes=indexes, session=session, comment=comment, **kwargs
         )
         return result
+
+    @classmethod
+    async def drop_indexes(cls, session=None, comment=None, **kwargs) -> None:
+        """Drops all indexes on this collection."""
+        # Check if this model is migrated to database.
+        model_is_migrated(cls)
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Delete indexes.
+        await collection.drop_indexes(session=session, comment=comment, **kwargs)
 
     @classmethod
     async def index_information(cls, session=None, comment=None) -> Any:
