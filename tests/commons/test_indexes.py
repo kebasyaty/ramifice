@@ -77,13 +77,13 @@ class User(Model):
     @classmethod
     async def indexing(cls) -> None:
         """For set up and start indexing."""
-        await cls.create_index("email")
+        await cls.create_index(["email"], name="idx_email")
         #
-        index1 = IndexModel(
-            [("color", DESCENDING), ("url", ASCENDING)], name="color_url"
+        index_1 = IndexModel(
+            [("color", DESCENDING), ("url", ASCENDING)], name="idx_color_url"
         )
-        index2 = IndexModel([("text", DESCENDING)])
-        await cls.create_indexes([index1, index2])
+        index_2 = IndexModel([("text", DESCENDING)], name="idx_text")
+        await cls.create_indexes([index_1, index_2])
 
 
 class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
@@ -116,6 +116,8 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
         #
         mongo_doc = await User.find_one({"email": "kebasyaty@gmail.com"})
         self.assertEqual(mongo_doc["email"], "kebasyaty@gmail.com")
+        await User.drop_index("idx_email")
+        await User.drop_indexes()
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
