@@ -46,7 +46,7 @@ class ManyMixin:
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
-            filter=filter,
+            filter=filter or {},
             projection=projection,
             skip=skip,
             limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[index, attr-defined]
