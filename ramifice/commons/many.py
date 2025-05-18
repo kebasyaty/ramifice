@@ -71,5 +71,4 @@ class ManyMixin:
         )
         async for mongo_doc in cursor:
             doc_list.append(cls.mongo_doc_to_model_doc(mongo_doc))  # type: ignore[index, attr-defined]
-
         return doc_list
