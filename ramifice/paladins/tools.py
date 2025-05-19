@@ -66,6 +66,8 @@ class ToolMixin:
         params: dict[str, Any],
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
+        if not self.__class__.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            return True
         q_filter = {
             "$and": [
                 {"_id": {"$ne": params["doc_id"]}},
