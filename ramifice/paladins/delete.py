@@ -8,7 +8,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
-from ..tools import model_is_migrated
+from ..tools import model_is_not_migrated
 
 
 class DeleteMixin:
@@ -28,7 +28,8 @@ class DeleteMixin:
         """Delete document from database."""
         cls_model = self.__class__
         # Check if this model is migrated to database.
-        model_is_migrated(cls_model)
+        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls_model)
         # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (

@@ -7,7 +7,7 @@ from pymongo.results import DeleteResult
 
 from .. import store
 from ..errors import PanicError
-from ..tools import model_is_migrated
+from ..tools import model_is_not_migrated
 
 
 class OneMixin:
@@ -17,7 +17,8 @@ class OneMixin:
     async def find_one(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
         """Find a single document."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
@@ -28,7 +29,8 @@ class OneMixin:
     async def find_one_to_instance(cls, filter=None, *args, **kwargs) -> Any | None:
         """Find a single document and convert it to a Model instance."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
@@ -43,7 +45,8 @@ class OneMixin:
     async def find_one_to_json(cls, filter=None, *args, **kwargs) -> str | None:
         """Find a single document and convert it to a JSON string."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
@@ -61,7 +64,8 @@ class OneMixin:
     ) -> DeleteResult:
         """Find a single document and delete it."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (
@@ -97,7 +101,8 @@ class OneMixin:
     ) -> dict[str, Any]:
         """Find a single document and delete it, return original."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (

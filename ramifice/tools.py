@@ -134,12 +134,11 @@ def hash_to_obj_id(hash: str) -> ObjectId | None:
     return ObjectId(hash) if bool(hash) else None
 
 
-def model_is_migrated(cls_model: Any) -> None:
-    """Check if this model is migrated to database."""
-    if not cls_model.META["is_migrat_model"]:
-        msg = (
-            f"Model: `{cls_model.META["full_model_name"]}` > "
-            + "META param: `is_migrat_model` (False) => "
-            + "This Model is not migrated to database!"
-        )
-        raise PanicError(msg)
+def model_is_not_migrated(cls_model: Any) -> None:
+    """Raise PanicError if this Model is not migrated to database."""
+    msg = (
+        f"Model: `{cls_model.META["full_model_name"]}` > "
+        + "META param: `is_migrat_model` (False) => "
+        + "This Model is not migrated to database!"
+    )
+    raise PanicError(msg)
