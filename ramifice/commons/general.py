@@ -8,7 +8,7 @@ from pymongo.asynchronous.database import AsyncDatabase
 from pymongo.results import BulkWriteResult
 
 from .. import store
-from ..tools import model_is_migrated
+from ..tools import model_is_not_migrated
 
 
 class GeneralMixin:
@@ -18,7 +18,8 @@ class GeneralMixin:
     async def estimated_document_count(cls, comment=None, **kwargs) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -28,7 +29,8 @@ class GeneralMixin:
     async def count_documents(cls, filter, session=None, comment=None, **kwargs) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -42,7 +44,8 @@ class GeneralMixin:
     ) -> AsyncCommandCursor:
         """Runs an aggregation framework pipeline."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -58,7 +61,8 @@ class GeneralMixin:
         Returns an array of unique values for specified field of collection.
         """
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -75,7 +79,8 @@ class GeneralMixin:
     def collection_name(cls) -> str:
         """Get collection name."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -87,7 +92,8 @@ class GeneralMixin:
         The full name is of the form database_name.collection_name.
         """
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -97,7 +103,8 @@ class GeneralMixin:
     def database(cls) -> AsyncDatabase:
         """Get AsyncBatabase for the current Model."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
@@ -107,7 +114,8 @@ class GeneralMixin:
     def collection(cls) -> AsyncCollection:
         """Get AsyncCollection for the current Model."""
         # Check if this model is migrated to database.
-        model_is_migrated(cls)
+        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #

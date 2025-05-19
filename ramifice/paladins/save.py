@@ -7,7 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
-from ..tools import model_is_migrated
+from ..tools import model_is_not_migrated
 
 
 class SaveMixin:
@@ -17,19 +17,21 @@ class SaveMixin:
         """Create or update document in database.
         This method pre-uses the `check` method.
         """
+        cls_model = self.__class__
         # Check if this model is migrated to database.
-        model_is_migrated(self.__class__)
+        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+            model_is_not_migrated(cls_model)
         # Get collection.
-        collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
+        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
         # Reset the alerts to exclude duplicates.
         self._id.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
-        if not result_check["is_update"] and not self.__class__.META["is_create_doc"]:  # type: ignore[index, attr-defined]
+        if not result_check["is_update"] and not cls_model.META["is_create_doc"]:  # type: ignore[index, attr-defined]
             self.hash.alerts.append("It is forbidden to create new documents !")  # type: ignore[index, attr-defined]
             result_check["is_valid"] = False
-        if result_check["is_update"] and not self.__class__.META["is_update_doc"]:  # type: ignore[index, attr-defined]
+        if result_check["is_update"] and not cls_model.META["is_update_doc"]:  # type: ignore[index, attr-defined]
             self.hash.alerts.append("It is forbidden to update documents !")  # type: ignore[index, attr-defined]
             result_check["is_valid"] = False
         # Leave the method if the check fails.

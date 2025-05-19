@@ -6,7 +6,6 @@ from typing import Any
 from termcolor import colored
 
 from ..errors import PanicError
-from ..tools import model_is_migrated
 
 
 class ToolMixin:
