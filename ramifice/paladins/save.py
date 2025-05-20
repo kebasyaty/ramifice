@@ -7,7 +7,6 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
-from ..tools import model_is_not_migrated
 
 
 class SaveMixin:
@@ -18,9 +17,6 @@ class SaveMixin:
         This method pre-uses the `check` method.
         """
         cls_model = self.__class__
-        # Check if this model is migrated to database.
-        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls_model)
         # Get collection.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Check Model.

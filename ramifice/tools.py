@@ -8,12 +8,10 @@ from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
-import yaml
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
-from termcolor import colored
 
-from .errors import InvalidDateError, InvalidDateTimeError, PanicError
+from .errors import InvalidDateError, InvalidDateTimeError
 from .store import REGEX
 
 
@@ -132,13 +130,3 @@ def is_mongo_id(oid: Any) -> bool:
 def hash_to_obj_id(hash: str) -> ObjectId | None:
     """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None
-
-
-def model_is_not_migrated(cls_model: Any) -> None:
-    """Raise PanicError if this Model is not migrated to database."""
-    msg = (
-        f"Model: `{cls_model.META["full_model_name"]}` > "
-        + "META param: `is_migrat_model` (False) => "
-        + "This Model is not migrated to database!"
-    )
-    raise PanicError(msg)

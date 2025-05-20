@@ -4,20 +4,18 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import PasswordField
 from ramifice.migration import Monitor
 
 
-@meta(service_name="Accounts")
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.password = PasswordField()
         self.password_2 = PasswordField()
-        #
-        super().__init__()
 
 
 class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):

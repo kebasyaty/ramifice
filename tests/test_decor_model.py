@@ -1,40 +1,37 @@
-"""Testing the module `ramifice.meta`."""
+"""Testing the module `ramifice.decor_model`."""
 
 import unittest
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import ChoiceTextDynField, TextField
+from ramifice.model import Model
 
 
-@meta(service_name="Accounts")
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
-        #
-        super().__init__()
 
     def __str__(self):
         return str(self.username.value)
 
 
-@meta(service_name="Profiles")
-class UserProfile(Model):
+@model(service_name="Profiles")
+class UserProfile:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.profession = TextField()
-        #
-        super().__init__()
 
     def __str__(self):
         return str(self.profession.value)
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.meta`."""
+    """Testing the module `ramifice.decor_model`."""
 
     def setUp(self):
         self.user_meta = {

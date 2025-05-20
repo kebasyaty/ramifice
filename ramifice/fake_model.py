@@ -7,35 +7,17 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from .add_valid import AddValidMixin
-from .commons import QCommonsMixin
-from .fields import DateTimeField, HashField
-from .hooks import HooksMixin
-from .indexing import IndexMixin
-from .paladins import QPaladinsMixin
+from .paladins import CheckMixin, ToolMixin
 from .tools import date_parse, datetime_parse
 
 
-class Model(QPaladinsMixin, QCommonsMixin, AddValidMixin, IndexMixin, HooksMixin):
-    """For converting Python classes into Ramifice Model."""
+class FakeModel(ToolMixin, CheckMixin, AddValidMixin):
+    """For converting Python classes into Ramifice Model
+    which do not have access to the database."""
 
     META: dict[str, Any] = {}
 
     def __init__(self):
-        self._id = HashField(
-            label="Document ID", hide=True, ignored=True, disabled=True
-        )
-        self.created_at = DateTimeField(
-            label="Created at",
-            warning=["When the document was created."],
-            hide=True,
-            disabled=True,
-        )
-        self.updated_at = DateTimeField(
-            label="Updated at",
-            warning=["When the document was updated."],
-            hide=True,
-            disabled=True,
-        )
         self.fields()
         super().__init__()
         self.inject()

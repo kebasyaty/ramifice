@@ -7,7 +7,6 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import OldPassNotMatchError, PanicError
-from ..tools import model_is_not_migrated
 
 
 class PasswordMixin:
@@ -20,9 +19,6 @@ class PasswordMixin:
     ) -> bool:
         """For password verification."""
         cls_model = self.__class__
-        # Check if this model is migrated to database.
-        if not cls_model.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls_model)
         # Get documet ID.
         doc_id = self._id.value  # type: ignore[index, attr-defined]
         if doc_id is None:
