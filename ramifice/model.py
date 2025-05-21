@@ -50,7 +50,6 @@ class Model(metaclass=ABCMeta):
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
 
-    # --------------------------------------------------------------------------
     def inject(self) -> None:
         """Injecting metadata from Model.META in params of fields.
         Parameters: id, name, dynamic choices.
