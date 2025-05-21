@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -38,11 +38,11 @@ from ramifice.fields import (
 from ramifice.migration import Monitor
 
 
-@meta(service_name="Accounts", fixture_name="User")
-class User(Model):
+@model(service_name="Accounts", fixture_name="User")
+class User:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -71,15 +71,13 @@ class User(Model):
         self.choice_txt_mult_dyn = ChoiceTextMultDynField()
         self.choice_txt_mult = ChoiceTextMultField()
         self.choice_int = ChoiceIntField()
-        #
-        super().__init__()
 
 
-@meta(service_name="Accounts", fixture_name="User2")
-class User2(Model):
+@model(service_name="Accounts", fixture_name="User2")
+class User2:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -108,8 +106,6 @@ class User2(Model):
         self.choice_txt_mult_dyn = ChoiceTextMultDynField()
         self.choice_txt_mult = ChoiceTextMultField()
         self.choice_int = ChoiceIntField()
-        #
-        super().__init__()
 
 
 class TestFixtures(unittest.IsolatedAsyncioTestCase):

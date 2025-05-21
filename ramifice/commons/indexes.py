@@ -5,7 +5,6 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
-from ..tools import model_is_not_migrated
 
 
 class IndexMixin:
@@ -14,9 +13,6 @@ class IndexMixin:
     @classmethod
     async def create_index(cls, keys, session=None, comment=None, **kwargs) -> str:
         """Creates an index on this collection."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create index.
@@ -30,9 +26,6 @@ class IndexMixin:
         cls, index_or_name, session=None, comment=None, **kwargs
     ) -> None:
         """Drops the specified index on this collection."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Delete index.
@@ -45,9 +38,6 @@ class IndexMixin:
         cls, indexes, session=None, comment=None, **kwargs
     ) -> list[str]:
         """Create one or more indexes on this collection."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create indexes.
@@ -59,9 +49,6 @@ class IndexMixin:
     @classmethod
     async def drop_indexes(cls, session=None, comment=None, **kwargs) -> None:
         """Drops all indexes on this collection."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Delete indexes.
@@ -70,9 +57,6 @@ class IndexMixin:
     @classmethod
     async def index_information(cls, session=None, comment=None) -> Any:
         """Get information on this collection’s indexes."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get information.
@@ -82,9 +66,6 @@ class IndexMixin:
     @classmethod
     async def list_indexes(cls, session=None, comment=None) -> Any:
         """Get a cursor over the index documents for this collection."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get cursor.

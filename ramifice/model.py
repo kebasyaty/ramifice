@@ -1,40 +1,45 @@
 """For converting Python classes into Ramifice Model."""
 
+import copy
 import json
+from abc import ABCMeta, abstractmethod
 from typing import Any
 
 from bson.objectid import ObjectId
 
-from .commons import QCommonsMixin
-from .extra import ExtraMixin
 from .fields import DateTimeField, HashField
-from .paladins import QPaladinsMixin
 from .tools import date_parse, datetime_parse
 
+_ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
+CREATED_AT = DateTimeField(
+    label="Created at",
+    warning=["When the document was created."],
+    hide=True,
+    disabled=True,
+)
+UPDATED_AT = DateTimeField(
+    label="Updated at",
+    warning=["When the document was updated."],
+    hide=True,
+    disabled=True,
+)
 
-class Model(QPaladinsMixin, QCommonsMixin, ExtraMixin):
+
+class Model(metaclass=ABCMeta):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
 
     def __init__(self):
-        self._id = HashField(
-            label="Document ID", hide=True, ignored=True, disabled=True
-        )
-        self.created_at = DateTimeField(
-            label="Created at",
-            warning=["When the document was created."],
-            hide=True,
-            disabled=True,
-        )
-        self.updated_at = DateTimeField(
-            label="Updated at",
-            warning=["When the document was updated."],
-            hide=True,
-            disabled=True,
-        )
-        super().__init__()
+        self._id = copy.deepcopy(_ID)
+        self.created_at = copy.deepcopy(CREATED_AT)
+        self.updated_at = copy.deepcopy(UPDATED_AT)
+        self.fields()
         self.inject()
+
+    @abstractmethod
+    def fields(self):
+        pass
 
     def model_name(self) -> str:
         """Get Model name - Class name."""
@@ -45,7 +50,6 @@ class Model(QPaladinsMixin, QCommonsMixin, ExtraMixin):
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
 
-    # --------------------------------------------------------------------------
     def inject(self) -> None:
         """Injecting metadata from Model.META in params of fields.
         Parameters: id, name, dynamic choices.

@@ -2,17 +2,17 @@
 
 import unittest
 
-from ramifice import Model
+from ramifice import model
 from ramifice.fields import TextField
+from ramifice.model import Model
 
 
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """For testing a instance `Model`."""
 
-    def __init__(self):
+    def fields(self):
         self.username = TextField()
-        #
-        super().__init__()
 
 
 class TestModel(unittest.TestCase):

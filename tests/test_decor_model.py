@@ -1,40 +1,37 @@
-"""Testing the module `ramifice.meta`."""
+"""Testing the module `ramifice.decor_model`."""
 
 import unittest
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import ChoiceTextDynField, TextField
+from ramifice.model import Model
 
 
-@meta(service_name="Accounts")
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
-        #
-        super().__init__()
 
     def __str__(self):
         return str(self.username.value)
 
 
-@meta(service_name="Profiles")
-class UserProfile(Model):
+@model(service_name="Profiles")
+class UserProfile:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.profession = TextField()
-        #
-        super().__init__()
 
     def __str__(self):
         return str(self.profession.value)
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.meta`."""
+    """Testing the module `ramifice.decor_model`."""
 
     def setUp(self):
         self.user_meta = {
@@ -46,7 +43,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "User",
-            "full_model_name": "tests.test_meta.User",
+            "full_model_name": "tests.test_decor_model.User",
             "collection_name": "Accounts_User",
             "field_name_and_type": {
                 "username": "TextField",
@@ -77,7 +74,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "UserProfile",
-            "full_model_name": "tests.test_meta.UserProfile",
+            "full_model_name": "tests.test_decor_model.UserProfile",
             "collection_name": "Profiles_UserProfile",
             "field_name_and_type": {
                 "profession": "TextField",
@@ -98,10 +95,10 @@ class TestModel(unittest.TestCase):
 
     def test_class_user(self):
         """Testing a class `User`."""
-        self.assertFalse(bool(Model.META))
+        self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "tests.test_meta")
+        self.assertEqual(User.__module__, "tests.test_decor_model")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
@@ -110,7 +107,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_meta.User")
+        self.assertEqual(m.full_model_name(), "tests.test_decor_model.User")
         #
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
@@ -122,10 +119,10 @@ class TestModel(unittest.TestCase):
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
-        self.assertFalse(bool(Model.META))
+        self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "tests.test_meta")
+        self.assertEqual(UserProfile.__module__, "tests.test_decor_model")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
@@ -134,7 +131,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_decor_model.UserProfile")
         #
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)

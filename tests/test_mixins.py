@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -53,11 +53,11 @@ class StandardTypes(JsonMixin):
         self.x9 = None
 
 
-@meta(service_name="Accounts")
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """For testing the Ramifice fields."""
 
-    def __init__(self):
+    def fields(self):
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -86,11 +86,6 @@ class User(Model):
         self.choice_txt_mult_dyn = ChoiceTextMultDynField()
         self.choice_txt_mult = ChoiceTextMultField()
         self.choice_int = ChoiceIntField(choices={"Title": 1, "Title 2": 2})
-        #
-        super().__init__()
-
-    def __str__(self):
-        return str(self.txt.value)
 
 
 class TestJsonMixin(unittest.TestCase):

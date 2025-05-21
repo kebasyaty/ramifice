@@ -9,7 +9,6 @@ from pymongo.results import DeleteResult
 
 from .. import store
 from ..errors import PanicError
-from ..tools import model_is_not_migrated
 
 
 class ManyMixin:
@@ -41,9 +40,6 @@ class ManyMixin:
         allow_disk_use=None,
     ) -> list[dict[str, Any]]:
         """Find documents matching with Model."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get documents.
@@ -101,9 +97,6 @@ class ManyMixin:
         allow_disk_use=None,
     ) -> str | None:
         """Find documents matching with Model and convert to a json string."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get documents.
@@ -140,9 +133,6 @@ class ManyMixin:
         cls, filter, collation=None, hint=None, session=None, let=None, comment=None
     ) -> DeleteResult:
         """Find documents matching with Model."""
-        # Check if this model is migrated to database.
-        if not cls.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
-            model_is_not_migrated(cls)
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
             msg = (

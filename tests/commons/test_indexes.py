@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import ASCENDING, DESCENDING, AsyncMongoClient, IndexModel
 
-from ramifice import Model, meta
+from ramifice import model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -38,11 +38,11 @@ from ramifice.fields import (
 from ramifice.migration import Monitor
 
 
-@meta(service_name="Accounts")
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """Class for testing."""
 
-    def __init__(self):
+    def fields(self):
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -71,19 +71,17 @@ class User(Model):
         self.choice_txt_mult_dyn = ChoiceTextMultDynField()
         self.choice_txt_mult = ChoiceTextMultField()
         self.choice_int = ChoiceIntField()
-        #
-        super().__init__()
 
     @classmethod
     async def indexing(cls) -> None:
         """For set up and start indexing."""
-        await cls.create_index(["email"], name="idx_email")
+        await cls.create_index(["email"], name="idx_email")  # type: ignore[index, attr-defined]
         #
         index_1 = IndexModel(
             [("color", DESCENDING), ("url", ASCENDING)], name="idx_color_url"
         )
         index_2 = IndexModel([("text", DESCENDING)], name="idx_text")
-        await cls.create_indexes([index_1, index_2])
+        await cls.create_indexes([index_1, index_2])  # type: ignore[index, attr-defined]
 
 
 class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):

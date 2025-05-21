@@ -1,27 +1,25 @@
-"""Testing the module `ramifice.model + ramifice.extra`."""
+"""Testing AddValidMixin, IndexMixin and HooksMixin."""
 
 import unittest
 
-from ramifice import Model
+from ramifice import model
 from ramifice.fields import TextField
 
 
-class User(Model):
+@model(service_name="Accounts")
+class User:
     """For testing a `Extra`."""
 
-    def __init__(self):
+    def fields(self):
         self.username = TextField()
-        #
-        super().__init__()
 
 
-class User2(Model):
+@model(service_name="Accounts")
+class User2:
     """For testing a `Extra`."""
 
-    def __init__(self):
+    def fields(self):
         self.username = TextField()
-        #
-        super().__init__()
 
     async def add_validation(self) -> dict[str, str]:
         """It is supposed to be use to additional validation of fields.
@@ -53,8 +51,8 @@ class User2(Model):
         """Called after an existing document in the database has been deleted."""
 
 
-class TestModel(unittest.IsolatedAsyncioTestCase):
-    """Testing the module `ramifice.model + ramifice.extra`."""
+class TestExtra(unittest.IsolatedAsyncioTestCase):
+    """Testing AddValidMixin, IndexMixin and HooksMixin."""
 
     async def test_extra_methods(self):
         """Testing a `Model` and extra methods."""

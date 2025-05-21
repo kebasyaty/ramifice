@@ -1,21 +1,10 @@
-"""Hook methods and additional validation of fields."""
+"""Hook methods."""
 
 from abc import ABCMeta
 
 
-class ExtraMixin(metaclass=ABCMeta):
+class HooksMixin(metaclass=ABCMeta):
     """Hook methods and additional validation of fields."""
-
-    async def add_validation(self) -> dict[str, str]:
-        """It is supposed to be use to additional validation of fields.
-        Format: <"field_name", "Error message">
-        """
-        error_map: dict[str, str] = {}
-        return error_map
-
-    @classmethod
-    async def indexing(cls) -> None:
-        """For set up and start indexing."""
 
     async def pre_create(self) -> None:
         """Called before a new document is created in the database."""
