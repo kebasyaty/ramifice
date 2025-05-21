@@ -50,9 +50,8 @@ def model(
             "is_delete_doc": is_delete_doc,
         }.update(caching(cls, service_name))
         #
-        new_cls = None
         if is_migrat_model:
-            new_cls = type(
+            return type(
                 cls.__name__,
                 (
                     Model,
@@ -65,11 +64,9 @@ def model(
                 attrs,
             )
         else:
-            new_cls = type(
+            return type(
                 cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs
             )
-        #
-        return new_cls
 
     return decorator
 
