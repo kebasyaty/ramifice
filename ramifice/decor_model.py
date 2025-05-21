@@ -37,7 +37,7 @@ def model(
                     + f"Fixture the `{fixture_path}` not exists!"
                 )
                 raise PanicError(msg)
-        #
+
         attrs = {key: val for key, val in cls.__dict__.items()}
         attrs["__dict__"] = Model.__dict__["__dict__"]
         metadata = {
@@ -50,7 +50,7 @@ def model(
             "is_delete_doc": is_delete_doc,
         }
         attrs["META"] = {**metadata, **caching(cls, service_name)}
-        #
+
         if is_migrat_model:
             return type(
                 cls.__name__,
@@ -93,7 +93,7 @@ def caching(cls, service_name) -> dict[str, Any]:
     count_all_fields = 0
     # Count fields for migrating.
     count_fields_for_migrating = 0
-    #
+
     old_model = cls()
     old_model.fields()
     default_fields: dict[str, Any] = {
@@ -121,11 +121,11 @@ def caching(cls, service_name) -> dict[str, Any]:
                 # Build data migration storage for dynamic fields.
                 if "Dyn" in f_name:
                     data_dynamic_fields[f_name] = None
-    #
+
     metadata["field_name_and_type"] = field_name_and_type
     metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
     metadata["count_all_fields"] = count_all_fields
     metadata["count_fields_for_migrating"] = count_fields_for_migrating
-    #
+
     return metadata
