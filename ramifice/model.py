@@ -14,25 +14,25 @@ class Model:
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
+    _ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
+    CREATED_AT = DateTimeField(
+        label="Created at",
+        warning=["When the document was created."],
+        hide=True,
+        disabled=True,
+    )
+    UPDATED_AT = DateTimeField(
+        label="Updated at",
+        warning=["When the document was updated."],
+        hide=True,
+        disabled=True,
+    )
 
     def __init__(self):
-        self._id = HashField(
-            label="Document ID", hide=True, ignored=True, disabled=True
-        )
-        self.created_at = DateTimeField(
-            label="Created at",
-            warning=["When the document was created."],
-            hide=True,
-            disabled=True,
-        )
-        self.updated_at = DateTimeField(
-            label="Updated at",
-            warning=["When the document was updated."],
-            hide=True,
-            disabled=True,
-        )
+        self._id = self.__class__._ID
+        self.created_at = self.__class__.CREATED_AT
+        self.updated_at = self.__class__.UPDATED_AT
         self.fields()
-        super().__init__()
         self.inject()
 
     @abstractmethod

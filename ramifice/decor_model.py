@@ -96,7 +96,13 @@ def caching(cls, service_name) -> dict[str, Any]:
     #
     old_model = cls()
     old_model.fields()
-    for f_name, f_type in old_model.__dict__.items():
+    default_fields: dict[str, Any] = {
+        "_id": Model._ID,
+        "created_at": Model.CREATED_AT,
+        "updated_at": Model.UPDATED_AT,
+    }
+    fields = {**old_model.__dict__, **default_fields}
+    for f_name, f_type in fields.items():
         if not callable(f_type):
             f_type_str = f_type.__class__.__name__
             # Count all fields.
