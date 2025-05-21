@@ -40,7 +40,7 @@ def model(
         #
         attrs = {key: val for key, val in cls.__dict__.items()}
         attrs["__dict__"] = Model.__dict__["__dict__"]
-        attrs["META"] = {
+        metadata = {
             "service_name": service_name,
             "fixture_name": fixture_name,
             "db_query_docs_limit": db_query_docs_limit,
@@ -48,7 +48,8 @@ def model(
             "is_create_doc": is_create_doc,
             "is_update_doc": is_update_doc,
             "is_delete_doc": is_delete_doc,
-        }.update(caching(cls, service_name))
+        }
+        attrs["META"] = {**metadata, **caching(cls, service_name)}
         #
         if is_migrat_model:
             return type(

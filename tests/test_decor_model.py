@@ -95,7 +95,7 @@ class TestModel(unittest.TestCase):
 
     def test_class_user(self):
         """Testing a class `User`."""
-        self.assertFalse(bool(Model.META))
+        self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
         self.assertEqual(User.__module__, "tests.test_meta")
@@ -119,7 +119,7 @@ class TestModel(unittest.TestCase):
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
-        self.assertFalse(bool(Model.META))
+        self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
         self.assertEqual(UserProfile.__module__, "tests.test_meta")
