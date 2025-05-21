@@ -1,7 +1,8 @@
 """For converting Python classes into Ramifice Model."""
 
+import copy
 import json
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from typing import Any
 
 from bson.objectid import ObjectId
@@ -9,29 +10,30 @@ from bson.objectid import ObjectId
 from .fields import DateTimeField, HashField
 from .tools import date_parse, datetime_parse
 
+_ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
+CREATED_AT = DateTimeField(
+    label="Created at",
+    warning=["When the document was created."],
+    hide=True,
+    disabled=True,
+)
+UPDATED_AT = DateTimeField(
+    label="Updated at",
+    warning=["When the document was updated."],
+    hide=True,
+    disabled=True,
+)
 
-class Model:
+
+class Model(metaclass=ABCMeta):
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}
-    _ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
-    CREATED_AT = DateTimeField(
-        label="Created at",
-        warning=["When the document was created."],
-        hide=True,
-        disabled=True,
-    )
-    UPDATED_AT = DateTimeField(
-        label="Updated at",
-        warning=["When the document was updated."],
-        hide=True,
-        disabled=True,
-    )
 
     def __init__(self):
-        self._id = self.__class__._ID
-        self.created_at = self.__class__.CREATED_AT
-        self.updated_at = self.__class__.UPDATED_AT
+        self._id = copy.deepcopy(_ID)
+        self.created_at = copy.deepcopy(CREATED_AT)
+        self.updated_at = copy.deepcopy(UPDATED_AT)
         self.fields()
         self.inject()
 

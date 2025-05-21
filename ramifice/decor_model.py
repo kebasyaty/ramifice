@@ -8,7 +8,7 @@ from .commons import QCommonsMixin
 from .errors import DoesNotMatchRegexError, PanicError
 from .hooks import HooksMixin
 from .indexing import IndexMixin
-from .model import Model
+from .model import _ID, CREATED_AT, UPDATED_AT, Model
 from .paladins import CheckMixin, QPaladinsMixin, ToolMixin
 from .store import REGEX
 
@@ -97,9 +97,9 @@ def caching(cls, service_name) -> dict[str, Any]:
     old_model = cls()
     old_model.fields()
     default_fields: dict[str, Any] = {
-        "_id": Model._ID,
-        "created_at": Model.CREATED_AT,
-        "updated_at": Model.UPDATED_AT,
+        "_id": _ID,
+        "created_at": CREATED_AT,
+        "updated_at": UPDATED_AT,
     }
     fields = {**old_model.__dict__, **default_fields}
     for f_name, f_type in fields.items():
