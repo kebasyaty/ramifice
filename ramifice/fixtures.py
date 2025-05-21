@@ -24,6 +24,7 @@ async def apply_fixture(
 
     with open(fixture_path, "r") as file:
         data_yaml = yaml.safe_load(file)
+
     if not bool(data_yaml):
         msg = (
             f"Model: `{cls_model.META["full_model_name"]}` > "
@@ -31,6 +32,7 @@ async def apply_fixture(
             + "It seems that fixture is empty or it has incorrect contents!"
         )
         raise PanicError(msg)
+
     if not isinstance(data_yaml, list):
         data_yaml = [data_yaml]  # type: ignore[list-item]
     for data in data_yaml:
