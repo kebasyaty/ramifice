@@ -6,16 +6,11 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from .add_valid import AddValidMixin
-from .commons import QCommonsMixin
 from .fields import DateTimeField, HashField
-from .hooks import HooksMixin
-from .indexing import IndexMixin
-from .paladins import QPaladinsMixin
 from .tools import date_parse, datetime_parse
 
 
-class Model(QPaladinsMixin, QCommonsMixin, AddValidMixin, IndexMixin, HooksMixin):
+class Model:
     """For converting Python classes into Ramifice Model."""
 
     META: dict[str, Any] = {}

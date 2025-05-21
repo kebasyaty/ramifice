@@ -3,9 +3,13 @@
 import os
 from typing import Any
 
+from .add_valid import AddValidMixin
+from .commons import QCommonsMixin
 from .errors import DoesNotMatchRegexError, PanicError
-from .fake_model import FakeModel
+from .hooks import HooksMixin
+from .indexing import IndexMixin
 from .model import Model
+from .paladins import CheckMixin, QPaladinsMixin, ToolMixin
 from .store import REGEX
 
 
@@ -35,7 +39,7 @@ def model(
                 raise PanicError(msg)
         #
         attrs = {key: val for key, val in cls.__dict__.items()}
-        attrs["__dict__"] = attrs
+        attrs["__dict__"] = Model.__dict__["__dict__"]
         attrs["META"] = {
             "service_name": service_name,
             "fixture_name": fixture_name,
@@ -48,9 +52,22 @@ def model(
         #
         new_cls = None
         if is_migrat_model:
-            new_cls = type(cls.__name__, (Model,), attrs)
+            new_cls = type(
+                cls.__name__,
+                (
+                    Model,
+                    QPaladinsMixin,
+                    QCommonsMixin,
+                    AddValidMixin,
+                    IndexMixin,
+                    HooksMixin,
+                ),
+                attrs,
+            )
         else:
-            new_cls = type(cls.__name__, (FakeModel,), attrs)
+            new_cls = type(
+                cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs
+            )
         #
         return new_cls
 
