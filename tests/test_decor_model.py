@@ -43,7 +43,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "User",
-            "full_model_name": "tests.test_meta.User",
+            "full_model_name": "tests.test_decor_model.User",
             "collection_name": "Accounts_User",
             "field_name_and_type": {
                 "username": "TextField",
@@ -74,7 +74,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "UserProfile",
-            "full_model_name": "tests.test_meta.UserProfile",
+            "full_model_name": "tests.test_decor_model.UserProfile",
             "collection_name": "Profiles_UserProfile",
             "field_name_and_type": {
                 "profession": "TextField",
@@ -107,7 +107,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_meta.User")
+        self.assertEqual(m.full_model_name(), "tests.test_decor_model.User")
         #
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
@@ -131,7 +131,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(str(m), "None")
         #
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_decor_model.UserProfile")
         #
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)

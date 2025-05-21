@@ -35,6 +35,7 @@ def model(
                 raise PanicError(msg)
         #
         attrs = {key: val for key, val in cls.__dict__.items()}
+        attrs["__dict__"] = attrs
         attrs["META"] = {
             "service_name": service_name,
             "fixture_name": fixture_name,
@@ -47,10 +48,8 @@ def model(
         #
         new_cls = None
         if is_migrat_model:
-            attrs["__dict__"] = Model.__dict__["__dict__"]
             new_cls = type(cls.__name__, (Model,), attrs)
         else:
-            attrs["__dict__"] = FakeModel.__dict__["__dict__"]
             new_cls = type(cls.__name__, (FakeModel,), attrs)
         #
         return new_cls

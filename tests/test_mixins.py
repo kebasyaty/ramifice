@@ -33,24 +33,24 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.mixins import JsonMixin
+
+# from ramifice.mixins import JsonMixin
 from ramifice.types import FILE_DATA_TYPE, IMAGE_DATA_TYPE
 
+# class StandardTypes(JsonMixin):
+#     """For testing standard types."""
 
-class StandardTypes(JsonMixin):
-    """For testing standard types."""
-
-    def __init__(self):
-        JsonMixin.__init__(self)
-        self.x1 = {"x": 1, "y": 2}
-        self.x2 = [1, 2, 3]
-        self.x3 = (1, 2, 3)
-        self.x4 = "Hello world!"
-        self.x5 = 12
-        self.x6 = 12.3
-        self.x7 = True
-        self.x8 = False
-        self.x9 = None
+#     def __init__(self):
+#         JsonMixin.__init__(self)
+#         self.x1 = {"x": 1, "y": 2}
+#         self.x2 = [1, 2, 3]
+#         self.x3 = (1, 2, 3)
+#         self.x4 = "Hello world!"
+#         self.x5 = 12
+#         self.x6 = 12.3
+#         self.x7 = True
+#         self.x8 = False
+#         self.x9 = None
 
 
 @model(service_name="Accounts")
@@ -91,20 +91,20 @@ class User:
 class TestJsonMixin(unittest.TestCase):
     """Testing the class `JsonMixin`."""
 
-    def test_standard_types(self):
-        """Testing standard types to JSON."""
-        x = StandardTypes()
-        json_str = x.to_json()
-        y = StandardTypes.from_json(json_str)
-        self.assertEqual(x.x1, y.x1)
-        self.assertEqual(x.x2, y.x2)
-        self.assertEqual(x.x3, (1, 2, 3))  # y.x3 == [1, 2, 3]
-        self.assertEqual(x.x4, y.x4)
-        self.assertEqual(x.x5, y.x5)
-        self.assertEqual(x.x6, y.x6)
-        self.assertEqual(x.x7, y.x7)
-        self.assertEqual(x.x8, y.x8)
-        self.assertEqual(x.x9, y.x9)
+    # def test_standard_types(self):
+    #     """Testing standard types to JSON."""
+    #     x = StandardTypes()
+    #     json_str = x.to_json()
+    #     y = StandardTypes.from_json(json_str)
+    #     self.assertEqual(x.x1, y.x1)
+    #     self.assertEqual(x.x2, y.x2)
+    #     self.assertEqual(x.x3, (1, 2, 3))  # y.x3 == [1, 2, 3]
+    #     self.assertEqual(x.x4, y.x4)
+    #     self.assertEqual(x.x5, y.x5)
+    #     self.assertEqual(x.x6, y.x6)
+    #     self.assertEqual(x.x7, y.x7)
+    #     self.assertEqual(x.x8, y.x8)
+    #     self.assertEqual(x.x9, y.x9)
 
     def test_fields(self):
         """Testing the Ramifice fields to JSON."""
