@@ -35,6 +35,7 @@ async def apply_fixture(
 
     if not isinstance(data_yaml, list):
         data_yaml = [data_yaml]  # type: ignore[list-item]
+
     for data in data_yaml:
         inst_model = cls_model()
         for field_name, field_data in inst_model.__dict__.items():
