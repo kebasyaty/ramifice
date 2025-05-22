@@ -25,3 +25,8 @@ class UnitMixin:
         super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index]
             store.SUPER_COLLECTION_NAME
         ]
+        # Get Model state.
+        model_state = await super_collection.find_one(
+            filter={"collection_name": cls_model.META["collection_name"]}  # type: ignore[attr-defined]
+        )
+        # Check the presence of a dynamic field.
