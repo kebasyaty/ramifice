@@ -29,22 +29,6 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: dict[str, str] | None = None,
     ):
-        if DEBUG:
-            if choices is not None and not isinstance(choices, dict):
-                raise AssertionError("Parameter `choices` - Not а `dict` type!")
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                if choices is not None and not self.has_value():
-                    raise AssertionError(
-                        "Parameter `default` does not coincide with "
-                        + "list of permissive values in `choicees`."
-                    )
-
         Field.__init__(
             self,
             label=label,
@@ -66,6 +50,22 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         self.value: str | None = None
         self.default = default
         self.choices = choices
+
+        if DEBUG:
+            if choices is not None and not isinstance(choices, dict):
+                raise AssertionError("Parameter `choices` - Not а `dict` type!")
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                if choices is not None and not self.has_value():
+                    raise AssertionError(
+                        "Parameter `default` does not coincide with "
+                        + "list of permissive values in `choicees`."
+                    )
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""

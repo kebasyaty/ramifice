@@ -29,27 +29,6 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: dict[str, str] | None = None,
     ):
-        if DEBUG:
-            if choices is not None:
-                if not isinstance(choices, dict):
-                    raise AssertionError("Parameter `choices` - Not а `dict` type!")
-                if len(choices) == 0:
-                    raise AssertionError(
-                        "The `choices` parameter should not contain an empty list!"
-                    )
-            if default is not None:
-                if not isinstance(default, list):
-                    raise AssertionError("Parameter `default` - Not а `list` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty list!"
-                    )
-                if choices is not None and not self.has_value():
-                    raise AssertionError(
-                        "Parameter `default` does not coincide with "
-                        + "list of permissive values in `choicees`."
-                    )
-
         Field.__init__(
             self,
             label=label,
@@ -72,6 +51,27 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         self.value: list[str] | None = None
         self.default = default
         self.choices = choices
+
+        if DEBUG:
+            if choices is not None:
+                if not isinstance(choices, dict):
+                    raise AssertionError("Parameter `choices` - Not а `dict` type!")
+                if len(choices) == 0:
+                    raise AssertionError(
+                        "The `choices` parameter should not contain an empty list!"
+                    )
+            if default is not None:
+                if not isinstance(default, list):
+                    raise AssertionError("Parameter `default` - Not а `list` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty list!"
+                    )
+                if choices is not None and not self.has_value():
+                    raise AssertionError(
+                        "Parameter `default` does not coincide with "
+                        + "list of permissive values in `choicees`."
+                    )
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
