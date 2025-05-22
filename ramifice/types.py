@@ -1,7 +1,5 @@
 """A collection of additional data types."""
 
-from typing import Any
-
 from .errors import PanicError
 from .mixins import JsonMixin
 
@@ -12,7 +10,21 @@ class Unit(JsonMixin):
     def __init__(
         self, field: str, title: str, value: float | int | str, is_delete: bool = False
     ):
+        if not isinstance(field, str):
+            msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
+            raise PanicError(msg)
+        if not isinstance(title, str):
+            msg = "Class: `Unit` > Field: `title` => Not а `str` type!"
+            raise PanicError(msg)
+        if not isinstance(value, (float, int, str)):
+            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str` type!"
+            raise PanicError(msg)
+        if not isinstance(is_delete, bool):
+            msg = "Class: `Unit` > Field: `is_delete` => Not а `bool` type!"
+            raise PanicError(msg)
+
         JsonMixin.__init__(self)
+
         self.field = field
         self.title = title
         self.value = value
