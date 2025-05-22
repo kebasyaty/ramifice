@@ -16,3 +16,5 @@ class UnitMixin:
         Management for `choices` parameter in dynamic field types.
         """
         cls_model = self.__class__
+        # Unit validation.
+        unit.is_valid()
