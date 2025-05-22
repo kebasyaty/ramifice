@@ -29,6 +29,17 @@ class ColorField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                if REGEX["color_code"].match(default) is None:
+                    raise AssertionError("Parameter `default` - Not а color code!")
+
         Field.__init__(
             self,
             label=label,
@@ -49,17 +60,6 @@ class ColorField(Field, TextGroup, JsonMixin):
             unique=unique,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                if REGEX["color_code"].match(default) is None:
-                    raise AssertionError("Parameter `default` - Not а color code!")
 
         self.default = default
 

@@ -27,6 +27,21 @@ class TextField(Field, TextGroup, JsonMixin):
         unique: bool = False,
         maxlength: int = 256,
     ):
+        if DEBUG:
+            if not isinstance(maxlength, int):
+                raise AssertionError("Parameter `maxlength` - Not а `int` type!")
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                if len(default) > maxlength:
+                    raise AssertionError(
+                        "Parameter `default` exceeds the size of `maxlength`!"
+                    )
+
         Field.__init__(
             self,
             label=label,
@@ -47,21 +62,6 @@ class TextField(Field, TextGroup, JsonMixin):
             unique=unique,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if not isinstance(maxlength, int):
-                raise AssertionError("Parameter `maxlength` - Not а `int` type!")
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                if len(default) > maxlength:
-                    raise AssertionError(
-                        "Parameter `default` exceeds the size of `maxlength`!"
-                    )
 
         self.default = default
         self.textarea = textarea

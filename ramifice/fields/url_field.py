@@ -40,6 +40,18 @@ class URLField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                result = urlparse(default)
+                if not result.scheme or not result.netloc:
+                    raise AssertionError("Parameter `default` - Invalid URL address!")
+
         Field.__init__(
             self,
             label=label,
@@ -60,18 +72,6 @@ class URLField(Field, TextGroup, JsonMixin):
             unique=unique,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                result = urlparse(default)
-                if not result.scheme or not result.netloc:
-                    raise AssertionError("Parameter `default` - Invalid URL address!")
 
         self.default = default
 

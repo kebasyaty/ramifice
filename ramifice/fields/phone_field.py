@@ -28,6 +28,23 @@ class PhoneField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                try:
+                    phone_default = phonenumbers.parse(default)
+                    if not phonenumbers.is_valid_number(phone_default):
+                        raise AssertionError()
+                except phonenumbers.phonenumberutil.NumberParseException:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        "Parameter `default` - Invalid Phone number!"
+                    )  # pylint: disable=raise-missing-from
+
         Field.__init__(
             self,
             label=label,
@@ -48,23 +65,6 @@ class PhoneField(Field, TextGroup, JsonMixin):
             unique=unique,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                try:
-                    phone_default = phonenumbers.parse(default)
-                    if not phonenumbers.is_valid_number(phone_default):
-                        raise AssertionError()
-                except phonenumbers.phonenumberutil.NumberParseException:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid Phone number!"
-                    )  # pylint: disable=raise-missing-from
 
         self.default = default
 

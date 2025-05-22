@@ -19,6 +19,10 @@ class BooleanField(Field, JsonMixin):
         warning: list[str] | None = None,
         default: bool = False,
     ):
+        if DEBUG:
+            if default is not None and not isinstance(default, bool):
+                raise AssertionError("Parameter `default` - Not а `bool` type!")
+
         Field.__init__(
             self,
             label=label,
@@ -31,10 +35,6 @@ class BooleanField(Field, JsonMixin):
             group="bool",
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None and not isinstance(default, bool):
-                raise AssertionError("Parameter `default` - Not а `bool` type!")
 
         self.input_type = "checkbox"
         self.value: bool | None = None

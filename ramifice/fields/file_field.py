@@ -37,6 +37,15 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+
         Field.__init__(
             self,
             label=label,
@@ -58,15 +67,6 @@ class FileField(Field, FileGroup, JsonMixin):
             accept=accept,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
 
         self.value: dict[str, Any] | None = None
 
