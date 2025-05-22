@@ -2,7 +2,6 @@
 Management for `choices` parameter in dynamic field types.
 """
 
-from ..tools import error_unit_empty_field
 from ..types import Unit
 
 
