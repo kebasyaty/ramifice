@@ -2,6 +2,7 @@
 
 from typing import Any
 
+from .errors import PanicError
 from .mixins import JsonMixin
 
 
@@ -16,6 +17,26 @@ class Unit(JsonMixin):
         self.title = title
         self.value = value
         self.is_delete = is_delete
+
+    def error_empty_field(self) -> None:
+        """Error: If any of the fields in the Unit is empty."""
+        field_name: str = ""
+
+        if len(self.field) == 0:
+            field_name = "field"
+        elif len(self.title) == 0:
+            field_name = "title"
+        elif isinstance(self.value, str) and len(self.value) == 0:
+            field_name = "value"
+
+        if len(field_name) > 0:
+            msg = (
+                "Method: `unit_manager` > "
+                + "Argument: `unit` > "
+                + f"Field: `{field_name}` => "
+                + "Must not be empty!"
+            )
+            raise PanicError(msg)
 
 
 # For `FileField.value`.

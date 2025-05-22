@@ -2,7 +2,7 @@
 Management for `choices` parameter in dynamic field types.
 """
 
-from ..errors import PanicError
+from ..tools import error_unit_empty_field
 from ..types import Unit
 
 
