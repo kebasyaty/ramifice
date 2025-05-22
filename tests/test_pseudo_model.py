@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.decor_model`."""
+"""Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
 
 import unittest
 
@@ -7,7 +7,10 @@ from ramifice.fields import ChoiceTextDynField, TextField
 from ramifice.model import Model
 
 
-@model(service_name="Accounts")
+@model(
+    service_name="Accounts",
+    is_migrat_model=False,
+)
 class User:
     """Class for testing."""
 
@@ -16,7 +19,10 @@ class User:
         self.favorite_color = ChoiceTextDynField()
 
 
-@model(service_name="Profiles")
+@model(
+    service_name="Profiles",
+    is_migrat_model=False,
+)
 class UserProfile:
     """Class for testing."""
 
@@ -24,20 +30,20 @@ class UserProfile:
         self.profession = TextField()
 
 
-class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.decor_model`."""
+class TestPseudoModel(unittest.TestCase):
+    """Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
 
     def setUp(self):
         self.user_meta = {
             "service_name": "Accounts",
             "fixture_name": None,
             "db_query_docs_limit": 1000,
-            "is_migrat_model": True,
-            "is_create_doc": True,
-            "is_update_doc": True,
-            "is_delete_doc": True,
+            "is_migrat_model": False,
+            "is_create_doc": False,
+            "is_update_doc": False,
+            "is_delete_doc": False,
             "model_name": "User",
-            "full_model_name": "tests.test_decor_model.User",
+            "full_model_name": "tests.test_pseudo_model.User",
             "collection_name": "Accounts_User",
             "field_name_and_type": {
                 "username": "TextField",
@@ -63,12 +69,12 @@ class TestModel(unittest.TestCase):
             "service_name": "Profiles",
             "fixture_name": None,
             "db_query_docs_limit": 1000,
-            "is_migrat_model": True,
-            "is_create_doc": True,
-            "is_update_doc": True,
-            "is_delete_doc": True,
+            "is_migrat_model": False,
+            "is_create_doc": False,
+            "is_update_doc": False,
+            "is_delete_doc": False,
             "model_name": "UserProfile",
-            "full_model_name": "tests.test_decor_model.UserProfile",
+            "full_model_name": "tests.test_pseudo_model.UserProfile",
             "collection_name": "Profiles_UserProfile",
             "field_name_and_type": {
                 "profession": "TextField",
@@ -92,14 +98,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "tests.test_decor_model")
+        self.assertEqual(User.__module__, "tests.test_pseudo_model")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
         m = User()
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_decor_model.User")
+        self.assertEqual(m.full_model_name(), "tests.test_pseudo_model.User")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
@@ -114,14 +120,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "tests.test_decor_model")
+        self.assertEqual(UserProfile.__module__, "tests.test_pseudo_model")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_decor_model.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_pseudo_model.UserProfile")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)

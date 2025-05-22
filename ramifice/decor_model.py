@@ -45,9 +45,9 @@ def model(
             "fixture_name": fixture_name,
             "db_query_docs_limit": db_query_docs_limit,
             "is_migrat_model": is_migrat_model,
-            "is_create_doc": is_create_doc,
-            "is_update_doc": is_update_doc,
-            "is_delete_doc": is_delete_doc,
+            "is_create_doc": is_create_doc if is_migrat_model else False,
+            "is_update_doc": is_update_doc if is_migrat_model else False,
+            "is_delete_doc": is_delete_doc if is_migrat_model else False,
         }
         attrs["META"] = {**metadata, **caching(cls, service_name)}
 
