@@ -7,7 +7,10 @@ from ramifice.fields import ChoiceTextDynField, TextField
 from ramifice.model import Model
 
 
-@model(service_name="Accounts", is_migrat_model=False)
+@model(
+    service_name="Accounts",
+    is_migrat_model=False,
+)
 class User:
     """Class for testing."""
 
@@ -16,7 +19,10 @@ class User:
         self.favorite_color = ChoiceTextDynField()
 
 
-@model(service_name="Profiles", is_migrat_model=False)
+@model(
+    service_name="Profiles",
+    is_migrat_model=False,
+)
 class UserProfile:
     """Class for testing."""
 
