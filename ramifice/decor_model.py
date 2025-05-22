@@ -65,6 +65,9 @@ def model(
                 attrs,
             )
         else:
+            attrs["is_create_doc"] = False
+            attrs["is_update_doc"] = False
+            attrs["is_delete_doc"] = False
             return type(
                 cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs
             )
