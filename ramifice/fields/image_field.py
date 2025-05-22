@@ -39,28 +39,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ):
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="ImageField",
-            group="img",
-        )
-        FileGroup.__init__(
-            self,
-            placeholder=placeholder,
-            required=required,
-            max_size=max_size,
-            default=default,
-            target_dir=target_dir,
-            accept=accept,
-        )
-        JsonMixin.__init__(self)
-
         if DEBUG:
             if default is not None:
                 if not isinstance(default, str):
@@ -94,6 +72,28 @@ class ImageField(Field, FileGroup, JsonMixin):
                                 + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
                             )
                         curr_size_thumb = max_size_thumb
+
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="ImageField",
+            group="img",
+        )
+        FileGroup.__init__(
+            self,
+            placeholder=placeholder,
+            required=required,
+            max_size=max_size,
+            default=default,
+            target_dir=target_dir,
+            accept=accept,
+        )
+        JsonMixin.__init__(self)
 
         self.value: dict[str, Any] | None = None
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }

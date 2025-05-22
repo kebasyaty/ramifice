@@ -29,26 +29,6 @@ class IntegerField(Field, NumberGroup, JsonMixin):
         step: int = 1,
         input_type: str = "number",  # number | range
     ):
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="IntegerField",
-            group="num",
-        )
-        NumberGroup.__init__(
-            self,
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
-
         if DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
@@ -82,6 +62,26 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                     raise AssertionError("Parameter `default` is more `max_number`!")
                 if max_number is not None and default < min_number:  # type: ignore
                     raise AssertionError("Parameter `default` is less `min_number`!")
+
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="IntegerField",
+            group="num",
+        )
+        NumberGroup.__init__(
+            self,
+            placeholder=placeholder,
+            required=required,
+            readonly=readonly,
+            unique=unique,
+        )
+        JsonMixin.__init__(self)
 
         self.input_type: str = input_type
         self.value: int | None = None

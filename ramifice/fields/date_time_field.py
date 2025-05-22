@@ -30,6 +30,25 @@ class DateTimeField(Field, DateGroup):
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ):
+        if DEBUG:
+            if max_date is not None:
+                if not isinstance(max_date, datetime):
+                    raise AssertionError("Parameter `max_date` - Not а `str` type!")
+            if min_date is not None:
+                if not isinstance(min_date, datetime):
+                    raise AssertionError("Parameter `min_date` - Not а `str` type!")
+            if max_date is not None and min_date is not None and max_date <= min_date:
+                raise AssertionError(
+                    "The `max_date` parameter should be more than the `min_date`!"
+                )
+            if default is not None:
+                if not isinstance(default, datetime):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if max_date is not None and default > max_date:
+                    raise AssertionError("Parameter `default` is more `max_date`!")
+                if min_date is not None and default < min_date:
+                    raise AssertionError("Parameter `default` is less `min_date`!")
+
         Field.__init__(
             self,
             label=label,
@@ -51,25 +70,6 @@ class DateTimeField(Field, DateGroup):
             max_date=max_date,
             min_date=min_date,
         )
-
-        if DEBUG:
-            if max_date is not None:
-                if not isinstance(max_date, datetime):
-                    raise AssertionError("Parameter `max_date` - Not а `str` type!")
-            if min_date is not None:
-                if not isinstance(min_date, datetime):
-                    raise AssertionError("Parameter `min_date` - Not а `str` type!")
-            if max_date is not None and min_date is not None and max_date <= min_date:
-                raise AssertionError(
-                    "The `max_date` parameter should be more than the `min_date`!"
-                )
-            if default is not None:
-                if not isinstance(default, datetime):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if max_date is not None and default > max_date:
-                    raise AssertionError("Parameter `default` is more `max_date`!")
-                if min_date is not None and default < min_date:
-                    raise AssertionError("Parameter `default` is less `min_date`!")
 
         self.default = default
 

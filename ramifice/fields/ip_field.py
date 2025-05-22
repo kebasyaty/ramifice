@@ -26,6 +26,21 @@ class IPField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        if DEBUG:
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError(
+                        "The `default` parameter should not contain an empty string!"
+                    )
+                try:
+                    ipaddress.ip_address(default)
+                except ValueError:
+                    raise AssertionError(  # pylint: disable=raise-missing-from
+                        "Parameter `default` - Invalid IP address!"
+                    )  # pylint: disable=raise-missing-from
+
         Field.__init__(
             self,
             label=label,
@@ -46,21 +61,6 @@ class IPField(Field, TextGroup, JsonMixin):
             unique=unique,
         )
         JsonMixin.__init__(self)
-
-        if DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                try:
-                    ipaddress.ip_address(default)
-                except ValueError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid IP address!"
-                    )  # pylint: disable=raise-missing-from
 
         self.default = default
 
