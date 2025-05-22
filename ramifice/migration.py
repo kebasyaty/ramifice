@@ -46,6 +46,7 @@ class Monitor:
         Switch the `is_model_exist` parameter in the condition `False`.
         """
         # Get access to super collection.
+        # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
@@ -56,6 +57,7 @@ class Monitor:
     async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
+        # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Get state of current Model.
         model_state = await super_collection.find_one(
@@ -94,6 +96,7 @@ class Monitor:
         # Get access to database.
         database = store.MONGO_DATABASE
         # Get access to super collection.
+        # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
