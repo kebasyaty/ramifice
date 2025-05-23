@@ -7,6 +7,7 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
+from ..errors import PanicError
 from ..types import Unit
 
 
@@ -29,4 +30,10 @@ class UnitMixin:
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls_model.META["collection_name"]}  # type: ignore[attr-defined]
         )
+        if model_state is None:
+            raise PanicError("Error: Model State - Not found!")
         # Check the presence of a dynamic field.
+        if model_state["data_dynamic_fields"].get(unit.field) is None:
+            msg = f"The Model is missing a dynamic field `{unit.field}`!"
+            raise PanicError(msg)
+        # Get the dynamic field type.
