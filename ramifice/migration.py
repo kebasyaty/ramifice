@@ -60,7 +60,7 @@ class Monitor:
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
         # Get state of current Model.
-        model_state = await super_collection.find_one(
+        model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
         )
         if model_state is not None:
