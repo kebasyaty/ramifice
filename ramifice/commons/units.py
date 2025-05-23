@@ -19,6 +19,7 @@ class UnitMixin:
         """
         cls_model = self.__class__
         # Unit validation.
+        # Raises panic if it finds inconsistencies.
         unit.is_valid()
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)

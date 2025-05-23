@@ -31,7 +31,9 @@ class Unit(JsonMixin):
         self.is_delete = is_delete
 
     def is_valid(self) -> None:
-        """Unit validation."""
+        """Unit validation.
+        Raises panic if it finds inconsistencies.
+        """
         self.error_empty_field()
 
     def error_empty_field(self) -> None:
