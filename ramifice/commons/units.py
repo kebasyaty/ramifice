@@ -30,10 +30,10 @@ class UnitMixin:
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls_model.META["collection_name"]}  # type: ignore[attr-defined]
         )
+        # Check the presence of a Model state.
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
-        # Check the presence of a dynamic field.
-        if model_state["data_dynamic_fields"].get(unit.field) is None:
-            msg = f"The Model is missing a dynamic field `{unit.field}`!"
-            raise PanicError(msg)
         # Get the dynamic field type.
+        dyn_field_type = model_state["field_name_and_type"][unit.field]
+        # Get dynamic field data.
+        dyn_field_date = model_state["data_dynamic_fields"][unit.field]
