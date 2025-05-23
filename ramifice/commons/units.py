@@ -76,3 +76,6 @@ class UnitMixin:
         )
         # Update metadata of the current Model.
         cls_model.META["data_dynamic_fields"][unit.field] = choices  # type: ignore[attr-defined]
+        # Update documents in the collection of the current Model.
+        if not unit.is_delete:
+            pass
