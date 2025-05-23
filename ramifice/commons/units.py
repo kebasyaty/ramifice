@@ -37,3 +37,19 @@ class UnitMixin:
         dyn_field_type = model_state["field_name_and_type"][unit.field]
         # Get dynamic field data.
         dyn_field_date = model_state["data_dynamic_fields"][unit.field]
+        # Check the presence of the key (title) and value.
+        is_key_exists = False
+        choices: dict[str, float | int | str] | None = None
+        if "ChoiceFloat" in dyn_field_type and isinstance(unit.value, float):
+            pass
+        elif "ChoiceInt" in dyn_field_type and isinstance(unit.value, int):
+            pass
+        elif "ChoiceText" in dyn_field_type and isinstance(unit.value, str):
+            pass
+        else:
+            msg = (
+                "Error: Method: `unit_manager(unit: Unit)` => unit.value - "
+                + f"The type of value `{type(unit.value)}` "
+                + f"does not correspond to the type of field `{dyn_field_type}`!"
+            )
+            raise PanicError(msg)
