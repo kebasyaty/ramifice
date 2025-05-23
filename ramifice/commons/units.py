@@ -74,3 +74,5 @@ class UnitMixin:
             filter={"collection_name": model_state["collection_name"]},
             replacement=model_state,
         )
+        # Update metadata of the current Model.
+        cls_model.META["data_dynamic_fields"][unit.field] = choices  # type: ignore[attr-defined]
