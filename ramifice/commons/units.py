@@ -39,8 +39,9 @@ class UnitMixin:
         choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][
             unit.field
         ]
-        # Check the presence of the key (title) and value.
+        # Check the existence of the key.
         is_key_exists = unit.title in choices.keys()
+        # Check whether the type of value is valid for the type of field.
         if not (
             ("ChoiceFloat" in field_type and isinstance(unit.value, float))
             or ("ChoiceInt" in field_type and isinstance(unit.value, int))
@@ -54,6 +55,17 @@ class UnitMixin:
             raise PanicError(msg)
         # Add Unit to Model State.
         if not unit.is_delete:
-            if is_key_exists:
-                msg = f"Error: Unit `{unit.title}: {unit.value}` already exists!"
+            model_state["data_dynamic_fields"][unit.field] = {
+                **choices,
+                **{unit.title: unit.value},
+            }
+        # Delete Unit from Model State.
+        else:
+            if not is_key_exists:
+                msg = (
+                    "Error: It is not possible to delete Unit."
+                    + f"Unit `{unit.title}: {unit.value}` not exists!"
+                )
                 raise PanicError(msg)
+            del choices[unit.title]
+            model_state["data_dynamic_fields"][unit.field] = choices
