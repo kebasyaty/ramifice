@@ -52,3 +52,8 @@ class UnitMixin:
                 + f"does not correspond to the type of field `{field_type}`!"
             )
             raise PanicError(msg)
+        # Add Unit to Model State.
+        if not unit.is_delete:
+            if is_key_exists:
+                msg = f"Error: Unit `{unit.title}: {unit.value}` already exists!"
+                raise PanicError(msg)
