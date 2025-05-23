@@ -30,14 +30,13 @@ class Unit(JsonMixin):
         self.value = value
         self.is_delete = is_delete
 
+        self.is_valid()
+
     def is_valid(self) -> None:
         """Unit validation.
         Raises panic if it finds inconsistencies.
         """
-        self.error_empty_field()
-
-    def error_empty_field(self) -> None:
-        """Error: If any of the fields in the Unit is empty."""
+        # Error: If any of the fields in the Unit is empty.
         field_name: str = ""
 
         if len(self.field) == 0:
