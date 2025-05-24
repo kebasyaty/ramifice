@@ -39,8 +39,6 @@ class UnitMixin:
         choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][
             unit.field
         ]
-        # Check the existence of the key.
-        is_key_exists = unit.title in choices.keys()
         # Check whether the type of value is valid for the type of field.
         if not (
             ("ChoiceFloat" in field_type and isinstance(unit.value, float))
@@ -61,6 +59,7 @@ class UnitMixin:
             }
         # Delete Unit from Model State.
         else:
+            is_key_exists: bool = unit.title in choices.keys()
             if not is_key_exists:
                 msg = (
                     "Error: It is not possible to delete Unit."
