@@ -1,7 +1,11 @@
-# OS
+### Mac OS ###
+.DS_Store
+
+### Linux ###
 *~
 .directory
-.DS_Store
+
+### Windows ###
 desktop.ini
 
 # Ignore temporary media files
