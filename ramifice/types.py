@@ -10,6 +10,7 @@ class Unit(JsonMixin):
     def __init__(
         self, field: str, title: str, value: float | int | str, is_delete: bool = False
     ):
+        # Check the match of types.
         if not isinstance(field, str):
             msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
             raise PanicError(msg)
@@ -30,9 +31,9 @@ class Unit(JsonMixin):
         self.value = value
         self.is_delete = is_delete
 
-        self.error_empty_argument()
+        self.check_empty_arguments()
 
-    def error_empty_argument(self) -> None:
+    def check_empty_arguments(self) -> None:
         """Error: If any of the arguments in the Unit is empty."""
         field_name: str = ""
 

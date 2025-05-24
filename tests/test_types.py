@@ -23,7 +23,7 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(u.value, "value")
         self.assertTrue(u.is_delete)
 
-        # The inconsistency of types.
+        # Check the match of types.
         with self.assertRaises(PanicError):
             Unit(field=None, title="Title", value="value", is_delete=True)
         with self.assertRaises(PanicError):
@@ -33,6 +33,7 @@ class TestTypes(unittest.TestCase):
         with self.assertRaises(PanicError):
             Unit(field="field_name", title="Title", value="value", is_delete=None)
 
+        # Check empty arguments
         with self.assertRaises(PanicError):
             Unit(field="", title="Title", value="value", is_delete=True)
         with self.assertRaises(PanicError):
