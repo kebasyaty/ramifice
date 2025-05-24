@@ -30,10 +30,10 @@ class Unit(JsonMixin):
         self.value = value
         self.is_delete = is_delete
 
-        self.error_empty_field()
+        self.error_empty_argument()
 
-    def error_empty_field(self) -> None:
-        """Error: If any of the fields in the Unit is empty."""
+    def error_empty_argument(self) -> None:
+        """Error: If any of the arguments in the Unit is empty."""
         field_name: str = ""
 
         if len(self.field) == 0:
