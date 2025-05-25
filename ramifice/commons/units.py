@@ -77,4 +77,21 @@ class UnitMixin:
         cls_model.META["data_dynamic_fields"][unit.field] = choices  # type: ignore[attr-defined]
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            pass
+            unit_field: str = unit.field
+            unit_value: float | int | str = unit.value
+            collection: AsyncCollection = store.MONGO_DATABASE[
+                cls_model.META["collection_name"]  # type: ignore[index, attr-defined]
+            ]
+            async for mongo_doc in collection.find():
+                field_value = mongo_doc[unit_field]
+                if field_value is not None:
+                    if isinstance(unit_value, list):
+                        value_list = mongo_doc[unit_field]
+                        value_list.remove(unit_value)
+                        mongo_doc[unit_field] = value_list or None
+                    else:
+                        mongo_doc[unit_field] = None
+                await collection.replace_one(
+                    filter={"_id": mongo_doc["_id"]},
+                    replacement=mongo_doc,
+                )

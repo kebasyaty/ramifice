@@ -21,6 +21,16 @@
         "poetry run python -m unittest discover tests/commons;"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Babel: Update Translations",
+      "type": "shell",
+      "command": [
+        "poetry run pybabel extract -o config/translations/messages.pot ramifice;",
+        "poetry run pybabel update -i config/translations/messages.pot -d config/translations;",
+        "poetry run pybabel compile -d config/translations"
+      ],
+      "problemMatcher": []
     }
   ]
 }
