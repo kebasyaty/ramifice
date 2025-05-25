@@ -15,13 +15,13 @@ termcolor = "^2.5.0"
 python-slugify = { extras = ["unidecode"], version = "^8.0.4" }
 argon2-cffi = "^23.1.0"
 pyyaml = "^6.0.2"
-babel = "^2.17.0"
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
 types-pyyaml = "^6.0.12.20250402"
+babel = "^2.17.0"
 
 [tool.poetry.group.docs]
 optional = true
