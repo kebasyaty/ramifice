@@ -6,12 +6,24 @@ on:
       - "docs/**"
       - "wheels/**"
       - "examples/**"
+      - ".vscode/**"
+      - "assets/**"
+      - ".gitignore"
+      - "CHANGELOG.md"
+      - "README.md"
+      - "REQUIREMENTS.md"
   pull_request:
     branches: [main]
     paths-ignore:
       - "docs/**"
       - "wheels/**"
       - "examples/**"
+      - ".vscode/**"
+      - "assets/**"
+      - ".gitignore"
+      - "CHANGELOG.md"
+      - "README.md"
+      - "REQUIREMENTS.md"
   workflow_dispatch:
 
 permissions:
