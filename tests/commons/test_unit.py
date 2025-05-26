@@ -131,6 +131,15 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_int_mult_dyn.choices, {"Title": 2})
         self.assertEqual(user.choice_txt_dyn.choices, {"Title": "Some text"})
         self.assertEqual(user.choice_txt_mult_dyn.choices, {"Title": "Some text 2"})
+        user.choice_float_dyn.value = 1.0
+        user.choice_float_mult_dyn.value = [2.0]
+        user.choice_int_dyn.value = 1
+        user.choice_int_mult_dyn.value = [2]
+        user.choice_txt_dyn.value = "Some text"
+        user.choice_txt_mult_dyn.value = ["Some text 2"]
+        #
+        if not await user.save():
+            user.print_err()
         #
         # ----------------------------------------------------------------------
         #

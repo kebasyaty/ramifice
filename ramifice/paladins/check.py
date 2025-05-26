@@ -109,7 +109,7 @@ class CheckMixin(
             if params["is_error_symptom"]:
                 # Reset the ObjectId for a new document.
                 if not is_update:
-                    self.hash.value = None  # type: ignore[attr-defined]
+                    self._id.value = None  # type: ignore[attr-defined]
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = (
                     await collection.find_one({"_id": doc_id}) if is_update else None
