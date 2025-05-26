@@ -55,11 +55,6 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        user = User()
-        # self.assertTrue(await m.save())
-        if not await user.save():
-            user.print_err()
-        #
         super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[annotation-unchecked]
             store.SUPER_COLLECTION_NAME
         ]
@@ -84,17 +79,17 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         #
         unit = Unit(field="choice_float_dyn", title="Title", value=1.0)
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         unit = Unit(field="choice_float_mult_dyn", title="Title", value=2.0)
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         unit = Unit(field="choice_int_dyn", title="Title", value=1)
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         unit = Unit(field="choice_int_mult_dyn", title="Title", value=2)
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         unit = Unit(field="choice_txt_dyn", title="Title", value="Some text")
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         unit = Unit(field="choice_txt_mult_dyn", title="Title", value="Some text 2")
-        await user.unit_manager(unit)
+        await User.unit_manager(unit)
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(  # type: ignore[annotation-unchecked]
             {"collection_name": User.META["collection_name"]}
@@ -115,7 +110,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertEqual(choices["Title"], "Some text 2")
         #
-        data_dynamic_fields = user.__class__.META["data_dynamic_fields"]
+        data_dynamic_fields = User.META["data_dynamic_fields"]
         choices = data_dynamic_fields["choice_float_dyn"]  # type: ignore[annotation-unchecked]
         self.assertEqual(choices["Title"], 1.0)
         choices = data_dynamic_fields["choice_float_mult_dyn"]  # type: ignore[annotation-unchecked]
@@ -129,7 +124,11 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertEqual(choices["Title"], "Some text 2")
         #
-        unit.choice_float_dyn
+        # user = User()
+        # # self.assertTrue(await m.save())
+        # if not await user.save():
+        #     user.print_err()
+        # #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
