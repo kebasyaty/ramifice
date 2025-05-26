@@ -4,6 +4,8 @@ Supported fields: HashField
 
 from typing import Any
 
+from bson.objectid import ObjectId
+
 
 class HashGroupMixin:
     """Group for checking hash fields.
@@ -23,7 +25,7 @@ class HashGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Validation of the MongoDB identifier in a string form.
-        if not field.is_valid(value):
+        if not ObjectId.is_valid(value):
             err_msg = "Invalid MongoDB ID !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.

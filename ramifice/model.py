@@ -10,7 +10,11 @@ from bson.objectid import ObjectId
 from .fields import DateTimeField, HashField
 from .tools import date_parse, datetime_parse
 
-_ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
+_ID = HashField(
+    label="Document ID",
+    hide=True,
+    disabled=True,
+)
 CREATED_AT = DateTimeField(
     label="Created at",
     warning=["When the document was created."],
