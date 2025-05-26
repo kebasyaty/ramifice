@@ -10,12 +10,13 @@ from ..errors import PanicError
 
 
 class RefrashMixin:
-    """Create or update document in database."""
+    """Update Model instance from database."""
 
     async def refrash_model(self) -> None:
         """Update Model instance from database."""
+        cls_model = self.__class__
         # Get collection.
-        collection: AsyncCollection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
+        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self._id.value})  # type: ignore[index, attr-defined]
         if mongo_doc is None:
             msg = (
@@ -24,4 +25,5 @@ class RefrashMixin:
                 + f"A document with an identifier `{self._id.value}` is not exists in the database!"  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)
+        self.inject()  # type: ignore[index, attr-defined]
         self.refrash_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
