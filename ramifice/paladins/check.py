@@ -53,7 +53,7 @@ class CheckMixin(
         # Get the document ID.
         doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
         # Does the document exist in the database?
-        is_update: bool = bool(doc_id)
+        is_update: bool = doc_id is not None
         result_map: dict[str, Any] = {}
         # Create an identifier for a new document.
         if not is_update:
