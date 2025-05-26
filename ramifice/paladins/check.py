@@ -8,6 +8,7 @@ from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
+from ..errors import PanicError
 from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -41,6 +42,14 @@ class CheckMixin(
         self, is_save: bool = False, collection: AsyncCollection | None = None
     ) -> dict[str, Any]:
         """Validation of Model data before saving to the database."""
+        cls_model = self.__class__
+        if not cls_model.META["is_migrat_model"] and is_save:  # type: ignore[attr-defined]
+            msg = (
+                f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                + "Method: `check` => "
+                + "For a non -migrating Model, the `is_save` parameter cannot be equal to `True`!"
+            )
+            raise PanicError(msg)
         # Get the document ID.
         doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
         # Does the document exist in the database?
@@ -57,7 +66,7 @@ class CheckMixin(
         error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
         # Get Model collection.
         if collection is None:
-            collection = store.MONGO_DATABASE[self.__class__.META["collection_name"]]  # type: ignore[index, attr-defined]
+            collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,
