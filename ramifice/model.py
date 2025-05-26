@@ -10,7 +10,11 @@ from bson.objectid import ObjectId
 from .fields import DateTimeField, HashField
 from .tools import date_parse, datetime_parse
 
-_ID = HashField(label="Document ID", hide=True, ignored=True, disabled=True)
+_ID = HashField(
+    label="Document ID",
+    hide=True,
+    disabled=True,
+)
 CREATED_AT = DateTimeField(
     label="Created at",
     warning=["When the document was created."],
@@ -62,7 +66,7 @@ class Model(metaclass=ABCMeta):
                 if not callable(f_type):
                     f_type.id = field_attrs[f_name]["id"]
                     f_type.name = field_attrs[f_name]["name"]
-                    if "Dyn" in f_name:
+                    if "Dyn" in f_type.field_type:
                         f_type.choices = data_dynamic_fields[f_name]
 
     # Complect of methods for converting Model to JSON and back.

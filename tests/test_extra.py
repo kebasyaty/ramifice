@@ -8,7 +8,7 @@ from ramifice.fields import TextField
 
 @model(service_name="Accounts")
 class User:
-    """For testing a `Extra`."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()
@@ -16,7 +16,7 @@ class User:
 
 @model(service_name="Accounts")
 class User2:
-    """For testing a `Extra`."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()

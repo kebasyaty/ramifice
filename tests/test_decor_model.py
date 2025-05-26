@@ -9,7 +9,7 @@ from ramifice.model import Model
 
 @model(service_name="Accounts")
 class User:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()
@@ -18,7 +18,7 @@ class User:
 
 @model(service_name="Profiles")
 class UserProfile:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.profession = TextField()
@@ -29,61 +29,63 @@ class TestModel(unittest.TestCase):
 
     def setUp(self):
         self.user_meta = {
-            "service_name": "Accounts",
-            "fixture_name": None,
-            "db_query_docs_limit": 1000,
-            "is_migrat_model": True,
-            "is_create_doc": True,
-            "is_update_doc": True,
-            "is_delete_doc": True,
-            "model_name": "User",
-            "full_model_name": "tests.test_decor_model.User",
             "collection_name": "Accounts_User",
-            "field_name_and_type": {
-                "username": "TextField",
-                "favorite_color": "ChoiceTextDynField",
-                "created_at": "DateTimeField",
-                "updated_at": "DateTimeField",
-            },
+            "count_all_fields": 5,
+            "count_fields_for_migrating": 5,
+            "data_dynamic_fields": {"favorite_color": None},
+            "db_query_docs_limit": 1000,
             "field_attrs": {
-                "username": {"id": "User--username", "name": "username"},
+                "_id": {"id": "User--id", "name": "_id"},
+                "created_at": {"id": "User--created-at", "name": "created_at"},
                 "favorite_color": {
                     "id": "User--favorite-color",
                     "name": "favorite_color",
                 },
-                "_id": {"id": "User--id", "name": "_id"},
-                "created_at": {"id": "User--created-at", "name": "created_at"},
                 "updated_at": {"id": "User--updated-at", "name": "updated_at"},
+                "username": {"id": "User--username", "name": "username"},
             },
-            "data_dynamic_fields": {},
-            "count_all_fields": 5,
-            "count_fields_for_migrating": 4,
+            "field_name_and_type": {
+                "_id": "HashField",
+                "created_at": "DateTimeField",
+                "favorite_color": "ChoiceTextDynField",
+                "updated_at": "DateTimeField",
+                "username": "TextField",
+            },
+            "fixture_name": None,
+            "full_model_name": "tests.test_decor_model.User",
+            "is_create_doc": True,
+            "is_delete_doc": True,
+            "is_migrat_model": True,
+            "is_update_doc": True,
+            "model_name": "User",
+            "service_name": "Accounts",
         }
         self.user_profile_meta = {
-            "service_name": "Profiles",
-            "fixture_name": None,
-            "db_query_docs_limit": 1000,
-            "is_migrat_model": True,
-            "is_create_doc": True,
-            "is_update_doc": True,
-            "is_delete_doc": True,
-            "model_name": "UserProfile",
-            "full_model_name": "tests.test_decor_model.UserProfile",
             "collection_name": "Profiles_UserProfile",
-            "field_name_and_type": {
-                "profession": "TextField",
-                "created_at": "DateTimeField",
-                "updated_at": "DateTimeField",
-            },
+            "count_all_fields": 4,
+            "count_fields_for_migrating": 4,
+            "data_dynamic_fields": {},
+            "db_query_docs_limit": 1000,
             "field_attrs": {
-                "profession": {"id": "UserProfile--profession", "name": "profession"},
                 "_id": {"id": "UserProfile--id", "name": "_id"},
                 "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
+                "profession": {"id": "UserProfile--profession", "name": "profession"},
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },
-            "data_dynamic_fields": {},
-            "count_all_fields": 4,
-            "count_fields_for_migrating": 3,
+            "field_name_and_type": {
+                "_id": "HashField",
+                "created_at": "DateTimeField",
+                "profession": "TextField",
+                "updated_at": "DateTimeField",
+            },
+            "fixture_name": None,
+            "full_model_name": "tests.test_decor_model.UserProfile",
+            "is_create_doc": True,
+            "is_delete_doc": True,
+            "is_migrat_model": True,
+            "is_update_doc": True,
+            "model_name": "UserProfile",
+            "service_name": "Profiles",
         }
         return super().setUp()
 

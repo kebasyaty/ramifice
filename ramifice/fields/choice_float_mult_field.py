@@ -75,13 +75,15 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
 
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
-        flag = True
-        value = self.value or self.default or None
-        choices = self.choices or None
+        value = self.value
+        if value is None:
+            value = self.default
+        choices = self.choices
         if value is not None and choices is not None:
+            if len(value) == 0:
+                return False
             value_list = choices.values()
             for item in value:
                 if item not in value_list:
-                    flag = False
-                    break
-        return flag
+                    return False
+        return True

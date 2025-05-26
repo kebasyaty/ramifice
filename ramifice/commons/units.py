@@ -16,11 +16,11 @@ class UnitMixin:
     Management for `choices` parameter in dynamic field types.
     """
 
-    async def unit_manager(self, unit: Unit) -> None:
+    @classmethod
+    async def unit_manager(cls, unit: Unit) -> None:
         """Units Management.
         Management for `choices` parameter in dynamic field types.
         """
-        cls_model = self.__class__
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index]
@@ -28,7 +28,7 @@ class UnitMixin:
         ]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            filter={"collection_name": cls_model.META["collection_name"]}  # type: ignore[attr-defined]
+            filter={"collection_name": cls.META["collection_name"]}  # type: ignore[attr-defined]
         )
         # Check the presence of a Model state.
         if model_state is None:
@@ -36,9 +36,9 @@ class UnitMixin:
         # Get the dynamic field type.
         field_type = model_state["field_name_and_type"][unit.field]
         # Get dynamic field data.
-        choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][
-            unit.field
-        ]
+        choices: dict[str, float | int | str] | None = model_state[
+            "data_dynamic_fields"
+        ][unit.field]
         # Check whether the type of value is valid for the type of field.
         if not (
             ("ChoiceFloat" in field_type and isinstance(unit.value, float))
@@ -53,12 +53,19 @@ class UnitMixin:
             raise PanicError(msg)
         # Add Unit to Model State.
         if not unit.is_delete:
-            model_state["data_dynamic_fields"][unit.field] = {
-                **choices,
-                **{unit.title: unit.value},
-            }
+            if choices is not None:
+                choices = {**choices, **{unit.title: unit.value}}
+            else:
+                choices = {unit.title: unit.value}
+            model_state["data_dynamic_fields"][unit.field] = choices
         # Delete Unit from Model State.
         else:
+            if choices is None:
+                msg = (
+                    "Error: It is not possible to delete Unit."
+                    + f"Unit `{unit.title}: {unit.value}` not exists!"
+                )
+                raise PanicError(msg)
             is_key_exists: bool = unit.title in choices.keys()
             if not is_key_exists:
                 msg = (
@@ -67,20 +74,20 @@ class UnitMixin:
                 )
                 raise PanicError(msg)
             del choices[unit.title]
-            model_state["data_dynamic_fields"][unit.field] = choices
+            model_state["data_dynamic_fields"][unit.field] = choices or None
         # Update the state of the Model in the super collection.
         await super_collection.replace_one(
             filter={"collection_name": model_state["collection_name"]},
             replacement=model_state,
         )
         # Update metadata of the current Model.
-        cls_model.META["data_dynamic_fields"][unit.field] = choices  # type: ignore[attr-defined]
+        cls.META["data_dynamic_fields"][unit.field] = choices or None  # type: ignore[attr-defined]
         # Update documents in the collection of the current Model.
         if unit.is_delete:
             unit_field: str = unit.field
             unit_value: float | int | str = unit.value
             collection: AsyncCollection = store.MONGO_DATABASE[
-                cls_model.META["collection_name"]  # type: ignore[index, attr-defined]
+                cls.META["collection_name"]  # type: ignore[index, attr-defined]
             ]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]

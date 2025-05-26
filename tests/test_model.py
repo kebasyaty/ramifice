@@ -9,7 +9,7 @@ from ramifice.model import Model
 
 @model(service_name="Accounts")
 class User:
-    """For testing a instance `Model`."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()

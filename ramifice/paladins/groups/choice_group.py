@@ -31,7 +31,7 @@ class ChoiceGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Does the field value match the possible options in choices.
-        if field.has_value():
+        if not field.has_value():
             err_msg = "Your choice does not match the options offered !"
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.

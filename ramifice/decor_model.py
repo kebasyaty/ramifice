@@ -119,7 +119,7 @@ def caching(cls, service_name) -> dict[str, Any]:
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
-                if "Dyn" in f_name:
+                if "Dyn" in f_type.field_type:
                     data_dynamic_fields[f_name] = None
 
     metadata["field_name_and_type"] = field_name_and_type

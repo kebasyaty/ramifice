@@ -38,11 +38,11 @@ class ToolMixin:
                 print(colored(f"`{field_name}`:", "green"))
                 # error messages
                 print(colored("\n".join(field_data.errors), "red"))
-        if len(self.hash.alerts) > 0:  # type: ignore[attr-defined]
+        if len(self._id.alerts) > 0:  # type: ignore[attr-defined]
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))
             # messages
-            print(colored("\n".join(self.hash.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
+            print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
         else:
             print(end="\n\n")
 
@@ -86,7 +86,7 @@ class ToolMixin:
             ):
                 field_data.value = None
 
-    def update_from_doc(self, mongo_doc: dict[str, Any]):
+    def refrash_from_doc(self, mongo_doc: dict[str, Any]):
         """Update object instance from Mongo document."""
         for name, data in mongo_doc.items():
             field = self.__dict__[name]
