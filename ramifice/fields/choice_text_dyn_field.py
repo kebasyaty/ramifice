@@ -52,9 +52,6 @@ class ChoiceTextDynField(Field, ChoiceGroup, JsonMixin):
         """Does the field value match the possible options in choices."""
         value = self.value
         choices = self.choices
-        if value is not None and choices is not None:
-            if len(value) == 0:
-                return False
-            if value not in choices.values():
-                return False
+        if value is not None and choices is not None and value not in choices.values():
+            return False
         return True
