@@ -252,10 +252,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
         #
-        user = await User.find_one_to_instance(filter={"_id": user._id.value})
-        if user is None:
-            raise PanicError("Error: User not found!")
-        #
+        await user.refrash_model()
         self.assertIsNone(user.choice_float_dyn.choices)
         self.assertIsNone(user.choice_float_mult_dyn.choices)
         self.assertIsNone(user.choice_int_dyn.choices)

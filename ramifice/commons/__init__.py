@@ -9,7 +9,12 @@ from .units import UnitMixin
 
 
 class QCommonsMixin(
-    ToolMixin, GeneralMixin, OneMixin, ManyMixin, IndexMixin, UnitMixin
+    ToolMixin,
+    GeneralMixin,
+    OneMixin,
+    ManyMixin,
+    IndexMixin,
+    UnitMixin,
 ):
     """Commons - Model class methods."""
 

@@ -86,7 +86,7 @@ class ToolMixin:
             ):
                 field_data.value = None
 
-    def update_from_doc(self, mongo_doc: dict[str, Any]):
+    def refrash_from_doc(self, mongo_doc: dict[str, Any]):
         """Update object instance from Mongo document."""
         for name, data in mongo_doc.items():
             field = self.__dict__[name]

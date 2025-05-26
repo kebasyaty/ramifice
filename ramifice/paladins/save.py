@@ -50,7 +50,7 @@ class SaveMixin:
             await self.post_update()  # type: ignore[index, attr-defined]
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
-            self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            self.refrash_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
         else:
             # Add date and time.
             today = datetime.now()
@@ -65,7 +65,7 @@ class SaveMixin:
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is not None:
-                self.update_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+                self.refrash_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
             else:
                 msg = (
                     f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
