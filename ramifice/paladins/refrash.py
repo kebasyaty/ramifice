@@ -1,6 +1,5 @@
 """Update Model instance from database."""
 
-from datetime import datetime
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
