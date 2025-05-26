@@ -1,10 +1,13 @@
 """Testing `Ramifice > QCommonsMixin > UnitMixin` module."""
 
 import unittest
+from typing import Any
 
 from pymongo import AsyncMongoClient
+from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice import model, store
+from ramifice.errors import PanicError
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -51,29 +54,44 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        m = User()
+        user = User()
         # self.assertTrue(await m.save())
-        if not await m.save():
-            m.print_err()
+        if not await user.save():
+            user.print_err()
+        print(user.__class__.META["data_dynamic_fields"])
         #
-        doc = await User.find_one({"_id": m._id.value})
-        self.assertTrue(isinstance(doc, dict))
-        #
-        model = await User.find_one_to_instance({"_id": m._id.value})
-        self.assertEqual(model._id.value, m._id.value)
-        #
-        json_str = await User.find_one_to_json({"_id": m._id.value})
-        self.assertEqual(json_str, m.to_json())
-        #
-        await User.delete_one({"_id": m._id.value})
-        self.assertEqual(await User.estimated_document_count(), 0)
-        #
-        m = User()
-        if not await m.save():
-            m.print_err()
-        doc = await User.find_one_and_delete({"_id": m._id.value})
-        self.assertEqual(doc["_id"], m._id.value)
-        self.assertEqual(await User.estimated_document_count(), 0)
+        super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[annotation-unchecked]
+            store.SUPER_COLLECTION_NAME
+        ]
+        model_state: dict[str, Any] | None = await super_collection.find_one(  # type: ignore[annotation-unchecked]
+            {"collection_name": User.META["collection_name"]}
+        )
+        if model_state is None:
+            raise PanicError("Error: Model State - Not found!")
+        choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_float_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
+        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_float_mult_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
+        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_int_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
+        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_int_mult_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
+        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_txt_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
+        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
+            "choice_txt_mult_dyn"
+        ]
+        self.assertEqual(len(choices), 0)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
