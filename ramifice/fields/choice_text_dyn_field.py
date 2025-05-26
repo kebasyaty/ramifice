@@ -51,11 +51,11 @@ class ChoiceTextDynField(Field, ChoiceGroup, JsonMixin):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         flag = True
-        value = self.value or None
+        value = self.value
         choices = self.choices or None
         if value is not None and choices is not None:
-            value_list = choices.values()
-            # pylint: disable=not-an-iterable
-            if value not in value_list:
+            if len(value) == 0:
+                return False
+            if value not in choices.values():
                 flag = False
         return flag
