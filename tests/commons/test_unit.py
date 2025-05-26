@@ -77,18 +77,43 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        #
-        unit = Unit(field="choice_float_dyn", title="Title", value=1.0)
+        # Add Units:
+        # ---------
+        unit = Unit(
+            field="choice_float_dyn",
+            title="Title",
+            value=1.0,
+        )
         await User.unit_manager(unit)
-        unit = Unit(field="choice_float_mult_dyn", title="Title", value=2.0)
+        unit = Unit(
+            field="choice_float_mult_dyn",
+            title="Title",
+            value=2.0,
+        )
         await User.unit_manager(unit)
-        unit = Unit(field="choice_int_dyn", title="Title", value=1)
+        unit = Unit(
+            field="choice_int_dyn",
+            title="Title",
+            value=1,
+        )
         await User.unit_manager(unit)
-        unit = Unit(field="choice_int_mult_dyn", title="Title", value=2)
+        unit = Unit(
+            field="choice_int_mult_dyn",
+            title="Title",
+            value=2,
+        )
         await User.unit_manager(unit)
-        unit = Unit(field="choice_txt_dyn", title="Title", value="Some text")
+        unit = Unit(
+            field="choice_txt_dyn",
+            title="Title",
+            value="Some text",
+        )
         await User.unit_manager(unit)
-        unit = Unit(field="choice_txt_mult_dyn", title="Title", value="Some text 2")
+        unit = Unit(
+            field="choice_txt_mult_dyn",
+            title="Title",
+            value="Some text 2",
+        )
         await User.unit_manager(unit)
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(  # type: ignore[annotation-unchecked]
@@ -147,7 +172,50 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_int_mult_dyn.value, [2])
         self.assertEqual(user.choice_txt_dyn.value, "Some text")
         self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
-        #
+        # Delete Units:
+        # ------------
+        unit = Unit(
+            field="choice_float_dyn",
+            title="Title",
+            value=1.0,
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
+        unit = Unit(
+            field="choice_float_mult_dyn",
+            title="Title",
+            value=2.0,
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
+        unit = Unit(
+            field="choice_int_dyn",
+            title="Title",
+            value=1,
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
+        unit = Unit(
+            field="choice_int_mult_dyn",
+            title="Title",
+            value=2,
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
+        unit = Unit(
+            field="choice_txt_dyn",
+            title="Title",
+            value="Some text",
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
+        unit = Unit(
+            field="choice_txt_mult_dyn",
+            title="Title",
+            value="Some text 2",
+            is_delete=False,
+        )
+        await User.unit_manager(unit)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
