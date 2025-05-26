@@ -54,14 +54,13 @@ class CheckMixin(
         doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
-        result_map: dict[str, Any] = {}
         # Create an identifier for a new document.
         if not is_update:
             doc_id = ObjectId()
-        if is_save:
-            if not is_update:
-                self._id.value = doc_id  # type: ignore[attr-defined]
-            result_map["_id"] = doc_id
+        if is_save and not is_update:
+            self._id.value = doc_id  # type: ignore[attr-defined]
+        #
+        result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
         error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
         # Get Model collection.
