@@ -62,7 +62,7 @@ class Model(metaclass=ABCMeta):
                 if not callable(f_type):
                     f_type.id = field_attrs[f_name]["id"]
                     f_type.name = field_attrs[f_name]["name"]
-                    if "Dyn" in f_name:
+                    if "Dyn" in f_type.field_type:
                         f_type.choices = data_dynamic_fields[f_name]
 
     # Complect of methods for converting Model to JSON and back.
