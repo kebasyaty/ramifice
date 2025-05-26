@@ -58,11 +58,11 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # self.assertTrue(await m.save())
         if not await user.save():
             user.print_err()
-        print(user.__class__.META["data_dynamic_fields"])
         #
         super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[annotation-unchecked]
             store.SUPER_COLLECTION_NAME
         ]
+        #
         model_state: dict[str, Any] | None = await super_collection.find_one(  # type: ignore[annotation-unchecked]
             {"collection_name": User.META["collection_name"]}
         )
@@ -71,27 +71,27 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_float_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_float_mult_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_int_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_int_mult_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_txt_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
             "choice_txt_mult_dyn"
         ]
-        self.assertEqual(len(choices), 0)
+        self.assertIsNone(choices)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
