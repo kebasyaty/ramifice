@@ -179,42 +179,42 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
             field="choice_float_dyn",
             title="Title",
             value=1.0,
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
             title="Title",
             value=2.0,
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
             title="Title",
             value=1,
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
             title="Title",
             value=2,
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
             title="Title",
             value="Some text",
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
             title="Title",
             value="Some text 2",
-            is_delete=False,
+            is_delete=True,
         )
         await User.unit_manager(unit)
         #
@@ -223,6 +223,34 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
+        #
+        data_dynamic_fields = model_state["data_dynamic_fields"]
+        choices = data_dynamic_fields["choice_float_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_float_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_int_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_int_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_txt_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        #
+        data_dynamic_fields = User.META["data_dynamic_fields"]
+        choices = data_dynamic_fields["choice_float_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_float_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_int_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_int_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_txt_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
+        choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
+        self.assertIsNone(choices)
         #
         # ----------------------------------------------------------------------
         #
