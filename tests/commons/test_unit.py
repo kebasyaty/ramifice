@@ -116,11 +116,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         )
         await User.unit_manager(unit)
         #
-        model_state: dict[str, Any] | None = await super_collection.find_one(  # type: ignore[annotation-unchecked]
+        model_state = await super_collection.find_one(  # type: ignore[annotation-unchecked]
             {"collection_name": User.META["collection_name"]}
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
+        #
         data_dynamic_fields = model_state["data_dynamic_fields"]
         choices = data_dynamic_fields["choice_float_dyn"]  # type: ignore[annotation-unchecked]
         self.assertEqual(choices["Title"], 1.0)
@@ -216,6 +217,13 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
             is_delete=False,
         )
         await User.unit_manager(unit)
+        #
+        model_state = await super_collection.find_one(  # type: ignore[annotation-unchecked]
+            {"collection_name": User.META["collection_name"]}
+        )
+        if model_state is None:
+            raise PanicError("Error: Model State - Not found!")
+        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
