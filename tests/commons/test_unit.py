@@ -68,30 +68,20 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
-        choices: dict[str, float | int | str] = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_float_dyn"
-        ]
+        data_dynamic_fields = model_state["data_dynamic_fields"]
+        choices: dict[str, float | int | str] = data_dynamic_fields["choice_float_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_float_mult_dyn"
-        ]
+        choices = data_dynamic_fields["choice_float_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_int_dyn"
-        ]
+        choices = data_dynamic_fields["choice_int_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_int_mult_dyn"
-        ]
+        choices = data_dynamic_fields["choice_int_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_txt_dyn"
-        ]
+        choices = data_dynamic_fields["choice_txt_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
-        choices = model_state["data_dynamic_fields"][  # type: ignore[annotation-unchecked]
-            "choice_txt_mult_dyn"
-        ]
+        choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
+        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
