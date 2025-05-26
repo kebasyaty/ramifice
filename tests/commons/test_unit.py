@@ -141,6 +141,13 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         if not await user.save():
             user.print_err()
         #
+        self.assertEqual(user.choice_float_dyn.value, 1.0)
+        self.assertEqual(user.choice_float_mult_dyn.value, [2.0])
+        self.assertEqual(user.choice_int_dyn.value, 1)
+        self.assertEqual(user.choice_int_mult_dyn.value, [2])
+        self.assertEqual(user.choice_txt_dyn.value, "Some text")
+        self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
+        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
