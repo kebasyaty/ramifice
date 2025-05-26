@@ -47,7 +47,7 @@ class CheckMixin(
             msg = (
                 f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
                 + "Method: `check` => "
-                + "For a non -migrating Model, the `is_save` parameter cannot be equal to `True`!"
+                + "For a non-migrating Model, the `is_save` parameter cannot be equal to `True`!"
             )
             raise PanicError(msg)
         # Get the document ID.
