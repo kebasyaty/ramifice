@@ -74,14 +74,14 @@ class UnitMixin:
                 )
                 raise PanicError(msg)
             del choices[unit.title]
-            model_state["data_dynamic_fields"][unit.field] = choices
+            model_state["data_dynamic_fields"][unit.field] = choices or None
         # Update the state of the Model in the super collection.
         await super_collection.replace_one(
             filter={"collection_name": model_state["collection_name"]},
             replacement=model_state,
         )
         # Update metadata of the current Model.
-        cls_model.META["data_dynamic_fields"][unit.field] = choices  # type: ignore[attr-defined]
+        cls_model.META["data_dynamic_fields"][unit.field] = choices or None  # type: ignore[attr-defined]
         # Update documents in the collection of the current Model.
         if unit.is_delete:
             unit_field: str = unit.field
