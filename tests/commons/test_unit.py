@@ -83,8 +83,19 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
         #
-        unit = Unit(field="choice_float_dyn", title="Title", value=12.3)
+        unit = Unit(field="choice_float_dyn", title="Title", value=1.0)
         await user.unit_manager(unit)
+        unit = Unit(field="choice_float_mult_dyn", title="Title", value=2.0)
+        await user.unit_manager(unit)
+        unit = Unit(field="choice_int_dyn", title="Title", value=1)
+        await user.unit_manager(unit)
+        unit = Unit(field="choice_int_mult_dyn", title="Title", value=2)
+        await user.unit_manager(unit)
+        unit = Unit(field="choice_txt_dyn", title="Title", value="Some text")
+        await user.unit_manager(unit)
+        unit = Unit(field="choice_txt_mult_dyn", title="Title", value="Some text 2")
+        await user.unit_manager(unit)
+        #
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
