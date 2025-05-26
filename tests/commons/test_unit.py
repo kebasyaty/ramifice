@@ -17,6 +17,7 @@ from ramifice.fields import (
     ChoiceTextMultDynField,
 )
 from ramifice.migration import Monitor
+from ramifice.types import Unit
 
 
 @model(service_name="Accounts")
@@ -82,6 +83,8 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
         #
+        unit = Unit(field="choice_float_dyn", title="Title", value=12.3)
+        await user.unit_manager(unit)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
