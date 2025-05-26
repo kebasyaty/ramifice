@@ -129,8 +129,8 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_float_mult_dyn.choices, {"Title": 2.0})
         self.assertEqual(user.choice_int_dyn.choices, {"Title": 1})
         self.assertEqual(user.choice_int_mult_dyn.choices, {"Title": 2})
-        self.assertEqual(user.choice_txt_dyn.choices, {"Title": "Some test"})
-        self.assertEqual(user.choice_txt_mult_dyn.choices, {"Title": "Some test 2"})
+        self.assertEqual(user.choice_txt_dyn.choices, {"Title": "Some text"})
+        self.assertEqual(user.choice_txt_mult_dyn.choices, {"Title": "Some text 2"})
         #
         # ----------------------------------------------------------------------
         #
