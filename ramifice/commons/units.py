@@ -16,11 +16,11 @@ class UnitMixin:
     Management for `choices` parameter in dynamic field types.
     """
 
-    async def unit_manager(self, unit: Unit) -> None:
+    @classmethod
+    async def unit_manager(cls, unit: Unit) -> None:
         """Units Management.
         Management for `choices` parameter in dynamic field types.
         """
-        cls_model = self.__class__
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index]
@@ -28,7 +28,7 @@ class UnitMixin:
         ]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            filter={"collection_name": cls_model.META["collection_name"]}  # type: ignore[attr-defined]
+            filter={"collection_name": cls.META["collection_name"]}  # type: ignore[attr-defined]
         )
         # Check the presence of a Model state.
         if model_state is None:
@@ -81,13 +81,13 @@ class UnitMixin:
             replacement=model_state,
         )
         # Update metadata of the current Model.
-        cls_model.META["data_dynamic_fields"][unit.field] = choices or None  # type: ignore[attr-defined]
+        cls.META["data_dynamic_fields"][unit.field] = choices or None  # type: ignore[attr-defined]
         # Update documents in the collection of the current Model.
         if unit.is_delete:
             unit_field: str = unit.field
             unit_value: float | int | str = unit.value
             collection: AsyncCollection = store.MONGO_DATABASE[
-                cls_model.META["collection_name"]  # type: ignore[index, attr-defined]
+                cls.META["collection_name"]  # type: ignore[index, attr-defined]
             ]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]

@@ -129,6 +129,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertEqual(choices["Title"], "Some text 2")
         #
+        unit.choice_float_dyn
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
