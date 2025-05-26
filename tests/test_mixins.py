@@ -38,7 +38,7 @@ from ramifice.types import FILE_DATA_TYPE, IMAGE_DATA_TYPE
 
 
 class StandardTypes(JsonMixin):
-    """For testing standard types."""
+    """Class for testing."""
 
     def __init__(self):
         JsonMixin.__init__(self)
@@ -55,7 +55,7 @@ class StandardTypes(JsonMixin):
 
 @model(service_name="Accounts")
 class User:
-    """For testing the Ramifice fields."""
+    """Model for testing."""
 
     def fields(self):
         self.url = URLField()

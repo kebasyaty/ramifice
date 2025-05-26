@@ -12,7 +12,7 @@ from ramifice.model import Model
     is_migrat_model=False,
 )
 class User:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()
@@ -24,7 +24,7 @@ class User:
     is_migrat_model=False,
 )
 class UserProfile:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.profession = TextField()

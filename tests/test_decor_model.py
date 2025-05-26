@@ -9,7 +9,7 @@ from ramifice.model import Model
 
 @model(service_name="Accounts")
 class User:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.username = TextField()
@@ -18,7 +18,7 @@ class User:
 
 @model(service_name="Profiles")
 class UserProfile:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.profession = TextField()

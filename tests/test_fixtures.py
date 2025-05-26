@@ -40,7 +40,7 @@ from ramifice.migration import Monitor
 
 @model(service_name="Accounts", fixture_name="User")
 class User:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.url = URLField()
@@ -75,7 +75,7 @@ class User:
 
 @model(service_name="Accounts", fixture_name="User2")
 class User2:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.url = URLField()

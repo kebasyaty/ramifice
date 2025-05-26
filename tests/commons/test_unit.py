@@ -1,10 +1,10 @@
-"""Testing `Ramifice > QCommonsMixi > IndexMixin` module."""
+"""Testing `Ramifice > QCommonsMixin > UnitMixin` module."""
 
 import unittest
 
-from pymongo import ASCENDING, DESCENDING, AsyncMongoClient, IndexModel
+from pymongo import AsyncMongoClient
 
-from ramifice import model
+from ramifice import model, store
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -72,25 +72,14 @@ class User:
         self.choice_txt_mult = ChoiceTextMultField()
         self.choice_int = ChoiceIntField()
 
-    @classmethod
-    async def indexing(cls) -> None:
-        """For set up and start indexing."""
-        await cls.create_index(["email"], name="idx_email")  # type: ignore[index, attr-defined]
-        #
-        index_1 = IndexModel(
-            [("color", DESCENDING), ("url", ASCENDING)], name="idx_color_url"
-        )
-        index_2 = IndexModel([("text", DESCENDING)], name="idx_text")
-        await cls.create_indexes([index_1, index_2])  # type: ignore[index, attr-defined]
 
+class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
+    """Testing `Ramifice > QCommonsMixin > OneMixin` module."""
 
-class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > QCommonsMixin > IndexMixin` module."""
-
-    async def test_index_mixin_methods(self):
+    async def test_one_mixin_methods(self):
         """Testing OneMixin methods."""
         # Maximum number of characters 60.
-        database_name = "test_index_mixin_methods"
+        database_name = "test_one_mixin_methods"
 
         # Delete database before test.
         # (if the test fails)
@@ -107,15 +96,28 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        m.email.value = "kebasyaty@gmail.com"
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         #
-        mongo_doc = await User.find_one({"email": "kebasyaty@gmail.com"})
-        self.assertEqual(mongo_doc["email"], "kebasyaty@gmail.com")
-        await User.drop_index("idx_email")
-        await User.drop_indexes()
+        doc = await User.find_one({"_id": m._id.value})
+        self.assertTrue(isinstance(doc, dict))
+        #
+        model = await User.find_one_to_instance({"_id": m._id.value})
+        self.assertEqual(model._id.value, m._id.value)
+        #
+        json_str = await User.find_one_to_json({"_id": m._id.value})
+        self.assertEqual(json_str, m.to_json())
+        #
+        await User.delete_one({"_id": m._id.value})
+        self.assertEqual(await User.estimated_document_count(), 0)
+        #
+        m = User()
+        if not await m.save():
+            m.print_err()
+        doc = await User.find_one_and_delete({"_id": m._id.value})
+        self.assertEqual(doc["_id"], m._id.value)
+        self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

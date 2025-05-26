@@ -11,7 +11,7 @@ from ramifice.migration import Monitor
 
 @model(service_name="Accounts")
 class User:
-    """Class for testing."""
+    """Model for testing."""
 
     def fields(self):
         self.password = PasswordField()
