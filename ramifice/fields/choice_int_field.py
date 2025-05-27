@@ -67,7 +67,10 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         value = self.value
         if value is None:
             value = self.default
-        choices = self.choices
-        if value is not None and choices is not None and value not in choices.values():
-            return False
+        if value is not None:
+            choices = self.choices
+            if not bool(choices):
+                return False
+            if value not in choices.values():  # type: ignore[union-attr]
+                return False
         return True

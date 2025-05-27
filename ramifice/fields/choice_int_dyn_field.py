@@ -51,7 +51,10 @@ class ChoiceIntDynField(Field, ChoiceGroup, JsonMixin):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         value = self.value
-        choices = self.choices
-        if value is not None and choices is not None and value not in choices.values():
-            return False
+        if value is not None:
+            choices = self.choices
+            if not bool(choices):
+                return False
+            if value not in choices.values():  # type: ignore[union-attr]
+                return False
         return True
