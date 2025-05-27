@@ -78,11 +78,11 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         value = self.value
         if value is None:
             value = self.default
-        choices = self.choices
-        if value is not None and choices is not None:
-            if len(value) == 0:
+        if value is not None:
+            choices = self.choices
+            if len(value) == 0 or not bool(choices):
                 return False
-            value_list = choices.values()
+            value_list = choices.values()  # type: ignore[union-attr]
             for item in value:
                 if item not in value_list:
                     return False

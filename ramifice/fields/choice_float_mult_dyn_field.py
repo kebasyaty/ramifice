@@ -51,11 +51,11 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
     def has_value(self) -> bool:
         """Does the field value match the possible options in choices."""
         value = self.value
-        choices = self.choices
-        if value is not None and choices is not None:
-            if len(value) == 0:
+        if value is not None:
+            choices = self.choices
+            if len(value) == 0 or not bool(choices):
                 return False
-            value_list = choices.values()
+            value_list = choices.values()  # type: ignore[union-attr]
             for item in value:
                 if item not in value_list:
                     return False
