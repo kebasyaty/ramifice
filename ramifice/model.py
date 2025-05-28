@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from .fields import DateTimeField, HashField
-from .store import CURRENT_LOCALE
+from .translations import CURRENT_LOCALE
 
 _ID = HashField(
     label="Document ID",
