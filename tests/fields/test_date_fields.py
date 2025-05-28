@@ -5,7 +5,6 @@ import unittest
 from dateutil.parser import parse
 
 from ramifice.fields import DateField, DateTimeField
-from ramifice.store import CURRENT_LOCALE
 
 
 class TestDateFields(unittest.TestCase):
