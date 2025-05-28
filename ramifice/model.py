@@ -5,9 +5,11 @@ import json
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
+from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
+from . import CURRENT_LOCALE
 from .fields import DateTimeField, HashField
 
 _ID = HashField(
@@ -109,9 +111,11 @@ class Model(metaclass=ABCMeta):
                 group = data.group
                 if group == "date":
                     value = (
-                        value.strftime("%Y-%m-%d")
+                        format_date(value, format="short", locale=CURRENT_LOCALE)
                         if data.field_type == "DateField"
-                        else value.strftime("%Y-%m-%d %H:%M:%S")
+                        else format_datetime(
+                            value, format="short", locale=CURRENT_LOCALE
+                        )
                     )
                 elif group == "hash":
                     value = str(value)
