@@ -28,5 +28,6 @@ gettext = get_translator().gettext
 def add_current_locale(lang_code: str):
     """Add current locale."""
     global CURRENT_LOCALE, gettext
-    CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
-    gettext = get_translator().gettext
+    if lang_code != CURRENT_LOCALE:
+        CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
+        gettext = get_translator().gettext
