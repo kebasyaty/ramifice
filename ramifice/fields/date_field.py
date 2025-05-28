@@ -4,8 +4,9 @@ import json
 from datetime import datetime
 from typing import Any
 
+from dateutil.parser import parse
+
 from ..store import DEBUG
-from ..tools import date_parse
 from .general.date_group import DateGroup
 from .general.field import Field
 
@@ -94,7 +95,7 @@ class DateField(Field, DateGroup):
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
-                obj.__dict__[name] = date_parse(data)
+                obj.__dict__[name] = parse(data)
             else:
                 obj.__dict__[name] = data
         return obj

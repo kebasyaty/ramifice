@@ -6,9 +6,9 @@ from abc import ABCMeta, abstractmethod
 from typing import Any
 
 from bson.objectid import ObjectId
+from dateutil.parser import parse
 
 from .fields import DateTimeField, HashField
-from .tools import date_parse, datetime_parse
 
 _ID = HashField(
     label="Document ID",
@@ -135,11 +135,7 @@ class Model(metaclass=ABCMeta):
             if value is not None:
                 group = data.group
                 if group == "date":
-                    value = (
-                        date_parse(value)
-                        if data.field_type == "DateField"
-                        else datetime_parse(value)
-                    )
+                    value = parse(value)
                 elif group == "hash":
                     value = ObjectId(value)
             obj.__dict__[name].value = value
@@ -160,11 +156,7 @@ class Model(metaclass=ABCMeta):
             if value is not None:
                 group = data.group
                 if group == "date":
-                    value = (
-                        date_parse(value)
-                        if data.field_type == "DateField"
-                        else datetime_parse(value)
-                    )
+                    value = parse(value)
                 elif group == "hash":
                     value = ObjectId(value)
             self.__dict__[name].value = value
