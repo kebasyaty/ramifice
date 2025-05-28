@@ -40,5 +40,5 @@ translations = {
 }
 
 
-def get_translator(lang: str = DEFAULT_LOCALE):
+def get_translator(lang: str):
     return translations.get(lang, translations[DEFAULT_LOCALE])
