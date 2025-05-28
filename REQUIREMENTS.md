@@ -11,3 +11,4 @@
 - [argon2-cffi](https://pypi.org/project/argon2-cffi/ "argon2-cffi")
 - [pyyaml](https://pypi.org/project/PyYAML/ "pyyaml")
 - [Babel](https://pypi.org/project/Babel/ "Babel")
+- [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
