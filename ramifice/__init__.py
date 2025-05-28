@@ -14,24 +14,4 @@
 
 """ORM-like API MongoDB for Python language."""
 
-import gettext
-
 from .decor_model import model
-
-LANGUAGES: list[str] = ["en", "ru"]
-DEFAULT_LOCALE: str = "en"
-
-translations = {
-    lang: gettext.translation(
-        domain="messages",
-        localedir="config/translations/ramifice",
-        languages=[lang],
-        class_=None,
-        fallback=True,
-    )
-    for lang in LANGUAGES
-}
-
-
-def get_translator(lang: str = DEFAULT_LOCALE):
-    return translations.get(lang, translations[DEFAULT_LOCALE])

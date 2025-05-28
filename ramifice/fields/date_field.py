@@ -4,8 +4,11 @@ import json
 from datetime import datetime
 from typing import Any
 
+from babel.dates import format_date
+from dateutil.parser import parse
+
 from ..store import DEBUG
-from ..tools import date_parse
+from ..translations import CURRENT_LOCALE
 from .general.date_group import DateGroup
 from .general.field import Field
 
@@ -79,7 +82,9 @@ class DateField(Field, DateGroup):
         for name, data in self.__dict__.items():
             if not callable(data):
                 if name == "value" and data is not None:
-                    json_dict[name] = data.strftime("%Y-%m-%d")
+                    json_dict[name] = format_date(
+                        data, format="short", locale=CURRENT_LOCALE
+                    )
                 else:
                     json_dict[name] = data
         return json_dict
@@ -94,7 +99,7 @@ class DateField(Field, DateGroup):
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
-                obj.__dict__[name] = date_parse(data)
+                obj.__dict__[name] = parse(data)
             else:
                 obj.__dict__[name] = data
         return obj

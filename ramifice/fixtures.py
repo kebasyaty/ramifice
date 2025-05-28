@@ -6,11 +6,11 @@ from datetime import datetime
 from typing import Any
 
 import yaml
+from dateutil.parser import parse
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
 from .errors import PanicError
-from .tools import date_parse, datetime_parse
 
 
 async def apply_fixture(
@@ -49,11 +49,7 @@ async def apply_fixture(
                 if group == "file" or group == "img":
                     field_data.from_path(value)
                 elif group == "date":
-                    field_data.value = (
-                        date_parse(value)
-                        if field_data.field_type == "DateField"
-                        else datetime_parse(value)
-                    )
+                    field_data.value = parse(value)
                 else:
                     field_data.value = value
         # Check Model.

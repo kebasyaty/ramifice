@@ -5,7 +5,6 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
-from pymongo.results import BulkWriteResult
 
 from .. import store
 

@@ -2,7 +2,10 @@
 
 from typing import Any
 
-from ..tools import date_parse, datetime_parse
+from babel.dates import format_date, format_datetime
+from dateutil.parser import parse
+
+from ..translations import CURRENT_LOCALE
 
 
 class ToolMixin:
@@ -20,15 +23,19 @@ class ToolMixin:
     @classmethod
     def mongo_doc_to_model_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Convert the Mongo document to the Model document."""
-        doc: dict[str, Any] = {"_id": str(mongo_doc["_id"])}
+        doc: dict[str, Any] = {}
         for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
             value = mongo_doc[f_name]
             if value is not None:
                 if "Date" in t_name:
                     if "Time" in t_name:
-                        value = value.strftime("%Y-%m-%d %H:%M:%S")
+                        value = format_datetime(
+                            value, format="short", locale=CURRENT_LOCALE
+                        )
                     else:
-                        value = value.strftime("%Y-%m-%d")
+                        value = format_date(
+                            value, format="short", locale=CURRENT_LOCALE
+                        )
                 elif "Hash" in t_name:
                     value = str(value)
                 elif "Pass" in t_name:
