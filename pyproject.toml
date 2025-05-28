@@ -16,6 +16,7 @@ python-slugify = { extras = ["unidecode"], version = "^8.0.4" }
 argon2-cffi = "^23.1.0"
 pyyaml = "^6.0.2"
 babel = "^2.17.0"
+python-dateutil = "^2.9.0.post0"
 
 [tool.poetry.group.dev]
 optional = true
