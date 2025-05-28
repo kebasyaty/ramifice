@@ -9,6 +9,8 @@ from pymongo.asynchronous.database import AsyncDatabase
 
 # For block the verification code, at the end of the migration to the database.
 DEBUG: bool = True
+# For localization of translations.
+CURRENT_LOCALE: str = "en"
 # Mongo client caching.
 MONGO_CLIENT: AsyncMongoClient | None = None
 # Mongo database caching.

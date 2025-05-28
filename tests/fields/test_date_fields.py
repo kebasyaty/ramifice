@@ -1,10 +1,11 @@
 """Testing date|datetime fields."""
 
 import unittest
-from datetime import datetime
+
+from dateutil.parser import parse
 
 from ramifice.fields import DateField, DateTimeField
-from ramifice.tools import date_parse, datetime_parse
+from ramifice.store import CURRENT_LOCALE
 
 
 class TestDateFields(unittest.TestCase):
@@ -46,28 +47,20 @@ class TestDateFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             DateField(default="")
         with self.assertRaises(AssertionError):
-            DateField(
-                default=date_parse("20-12-2024"), max_date=date_parse("19-12-2024")
-            )
+            DateField(default=parse("20-12-2024"), max_date=parse("19-12-2024"))
         with self.assertRaises(AssertionError):
-            DateField(
-                default=date_parse("20-12-2024"), min_date=date_parse("21-12-2024")
-            )
+            DateField(default=parse("20-12-2024"), min_date=parse("21-12-2024"))
         with self.assertRaises(AssertionError):
-            DateField(
-                max_date=date_parse("20-12-2024"), min_date=date_parse("20-12-2024")
-            )
+            DateField(max_date=parse("20-12-2024"), min_date=parse("20-12-2024"))
         with self.assertRaises(AssertionError):
-            DateField(
-                max_date=date_parse("20-12-2024"), min_date=date_parse("21-12-2024")
-            )
-        DateField(max_date=date_parse("20-12-2024"))
-        DateField(min_date=date_parse("20-12-2024"))
-        DateField(default=date_parse("20-12-2024"))
+            DateField(max_date=parse("20-12-2024"), min_date=parse("21-12-2024"))
+        DateField(max_date=parse("20-12-2024"))
+        DateField(min_date=parse("20-12-2024"))
+        DateField(default=parse("20-12-2024"))
         DateField(
-            default=date_parse("20-12-2024"),
-            max_date=date_parse("21-12-2024"),
-            min_date=date_parse("19-12-2024"),
+            default=parse("20-12-2024"),
+            max_date=parse("21-12-2024"),
+            min_date=parse("19-12-2024"),
         )
 
     def test_date_time_field(self):
@@ -107,21 +100,21 @@ class TestDateFields(unittest.TestCase):
             DateTimeField(default="")
         with self.assertRaises(AssertionError):
             DateTimeField(
-                default=datetime_parse("20-12-2024 00:00:00"),
-                max_date=datetime_parse("19-12-2024 00:00:00"),
+                default=parse("20-12-2024 00:00:00"),
+                max_date=parse("19-12-2024 00:00:00"),
             )
         with self.assertRaises(AssertionError):
             DateTimeField(
-                default=datetime_parse("20-12-2024 00:00:00"),
-                min_date=datetime_parse("21-12-2024 00:00:00"),
+                default=parse("20-12-2024 00:00:00"),
+                min_date=parse("21-12-2024 00:00:00"),
             )
-        DateTimeField(max_date=datetime_parse("20-12-2024 00:00:00"))
-        DateTimeField(min_date=datetime_parse("20-12-2024 00:00:00"))
-        DateTimeField(default=datetime_parse("20-12-2024 00:00:00"))
+        DateTimeField(max_date=parse("20-12-2024 00:00:00"))
+        DateTimeField(min_date=parse("20-12-2024 00:00:00"))
+        DateTimeField(default=parse("20-12-2024 00:00:00"))
         DateTimeField(
-            default=datetime_parse("20-12-2024 00:00:00"),
-            max_date=datetime_parse("21-12-2024 00:00:00"),
-            min_date=datetime_parse("19-12-2024 00:00:00"),
+            default=parse("20-12-2024 00:00:00"),
+            max_date=parse("21-12-2024 00:00:00"),
+            min_date=parse("19-12-2024 00:00:00"),
         )
 
 

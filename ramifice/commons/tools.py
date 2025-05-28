@@ -5,7 +5,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 from dateutil.parser import parse
 
-from . import CURRENT_LOCALE
+from ..store import CURRENT_LOCALE
 
 
 class ToolMixin:

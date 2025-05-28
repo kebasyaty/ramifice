@@ -16,17 +16,16 @@
 
 import gettext
 
+from . import store
 from .decor_model import model
 
 LANGUAGES: list[str] = ["en", "ru"]
 DEFAULT_LOCALE: str = "en"
-CURRENT_LOCALE = "en"
 
 
 def add_current_locale(lang_code: str = "en"):
     """Add current locale."""
-    global CURRENT_LOCALE
-    CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else "en"
+    store.CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else "en"
 
 
 translations = {

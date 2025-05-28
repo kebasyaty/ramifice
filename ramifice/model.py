@@ -9,8 +9,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from . import CURRENT_LOCALE
 from .fields import DateTimeField, HashField
+from .store import CURRENT_LOCALE
 
 _ID = HashField(
     label="Document ID",
