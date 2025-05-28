@@ -2,6 +2,7 @@
 The purpose of caching is production optimization.
 """
 
+import gettext
 import re
 
 from pymongo import AsyncMongoClient
@@ -11,6 +12,8 @@ from pymongo.asynchronous.database import AsyncDatabase
 DEBUG: bool = True
 # For localization of translations.
 CURRENT_LOCALE: str = "en"
+DEFAULT_LOCALE: str = "en"
+LANGUAGES: list[str] = ["en", "ru"]
 # Mongo client caching.
 MONGO_CLIENT: AsyncMongoClient | None = None
 # Mongo database caching.
@@ -47,3 +50,20 @@ REGEX: dict[str, re.Pattern] = {
         r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'
     ),
 }
+
+# For localization of translations.
+translations = {
+    lang: gettext.translation(
+        domain="messages",
+        localedir="config/translations/ramifice",
+        languages=[lang],
+        class_=None,
+        fallback=True,
+    )
+    for lang in LANGUAGES
+}
+
+
+# For localization of translations.
+def get_translator(lang: str = CURRENT_LOCALE):
+    return translations.get(lang, translations[DEFAULT_LOCALE])

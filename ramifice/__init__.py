@@ -14,31 +14,10 @@
 
 """ORM-like API MongoDB for Python language."""
 
-import gettext
-
 from . import store
 from .decor_model import model
-
-LANGUAGES: list[str] = ["en", "ru"]
-DEFAULT_LOCALE: str = "en"
 
 
 def add_current_locale(lang_code: str = "en"):
     """Add current locale."""
-    store.CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else "en"
-
-
-translations = {
-    lang: gettext.translation(
-        domain="messages",
-        localedir="config/translations/ramifice",
-        languages=[lang],
-        class_=None,
-        fallback=True,
-    )
-    for lang in LANGUAGES
-}
-
-
-def get_translator(lang: str):
-    return translations.get(lang, translations[DEFAULT_LOCALE])
+    store.CURRENT_LOCALE = lang_code if lang_code in store.LANGUAGES else "en"
