@@ -14,10 +14,4 @@
 
 """ORM-like API MongoDB for Python language."""
 
-from . import store
 from .decor_model import model
-
-
-def add_current_locale(lang_code: str = "en"):
-    """Add current locale."""
-    store.CURRENT_LOCALE = lang_code if lang_code in store.LANGUAGES else "en"
