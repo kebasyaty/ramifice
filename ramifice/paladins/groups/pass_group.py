@@ -34,6 +34,14 @@ class PassGroupMixin:
         if not field.is_valid(value):
             err_msg = gettext("Invalid Password !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            err_msg = gettext("Valid characters: {chars}").format(
+                char="a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
+            )
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            err_msg = gettext(
+                "Number of characters: from {min_num} to {max_num}"
+            ).format(min_num=8, max_num=256)
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             ph = PasswordHasher()

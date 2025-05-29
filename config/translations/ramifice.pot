@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 14:14+0300\n"
+"POT-Creation-Date: 2025-05-29 14:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,12 +88,12 @@ msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:35
 #, python-brace-format
-msgid "The value {number} must not be greater than max={max_number} !"
+msgid "The value {num} must not be greater than max={max_num} !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:42
 #, python-brace-format
-msgid "The value {number} must not be less than min={min_number} !"
+msgid "The value {num} must not be less than min={min_num} !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:47
@@ -102,5 +102,15 @@ msgstr ""
 
 #: ramifice/paladins/groups/pass_group.py:35
 msgid "Invalid Password !"
+msgstr ""
+
+#: ramifice/paladins/groups/pass_group.py:37
+#, python-brace-format
+msgid "Valid characters: {chars}"
+msgstr ""
+
+#: ramifice/paladins/groups/pass_group.py:42
+#, python-brace-format
+msgid "Number of characters: from {min_num} to {max_num}"
 msgstr ""
 

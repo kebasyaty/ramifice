@@ -10,9 +10,9 @@ from .general.field import Field
 class PasswordField(Field):
     """Field of Model for enter password.
     WARNING:
-    Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-    Valid characters by default: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-    Number of characters by default: from 8 to 256.
+    Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+    Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+    Number of characters: from 8 to 256.
     """
 
     # pylint: disable=too-many-arguments
