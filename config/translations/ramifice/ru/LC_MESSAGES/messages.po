@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 13:49+0300\n"
+"POT-Creation-Date: 2025-05-29 13:55+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -53,6 +53,8 @@ msgstr "Разрешены только файлы: {types}"
 #: ramifice/paladins/groups/file_group.py:33
 #: ramifice/paladins/groups/file_group.py:54
 #: ramifice/paladins/groups/id_group.py:24
+#: ramifice/paladins/groups/img_group.py:35
+#: ramifice/paladins/groups/img_group.py:56
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
@@ -78,4 +80,8 @@ msgstr "Размер файла превышает максимальное зн
 #: ramifice/paladins/groups/id_group.py:31
 msgid "Invalid document ID !"
 msgstr "Некорректный идентификатор документа !"
+
+#: ramifice/paladins/groups/img_group.py:62
+msgid "Image size exceeds the maximum value {max_size} !"
+msgstr "Размер изображения превышает максимальное значение {max_size} !"
 

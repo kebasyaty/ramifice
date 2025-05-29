@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 13:49+0300\n"
+"POT-Creation-Date: 2025-05-29 13:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,6 +51,8 @@ msgstr ""
 #: ramifice/paladins/groups/file_group.py:33
 #: ramifice/paladins/groups/file_group.py:54
 #: ramifice/paladins/groups/id_group.py:24
+#: ramifice/paladins/groups/img_group.py:35
+#: ramifice/paladins/groups/img_group.py:56
 msgid "Required field !"
 msgstr ""
 
@@ -75,5 +77,10 @@ msgstr ""
 
 #: ramifice/paladins/groups/id_group.py:31
 msgid "Invalid document ID !"
+msgstr ""
+
+#: ramifice/paladins/groups/img_group.py:62
+#, python-brace-format
+msgid "Image size exceeds the maximum value {max_size} !"
 msgstr ""
 

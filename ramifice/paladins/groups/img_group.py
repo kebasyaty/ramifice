@@ -8,6 +8,7 @@ from typing import Any
 from PIL import Image
 
 from ...tools import to_human_size
+from ...translations import gettext
 
 
 class ImgGroupMixin:
@@ -31,7 +32,7 @@ class ImgGroupMixin:
                 # ( the default value is used whenever possible )
                 if value is None:
                     if field.required:
-                        err_msg = "Required field !"
+                        err_msg = gettext("Required field !")
                         self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                     if params["is_save"]:
                         params["result_map"][field.name] = None
@@ -52,12 +53,14 @@ class ImgGroupMixin:
                         if params["is_save"]:
                             params["result_map"][field.name] = None
                     else:
-                        err_msg = "Required field !"
+                        err_msg = gettext("Required field !")
                         self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
-                err_msg = f"Image size exceeds the maximum value {to_human_size(field.max_size)} !"
+                err_msg = gettext(
+                    "Image size exceeds the maximum value {max_size} !"
+                ).format(max_size=to_human_size(field.max_size))
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                 return
             # Return if there is no need to save.
