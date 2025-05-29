@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 12:53+0300\n"
+"POT-Creation-Date: 2025-05-29 13:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
+#: ramifice/model.py:20
+msgid "Created at"
+msgstr ""
+
+#: ramifice/model.py:21
+msgid "When the document was created."
+msgstr ""
+
+#: ramifice/model.py:26
+msgid "Updated at"
+msgstr ""
+
+#: ramifice/model.py:27
+msgid "When the document was updated."
+msgstr ""
+
 #: ramifice/fields/id_field.py:26
 msgid "Document ID"
+msgstr ""
+
+#: ramifice/fields/id_field.py:30 ramifice/fields/id_field.py:32
+msgid "Enter document ID"
 msgstr ""
 
 #: ramifice/fields/image_field.py:34
 #, python-brace-format
 msgid "Only files allowed: {types}"
+msgstr ""
+
+#: ramifice/paladins/groups/choice_group.py:30
+msgid "Required field !"
+msgstr ""
+
+#: ramifice/paladins/groups/choice_group.py:37
+msgid "Your choice does not match the options offered !"
 msgstr ""
 
