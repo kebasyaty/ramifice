@@ -75,7 +75,7 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
-        self.assertIsNone(f.warning)
+        self.assertEqual(f.warning, ["Only files allowed: jpeg, jpg, png, webp"])
         self.assertEqual(f.errors, [])
         self.assertEqual(f.group, "img")
         self.assertEqual(f.input_type, "file")

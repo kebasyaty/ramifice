@@ -13,7 +13,7 @@ class TestHashField(unittest.TestCase):
         # Parameters by default:
         f = IDField()
         self.assertEqual(f.id, "")
-        self.assertEqual(f.label, "")
+        self.assertEqual(f.label, "Document ID")
         self.assertEqual(f.name, "")
         self.assertEqual(f.field_type, "IDField")
         self.assertFalse(f.disabled)
@@ -25,7 +25,7 @@ class TestHashField(unittest.TestCase):
         self.assertEqual(f.group, "id")
         self.assertEqual(f.input_type, "text")
         self.assertIsNone(f.value)
-        self.assertEqual(f.placeholder, "")
+        self.assertEqual(f.placeholder, "Enter document ID")
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
