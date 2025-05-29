@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 14:37+0300\n"
+"POT-Creation-Date: 2025-05-29 17:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,22 @@ msgstr ""
 msgid "When the document was updated."
 msgstr ""
 
+#: ramifice/fields/color_field.py:21
+msgid "Color"
+msgstr ""
+
+#: ramifice/fields/color_field.py:25 ramifice/fields/color_field.py:28
+msgid "Enter color code"
+msgstr ""
+
+#: ramifice/fields/email_field.py:18
+msgid "Email address"
+msgstr ""
+
+#: ramifice/fields/email_field.py:22 ramifice/fields/email_field.py:25
+msgid "Enter email address"
+msgstr ""
+
 #: ramifice/fields/id_field.py:26
 msgid "Document ID"
 msgstr ""
@@ -44,6 +60,46 @@ msgstr ""
 #: ramifice/fields/image_field.py:34
 #, python-brace-format
 msgid "Only files allowed: {types}"
+msgstr ""
+
+#: ramifice/fields/ip_field.py:18
+msgid "IP address"
+msgstr ""
+
+#: ramifice/fields/ip_field.py:22 ramifice/fields/ip_field.py:25
+msgid "Enter IP address"
+msgstr ""
+
+#: ramifice/fields/password_field.py:22
+msgid "Password"
+msgstr ""
+
+#: ramifice/fields/password_field.py:25 ramifice/fields/password_field.py:27
+msgid "Enter password"
+msgstr ""
+
+#: ramifice/fields/phone_field.py:20
+msgid "Phone number"
+msgstr ""
+
+#: ramifice/fields/phone_field.py:24 ramifice/fields/phone_field.py:27
+msgid "Enter phone number"
+msgstr ""
+
+#: ramifice/fields/slug_field.py:18
+msgid "Slug"
+msgstr ""
+
+#: ramifice/fields/slug_field.py:22 ramifice/fields/slug_field.py:24
+msgid "It is added automatically"
+msgstr ""
+
+#: ramifice/fields/url_field.py:32
+msgid "URL address"
+msgstr ""
+
+#: ramifice/fields/url_field.py:36 ramifice/fields/url_field.py:39
+msgid "Enter URL address"
 msgstr ""
 
 #: ramifice/paladins/groups/choice_group.py:30

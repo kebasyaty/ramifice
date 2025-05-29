@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from ..store import REGEX
+from ..translations import gettext
 from .general.field import Field
 
 
@@ -18,12 +19,12 @@ class PasswordField(Field):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Password"),
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter password"),
         warning: list[str] | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter password"),
         required: bool = False,
     ):
         Field.__init__(

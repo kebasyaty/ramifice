@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 14:37+0300\n"
+"POT-Creation-Date: 2025-05-29 17:14+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -35,6 +35,22 @@ msgstr "Обновлен"
 msgid "When the document was updated."
 msgstr "Когда был обновлен документ."
 
+#: ramifice/fields/color_field.py:21
+msgid "Color"
+msgstr "Цвет"
+
+#: ramifice/fields/color_field.py:25 ramifice/fields/color_field.py:28
+msgid "Enter color code"
+msgstr "Введите код цвета"
+
+#: ramifice/fields/email_field.py:18
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+#: ramifice/fields/email_field.py:22 ramifice/fields/email_field.py:25
+msgid "Enter email address"
+msgstr "Введите адрес электронной почты"
+
 #: ramifice/fields/id_field.py:26
 msgid "Document ID"
 msgstr "Идентификатор документа"
@@ -47,6 +63,46 @@ msgstr "Введите идентификатор документа"
 #, python-brace-format
 msgid "Only files allowed: {types}"
 msgstr "Разрешены только файлы: {types}"
+
+#: ramifice/fields/ip_field.py:18
+msgid "IP address"
+msgstr "IP адрес"
+
+#: ramifice/fields/ip_field.py:22 ramifice/fields/ip_field.py:25
+msgid "Enter IP address"
+msgstr "Введите IP адрес"
+
+#: ramifice/fields/password_field.py:22
+msgid "Password"
+msgstr "Пароль"
+
+#: ramifice/fields/password_field.py:25 ramifice/fields/password_field.py:27
+msgid "Enter password"
+msgstr "Введите пароль"
+
+#: ramifice/fields/phone_field.py:20
+msgid "Phone number"
+msgstr "Номер телефона"
+
+#: ramifice/fields/phone_field.py:24 ramifice/fields/phone_field.py:27
+msgid "Enter phone number"
+msgstr "Введите номер телефона"
+
+#: ramifice/fields/slug_field.py:18
+msgid "Slug"
+msgstr "Слаг"
+
+#: ramifice/fields/slug_field.py:22 ramifice/fields/slug_field.py:24
+msgid "It is added automatically"
+msgstr "Он добавляется автоматически"
+
+#: ramifice/fields/url_field.py:32
+msgid "URL address"
+msgstr "URL адрес"
+
+#: ramifice/fields/url_field.py:36 ramifice/fields/url_field.py:39
+msgid "Enter URL address"
+msgstr "Введите URL адрес"
 
 #: ramifice/paladins/groups/choice_group.py:30
 #: ramifice/paladins/groups/date_group.py:26
@@ -131,7 +187,7 @@ msgstr "Неверный адрес электронной почты !"
 msgid "Invalid URL address !"
 msgstr "Неверный URL адрес"
 
-#: ramifice/paladins/groups/text_group.py:6
+#: ramifice/paladins/groups/text_group.py:61
 msgid "Invalid IP address !"
 msgstr "Неверный IP адрес !"
 

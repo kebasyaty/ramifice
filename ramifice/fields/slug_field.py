@@ -1,6 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
 from ..mixins import JsonMixin
+from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -14,13 +15,13 @@ class SlugField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Slug"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("It is added automatically"),
         warning: list[str] | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("It is added automatically"),
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):

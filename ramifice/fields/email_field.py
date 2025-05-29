@@ -4,6 +4,7 @@ from email_validator import EmailNotValidError, validate_email
 
 from ..mixins import JsonMixin
 from ..store import DEBUG
+from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -14,14 +15,14 @@ class EmailField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Email address"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter email address"),
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter email address"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,

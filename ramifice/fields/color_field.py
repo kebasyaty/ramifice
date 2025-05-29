@@ -2,6 +2,7 @@
 
 from ..mixins import JsonMixin
 from ..store import DEBUG, REGEX
+from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -17,14 +18,14 @@ class ColorField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Color"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter color code"),
         warning: list[str] | None = None,
         default: str | None = "#000000",
-        placeholder: str = "",
+        placeholder: str = gettext("Enter color code"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
