@@ -252,7 +252,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         choices = data_dynamic_fields["choice_txt_mult_dyn"]  # type: ignore[annotation-unchecked]
         self.assertIsNone(choices)
         #
-        await user.refrash_model()
+        await user.refrash_from_db()
         self.assertIsNone(user.choice_float_dyn.choices)
         self.assertIsNone(user.choice_float_mult_dyn.choices)
         self.assertIsNone(user.choice_int_dyn.choices)

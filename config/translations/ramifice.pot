@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 14:31+0300\n"
+"POT-Creation-Date: 2025-05-29 14:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,6 +55,7 @@ msgstr ""
 #: ramifice/paladins/groups/img_group.py:56
 #: ramifice/paladins/groups/num_group.py:26
 #: ramifice/paladins/groups/pass_group.py:28
+#: ramifice/paladins/groups/text_group.py:28
 msgid "Required field !"
 msgstr ""
 
@@ -97,6 +98,7 @@ msgid "The value {num} must not be less than min={min_num} !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:47
+#: ramifice/paladins/groups/text_group.py:42
 msgid "Is not unique !"
 msgstr ""
 
@@ -112,5 +114,30 @@ msgstr ""
 #: ramifice/paladins/groups/pass_group.py:42
 #, python-brace-format
 msgid "Number of characters: from {min_num} to {max_num}"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:37
+#, python-brace-format
+msgid "The length of the string exceeds maxlength={maxlength} !"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:55
+msgid "Invalid Email address !"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:58
+msgid "Invalid URL address !"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:61
+msgid "Invalid IP address !"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:64
+msgid "Invalid Color code !"
+msgstr ""
+
+#: ramifice/paladins/groups/text_group.py:67
+msgid "Invalid Phone number !"
 msgstr ""
 
