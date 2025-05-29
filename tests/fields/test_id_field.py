@@ -26,6 +26,7 @@ class TestHashField(unittest.TestCase):
         self.assertEqual(f.input_type, "text")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "Enter document ID")
+        self.assertEqual(f.hint, "Enter document ID")
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
