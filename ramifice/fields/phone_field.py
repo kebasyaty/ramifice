@@ -4,6 +4,7 @@ import phonenumbers
 
 from ..mixins import JsonMixin
 from ..store import DEBUG
+from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -16,14 +17,14 @@ class PhoneField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Phone number"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter phone number"),
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter phone number"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,

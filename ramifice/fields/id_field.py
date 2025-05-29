@@ -5,6 +5,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
+from ..translations import gettext
 from .general.field import Field
 
 
@@ -22,13 +23,13 @@ class IDField(Field):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Document ID"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter document ID"),
         warning: list[str] | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter document ID"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,

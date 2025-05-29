@@ -6,6 +6,8 @@ from typing import Any
 
 from argon2 import PasswordHasher
 
+from ...translations import gettext
+
 
 class PassGroupMixin:
     """Group for checking password fields.
@@ -23,14 +25,22 @@ class PassGroupMixin:
         value = field.value or None
         if value is None:
             if field.required:
-                err_msg = "Required field !"
+                err_msg = gettext("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Validation Passwor.
         if not field.is_valid(value):
-            err_msg = "Invalid Passwor !"
+            err_msg = gettext("Invalid Password !")
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            err_msg = gettext("Valid characters: {chars}").format(
+                char="a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
+            )
+            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            err_msg = gettext(
+                "Number of characters: from {min_num} to {max_num}"
+            ).format(min_num=8, max_num=256)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:

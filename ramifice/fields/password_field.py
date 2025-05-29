@@ -4,26 +4,27 @@ import json
 from typing import Any
 
 from ..store import REGEX
+from ..translations import gettext
 from .general.field import Field
 
 
 class PasswordField(Field):
     """Field of Model for enter password.
     WARNING:
-    Default regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-    Valid characters by default: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-    Number of characters by default: from 8 to 256.
+    Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+    Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+    Number of characters: from 8 to 256.
     """
 
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("Password"),
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter password"),
         warning: list[str] | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter password"),
         required: bool = False,
     ):
         Field.__init__(

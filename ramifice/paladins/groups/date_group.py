@@ -5,6 +5,10 @@ DateTimeField | DateField
 
 from typing import Any
 
+from babel.dates import format_date, format_datetime
+
+from ...translations import CURRENT_LOCALE, gettext
+
 
 class DateGroupMixin:
     """Group for checking date fields.
@@ -19,7 +23,7 @@ class DateGroupMixin:
         value = field.value or field.default or None
         if value is None:
             if field.required:
-                err_msg = "Required field !"
+                err_msg = gettext("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -29,21 +33,25 @@ class DateGroupMixin:
         max_date = field.max_date
         if max_date is not None and value > max_date:
             date_str = (
-                str(max_date)[:11]
+                format_date(max_date, format="short", locale=CURRENT_LOCALE)
                 if field.field_type == "DateField"
-                else str(max_date)[:20]
+                else format_datetime(max_date, format="short", locale=CURRENT_LOCALE)
             )
-            err_msg = f"The date {value} must not be greater than max={date_str} !"
+            err_msg = gettext(
+                "The date {date} must not be greater than max={max_date} !"
+            ).format(date=value, max_date=date_str)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_date` field attribute.
         min_date = field.min_date
         if min_date is not None and value < min_date:
             date_str = (
-                str(max_date)[:11]
+                format_date(min_date, format="short", locale=CURRENT_LOCALE)
                 if field.field_type == "DateField"
-                else str(max_date)[:20]
+                else format_datetime(min_date, format="short", locale=CURRENT_LOCALE)
             )
-            err_msg = f"The date {value} must not be less than min={date_str} !"
+            err_msg = gettext(
+                "The date {date} must not be less than min={min_date} !"
+            ).format(date=value, min_date=date_str)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:

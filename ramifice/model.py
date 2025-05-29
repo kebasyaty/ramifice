@@ -10,22 +10,21 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from .fields import DateTimeField, IDField
-from .translations import CURRENT_LOCALE
+from .translations import CURRENT_LOCALE, gettext
 
 _ID = IDField(
-    label="Document ID",
     hide=True,
     disabled=True,
 )
 CREATED_AT = DateTimeField(
-    label="Created at",
-    warning=["When the document was created."],
+    label=gettext("Created at"),
+    warning=[gettext("When the document was created.")],
     hide=True,
     disabled=True,
 )
 UPDATED_AT = DateTimeField(
-    label="Updated at",
-    warning=["When the document was updated."],
+    label=gettext("Updated at"),
+    warning=[gettext("When the document was updated.")],
     hide=True,
     disabled=True,
 )

@@ -2,12 +2,19 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Babel: Update Translations",
+      "label": "Babel: Run Update Translations",
       "type": "shell",
       "command": [
         "poetry run pybabel extract -o config/translations/ramifice.pot ramifice;",
-        "poetry run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice;",
-        "poetry run pybabel compile -d config/translations/ramifice"
+        "poetry run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice;"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Babel: Run Compile Translations",
+      "type": "shell",
+      "command": [
+        "poetry run pybabel compile -d config/translations/ramifice;"
       ],
       "problemMatcher": []
     },

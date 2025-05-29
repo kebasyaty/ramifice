@@ -8,6 +8,8 @@ ChoiceTextMultField | ChoiceTextMultDynField | ChoiceTextField
 
 from typing import Any
 
+from ...translations import gettext
+
 
 class ChoiceGroupMixin:
     """Group for checking choice fields.
@@ -25,14 +27,14 @@ class ChoiceGroupMixin:
         value = field.value or field.__dict__.get("default") or None
         if value is None:
             if field.required:
-                err_msg = "Required field !"
+                err_msg = gettext("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Does the field value match the possible options in choices.
         if not field.has_value():
-            err_msg = "Your choice does not match the options offered !"
+            err_msg = gettext("Your choice does not match the options offered !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:

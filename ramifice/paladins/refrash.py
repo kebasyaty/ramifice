@@ -11,7 +11,7 @@ from ..errors import PanicError
 class RefrashMixin:
     """Update Model instance from database."""
 
-    async def refrash_model(self) -> None:
+    async def refrash_from_db(self) -> None:
         """Update Model instance from database."""
         cls_model = self.__class__
         # Get collection.
@@ -20,7 +20,7 @@ class RefrashMixin:
         if mongo_doc is None:
             msg = (
                 f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
-                + "Method: `refrash_model` => "
+                + "Method: `refrash_from_db` => "
                 + f"A document with an identifier `{self._id.value}` is not exists in the database!"  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)

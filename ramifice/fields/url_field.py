@@ -1,15 +1,16 @@
-"""Field of Model for enter URL addresses."""
+"""Field of Model for enter URL address."""
 
 from urllib.parse import urlparse
 
 from ..mixins import JsonMixin
 from ..store import DEBUG
+from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
 
 class URLField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter URL addresses.
+    """Field of Model for enter URL address.
 
     Attributes:
     label -- Text label for a web form field.
@@ -28,14 +29,14 @@ class URLField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = "",
+        label: str = gettext("URL address"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = "",
+        hint: str = gettext("Enter URL address"),
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = "",
+        placeholder: str = gettext("Enter URL address"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
