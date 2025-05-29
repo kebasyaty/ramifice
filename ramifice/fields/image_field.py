@@ -11,6 +11,7 @@ from typing import Any
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
+from ..translations import gettext
 from ..types import IMAGE_DATA_TYPE
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -29,7 +30,9 @@ class ImageField(Field, FileGroup, JsonMixin):
         hide: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
+        warning: list[str] | None = [
+            gettext("Only files allowed: {types}").format(types="jpeg, jpg, png, webp")
+        ],
         required: bool = False,
         max_size: int = 2097152,  # 2 MB
         default: str | None = None,
