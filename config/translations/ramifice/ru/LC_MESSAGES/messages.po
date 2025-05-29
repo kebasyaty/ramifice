@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 13:43+0300\n"
+"POT-Creation-Date: 2025-05-29 13:49+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -52,6 +52,7 @@ msgstr "Разрешены только файлы: {types}"
 #: ramifice/paladins/groups/date_group.py:26
 #: ramifice/paladins/groups/file_group.py:33
 #: ramifice/paladins/groups/file_group.py:54
+#: ramifice/paladins/groups/id_group.py:24
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
@@ -73,4 +74,8 @@ msgstr "Дата {date} не должна быть меньше min={min_date} !
 #, python-brace-format
 msgid "File size exceeds the maximum value {max_size} !"
 msgstr "Размер файла превышает максимальное значение {max_size} !"
+
+#: ramifice/paladins/groups/id_group.py:31
+msgid "Invalid document ID !"
+msgstr "Некорректный идентификатор документа !"
 
