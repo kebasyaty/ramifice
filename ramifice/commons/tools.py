@@ -21,8 +21,14 @@ class ToolMixin:
         return obj
 
     @classmethod
-    def mongo_doc_to_model_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
-        """Convert the Mongo document to the Model document."""
+    def mongo_doc_to_raw_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
+        """Convert the Mongo document to the raw document.
+        Special changes:
+        _id to str
+        password to None
+        date to str
+        datetime to str
+        """
         doc: dict[str, Any] = {}
         for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
             value = mongo_doc[f_name]
@@ -36,7 +42,7 @@ class ToolMixin:
                         value = format_date(
                             value, format="short", locale=CURRENT_LOCALE
                         )
-                elif "Hash" in t_name:
+                elif "ID" in t_name:
                     value = str(value)
                 elif "Pass" in t_name:
                     value = None

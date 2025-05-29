@@ -19,7 +19,7 @@ from .date_time_field import DateTimeField
 from .email_field import EmailField
 from .file_field import FileField
 from .float_field import FloatField
-from .hash_field import HashField
+from .id_field import IDField
 from .image_field import ImageField
 from .integer_field import IntegerField
 from .ip_field import IPField

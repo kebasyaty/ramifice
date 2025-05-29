@@ -39,8 +39,8 @@ class DeleteMixin:
         if doc_id is None:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
-                + "Field: `hash` > "
-                + "Param: `value` => Hash is missing."
+                + "Field: `_id` > "
+                + "Param: `value` => ID is missing."
             )
             raise PanicError(msg)
         # Run hook.

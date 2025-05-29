@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 from .general.field import Field
 
 
-class HashField(Field):
+class IDField(Field):
     """Field of Model for enter identifier of document.
 
     Attributes:
@@ -41,8 +41,8 @@ class HashField(Field):
             ignored=ignored,
             hint=hint,
             warning=warning,
-            field_type="HashField",
-            group="hash",
+            field_type="IDField",
+            group="id",
         )
 
         self.input_type = "text"

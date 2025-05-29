@@ -1,5 +1,5 @@
-"""Group for checking hash fields.
-Supported fields: HashField
+"""Group for checking id fields.
+Supported fields: IDField
 """
 
 from typing import Any
@@ -7,13 +7,13 @@ from typing import Any
 from bson.objectid import ObjectId
 
 
-class HashGroupMixin:
-    """Group for checking hash fields.
-    Supported fields: HashField
+class IDGroupMixin:
+    """Group for checking id fields.
+    Supported fields: IDField
     """
 
-    def hash_group(self, params: dict[str, Any]) -> None:
-        """Checking hash fields."""
+    def id_group(self, params: dict[str, Any]) -> None:
+        """Checking id fields."""
         field = params["field_data"]
         # Get current value.
         value = field.value or None

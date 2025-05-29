@@ -9,10 +9,10 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from .fields import DateTimeField, HashField
+from .fields import DateTimeField, IDField
 from .translations import CURRENT_LOCALE
 
-_ID = HashField(
+_ID = IDField(
     label="Document ID",
     hide=True,
     disabled=True,
@@ -117,7 +117,7 @@ class Model(metaclass=ABCMeta):
                             value, format="short", locale=CURRENT_LOCALE
                         )
                     )
-                elif group == "hash":
+                elif group == "id":
                     value = str(value)
                 elif group == "pass":
                     value = None
@@ -140,7 +140,7 @@ class Model(metaclass=ABCMeta):
                 group = data.group
                 if group == "date":
                     value = parse(value)
-                elif group == "hash":
+                elif group == "id":
                     value = ObjectId(value)
             obj.__dict__[name].value = value
         return obj
@@ -161,6 +161,6 @@ class Model(metaclass=ABCMeta):
                 group = data.group
                 if group == "date":
                     value = parse(value)
-                elif group == "hash":
+                elif group == "id":
                     value = ObjectId(value)
             self.__dict__[name].value = value
