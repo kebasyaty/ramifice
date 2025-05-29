@@ -14,7 +14,7 @@ from .groups import (
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    HashGroupMixin,
+    IDGroupMixin,
     ImgGroupMixin,
     NumGroupMixin,
     PassGroupMixin,
@@ -28,7 +28,7 @@ class CheckMixin(
     ChoiceGroupMixin,
     DateGroupMixin,
     FileGroupMixin,
-    HashGroupMixin,
+    IDGroupMixin,
     ImgGroupMixin,
     NumGroupMixin,
     PassGroupMixin,
@@ -105,8 +105,8 @@ class CheckMixin(
                     self.choice_group(params)
                 elif group == "bool":
                     self.bool_group(params)
-                elif group == "hash":
-                    self.hash_group(params)
+                elif group == "id":
+                    self.id_group(params)
                 elif group == "slug":
                     self.slug_group(params)
                 elif group == "pass":

@@ -22,7 +22,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         warning: list[str] | None = None,
         placeholder: str = "",
         readonly: bool = False,
-        slug_sources: list[str] = ["hash"],
+        slug_sources: list[str] = ["_id"],
     ):
         Field.__init__(
             self,

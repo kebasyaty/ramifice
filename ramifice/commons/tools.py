@@ -42,7 +42,7 @@ class ToolMixin:
                         value = format_date(
                             value, format="short", locale=CURRENT_LOCALE
                         )
-                elif "Hash" in t_name:
+                elif "ID" in t_name:
                     value = str(value)
                 elif "Pass" in t_name:
                     value = None

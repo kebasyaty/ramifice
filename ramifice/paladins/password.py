@@ -25,7 +25,7 @@ class PasswordMixin:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
                 + "Method: `verify_password` => "
-                + "Cannot get document ID - Hash field is empty."
+                + "Cannot get document ID - ID field is empty."
             )
             raise PanicError(msg)
         # Get collection for current Model.
@@ -36,7 +36,7 @@ class PasswordMixin:
             msg = (
                 f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
                 + "Method: `verify_password` => "
-                + f"There is no document with ID `{self.hash.value}` in the database."  # type: ignore[index, attr-defined]
+                + f"There is no document with ID `{self._id.value}` in the database."  # type: ignore[index, attr-defined]
             )
             raise PanicError(msg)
         # Get password hash.

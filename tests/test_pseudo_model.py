@@ -52,7 +52,7 @@ class TestPseudoModel(unittest.TestCase):
                 "username": {"id": "User--username", "name": "username"},
             },
             "field_name_and_type": {
-                "_id": "HashField",
+                "_id": "IDField",
                 "created_at": "DateTimeField",
                 "favorite_color": "ChoiceTextDynField",
                 "updated_at": "DateTimeField",
@@ -80,7 +80,7 @@ class TestPseudoModel(unittest.TestCase):
                 "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },
             "field_name_and_type": {
-                "_id": "HashField",
+                "_id": "IDField",
                 "created_at": "DateTimeField",
                 "profession": "TextField",
                 "updated_at": "DateTimeField",

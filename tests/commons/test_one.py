@@ -25,7 +25,7 @@ from ramifice.fields import (
     EmailField,
     FileField,
     FloatField,
-    HashField,
+    IDField,
     ImageField,
     IntegerField,
     IPField,
@@ -52,7 +52,7 @@ class User:
         self.num_int = IntegerField()
         self.num_float = FloatField()
         self.img = ImageField()
-        self.hash2 = HashField()
+        self.hash2 = IDField()
         self.file = FileField()
         self.email = EmailField()
         self.date_time = DateTimeField()

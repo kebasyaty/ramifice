@@ -1,28 +1,28 @@
-"""Testing hash field."""
+"""Testing ID field."""
 
 import unittest
 
-from ramifice.fields import HashField
+from ramifice.fields import IDField
 
 
 class TestHashField(unittest.TestCase):
-    """Testing hash field."""
+    """Testing ID field."""
 
-    def test_hash_field(self):
-        """Testing `HashField`."""
+    def test_id_field(self):
+        """Testing `IDField`."""
         # Parameters by default:
-        f = HashField()
+        f = IDField()
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, "HashField")
+        self.assertEqual(f.field_type, "IDField")
         self.assertFalse(f.disabled)
         self.assertFalse(f.hide)
         self.assertFalse(f.ignored)
         self.assertIsNone(f.warning)
         self.assertEqual(f.errors, [])
         self.assertEqual(f.alerts, [])
-        self.assertEqual(f.group, "hash")
+        self.assertEqual(f.group, "id")
         self.assertEqual(f.input_type, "text")
         self.assertIsNone(f.value)
         self.assertEqual(f.placeholder, "")

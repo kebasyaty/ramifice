@@ -25,10 +25,10 @@ class SaveMixin:
         self._id.alerts = []  # type: ignore[index, attr-defined]
         # Check the conditions and, if necessary, define a message for the web form.
         if not result_check["is_update"] and not cls_model.META["is_create_doc"]:  # type: ignore[index, attr-defined]
-            self.hash.alerts.append("It is forbidden to create new documents !")  # type: ignore[index, attr-defined]
+            self._id.alerts.append("It is forbidden to create new documents !")  # type: ignore[index, attr-defined]
             result_check["is_valid"] = False
         if result_check["is_update"] and not cls_model.META["is_update_doc"]:  # type: ignore[index, attr-defined]
-            self.hash.alerts.append("It is forbidden to update documents !")  # type: ignore[index, attr-defined]
+            self._id.alerts.append("It is forbidden to update documents !")  # type: ignore[index, attr-defined]
             result_check["is_valid"] = False
         # Leave the method if the check fails.
         if not result_check["is_valid"]:
