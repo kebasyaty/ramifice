@@ -142,12 +142,3 @@ msgstr ""
 msgid "Invalid Phone number !"
 msgstr ""
 
-#~ msgid "Invalid Passwor !"
-#~ msgstr ""
-
-#~ msgid "The value {number} must not be greater than max={max_number} !"
-#~ msgstr ""
-
-#~ msgid "The value {number} must not be less than min={min_number} !"
-#~ msgstr ""
-
