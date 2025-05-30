@@ -40,7 +40,7 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 <p>
   <a href="https://github.com/kebasyaty/ramifice" alt="Status Project">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/status_project/Status_Project-Development-.svg"
+    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/status_project/Status_Project-Alpha-.svg"
       alt="Status Project">
   </a>
 </p>
