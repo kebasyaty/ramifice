@@ -6,7 +6,7 @@ from typing import Any
 
 from argon2 import PasswordHasher
 
-from ...translations import gettext
+from ... import translations
 
 
 class PassGroupMixin:
@@ -17,6 +17,7 @@ class PassGroupMixin:
     def pass_group(self, params: dict[str, Any]) -> None:
         """Checking password fields."""
         field = params["field_data"]
+        gettext = translations.gettext
         # When updating the document, skip the verification.
         if params["is_update"]:
             params["field_data"].value = None

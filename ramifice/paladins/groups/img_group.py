@@ -7,8 +7,8 @@ from typing import Any
 
 from PIL import Image
 
+from ... import translations
 from ...tools import to_human_size
-from ...translations import gettext
 
 
 class ImgGroupMixin:
@@ -20,6 +20,7 @@ class ImgGroupMixin:
         """Checking image fields."""
         field = params["field_data"]
         value = field.value or None
+        gettext = translations.gettext
         #
         if not params["is_update"]:
             if value is None:

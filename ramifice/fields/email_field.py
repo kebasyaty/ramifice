@@ -2,9 +2,9 @@
 
 from email_validator import EmailNotValidError, validate_email
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -15,14 +15,14 @@ class EmailField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = gettext("Email address"),
+        label: str = translations.gettext("Email address"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = gettext("Enter email address"),
+        hint: str = translations.gettext("Enter email address"),
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = gettext("Enter email address"),
+        placeholder: str = translations.gettext("Enter email address"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -41,6 +41,15 @@ class EmailField(Field, TextGroup, JsonMixin):
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         "Parameter `default` - Invalid Email address!"
                     )  # pylint: disable=raise-missing-from
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

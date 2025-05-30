@@ -1,5 +1,6 @@
 """Field of Model for enter boolean value."""
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.field import Field
@@ -22,6 +23,13 @@ class BooleanField(Field, JsonMixin):
         if DEBUG:
             if default is not None and not isinstance(default, bool):
                 raise AssertionError("Parameter `default` - Not а `bool` type!")
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

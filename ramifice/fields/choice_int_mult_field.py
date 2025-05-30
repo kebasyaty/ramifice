@@ -2,6 +2,7 @@
 Type of selective integer field with static of elements.
 """
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.choice_group import ChoiceGroup
@@ -29,6 +30,14 @@ class ChoiceIntMultField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: dict[str, int] | None = None,
     ):
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
+
         Field.__init__(
             self,
             label=label,

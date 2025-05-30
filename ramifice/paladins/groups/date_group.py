@@ -7,7 +7,7 @@ from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ...translations import CURRENT_LOCALE, gettext
+from ... import translations
 
 
 class DateGroupMixin:
@@ -19,6 +19,8 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         field = params["field_data"]
+        gettext = translations.gettext
+        current_locale = translations.CURRENT_LOCALE
         # Get current value.
         value = field.value or field.default or None
         if value is None:
@@ -33,9 +35,9 @@ class DateGroupMixin:
         max_date = field.max_date
         if max_date is not None and value > max_date:
             date_str = (
-                format_date(max_date, format="short", locale=CURRENT_LOCALE)
+                format_date(max_date, format="short", locale=current_locale)
                 if field.field_type == "DateField"
-                else format_datetime(max_date, format="short", locale=CURRENT_LOCALE)
+                else format_datetime(max_date, format="short", locale=current_locale)
             )
             err_msg = gettext(
                 "The date {date} must not be greater than max={max_date} !"
@@ -45,9 +47,9 @@ class DateGroupMixin:
         min_date = field.min_date
         if min_date is not None and value < min_date:
             date_str = (
-                format_date(min_date, format="short", locale=CURRENT_LOCALE)
+                format_date(min_date, format="short", locale=current_locale)
                 if field.field_type == "DateField"
-                else format_datetime(min_date, format="short", locale=CURRENT_LOCALE)
+                else format_datetime(min_date, format="short", locale=current_locale)
             )
             err_msg = gettext(
                 "The date {date} must not be less than min={min_date} !"

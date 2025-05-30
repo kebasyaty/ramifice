@@ -5,7 +5,7 @@ IntegerField | FloatField
 
 from typing import Any
 
-from ...translations import gettext
+from ... import translations
 
 
 class NumGroupMixin:
@@ -17,6 +17,7 @@ class NumGroupMixin:
     async def num_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         field = params["field_data"]
+        gettext = translations.gettext
         # Get current value.
         value = field.value
         if value is None:
