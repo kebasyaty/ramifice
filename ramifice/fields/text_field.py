@@ -1,6 +1,5 @@
 """Field of Model for enter text."""
 
-from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.field import Field
@@ -42,15 +41,6 @@ class TextField(Field, TextGroup, JsonMixin):
                     raise AssertionError(
                         "Parameter `default` exceeds the size of `maxlength`!"
                     )
-
-        if len(label) > 0:
-            label = translations.gettext(label)
-        if len(hint) > 0:
-            hint = translations.gettext(hint)
-        if len(placeholder) > 0:
-            placeholder = translations.gettext(placeholder)
-        if bool(warning):
-            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

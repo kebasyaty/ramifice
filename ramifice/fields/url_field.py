@@ -2,7 +2,6 @@
 
 from urllib.parse import urlparse
 
-from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.field import Field
@@ -29,14 +28,14 @@ class URLField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = translations.gettext("URL address"),
+        label: str = "",
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = translations.gettext("Enter URL address"),
+        hint: str = "",
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = translations.gettext("Enter URL address"),
+        placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -52,15 +51,6 @@ class URLField(Field, TextGroup, JsonMixin):
                 result = urlparse(default)
                 if not result.scheme or not result.netloc:
                     raise AssertionError("Parameter `default` - Invalid URL address!")
-
-        if len(label) > 0:
-            label = translations.gettext(label)
-        if len(hint) > 0:
-            hint = translations.gettext(hint)
-        if len(placeholder) > 0:
-            placeholder = translations.gettext(placeholder)
-        if bool(warning):
-            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,
