@@ -11,9 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        self.email = EmailField(
-            label=translations.gettext("Email address"),
-        )
+        self.email = EmailField()
 
 
 class TestTranslations(unittest.TestCase):
