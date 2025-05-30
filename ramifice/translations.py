@@ -2,7 +2,7 @@
 
 import gettext
 
-CURRENT_LOCALE: str = "en"
+CURRENT_LOCALE: str = "ru"
 DEFAULT_LOCALE: str = "en"
 LANGUAGES: list[str] = ["en", "ru"]
 

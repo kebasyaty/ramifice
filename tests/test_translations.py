@@ -8,8 +8,8 @@ from ramifice.fields import EmailField
 class TestTranslations(unittest.TestCase):
     """Testing  ramifice > translations."""
 
-    def test_add_current_locale(self):
-        """Testing `add_current_locale` method."""
+    def test_change_locale(self):
+        """Testing `change_locale` method."""
         f = EmailField()
         self.assertEqual(f.label, "Email address")
         self.assertEqual(f.placeholder, "Enter email address")
