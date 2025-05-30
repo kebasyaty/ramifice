@@ -7,7 +7,7 @@ from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ...translations import CURRENT_LOCALE, gettext
+from ... import translations
 
 
 class DateGroupMixin:
@@ -19,6 +19,8 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         field = params["field_data"]
+        gettext = translations.gettext
+        CURRENT_LOCALE = translations.CURRENT_LOCALE
         # Get current value.
         value = field.value or field.default or None
         if value is None:

@@ -8,7 +8,7 @@ ChoiceTextMultField | ChoiceTextMultDynField | ChoiceTextField
 
 from typing import Any
 
-from ...translations import gettext
+from ... import translations
 
 
 class ChoiceGroupMixin:
@@ -23,6 +23,7 @@ class ChoiceGroupMixin:
     def choice_group(self, params: dict[str, Any]) -> None:
         """Checking choice fields."""
         field = params["field_data"]
+        gettext = translations.gettext
         # Get current value.
         value = field.value or field.__dict__.get("default") or None
         if value is None:

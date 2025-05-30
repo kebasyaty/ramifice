@@ -2,7 +2,7 @@
 
 import gettext
 
-CURRENT_LOCALE: str = "ru"
+CURRENT_LOCALE: str = "en"
 DEFAULT_LOCALE: str = "en"
 LANGUAGES: list[str] = ["en", "ru"]
 
@@ -18,11 +18,11 @@ translations = {
 }
 
 
-def get_translator(lang: str = CURRENT_LOCALE):
-    return translations.get(lang, translations[DEFAULT_LOCALE])
+def get_translator(lang_code: str):
+    return translations.get(lang_code, translations[DEFAULT_LOCALE])
 
 
-gettext = get_translator().gettext
+gettext = get_translator(DEFAULT_LOCALE).gettext
 
 
 def change_locale(lang_code: str):
@@ -30,4 +30,4 @@ def change_locale(lang_code: str):
     global CURRENT_LOCALE, gettext
     if lang_code != CURRENT_LOCALE:
         CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
-        gettext = get_translator().gettext
+        gettext = get_translator(CURRENT_LOCALE).gettext

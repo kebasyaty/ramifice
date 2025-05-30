@@ -6,7 +6,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ...translations import gettext
+from ... import translations
 
 
 class IDGroupMixin:
@@ -17,6 +17,7 @@ class IDGroupMixin:
     def id_group(self, params: dict[str, Any]) -> None:
         """Checking id fields."""
         field = params["field_data"]
+        gettext = translations.gettext
         # Get current value.
         value = field.value or None
         if value is None:

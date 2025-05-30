@@ -2,7 +2,18 @@
 
 import unittest
 
+from ramifice import model, translations
 from ramifice.fields import EmailField
+
+
+@model(service_name="Accounts")
+class User:
+    """Model for testing."""
+
+    def fields(self):
+        self.email = EmailField(
+            label=translations.gettext("Email address"),
+        )
 
 
 class TestTranslations(unittest.TestCase):
@@ -10,10 +21,11 @@ class TestTranslations(unittest.TestCase):
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
-        f = EmailField()
-        self.assertEqual(f.label, "Email address")
-        self.assertEqual(f.placeholder, "Enter email address")
-        self.assertEqual(f.hint, "Enter email address")
+        translations.change_locale("ru")
+        user = User()
+        self.assertEqual(user.email.label, "Адрес электронной почты")
+        self.assertEqual(user.email.placeholder, "Введите адрес электронной почты")
+        self.assertEqual(user.email.hint, "Введите адрес электронной почты")
 
 
 if __name__ == "__main__":

@@ -5,8 +5,8 @@ Supported fields: FileField
 import os
 from typing import Any
 
+from ... import translations
 from ...tools import to_human_size
-from ...translations import gettext
 
 
 class FileGroupMixin:
@@ -18,6 +18,7 @@ class FileGroupMixin:
         """Checking file fields."""
         field = params["field_data"]
         value = field.value or None
+        gettext = translations.gettext
         #
         if not params["is_update"]:
             if value is None:

@@ -8,7 +8,7 @@ from typing import Any
 
 from email_validator import EmailNotValidError, validate_email
 
-from ...translations import gettext
+from ... import translations
 
 
 class TextGroupMixin:
@@ -21,6 +21,7 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         field = params["field_data"]
+        gettext = translations.gettext
         # Get current value.
         value = field.value or field.default or None
         if value is None:
