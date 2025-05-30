@@ -3,6 +3,7 @@
 import os
 from typing import Any
 
+from . import translations
 from .add_valid import AddValidMixin
 from .commons import QCommonsMixin
 from .errors import DoesNotMatchRegexError, PanicError
@@ -96,7 +97,7 @@ def caching(cls, service_name) -> dict[str, Any]:
     count_fields_for_migrating = 0
 
     old_model = cls()
-    old_model.fields()
+    old_model.fields(translations.gettext)
     default_fields: dict[str, Any] = {
         "_id": IDField(),
         "created_at": DateTimeField(),

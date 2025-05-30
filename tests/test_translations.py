@@ -20,10 +20,16 @@ class TestTranslations(unittest.TestCase):
     def test_change_locale(self):
         """Testing `change_locale` method."""
         translations.change_locale("ru")
+
         user = User()
-        self.assertEqual(user.email.label, "Адрес электронной почты")
-        self.assertEqual(user.email.placeholder, "Введите адрес электронной почты")
-        self.assertEqual(user.email.hint, "Введите адрес электронной почты")
+
+        self.assertEqual(user._id.label, "Идентификатор документа")
+        self.assertEqual(user._id.placeholder, "")
+        self.assertEqual(user._id.hint, "")
+
+        self.assertEqual(user.email.label, "")
+        self.assertEqual(user.email.placeholder, "")
+        self.assertEqual(user.email.hint, "")
 
 
 if __name__ == "__main__":
