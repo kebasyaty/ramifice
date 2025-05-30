@@ -42,7 +42,7 @@ from ramifice.migration import Monitor
 class User:
     """Model for testing."""
 
-    def fields(self):
+    def fields(self, gettext):
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()

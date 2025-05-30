@@ -10,7 +10,7 @@ from ramifice.fields import TextField
 class User:
     """Model for testing."""
 
-    def fields(self):
+    def fields(self, gettext):
         self.username = TextField()
 
 
@@ -18,7 +18,7 @@ class User:
 class User2:
     """Model for testing."""
 
-    def fields(self):
+    def fields(self, gettext):
         self.username = TextField()
 
     async def add_validation(self) -> dict[str, str]:
