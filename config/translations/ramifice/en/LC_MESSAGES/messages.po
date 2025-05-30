@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-30 18:37+0300\n"
+"POT-Creation-Date: 2025-05-30 19:38+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,88 +18,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: ramifice/model.py:20
-msgid "Created at"
-msgstr ""
-
-#: ramifice/model.py:21
-msgid "When the document was created."
-msgstr ""
-
-#: ramifice/model.py:26
-msgid "Updated at"
-msgstr ""
-
-#: ramifice/model.py:27
-msgid "When the document was updated."
-msgstr ""
-
-#: ramifice/fields/color_field.py:21
-msgid "Color"
-msgstr ""
-
-#: ramifice/fields/color_field.py:25 ramifice/fields/color_field.py:28
-msgid "Enter color code"
-msgstr ""
-
-#: ramifice/fields/email_field.py:18
-msgid "Email address"
-msgstr ""
-
-#: ramifice/fields/email_field.py:22 ramifice/fields/email_field.py:25
-msgid "Enter email address"
-msgstr ""
-
-#: ramifice/fields/id_field.py:26
+#: ramifice/model.py:24
 msgid "Document ID"
 msgstr ""
 
-#: ramifice/fields/id_field.py:30 ramifice/fields/id_field.py:32
-msgid "Enter document ID"
-msgstr ""
-
-#: ramifice/fields/image_field.py:34
-msgid "Only files allowed: jpeg, jpg, png, webp"
-msgstr ""
-
-#: ramifice/fields/ip_field.py:18
-msgid "IP address"
-msgstr ""
-
-#: ramifice/fields/ip_field.py:22 ramifice/fields/ip_field.py:25
-msgid "Enter IP address"
-msgstr ""
-
-#: ramifice/fields/password_field.py:22
-msgid "Password"
-msgstr ""
-
-#: ramifice/fields/password_field.py:25 ramifice/fields/password_field.py:27
-msgid "Enter password"
-msgstr ""
-
-#: ramifice/fields/phone_field.py:20
-msgid "Phone number"
-msgstr ""
-
-#: ramifice/fields/phone_field.py:24 ramifice/fields/phone_field.py:27
-msgid "Enter phone number"
-msgstr ""
-
-#: ramifice/fields/slug_field.py:18
-msgid "Slug"
-msgstr ""
-
-#: ramifice/fields/slug_field.py:22 ramifice/fields/slug_field.py:24
+#: ramifice/model.py:25 ramifice/model.py:26 ramifice/model.py:32
+#: ramifice/model.py:33 ramifice/model.py:40 ramifice/model.py:41
 msgid "It is added automatically"
 msgstr ""
 
-#: ramifice/fields/url_field.py:32
-msgid "URL address"
+#: ramifice/model.py:31
+msgid "Created at"
 msgstr ""
 
-#: ramifice/fields/url_field.py:36 ramifice/fields/url_field.py:39
-msgid "Enter URL address"
+#: ramifice/model.py:34
+msgid "When the document was created."
+msgstr ""
+
+#: ramifice/model.py:39
+msgid "Updated at"
+msgstr ""
+
+#: ramifice/model.py:42
+msgid "When the document was updated."
 msgstr ""
 
 #: ramifice/paladins/groups/choice_group.py:31
