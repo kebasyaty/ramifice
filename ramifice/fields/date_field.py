@@ -52,15 +52,6 @@ class DateField(Field, DateGroup):
                 if min_date is not None and default < min_date:
                     raise AssertionError("Parameter `default` is less `min_date`!")
 
-        if len(label) > 0:
-            label = translations.gettext(label)
-        if len(hint) > 0:
-            hint = translations.gettext(hint)
-        if len(placeholder) > 0:
-            placeholder = translations.gettext(placeholder)
-        if bool(warning):
-            warning = [translations.gettext(item) for item in warning]
-
         Field.__init__(
             self,
             label=label,

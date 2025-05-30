@@ -9,25 +9,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
+from . import translations
 from .fields import DateTimeField, IDField
-from .translations import CURRENT_LOCALE, gettext
-
-_ID = IDField(
-    hide=True,
-    disabled=True,
-)
-CREATED_AT = DateTimeField(
-    label=gettext("Created at"),
-    warning=[gettext("When the document was created.")],
-    hide=True,
-    disabled=True,
-)
-UPDATED_AT = DateTimeField(
-    label=gettext("Updated at"),
-    warning=[gettext("When the document was updated.")],
-    hide=True,
-    disabled=True,
-)
 
 
 class Model(metaclass=ABCMeta):
@@ -36,14 +19,35 @@ class Model(metaclass=ABCMeta):
     META: dict[str, Any] = {}
 
     def __init__(self):
-        self._id = copy.deepcopy(_ID)
-        self.created_at = copy.deepcopy(CREATED_AT)
-        self.updated_at = copy.deepcopy(UPDATED_AT)
-        self.fields()
+        gettext = translations.get_translator(translations.CURRENT_LOCALE).gettext
+        self._id = IDField(
+            label=gettext("Document ID"),
+            placeholder=gettext("It is added automatically"),
+            hint=gettext("It is added automatically"),
+            hide=True,
+            disabled=True,
+        )
+        self.created_at = DateTimeField(
+            label=gettext("Created at"),
+            placeholder=gettext("It is added automatically"),
+            hint=gettext("It is added automatically"),
+            warning=[gettext("When the document was created.")],
+            hide=True,
+            disabled=True,
+        )
+        self.updated_at = DateTimeField(
+            label=gettext("Updated at"),
+            placeholder=gettext("It is added automatically"),
+            hint=gettext("It is added automatically"),
+            warning=[gettext("When the document was updated.")],
+            hide=True,
+            disabled=True,
+        )
+        self.fields(gettext)
         self.inject()
 
     @abstractmethod
-    def fields(self):
+    def fields(self, gettext):
         pass
 
     def model_name(self) -> str:
@@ -102,6 +106,7 @@ class Model(metaclass=ABCMeta):
     def to_dict_only_value(self) -> dict[str, Any]:
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
+        current_locale = translations.CURRENT_LOCALE
         for name, data in self.__dict__.items():
             if callable(data):
                 continue
@@ -110,10 +115,10 @@ class Model(metaclass=ABCMeta):
                 group = data.group
                 if group == "date":
                     value = (
-                        format_date(value, format="short", locale=CURRENT_LOCALE)
+                        format_date(value, format="short", locale=current_locale)
                         if data.field_type == "DateField"
                         else format_datetime(
-                            value, format="short", locale=CURRENT_LOCALE
+                            value, format="short", locale=current_locale
                         )
                     )
                 elif group == "id":

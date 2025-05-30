@@ -11,7 +11,7 @@ from ramifice.model import Model
 class User:
     """Model for testing."""
 
-    def fields(self):
+    def fields(self, gettext):
         self.username = TextField()
 
 

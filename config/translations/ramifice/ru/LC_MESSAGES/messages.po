@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-30 16:19+0300\n"
+"POT-Creation-Date: 2025-05-30 19:38+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,89 +19,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: ramifice/model.py:20
-msgid "Created at"
-msgstr "Создан"
-
-#: ramifice/model.py:21
-msgid "When the document was created."
-msgstr "Когда был создан документ."
-
-#: ramifice/model.py:26
-msgid "Updated at"
-msgstr "Обновлен"
-
-#: ramifice/model.py:27
-msgid "When the document was updated."
-msgstr "Когда был обновлен документ."
-
-#: ramifice/fields/color_field.py:21
-msgid "Color"
-msgstr "Цвет"
-
-#: ramifice/fields/color_field.py:25 ramifice/fields/color_field.py:28
-msgid "Enter color code"
-msgstr "Введите код цвета"
-
-#: ramifice/fields/email_field.py:18
-msgid "Email address"
-msgstr "Адрес электронной почты"
-
-#: ramifice/fields/email_field.py:22 ramifice/fields/email_field.py:25
-msgid "Enter email address"
-msgstr "Введите адрес электронной почты"
-
-#: ramifice/fields/id_field.py:26
+#: ramifice/model.py:24
 msgid "Document ID"
 msgstr "Идентификатор документа"
 
-#: ramifice/fields/id_field.py:30 ramifice/fields/id_field.py:32
-msgid "Enter document ID"
-msgstr "Введите идентификатор документа"
-
-#: ramifice/fields/image_field.py:34
-msgid "Only files allowed: jpeg, jpg, png, webp"
-msgstr "Разрешены только файлы: jpeg, jpg, png, webp"
-
-#: ramifice/fields/ip_field.py:18
-msgid "IP address"
-msgstr "IP адрес"
-
-#: ramifice/fields/ip_field.py:22 ramifice/fields/ip_field.py:25
-msgid "Enter IP address"
-msgstr "Введите IP адрес"
-
-#: ramifice/fields/password_field.py:22
-msgid "Password"
-msgstr "Пароль"
-
-#: ramifice/fields/password_field.py:25 ramifice/fields/password_field.py:27
-msgid "Enter password"
-msgstr "Введите пароль"
-
-#: ramifice/fields/phone_field.py:20
-msgid "Phone number"
-msgstr "Номер телефона"
-
-#: ramifice/fields/phone_field.py:24 ramifice/fields/phone_field.py:27
-msgid "Enter phone number"
-msgstr "Введите номер телефона"
-
-#: ramifice/fields/slug_field.py:18
-msgid "Slug"
-msgstr "Слаг"
-
-#: ramifice/fields/slug_field.py:22 ramifice/fields/slug_field.py:24
+#: ramifice/model.py:25 ramifice/model.py:26 ramifice/model.py:32
+#: ramifice/model.py:33 ramifice/model.py:40 ramifice/model.py:41
 msgid "It is added automatically"
 msgstr "Он добавляется автоматически"
 
-#: ramifice/fields/url_field.py:32
-msgid "URL address"
-msgstr "URL адрес"
+#: ramifice/model.py:31
+msgid "Created at"
+msgstr "Создан"
 
-#: ramifice/fields/url_field.py:36 ramifice/fields/url_field.py:39
-msgid "Enter URL address"
-msgstr "Введите URL адрес"
+#: ramifice/model.py:34
+msgid "When the document was created."
+msgstr "Когда был создан документ."
+
+#: ramifice/model.py:39
+msgid "Updated at"
+msgstr "Обновлен"
+
+#: ramifice/model.py:42
+msgid "When the document was updated."
+msgstr "Когда был обновлен документ."
 
 #: ramifice/paladins/groups/choice_group.py:31
 #: ramifice/paladins/groups/date_group.py:28

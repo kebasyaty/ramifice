@@ -3,12 +3,14 @@
 import os
 from typing import Any
 
+from . import translations
 from .add_valid import AddValidMixin
 from .commons import QCommonsMixin
 from .errors import DoesNotMatchRegexError, PanicError
+from .fields import DateTimeField, IDField
 from .hooks import HooksMixin
 from .indexing import IndexMixin
-from .model import _ID, CREATED_AT, UPDATED_AT, Model
+from .model import Model
 from .paladins import CheckMixin, QPaladinsMixin, ToolMixin
 from .store import REGEX
 
@@ -95,11 +97,11 @@ def caching(cls, service_name) -> dict[str, Any]:
     count_fields_for_migrating = 0
 
     old_model = cls()
-    old_model.fields()
+    old_model.fields(translations.gettext)
     default_fields: dict[str, Any] = {
-        "_id": _ID,
-        "created_at": CREATED_AT,
-        "updated_at": UPDATED_AT,
+        "_id": IDField(),
+        "created_at": DateTimeField(),
+        "updated_at": DateTimeField(),
     }
     fields = {**old_model.__dict__, **default_fields}
     for f_name, f_type in fields.items():

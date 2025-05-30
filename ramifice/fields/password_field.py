@@ -3,7 +3,6 @@
 import json
 from typing import Any
 
-from .. import translations
 from ..store import REGEX
 from .general.field import Field
 
@@ -19,22 +18,14 @@ class PasswordField(Field):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = translations.gettext("Password"),
+        label: str = "",
         hide: bool = False,
         ignored: bool = False,
-        hint: str = translations.gettext("Enter password"),
+        hint: str = "",
         warning: list[str] | None = None,
-        placeholder: str = translations.gettext("Enter password"),
+        placeholder: str = "",
         required: bool = False,
     ):
-        if len(label) > 0:
-            label = translations.gettext(label)
-        if len(hint) > 0:
-            hint = translations.gettext(hint)
-        if len(placeholder) > 0:
-            placeholder = translations.gettext(placeholder)
-        if bool(warning):
-            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

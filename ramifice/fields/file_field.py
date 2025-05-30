@@ -8,7 +8,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from .. import translations
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
@@ -46,15 +45,6 @@ class FileField(Field, FileGroup, JsonMixin):
                     raise AssertionError(
                         "The `default` parameter should not contain an empty string!"
                     )
-
-        if len(label) > 0:
-            label = translations.gettext(label)
-        if len(hint) > 0:
-            hint = translations.gettext(hint)
-        if len(placeholder) > 0:
-            placeholder = translations.gettext(placeholder)
-        if bool(warning):
-            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,
