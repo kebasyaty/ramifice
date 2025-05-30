@@ -2,6 +2,7 @@
 Type of selective float field with dynamic addition of elements.
 """
 
+from .. import translations
 from ..mixins import JsonMixin
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
@@ -27,6 +28,14 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
+
         Field.__init__(
             self,
             label=label,

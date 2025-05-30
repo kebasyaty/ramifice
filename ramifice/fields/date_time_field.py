@@ -7,8 +7,8 @@ from typing import Any
 from babel.dates import format_datetime
 from dateutil.parser import parse
 
+from .. import translations
 from ..store import DEBUG
-from ..translations import CURRENT_LOCALE
 from .general.date_group import DateGroup
 from .general.field import Field
 
@@ -52,6 +52,15 @@ class DateTimeField(Field, DateGroup):
                 if min_date is not None and default < min_date:
                     raise AssertionError("Parameter `default` is less `min_date`!")
 
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
+
         Field.__init__(
             self,
             label=label,
@@ -79,11 +88,12 @@ class DateTimeField(Field, DateGroup):
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
+        current_locale = translations.CURRENT_LOCALE
         for name, data in self.__dict__.items():
             if not callable(data):
                 if name == "value" and data is not None:
                     json_dict[name] = format_datetime(
-                        data, format="short", locale=CURRENT_LOCALE
+                        data, format="short", locale=current_locale
                     )
                 else:
                     json_dict[name] = data

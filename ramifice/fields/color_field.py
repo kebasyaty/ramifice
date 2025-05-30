@@ -1,8 +1,8 @@
 """Field of Model for enter color code."""
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG, REGEX
-from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -18,14 +18,14 @@ class ColorField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = gettext("Color"),
+        label: str = translations.gettext("Color"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = gettext("Enter color code"),
+        hint: str = translations.gettext("Enter color code"),
         warning: list[str] | None = None,
         default: str | None = "#000000",
-        placeholder: str = gettext("Enter color code"),
+        placeholder: str = translations.gettext("Enter color code"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -40,6 +40,15 @@ class ColorField(Field, TextGroup, JsonMixin):
                     )
                 if REGEX["color_code"].match(default) is None:
                     raise AssertionError("Parameter `default` - Not а color code!")
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

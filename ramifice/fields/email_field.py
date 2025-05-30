@@ -42,11 +42,11 @@ class EmailField(Field, TextGroup, JsonMixin):
                         "Parameter `default` - Invalid Email address!"
                     )  # pylint: disable=raise-missing-from
 
-        if bool(label):
+        if len(label) > 0:
             label = translations.gettext(label)
-        if bool(hint):
+        if len(hint) > 0:
             hint = translations.gettext(hint)
-        if bool(placeholder):
+        if len(placeholder) > 0:
             placeholder = translations.gettext(placeholder)
         if bool(warning):
             warning = [translations.gettext(item) for item in warning]

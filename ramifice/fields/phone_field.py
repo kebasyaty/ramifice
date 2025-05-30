@@ -2,9 +2,9 @@
 
 import phonenumbers
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..translations import gettext
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -17,14 +17,14 @@ class PhoneField(Field, TextGroup, JsonMixin):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        label: str = gettext("Phone number"),
+        label: str = translations.gettext("Phone number"),
         disabled: bool = False,
         hide: bool = False,
         ignored: bool = False,
-        hint: str = gettext("Enter phone number"),
+        hint: str = translations.gettext("Enter phone number"),
         warning: list[str] | None = None,
         default: str | None = None,
-        placeholder: str = gettext("Enter phone number"),
+        placeholder: str = translations.gettext("Enter phone number"),
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -45,6 +45,15 @@ class PhoneField(Field, TextGroup, JsonMixin):
                     raise AssertionError(  # pylint: disable=raise-missing-from
                         "Parameter `default` - Invalid Phone number!"
                     )  # pylint: disable=raise-missing-from
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

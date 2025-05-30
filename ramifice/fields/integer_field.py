@@ -1,5 +1,6 @@
 """Field of Model for enter (int) number."""
 
+from .. import translations
 from ..mixins import JsonMixin
 from ..store import DEBUG
 from .general.field import Field
@@ -62,6 +63,15 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                     raise AssertionError("Parameter `default` is more `max_number`!")
                 if max_number is not None and default < min_number:  # type: ignore
                     raise AssertionError("Parameter `default` is less `min_number`!")
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,

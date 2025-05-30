@@ -8,10 +8,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from .. import translations
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..translations import gettext
 from ..types import IMAGE_DATA_TYPE
 from .general.field import Field
 from .general.file_group import FileGroup
@@ -31,7 +31,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = [
-            gettext("Only files allowed: {types}").format(types="jpeg, jpg, png, webp")
+            translations.gettext("Only files allowed: jpeg, jpg, png, webp")
         ],
         required: bool = False,
         max_size: int = 2097152,  # 2 MB
@@ -75,6 +75,15 @@ class ImageField(Field, FileGroup, JsonMixin):
                                 + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
                             )
                         curr_size_thumb = max_size_thumb
+
+        if len(label) > 0:
+            label = translations.gettext(label)
+        if len(hint) > 0:
+            hint = translations.gettext(hint)
+        if len(placeholder) > 0:
+            placeholder = translations.gettext(placeholder)
+        if bool(warning):
+            warning = [translations.gettext(item) for item in warning]
 
         Field.__init__(
             self,
