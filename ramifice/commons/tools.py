@@ -12,6 +12,14 @@ class ToolMixin:
     """A set of additional auxiliary methods for Commons."""
 
     @classmethod
+    def password_to_none(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
+        """Create object instance from Mongo document."""
+        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
+            if "Pass" in t_name:
+                mongo_doc[f_name] = None
+        return mongo_doc
+
+    @classmethod
     def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
         """Create object instance from Mongo document."""
         obj = cls()
