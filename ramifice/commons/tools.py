@@ -20,7 +20,7 @@ class ToolMixin:
         return mongo_doc
 
     @classmethod
-    def from_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+    def from_mongo_doc(cls, mongo_doc: dict[str, Any]) -> Any:
         """Create object instance from Mongo document."""
         obj = cls()
         for name, data in mongo_doc.items():

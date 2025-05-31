@@ -24,6 +24,20 @@ class OneMixin:
         return mongo_doc
 
     @classmethod
+    async def find_one_to_raw_doc(
+        cls, filter=None, *args, **kwargs
+    ) -> dict[str, Any] | None:
+        """Find a single document."""
+        # Get collection for current model.
+        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
+        # Get document.
+        raw_doc = None
+        mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        if mongo_doc is not None:
+            raw_doc = cls.mongo_doc_to_raw_doc(mongo_doc)  # type: ignore[index, attr-defined]
+        return raw_doc
+
+    @classmethod
     async def find_one_to_instance(cls, filter=None, *args, **kwargs) -> Any | None:
         """Find a single document and convert it to a Model instance."""
         # Get collection for current model.
@@ -32,9 +46,8 @@ class OneMixin:
         inst_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
             # Convert document to Model instance.
-            inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[index, attr-defined]
         return inst_model
 
     @classmethod
@@ -46,9 +59,8 @@ class OneMixin:
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
             # Convert document to Model instance.
-            inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[index, attr-defined]
             json_str = inst_model.to_json()
         return json_str
 

@@ -150,7 +150,7 @@ if not await user.save():
 doc_count = await User.estimated_document_count()
 print(f"Document count: {doc_count}") # => 1
 
-user_details = User.find_one({"_id": user._id.value})
+user_details = User.find_one_to_raw_doc({"_id": user._id.value})
 pprint.pprint(user_details)
 
 user.delete()
@@ -164,7 +164,7 @@ await client.close()
 
 ## Model Parameters
 
-See the documentation [here](https://kebasyaty.github.io/dynfork/DynFork/Meta.html "here").
+See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
 
 ###### ( only `service_name` is a required parameter )
 
