@@ -164,7 +164,7 @@ await client.close()
 
 ## Model Parameters
 
-See the documentation [here](https://kebasyaty.github.io/dynfork/DynFork/Meta.html "here").
+See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
 
 ###### ( only `service_name` is a required parameter )
 
