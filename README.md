@@ -246,13 +246,13 @@ class User:
         )
 ```
 
-## Changelog
+## Contributing
 
-[View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
-
-## License
-
-**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
+1. Fork it (<https://github.com/kebasyaty/ramifice/fork>)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 ## Install for development of Ramifice
 
@@ -270,3 +270,15 @@ gettext --version
 cd project_name
 poetry install --with dev docs
 ```
+
+## Contributors
+
+- [kebasyaty](https://github.com/kebasyaty) Gennady Kostyunin - creator and maintainer
+
+## Changelog
+
+[View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
+
+## License
+
+**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
