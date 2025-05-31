@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ramifice"
-version = "0.2.0"
+version = "0.2.1"
 description = "ORM-like API MongoDB for Python language."
 license = "MIT"
 authors = ["Gennady Kostyunin <kebasyaty@gmail.com>"]
@@ -24,7 +24,7 @@ classifiers = [
 packages = [{ include = "ramifice" }]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.12,<4.0"
 pymongo = "^4.10.1"
 pillow = "^11.0.0"
 phonenumbers = "^8.13.52"
