@@ -1,4 +1,18 @@
-"""For localization of translations."""
+"""For localization of translations.
+
+The module contains the following variables:
+
+- `CURRENT_LOCALE` - Code of current language.
+- `DEFAULT_LOCALE` - Language code by default.
+- `LANGUAGES` - List of supported languages.
+- `translations` - List of translations
+- `gettext` - The object of the current translation.
+
+The module contains the following functions:
+
+- `get_translator` - Get an object of translation for the desired language.
+- `change_locale` - To change the current language and translation object.
+"""
 
 import gettext
 
