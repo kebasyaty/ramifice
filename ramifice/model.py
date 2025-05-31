@@ -19,7 +19,7 @@ class Model(metaclass=ABCMeta):
     META: dict[str, Any] = {}
 
     def __init__(self):
-        gettext = translations.get_translator(translations.CURRENT_LOCALE).gettext
+        gettext = translations.gettext
         self._id = IDField(
             label=gettext("Document ID"),
             placeholder=gettext("It is added automatically"),

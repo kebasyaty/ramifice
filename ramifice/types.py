@@ -1,11 +1,27 @@
-"""A collection of additional data types."""
+"""Auxiliary types collection.
+
+These types are used to transfer information.
+
+The module contains the following types:
+
+- `Unit` - Used for data management in dynamic fields.
+- `FILE_DATA_TYPE` - To transmit file information.
+- `IMAGE_DATA_TYPE` - To transmit information about the image..
+"""
 
 from .errors import PanicError
 from .mixins import JsonMixin
 
 
 class Unit(JsonMixin):
-    """Unit of information for `choices` parameter in dynamic field types."""
+    """Unit of information for `choices` parameter in dynamic field types.
+
+    Attributes:
+        field -- The name of the field.
+        title -- The name of the choice item.
+        value -- The value of the choice item.
+        is_delete -- True - if you need to remove the item of choice.
+    """
 
     def __init__(
         self, field: str, title: str, value: float | int | str, is_delete: bool = False
@@ -34,7 +50,11 @@ class Unit(JsonMixin):
         self.check_empty_arguments()
 
     def check_empty_arguments(self) -> None:
-        """Error: If any of the arguments in the Unit is empty."""
+        """Error: If any of the arguments in the Unit is empty.
+
+        Returns:
+            `None` or raised exception `PanicError`.
+        """
         field_name: str = ""
 
         if len(self.field) == 0:
