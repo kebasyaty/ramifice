@@ -150,10 +150,11 @@ if not await user.save():
 doc_count = await User.estimated_document_count()
 print(f"Document count: {doc_count}") # => 1
 
-user_details = User.find_one_to_raw_doc({"_id": user._id.value})
+user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
 pprint.pprint(user_details)
 
-user.delete()
+await user.delete()
+
 doc_count = await User.estimated_document_count()
 print(f"Document count: {doc_count}") # => 0
 
