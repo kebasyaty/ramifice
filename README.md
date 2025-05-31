@@ -76,8 +76,9 @@ cd project_name
 poetry add ramifice
 ```
 
-3. Add the configuration directory to the root of your project:<br>
+3. Add the configuration and public directories to the root of your project:<br>
    [https://github.com/kebasyaty/ramifice/tree/main/config](https://github.com/kebasyaty/ramifice/tree/main/config "Configuration directory")
+   [https://github.com/kebasyaty/ramifice/tree/main/public](https://github.com/kebasyaty/ramifice/tree/main/public "Public directory")
 
 ## Usage
 
