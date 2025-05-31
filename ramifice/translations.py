@@ -17,10 +17,14 @@ The module contains the following functions:
 import gettext
 from typing import Any
 
+# Code of current language.
 CURRENT_LOCALE: str = "en"
+# Language code by default.
 DEFAULT_LOCALE: str = "en"
+# List of codes supported by languages.
 LANGUAGES: list[str] = ["en", "ru"]
 
+# List of translations
 translations = {
     lang: gettext.translation(
         domain="messages",
@@ -52,6 +56,7 @@ def get_translator(lang_code: str) -> Any:
     return translations.get(lang_code, translations[DEFAULT_LOCALE])
 
 
+# The object of the current translation.
 gettext = get_translator(DEFAULT_LOCALE).gettext
 
 
