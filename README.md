@@ -59,7 +59,7 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
    [![Fedora](https://img.shields.io/badge/Fedora-3e62ac?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/FEDORA_INSTALL_MONGODB.md)
    [![Ubuntu](https://img.shields.io/badge/Ubuntu-E65100?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/UBUNTU_INSTALL_MONGODB.md)
 
-2. Run
+2. Run:
 
 ```shell
 # Ubuntu:
@@ -75,6 +75,9 @@ gettext --version
 cd project_name
 poetry add ramifice
 ```
+
+3. Add the configuration directory to the root of your project:<br>
+   [https://github.com/kebasyaty/ramifice/tree/main/config](https://github.com/kebasyaty/ramifice/tree/main/config "Configuration directory")
 
 ## Usage
 
