@@ -25,4 +25,4 @@ class RefrashMixin:
             )
             raise PanicError(msg)
         self.inject()  # type: ignore[index, attr-defined]
-        self.refrash_from_doc(mongo_doc)  # type: ignore[index, attr-defined]
+        self.refrash_from_mongo_doc(mongo_doc)  # type: ignore[index, attr-defined]

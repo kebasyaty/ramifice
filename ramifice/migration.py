@@ -151,7 +151,7 @@ class Monitor:
                             else:
                                 mongo_doc[field_name] = None
                     #
-                    inst_model = cls_model.from_doc(mongo_doc)
+                    inst_model = cls_model.from_mongo_doc(mongo_doc)
                     result_check: dict[str, Any] = await inst_model.check(
                         is_save=True, collection=model_collection
                     )
