@@ -62,8 +62,17 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 2. Run
 
 ```shell
-pip install ramifice
-# or
+# Ubuntu:
+sudo apt install gettext
+gettext --version
+# Fedora:
+sudo dnf install gettext
+gettext --version
+# Windows:
+https://mlocati.github.io/articles/gettext-iconv-windows.html
+gettext --version
+
+cd project_name
 poetry add ramifice
 ```
 
@@ -72,7 +81,79 @@ poetry add ramifice
 It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/v0/examples "here").
 
 ```python
-import ramifice
+from datetime import datetime
+from pymongo import AsyncMongoClient
+from ramifice import model, translations
+from ramifice.fields import TextField, EmailField, DateField
+from ramifice.migration import Monitor
+import pprint
+
+@model(service_name="Accounts")
+class User:
+    def fields(self, gettext):
+        # ngettext = translations.get_translator(
+        #     translations.CURRENT_LOCALE).ngettext
+        self.username = TextField(
+            label=gettext("Username"),
+            required=True,
+            unique=True,
+        )
+        self.first_name = TextField(
+            label=gettext("First name"),
+            required=True
+        )
+        self.last_name = TextField(
+            label=gettext("Last name"),
+            required=True,
+        )
+        self.email = EmailField(
+            label=gettext("Email"),
+            required=True,
+            unique=True,
+        )
+        self.birthday = DateField(label=gettext("Birthday"))
+        self.password = DateField(label=gettext("Password"))
+        self.сonfirm_password = DateField(
+            label=gettext("Confirm password"),
+            # If true, the value of this field is not saved in the database.
+            ignored=True,
+        )
+
+    async def add_validation(self) -> dict[str, str]:
+        """It is supposed to be use to additional validation of fields.
+        Format: <"field_name", "Error message">
+        """
+        error_map: dict[str, str] = {}
+        if self.password != self.сonfirm_password:
+            error_map["password"] = "Passwords do not match!"
+        return error_map
+
+client = AsyncMongoClient()
+await Monitor(
+    database_name="test_db",
+    mongo_client=client,
+).migrat()
+
+user = User()
+user.username.value = "pythondev"
+user.first_name.value = "John"
+user.last_name.value = "Smith"
+user.email.value = "John_Smith@gmail.com"
+user.birthday.value = datetime(2000, 1, 25)
+user.password.value = "12345678"
+user.сonfirm_password.value = "12345678"
+
+if not await user.save():
+    # Convenient to use during development.
+    user.print_err()
+
+doc_count = await User.estimated_document_count()
+print(f"Document count: {doc_count}")
+
+user_details = User.find_one({"_id": user._id.value})
+pprint.pprint(user_details)
+
+await client.close()
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
@@ -88,5 +169,16 @@ import ramifice
 ## Install for development of Ramifice
 
 ```shell
+# Ubuntu:
+sudo apt install gettext
+gettext --version
+# Fedora:
+sudo dnf install gettext
+gettext --version
+# Windows:
+https://mlocati.github.io/articles/gettext-iconv-windows.html
+gettext --version
+
+cd project_name
 poetry install --with dev docs
 ```

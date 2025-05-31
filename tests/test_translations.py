@@ -11,6 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        ngettext = translations.get_translator(translations.CURRENT_LOCALE).ngettext
         self.email = EmailField()
 
 
