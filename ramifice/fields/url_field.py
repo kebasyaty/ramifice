@@ -12,17 +12,17 @@ class URLField(Field, TextGroup, JsonMixin):
     """Field of Model for enter URL address.
 
     Attributes:
-    label -- Text label for a web form field.
-    disabled -- Blocks access and modification of the element.
-    hide -- Hide field from user.
-    ignored -- If true, the value of this field is not saved in the database.
-    hint -- An alternative for the `placeholder` parameter.
-    warning -- Warning information.
-    default -- Value by default.
-    placeholder -- Displays prompt text.
-    required -- Required field.
-    readonly -- Specifies that the field cannot be modified by the user.
-    unique -- The unique value of a field in a collection.
+        label -- Text label for a web form field.
+        disabled -- Blocks access and modification of the element.
+        hide -- Hide field from user.
+        ignored -- If true, the value of this field is not saved in the database.
+        hint -- An alternative for the `placeholder` parameter.
+        warning -- Warning information.
+        default -- Value by default.
+        placeholder -- Displays prompt text.
+        required -- Required field.
+        readonly -- Specifies that the field cannot be modified by the user.
+        unique -- The unique value of a field in a collection.
     """
 
     # pylint: disable=too-many-arguments
