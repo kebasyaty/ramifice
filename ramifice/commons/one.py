@@ -19,6 +19,8 @@ class OneMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        if mongo_doc is not None:
+            mongo_doc = cls.password_to_none(mongo_doc)
         return mongo_doc
 
     @classmethod
@@ -30,6 +32,7 @@ class OneMixin:
         inst_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
+            mongo_doc = cls.password_to_none(mongo_doc)
             # Convert document to Model instance.
             inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
         return inst_model
@@ -43,6 +46,7 @@ class OneMixin:
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
+            mongo_doc = cls.password_to_none(mongo_doc)
             # Convert document to Model instance.
             inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
             json_str = inst_model.to_json()
@@ -85,7 +89,7 @@ class OneMixin:
         let=None,
         comment=None,
         **kwargs,
-    ) -> dict[str, Any]:
+    ) -> dict[str, Any] | None:
         """Find a single document and delete it, return original."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
@@ -98,7 +102,7 @@ class OneMixin:
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Get document.
-        result: dict[str, Any] = await collection.find_one_and_delete(
+        mongo_doc: dict[str, Any] | None = await collection.find_one_and_delete(
             filter=filter,
             projection=projection,
             sort=sort,
@@ -108,4 +112,6 @@ class OneMixin:
             comment=comment,
             **kwargs,
         )
-        return result
+        if mongo_doc is not None:
+            mongo_doc = cls.password_to_none(mongo_doc)
+        return mongo_doc

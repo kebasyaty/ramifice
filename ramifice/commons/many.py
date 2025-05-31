@@ -68,7 +68,7 @@ class ManyMixin:
             allow_disk_use=allow_disk_use,
         )
         async for mongo_doc in cursor:
-            doc_list.append(mongo_doc)
+            doc_list.append(cls.password_to_none(mongo_doc))
         return doc_list
 
     @classmethod
