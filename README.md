@@ -148,10 +148,14 @@ if not await user.save():
     user.print_err()
 
 doc_count = await User.estimated_document_count()
-print(f"Document count: {doc_count}")
+print(f"Document count: {doc_count}") # => 1
 
 user_details = User.find_one({"_id": user._id.value})
 pprint.pprint(user_details)
+
+user.delete()
+doc_count = await User.estimated_document_count()
+print(f"Document count: {doc_count}") # => 0
 
 await client.close()
 ```
