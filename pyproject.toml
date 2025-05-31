@@ -9,7 +9,6 @@ homepage = "https://github.com/kebasyaty/ramifice"
 repository = "https://github.com/kebasyaty/ramifice"
 documentation = "https://kebasyaty.github.io/ramifice/"
 keywords = ["mongo", "mongodb", "orm", "ramifice"]
-requires-python = ">=3.12"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
