@@ -8,11 +8,19 @@ readme = "README.md"
 homepage = "https://github.com/kebasyaty/ramifice"
 repository = "https://github.com/kebasyaty/ramifice"
 documentation = "https://kebasyaty.github.io/ramifice/"
-keywords = ["mongo", "orm", "database"]
+keywords = ["mongo", "mongodb", "orm", "ramifice"]
 requires-python = ">=3.12"
 classifiers = [
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Database",
+    "Typing :: Typed",
 ]
 packages = [{ include = "ramifice" }]
 
