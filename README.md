@@ -198,7 +198,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
        <td align="left">is_migrat_model</td>
        <td align="left">True</td>
        <td align="left">
-         Set to <b>false</b> if you do not need to migrate the Model to the database.<br>
+         Set to <b>False</b> if you do not need to migrate the Model to the database.<br>
          This can be use to validate a web forms - Search form, Contact form, etc.
        </td>
      </tr>
@@ -207,7 +207,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
        <td align="left">True</td>
        <td align="left">
          Can a Model create new documents in a collection?<br>
-         Set to <b>false</b> if you only need one document in the collection and the Model is using a fixture.
+         Set to <b>False</b> if you only need one document in the collection and the Model is using a fixture.
        </td>
      </tr>
      <tr>
