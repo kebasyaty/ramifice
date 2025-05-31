@@ -45,7 +45,6 @@ class OneMixin:
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
             # Convert document to Model instance.
             inst_model = cls.from_doc(mongo_doc)  # type: ignore[index, attr-defined]
             json_str = inst_model.to_json()
