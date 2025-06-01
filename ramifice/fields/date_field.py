@@ -80,16 +80,16 @@ class DateField(Field, DateGroup):
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
-        for name, data in self.__dict__.items():
-            if not callable(data):
-                if name == "value" and data is not None:
+        for name, value in self.__dict__.items():
+            if not callable(value):
+                if name == "value" and value is not None:
                     json_dict[name] = format_date(
-                        date=data.date(),
+                        date=value.date(),
                         format="short",
                         locale=current_locale,
                     )
                 else:
-                    json_dict[name] = data
+                    json_dict[name] = value
         return json_dict
 
     def to_json(self) -> str:
@@ -100,11 +100,11 @@ class DateField(Field, DateGroup):
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON string to a object instance."""
         obj = cls()
-        for name, data in json_dict.items():
-            if name == "value" and data is not None:
-                obj.__dict__[name] = parse(data)
+        for name, value in json_dict.items():
+            if name == "value" and value is not None:
+                obj.__dict__[name] = parse(value)
             else:
-                obj.__dict__[name] = data
+                obj.__dict__[name] = value
         return obj
 
     @classmethod
