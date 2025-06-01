@@ -106,7 +106,6 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         #
         raw_doc = await User.find_one_to_raw_doc({"_id": m._id.value})
         self.assertTrue(isinstance(doc, dict))
-        print(raw_doc)
         #
         model = await User.find_one_to_instance({"_id": m._id.value})
         self.assertEqual(model._id.value, m._id.value)
