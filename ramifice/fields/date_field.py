@@ -84,7 +84,7 @@ class DateField(Field, DateGroup):
             if not callable(data):
                 if name == "value" and data is not None:
                     json_dict[name] = format_date(
-                        date=data,
+                        date=data.date(),
                         format="short",
                         locale=current_locale,
                     )

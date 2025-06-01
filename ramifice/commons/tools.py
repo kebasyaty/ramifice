@@ -51,7 +51,7 @@ class ToolMixin:
                         )
                     else:
                         value = format_date(
-                            date=value,
+                            date=value.date(),
                             format="short",
                             locale=current_locale,
                         )
