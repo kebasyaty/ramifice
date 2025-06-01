@@ -125,9 +125,7 @@ class User:
         )
 
     async def add_validation(self) -> dict[str, str]:
-        """For additional validation of fields.
-        Format: <"field_name", "Error message">
-        """
+        """For additional validation of fields."""
         error_map: dict[str, str] = {}
         if self.password != self.сonfirm_password:
             error_map["password"] = "Passwords do not match!"
