@@ -115,7 +115,6 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         #
         json_str = await User.find_one_to_json({"_id": m._id.value})
         self.assertEqual(json_str, m.to_json())
-        print(json_str)
         #
         await User.delete_one({"_id": m._id.value})
         self.assertEqual(await User.estimated_document_count(), 0)
