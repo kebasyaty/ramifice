@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-31 19:21+0300\n"
+"POT-Creation-Date: 2025-06-01 08:32+0300\n"
 "PO-Revision-Date: 2025-05-27 18:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -44,16 +44,16 @@ msgstr "Обновлен"
 msgid "When the document was updated."
 msgstr "Когда был обновлен документ."
 
-#: ramifice/paladins/groups/choice_group.py:31
-#: ramifice/paladins/groups/date_group.py:28
-#: ramifice/paladins/groups/file_group.py:34
-#: ramifice/paladins/groups/file_group.py:55
-#: ramifice/paladins/groups/id_group.py:25
-#: ramifice/paladins/groups/img_group.py:36
-#: ramifice/paladins/groups/img_group.py:57
-#: ramifice/paladins/groups/num_group.py:27
-#: ramifice/paladins/groups/pass_group.py:29
-#: ramifice/paladins/groups/text_group.py:29
+#: ramifice/paladins/groups/choice_group.py:30
+#: ramifice/paladins/groups/date_group.py:26
+#: ramifice/paladins/groups/file_group.py:33
+#: ramifice/paladins/groups/file_group.py:54
+#: ramifice/paladins/groups/id_group.py:24
+#: ramifice/paladins/groups/img_group.py:35
+#: ramifice/paladins/groups/img_group.py:56
+#: ramifice/paladins/groups/num_group.py:26
+#: ramifice/paladins/groups/pass_group.py:28
+#: ramifice/paladins/groups/text_group.py:28
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
@@ -61,81 +61,81 @@ msgstr "Обязательное поле !"
 msgid "Your choice does not match the options offered !"
 msgstr "Ваш выбор не соответствует предложенным вариантам !"
 
-#: ramifice/paladins/groups/date_group.py:43
+#: ramifice/paladins/groups/date_group.py:45
 #, python-brace-format
 msgid "The date {date} must not be greater than max={max_date} !"
 msgstr "Дата {date} не должна быть больше max={max_date} !"
 
-#: ramifice/paladins/groups/date_group.py:55
+#: ramifice/paladins/groups/date_group.py:61
 #, python-brace-format
 msgid "The date {date} must not be less than min={min_date} !"
 msgstr "Дата {date} не должна быть меньше min={min_date} !"
 
-#: ramifice/paladins/groups/file_group.py:61
+#: ramifice/paladins/groups/file_group.py:60
 #, python-brace-format
 msgid "File size exceeds the maximum value {max_size} !"
 msgstr "Размер файла превышает максимальное значение {max_size} !"
 
-#: ramifice/paladins/groups/id_group.py:32
+#: ramifice/paladins/groups/id_group.py:31
 msgid "Invalid document ID !"
 msgstr "Некорректный идентификатор документа !"
 
-#: ramifice/paladins/groups/img_group.py:63
+#: ramifice/paladins/groups/img_group.py:62
 #, python-brace-format
 msgid "Image size exceeds the maximum value {max_size} !"
 msgstr "Размер изображения превышает максимальное значение {max_size} !"
 
-#: ramifice/paladins/groups/num_group.py:36
+#: ramifice/paladins/groups/num_group.py:35
 #, python-brace-format
 msgid "The value {num} must not be greater than max={max_num} !"
 msgstr "Число {num} не должно превышать max={max_num} !"
 
-#: ramifice/paladins/groups/num_group.py:43
+#: ramifice/paladins/groups/num_group.py:42
 #, python-brace-format
 msgid "The value {num} must not be less than min={min_num} !"
 msgstr "Число {num} не должно быть меньше min={min_num} !"
 
-#: ramifice/paladins/groups/num_group.py:48
-#: ramifice/paladins/groups/text_group.py:43
+#: ramifice/paladins/groups/num_group.py:47
+#: ramifice/paladins/groups/text_group.py:42
 msgid "Is not unique !"
 msgstr "Не является уникальным !"
 
-#: ramifice/paladins/groups/pass_group.py:36
+#: ramifice/paladins/groups/pass_group.py:35
 msgid "Invalid Password !"
 msgstr "Некорректный пароль !"
 
-#: ramifice/paladins/groups/pass_group.py:38
+#: ramifice/paladins/groups/pass_group.py:37
 #, python-brace-format
 msgid "Valid characters: {chars}"
 msgstr "Допустимые символы: {chars}"
 
-#: ramifice/paladins/groups/pass_group.py:43
+#: ramifice/paladins/groups/pass_group.py:42
 #, python-brace-format
 msgid "Number of characters: from {min_num} to {max_num}"
 msgstr "Количество символов: от {min_num} до {max_num}"
 
-#: ramifice/paladins/groups/text_group.py:38
+#: ramifice/paladins/groups/text_group.py:37
 #, python-brace-format
 msgid "The length of the string exceeds maxlength={maxlength} !"
 msgstr "Длина строки превышает maxlength = {maxlength} !"
 
-#: ramifice/paladins/groups/text_group.py:56
+#: ramifice/paladins/groups/text_group.py:55
 msgid "Invalid Email address !"
 msgstr "Неверный адрес электронной почты !"
 
-#: ramifice/paladins/groups/text_group.py:59
+#: ramifice/paladins/groups/text_group.py:58
 msgid "Invalid URL address !"
 msgstr "Неверный URL адрес"
 
-#: ramifice/paladins/groups/text_group.py:62
+#: ramifice/paladins/groups/text_group.py:61
 msgid "Invalid IP address !"
 msgstr "Неверный IP адрес !"
 
-#: ramifice/paladins/groups/text_group.py:65
+#: ramifice/paladins/groups/text_group.py:64
 msgid "Invalid Color code !"
 msgstr "Некорректный цветовой код !"
 
-#: ramifice/paladins/groups/text_group.py:68
+#: ramifice/paladins/groups/text_group.py:67
 msgid "Invalid Phone number !"
 msgstr "Неверный номер телефона !"
 
