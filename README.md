@@ -125,7 +125,7 @@ class User:
         )
 
     async def add_validation(self) -> dict[str, str]:
-        """It is supposed to be use to additional validation of fields.
+        """For additional validation of fields.
         Format: <"field_name", "Error message">
         """
         error_map: dict[str, str] = {}
