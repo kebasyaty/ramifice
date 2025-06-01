@@ -88,11 +88,11 @@ It is recommended to look at examples [here](https://github.com/kebasyaty/ramifi
 ```python
 import asyncio
 import pprint
-import datetime
+from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import model, translations
-from ramifice.fields import DateField, EmailField, TextField
+from ramifice.fields import DateField, EmailField, PasswordField, TextField
 from ramifice.migration import Monitor
 
 
@@ -117,8 +117,8 @@ class User:
             unique=True,
         )
         self.birthday = DateField(label=gettext("Birthday"))
-        self.password = DateField(label=gettext("Password"))
-        self.сonfirm_password = DateField(
+        self.password = PasswordField(label=gettext("Password"))
+        self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
             # If true, the value of this field is not saved in the database.
             ignored=True,
@@ -136,6 +136,7 @@ class User:
 
 async def main():
     client = AsyncMongoClient()
+
     await Monitor(
         database_name="test_db",
         mongo_client=client,
@@ -146,7 +147,7 @@ async def main():
     user.first_name.value = "John"
     user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"
-    user.birthday.value = datetime.datetime(2000, 1, 25)
+    user.birthday.value = datetime(2000, 1, 25)
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
 
@@ -157,6 +158,7 @@ async def main():
     doc_count = await User.estimated_document_count()
     print(f"Document count: {doc_count}")  # => 1
 
+    print("User details:")
     user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
     pprint.pprint(user_details)
 
