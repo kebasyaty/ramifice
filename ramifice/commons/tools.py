@@ -30,11 +30,12 @@ class ToolMixin:
     @classmethod
     def mongo_doc_to_raw_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Convert the Mongo document to the raw document.
+
         Special changes:
-        _id to str
-        password to None
-        date to str
-        datetime to str
+            _id to str
+            password to None
+            date to str
+            datetime to str
         """
         doc: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
