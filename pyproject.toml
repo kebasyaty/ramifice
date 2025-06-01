@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ramifice"
-version = "0.2.4"
+version = "0.2.6"
 description = "ORM-like API MongoDB for Python language."
 license = "MIT"
 authors = ["Gennady Kostyunin <kebasyaty@gmail.com>"]
@@ -14,6 +14,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",

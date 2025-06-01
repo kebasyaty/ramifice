@@ -34,11 +34,15 @@ class DateGroupMixin:
         if max_date is not None and value > max_date:
             date_str = (
                 format_date(
-                    max_date, format="short", locale=translations.CURRENT_LOCALE
+                    date=max_date,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
-                    max_date, format="short", locale=translations.CURRENT_LOCALE
+                    datetime=max_date,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
                 )
             )
             err_msg = translations.gettext(
@@ -50,11 +54,15 @@ class DateGroupMixin:
         if min_date is not None and value < min_date:
             date_str = (
                 format_date(
-                    min_date, format="short", locale=translations.CURRENT_LOCALE
+                    date=min_date,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
-                    min_date, format="short", locale=translations.CURRENT_LOCALE
+                    datetime=min_date,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
                 )
             )
             err_msg = translations.gettext(

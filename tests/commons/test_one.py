@@ -1,5 +1,6 @@
 """Testing `Ramifice > QCommonsMixin > OneMixin` module."""
 
+import datetime
 import unittest
 
 from pymongo import AsyncMongoClient
@@ -97,6 +98,8 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
+        m.date.value = datetime.datetime(2000, 1, 25)
+        m.date_time.value = datetime.datetime(2000, 1, 25)
         # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
@@ -105,7 +108,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(isinstance(doc, dict))
         #
         raw_doc = await User.find_one_to_raw_doc({"_id": m._id.value})
-        self.assertTrue(isinstance(doc, dict))
+        self.assertTrue(isinstance(raw_doc, dict))
         #
         model = await User.find_one_to_instance({"_id": m._id.value})
         self.assertEqual(model._id.value, m._id.value)
