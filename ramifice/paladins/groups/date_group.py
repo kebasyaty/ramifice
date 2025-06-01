@@ -40,7 +40,7 @@ class DateGroupMixin:
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
-                    date=max_date,
+                    datetime=max_date,
                     format="short",
                     locale=translations.CURRENT_LOCALE,
                 )
@@ -60,7 +60,7 @@ class DateGroupMixin:
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
-                    date=min_date,
+                    datetime=min_date,
                     format="short",
                     locale=translations.CURRENT_LOCALE,
                 )

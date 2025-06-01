@@ -122,7 +122,7 @@ class Model(metaclass=ABCMeta):
                         )
                         if data.field_type == "DateField"
                         else format_datetime(
-                            date=value,
+                            datetime=value,
                             format="short",
                             locale=current_locale,
                         )

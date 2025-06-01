@@ -44,7 +44,7 @@ class ToolMixin:
                 if "Date" in t_name:
                     if "Time" in t_name:
                         value = format_datetime(
-                            date=value,
+                            datetime=value,
                             format="short",
                             locale=current_locale,
                         )
