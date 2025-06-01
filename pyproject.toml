@@ -1,13 +1,11 @@
-[tool.poetry]
+[project]
 name = "ramifice"
-version = "0.2.10"
+version = "0.2.11"
 description = "ORM-like API MongoDB for Python language."
-license = "MIT"
-authors = ["Gennady Kostyunin <kebasyaty@gmail.com>"]
+license = { text = "MIT" }
+authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
 readme = "README.md"
-homepage = "https://github.com/kebasyaty/ramifice"
-repository = "https://github.com/kebasyaty/ramifice"
-documentation = "https://kebasyaty.github.io/ramifice/"
+requires-python = ">=3.12,<4.0"
 keywords = ["mongo", "mongodb", "orm", "ramifice"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -22,26 +20,33 @@ classifiers = [
     "Topic :: Database",
     "Typing :: Typed",
 ]
-packages = [{ include = "ramifice" }]
+dependencies = [
+    "pymongo (>=4.13.0,<5.0.0)",
+    "pillow (>=11.2.1,<12.0.0)",
+    "phonenumbers (>=9.0.6,<10.0.0)",
+    "email-validator (>=2.2.0,<3.0.0)",
+    "termcolor (>=3.1.0,<4.0.0)",
+    "python-slugify (>=8.0.4,<9.0.0)",
+    "argon2-cffi (>=23.1.0,<24.0.0)",
+    "pyyaml (>=6.0.2,<7.0.0)",
+    "babel (>=2.17.0,<3.0.0)",
+    "python-dateutil (>=2.9.0.post0,<3.0.0)",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.12,<4.0"
-pymongo = "^4.10.1"
-pillow = "^11.0.0"
-phonenumbers = "^8.13.52"
-email-validator = "^2.2.0"
-termcolor = "^2.5.0"
-python-slugify = { extras = ["unidecode"], version = "^8.0.4" }
-argon2-cffi = "^23.1.0"
-pyyaml = "^6.0.2"
-babel = "^2.17.0"
-python-dateutil = "^2.9.0.post0"
+[project.urls]
+homepage = "https://github.com/kebasyaty/ramifice"
+repository = "https://github.com/kebasyaty/ramifice"
+documentation = "https://kebasyaty.github.io/ramifice/"
+"Bug Tracker" = "https://github.com/kebasyaty/ramifice/issues"
+
+[tool.poetry]
+packages = [{ include = "ramifice" }]
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-types-pyyaml = "^6.0.12.20250402"
+types-pyyaml = "^6.0.12.20250516"
 types-python-dateutil = "^2.9.0.20250516"
 
 [tool.poetry.group.docs]
@@ -49,9 +54,9 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.1"
-mkdocstrings = { extras = ["python"], version = "^0.27.0" }
-mkdocs-material = "^9.5.47"
+mkdocstrings = "^0.29.1"
+mkdocs-material = "^9.6.14"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
