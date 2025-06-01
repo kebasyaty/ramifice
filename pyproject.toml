@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ramifice"
-version = "0.2.9"
+version = "0.2.10"
 description = "ORM-like API MongoDB for Python language."
 license = "MIT"
 authors = ["Gennady Kostyunin <kebasyaty@gmail.com>"]
