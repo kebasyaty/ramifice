@@ -3,9 +3,8 @@
 from typing import Any
 
 from babel.dates import format_date, format_datetime
-from dateutil.parser import parse
 
-from ..translations import CURRENT_LOCALE
+from .. import translations
 
 
 class ToolMixin:
@@ -38,17 +37,18 @@ class ToolMixin:
         datetime to str
         """
         doc: dict[str, Any] = {}
+        current_locale = translations.CURRENT_LOCALE
         for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
             value = mongo_doc[f_name]
             if value is not None:
                 if "Date" in t_name:
                     if "Time" in t_name:
                         value = format_datetime(
-                            value, format="short", locale=CURRENT_LOCALE
+                            value, format="short", locale=current_locale
                         )
                     else:
                         value = format_date(
-                            value, format="short", locale=CURRENT_LOCALE
+                            value, format="short", locale=current_locale
                         )
                 elif "ID" in t_name:
                     value = str(value)

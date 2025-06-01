@@ -3,6 +3,7 @@
 import unittest
 
 from pymongo import AsyncMongoClient
+from pymongo.results import DeleteResult
 
 from ramifice import model, store
 from ramifice.fields import (
@@ -103,6 +104,9 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         doc = await User.find_one({"_id": m._id.value})
         self.assertTrue(isinstance(doc, dict))
         #
+        raw_doc = await User.find_one_to_raw_doc({"_id": m._id.value})
+        self.assertTrue(isinstance(doc, dict))
+        #
         model = await User.find_one_to_instance({"_id": m._id.value})
         self.assertEqual(model._id.value, m._id.value)
         #
@@ -117,6 +121,13 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
             m.print_err()
         doc = await User.find_one_and_delete({"_id": m._id.value})
         self.assertEqual(doc["_id"], m._id.value)
+        self.assertEqual(await User.estimated_document_count(), 0)
+        #
+        m = User()
+        if not await m.save():
+            m.print_err()
+        result = await User.delete_one({"_id": m._id.value})
+        self.assertTrue(isinstance(result, DeleteResult))
         self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
         #

@@ -86,12 +86,15 @@ poetry add ramifice
 It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/v0/examples "here").
 
 ```python
-from datetime import datetime
+import asyncio
+import pprint
+import datetime
+
 from pymongo import AsyncMongoClient
 from ramifice import model, translations
-from ramifice.fields import TextField, EmailField, DateField
+from ramifice.fields import DateField, EmailField, TextField
 from ramifice.migration import Monitor
-import pprint
+
 
 @model(service_name="Accounts")
 class User:
@@ -103,10 +106,7 @@ class User:
             required=True,
             unique=True,
         )
-        self.first_name = TextField(
-            label=gettext("First name"),
-            required=True
-        )
+        self.first_name = TextField(label=gettext("First name"), required=True)
         self.last_name = TextField(
             label=gettext("Last name"),
             required=True,
@@ -133,37 +133,43 @@ class User:
             error_map["password"] = "Passwords do not match!"
         return error_map
 
-client = AsyncMongoClient()
-await Monitor(
-    database_name="test_db",
-    mongo_client=client,
-).migrat()
 
-user = User()
-user.username.value = "pythondev"
-user.first_name.value = "John"
-user.last_name.value = "Smith"
-user.email.value = "John_Smith@gmail.com"
-user.birthday.value = datetime(2000, 1, 25)
-user.password.value = "12345678"
-user.сonfirm_password.value = "12345678"
+async def main():
+    client = AsyncMongoClient()
+    await Monitor(
+        database_name="test_db",
+        mongo_client=client,
+    ).migrat()
 
-if not await user.save():
-    # Convenient to use during development.
-    user.print_err()
+    user = User()
+    user.username.value = "pythondev"
+    user.first_name.value = "John"
+    user.last_name.value = "Smith"
+    user.email.value = "John_Smith@gmail.com"
+    user.birthday.value = datetime.datetime(2000, 1, 25)
+    user.password.value = "12345678"
+    user.сonfirm_password.value = "12345678"
 
-doc_count = await User.estimated_document_count()
-print(f"Document count: {doc_count}") # => 1
+    if not await user.save():
+        # Convenient to use during development.
+        user.print_err()
 
-user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
-pprint.pprint(user_details)
+    doc_count = await User.estimated_document_count()
+    print(f"Document count: {doc_count}")  # => 1
 
-await user.delete()
+    user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
+    pprint.pprint(user_details)
 
-doc_count = await User.estimated_document_count()
-print(f"Document count: {doc_count}") # => 0
+    await user.delete()
 
-await client.close()
+    doc_count = await User.estimated_document_count()
+    print(f"Document count: {doc_count}")  # => 0
+
+    await client.close()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
