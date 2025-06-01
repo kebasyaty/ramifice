@@ -44,11 +44,15 @@ class ToolMixin:
                 if "Date" in t_name:
                     if "Time" in t_name:
                         value = format_datetime(
-                            value, format="short", locale=current_locale
+                            date=value,
+                            format="short",
+                            locale=current_locale,
                         )
                     else:
                         value = format_date(
-                            value, format="short", locale=current_locale
+                            date=value,
+                            format="short",
+                            locale=current_locale,
                         )
                 elif "ID" in t_name:
                     value = str(value)

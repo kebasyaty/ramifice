@@ -115,10 +115,16 @@ class Model(metaclass=ABCMeta):
                 group = data.group
                 if group == "date":
                     value = (
-                        format_date(value, format="short", locale=current_locale)
+                        format_date(
+                            date=value,
+                            format="short",
+                            locale=current_locale,
+                        )
                         if data.field_type == "DateField"
                         else format_datetime(
-                            value, format="short", locale=current_locale
+                            date=value,
+                            format="short",
+                            locale=current_locale,
                         )
                     )
                 elif group == "id":
