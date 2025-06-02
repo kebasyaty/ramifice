@@ -1,4 +1,4 @@
-#### v0.2.2 2025-01-05
+#### v0.2.2 2025-01-06
 
 - Optimization of translations in field groups.
 
