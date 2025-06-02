@@ -272,11 +272,11 @@ class User:
 ## Install for development of Ramifice
 
 ```shell
-# Ubuntu:
-sudo apt install gettext
-gettext --version
 # Fedora:
 sudo dnf install gettext
+gettext --version
+# Ubuntu:
+sudo apt install gettext
 gettext --version
 # Windows:
 https://mlocati.github.io/articles/gettext-iconv-windows.html
