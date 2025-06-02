@@ -80,9 +80,9 @@ poetry add ramifice
 ```
 
 3. Add the configuration and public directories to the root of your project:<br>
-   [Config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Config directory")
+   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
    <br>
-   [Public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Public directory")
+   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
 
 ## Usage
 
