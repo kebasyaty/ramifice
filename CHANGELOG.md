@@ -1,3 +1,7 @@
+#### v0.2.17 2025-03-06
+
+- Fixed an error due to which the width and height for images are not added.
+
 #### v0.2.16 2025-03-06
 
 - Added fix to create miniatures of images.
