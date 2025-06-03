@@ -95,7 +95,7 @@ from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import model, translations
-from ramifice.fields import DateField, EmailField, PasswordField, TextField
+from ramifice.fields import DateField, EmailField, ImageField, PasswordField, TextField
 from ramifice.migration import Monitor
 
 
@@ -104,6 +104,12 @@ class User:
     def fields(self, gettext):
         # ngettext = translations.get_translator(
         #     translations.CURRENT_LOCALE).ngettext
+        self.avatar = ImageField(
+            label=gettext("Avatar"),
+            default="public/media/default/no-photo.png",
+            # Available 4 sizes from lg to xs or None.
+            thumbnails={"lg": 480, "md": 240, "sm": 120, "xs": 60},
+        )
         self.username = TextField(
             label=gettext("Username"),
             required=True,
@@ -145,6 +151,7 @@ async def main():
 
     user = User()
     user.username.value = "pythondev"
+    user.avatar.from_path("public/media/default/no-photo.png")
     user.first_name.value = "John"
     user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"
