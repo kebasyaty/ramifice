@@ -36,6 +36,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         placeholder: str = "",
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
+        # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ):
@@ -96,6 +97,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: dict[str, Any] | None = None
+        # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
 

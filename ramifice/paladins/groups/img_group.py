@@ -81,6 +81,9 @@ class ImgGroupMixin:
                     ext_upper = value["ext_upper"]
                     # Get image file.
                     with Image.open(path) as img:
+                        width, height = img.size
+                        value["width"] = width
+                        value["height"] = height
                         for size_name in ["lg", "md", "sm", "xs"]:
                             max_size = thumbnails.get(size_name)
                             if max_size is None:
