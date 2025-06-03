@@ -109,6 +109,8 @@ class User:
             default="public/media/default/no-photo.png",
             # Available 4 sizes from lg to xs or None.
             thumbnails={"lg": 480, "md": 240, "sm": 120, "xs": 60},
+            # True is high quality and low performance.
+            is_high_quality=True,
         )
         self.username = TextField(
             label=gettext("Username"),
