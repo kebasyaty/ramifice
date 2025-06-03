@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
+
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
@@ -156,6 +158,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add paths for main image.
             i_data["path"] = main_img_path
             i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            # Add width and height.
+            with Image.open(main_img_path) as img:
+                width, height = img.size
+                i_data["width"] = width
+                i_data["height"] = height
             # Add original image name.
             i_data["name"] = filename
             # Add image extension.
@@ -217,6 +224,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add paths for main image.
             i_data["path"] = main_img_path
             i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            # Add width and height.
+            with Image.open(main_img_path) as img:
+                width, height = img.size
+                i_data["width"] = width
+                i_data["height"] = height
             # Add original image name.
             i_data["name"] = os.path.basename(src_path)
             # Add image extension.
