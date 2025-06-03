@@ -97,11 +97,11 @@ class ImgGroupMixin:
                                 img.save(value["path_md"], ext_upper)
                             elif size_name == "sm":
                                 value["path_sm"] = f"{imgs_dir_path}/sm{extension}"
-                                value["path_sm"] = f"{imgs_dir_url}/sm{extension}"
+                                value["url_sm"] = f"{imgs_dir_url}/sm{extension}"
                                 img.save(value["path_sm"], ext_upper)
                             elif size_name == "xs":
                                 value["path_xs"] = f"{imgs_dir_path}/xs{extension}"
-                                value["path_xs"] = f"{imgs_dir_url}/xs{extension}"
+                                value["url_xs"] = f"{imgs_dir_url}/xs{extension}"
                                 img.save(value["path_xs"], ext_upper)
         # Insert result.
         if params["is_save"] and (value["is_new_img"] or value["save_as_is"]):

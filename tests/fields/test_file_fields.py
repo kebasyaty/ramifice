@@ -120,12 +120,12 @@ class TestFileFields(unittest.TestCase):
         # self.assertFalse(f.value["is_delete"])
         # self.assertFalse(f.value["save_as_is"])
         # # from_path
-        # self.assertIsNone(f.from_path("public/media/default/no_photo.jpeg"))
-        # self.assertEqual(f.value["name"], "no_photo.jpeg")
+        # self.assertIsNone(f.from_path("public/media/default/no-photo.png"))
+        # self.assertEqual(f.value["name"], "no-photo.png")
         # self.assertEqual(f.value["size"], 3832)
         # self.assertTrue(f.value["is_new_img"])
-        # self.assertEqual(f.value["extension"], ".jpeg")
-        # self.assertEqual(f.value["ext_upper"], "JPEG")
+        # self.assertEqual(f.value["extension"], ".png")
+        # self.assertEqual(f.value["ext_upper"], "PNG")
         # self.assertFalse(f.value["is_delete"])
         # self.assertFalse(f.value["save_as_is"])
 

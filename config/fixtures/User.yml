@@ -6,7 +6,7 @@ password: "12345678"
 ip: "126.255.255.255"
 num_int: 10
 num_float: 10.2
-img: "public/media/default/no_photo.jpeg"
+img: "public/media/default/no-photo.png"
 hash2: None
 file: "public/media/default/no_doc.odt"
 email: "kebasyaty@gmail.com"
