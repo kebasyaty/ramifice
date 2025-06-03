@@ -172,10 +172,9 @@ async def main():
     user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
     pprint.pprint(user_details)
 
-    await user.delete()
-
-    doc_count = await User.estimated_document_count()
-    print(f"Document count: {doc_count}")  # => 0
+    # await user.delete()
+    # doc_count = await User.estimated_document_count()
+    # print(f"Document count: {doc_count}")  # => 0
 
     await client.close()
 
