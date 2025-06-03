@@ -104,6 +104,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
+        # True is high quality and low performance.
+        self.is_high_quality = is_high_quality
 
     def from_base64(
         self,
