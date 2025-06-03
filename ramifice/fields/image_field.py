@@ -41,6 +41,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
+        # True is high quality and low performance.
+        is_high_quality: bool = False,
     ):
         if DEBUG:
             if default is not None:

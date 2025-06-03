@@ -81,8 +81,11 @@ class ImgGroupMixin:
                     ext_upper = value["ext_upper"]
                     # Get image file.
                     with Image.open(path) as img:
-                        # PIL.Image.LANCZOS (высококачественный фильтр понижения дискретизации).
-                        resample = Image.Resampling.BICUBIC
+                        resample = (
+                            Image.Resampling.LANCZOS  # High quality and low performance.
+                            if params["field_data"].is_high_quality
+                            else Image.Resampling.BICUBIC
+                        )
                         for size_name in ["lg", "md", "sm", "xs"]:
                             max_size = thumbnails.get(size_name)
                             if max_size is None:
