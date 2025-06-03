@@ -51,9 +51,7 @@ class User:
         self.ip = IPField()
         self.num_int = IntegerField()
         self.num_float = FloatField()
-        self.img = ImageField(
-            thumbnails={"lg": 480, "md": 240, "sm": 120, "xs": 60},
-        )
+        self.img = ImageField()
         self.hash2 = IDField()
         self.file = FileField()
         self.email = EmailField()
