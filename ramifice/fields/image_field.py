@@ -8,6 +8,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
+
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
@@ -39,6 +41,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
+        # True is high quality and low performance.
+        is_high_quality: bool = False,
     ):
         if DEBUG:
             if default is not None:
@@ -100,6 +104,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
+        # True is high quality and low performance.
+        self.is_high_quality = is_high_quality
 
     def from_base64(
         self,
@@ -156,6 +162,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add paths for main image.
             i_data["path"] = main_img_path
             i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            # Add width and height.
+            with Image.open(main_img_path) as img:
+                width, height = img.size
+                i_data["width"] = width
+                i_data["height"] = height
             # Add original image name.
             i_data["name"] = filename
             # Add image extension.
@@ -217,6 +228,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add paths for main image.
             i_data["path"] = main_img_path
             i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            # Add width and height.
+            with Image.open(main_img_path) as img:
+                width, height = img.size
+                i_data["width"] = width
+                i_data["height"] = height
             # Add original image name.
             i_data["name"] = os.path.basename(src_path)
             # Add image extension.
