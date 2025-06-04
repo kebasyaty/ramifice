@@ -30,7 +30,7 @@ class FileGroupMixin:
                 # ( the default value is used whenever possible )
                 if value is None:
                     if field.required:
-                        err_msg = translations.gettext("Required field !")
+                        err_msg = translations._("Required field !")
                         self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                     if params["is_save"]:
                         params["result_map"][field.name] = None
@@ -51,12 +51,12 @@ class FileGroupMixin:
                         if params["is_save"]:
                             params["result_map"][field.name] = None
                     else:
-                        err_msg = translations.gettext("Required field !")
+                        err_msg = translations._("Required field !")
                         self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
-                err_msg = translations.gettext(
+                err_msg = translations._(
                     "File size exceeds the maximum value {max_size} !"
                 ).format(max_size=to_human_size(field.max_size))
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]

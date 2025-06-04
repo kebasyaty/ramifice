@@ -23,7 +23,7 @@ class NumGroupMixin:
             value = field.default
         if value is None:
             if field.required:
-                err_msg = translations.gettext("Required field !")
+                err_msg = translations._("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -31,20 +31,20 @@ class NumGroupMixin:
         # Validation the `max_number` field attribute.
         max_number = field.max_number
         if max_number is not None and value > max_number:
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "The value {num} must not be greater than max={max_num} !"
             ).format(num=value, max_num=max_number)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "The value {num} must not be less than min={min_num} !"
             ).format(num=value, min_num=min_number)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
-            err_msg = translations.gettext("Is not unique !")
+            err_msg = translations._("Is not unique !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:

@@ -25,7 +25,7 @@ class TextGroupMixin:
         value = field.value or field.default or None
         if value is None:
             if field.required:
-                err_msg = translations.gettext("Required field !")
+                err_msg = translations._("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -33,13 +33,13 @@ class TextGroupMixin:
         # Validation the `maxlength` field attribute.
         maxlength = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "The length of the string exceeds maxlength={maxlength} !"
             ).format(maxlength=maxlength)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
-            err_msg = translations.gettext("Is not unique !")
+            err_msg = translations._("Is not unique !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.
         field_type = field.field_type
@@ -52,19 +52,19 @@ class TextGroupMixin:
                 value = emailinfo.normalized
                 params["field_data"].value = value
             except EmailNotValidError:
-                err_msg = translations.gettext("Invalid Email address !")
+                err_msg = translations._("Invalid Email address !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "URL" in field_type and not field.is_valid(value):
-            err_msg = translations.gettext("Invalid URL address !")
+            err_msg = translations._("Invalid URL address !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "IP" in field_type and not field.is_valid(value):
-            err_msg = translations.gettext("Invalid IP address !")
+            err_msg = translations._("Invalid IP address !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "Color" in field_type and not field.is_valid(value):
-            err_msg = translations.gettext("Invalid Color code !")
+            err_msg = translations._("Invalid Color code !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         elif "Phone" in field_type and not field.is_valid(value):
-            err_msg = translations.gettext("Invalid Phone number !")
+            err_msg = translations._("Invalid Phone number !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
