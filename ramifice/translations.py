@@ -37,7 +37,7 @@ LANGUAGES: list[str] = ["en", "ru"]
 CUSTOM_PROJECT_NAME: str | None = None
 
 # Add translations for Ramifice.
-ramifice_translations: dict[str,] = {
+ramifice_translations = {
     lang: _gettext.translation(
         domain="messages",
         localedir="config/translations/ramifice",
@@ -119,7 +119,7 @@ def change_locale(lang_code: str) -> None:
     Returns:
         Object `None`.
     """
-    global CURRENT_LOCALE, gettext
+    global CURRENT_LOCALE, _, gettext
     if lang_code != CURRENT_LOCALE:
         CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
         _ = get_ramifice_translator(CURRENT_LOCALE).gettext
