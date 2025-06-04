@@ -71,7 +71,7 @@ def get_ramifice_translator(lang_code: str) -> Any:
     Examples:
         >>> from ramifice import translations
         >>> _ = translations.get_ramifice_translator("en").gettext
-        >>> msg = gettext("Hello World!")
+        >>> msg = _("Hello World!")
         >>> print(msg)
         Hello World!
 
