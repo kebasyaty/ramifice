@@ -15,12 +15,12 @@ The module contains the following functions:
 
 CKEditor supported languages:
 
-af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en | en-au |
-en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
+af | ar | ast | az | bg | ca | cs | da | de | de_ch | el | en | en_au |
+en_gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
 hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
-nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
-sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
-zh | zh-cn
+nb | ne | nl | no | oc | pl | pt | pt_br | ro | ru | si | sk |
+sl | sq | sr | sr_latn | sv | th | tk | tr | tt | ug | uk | vi |
+zh | zh_cn
 """
 
 import copy
