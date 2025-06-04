@@ -13,7 +13,7 @@ from PIL import Image
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
 from ..store import DEBUG
-from ..types import IMAGE_DATA_TYPE
+from ..types import IMG_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -118,9 +118,9 @@ class ImageField(Field, FileGroup, JsonMixin):
         """
         base64_str = base64_str or None
         filename = filename or None
-        i_data = IMAGE_DATA_TYPE.copy()
-        i_data["is_new_img"] = True
-        i_data["is_delete"] = is_delete
+        img_info = IMG_INFO_DICT.copy()
+        img_info["is_new_img"] = True
+        img_info["is_delete"] = is_delete
 
         if base64_str is not None and filename is not None:
             # Get file extension.
@@ -160,31 +160,31 @@ class ImageField(Field, FileGroup, JsonMixin):
                 f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths for main image.
-            i_data["path"] = main_img_path
-            i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            img_info["path"] = main_img_path
+            img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
             with Image.open(main_img_path) as img:
                 width, height = img.size
-                i_data["width"] = width
-                i_data["height"] = height
+                img_info["width"] = width
+                img_info["height"] = height
             # Add original image name.
-            i_data["name"] = filename
+            img_info["name"] = filename
             # Add image extension.
-            i_data["extension"] = extension
+            img_info["extension"] = extension
             # Transform extension to the upper register and delete the point.
             ext_upper = extension[1:].upper()
             if ext_upper == "JPG":
                 ext_upper = "JPEG"
-            i_data["ext_upper"] = ext_upper
+            img_info["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            i_data["imgs_dir_path"] = imgs_dir_path
+            img_info["imgs_dir_path"] = imgs_dir_path
             # Add url path to target directory with images.
-            i_data["imgs_dir_url"] = imgs_dir_url
+            img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            i_data["size"] = os.path.getsize(main_img_path)
+            img_info["size"] = os.path.getsize(main_img_path)
 
         # to value.
-        self.value = i_data
+        self.value = img_info
 
     # --------------------------------------------------------------------------
     def from_path(
@@ -194,9 +194,9 @@ class ImageField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
-        i_data = IMAGE_DATA_TYPE.copy()
-        i_data["is_new_img"] = True
-        i_data["is_delete"] = is_delete
+        img_info = IMG_INFO_DICT.copy()
+        img_info["is_new_img"] = True
+        img_info["is_delete"] = is_delete
 
         if src_path is not None:
             # Get file extension.
@@ -226,31 +226,31 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Save main image in target directory.
             shutil.copyfile(src_path, main_img_path)
             # Add paths for main image.
-            i_data["path"] = main_img_path
-            i_data["url"] = f"{imgs_dir_url}/{new_original_name}"
+            img_info["path"] = main_img_path
+            img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
             with Image.open(main_img_path) as img:
                 width, height = img.size
-                i_data["width"] = width
-                i_data["height"] = height
+                img_info["width"] = width
+                img_info["height"] = height
             # Add original image name.
-            i_data["name"] = os.path.basename(src_path)
+            img_info["name"] = os.path.basename(src_path)
             # Add image extension.
-            i_data["extension"] = extension
+            img_info["extension"] = extension
             # Transform extension to the upper register and delete the point.
             ext_upper = extension[1:].upper()
             if ext_upper == "JPG":
                 ext_upper = "JPEG"
-            i_data["ext_upper"] = ext_upper
+            img_info["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            i_data["imgs_dir_path"] = imgs_dir_path
+            img_info["imgs_dir_path"] = imgs_dir_path
             # Add url path to target directory with images.
-            i_data["imgs_dir_url"] = imgs_dir_url
+            img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            i_data["size"] = os.path.getsize(main_img_path)
+            img_info["size"] = os.path.getsize(main_img_path)
 
         # to value.
-        self.value = i_data
+        self.value = img_info
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:

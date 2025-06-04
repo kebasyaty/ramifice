@@ -34,7 +34,7 @@ from ramifice.fields import (
     URLField,
 )
 from ramifice.mixins import JsonMixin
-from ramifice.types import FILE_DATA_TYPE, IMAGE_DATA_TYPE
+from ramifice.types import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class StandardTypes(JsonMixin):
@@ -124,8 +124,8 @@ class TestJsonMixin(unittest.TestCase):
         #
         #
         m = User()
-        m.img.value = IMAGE_DATA_TYPE.copy()
-        m.file.value = FILE_DATA_TYPE.copy()
+        m.img.value = IMG_INFO_DICT.copy()
+        m.file.value = FILE_INFO_DICT.copy()
         #
         json_str = m.to_json()
         m2 = User.from_json(json_str)
