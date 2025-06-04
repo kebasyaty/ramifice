@@ -214,7 +214,7 @@ poetry run pybabel extract -o config/translations/custom.pot src
 poetry run pybabel update -i config/translations/custom.pot -d config/translations/custom
 poetry run pybabel compile -d config/translations/custom
 #
-# Add new translations to Ramifice:
+# Add new languages ​​to Ramifice:
 # Example:
 poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
 poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
