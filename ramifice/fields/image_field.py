@@ -12,8 +12,7 @@ from PIL import Image
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
-from ..store import DEBUG
-from ..types import IMG_INFO_DICT
+from ..store import DEBUG, IMG_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 

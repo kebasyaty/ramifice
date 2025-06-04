@@ -34,7 +34,7 @@ from ramifice.fields import (
     URLField,
 )
 from ramifice.mixins import JsonMixin
-from ramifice.types import FILE_INFO_DICT, IMG_INFO_DICT
+from ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class StandardTypes(JsonMixin):

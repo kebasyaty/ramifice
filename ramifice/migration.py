@@ -15,7 +15,7 @@ from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .fixtures import apply_fixture
 from .model import Model
-from .types import FILE_INFO_DICT, IMG_INFO_DICT
+from .store import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class Monitor:

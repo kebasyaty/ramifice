@@ -10,8 +10,7 @@ from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
-from ..store import DEBUG
-from ..types import FILE_INFO_DICT
+from ..store import DEBUG, FILE_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 
