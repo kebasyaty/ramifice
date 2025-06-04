@@ -12,15 +12,24 @@ The module contains the following functions:
 
 - `get_translator` - Get an object of translation for the desired language.
 - `change_locale` - To change the current language and translation object.
+
+CKEditor supported languages:
+
+af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en | en-au |
+en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
+hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
+nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
+sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
+zh | zh-cn
 """
 
 import gettext
 from typing import Any
 
-# Code of current language.
-CURRENT_LOCALE: str = "en"
 # Language code by default.
 DEFAULT_LOCALE: str = "en"
+# Code of current language.
+CURRENT_LOCALE: str = DEFAULT_LOCALE
 # List of codes supported by languages.
 LANGUAGES: list[str] = ["en", "ru"]
 
