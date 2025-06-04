@@ -23,13 +23,14 @@ sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
 zh | zh-cn
 """
 
+import copy
 import gettext
 from typing import Any
 
 # Language code by default.
 DEFAULT_LOCALE: str = "en"
 # Code of current language.
-CURRENT_LOCALE: str = DEFAULT_LOCALE
+CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 # List of codes supported by languages.
 LANGUAGES: list[str] = ["en", "ru"]
 
