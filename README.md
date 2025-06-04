@@ -183,6 +183,21 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+### Run commands for create your translations:
+
+```shell
+cd project_name
+mkdir config/translations/project_name
+poetry run pybabel extract -o config/translations/messages.pot src/module_name
+poetry run pybabel init -i config/translations/messages.pot -d config/translations/project_name -l en
+poetry run pybabel init -i config/translations/messages.pot -d config/translations/project_name -l ru
+poetry run pybabel compile -d config/translations/project_name
+# For update your translations:
+poetry run pybabel extract -o config/translations/messages.pot src/module_name
+poetry run pybabel update -i config/translations/messages.pot -d config/translations/project_name
+poetry run pybabel compile -d config/translations/project_name
+```
+
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
 
 ## Model Parameters
