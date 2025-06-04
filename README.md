@@ -187,13 +187,13 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### Run commands for create your translations:
+### For create custom translations:
 
 ```python
 from ramifice import translations
 
-translations.DEFAULT_LOCALE = "en"
-translations.LANGUAGES = ["en", "ru"]
+translations.DEFAULT_LOCALE = "en"  # by default for Ramifice = "en"
+translations.LANGUAGES = ["en", "ru"]  # by default for Ramifice = ["en", "ru"]
 ```
 
 ```shell
