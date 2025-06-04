@@ -25,20 +25,20 @@ class PassGroupMixin:
         value = field.value or None
         if value is None:
             if field.required:
-                err_msg = translations.gettext("Required field !")
+                err_msg = translations._("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Validation Passwor.
         if not field.is_valid(value):
-            err_msg = translations.gettext("Invalid Password !")
+            err_msg = translations._("Invalid Password !")
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-            err_msg = translations.gettext("Valid characters: {chars}").format(
+            err_msg = translations._("Valid characters: {chars}").format(
                 char="a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
             )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "Number of characters: from {min_num} to {max_num}"
             ).format(min_num=8, max_num=256)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]

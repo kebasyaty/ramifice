@@ -5,8 +5,6 @@ These types are used to transfer information.
 The module contains the following types:
 
 - `Unit` - Used for data management in dynamic fields.
-- `FILE_DATA_TYPE` - To transmit file information.
-- `IMAGE_DATA_TYPE` - To transmit information about the image..
 """
 
 from .errors import PanicError
@@ -72,42 +70,3 @@ class Unit(JsonMixin):
                 + "Must not be empty!"
             )
             raise PanicError(msg)
-
-
-# For `FileField.value`.
-FILE_DATA_TYPE = dict(
-    path="",
-    url="",
-    name="",
-    size=0,
-    is_new_file=False,
-    is_delete=False,
-    extension="",
-    save_as_is=False,
-)
-
-# For `ImageField.value`.
-IMAGE_DATA_TYPE = dict(
-    path="",
-    path_xs="",
-    path_sm="",
-    path_md="",
-    path_lg="",
-    url="",
-    url_xs="",
-    url_sm="",
-    url_md="",
-    url_lg="",
-    name="",
-    width=0,
-    height=0,
-    size=0,
-    is_new_img=False,
-    is_delete=False,
-    extension="",
-    imgs_dir_path="",
-    imgs_dir_url="",
-    save_as_is=False,
-    # Extension to the upper register and delete the point.
-    ext_upper="",
-)

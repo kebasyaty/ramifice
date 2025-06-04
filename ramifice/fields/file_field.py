@@ -10,8 +10,7 @@ from typing import Any
 
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
-from ..store import DEBUG
-from ..types import FILE_DATA_TYPE
+from ..store import DEBUG, FILE_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -81,9 +80,9 @@ class FileField(Field, FileGroup, JsonMixin):
         """
         base64_str = base64_str or None
         filename = filename or None
-        f_data = FILE_DATA_TYPE.copy()
-        f_data["is_new_file"] = True
-        f_data["is_delete"] = is_delete
+        file_info = FILE_INFO_DICT.copy()
+        file_info["is_new_file"] = True
+        file_info["is_delete"] = is_delete
 
         if base64_str is not None and filename is not None:
             # Get file extension.
@@ -115,19 +114,19 @@ class FileField(Field, FileGroup, JsonMixin):
                 f_content = b64decode(base64_str)
                 open_f.write(f_content)
             # Add paths to target file.
-            f_data["path"] = f_target_path
-            f_data["url"] = (
+            file_info["path"] = f_target_path
+            file_info["url"] = (
                 f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             )
             # Add original file name.
-            f_data["name"] = filename
+            file_info["name"] = filename
             # Add file extension.
-            f_data["extension"] = extension
+            file_info["extension"] = extension
             # Add file size (in bytes).
-            f_data["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = os.path.getsize(f_target_path)
 
         # to value.
-        self.value = f_data
+        self.value = file_info
 
     # --------------------------------------------------------------------------
     def from_path(
@@ -137,9 +136,9 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        f_data = FILE_DATA_TYPE.copy()
-        f_data["is_new_file"] = True
-        f_data["is_delete"] = is_delete
+        file_info = FILE_INFO_DICT.copy()
+        file_info["is_new_file"] = True
+        file_info["is_delete"] = is_delete
 
         if src_path is not None:
             # Get file extension.
@@ -161,16 +160,16 @@ class FileField(Field, FileGroup, JsonMixin):
             # Save file in target directory.
             shutil.copyfile(src_path, f_target_path)
             # Add paths to target file.
-            f_data["path"] = f_target_path
-            f_data["url"] = (
+            file_info["path"] = f_target_path
+            file_info["url"] = (
                 f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             )
             # Add original file name.
-            f_data["name"] = os.path.basename(src_path)
+            file_info["name"] = os.path.basename(src_path)
             # Add file extension.
-            f_data["extension"] = extension
+            file_info["extension"] = extension
             # Add file size (in bytes).
-            f_data["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = os.path.getsize(f_target_path)
 
         # to value.
-        self.value = f_data
+        self.value = file_info

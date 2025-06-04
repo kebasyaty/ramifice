@@ -23,7 +23,7 @@ class DateGroupMixin:
         value = field.value or field.default or None
         if value is None:
             if field.required:
-                err_msg = translations.gettext("Required field !")
+                err_msg = translations._("Required field !")
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -45,7 +45,7 @@ class DateGroupMixin:
                     locale=translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "The date {date} must not be greater than max={max_date} !"
             ).format(date=value, max_date=date_str)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
@@ -65,7 +65,7 @@ class DateGroupMixin:
                     locale=translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations.gettext(
+            err_msg = translations._(
                 "The date {date} must not be less than min={min_date} !"
             ).format(date=value, min_date=date_str)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]

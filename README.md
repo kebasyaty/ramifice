@@ -47,6 +47,14 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
   </a>
 </p>
 
+## Attention
+
+For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project
+<br>
+[Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
+<br>
+[Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
+
 ## Documentation
 
 Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
@@ -79,7 +87,7 @@ cd project_name
 poetry add ramifice
 ```
 
-3. Add the configuration and public directories to the root of your project:<br>
+3. Add `config` and `public` directories in root of your project:<br>
    [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
    <br>
    [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
@@ -102,8 +110,9 @@ from ramifice.migration import Monitor
 @model(service_name="Accounts")
 class User:
     def fields(self, gettext):
-        # ngettext = translations.get_translator(
-        #     translations.CURRENT_LOCALE).ngettext
+        # ngettext = translations.get_custom_translator(
+        #     translations.CURRENT_LOCALE
+        # ).ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             default="public/media/default/no-photo.png",
@@ -151,6 +160,9 @@ async def main():
         mongo_client=client,
     ).migrat()
 
+    # If you need to change the language of translation.
+    # translations.change_locale("ru")
+
     user = User()
     user.username.value = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
@@ -181,6 +193,39 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+```
+
+### For create custom translations
+
+```python
+from ramifice import translations
+
+translations.DEFAULT_LOCALE = "en"  # by default for Ramifice = "en"
+translations.LANGUAGES = ["en", "ru"]  # by default for Ramifice = ["en", "ru"]
+```
+
+```shell
+cd project_name
+# Add your custom translations:
+poetry run pybabel extract -o config/translations/custom.pot src
+poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
+poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
+poetry run pybabel compile -d config/translations/custom
+# Update your custom translations:
+poetry run pybabel extract -o config/translations/custom.pot src
+poetry run pybabel update -i config/translations/custom.pot -d config/translations/custom
+poetry run pybabel compile -d config/translations/custom
+#
+# Add new translations to Ramifice:
+# Example:
+poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
+poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
+...
+poetry run pybabel compile -d config/translations/ramifice
+# Update translations to Ramifice:
+poetry run pybabel extract -o config/translations/ramifice.pot ramifice
+poetry run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
+poetry run pybabel compile -d config/translations/ramifice
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
@@ -291,7 +336,7 @@ https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
 cd project_name
-poetry install --with dev docs
+poetry install --with dev,docs
 ```
 
 ## Contributors

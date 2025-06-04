@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-01 08:32+0300\n"
-"PO-Revision-Date: 2025-05-27 18:35+0300\n"
+"POT-Creation-Date: 2025-06-04 13:06+0300\n"
+"PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -57,16 +57,16 @@ msgstr "Когда был обновлен документ."
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
-#: ramifice/paladins/groups/choice_group.py:38
+#: ramifice/paladins/groups/choice_group.py:37
 msgid "Your choice does not match the options offered !"
 msgstr "Ваш выбор не соответствует предложенным вариантам !"
 
-#: ramifice/paladins/groups/date_group.py:45
+#: ramifice/paladins/groups/date_group.py:49
 #, python-brace-format
 msgid "The date {date} must not be greater than max={max_date} !"
 msgstr "Дата {date} не должна быть больше max={max_date} !"
 
-#: ramifice/paladins/groups/date_group.py:61
+#: ramifice/paladins/groups/date_group.py:69
 #, python-brace-format
 msgid "The date {date} must not be less than min={min_date} !"
 msgstr "Дата {date} не должна быть меньше min={min_date} !"

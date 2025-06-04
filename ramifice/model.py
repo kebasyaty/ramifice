@@ -19,31 +19,31 @@ class Model(metaclass=ABCMeta):
     META: dict[str, Any] = {}
 
     def __init__(self):
-        gettext = translations.gettext
+        _ = translations._
         self._id = IDField(
-            label=gettext("Document ID"),
-            placeholder=gettext("It is added automatically"),
-            hint=gettext("It is added automatically"),
+            label=_("Document ID"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
             hide=True,
             disabled=True,
         )
         self.created_at = DateTimeField(
-            label=gettext("Created at"),
-            placeholder=gettext("It is added automatically"),
-            hint=gettext("It is added automatically"),
-            warning=[gettext("When the document was created.")],
+            label=_("Created at"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
+            warning=[_("When the document was created.")],
             hide=True,
             disabled=True,
         )
         self.updated_at = DateTimeField(
-            label=gettext("Updated at"),
-            placeholder=gettext("It is added automatically"),
-            hint=gettext("It is added automatically"),
-            warning=[gettext("When the document was updated.")],
+            label=_("Updated at"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
+            warning=[_("When the document was updated.")],
             hide=True,
             disabled=True,
         )
-        self.fields(gettext)
+        self.fields(translations.gettext)
         self.inject()
 
     @abstractmethod
