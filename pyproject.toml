@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.3.0"
+version = "0.3.5"
 description = "ORM-like API MongoDB for Python language."
 license = { text = "MIT" }
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]

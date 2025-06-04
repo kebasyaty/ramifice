@@ -16,11 +16,12 @@
       <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI pyversions"><img src="https://img.shields.io/pypi/pyversions/ramifice.svg" alt="PyPI pyversions"></a>
       <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI status"><img src="https://img.shields.io/pypi/status/ramifice.svg" alt="PyPI status"></a>
       <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI version fury.io"><img src="https://badge.fury.io/py/ramifice.svg" alt="PyPI version fury.io"></a>
+      <br>
       <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
       <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
     </p>
-    <div align="center">
+    <p align="center">
       Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
       <br>
       For simulate relationship Many-to-One and Many-to-Many,
@@ -28,7 +29,7 @@
       a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
       <br>
       The project is more concentrated for web development or for applications with a graphic interface.
-    </div>
+    </p>
   </p>
 </div>
 
@@ -48,9 +49,10 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 </p>
 
 <br>
+<br>
 
 <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/attention.svg" alt="Attention">
-<p><b>For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project</b></p>
+<p><b>For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project:</b></p>
 <a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config" alt="Download config directory">Download config directory</a>
 <br>
 <a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public" alt="Download config directory">Download public directory</a>
