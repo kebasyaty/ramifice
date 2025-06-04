@@ -306,7 +306,7 @@ https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
 cd project_name
-poetry install --with dev docs
+poetry install --with dev,docs
 ```
 
 ## Contributors

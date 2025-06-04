@@ -29,8 +29,8 @@ dependencies = [
     "python-slugify (>=8.0.4,<9.0.0)",
     "argon2-cffi (>=23.1.0,<24.0.0)",
     "pyyaml (>=6.0.2,<7.0.0)",
-    "babel (>=2.17.0,<3.0.0)",
     "python-dateutil (>=2.9.0.post0,<3.0.0)",
+    "babel (>=2.17.0,<3.0.0)",
 ]
 
 [project.urls]

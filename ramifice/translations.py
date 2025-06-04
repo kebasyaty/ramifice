@@ -24,7 +24,7 @@ zh | zh-cn
 """
 
 import copy
-import gettext
+import gettext as _gettext
 from typing import Any
 
 # Language code by default.
@@ -37,8 +37,8 @@ LANGUAGES: list[str] = ["en", "ru"]
 CUSTOM_PROJECT_NAME: str | None = None
 
 # Add translations for Ramifice.
-ramifice_translations = {
-    lang: gettext.translation(
+ramifice_translations: dict[str,] = {
+    lang: _gettext.translation(
         domain="messages",
         localedir="config/translations/ramifice",
         languages=[lang],
@@ -50,7 +50,7 @@ ramifice_translations = {
 
 # Add translations for custom project.
 custom_translations = {
-    lang: gettext.translation(
+    lang: _gettext.translation(
         domain="messages",
         localedir=f"config/translations/{CUSTOM_PROJECT_NAME}",
         languages=[lang],
