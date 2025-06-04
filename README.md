@@ -54,6 +54,7 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 **For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project**
 <br>
 <a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config" alt="Download config directory">Download config directory</a>
+<br>
 <a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public" alt="Download config directory">Download public directory</a>
 
 ## Documentation
