@@ -51,7 +51,7 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/attention.svg" alt="Attention">
 <br>
-**For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project**
+<b>For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project</b>
 <br>
 <a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config" alt="Download config directory">Download config directory</a>
 <br>
