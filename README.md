@@ -110,9 +110,7 @@ from ramifice.migration import Monitor
 @model(service_name="Accounts")
 class User:
     def fields(self, gettext):
-        # ngettext = translations.get_custom_translator(
-        #     translations.CURRENT_LOCALE
-        # ).ngettext
+        # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             default="public/media/default/no-photo.png",
