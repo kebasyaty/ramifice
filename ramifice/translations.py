@@ -33,9 +33,11 @@ DEFAULT_LOCALE: str = "en"
 CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 # List of codes supported by languages.
 LANGUAGES: list[str] = ["en", "ru"]
+# Name of custom project.
+CUSTOM_PROJECT_NAME: str | None = None
 
-# List of translations
-translations = {
+# Add translations for Ramifice.
+ramifice_translations = {
     lang: gettext.translation(
         domain="messages",
         localedir="config/translations/ramifice",
@@ -46,13 +48,29 @@ translations = {
     for lang in LANGUAGES
 }
 
+# Add translations for custom project.
+custom_translations = (
+    {
+        lang: gettext.translation(
+            domain="messages",
+            localedir=f"config/translations/{CUSTOM_PROJECT_NAME}",
+            languages=[lang],
+            class_=None,
+            fallback=True,
+        )
+        for lang in LANGUAGES
+    }
+    if bool(CUSTOM_PROJECT_NAME)
+    else {}
+)
 
-def get_translator(lang_code: str) -> Any:
-    """Get an object of translation for the desired language.
+
+def get_ramifice_translator(lang_code: str) -> Any:
+    """Get an object of translation for the desired language, for Ramifice.
 
     Examples:
         >>> from ramifice import translations
-        >>> gettext = translations.get_translator("en").gettext
+        >>> _ = translations.get_ramifice_translator("en").gettext
         >>> msg = gettext("Hello World!")
         >>> print(msg)
         Hello World!
@@ -63,11 +81,33 @@ def get_translator(lang_code: str) -> Any:
     Returns:
         Object of translation for the desired language.
     """
-    return translations.get(lang_code, translations[DEFAULT_LOCALE])
+    return ramifice_translations.get(lang_code, ramifice_translations[DEFAULT_LOCALE])
 
 
-# The object of the current translation.
-gettext = get_translator(DEFAULT_LOCALE).gettext
+def get_custom_translator(lang_code: str) -> Any:
+    """Get an object of translation for the desired language, for custom project.
+
+    Examples:
+        >>> from ramifice import translations
+        >>> gettext = translations.get_custom_translator("en").gettext
+        >>> msg = gettext("Hello World!")
+        >>> print(msg)
+        Hello World!
+
+    Args:
+        lang_code: Language code.
+
+    Returns:
+        Object of translation for the desired language.
+    """
+    return custom_translations.get(lang_code, custom_translations[DEFAULT_LOCALE])
+
+
+# The object of the current translation, for Ramifice.
+_ = get_ramifice_translator(DEFAULT_LOCALE).gettext
+
+# The object of the current translation, for custom project.
+gettext = get_custom_translator(DEFAULT_LOCALE).gettext
 
 
 def change_locale(lang_code: str) -> None:
@@ -86,4 +126,5 @@ def change_locale(lang_code: str) -> None:
     global CURRENT_LOCALE, gettext
     if lang_code != CURRENT_LOCALE:
         CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
-        gettext = get_translator(CURRENT_LOCALE).gettext
+        _ = get_ramifice_translator(CURRENT_LOCALE).gettext
+        gettext = get_custom_translator(CURRENT_LOCALE).gettext

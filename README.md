@@ -187,15 +187,15 @@ if __name__ == "__main__":
 
 ```shell
 cd project_name
-mkdir config/translations/project_name
-poetry run pybabel extract -o config/translations/messages.pot src/module_name
-poetry run pybabel init -i config/translations/messages.pot -d config/translations/project_name -l en
-poetry run pybabel init -i config/translations/messages.pot -d config/translations/project_name -l ru
-poetry run pybabel compile -d config/translations/project_name
-# For update your translations:
-poetry run pybabel extract -o config/translations/messages.pot src/module_name
-poetry run pybabel update -i config/translations/messages.pot -d config/translations/project_name
-poetry run pybabel compile -d config/translations/project_name
+# Add your translations:
+poetry run pybabel extract -o config/translations/custom.pot src
+poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
+poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
+poetry run pybabel compile -d config/translations/custom
+# Update your translations:
+poetry run pybabel extract -o config/translations/custom.pot src
+poetry run pybabel update -i config/translations/custom.pot -d config/translations/custom
+poetry run pybabel compile -d config/translations/custom
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
