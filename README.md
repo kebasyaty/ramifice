@@ -198,15 +198,25 @@ translations.LANGUAGES = ["en", "ru"]  # by default for Ramifice = ["en", "ru"]
 
 ```shell
 cd project_name
-# Add your translations:
+# Add your custom translations:
 poetry run pybabel extract -o config/translations/custom.pot src
 poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
 poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
 poetry run pybabel compile -d config/translations/custom
-# Update your translations:
+# Update your custom translations:
 poetry run pybabel extract -o config/translations/custom.pot src
 poetry run pybabel update -i config/translations/custom.pot -d config/translations/custom
 poetry run pybabel compile -d config/translations/custom
+#
+# Add new translations to Ramifice:
+poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
+poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
+...
+poetry run pybabel compile -d config/translations/ramifice
+# Update translations to Ramifice:
+poetry run pybabel extract -o config/translations/ramifice.pot ramifice
+poetry run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
+poetry run pybabel compile -d config/translations/ramifice
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
