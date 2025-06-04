@@ -210,6 +210,7 @@ cd project_name
 poetry run pybabel extract -o config/translations/custom.pot src
 poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
 poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
+...
 poetry run pybabel compile -d config/translations/custom
 # Update your custom translations:
 poetry run pybabel extract -o config/translations/custom.pot src
