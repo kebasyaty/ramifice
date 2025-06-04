@@ -33,8 +33,6 @@ DEFAULT_LOCALE: str = "en"
 CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 # List of codes supported by languages.
 LANGUAGES: list[str] = ["en", "ru"]
-# Name of custom project.
-CUSTOM_PROJECT_NAME: str | None = None
 
 # Add translations for Ramifice.
 ramifice_translations = {
@@ -52,7 +50,7 @@ ramifice_translations = {
 custom_translations = {
     lang: _gettext.translation(
         domain="messages",
-        localedir=f"config/translations/{CUSTOM_PROJECT_NAME}",
+        localedir="config/translations/custom",
         languages=[lang],
         class_=None,
         fallback=True,

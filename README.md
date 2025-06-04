@@ -102,8 +102,9 @@ from ramifice.migration import Monitor
 @model(service_name="Accounts")
 class User:
     def fields(self, gettext):
-        # ngettext = translations.get_translator(
-        #     translations.CURRENT_LOCALE).ngettext
+        # ngettext = translations.get_custom_translator(
+        #     translations.CURRENT_LOCALE
+        # ).ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             default="public/media/default/no-photo.png",
@@ -151,6 +152,9 @@ async def main():
         mongo_client=client,
     ).migrat()
 
+    # If you need to change the language of translation.
+    # translations.change_locale("ru")
+
     user = User()
     user.username.value = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
@@ -184,6 +188,13 @@ if __name__ == "__main__":
 ```
 
 ### Run commands for create your translations:
+
+```python
+from ramifice import translations
+
+translations.DEFAULT_LOCALE = "en"
+translations.LANGUAGES = ["en", "ru"]
+```
 
 ```shell
 cd project_name
