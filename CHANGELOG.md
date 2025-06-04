@@ -1,7 +1,7 @@
 #### v0.3.0 2025-03-06
 
 - Added support for custom translations.
-- Attention: update the directors `config` and `public` at the root of your project.
+- Attention: update the directories `config` and `public` at the root of your project.
 
 #### v0.2.18 2025-03-06
 
@@ -14,7 +14,7 @@
 #### v0.2.16 2025-03-06
 
 - Added fix to create miniatures of images.
-- Attention: update the directors `config` and `public` at the root of your project.
+- Attention: update the directories `config` and `public` at the root of your project.
 
 #### v0.2.2 2025-01-06
 

@@ -47,6 +47,14 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
   </a>
 </p>
 
+## Attention
+
+For version `0.3.0`, do not forget to update `config` and `public` directories in root of your project
+<br>
+[Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
+<br>
+[Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
+
 ## Documentation
 
 Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
@@ -79,7 +87,7 @@ cd project_name
 poetry add ramifice
 ```
 
-3. Add the configuration and public directories to the root of your project:<br>
+3. Add `config` and `public` directories in root of your project:<br>
    [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
    <br>
    [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
@@ -187,7 +195,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### For create custom translations:
+### For create custom translations
 
 ```python
 from ramifice import translations
