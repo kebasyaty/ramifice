@@ -49,20 +49,16 @@ ramifice_translations = {
 }
 
 # Add translations for custom project.
-custom_translations = (
-    {
-        lang: gettext.translation(
-            domain="messages",
-            localedir=f"config/translations/{CUSTOM_PROJECT_NAME}",
-            languages=[lang],
-            class_=None,
-            fallback=True,
-        )
-        for lang in LANGUAGES
-    }
-    if bool(CUSTOM_PROJECT_NAME)
-    else {}
-)
+custom_translations = {
+    lang: gettext.translation(
+        domain="messages",
+        localedir=f"config/translations/{CUSTOM_PROJECT_NAME}",
+        languages=[lang],
+        class_=None,
+        fallback=True,
+    )
+    for lang in LANGUAGES
+}
 
 
 def get_ramifice_translator(lang_code: str) -> Any:
