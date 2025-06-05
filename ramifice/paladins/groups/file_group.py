@@ -57,8 +57,9 @@ class FileGroupMixin:
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
-                    "File size exceeds the maximum value {max_size} !"
-                ).format(max_size=to_human_size(field.max_size))
+                    "File size exceeds the maximum value %s !"
+                    % to_human_size(field.max_size)
+                )
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                 return
             # Return if there is no need to save.

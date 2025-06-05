@@ -31,11 +31,11 @@ class TextGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Validation the `maxlength` field attribute.
-        maxlength = field.__dict__.get("maxlength")
+        maxlength: int | None = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
             err_msg = translations._(
-                "The length of the string exceeds maxlength={maxlength} !"
-            ).format(maxlength=maxlength)
+                "The length of the string exceeds maxlength=%d !" % maxlength
+            )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
