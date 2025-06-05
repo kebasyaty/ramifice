@@ -32,9 +32,22 @@ class DateGroupMixin:
         # Validation the `max_date` field attribute.
         max_date = field.max_date
         if max_date is not None and value > max_date:
-            date_str = (
+            value_str = (
                 format_date(
-                    date=max_date,
+                    date=value.date(),
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
+                )
+                if field.field_type == "DateField"
+                else format_datetime(
+                    datetime=value,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
+                )
+            )
+            max_date_str = (
+                format_date(
+                    date=max_date.date(),
                     format="short",
                     locale=translations.CURRENT_LOCALE,
                 )
@@ -46,15 +59,29 @@ class DateGroupMixin:
                 )
             )
             err_msg = translations._(
-                "The date {date} must not be greater than max={max_date} !"
-            ).format(date=value, max_date=date_str)
+                "The date %s must not be greater than max=%s !" % value_str,
+                max_date_str,
+            )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_date` field attribute.
         min_date = field.min_date
         if min_date is not None and value < min_date:
-            date_str = (
+            value_str = (
                 format_date(
-                    date=min_date,
+                    date=value.date(),
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
+                )
+                if field.field_type == "DateField"
+                else format_datetime(
+                    datetime=value,
+                    format="short",
+                    locale=translations.CURRENT_LOCALE,
+                )
+            )
+            min_date_str = (
+                format_date(
+                    date=min_date.date(),
                     format="short",
                     locale=translations.CURRENT_LOCALE,
                 )
@@ -66,8 +93,8 @@ class DateGroupMixin:
                 )
             )
             err_msg = translations._(
-                "The date {date} must not be less than min={min_date} !"
-            ).format(date=value, min_date=date_str)
+                "The date %s must not be less than min=%s !" % value_str, min_date_str
+            )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:

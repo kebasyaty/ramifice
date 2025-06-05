@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-04 13:06+0300\n"
+"POT-Creation-Date: 2025-06-05 18:34+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -60,19 +60,19 @@ msgstr ""
 msgid "Your choice does not match the options offered !"
 msgstr ""
 
-#: ramifice/paladins/groups/date_group.py:49
-#, python-brace-format
-msgid "The date {date} must not be greater than max={max_date} !"
+#: ramifice/paladins/groups/date_group.py:62
+#, python-format
+msgid "The date %s must not be greater than max=%s !"
 msgstr ""
 
-#: ramifice/paladins/groups/date_group.py:69
-#, python-brace-format
-msgid "The date {date} must not be less than min={min_date} !"
+#: ramifice/paladins/groups/date_group.py:96
+#, python-format
+msgid "The date %s must not be less than min=%s !"
 msgstr ""
 
 #: ramifice/paladins/groups/file_group.py:60
-#, python-brace-format
-msgid "File size exceeds the maximum value {max_size} !"
+#, python-format
+msgid "File size exceeds the maximum value %s !"
 msgstr ""
 
 #: ramifice/paladins/groups/id_group.py:31
@@ -80,18 +80,18 @@ msgid "Invalid document ID !"
 msgstr ""
 
 #: ramifice/paladins/groups/img_group.py:62
-#, python-brace-format
-msgid "Image size exceeds the maximum value {max_size} !"
+#, python-format
+msgid "Image size exceeds the maximum value %s !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:35
-#, python-brace-format
-msgid "The value {num} must not be greater than max={max_num} !"
+#, python-format
+msgid "The value %d must not be greater than max=%d !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:42
-#, python-brace-format
-msgid "The value {num} must not be less than min={min_num} !"
+#, python-format
+msgid "The value %d must not be less than min=%d !"
 msgstr ""
 
 #: ramifice/paladins/groups/num_group.py:47
@@ -103,19 +103,18 @@ msgstr ""
 msgid "Invalid Password !"
 msgstr ""
 
-#: ramifice/paladins/groups/pass_group.py:37
-#, python-brace-format
-msgid "Valid characters: {chars}"
+#: ramifice/paladins/groups/pass_group.py:38
+#, python-format
+msgid "Valid characters: %s"
 msgstr ""
 
-#: ramifice/paladins/groups/pass_group.py:42
-#, python-brace-format
-msgid "Number of characters: from {min_num} to {max_num}"
+#: ramifice/paladins/groups/pass_group.py:40
+msgid "Number of characters: from 8 to 256"
 msgstr ""
 
 #: ramifice/paladins/groups/text_group.py:37
-#, python-brace-format
-msgid "The length of the string exceeds maxlength={maxlength} !"
+#, python-format
+msgid "The length of the string exceeds maxlength=%d !"
 msgstr ""
 
 #: ramifice/paladins/groups/text_group.py:55

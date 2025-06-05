@@ -32,15 +32,15 @@ class NumGroupMixin:
         max_number = field.max_number
         if max_number is not None and value > max_number:
             err_msg = translations._(
-                "The value {num} must not be greater than max={max_num} !"
-            ).format(num=value, max_num=max_number)
+                "The value %d must not be greater than max=%d !" % value, max_number
+            )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
             err_msg = translations._(
-                "The value {num} must not be less than min={min_num} !"
-            ).format(num=value, min_num=min_number)
+                "The value %d must not be less than min=%d !" % value, min_number
+            )
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
