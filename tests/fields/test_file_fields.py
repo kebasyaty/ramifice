@@ -123,9 +123,9 @@ class TestFileFields(unittest.TestCase):
         # from_path
         self.assertIsNone(f.from_path("public/media/default/no-photo.png"))
         self.assertEqual(f.value["name"], "no-photo.png")
-        self.assertEqual(f.value["size"], 13132)
-        self.assertEqual(f.value["width"], 512)
-        self.assertEqual(f.value["height"], 512)
+        self.assertEqual(f.value["size"], 41554)
+        self.assertEqual(f.value["width"], 1024)
+        self.assertEqual(f.value["height"], 1024)
         self.assertTrue(f.value["is_new_img"])
         self.assertEqual(f.value["extension"], ".png")
         self.assertEqual(f.value["ext_upper"], "PNG")
