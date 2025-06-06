@@ -1,6 +1,17 @@
+#### v0.3.7 2025-06-06
+
+- Rename param `max_size` for ImageField.
+- Added comments for params to FileField and ImageField.
+- Attention: update the directories `config` and `public` at the root of your project.
+
+#### v0.3.6 2025-05-06
+
+- Updated translations for Ramifoce.
+- Attention: update the directories `config` and `public` at the root of your project.
+
 #### v0.3.0 2025-03-06
 
-- Added support for custom translations.
+- Added support for custom translations
 - Attention: update the directories `config` and `public` at the root of your project.
 
 #### v0.2.18 2025-03-06
