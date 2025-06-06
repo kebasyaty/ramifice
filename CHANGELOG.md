@@ -1,7 +1,8 @@
 #### v0.3.7 2025-06-06
 
+- The Directory of `src` was added to the structure of the project.
 - Rename param `max_size` for ImageField.
-- Added comments for params to FileField and ImageField.
+- Added comments for attributes in Filefield and Imagefield.
 - Attention: update the directories `config` and `public` at the root of your project.
 
 #### v0.3.6 2025-05-06
