@@ -5,7 +5,7 @@
 
 #### v0.2.18 2025-03-06
 
-- Added param `is_high_quality` to ImageField.
+- Added param `high_quality` to ImageField.
 
 #### v0.2.17 2025-03-06
 

@@ -32,7 +32,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         hint: str = "",
         warning: list[str] | None = None,
         required: bool = False,
-        max_size: int = 2097152,  # 2 MB
+        # The maximum size of the original image in bytes.
+        max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
         default: str | None = None,
         placeholder: str = "",
         target_dir: str = "images",
@@ -40,8 +41,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
-        # True is high quality and low performance.
-        is_high_quality: bool = False,
+        # True - high quality and low performance for thumbnails.
+        high_quality: bool = False,
     ):
         if DEBUG:
             if default is not None:
@@ -104,7 +105,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
         # True is high quality and low performance.
-        self.is_high_quality = is_high_quality
+        self.high_quality = high_quality
 
     def from_base64(
         self,

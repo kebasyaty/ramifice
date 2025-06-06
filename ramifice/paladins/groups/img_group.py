@@ -84,7 +84,7 @@ class ImgGroupMixin:
                     with Image.open(path) as img:
                         resample = (
                             Image.Resampling.LANCZOS  # High quality and low performance.
-                            if params["field_data"].is_high_quality
+                            if params["field_data"].high_quality
                             else Image.Resampling.BICUBIC
                         )
                         for size_name in ["lg", "md", "sm", "xs"]:
