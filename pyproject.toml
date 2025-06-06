@@ -40,7 +40,7 @@ documentation = "https://kebasyaty.github.io/ramifice/"
 "Bug Tracker" = "https://github.com/kebasyaty/ramifice/issues"
 
 [tool.poetry]
-packages = [{ include = "ramifice" }]
+packages = [{ include = "ramifice", from = "src" }]
 
 [tool.poetry.group.dev]
 optional = true

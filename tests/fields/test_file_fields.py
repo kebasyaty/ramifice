@@ -2,8 +2,8 @@
 
 import unittest
 
-from ramifice.errors import FileHasNoExtensionError
-from ramifice.fields import FileField, ImageField
+from src.ramifice.errors import FileHasNoExtensionError
+from src.ramifice.fields import FileField, ImageField
 
 
 class TestFileFields(unittest.TestCase):

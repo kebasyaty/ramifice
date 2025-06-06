@@ -6,9 +6,9 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import model, store
-from ramifice.errors import PanicError
-from ramifice.fields import (
+from src.ramifice import model, store
+from src.ramifice.errors import PanicError
+from src.ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
     ChoiceIntDynField,
@@ -16,8 +16,8 @@ from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextMultDynField,
 )
-from ramifice.migration import Monitor
-from ramifice.types import Unit
+from src.ramifice.migration import Monitor
+from src.ramifice.types import Unit
 
 
 @model(service_name="Accounts")
