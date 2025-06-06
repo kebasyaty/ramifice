@@ -30,7 +30,8 @@ class FileField(Field, FileGroup, JsonMixin):
         hint: str = "",
         warning: list[str] | None = None,
         required: bool = False,
-        max_size: int = 2097152,  # 2 MB
+        # The maximum size of the file in bytes.
+        max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
         default: str | None = None,
         placeholder: str = "",
         target_dir: str = "files",

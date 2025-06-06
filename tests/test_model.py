@@ -2,9 +2,9 @@
 
 import unittest
 
-from ramifice import model
-from ramifice.fields import TextField
-from ramifice.model import Model
+from src.ramifice import model
+from src.ramifice.fields import TextField
+from src.ramifice.model import Model
 
 
 @model(service_name="Accounts")
@@ -22,7 +22,7 @@ class TestModel(unittest.TestCase):
         """Testing a class `Model`."""
         self.assertFalse(bool(Model.META))
         self.assertEqual(Model.__name__, "Model")
-        self.assertEqual(Model.__module__, "ramifice.model")
+        self.assertEqual(Model.__module__, "src.ramifice.model")
         self.assertIsNotNone(Model.__dict__.get("model_name"))
         self.assertIsNotNone(Model.__dict__.get("full_model_name"))
 

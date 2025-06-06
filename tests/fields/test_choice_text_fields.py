@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.fields import (
+from src.ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextField,
     ChoiceTextMultDynField,

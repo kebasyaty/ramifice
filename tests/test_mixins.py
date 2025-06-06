@@ -2,8 +2,8 @@
 
 import unittest
 
-from ramifice import model
-from ramifice.fields import (
+from src.ramifice import model
+from src.ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
@@ -33,8 +33,8 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.mixins import JsonMixin
-from ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
+from src.ramifice.mixins import JsonMixin
+from src.ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class StandardTypes(JsonMixin):

@@ -4,7 +4,7 @@ import unittest
 
 from dateutil.parser import parse
 
-from ramifice.fields import DateField, DateTimeField
+from src.ramifice.fields import DateField, DateTimeField
 
 
 class TestDateFields(unittest.TestCase):

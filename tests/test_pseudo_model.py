@@ -3,9 +3,9 @@
 import pprint
 import unittest
 
-from ramifice import model
-from ramifice.fields import ChoiceTextDynField, TextField
-from ramifice.model import Model
+from src.ramifice import model
+from src.ramifice.fields import ChoiceTextDynField, TextField
+from src.ramifice.model import Model
 
 
 @model(

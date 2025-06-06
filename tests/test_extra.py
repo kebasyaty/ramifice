@@ -2,8 +2,8 @@
 
 import unittest
 
-from ramifice import model
-from ramifice.fields import TextField
+from src.ramifice import model
+from src.ramifice.fields import TextField
 
 
 @model(service_name="Accounts")

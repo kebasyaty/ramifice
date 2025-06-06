@@ -5,8 +5,8 @@ import unittest
 from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
-from ramifice import model
-from ramifice.fields import (
+from src.ramifice import model
+from src.ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
@@ -36,7 +36,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.migration import Monitor
+from src.ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")

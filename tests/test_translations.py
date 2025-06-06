@@ -2,8 +2,8 @@
 
 import unittest
 
-from ramifice import model, translations
-from ramifice.fields import EmailField
+from src.ramifice import model, translations
+from src.ramifice.fields import EmailField
 
 
 @model(service_name="Accounts")

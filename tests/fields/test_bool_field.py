@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice.fields import BooleanField
+from src.ramifice.fields import BooleanField
 
 
 class TestBooleanField(unittest.TestCase):
