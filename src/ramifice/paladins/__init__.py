@@ -9,14 +9,14 @@ from .tools import ToolMixin
 
 
 class QPaladinsMixin(
-    ToolMixin,
-    CheckMixin,
-    SaveMixin,
-    PasswordMixin,
-    DeleteMixin,
-    RefrashMixin,
+	ToolMixin,
+	CheckMixin,
+	SaveMixin,
+	PasswordMixin,
+	DeleteMixin,
+	RefrashMixin,
 ):
-    """Paladins - Model instance methods."""
+	"""Paladins - Model instance methods."""
 
-    def __init__(self):
-        super().__init__()
+	def __init__(self):  # noqa: D107
+		super().__init__()
