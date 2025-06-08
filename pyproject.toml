@@ -6,7 +6,7 @@ license = { text = "MIT" }
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
-keywords = ["mongo", "mongodb", "orm", "ramifice"]
+keywords = ["mongo", "mongodb", "pymongo", "orm", "ramifice"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
