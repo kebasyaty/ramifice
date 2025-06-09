@@ -26,7 +26,12 @@ class GeneralMixin:
 		# Get collection for current model.
 		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
-		return await collection.count_documents(filter=filter, session=session, comment=comment, **kwargs)
+		return await collection.count_documents(
+			filter=filter,
+			session=session,
+			comment=comment,
+			**kwargs,
+		)
 
 	@classmethod
 	async def aggregate(cls, pipeline, session=None, let=None, comment=None, **kwargs) -> AsyncCommandCursor:
@@ -34,10 +39,24 @@ class GeneralMixin:
 		# Get collection for current model.
 		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
-		return await collection.aggregate(pipeline=pipeline, session=session, let=let, comment=comment, **kwargs)
+		return await collection.aggregate(
+			pipeline=pipeline,
+			session=session,
+			let=let,
+			comment=comment,
+			**kwargs,
+		)
 
 	@classmethod
-	async def distinct(cls, key, filter=None, session=None, comment=None, hint=None, **kwargs) -> list[Any]:
+	async def distinct(
+		cls,
+		key,
+		filter=None,
+		session=None,
+		comment=None,
+		hint=None,
+		**kwargs,
+	) -> list[Any]:
 		"""Finds the distinct values for a specified field across a single collection.
 
 		Returns an array of unique values for specified field of collection.
@@ -45,7 +64,14 @@ class GeneralMixin:
 		# Get collection for current model.
 		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
-		return await collection.distinct(key=key, filter=filter, session=session, comment=comment, hint=hint, **kwargs)
+		return await collection.distinct(
+			key=key,
+			filter=filter,
+			session=session,
+			comment=comment,
+			hint=hint,
+			**kwargs,
+		)
 
 	@classmethod
 	def collection_name(cls) -> str:

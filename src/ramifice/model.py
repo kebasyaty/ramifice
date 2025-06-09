@@ -61,17 +61,7 @@ class Model(metaclass=ABCMeta):
 		return f"{cls.__module__}.{cls.__name__}"
 
 	def inject(self) -> None:
-		"""Injecting metadata from Model.META in params of fields.
-
-		Args:
-		    id: ???
-		    name: ???
-		    dynamic: ???
-		    choices: ???
-
-		Returns:
-		    None
-		"""
+		"""Injecting metadata from Model.META in params of fields."""
 		metadata = self.__class__.META
 		if bool(metadata):
 			field_attrs = metadata["field_attrs"]

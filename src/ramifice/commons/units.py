@@ -31,7 +31,7 @@ class UnitMixin:
 		]
 		# Get Model state.
 		model_state: dict[str, Any] | None = await super_collection.find_one(
-			filter={"collection_name": cls.META["collection_name"]}
+			filter={"collection_name": cls.META["collection_name"]}  # type: ignore[attr-defined]
 		)
 		# Check the presence of a Model state.
 		if model_state is None:
@@ -76,12 +76,12 @@ class UnitMixin:
 			replacement=model_state,
 		)
 		# Update metadata of the current Model.
-		cls.META["data_dynamic_fields"][unit.field] = choices or None
+		cls.META["data_dynamic_fields"][unit.field] = choices or None  # type: ignore[attr-defined]
 		# Update documents in the collection of the current Model.
 		if unit.is_delete:
 			unit_field: str = unit.field
 			unit_value: float | int | str = unit.value
-			collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+			collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 			async for mongo_doc in collection.find():
 				field_value = mongo_doc[unit_field]
 				if field_value is not None:

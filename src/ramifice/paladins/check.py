@@ -40,29 +40,29 @@ class CheckMixin(
 	async def check(self, is_save: bool = False, collection: AsyncCollection | None = None) -> dict[str, Any]:
 		"""Validation of Model data before saving to the database."""
 		cls_model = self.__class__
-		if not cls_model.META["is_migrat_model"] and is_save:
+		if not cls_model.META["is_migrat_model"] and is_save:  # type: ignore[attr-defined]
 			msg = (
-				f"Model: `{self.full_model_name()}` > "
+				f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
 				+ "Method: `check` => "
 				+ "For a non-migrating Model, the `is_save` parameter cannot be equal to `True`!"
 			)
 			raise PanicError(msg)
 		# Get the document ID.
-		doc_id: ObjectId | None = self._id.value
+		doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
 		# Does the document exist in the database?
 		is_update: bool = doc_id is not None
 		# Create an identifier for a new document.
 		if not is_update:
 			doc_id = ObjectId()
 		if is_save and not is_update:
-			self._id.value = doc_id
+			self._id.value = doc_id  # type: ignore[attr-defined]
 		#
 		result_map: dict[str, Any] = {}
 		# Errors from additional validation of fields.
-		error_map: dict[str, str] = await self.add_validation() or {}
+		error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
 		# Get Model collection.
 		if collection is None:
-			collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+			collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
 		# Create params for *_group methods.
 		params: dict[str, Any] = {
 			"doc_id": doc_id,
@@ -114,7 +114,7 @@ class CheckMixin(
 			if params["is_error_symptom"]:
 				# Reset the ObjectId for a new document.
 				if not is_update:
-					self._id.value = None
+					self._id.value = None  # type: ignore[attr-defined]
 				# Delete orphaned files.
 				curr_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id}) if is_update else None
 				for field_name, field_data in self.__dict__.items():

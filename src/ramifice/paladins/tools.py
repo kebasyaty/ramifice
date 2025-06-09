@@ -16,7 +16,7 @@ class ToolMixin:
 
 		The main use is to check data from web forms.
 		"""
-		result_check: dict[str, Any] = await self.check()
+		result_check: dict[str, Any] = await self.check()  # type: ignore[attr-defined]
 		return result_check["is_valid"]
 
 	def print_err(self) -> None:
@@ -33,18 +33,18 @@ class ToolMixin:
 				if not is_err:
 					print(colored("\nERRORS:", "red", attrs=["bold"]))
 					print(colored("Model: ", "blue", attrs=["bold"]), end="")
-					print(colored(f"`{self.full_model_name()}`", "blue"))
+					print(colored(f"`{self.full_model_name()}`", "blue"))  # type: ignore[attr-defined]
 					is_err = True
 				# field name
 				print(colored("Field: ", "green", attrs=["bold"]), end="")
 				print(colored(f"`{field_name}`:", "green"))
 				# error messages
 				print(colored("\n".join(field_data.errors), "red"))
-		if len(self._id.alerts) > 0:
+		if len(self._id.alerts) > 0:  # type: ignore[attr-defined]
 			# title
 			print(colored("AlERTS:", "yellow", attrs=["bold"]))
 			# messages
-			print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")
+			print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
 		else:
 			print(end="\n\n")
 
@@ -56,7 +56,7 @@ class ToolMixin:
 				params["is_error_symptom"] = True
 		else:
 			msg = (
-				f">>hidden field<< - Model: `{self.full_model_name()}` > "
+				f">>hidden field<< - Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
 				+ f"Field: `{params['field_data'].name}`"
 				+ f" => {err_msg}"
 			)
@@ -68,7 +68,7 @@ class ToolMixin:
 		params: dict[str, Any],
 	) -> bool:
 		"""Check the uniqueness of the value in the collection."""
-		if not self.__class__.META["is_migrat_model"]:
+		if not self.__class__.META["is_migrat_model"]:  # type: ignore[attr-defined]
 			return True
 		q_filter = {
 			"$and": [

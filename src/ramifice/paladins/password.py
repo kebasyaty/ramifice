@@ -20,30 +20,30 @@ class PasswordMixin:
 		"""For password verification."""
 		cls_model = self.__class__
 		# Get documet ID.
-		doc_id = self._id.value
+		doc_id = self._id.value  # type: ignore[attr-defined]
 		if doc_id is None:
 			msg = (
-				f"Model: `{cls_model.META['full_model_name']}` > "
+				f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
 				+ "Method: `verify_password` => "
 				+ "Cannot get document ID - ID field is empty."
 			)
 			raise PanicError(msg)
 		# Get collection for current Model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
 		# Get document.
 		mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
 		if mongo_doc is None:
 			msg = (
-				f"Model: `{cls_model.META['full_model_name']}` > "
+				f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
 				+ "Method: `verify_password` => "
-				+ f"There is no document with ID `{self._id.value}` in the database."
+				+ f"There is no document with ID `{self._id.value}` in the database."  # type: ignore[attr-defined]
 			)
 			raise PanicError(msg)
 		# Get password hash.
 		hash: str | None = mongo_doc.get(field_name)
 		if hash is None:
 			msg = (
-				f"Model: `{cls_model.META['full_model_name']}` > "
+				f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
 				+ "Method: `verify_password` => "
 				+ f"The model does not have a field `{field_name}`."
 			)
@@ -73,9 +73,9 @@ class PasswordMixin:
 		if not await self.verify_password(old_password, field_name):
 			raise OldPassNotMatchError()
 		# Get documet ID.
-		doc_id = self._id.value
+		doc_id = self._id.value  # type: ignore[attr-defined]
 		# Get collection for current Model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
 		# Create hash of new passwor.
 		ph = PasswordHasher()
 		hash: str = ph.hash(new_password)

@@ -196,7 +196,7 @@ class Monitor:
 			# Apply fixture to current Model.
 			fixture_name: str | None = cls_model.META["fixture_name"]
 			if fixture_name is not None:
-				collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+				collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
 				if await collection.estimated_document_count() == 0:
 					await apply_fixture(
 						fixture_name=fixture_name,
