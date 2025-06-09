@@ -343,7 +343,7 @@ https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
 cd project_name
-uv install --with dev,docs
+uv sync
 ```
 
 ## Contributors
