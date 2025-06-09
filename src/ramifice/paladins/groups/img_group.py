@@ -35,7 +35,7 @@ class ImgGroupMixin:
 				if value is None:
 					if field.required:
 						err_msg = translations._("Required field !")
-						self.accumulate_error(err_msg, params)
+						self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 					if params["is_save"]:
 						params["result_map"][field.name] = None
 					return
@@ -56,12 +56,12 @@ class ImgGroupMixin:
 							params["result_map"][field.name] = None
 					else:
 						err_msg = translations._("Required field !")
-						self.accumulate_error(err_msg, params)
+						self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 					return
 			# Accumulate an error if the file size exceeds the maximum value.
 			if value["size"] > field.max_size:
 				err_msg = translations._("Image size exceeds the maximum value %s !" % to_human_size(field.max_size))
-				self.accumulate_error(err_msg, params)
+				self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 				return
 			# Return if there is no need to save.
 			if not params["is_save"]:

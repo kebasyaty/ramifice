@@ -26,14 +26,14 @@ class IDGroupMixin:
 		if value is None:
 			if field.required:
 				err_msg = translations._("Required field !")
-				self.accumulate_error(err_msg, params)
+				self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 			if params["is_save"]:
 				params["result_map"][field.name] = None
 			return
 		# Validation of the MongoDB identifier in a string form.
 		if not ObjectId.is_valid(value):
 			err_msg = translations._("Invalid document ID !")
-			self.accumulate_error(err_msg, params)
+			self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 		# Insert result.
 		if params["is_save"]:
 			params["result_map"][field.name] = value

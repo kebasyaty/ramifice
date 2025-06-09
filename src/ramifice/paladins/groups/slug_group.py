@@ -36,7 +36,7 @@ class SlugGroupMixin:
 					raw_str_list.append(value if field_name != "_id" else str(value))
 				else:
 					err_msg = (
-						f"Model: `{self.full_model_name()}` > "
+						f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
 						+ f"Field: `{field.name}` => "
 						+ f"{field_name} - "
 						+ "This field is specified in slug_sources. "
