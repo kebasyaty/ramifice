@@ -73,7 +73,7 @@ class FileField(Field, FileGroup, JsonMixin):
 	) -> None:
 		"""Convert base64 to a file,
 		get file information and save in the target directory.
-		"""
+		"""  # noqa: D205
 		base64_str = base64_str or None
 		filename = filename or None
 		file_info = FILE_INFO_DICT.copy()

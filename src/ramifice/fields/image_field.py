@@ -108,7 +108,7 @@ class ImageField(Field, FileGroup, JsonMixin):
 	) -> None:
 		"""Convert base64 to a image,
 		get image information and save in the target directory.
-		"""
+		"""  # noqa: D205
 		base64_str = base64_str or None
 		filename = filename or None
 		img_info = IMG_INFO_DICT.copy()

@@ -11,6 +11,7 @@ class User:
 	"""Model for testing."""
 
 	def fields(self, gettext):
+		"""For add fields."""
 		ngettext = translations.ngettext
 		self.email = EmailField()
 
