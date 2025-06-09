@@ -43,9 +43,10 @@ Source = "https://github.com/kebasyaty/ramifice"
 Changelog = "https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md"
 
 [tool.uv]
-default-groups = ["dev", "docs"]
 package = true
-compile-bytecode = false
+default-groups = ["dev", "docs"]
+compile-bytecode = true
+check-url = "https://pypi.org/simple"
 
 [tool.uv.build-backend]
 module-root = "src"
