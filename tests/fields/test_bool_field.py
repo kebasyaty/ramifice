@@ -2,11 +2,11 @@
 
 import unittest
 
-from src.ramifice.fields import BooleanField
+from ramifice.fields import BooleanField
 
 
 class TestBooleanField(unittest.TestCase):
-    """Testing boolean field"""
+    """Testing boolean field."""
 
     def test_boolean_field(self):
         """Testing `BooleanField`."""

@@ -17,32 +17,37 @@ class IndexMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create index.
         result: str = await collection.create_index(
-            keys=keys, session=session, comment=comment, **kwargs
+            keys=keys,
+            session=session,
+            comment=comment,
+            **kwargs,
         )
         return result
 
     @classmethod
-    async def drop_index(
-        cls, index_or_name, session=None, comment=None, **kwargs
-    ) -> None:
+    async def drop_index(cls, index_or_name, session=None, comment=None, **kwargs) -> None:
         """Drops the specified index on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Delete index.
         await collection.drop_index(
-            index_or_name=index_or_name, session=session, comment=comment, **kwargs
+            index_or_name=index_or_name,
+            session=session,
+            comment=comment,
+            **kwargs,
         )
 
     @classmethod
-    async def create_indexes(
-        cls, indexes, session=None, comment=None, **kwargs
-    ) -> list[str]:
+    async def create_indexes(cls, indexes, session=None, comment=None, **kwargs) -> list[str]:
         """Create one or more indexes on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Create indexes.
         result: list[str] = await collection.create_indexes(
-            indexes=indexes, session=session, comment=comment, **kwargs
+            indexes=indexes,
+            session=session,
+            comment=comment,
+            **kwargs,
         )
         return result
 

@@ -2,7 +2,7 @@
 
 import unittest
 
-from src.ramifice.fields import (
+from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextField,
     ChoiceTextMultDynField,
@@ -43,15 +43,11 @@ class TestChoiceTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(default="")
         with self.assertRaises(AssertionError):
-            f = ChoiceTextField(
-                default="value 3", choices={"Title": "value", "Title 2": "value 2"}
-            )
+            f = ChoiceTextField(default="value 3", choices={"Title": "value", "Title 2": "value 2"})
         # Methods:
         f = ChoiceTextField()
         self.assertTrue(f.has_value())
-        f = ChoiceTextField(
-            default="value 2", choices={"Title": "value", "Title 2": "value 2"}
-        )
+        f = ChoiceTextField(default="value 2", choices={"Title": "value", "Title 2": "value 2"})
         self.assertTrue(f.has_value())
         f = ChoiceTextField(choices={"Title": "value", "Title 2": "value 2"})
         self.assertTrue(f.has_value())

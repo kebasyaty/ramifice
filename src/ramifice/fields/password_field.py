@@ -8,15 +8,15 @@ from .general.field import Field
 
 
 class PasswordField(Field):
-    """Field of Model for enter password.
-    WARNING:
-    Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-    Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-    Number of characters: from 8 to 256.
+    r"""Field of Model for enter password.
+
+    Warning:
+            Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+            Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+            Number of characters: from 8 to 256.
     """
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         hide: bool = False,
@@ -26,7 +26,6 @@ class PasswordField(Field):
         placeholder: str = "",
         required: bool = False,
     ):
-
         Field.__init__(
             self,
             label=label,

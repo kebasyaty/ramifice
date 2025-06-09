@@ -4,8 +4,8 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from src.ramifice import model, store
-from src.ramifice.fields import (
+from ramifice import model, store
+from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
@@ -35,7 +35,7 @@ from src.ramifice.fields import (
     TextField,
     URLField,
 )
-from src.ramifice.migration import Monitor
+from ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -43,6 +43,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -105,13 +106,9 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await User.count_documents({}), 1)
         self.assertEqual(await User.count_documents({"_id": m._id.value}), 1)
         self.assertEqual(User.collection_name(), "Accounts_User")
-        self.assertEqual(
-            User.collection_full_name(), "test_general_mixin_methods.Accounts_User"
-        )
+        self.assertEqual(User.collection_full_name(), "test_general_mixin_methods.Accounts_User")
         self.assertEqual(User.database(), store.MONGO_DATABASE)
-        self.assertEqual(
-            User.collection(), store.MONGO_DATABASE[User.META["collection_name"]]
-        )
+        self.assertEqual(User.collection(), store.MONGO_DATABASE[User.META["collection_name"]])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

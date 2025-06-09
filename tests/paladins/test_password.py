@@ -4,9 +4,9 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from src.ramifice import model
-from src.ramifice.fields import PasswordField
-from src.ramifice.migration import Monitor
+from ramifice import model
+from ramifice.fields import PasswordField
+from ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -14,6 +14,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.password = PasswordField()
         self.password_2 = PasswordField()
 

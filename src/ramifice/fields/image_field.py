@@ -18,12 +18,9 @@ from .general.file_group import FileGroup
 
 
 class ImageField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload image.
-    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
-    """
+    """Field of Model for upload image."""
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -115,7 +112,7 @@ class ImageField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Convert base64 to a image,
         get image information and save in the target directory.
-        """
+        """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
         img_info = IMG_INFO_DICT.copy()
@@ -126,9 +123,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(
-                    f"The image `{filename}` has no extension."
-                )
+                raise FileHasNoExtensionError(f"The image `{filename}` has no extension.")
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -141,13 +136,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
-            imgs_dir_path = (
-                f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
-            )
+            imgs_dir_path = f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
             # Create url path to target directory with images.
-            imgs_dir_url = (
-                f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
-            )
+            imgs_dir_url = f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
@@ -209,13 +200,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
-            imgs_dir_path = (
-                f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
-            )
+            imgs_dir_path = f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
             # Create url path to target directory with images.
-            imgs_dir_url = (
-                f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
-            )
+            imgs_dir_url = f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.

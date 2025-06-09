@@ -27,7 +27,10 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
         return await collection.count_documents(
-            filter=filter, session=session, comment=comment, **kwargs
+            filter=filter,
+            session=session,
+            comment=comment,
+            **kwargs,
         )
 
     @classmethod
@@ -39,14 +42,25 @@ class GeneralMixin:
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
         return await collection.aggregate(
-            pipeline=pipeline, session=session, let=let, comment=comment, **kwargs
+            pipeline=pipeline,
+            session=session,
+            let=let,
+            comment=comment,
+            **kwargs,
         )
 
     @classmethod
     async def distinct(
-        cls, key, filter=None, session=None, comment=None, hint=None, **kwargs
+        cls,
+        key,
+        filter=None,
+        session=None,
+        comment=None,
+        hint=None,
+        **kwargs,
     ) -> list[Any]:
         """Finds the distinct values for a specified field across a single collection.
+
         Returns an array of unique values for specified field of collection.
         """
         # Get collection for current model.
@@ -58,7 +72,7 @@ class GeneralMixin:
             session=session,
             comment=comment,
             hint=hint,
-            **kwargs
+            **kwargs,
         )
 
     @classmethod
@@ -72,6 +86,7 @@ class GeneralMixin:
     @classmethod
     def collection_full_name(cls) -> str:
         """The full name of this AsyncCollection.
+
         The full name is of the form database_name.collection_name.
         """
         # Get collection for current model.

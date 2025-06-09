@@ -1,4 +1,5 @@
 """Units Management.
+
 Management for `choices` parameter in dynamic field types.
 """
 
@@ -13,12 +14,14 @@ from ..types import Unit
 
 class UnitMixin:
     """Units Management.
+
     Management for `choices` parameter in dynamic field types.
     """
 
     @classmethod
     async def unit_manager(cls, unit: Unit) -> None:
         """Units Management.
+
         Management for `choices` parameter in dynamic field types.
         """
         # Get access to super collection.
@@ -36,9 +39,9 @@ class UnitMixin:
         # Get the dynamic field type.
         field_type = model_state["field_name_and_type"][unit.field]
         # Get dynamic field data.
-        choices: dict[str, float | int | str] | None = model_state[
-            "data_dynamic_fields"
-        ][unit.field]
+        choices: dict[str, float | int | str] | None = model_state["data_dynamic_fields"][
+            unit.field
+        ]
         # Check whether the type of value is valid for the type of field.
         if not (
             ("ChoiceFloat" in field_type and isinstance(unit.value, float))
@@ -86,9 +89,7 @@ class UnitMixin:
         if unit.is_delete:
             unit_field: str = unit.field
             unit_value: float | int | str = unit.value
-            collection: AsyncCollection = store.MONGO_DATABASE[
-                cls.META["collection_name"]  # type: ignore[index, attr-defined]
-            ]
+            collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:

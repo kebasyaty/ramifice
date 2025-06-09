@@ -6,6 +6,7 @@ from typing import Any
 
 class JsonMixin:
     """Complect of methods for converting Fields to JSON and back.
+
     For fields FileField and ImageField is used FileJsonMixin.
     """
 

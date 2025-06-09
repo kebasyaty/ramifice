@@ -1,4 +1,5 @@
 """Group for checking slug fields.
+
 Supported fields: SlugField
 """
 
@@ -11,6 +12,7 @@ from ...errors import PanicError
 
 class SlugGroupMixin:
     """Group for checking slug fields.
+
     Supported fields: SlugField
     """
 

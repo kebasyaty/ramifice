@@ -16,12 +16,9 @@ from .general.file_group import FileGroup
 
 
 class FileField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload file.
-    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/files" target="_blank">example</a>.
-    """
+    """Field of Model for upload file."""
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -78,7 +75,7 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Convert base64 to a file,
         get file information and save in the target directory.
-        """
+        """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
         file_info = FILE_INFO_DICT.copy()
@@ -89,9 +86,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(
-                    f"The file `{filename}` has no extension."
-                )
+                raise FileHasNoExtensionError(f"The file `{filename}` has no extension.")
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -116,9 +111,7 @@ class FileField(Field, FileGroup, JsonMixin):
                 open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = (
-                f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
-            )
+            file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = filename
             # Add file extension.
@@ -162,9 +155,7 @@ class FileField(Field, FileGroup, JsonMixin):
             shutil.copyfile(src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = (
-                f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
-            )
+            file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = os.path.basename(src_path)
             # Add file extension.

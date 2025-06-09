@@ -7,12 +7,11 @@ from .general.text_group import TextGroup
 
 class SlugField(Field, TextGroup, JsonMixin):
     """Field of Model for automatic generation of string `slug`.
+
     Convenient to use for Url addresses.
     """
 
-    # pylint: disable=dangerous-default-value
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -24,7 +23,6 @@ class SlugField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):
-
         Field.__init__(
             self,
             label=label,

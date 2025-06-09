@@ -1,4 +1,5 @@
 """Global storage for caching auxiliary variables.
+
 The purpose of caching is production optimization.
 
 The module contains the following elements:
@@ -40,9 +41,7 @@ REGEX: dict[str, re.Pattern] = {
         r"^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$",
         re.I,
     ),
-    "password": re.compile(
-        r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'
-    ),
+    "password": re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
 }
 
 # Caching a dictionary to transmit information about the file.

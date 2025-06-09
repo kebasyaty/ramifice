@@ -75,7 +75,10 @@ def get_ramifice_translator(lang_code: str) -> Any:
     Returns:
         Object of translation for the desired language.
     """
-    return ramifice_translations.get(lang_code, ramifice_translations[DEFAULT_LOCALE])
+    return ramifice_translations.get(
+        lang_code,
+        ramifice_translations[DEFAULT_LOCALE],
+    )
 
 
 def get_custom_translator(lang_code: str) -> Any:
@@ -94,7 +97,10 @@ def get_custom_translator(lang_code: str) -> Any:
     Returns:
         Object of translation for the desired language.
     """
-    return custom_translations.get(lang_code, custom_translations[DEFAULT_LOCALE])
+    return custom_translations.get(
+        lang_code,
+        custom_translations[DEFAULT_LOCALE],
+    )
 
 
 # The object of the current translation, for Ramifice.

@@ -48,7 +48,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[index, attr-defined]
+            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[attr-defined]
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -68,7 +68,7 @@ class ManyMixin:
             allow_disk_use=allow_disk_use,
         )
         async for mongo_doc in cursor:
-            doc_list.append(cls.password_to_none(mongo_doc))
+            doc_list.append(cls.password_to_none(mongo_doc))  # type: ignore[attr-defined]
         return doc_list
 
     @classmethod
@@ -97,11 +97,12 @@ class ManyMixin:
         allow_disk_use=None,
     ) -> list[dict[str, Any]]:
         """Find documents and convert to a raw documents.
+
         Special changes:
-        _id to str
-        password to None
-        date to str
-        datetime to str
+            _id to str
+            password to None
+            date to str
+            datetime to str
         """
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -111,7 +112,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[index, attr-defined]
+            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[attr-defined]
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -131,7 +132,7 @@ class ManyMixin:
             allow_disk_use=allow_disk_use,
         )
         async for mongo_doc in cursor:
-            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[index, attr-defined]
+            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[attr-defined]
         return doc_list
 
     @classmethod
@@ -168,7 +169,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[index, attr-defined]
+            limit=limit or cls.META["db_query_docs_limit"],  # type: ignore[attr-defined]
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -188,7 +189,7 @@ class ManyMixin:
             allow_disk_use=allow_disk_use,
         )
         async for mongo_doc in cursor:
-            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[index, attr-defined]
+            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[attr-defined]
         return json.dumps(doc_list) if len(doc_list) > 0 else None
 
     @classmethod
@@ -197,9 +198,9 @@ class ManyMixin:
     ) -> DeleteResult:
         """Find documents matching with Model."""
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+        if not cls.META["is_delete_doc"]:  # type: ignore[attr-defined]
             msg = (
-                f"Model: `{cls.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )

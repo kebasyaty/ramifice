@@ -2,7 +2,7 @@
 
 import unittest
 
-from src.ramifice.fields import FloatField, IntegerField
+from ramifice.fields import FloatField, IntegerField
 
 
 class TestNumberFields(unittest.TestCase):

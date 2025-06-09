@@ -18,7 +18,7 @@ class Model(metaclass=ABCMeta):
 
     META: dict[str, Any] = {}
 
-    def __init__(self):
+    def __init__(self):  # noqa: D107
         _ = translations._
         self._id = IDField(
             label=_("Document ID"),
@@ -48,6 +48,7 @@ class Model(metaclass=ABCMeta):
 
     @abstractmethod
     def fields(self, gettext):
+        """For add fields."""
         pass
 
     def model_name(self) -> str:
@@ -60,9 +61,7 @@ class Model(metaclass=ABCMeta):
         return f"{cls.__module__}.{cls.__name__}"
 
     def inject(self) -> None:
-        """Injecting metadata from Model.META in params of fields.
-        Parameters: id, name, dynamic choices.
-        """
+        """Injecting metadata from Model.META in params of fields."""
         metadata = self.__class__.META
         if bool(metadata):
             field_attrs = metadata["field_attrs"]

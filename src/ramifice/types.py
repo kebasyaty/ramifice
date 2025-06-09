@@ -21,8 +21,12 @@ class Unit(JsonMixin):
         is_delete -- True - if you need to remove the item of choice.
     """
 
-    def __init__(
-        self, field: str, title: str, value: float | int | str, is_delete: bool = False
+    def __init__(  # noqa: D107
+        self,
+        field: str,
+        title: str,
+        value: float | int | str,
+        is_delete: bool = False,
     ):
         # Check the match of types.
         if not isinstance(field, str):

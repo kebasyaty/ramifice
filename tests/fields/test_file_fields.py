@@ -2,14 +2,15 @@
 
 import unittest
 
-from src.ramifice.errors import FileHasNoExtensionError
-from src.ramifice.fields import FileField, ImageField
+from ramifice.errors import FileHasNoExtensionError
+from ramifice.fields import FileField, ImageField
 
 
 class TestFileFields(unittest.TestCase):
     """Testing file fields."""
 
     def setUp(self):
+        """Set data for testing."""
         self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
         self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
         return super().setUp()

@@ -37,7 +37,6 @@ class CheckMixin(
 ):
     """Validation of Model data before saving to the database."""
 
-    # pylint: disable=too-many-branches
     async def check(
         self, is_save: bool = False, collection: AsyncCollection | None = None
     ) -> dict[str, Any]:

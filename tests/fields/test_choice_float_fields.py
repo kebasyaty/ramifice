@@ -2,7 +2,7 @@
 
 import unittest
 
-from src.ramifice.fields import (
+from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatField,
     ChoiceFloatMultDynField,
@@ -86,13 +86,9 @@ class TestChoiceFloatFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceFloatMultField(default=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatMultField(
-                default=[3.0], choices={"Title": 1.0, "Title 2": 2.0}
-            )
+            f = ChoiceFloatMultField(default=[3.0], choices={"Title": 1.0, "Title 2": 2.0})
         with self.assertRaises(AssertionError):
-            f = ChoiceFloatMultField(
-                default=[2.0, 3.0], choices={"Title": 1.0, "Title 2": 2.0}
-            )
+            f = ChoiceFloatMultField(default=[2.0, 3.0], choices={"Title": 1.0, "Title 2": 2.0})
         # Methods:
         f = ChoiceFloatMultField()
         self.assertTrue(f.has_value())

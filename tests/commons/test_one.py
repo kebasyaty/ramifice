@@ -6,8 +6,8 @@ import unittest
 from pymongo import AsyncMongoClient
 from pymongo.results import DeleteResult
 
-from src.ramifice import model, store
-from src.ramifice.fields import (
+from ramifice import model, store
+from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
@@ -37,7 +37,7 @@ from src.ramifice.fields import (
     TextField,
     URLField,
 )
-from src.ramifice.migration import Monitor
+from ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -45,6 +45,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()

@@ -1,4 +1,5 @@
 """Group for checking password fields.
+
 Supported fields: PasswordField
 """
 
@@ -11,6 +12,7 @@ from ... import translations
 
 class PassGroupMixin:
     """Group for checking password fields.
+
     Supported fields: PasswordField
     """
 

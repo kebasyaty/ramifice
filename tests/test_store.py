@@ -3,7 +3,7 @@
 import re
 import unittest
 
-from src.ramifice.store import (
+from ramifice.store import (
     DATABASE_NAME,
     DEBUG,
     MONGO_CLIENT,
@@ -52,9 +52,7 @@ class TestStore(unittest.TestCase):
         self.assertIsNone(p.match("_DatabaseName"))
         self.assertIsNone(p.match("-DatabaseName"))
         # > 60 characters
-        self.assertIsNone(
-            p.match("LoremIpsumDolorSitAmetConsecteturAdipiscingElitIntegerLacinia")
-        )
+        self.assertIsNone(p.match("LoremIpsumDolorSitAmetConsecteturAdipiscingElitIntegerLacinia"))
         # Positive:
         self.assertIsNotNone(p.match("D"))
         self.assertIsNotNone(p.match("d"))
@@ -159,9 +157,7 @@ class TestStore(unittest.TestCase):
         self.assertIsNotNone(p.match(ascii_lowercase))
         self.assertIsNotNone(p.match(ascii_uppercase))
         self.assertIsNotNone(p.match(special_symbols))
-        self.assertIsNotNone(
-            p.match(digits + ascii_lowercase + ascii_uppercase + special_symbols)
-        )
+        self.assertIsNotNone(p.match(digits + ascii_lowercase + ascii_uppercase + special_symbols))
         self.assertIsNotNone(p.match("12345678"))  # == 8 characters
         self.assertIsNotNone(p.match(("12345678" * 32)))  # == 256 characters
         self.assertIsNotNone(p.match("9M,4%6]3ht7r{l59"))

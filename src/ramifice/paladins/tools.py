@@ -13,6 +13,7 @@ class ToolMixin:
 
     async def is_valid(self) -> bool:
         """Check data validity.
+
         The main use is to check data from web forms.
         """
         result_check: dict[str, Any] = await self.check()  # type: ignore[attr-defined]
@@ -20,6 +21,7 @@ class ToolMixin:
 
     def print_err(self) -> None:
         """Printing errors to the console.
+
         Convenient to use during development.
         """
         is_err: bool = False
@@ -47,7 +49,7 @@ class ToolMixin:
             print(end="\n\n")
 
     def accumulate_error(self, err_msg: str, params: dict[str, Any]) -> None:
-        """For accumulating errors to ModelName.field_name.errors"""
+        """For accumulating errors to ModelName.field_name.errors ."""
         if not params["field_data"].hide:
             params["field_data"].errors.append(err_msg)
             if not params["is_error_symptom"]:
@@ -55,7 +57,7 @@ class ToolMixin:
         else:
             msg = (
                 f">>hidden field<< - Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
-                + f"Field: `{params["field_data"].name}`"
+                + f"Field: `{params['field_data'].name}`"
                 + f" => {err_msg}"
             )
             raise PanicError(msg)
@@ -66,7 +68,7 @@ class ToolMixin:
         params: dict[str, Any],
     ) -> bool:
         """Check the uniqueness of the value in the collection."""
-        if not self.__class__.META["is_migrat_model"]:  # type: ignore[index, attr-defined]
+        if not self.__class__.META["is_migrat_model"]:  # type: ignore[attr-defined]
             return True
         q_filter = {
             "$and": [
@@ -79,11 +81,7 @@ class ToolMixin:
     def ignored_fields_to_none(self):
         """Reset the values of ignored fields to None."""
         for _, field_data in self.__dict__.items():
-            if (
-                not callable(field_data)
-                and field_data.ignored
-                and field_data.name != "_id"
-            ):
+            if not callable(field_data) and field_data.ignored and field_data.name != "_id":
                 field_data.value = None
 
     def refrash_from_mongo_doc(self, mongo_doc: dict[str, Any]):

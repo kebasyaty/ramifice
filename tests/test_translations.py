@@ -2,8 +2,8 @@
 
 import unittest
 
-from src.ramifice import model, translations
-from src.ramifice.fields import EmailField
+from ramifice import model, translations
+from ramifice.fields import EmailField
 
 
 @model(service_name="Accounts")
@@ -11,6 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         ngettext = translations.ngettext
         self.email = EmailField()
 

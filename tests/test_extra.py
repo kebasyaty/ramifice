@@ -2,8 +2,8 @@
 
 import unittest
 
-from src.ramifice import model
-from src.ramifice.fields import TextField
+from ramifice import model
+from ramifice.fields import TextField
 
 
 @model(service_name="Accounts")
@@ -11,6 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.username = TextField()
 
 
@@ -19,10 +20,12 @@ class User2:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.username = TextField()
 
     async def add_validation(self) -> dict[str, str]:
         """It is supposed to be use to additional validation of fields.
+
         Format: <"field_name", "Error message">
         """
         error_map: dict[str, str] = {}

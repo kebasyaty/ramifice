@@ -3,9 +3,9 @@
 import pprint
 import unittest
 
-from src.ramifice import model
-from src.ramifice.fields import ChoiceTextDynField, TextField
-from src.ramifice.model import Model
+from ramifice import model
+from ramifice.fields import ChoiceTextDynField, TextField
+from ramifice.model import Model
 
 
 @model(
@@ -16,6 +16,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
 
@@ -28,6 +29,7 @@ class UserProfile:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.profession = TextField()
 
 
@@ -35,6 +37,7 @@ class TestPseudoModel(unittest.TestCase):
     """Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
 
     def setUp(self):
+        """Set date for testing."""
         self.user_meta = {
             "collection_name": "Accounts_User",
             "count_all_fields": 5,

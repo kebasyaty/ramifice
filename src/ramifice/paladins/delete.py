@@ -27,24 +27,24 @@ class DeleteMixin:
         """Delete document from database."""
         cls_model = self.__class__
         # Raises a panic if the Model cannot be removed.
-        if not cls_model.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+        if not cls_model.META["is_delete_doc"]:  # type: ignore[attr-defined]
             msg = (
-                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             raise PanicError(msg)
         # Get documet ID.
-        doc_id = self._id.value  # type: ignore[index, attr-defined]
+        doc_id = self._id.value  # type: ignore[attr-defined]
         if doc_id is None:
             msg = (
-                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "Field: `_id` > "
                 + "Param: `value` => ID is missing."
             )
             raise PanicError(msg)
         # Run hook.
-        await self.pre_delete()  # type: ignore[index, attr-defined]
+        await self.pre_delete()  # type: ignore[attr-defined]
         # Get collection for current Model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
         # Delete document.
@@ -62,7 +62,7 @@ class DeleteMixin:
         # If the document failed to delete.
         if not bool(mongo_doc):
             msg = (
-                f"Model: `{cls_model.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls_model.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
@@ -86,6 +86,6 @@ class DeleteMixin:
                     file_data = None
             field_data.value = None
         # Run hook.
-        await self.post_delete()  # type: ignore[index, attr-defined]
+        await self.post_delete()  # type: ignore[attr-defined]
         #
         return mongo_doc

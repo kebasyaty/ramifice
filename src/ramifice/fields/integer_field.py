@@ -9,9 +9,7 @@ from .general.number_group import NumberGroup
 class IntegerField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (int) number."""
 
-    # pylint: disable=too-many-locals
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -36,28 +34,18 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                     + "The permissible value of `number` or `range`."
                 )
             if max_number is not None and not isinstance(max_number, int):
-                raise AssertionError(
-                    "Parameter `max_number` - Not а number `int` type!"
-                )
+                raise AssertionError("Parameter `max_number` - Not а number `int` type!")
             if min_number is not None and not isinstance(min_number, int):
-                raise AssertionError(
-                    "Parameter `min_number` - Not а number `int` type!"
-                )
+                raise AssertionError("Parameter `min_number` - Not а number `int` type!")
             if not isinstance(step, int):
                 raise AssertionError("Parameter `step` - Not а number `int` type!")
-            if (
-                max_number is not None
-                and min_number is not None
-                and max_number <= min_number
-            ):
+            if max_number is not None and min_number is not None and max_number <= min_number:
                 raise AssertionError(
                     "The `max_number` parameter should be more than the `min_number`!"
                 )
             if default is not None:
                 if not isinstance(default, int):
-                    raise AssertionError(
-                        "Parameter `default` - Not а number `int` type!"
-                    )
+                    raise AssertionError("Parameter `default` - Not а number `int` type!")
                 if max_number is not None and default > max_number:
                     raise AssertionError("Parameter `default` is more `max_number`!")
                 if max_number is not None and default < min_number:  # type: ignore

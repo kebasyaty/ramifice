@@ -67,9 +67,7 @@ def model(
                 attrs,
             )
         else:
-            return type(
-                cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs
-            )
+            return type(cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs)
 
     return decorator
 
@@ -111,7 +109,7 @@ def caching(cls, service_name) -> dict[str, Any]:
             count_all_fields += 1
             # Get attributes value for fields of Model: id, name.
             field_attrs[f_name] = {
-                "id": f"{model_name}--{f_name.replace("_", "-") if f_name != '_id' else 'id'}",
+                "id": f"{model_name}--{f_name.replace('_', '-') if f_name != '_id' else 'id'}",
                 "name": f_name,
             }
             #

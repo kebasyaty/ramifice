@@ -11,8 +11,7 @@ from .general.text_group import TextGroup
 class IPField(Field, TextGroup, JsonMixin):
     """Field of Model for enter IP address."""
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -37,9 +36,7 @@ class IPField(Field, TextGroup, JsonMixin):
                 try:
                     ipaddress.ip_address(default)
                 except ValueError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid IP address!"
-                    )  # pylint: disable=raise-missing-from
+                    raise AssertionError("Parameter `default` - Invalid IP address!")
 
         Field.__init__(
             self,

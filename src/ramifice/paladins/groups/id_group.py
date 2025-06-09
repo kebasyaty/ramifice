@@ -1,5 +1,7 @@
 """Group for checking id fields.
-Supported fields: IDField
+
+Supported fields:
+    IDField
 """
 
 from typing import Any
@@ -11,7 +13,9 @@ from ... import translations
 
 class IDGroupMixin:
     """Group for checking id fields.
-    Supported fields: IDField
+
+    Supported fields:
+        IDField
     """
 
     def id_group(self, params: dict[str, Any]) -> None:

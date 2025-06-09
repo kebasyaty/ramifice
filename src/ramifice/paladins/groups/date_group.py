@@ -1,6 +1,7 @@
 """Group for checking date fields.
+
 Supported fields:
-DateTimeField | DateField
+    DateTimeField | DateField
 """
 
 from typing import Any
@@ -12,8 +13,9 @@ from ... import translations
 
 class DateGroupMixin:
     """Group for checking date fields.
+
     Supported fields:
-    DateTimeField | DateField
+        DateTimeField | DateField
     """
 
     def date_group(self, params: dict[str, Any]) -> None:

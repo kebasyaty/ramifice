@@ -2,8 +2,8 @@
 
 import unittest
 
-from src.ramifice import model
-from src.ramifice.fields import (
+from ramifice import model
+from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
     ChoiceFloatField,
@@ -33,14 +33,14 @@ from src.ramifice.fields import (
     TextField,
     URLField,
 )
-from src.ramifice.mixins import JsonMixin
-from src.ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
+from ramifice.mixins import JsonMixin
+from ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class StandardTypes(JsonMixin):
     """Class for testing."""
 
-    def __init__(self):
+    def __init__(self):  # noqa: D107
         JsonMixin.__init__(self)
         self.x1 = {"x": 1, "y": 2}
         self.x2 = [1, 2, 3]
@@ -58,6 +58,7 @@ class User:
     """Model for testing."""
 
     def fields(self, gettext):
+        """For add fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()

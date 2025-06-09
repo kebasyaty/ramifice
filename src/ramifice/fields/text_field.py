@@ -9,8 +9,7 @@ from .general.text_group import TextGroup
 class TextField(Field, TextGroup, JsonMixin):
     """Field of Model for enter text."""
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -38,9 +37,7 @@ class TextField(Field, TextGroup, JsonMixin):
                         "The `default` parameter should not contain an empty string!"
                     )
                 if len(default) > maxlength:
-                    raise AssertionError(
-                        "Parameter `default` exceeds the size of `maxlength`!"
-                    )
+                    raise AssertionError("Parameter `default` exceeds the size of `maxlength`!")
 
         Field.__init__(
             self,

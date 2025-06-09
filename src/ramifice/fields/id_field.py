@@ -12,15 +12,14 @@ class IDField(Field):
     """Field of Model for enter identifier of document.
 
     Attributes:
-    input_type -- Input type for a web form field.
-    placeholder -- Displays prompt text.
-    required -- Required field.
-    readonly -- Specifies that the field cannot be modified by the user.
-    unique -- The unique value of a field in a collection.
+        input_type -- Input type for a web form field.
+        placeholder -- Displays prompt text.
+        required -- Required field.
+        readonly -- Specifies that the field cannot be modified by the user.
+        unique -- The unique value of a field in a collection.
     """
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -33,7 +32,6 @@ class IDField(Field):
         readonly: bool = False,
         unique: bool = False,
     ):
-
         Field.__init__(
             self,
             label=label,

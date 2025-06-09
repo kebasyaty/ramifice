@@ -2,7 +2,7 @@
 propagating changes you make to
 your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
-"""
+"""  # noqa: D205
 
 from datetime import datetime
 from typing import Any
@@ -21,7 +21,7 @@ from .store import FILE_INFO_DICT, IMG_INFO_DICT
 class Monitor:
     """Monitoring and updating database state for application."""
 
-    def __init__(self, database_name: str, mongo_client: AsyncMongoClient):
+    def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
         store.DEBUG = False
         #
         db_name_regex = store.REGEX["database_name"]
@@ -33,9 +33,7 @@ class Monitor:
         store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
         # Get Model list.
         self.model_list: list[Any] = [
-            cls_model
-            for cls_model in Model.__subclasses__()
-            if cls_model.META["is_migrat_model"]
+            cls_model for cls_model in Model.__subclasses__() if cls_model.META["is_migrat_model"]
         ]
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
@@ -43,6 +41,7 @@ class Monitor:
 
     async def reset(self) -> None:
         """Reset the condition of the models in a super collection.
+
         Switch the `is_model_exist` parameter in the condition `False`.
         """
         # Get access to super collection.
@@ -76,15 +75,11 @@ class Monitor:
             await super_collection.insert_one(model_state)
         return model_state
 
-    def new_fields(
-        self, metadata: dict[str, Any], model_state: dict[str, Any]
-    ) -> list[str]:
+    def new_fields(self, metadata: dict[str, Any], model_state: dict[str, Any]) -> list[str]:
         """Get a list of new fields that were added to Model."""
         new_fields: list[str] = []
         for field_name, field_type in metadata["field_name_and_type"].items():
-            old_field_type: str | None = model_state["field_name_and_type"].get(
-                field_name
-            )
+            old_field_type: str | None = model_state["field_name_and_type"].get(field_name)
             if old_field_type is None or old_field_type != field_type:
                 new_fields.append(field_name)
         return new_fields
@@ -92,7 +87,7 @@ class Monitor:
     async def napalm(self) -> None:
         """Delete data for non-existent Models from a super collection,
         delete collections associated with those Models.
-        """
+        """  # noqa: D205
         # Get access to database.
         database = store.MONGO_DATABASE
         # Get access to super collection.
@@ -109,7 +104,8 @@ class Monitor:
                 await database.drop_collection(collection_name)  # type: ignore[union-attr]
 
     async def migrat(self) -> None:
-        """Run migration process:
+        """Run migration process.
+
         1) Update the state of Models in the super collection.
         2) Register new Models in the super collection.
         3) Check changes in models and (if necessary) apply in appropriate collections.
@@ -162,9 +158,7 @@ class Monitor:
                     # Get checked data.
                     checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.
-                    for field_name, field_type in metadata[
-                        "field_name_and_type"
-                    ].items():
+                    for field_name, field_type in metadata["field_name_and_type"].items():
                         if (
                             field_type == "PasswordField"
                             and model_state["field_name_and_type"].get(field_name)
@@ -207,9 +201,9 @@ class Monitor:
             # Apply fixture to current Model.
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
-                collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index, attr-defined]
+                collection: AsyncCollection = store.MONGO_DATABASE[
                     cls_model.META["collection_name"]
-                ]
+                ]  # type: ignore[index, attr-defined]
                 if await collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,

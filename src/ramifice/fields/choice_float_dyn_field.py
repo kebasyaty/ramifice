@@ -1,4 +1,5 @@
 """Field of Model.
+
 Type of selective float field with dynamic addition of elements.
 """
 
@@ -9,14 +10,13 @@ from .general.field import Field
 
 class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
+
     Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-One.
     Element are (add|delete) via `ModelName.unit_manager(unit)` method.
-    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/dynamic_choices" target="_blank">example</a>.
     """
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -27,7 +27,6 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
-
         Field.__init__(
             self,
             label=label,

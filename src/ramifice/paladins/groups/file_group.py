@@ -1,4 +1,5 @@
 """Group for checking file fields.
+
 Supported fields: FileField
 """
 
@@ -11,6 +12,7 @@ from ...tools import to_human_size
 
 class FileGroupMixin:
     """Group for checking file fields.
+
     Supported fields: FileField
     """
 
@@ -57,8 +59,7 @@ class FileGroupMixin:
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
-                    "File size exceeds the maximum value %s !"
-                    % to_human_size(field.max_size)
+                    "File size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                 return

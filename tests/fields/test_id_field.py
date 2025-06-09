@@ -2,7 +2,7 @@
 
 import unittest
 
-from src.ramifice.fields import IDField
+from ramifice.fields import IDField
 
 
 class TestHashField(unittest.TestCase):

@@ -10,11 +10,11 @@ from .general.text_group import TextGroup
 
 class PhoneField(Field, TextGroup, JsonMixin):
     """Field of Model for enter phone number.
+
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -41,9 +41,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
                     if not phonenumbers.is_valid_number(phone_default):
                         raise AssertionError()
                 except phonenumbers.phonenumberutil.NumberParseException:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid Phone number!"
-                    )  # pylint: disable=raise-missing-from
+                    raise AssertionError("Parameter `default` - Invalid Phone number!")
 
         Field.__init__(
             self,

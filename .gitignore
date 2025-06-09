@@ -1,3 +1,14 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
 ### Mac OS ###
 .DS_Store
 
@@ -12,36 +23,6 @@ desktop.ini
 /public/media/uploads/**
 !/public/media/uploads/.gitkeep
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-
-# poetry
-#poetry.lock
-
-# Distribution / packaging
-.eggs/
-.Python
-env/
-bin/
-build/
-develop-eggs/
-dist/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheelhouse/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -49,15 +30,6 @@ htmlcov/
 .cache
 .pytest_cache
 coverage.xml
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
 # mypy
 .mypy_cache/

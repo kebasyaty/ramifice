@@ -11,8 +11,7 @@ from .general.text_group import TextGroup
 class EmailField(Field, TextGroup, JsonMixin):
     """Field of Model for enter email address."""
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -37,9 +36,7 @@ class EmailField(Field, TextGroup, JsonMixin):
                 try:
                     validate_email(default, check_deliverability=True)
                 except EmailNotValidError:
-                    raise AssertionError(  # pylint: disable=raise-missing-from
-                        "Parameter `default` - Invalid Email address!"
-                    )  # pylint: disable=raise-missing-from
+                    raise AssertionError("Parameter `default` - Invalid Email address!")
 
         Field.__init__(
             self,

@@ -1,4 +1,5 @@
 """Group for checking image fields.
+
 Supported fields: ImageField
 """
 
@@ -13,6 +14,7 @@ from ...tools import to_human_size
 
 class ImgGroupMixin:
     """Group for checking image fields.
+
     Supported fields: ImageField
     """
 
@@ -59,8 +61,7 @@ class ImgGroupMixin:
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
-                    "Image size exceeds the maximum value %s !"
-                    % to_human_size(field.max_size)
+                    "Image size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
                 self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
                 return

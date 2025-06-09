@@ -1,6 +1,7 @@
 """Group for checking integer fields.
+
 Supported fields:
-IntegerField | FloatField
+    IntegerField | FloatField
 """
 
 from typing import Any
@@ -10,8 +11,9 @@ from ... import translations
 
 class NumGroupMixin:
     """Group for checking integer fields.
+
     Supported fields:
-    IntegerField | FloatField
+        IntegerField | FloatField
     """
 
     async def num_group(self, params: dict[str, Any]) -> None:

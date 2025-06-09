@@ -5,7 +5,7 @@ import unittest
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 
-from src.ramifice.tools import (  # get_file_size,
+from ramifice.tools import (  # get_file_size,
     hash_to_obj_id,
     is_color,
     is_email,
@@ -26,9 +26,7 @@ class TestTools(unittest.TestCase):
         self.assertIsNone(normal_email(None))
         self.assertIsNone(normal_email("???"))
         self.assertIsNone(normal_email(""))
-        self.assertEqual(
-            normal_email("my+address@example.net"), "my+address@example.net"
-        )
+        self.assertEqual(normal_email("my+address@example.net"), "my+address@example.net")
         self.assertEqual(normal_email("kebasyaty@gmail.com"), "kebasyaty@gmail.com")
 
     def test_is_emale(self):

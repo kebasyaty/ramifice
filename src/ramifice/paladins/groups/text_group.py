@@ -1,7 +1,8 @@
 """Group for checking text fields.
+
 Supported fields:
-URLField | TextField | PhoneField
-| IPField | EmailField | ColorField
+    URLField | TextField | PhoneField
+    IPField | EmailField | ColorField
 """
 
 from typing import Any
@@ -13,9 +14,10 @@ from ... import translations
 
 class TextGroupMixin:
     """Group for checking text fields.
+
     Supported fields:
-    URLField | TextField | PhoneField
-    | IPField | EmailField | ColorField
+        URLField | TextField | PhoneField
+        IPField | EmailField | ColorField
     """
 
     async def text_group(self, params: dict[str, Any]) -> None:
@@ -33,9 +35,7 @@ class TextGroupMixin:
         # Validation the `maxlength` field attribute.
         maxlength: int | None = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
-            err_msg = translations._(
-                "The length of the string exceeds maxlength=%d !" % maxlength
-            )
+            err_msg = translations._("The length of the string exceeds maxlength=%d !" % maxlength)
             self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]

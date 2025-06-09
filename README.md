@@ -87,7 +87,7 @@ https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
 cd project_name
-poetry add ramifice
+uv add ramifice
 ```
 
 3. Add `config` and `public` directories in root of your project:<br>
@@ -213,26 +213,26 @@ translations.LANGUAGES = ["en", "ru"]  # By default in Ramifice = ["en", "ru"]
 ```shell
 cd project_name
 # Add your custom translations:
-poetry run pybabel extract -o config/translations/custom.pot src
-poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
-poetry run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
+uv run pybabel extract -o config/translations/custom.pot src
+uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
+uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
 ...
-poetry run pybabel compile -d config/translations/custom
+uv run pybabel compile -d config/translations/custom
 # Update your custom translations:
-poetry run pybabel extract -o config/translations/custom.pot src
-poetry run pybabel update -i config/translations/custom.pot -d config/translations/custom
-poetry run pybabel compile -d config/translations/custom
+uv run pybabel extract -o config/translations/custom.pot src
+uv run pybabel update -i config/translations/custom.pot -d config/translations/custom
+uv run pybabel compile -d config/translations/custom
 #
 # Add new languages ​​to Ramifice:
 # Example:
-poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
-poetry run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
+uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
+uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
 ...
-poetry run pybabel compile -d config/translations/ramifice
+uv run pybabel compile -d config/translations/ramifice
 # Update translations to Ramifice:
-poetry run pybabel extract -o config/translations/ramifice.pot ramifice
-poetry run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
-poetry run pybabel compile -d config/translations/ramifice
+uv run pybabel extract -o config/translations/ramifice.pot ramifice
+uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
+uv run pybabel compile -d config/translations/ramifice
 ```
 
 ### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
@@ -343,7 +343,7 @@ https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
 cd project_name
-poetry install --with dev,docs
+uv install --with dev,docs
 ```
 
 ## Contributors

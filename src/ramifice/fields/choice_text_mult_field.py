@@ -1,4 +1,5 @@
 """Field of Model.
+
 Type of selective text field with static of elements.
 """
 
@@ -10,13 +11,12 @@ from .general.field import Field
 
 class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
     """Field of Model.
+
     Type of selective text field with static of elements.
     With multiple choice.
-    How to use, see <a href="https://github.com/kebasyaty/ramifice/tree/main/examples/static_choices" target="_blank">example</a>.
     """
 
-    # pylint: disable=too-many-arguments
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -29,7 +29,6 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: dict[str, str] | None = None,
     ):
-
         Field.__init__(
             self,
             label=label,

@@ -20,13 +20,11 @@ class OneMixin:
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
+            mongo_doc = cls.password_to_none(mongo_doc)  # type: ignore[attr-defined]
         return mongo_doc
 
     @classmethod
-    async def find_one_to_raw_doc(
-        cls, filter=None, *args, **kwargs
-    ) -> dict[str, Any] | None:
+    async def find_one_to_raw_doc(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
         """Find a single document."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -34,7 +32,7 @@ class OneMixin:
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            raw_doc = cls.mongo_doc_to_raw_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            raw_doc = cls.mongo_doc_to_raw_doc(mongo_doc)  # type: ignore[attr-defined]
         return raw_doc
 
     @classmethod
@@ -47,7 +45,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
         return inst_model
 
     @classmethod
@@ -60,19 +58,25 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[index, attr-defined]
+            inst_model = cls.from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
             json_str = inst_model.to_json()
         return json_str
 
     @classmethod
     async def delete_one(
-        cls, filter, collation=None, hint=None, session=None, let=None, comment=None
+        cls,
+        filter,
+        collation=None,
+        hint=None,
+        session=None,
+        let=None,
+        comment=None,
     ) -> DeleteResult:
         """Find a single document and delete it."""
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+        if not cls.META["is_delete_doc"]:  # type: ignore[attr-defined]
             msg = (
-                f"Model: `{cls.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
@@ -104,9 +108,9 @@ class OneMixin:
     ) -> dict[str, Any] | None:
         """Find a single document and delete it, return original."""
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:  # type: ignore[index, attr-defined]
+        if not cls.META["is_delete_doc"]:  # type: ignore[attr-defined]
             msg = (
-                f"Model: `{cls.META["full_model_name"]}` > "  # type: ignore[index, attr-defined]
+                f"Model: `{cls.META['full_model_name']}` > "  # type: ignore[attr-defined]
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
@@ -125,5 +129,5 @@ class OneMixin:
             **kwargs,
         )
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
+            mongo_doc = cls.password_to_none(mongo_doc)  # type: ignore[attr-defined]
         return mongo_doc

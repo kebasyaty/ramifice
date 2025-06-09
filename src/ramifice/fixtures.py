@@ -1,4 +1,5 @@
 """Fixtures - To populate the database with pre-created data.
+
 Runs automatically during Model migration.
 """
 
@@ -14,9 +15,12 @@ from .errors import PanicError
 
 
 async def apply_fixture(
-    fixture_name: str, cls_model: Any, collection: AsyncCollection
+    fixture_name: str,
+    cls_model: Any,
+    collection: AsyncCollection,
 ) -> None:
     """Apply fixture for current Model.
+
     Runs automatically during Model migration.
     """
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
@@ -27,7 +31,7 @@ async def apply_fixture(
 
     if not bool(data_yaml):
         msg = (
-            f"Model: `{cls_model.META["full_model_name"]}` > "
+            f"Model: `{cls_model.META['full_model_name']}` > "
             + f"META param: `fixture_name` ({fixture_name}) => "
             + "It seems that fixture is empty or it has incorrect contents!"
         )
@@ -53,7 +57,10 @@ async def apply_fixture(
                 else:
                     field_data.value = value
         # Check Model.
-        result_check: dict[str, Any] = await inst_model.check(is_save=True, collection=collection)  # type: ignore[attr-defined]
+        result_check: dict[str, Any] = await inst_model.check(
+            is_save=True,
+            collection=collection,
+        )
         # If the check fails.
         if not result_check["is_valid"]:
             await collection.database.drop_collection(collection.name)
@@ -68,11 +75,11 @@ async def apply_fixture(
         checked_data["created_at"] = today
         checked_data["updated_at"] = today
         # Run hook.
-        await inst_model.pre_create()  # type: ignore[index, attr-defined]
+        await inst_model.pre_create()
         # Insert doc.
         try:
-            await collection.insert_one(checked_data)  # type: ignore[index, attr-defined]
+            await collection.insert_one(checked_data)
         except:
             await collection.database.drop_collection(collection.name)
         # Run hook.
-        await inst_model.post_create()  # type: ignore[index, attr-defined]
+        await inst_model.post_create()

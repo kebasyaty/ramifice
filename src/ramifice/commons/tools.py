@@ -13,7 +13,7 @@ class ToolMixin:
     @classmethod
     def password_to_none(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Create object instance from Mongo document."""
-        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
+        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[attr-defined]
             if "Pass" in t_name:
                 mongo_doc[f_name] = None
         return mongo_doc
@@ -39,7 +39,7 @@ class ToolMixin:
         """
         doc: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
-        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[index, attr-defined]
+        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[attr-defined]
             value = mongo_doc[f_name]
             if value is not None:
                 if "Date" in t_name:
