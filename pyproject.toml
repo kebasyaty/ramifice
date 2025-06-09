@@ -5,6 +5,7 @@ description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
 license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12,<4.0"
 keywords = ["mongo", "mongodb", "pymongo", "orm", "ramifice"]
 classifiers = [
@@ -35,10 +36,11 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/kebasyaty/ramifice"
-Repository = "https://github.com/kebasyaty/ramifice"
 Documentation = "https://kebasyaty.github.io/ramifice/"
-Source = "https://github.com/kebasyaty/project_name"
-Tracker = "https://github.com/kebasyaty/ramifice/issues"
+Repository = "https://github.com/kebasyaty/ramifice"
+Source = "https://github.com/kebasyaty/ramifice"
+"Bug Tracker" = "https://github.com/kebasyaty/ramifice/issues"
+Changelog = "https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md"
 
 [tool.uv]
 default-groups = ["dev", "docs"]
