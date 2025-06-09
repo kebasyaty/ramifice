@@ -76,6 +76,5 @@ ignore = ["D417", "D206"]
 convention = "google"
 
 [tool.ruff.format]
-indent-style = "tab"
 docstring-code-format = true
 docstring-code-line-length = 80
