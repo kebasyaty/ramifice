@@ -14,7 +14,11 @@ from termcolor import colored
 from .errors import PanicError
 
 
-async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncCollection) -> None:
+async def apply_fixture(
+	fixture_name: str,
+	cls_model: Any,
+	collection: AsyncCollection,
+) -> None:
 	"""Apply fixture for current Model.
 
 	Runs automatically during Model migration.
@@ -53,7 +57,10 @@ async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncColl
 				else:
 					field_data.value = value
 		# Check Model.
-		result_check: dict[str, Any] = await inst_model.check(is_save=True, collection=collection)
+		result_check: dict[str, Any] = await inst_model.check(
+			is_save=True,
+			collection=collection,
+		)
 		# If the check fails.
 		if not result_check["is_valid"]:
 			await collection.database.drop_collection(collection.name)

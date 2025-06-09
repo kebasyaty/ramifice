@@ -148,7 +148,9 @@ class Monitor:
 								mongo_doc[field_name] = None
 					#
 					inst_model = cls_model.from_mongo_doc(mongo_doc)
-					result_check: dict[str, Any] = await inst_model.check(is_save=True, collection=model_collection)
+					result_check: dict[str, Any] = await inst_model.check(
+						is_save=True, collection=model_collection
+					)
 					if not result_check["is_valid"]:
 						print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
 						inst_model.print_err()
@@ -159,13 +161,16 @@ class Monitor:
 					for field_name, field_type in metadata["field_name_and_type"].items():
 						if (
 							field_type == "PasswordField"
-							and model_state["field_name_and_type"].get(field_name) == "PasswordField"
+							and model_state["field_name_and_type"].get(field_name)
+							== "PasswordField"
 						):
 							checked_data[field_name] = mongo_doc[field_name]
 					# Update date and time.
 					checked_data["updated_at"] = datetime.now()
 					# Update the document in the database.
-					await model_collection.replace_one(filter={"_id": checked_data["_id"]}, replacement=checked_data)
+					await model_collection.replace_one(
+						filter={"_id": checked_data["_id"]}, replacement=checked_data
+					)
 			#
 			# Refresh the dynamic fields data for the current model.
 			meta_dyn_field_list: list[str] = metadata["data_dynamic_fields"].keys()
@@ -196,7 +201,9 @@ class Monitor:
 			# Apply fixture to current Model.
 			fixture_name: str | None = cls_model.META["fixture_name"]
 			if fixture_name is not None:
-				collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
+				collection: AsyncCollection = store.MONGO_DATABASE[
+					cls_model.META["collection_name"]
+				]  # type: ignore[index, attr-defined]
 				if await collection.estimated_document_count() == 0:
 					await apply_fixture(
 						fixture_name=fixture_name,

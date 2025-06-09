@@ -34,7 +34,9 @@ class GeneralMixin:
 		)
 
 	@classmethod
-	async def aggregate(cls, pipeline, session=None, let=None, comment=None, **kwargs) -> AsyncCommandCursor:
+	async def aggregate(
+		cls, pipeline, session=None, let=None, comment=None, **kwargs
+	) -> AsyncCommandCursor:
 		"""Runs an aggregation framework pipeline."""
 		# Get collection for current model.
 		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]

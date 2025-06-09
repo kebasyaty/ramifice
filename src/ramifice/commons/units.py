@@ -39,7 +39,9 @@ class UnitMixin:
 		# Get the dynamic field type.
 		field_type = model_state["field_name_and_type"][unit.field]
 		# Get dynamic field data.
-		choices: dict[str, float | int | str] | None = model_state["data_dynamic_fields"][unit.field]
+		choices: dict[str, float | int | str] | None = model_state["data_dynamic_fields"][
+			unit.field
+		]
 		# Check whether the type of value is valid for the type of field.
 		if not (
 			("ChoiceFloat" in field_type and isinstance(unit.value, float))
@@ -62,11 +64,17 @@ class UnitMixin:
 		# Delete Unit from Model State.
 		else:
 			if choices is None:
-				msg = "Error: It is not possible to delete Unit." + f"Unit `{unit.title}: {unit.value}` not exists!"
+				msg = (
+					"Error: It is not possible to delete Unit."
+					+ f"Unit `{unit.title}: {unit.value}` not exists!"
+				)
 				raise PanicError(msg)
 			is_key_exists: bool = unit.title in choices.keys()
 			if not is_key_exists:
-				msg = "Error: It is not possible to delete Unit." + f"Unit `{unit.title}: {unit.value}` not exists!"
+				msg = (
+					"Error: It is not possible to delete Unit."
+					+ f"Unit `{unit.title}: {unit.value}` not exists!"
+				)
 				raise PanicError(msg)
 			del choices[unit.title]
 			model_state["data_dynamic_fields"][unit.field] = choices or None

@@ -66,7 +66,11 @@ class SaveMixin:
 			if mongo_doc is not None:
 				self.refrash_from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
 			else:
-				msg = f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."  # type: ignore[attr-defined]
+				msg = (
+					f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+					+ "Method: `save` => "
+					+ "The document was not created."
+				)  # type: ignore[attr-defined]
 				raise PanicError(msg)
 		#
 		# If everything is completed successfully.

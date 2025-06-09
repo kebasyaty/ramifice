@@ -94,7 +94,9 @@ class DateGroupMixin:
 					locale=translations.CURRENT_LOCALE,
 				)
 			)
-			err_msg = translations._("The date %s must not be less than min=%s !" % value_str, min_date_str)
+			err_msg = translations._(
+				"The date %s must not be less than min=%s !" % value_str, min_date_str
+			)
 			self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
 		# Insert result.
 		if params["is_save"]:

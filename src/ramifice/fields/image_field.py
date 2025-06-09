@@ -46,12 +46,16 @@ class ImageField(Field, FileGroup, JsonMixin):
 				if not isinstance(default, str):
 					raise AssertionError("Parameter `default` - Not а `str` type!")
 				if len(default) == 0:
-					raise AssertionError("The `default` parameter should not contain an empty string!")
+					raise AssertionError(
+						"The `default` parameter should not contain an empty string!"
+					)
 			if thumbnails is not None:
 				if not isinstance(thumbnails, dict):
 					raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
 				if len(thumbnails) == 0:
-					raise AssertionError("The `thumbnails` parameter should not contain an empty dictionary!")
+					raise AssertionError(
+						"The `thumbnails` parameter should not contain an empty dictionary!"
+					)
 				size_name_list = ["lg", "md", "sm", "xs"]
 				curr_size_thumb: int = 0
 				for size_name in thumbnails.keys():

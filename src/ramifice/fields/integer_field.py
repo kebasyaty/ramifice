@@ -30,7 +30,8 @@ class IntegerField(Field, NumberGroup, JsonMixin):
 		if DEBUG:
 			if input_type not in ["number", "range"]:
 				raise AssertionError(
-					"Parameter `input_type` - Invalid input type! " + "The permissible value of `number` or `range`."
+					"Parameter `input_type` - Invalid input type! "
+					+ "The permissible value of `number` or `range`."
 				)
 			if max_number is not None and not isinstance(max_number, int):
 				raise AssertionError("Parameter `max_number` - Not а number `int` type!")
@@ -39,7 +40,9 @@ class IntegerField(Field, NumberGroup, JsonMixin):
 			if not isinstance(step, int):
 				raise AssertionError("Parameter `step` - Not а number `int` type!")
 			if max_number is not None and min_number is not None and max_number <= min_number:
-				raise AssertionError("The `max_number` parameter should be more than the `min_number`!")
+				raise AssertionError(
+					"The `max_number` parameter should be more than the `min_number`!"
+				)
 			if default is not None:
 				if not isinstance(default, int):
 					raise AssertionError("Parameter `default` - Not а number `int` type!")

@@ -39,7 +39,9 @@ class FileField(Field, FileGroup, JsonMixin):
 				if not isinstance(default, str):
 					raise AssertionError("Parameter `default` - Not а `str` type!")
 				if len(default) == 0:
-					raise AssertionError("The `default` parameter should not contain an empty string!")
+					raise AssertionError(
+						"The `default` parameter should not contain an empty string!"
+					)
 
 		Field.__init__(
 			self,

@@ -63,7 +63,7 @@ docs = ["mkdocs>=1.6.1", "mkdocs-material>=9.6.14", "mkdocstrings>=0.29.1"]
 
 [tool.ruff]
 fix = true
-line-length = 120
+line-length = 100
 required-version = ">=0.7.11"
 src = ["src", "tests"]
 include = ["src/**/*.py", "tests/**/*.py"]

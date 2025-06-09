@@ -193,7 +193,9 @@ class ManyMixin:
 		return json.dumps(doc_list) if len(doc_list) > 0 else None
 
 	@classmethod
-	async def delete_many(cls, filter, collation=None, hint=None, session=None, let=None, comment=None) -> DeleteResult:
+	async def delete_many(
+		cls, filter, collation=None, hint=None, session=None, let=None, comment=None
+	) -> DeleteResult:
 		"""Find documents matching with Model."""
 		# Raises a panic if the Model cannot be removed.
 		if not cls.META["is_delete_doc"]:  # type: ignore[attr-defined]

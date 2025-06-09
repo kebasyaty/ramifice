@@ -34,9 +34,7 @@ class IPField(Field, TextGroup, JsonMixin):
 				try:
 					ipaddress.ip_address(default)
 				except ValueError:
-					raise AssertionError(  # pylint: disable=raise-missing-from
-						"Parameter `default` - Invalid IP address!"
-					)  # pylint: disable=raise-missing-from
+					raise AssertionError("Parameter `default` - Invalid IP address!")
 
 		Field.__init__(
 			self,

@@ -37,7 +37,9 @@ class CheckMixin(
 ):
 	"""Validation of Model data before saving to the database."""
 
-	async def check(self, is_save: bool = False, collection: AsyncCollection | None = None) -> dict[str, Any]:
+	async def check(
+		self, is_save: bool = False, collection: AsyncCollection | None = None
+	) -> dict[str, Any]:
 		"""Validation of Model data before saving to the database."""
 		cls_model = self.__class__
 		if not cls_model.META["is_migrat_model"] and is_save:  # type: ignore[attr-defined]
@@ -116,7 +118,9 @@ class CheckMixin(
 				if not is_update:
 					self._id.value = None  # type: ignore[attr-defined]
 				# Delete orphaned files.
-				curr_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id}) if is_update else None
+				curr_doc: dict[str, Any] | None = (
+					await collection.find_one({"_id": doc_id}) if is_update else None
+				)
 				for field_name, field_data in self.__dict__.items():
 					if callable(field_data) or field_data.ignored:
 						continue
