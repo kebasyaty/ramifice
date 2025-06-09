@@ -4,120 +4,117 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from src.ramifice import model, store
-from src.ramifice.fields import (
-    BooleanField,
-    ChoiceFloatDynField,
-    ChoiceFloatField,
-    ChoiceFloatMultDynField,
-    ChoiceFloatMultField,
-    ChoiceIntDynField,
-    ChoiceIntField,
-    ChoiceIntMultDynField,
-    ChoiceIntMultField,
-    ChoiceTextDynField,
-    ChoiceTextField,
-    ChoiceTextMultDynField,
-    ChoiceTextMultField,
-    ColorField,
-    DateField,
-    DateTimeField,
-    EmailField,
-    FileField,
-    FloatField,
-    IDField,
-    ImageField,
-    IntegerField,
-    IPField,
-    PasswordField,
-    PhoneField,
-    SlugField,
-    TextField,
-    URLField,
+from ramifice import model, store
+from ramifice.fields import (
+	BooleanField,
+	ChoiceFloatDynField,
+	ChoiceFloatField,
+	ChoiceFloatMultDynField,
+	ChoiceFloatMultField,
+	ChoiceIntDynField,
+	ChoiceIntField,
+	ChoiceIntMultDynField,
+	ChoiceIntMultField,
+	ChoiceTextDynField,
+	ChoiceTextField,
+	ChoiceTextMultDynField,
+	ChoiceTextMultField,
+	ColorField,
+	DateField,
+	DateTimeField,
+	EmailField,
+	FileField,
+	FloatField,
+	IDField,
+	ImageField,
+	IntegerField,
+	IPField,
+	PasswordField,
+	PhoneField,
+	SlugField,
+	TextField,
+	URLField,
 )
-from src.ramifice.migration import Monitor
+from ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")
 class User:
-    """Model for testing."""
+	"""Model for testing."""
 
-    def fields(self, gettext):
-        self.url = URLField()
-        self.txt = TextField()
-        self.slug = SlugField()
-        self.phone = PhoneField()
-        self.password = PasswordField()
-        self.ip = IPField()
-        self.num_int = IntegerField()
-        self.num_float = FloatField()
-        self.img = ImageField()
-        self.hash2 = IDField()
-        self.file = FileField()
-        self.email = EmailField()
-        self.date_time = DateTimeField()
-        self.date = DateField()
-        self.color = ColorField()
-        self.bool = BooleanField()
-        self.choice_float_dyn = ChoiceFloatDynField()
-        self.choice_float = ChoiceFloatField()
-        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
-        self.choice_float_mult = ChoiceFloatMultField()
-        self.choice_int_dyn = ChoiceIntDynField()
-        self.choice_int_mult_dyn = ChoiceIntMultDynField()
-        self.choice_int_mult = ChoiceIntMultField()
-        self.choice_txt_dyn = ChoiceTextDynField()
-        self.choice_txt = ChoiceTextField()
-        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
-        self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
+	def fields(self, gettext):
+		"""For add fields."""
+		self.url = URLField()
+		self.txt = TextField()
+		self.slug = SlugField()
+		self.phone = PhoneField()
+		self.password = PasswordField()
+		self.ip = IPField()
+		self.num_int = IntegerField()
+		self.num_float = FloatField()
+		self.img = ImageField()
+		self.hash2 = IDField()
+		self.file = FileField()
+		self.email = EmailField()
+		self.date_time = DateTimeField()
+		self.date = DateField()
+		self.color = ColorField()
+		self.bool = BooleanField()
+		self.choice_float_dyn = ChoiceFloatDynField()
+		self.choice_float = ChoiceFloatField()
+		self.choice_float_mult_dyn = ChoiceFloatMultDynField()
+		self.choice_float_mult = ChoiceFloatMultField()
+		self.choice_int_dyn = ChoiceIntDynField()
+		self.choice_int_mult_dyn = ChoiceIntMultDynField()
+		self.choice_int_mult = ChoiceIntMultField()
+		self.choice_txt_dyn = ChoiceTextDynField()
+		self.choice_txt = ChoiceTextField()
+		self.choice_txt_mult_dyn = ChoiceTextMultDynField()
+		self.choice_txt_mult = ChoiceTextMultField()
+		self.choice_int = ChoiceIntField()
 
 
 class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
-    """Testing `Ramifice > QCommonsMixin > GeneraMixin` module."""
+	"""Testing `Ramifice > QCommonsMixin > GeneraMixin` module."""
 
-    async def test_general_mixin_methods(self):
-        """Testing GeneralMixin methods."""
-        # Maximum number of characters 60.
-        database_name = "test_general_mixin_methods"
+	async def test_general_mixin_methods(self):
+		"""Testing GeneralMixin methods."""
+		# Maximum number of characters 60.
+		database_name = "test_general_mixin_methods"
 
-        # Delete database before test.
-        # (if the test fails)
-        client = AsyncMongoClient()
-        await client.drop_database(database_name)
-        await client.close()
+		# Delete database before test.
+		# (if the test fails)
+		client = AsyncMongoClient()
+		await client.drop_database(database_name)
+		await client.close()
 
-        client = AsyncMongoClient()
-        await Monitor(
-            database_name=database_name,
-            mongo_client=client,
-        ).migrat()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
-        self.assertEqual(await User.estimated_document_count(), 0)
-        self.assertEqual(await User.count_documents({}), 0)
-        m = User()
-        # self.assertTrue(await m.save())
-        if not await m.save():
-            m.print_err()
-        self.assertEqual(await User.estimated_document_count(), 1)
-        self.assertEqual(await User.count_documents({}), 1)
-        self.assertEqual(await User.count_documents({"_id": m._id.value}), 1)
-        self.assertEqual(User.collection_name(), "Accounts_User")
-        self.assertEqual(
-            User.collection_full_name(), "test_general_mixin_methods.Accounts_User"
-        )
-        self.assertEqual(User.database(), store.MONGO_DATABASE)
-        self.assertEqual(
-            User.collection(), store.MONGO_DATABASE[User.META["collection_name"]]
-        )
-        # ----------------------------------------------------------------------
-        #
-        # Delete database after test.
-        await client.drop_database(database_name)
-        await client.close()
+		client = AsyncMongoClient()
+		await Monitor(
+			database_name=database_name,
+			mongo_client=client,
+		).migrat()
+		#
+		# HELLISH BURN
+		# ----------------------------------------------------------------------
+		self.assertEqual(await User.estimated_document_count(), 0)
+		self.assertEqual(await User.count_documents({}), 0)
+		m = User()
+		# self.assertTrue(await m.save())
+		if not await m.save():
+			m.print_err()
+		self.assertEqual(await User.estimated_document_count(), 1)
+		self.assertEqual(await User.count_documents({}), 1)
+		self.assertEqual(await User.count_documents({"_id": m._id.value}), 1)
+		self.assertEqual(User.collection_name(), "Accounts_User")
+		self.assertEqual(User.collection_full_name(), "test_general_mixin_methods.Accounts_User")
+		self.assertEqual(User.database(), store.MONGO_DATABASE)
+		self.assertEqual(User.collection(), store.MONGO_DATABASE[User.META["collection_name"]])
+		# ----------------------------------------------------------------------
+		#
+		# Delete database after test.
+		await client.drop_database(database_name)
+		await client.close()
 
 
 if __name__ == "__main__":
-    unittest.main()
+	unittest.main()

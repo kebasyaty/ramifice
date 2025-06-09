@@ -2,7 +2,7 @@
 propagating changes you make to
 your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
-"""
+"""  # noqa: D205
 
 from datetime import datetime
 from typing import Any
@@ -87,7 +87,7 @@ class Monitor:
 	async def napalm(self) -> None:
 		"""Delete data for non-existent Models from a super collection,
 		delete collections associated with those Models.
-		"""
+		"""  # noqa: D205
 		# Get access to database.
 		database = store.MONGO_DATABASE
 		# Get access to super collection.
@@ -104,7 +104,8 @@ class Monitor:
 				await database.drop_collection(collection_name)  # type: ignore[union-attr]
 
 	async def migrat(self) -> None:
-		"""Run migration process:
+		"""Run migration process.
+
 		1) Update the state of Models in the super collection.
 		2) Register new Models in the super collection.
 		3) Check changes in models and (if necessary) apply in appropriate collections.

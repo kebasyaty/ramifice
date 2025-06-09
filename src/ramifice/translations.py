@@ -36,65 +36,65 @@ LANGUAGES: list[str] = ["en", "ru"]
 
 # Add translations for Ramifice.
 ramifice_translations = {
-    lang: _gettext.translation(
-        domain="messages",
-        localedir="config/translations/ramifice",
-        languages=[lang],
-        class_=None,
-        fallback=True,
-    )
-    for lang in LANGUAGES
+	lang: _gettext.translation(
+		domain="messages",
+		localedir="config/translations/ramifice",
+		languages=[lang],
+		class_=None,
+		fallback=True,
+	)
+	for lang in LANGUAGES
 }
 
 # Add translations for custom project.
 custom_translations = {
-    lang: _gettext.translation(
-        domain="messages",
-        localedir="config/translations/custom",
-        languages=[lang],
-        class_=None,
-        fallback=True,
-    )
-    for lang in LANGUAGES
+	lang: _gettext.translation(
+		domain="messages",
+		localedir="config/translations/custom",
+		languages=[lang],
+		class_=None,
+		fallback=True,
+	)
+	for lang in LANGUAGES
 }
 
 
 def get_ramifice_translator(lang_code: str) -> Any:
-    """Get an object of translation for the desired language, for Ramifice.
+	"""Get an object of translation for the desired language, for Ramifice.
 
-    Examples:
-        >>> from ramifice import translations
-        >>> _ = translations.get_ramifice_translator("en").gettext
-        >>> msg = _("Hello World!")
-        >>> print(msg)
-        Hello World!
+	Examples:
+	    >>> from ramifice import translations
+	    >>> _ = translations.get_ramifice_translator("en").gettext
+	    >>> msg = _("Hello World!")
+	    >>> print(msg)
+	    Hello World!
 
-    Args:
-        lang_code: Language code.
+	Args:
+	    lang_code: Language code.
 
-    Returns:
-        Object of translation for the desired language.
-    """
-    return ramifice_translations.get(lang_code, ramifice_translations[DEFAULT_LOCALE])
+	Returns:
+	    Object of translation for the desired language.
+	"""
+	return ramifice_translations.get(lang_code, ramifice_translations[DEFAULT_LOCALE])
 
 
 def get_custom_translator(lang_code: str) -> Any:
-    """Get an object of translation for the desired language, for custom project.
+	"""Get an object of translation for the desired language, for custom project.
 
-    Examples:
-        >>> from ramifice import translations
-        >>> gettext = translations.get_custom_translator("en").gettext
-        >>> msg = gettext("Hello World!")
-        >>> print(msg)
-        Hello World!
+	Examples:
+	    >>> from ramifice import translations
+	    >>> gettext = translations.get_custom_translator("en").gettext
+	    >>> msg = gettext("Hello World!")
+	    >>> print(msg)
+	    Hello World!
 
-    Args:
-        lang_code: Language code.
+	Args:
+	    lang_code: Language code.
 
-    Returns:
-        Object of translation for the desired language.
-    """
-    return custom_translations.get(lang_code, custom_translations[DEFAULT_LOCALE])
+	Returns:
+	    Object of translation for the desired language.
+	"""
+	return custom_translations.get(lang_code, custom_translations[DEFAULT_LOCALE])
 
 
 # The object of the current translation, for Ramifice.
@@ -106,21 +106,21 @@ ngettext = get_custom_translator(DEFAULT_LOCALE).ngettext
 
 
 def change_locale(lang_code: str) -> None:
-    """Change current language.
+	"""Change current language.
 
-    Examples:
-        >>> from ramifice import translations
-        >>> translations.change_locale("ru")
+	Examples:
+	    >>> from ramifice import translations
+	    >>> translations.change_locale("ru")
 
-    Args:
-        lang_code: Language code.
+	Args:
+	    lang_code: Language code.
 
-    Returns:
-        Object `None`.
-    """
-    global CURRENT_LOCALE, _, gettext, ngettext
-    if lang_code != CURRENT_LOCALE:
-        CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
-        _ = get_ramifice_translator(CURRENT_LOCALE).gettext
-        gettext = get_custom_translator(CURRENT_LOCALE).gettext
-        ngettext = get_custom_translator(CURRENT_LOCALE).ngettext
+	Returns:
+	    Object `None`.
+	"""
+	global CURRENT_LOCALE, _, gettext, ngettext
+	if lang_code != CURRENT_LOCALE:
+		CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
+		_ = get_ramifice_translator(CURRENT_LOCALE).gettext
+		gettext = get_custom_translator(CURRENT_LOCALE).gettext
+		ngettext = get_custom_translator(CURRENT_LOCALE).ngettext

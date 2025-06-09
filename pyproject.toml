@@ -47,13 +47,6 @@ compile-bytecode = false
 
 [tool.uv.build-backend]
 module-root = "src"
-source-exclude = [
-    ".github",
-    ".vscode",
-    "assets",
-    "examples",
-    "public/media/uploads",
-]
 
 [build-system]
 requires = ["hatchling"]
@@ -76,9 +69,8 @@ src = ["src", "tests"]
 include = ["src/**/*.py", "tests/**/*.py"]
 
 [tool.ruff.lint]
-extend-select = ["E501"]
 select = ["D"]
-ignore = ["D417", "D205", "D206"]
+ignore = ["D417", "D206"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -86,4 +78,4 @@ convention = "google"
 [tool.ruff.format]
 indent-style = "tab"
 docstring-code-format = true
-docstring-code-line-length = 100
+docstring-code-line-length = 80

@@ -1,4 +1,5 @@
 """Fixtures - To populate the database with pre-created data.
+
 Runs automatically during Model migration.
 """
 
@@ -15,6 +16,7 @@ from .errors import PanicError
 
 async def apply_fixture(fixture_name: str, cls_model: Any, collection: AsyncCollection) -> None:
 	"""Apply fixture for current Model.
+
 	Runs automatically during Model migration.
 	"""
 	fixture_path: str = f"config/fixtures/{fixture_name}.yml"

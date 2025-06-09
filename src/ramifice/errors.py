@@ -55,7 +55,7 @@ class PanicError(RamificeException):
 class OldPassNotMatchError(RamificeException):
 	"""Exception raised if when updating the password,
 	the old password does not match.
-	"""
+	"""  # noqa: D205
 
 	def __init__(self):  # noqa: D107
 		self.message = "Old password does not match!"

@@ -16,7 +16,7 @@ class GeneralMixin:
 	async def estimated_document_count(cls, comment=None, **kwargs) -> int:
 		"""Gets an estimate of the count of documents in a collection using collection metadata."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return await collection.estimated_document_count(comment=comment, **kwargs)
 
@@ -24,7 +24,7 @@ class GeneralMixin:
 	async def count_documents(cls, filter, session=None, comment=None, **kwargs) -> int:
 		"""Gets an estimate of the count of documents in a collection using collection metadata."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return await collection.count_documents(filter=filter, session=session, comment=comment, **kwargs)
 
@@ -32,17 +32,18 @@ class GeneralMixin:
 	async def aggregate(cls, pipeline, session=None, let=None, comment=None, **kwargs) -> AsyncCommandCursor:
 		"""Runs an aggregation framework pipeline."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return await collection.aggregate(pipeline=pipeline, session=session, let=let, comment=comment, **kwargs)
 
 	@classmethod
 	async def distinct(cls, key, filter=None, session=None, comment=None, hint=None, **kwargs) -> list[Any]:
 		"""Finds the distinct values for a specified field across a single collection.
+
 		Returns an array of unique values for specified field of collection.
 		"""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return await collection.distinct(key=key, filter=filter, session=session, comment=comment, hint=hint, **kwargs)
 
@@ -50,17 +51,18 @@ class GeneralMixin:
 	def collection_name(cls) -> str:
 		"""Get collection name."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return collection.name
 
 	@classmethod
 	def collection_full_name(cls) -> str:
 		"""The full name of this AsyncCollection.
+
 		The full name is of the form database_name.collection_name.
 		"""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return collection.full_name
 
@@ -68,7 +70,7 @@ class GeneralMixin:
 	def database(cls) -> AsyncDatabase:
 		"""Get AsyncBatabase for the current Model."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return collection.database
 
@@ -76,6 +78,6 @@ class GeneralMixin:
 	def collection(cls) -> AsyncCollection:
 		"""Get AsyncCollection for the current Model."""
 		# Get collection for current model.
-		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+		collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
 		#
 		return collection
