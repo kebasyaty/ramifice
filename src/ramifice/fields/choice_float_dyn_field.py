@@ -9,52 +9,52 @@ from .general.field import Field
 
 
 class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
-	"""Field of Model.
+    """Field of Model.
 
-	Type of selective integer field with dynamic addition of elements.
-	For simulate relationship Many-to-One.
-	Element are (add|delete) via `ModelName.unit_manager(unit)` method.
-	"""
+    Type of selective integer field with dynamic addition of elements.
+    For simulate relationship Many-to-One.
+    Element are (add|delete) via `ModelName.unit_manager(unit)` method.
+    """
 
-	def __init__(  # noqa: D107
-		self,
-		label: str = "",
-		disabled: bool = False,
-		hide: bool = False,
-		ignored: bool = False,
-		hint: str = "",
-		warning: list[str] | None = None,
-		required: bool = False,
-		readonly: bool = False,
-	):
-		Field.__init__(
-			self,
-			label=label,
-			disabled=disabled,
-			hide=hide,
-			ignored=ignored,
-			hint=hint,
-			warning=warning,
-			field_type="ChoiceFloatDynField",
-			group="choice",
-		)
-		ChoiceGroup.__init__(
-			self,
-			required=required,
-			readonly=readonly,
-		)
-		JsonMixin.__init__(self)
+    def __init__(  # noqa: D107
+        self,
+        label: str = "",
+        disabled: bool = False,
+        hide: bool = False,
+        ignored: bool = False,
+        hint: str = "",
+        warning: list[str] | None = None,
+        required: bool = False,
+        readonly: bool = False,
+    ):
+        Field.__init__(
+            self,
+            label=label,
+            disabled=disabled,
+            hide=hide,
+            ignored=ignored,
+            hint=hint,
+            warning=warning,
+            field_type="ChoiceFloatDynField",
+            group="choice",
+        )
+        ChoiceGroup.__init__(
+            self,
+            required=required,
+            readonly=readonly,
+        )
+        JsonMixin.__init__(self)
 
-		self.value: float | None = None
-		self.choices: dict[str, float] | None = None
+        self.value: float | None = None
+        self.choices: dict[str, float] | None = None
 
-	def has_value(self) -> bool:
-		"""Does the field value match the possible options in choices."""
-		value = self.value
-		if value is not None:
-			choices = self.choices
-			if not bool(choices):
-				return False
-			if value not in choices.values():  # type: ignore[union-attr]
-				return False
-		return True
+    def has_value(self) -> bool:
+        """Does the field value match the possible options in choices."""
+        value = self.value
+        if value is not None:
+            choices = self.choices
+            if not bool(choices):
+                return False
+            if value not in choices.values():  # type: ignore[union-attr]
+                return False
+        return True
