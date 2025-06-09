@@ -1,3 +1,7 @@
+#### v0.3.8 2025-06-09
+
+- The project switched to UV and RUFF.
+
 #### v0.3.7 2025-06-06
 
 - The Directory of `src` was added to the structure of the project.
