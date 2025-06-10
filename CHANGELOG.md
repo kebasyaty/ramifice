@@ -1,3 +1,7 @@
+#### v0.3.10 2025-06-10
+
+- Updated typification using mypy.
+
 #### v0.3.8 2025-06-09
 
 - The project switched to UV and RUFF.
