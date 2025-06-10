@@ -46,7 +46,7 @@ REGEX: dict[str, re.Pattern] = {
 
 # Caching a dictionary to transmit information about the file.
 # Hint: `FileField.value`.
-FILE_INFO_DICT: dict[str, str | bool] = dict(
+FILE_INFO_DICT: dict[str, str | int | bool] = dict(
     path="",
     url="",
     name="",
