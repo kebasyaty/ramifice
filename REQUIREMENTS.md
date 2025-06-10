@@ -1,3 +1,5 @@
+- [ruff](https://pypi.org/project/ruff/ "ruff")
+- [mypy](https://pypi.org/project/mypy/ "mypy")
 - [poetry](https://pypi.org/project/poetry/ "poetry")
 - [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
 - [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
