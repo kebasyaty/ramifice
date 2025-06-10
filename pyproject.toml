@@ -69,7 +69,14 @@ fix = true
 line-length = 100
 required-version = ">=0.7.11"
 src = ["src", "tests"]
-include = ["src/**/*.py", "tests/**/*.py"]
+include = [
+    "*.py",
+    "*.pyi",
+    "*.ipynb",
+    "**/pyproject.toml",
+    "src/**/*.py",
+    "tests/**/*.py",
+]
 
 [tool.ruff.lint]
 select = ["D"]
