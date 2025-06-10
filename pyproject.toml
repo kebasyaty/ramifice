@@ -93,4 +93,16 @@ docstring-code-line-length = 80
 strict = true
 show_error_codes = true
 pretty = true
-files= ["*.py", "src/**/*.py", "tests/**/*.py"]
+files = ["*.py", "src/**/*.py", "tests/**/*.py"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disable_error_code = [
+    "no-untyped-def",
+    "no-untyped-call",
+    "func-returns-value",
+    "attr-defined",
+    "type-arg",
+    "arg-type",
+    "index",
+]

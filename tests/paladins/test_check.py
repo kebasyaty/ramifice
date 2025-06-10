@@ -116,14 +116,14 @@ class PseudoUser:
 class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
     """Testing `Ramifice > QPaladinsMixin > CheckMixin` module."""
 
-    async def test_check_method(self):
+    async def test_check_method(self) -> None:
         """Testing `check` method."""
         # Maximum number of characters 60.
         database_name = "test_check_method"
 
         # Delete database before test.
         # (if the test fails)
-        client = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient()
         await client.drop_database(database_name)
         await client.close()
 
