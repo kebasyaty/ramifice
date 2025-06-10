@@ -37,7 +37,7 @@ class Monitor:
         ]
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
-            raise NoModelsForMigrationError()
+            raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]
 
     async def reset(self) -> None:
         """Reset the condition of the models in a super collection.
@@ -202,8 +202,8 @@ class Monitor:
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
                 collection: AsyncCollection = store.MONGO_DATABASE[
-                    cls_model.META["collection_name"]
-                ]  # type: ignore[index, attr-defined]
+                    cls_model.META["collection_name"]  # type: ignore[index]
+                ]
                 if await collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,

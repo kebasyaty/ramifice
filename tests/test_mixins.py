@@ -1,6 +1,7 @@
 """Testing the class `ramifice.mixins.JsonMixin`."""
 
 import unittest
+from typing import Any
 
 from ramifice import model
 from ramifice.fields import (
@@ -40,7 +41,7 @@ from ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
 class StandardTypes(JsonMixin):
     """Class for testing."""
 
-    def __init__(self):  # noqa: D107
+    def __init__(self) -> None:  # noqa: D107
         JsonMixin.__init__(self)
         self.x1 = {"x": 1, "y": 2}
         self.x2 = [1, 2, 3]
@@ -57,7 +58,7 @@ class StandardTypes(JsonMixin):
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self, gettext: Any) -> None:
         """For add fields."""
         self.url = URLField()
         self.txt = TextField()
@@ -92,7 +93,7 @@ class User:
 class TestJsonMixin(unittest.TestCase):
     """Testing the class `JsonMixin`."""
 
-    def test_standard_types(self):
+    def test_standard_types(self) -> None:
         """Testing standard types to JSON."""
         x = StandardTypes()
         json_str = x.to_json()
@@ -107,7 +108,7 @@ class TestJsonMixin(unittest.TestCase):
         self.assertEqual(x.x8, y.x8)
         self.assertEqual(x.x9, y.x9)
 
-    def test_fields(self):
+    def test_fields(self) -> None:
         """Testing the Ramifice fields to JSON."""
         m = User()
         #

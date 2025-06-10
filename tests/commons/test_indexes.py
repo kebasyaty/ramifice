@@ -76,11 +76,11 @@ class User:
     @classmethod
     async def indexing(cls) -> None:
         """For set up and start indexing."""
-        await cls.create_index(["email"], name="idx_email")  # type: ignore[attr-defined]
+        await cls.create_index(["email"], name="idx_email")
         #
         index_1 = IndexModel([("color", DESCENDING), ("url", ASCENDING)], name="idx_color_url")
         index_2 = IndexModel([("text", DESCENDING)], name="idx_text")
-        await cls.create_indexes([index_1, index_2])  # type: ignore[attr-defined]
+        await cls.create_indexes([index_1, index_2])
 
 
 class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
@@ -93,7 +93,7 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
 
         # Delete database before test.
         # (if the test fails)
-        client = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient()
         await client.drop_database(database_name)
         await client.close()
 

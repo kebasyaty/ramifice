@@ -70,7 +70,7 @@ class SaveMixin:
                     f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
                     + "Method: `save` => "
                     + "The document was not created."
-                )  # type: ignore[attr-defined]
+                )
                 raise PanicError(msg)
         #
         # If everything is completed successfully.

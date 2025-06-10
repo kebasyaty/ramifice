@@ -13,15 +13,28 @@ class GeneralMixin:
     """General purpose query methods."""
 
     @classmethod
-    async def estimated_document_count(cls, comment=None, **kwargs) -> int:
+    async def estimated_document_count(  # type: ignore[no-untyped-def]
+        cls,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
         #
-        return await collection.estimated_document_count(comment=comment, **kwargs)
+        return await collection.estimated_document_count(
+            comment=comment,
+            **kwargs,
+        )
 
     @classmethod
-    async def count_documents(cls, filter, session=None, comment=None, **kwargs) -> int:
+    async def count_documents(  # type: ignore[no-untyped-def]
+        cls,
+        filter: Any,
+        session: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -34,8 +47,13 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def aggregate(
-        cls, pipeline, session=None, let=None, comment=None, **kwargs
+    async def aggregate(  # type: ignore[no-untyped-def]
+        cls,
+        pipeline: Any,
+        session: Any | None = None,
+        let: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
     ) -> AsyncCommandCursor:
         """Runs an aggregation framework pipeline."""
         # Get collection for current model.
@@ -50,13 +68,13 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def distinct(
+    async def distinct(  # type: ignore[no-untyped-def]
         cls,
-        key,
-        filter=None,
-        session=None,
-        comment=None,
-        hint=None,
+        key: Any,
+        filter: Any | None = None,
+        session: Any | None = None,
+        comment: Any | None = None,
+        hint: Any | None = None,
         **kwargs,
     ) -> list[Any]:
         """Finds the distinct values for a specified field across a single collection.

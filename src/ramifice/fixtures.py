@@ -38,7 +38,7 @@ async def apply_fixture(
         raise PanicError(msg)
 
     if not isinstance(data_yaml, list):
-        data_yaml = [data_yaml]  # type: ignore[list-item]
+        data_yaml = [data_yaml]
 
     for data in data_yaml:
         inst_model = cls_model()

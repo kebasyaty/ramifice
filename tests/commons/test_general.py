@@ -84,7 +84,7 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
 
         # Delete database before test.
         # (if the test fails)
-        client = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient()
         await client.drop_database(database_name)
         await client.close()
 

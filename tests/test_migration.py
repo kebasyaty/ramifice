@@ -124,7 +124,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
 
         # Delete database before test.
         # (if the test fails)
-        client = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient()
         await client.drop_database(database_name)
         await client.close()
 
@@ -137,9 +137,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         ).migrat()
 
         self.assertFalse(store.DEBUG)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[annotation-unchecked]
-            store.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
         self.assertEqual(await super_collection.estimated_document_count(), 1)
 
         # Delete database after test.

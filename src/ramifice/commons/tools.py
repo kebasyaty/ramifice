@@ -11,15 +11,15 @@ class ToolMixin:
     """A set of additional auxiliary methods for Commons."""
 
     @classmethod
-    def password_to_none(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
+    def password_to_none(cls: Any, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Create object instance from Mongo document."""
-        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[attr-defined]
+        for f_name, t_name in cls.META["field_name_and_type"].items():
             if "Pass" in t_name:
                 mongo_doc[f_name] = None
         return mongo_doc
 
     @classmethod
-    def from_mongo_doc(cls, mongo_doc: dict[str, Any]) -> Any:
+    def from_mongo_doc(cls: Any, mongo_doc: dict[str, Any]) -> Any:
         """Create object instance from Mongo document."""
         obj = cls()
         for name, data in mongo_doc.items():
@@ -28,7 +28,7 @@ class ToolMixin:
         return obj
 
     @classmethod
-    def mongo_doc_to_raw_doc(cls, mongo_doc: dict[str, Any]) -> dict[str, Any]:
+    def mongo_doc_to_raw_doc(cls: Any, mongo_doc: dict[str, Any]) -> dict[str, Any]:
         """Convert the Mongo document to the raw document.
 
         Special changes:
@@ -39,7 +39,7 @@ class ToolMixin:
         """
         doc: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
-        for f_name, t_name in cls.META["field_name_and_type"].items():  # type: ignore[attr-defined]
+        for f_name, t_name in cls.META["field_name_and_type"].items():
             value = mongo_doc[f_name]
             if value is not None:
                 if "Date" in t_name:

@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from . import translations
-from .fields import DateTimeField, IDField
+from .fields import DateTimeField, IDField  # type: ignore[attr-defined]
 
 
 class Model(metaclass=ABCMeta):
@@ -18,7 +18,7 @@ class Model(metaclass=ABCMeta):
 
     META: dict[str, Any] = {}
 
-    def __init__(self):  # noqa: D107
+    def __init__(self) -> None:  # noqa: D107
         _ = translations._
         self._id = IDField(
             label=_("Document ID"),
@@ -47,7 +47,7 @@ class Model(metaclass=ABCMeta):
         self.inject()
 
     @abstractmethod
-    def fields(self, gettext):
+    def fields(self, gettext: Any) -> None:
         """For add fields."""
         pass
 

@@ -4,7 +4,7 @@ import json
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
-from pymongo.asynchronous.cursor import AsyncCursor, CursorType
+from pymongo.asynchronous.cursor import AsyncCursor, CursorType  # type: ignore[attr-defined]
 from pymongo.results import DeleteResult
 
 from .. import store
@@ -17,27 +17,27 @@ class ManyMixin:
     @classmethod
     async def find_many(
         cls,
-        filter=None,
-        projection=None,
-        skip=0,
-        limit=0,
-        no_cursor_timeout=False,
-        cursor_type=CursorType.NON_TAILABLE,
-        sort=None,
-        allow_partial_results=False,
-        oplog_replay=False,
-        batch_size=0,
-        collation=None,
-        hint=None,
-        max_scan=None,
-        max_time_ms=None,
-        max=None,
-        min=None,
-        return_key=False,
-        show_record_id=False,
-        comment=None,
-        session=None,
-        allow_disk_use=None,
+        filter: Any | None = None,
+        projection: Any | None = None,
+        skip: int = 0,
+        limit: int = 0,
+        no_cursor_timeout: bool = False,
+        cursor_type: int = CursorType.NON_TAILABLE,
+        sort: Any | None = None,
+        allow_partial_results: bool = False,
+        oplog_replay: bool = False,
+        batch_size: int = 0,
+        collation: Any | None = None,
+        hint: Any | None = None,
+        max_scan: Any | None = None,
+        max_time_ms: Any | None = None,
+        max: Any | None = None,
+        min: Any | None = None,
+        return_key: bool = False,
+        show_record_id: bool = False,
+        comment: Any | None = None,
+        session: Any | None = None,
+        allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
         """Find documents."""
         # Get collection for current model.
@@ -74,27 +74,27 @@ class ManyMixin:
     @classmethod
     async def find_many_to_raw_docs(
         cls,
-        filter=None,
-        projection=None,
-        skip=0,
-        limit=0,
-        no_cursor_timeout=False,
-        cursor_type=CursorType.NON_TAILABLE,
-        sort=None,
-        allow_partial_results=False,
-        oplog_replay=False,
-        batch_size=0,
-        collation=None,
-        hint=None,
-        max_scan=None,
-        max_time_ms=None,
-        max=None,
-        min=None,
-        return_key=False,
-        show_record_id=False,
-        comment=None,
-        session=None,
-        allow_disk_use=None,
+        filter: Any | None = None,
+        projection: Any | None = None,
+        skip: int = 0,
+        limit: int = 0,
+        no_cursor_timeout: bool = False,
+        cursor_type: int = CursorType.NON_TAILABLE,
+        sort: Any | None = None,
+        allow_partial_results: bool = False,
+        oplog_replay: bool = False,
+        batch_size: int = 0,
+        collation: Any | None = None,
+        hint: Any | None = None,
+        max_scan: Any | None = None,
+        max_time_ms: Any | None = None,
+        max: Any | None = None,
+        min: Any | None = None,
+        return_key: bool = False,
+        show_record_id: bool = False,
+        comment: Any | None = None,
+        session: Any | None = None,
+        allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
         """Find documents and convert to a raw documents.
 
@@ -138,27 +138,27 @@ class ManyMixin:
     @classmethod
     async def find_many_to_json(
         cls,
-        filter=None,
-        projection=None,
-        skip=0,
-        limit=0,
-        no_cursor_timeout=False,
-        cursor_type=CursorType.NON_TAILABLE,
-        sort=None,
-        allow_partial_results=False,
-        oplog_replay=False,
-        batch_size=0,
-        collation=None,
-        hint=None,
-        max_scan=None,
-        max_time_ms=None,
-        max=None,
-        min=None,
-        return_key=False,
-        show_record_id=False,
-        comment=None,
-        session=None,
-        allow_disk_use=None,
+        filter: Any | None = None,
+        projection: Any | None = None,
+        skip: int = 0,
+        limit: int = 0,
+        no_cursor_timeout: bool = False,
+        cursor_type: int = CursorType.NON_TAILABLE,
+        sort: Any | None = None,
+        allow_partial_results: bool = False,
+        oplog_replay: bool = False,
+        batch_size: int = 0,
+        collation: Any | None = None,
+        hint: Any | None = None,
+        max_scan: Any | None = None,
+        max_time_ms: Any | None = None,
+        max: Any | None = None,
+        min: Any | None = None,
+        return_key: bool = False,
+        show_record_id: bool = False,
+        comment: Any | None = None,
+        session: Any | None = None,
+        allow_disk_use: Any | None = None,
     ) -> str | None:
         """Find documents and convert to a json string."""
         # Get collection for current model.
@@ -194,7 +194,13 @@ class ManyMixin:
 
     @classmethod
     async def delete_many(
-        cls, filter, collation=None, hint=None, session=None, let=None, comment=None
+        cls,
+        filter: Any,
+        collation: Any | None = None,
+        hint: Any | None = None,
+        session: Any | None = None,
+        let: Any | None = None,
+        comment: Any | None = None,
     ) -> DeleteResult:
         """Find documents matching with Model."""
         # Raises a panic if the Model cannot be removed.
