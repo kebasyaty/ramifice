@@ -47,7 +47,7 @@ class Model(metaclass=ABCMeta):
         self.inject()
 
     @abstractmethod
-    def fields(self, gettext):
+    def fields(self, gettext: Any):
         """For add fields."""
         pass
 
