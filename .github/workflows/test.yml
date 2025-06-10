@@ -64,7 +64,9 @@ jobs:
         run: uv sync --locked --dev
 
       - name: Run check
-        run: uv run ruff check --config pyproject.toml
+        run: |
+          uv run ruff check --config pyproject.toml
+          uv run mypy --config-file pyproject.toml
 
       - name: Run unittest
         run: |
