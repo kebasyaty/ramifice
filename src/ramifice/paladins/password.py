@@ -67,7 +67,7 @@ class PasswordMixin:
         old_password: str,
         new_password: str,
         field_name: str = "password",
-    ):
+    ) -> None:
         """For replace or recover password."""
         cls_model = self.__class__
         if not await self.verify_password(old_password, field_name):

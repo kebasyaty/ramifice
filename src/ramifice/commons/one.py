@@ -13,7 +13,12 @@ class OneMixin:
     """Requests like `find one`."""
 
     @classmethod
-    async def find_one(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
+    async def find_one(
+        cls,
+        filter: Any | None = None,
+        *args,
+        **kwargs,
+    ) -> dict[str, Any] | None:
         """Find a single document."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -24,7 +29,12 @@ class OneMixin:
         return mongo_doc
 
     @classmethod
-    async def find_one_to_raw_doc(cls, filter=None, *args, **kwargs) -> dict[str, Any] | None:
+    async def find_one_to_raw_doc(
+        cls,
+        filter: Any | None = None,
+        *args,
+        **kwargs,
+    ) -> dict[str, Any] | None:
         """Find a single document."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -36,7 +46,12 @@ class OneMixin:
         return raw_doc
 
     @classmethod
-    async def find_one_to_instance(cls, filter=None, *args, **kwargs) -> Any | None:
+    async def find_one_to_instance(
+        cls,
+        filter: Any | None = None,
+        *args,
+        **kwargs,
+    ) -> Any | None:
         """Find a single document and convert it to a Model instance."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -49,7 +64,12 @@ class OneMixin:
         return inst_model
 
     @classmethod
-    async def find_one_to_json(cls, filter=None, *args, **kwargs) -> str | None:
+    async def find_one_to_json(
+        cls,
+        filter: Any | None = None,
+        *args,
+        **kwargs,
+    ) -> str | None:
         """Find a single document and convert it to a JSON string."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -65,12 +85,12 @@ class OneMixin:
     @classmethod
     async def delete_one(
         cls,
-        filter,
-        collation=None,
-        hint=None,
-        session=None,
-        let=None,
-        comment=None,
+        filter: Any,
+        collation: Any | None = None,
+        hint: Any | None = None,
+        session: Any | None = None,
+        let: Any | None = None,
+        comment: Any | None = None,
     ) -> DeleteResult:
         """Find a single document and delete it."""
         # Raises a panic if the Model cannot be removed.
@@ -95,15 +115,15 @@ class OneMixin:
         return result
 
     @classmethod
-    async def find_one_and_delete(
+    async def find_one_and_delete(  # type: ignore[no-untyped-def]
         cls,
-        filter,
-        projection=None,
-        sort=None,
-        hint=None,
-        session=None,
-        let=None,
-        comment=None,
+        filter: Any,
+        projection: Any | None = None,
+        sort: Any | None = None,
+        hint: Any | None = None,
+        session: Any | None = None,
+        let: Any | None = None,
+        comment: Any | None = None,
         **kwargs,
     ) -> dict[str, Any] | None:
         """Find a single document and delete it, return original."""

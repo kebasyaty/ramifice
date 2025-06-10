@@ -11,7 +11,13 @@ class IndexMixin:
     """Indexation documents of collection."""
 
     @classmethod
-    async def create_index(cls, keys, session=None, comment=None, **kwargs) -> str:
+    async def create_index(
+        cls,
+        keys: Any,
+        session: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> str:
         """Creates an index on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -25,7 +31,13 @@ class IndexMixin:
         return result
 
     @classmethod
-    async def drop_index(cls, index_or_name, session=None, comment=None, **kwargs) -> None:
+    async def drop_index(
+        cls,
+        index_or_name: Any,
+        session: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> None:
         """Drops the specified index on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -38,7 +50,13 @@ class IndexMixin:
         )
 
     @classmethod
-    async def create_indexes(cls, indexes, session=None, comment=None, **kwargs) -> list[str]:
+    async def create_indexes(
+        cls,
+        indexes: Any,
+        session: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> list[str]:
         """Create one or more indexes on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -52,7 +70,12 @@ class IndexMixin:
         return result
 
     @classmethod
-    async def drop_indexes(cls, session=None, comment=None, **kwargs) -> None:
+    async def drop_indexes(
+        cls,
+        session: Any | None = None,
+        comment: Any | None = None,
+        **kwargs,
+    ) -> None:
         """Drops all indexes on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -60,7 +83,11 @@ class IndexMixin:
         await collection.drop_indexes(session=session, comment=comment, **kwargs)
 
     @classmethod
-    async def index_information(cls, session=None, comment=None) -> Any:
+    async def index_information(
+        cls,
+        session: Any | None = None,
+        comment: Any | None = None,
+    ) -> Any:
         """Get information on this collection’s indexes."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]
@@ -69,7 +96,11 @@ class IndexMixin:
         return result
 
     @classmethod
-    async def list_indexes(cls, session=None, comment=None) -> Any:
+    async def list_indexes(
+        cls,
+        session: Any | None = None,
+        comment: Any | None = None,
+    ) -> Any:
         """Get a cursor over the index documents for this collection."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index, attr-defined]

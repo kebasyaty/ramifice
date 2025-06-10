@@ -13,7 +13,7 @@ from ..errors import PanicError
 class DeleteMixin:
     """Delete document from database."""
 
-    async def delete(
+    async def delete(  # type: ignore[no-untyped-def]
         self,
         delete_files: bool = True,
         projection=None,
