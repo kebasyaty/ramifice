@@ -9,7 +9,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
-from .groups import (
+from .groups import (  # type: ignore[attr-defined]
     BoolGroupMixin,
     ChoiceGroupMixin,
     DateGroupMixin,

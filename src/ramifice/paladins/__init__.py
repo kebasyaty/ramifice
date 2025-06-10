@@ -18,5 +18,5 @@ class QPaladinsMixin(
 ):
     """Paladins - Model instance methods."""
 
-    def __init__(self):  # noqa: D107
+    def __init__(self) -> None:  # noqa: D107
         super().__init__()

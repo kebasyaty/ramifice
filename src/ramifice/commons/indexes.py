@@ -11,7 +11,7 @@ class IndexMixin:
     """Indexation documents of collection."""
 
     @classmethod
-    async def create_index(
+    async def create_index(  # type: ignore[no-untyped-def]
         cls,
         keys: Any,
         session: Any | None = None,
@@ -31,7 +31,7 @@ class IndexMixin:
         return result
 
     @classmethod
-    async def drop_index(
+    async def drop_index(  # type: ignore[no-untyped-def]
         cls,
         index_or_name: Any,
         session: Any | None = None,
@@ -50,7 +50,7 @@ class IndexMixin:
         )
 
     @classmethod
-    async def create_indexes(
+    async def create_indexes(  # type: ignore[no-untyped-def]
         cls,
         indexes: Any,
         session: Any | None = None,
@@ -70,7 +70,7 @@ class IndexMixin:
         return result
 
     @classmethod
-    async def drop_indexes(
+    async def drop_indexes(  # type: ignore[no-untyped-def]
         cls,
         session: Any | None = None,
         comment: Any | None = None,

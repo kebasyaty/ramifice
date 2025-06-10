@@ -4,7 +4,7 @@ import json
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
-from pymongo.asynchronous.cursor import AsyncCursor, CursorType
+from pymongo.asynchronous.cursor import AsyncCursor, CursorType  # type: ignore[attr-defined]
 from pymongo.results import DeleteResult
 
 from .. import store

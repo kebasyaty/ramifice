@@ -13,16 +13,16 @@ from ..errors import PanicError
 class DeleteMixin:
     """Delete document from database."""
 
-    async def delete(  # type: ignore[no-untyped-def]
+    async def delete(
         self,
         delete_files: bool = True,
-        projection=None,
-        sort=None,
-        hint=None,
-        session=None,
-        let=None,
-        comment=None,
-        **kwargs,
+        projection: Any | None = None,
+        sort: Any | None = None,
+        hint: Any | None = None,
+        session: Any | None = None,
+        let: Any | None = None,
+        comment: Any | None = None,
+        **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
         """Delete document from database."""
         cls_model = self.__class__

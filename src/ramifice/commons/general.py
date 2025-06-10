@@ -13,7 +13,7 @@ class GeneralMixin:
     """General purpose query methods."""
 
     @classmethod
-    async def estimated_document_count(
+    async def estimated_document_count(  # type: ignore[no-untyped-def]
         cls,
         comment: Any | None = None,
         **kwargs,
@@ -28,7 +28,7 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def count_documents(
+    async def count_documents(  # type: ignore[no-untyped-def]
         cls,
         filter: Any,
         session: Any | None = None,
@@ -47,7 +47,7 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def aggregate(
+    async def aggregate(  # type: ignore[no-untyped-def]
         cls,
         pipeline: Any,
         session: Any | None = None,
@@ -68,7 +68,7 @@ class GeneralMixin:
         )
 
     @classmethod
-    async def distinct(
+    async def distinct(  # type: ignore[no-untyped-def]
         cls,
         key: Any,
         filter: Any | None = None,

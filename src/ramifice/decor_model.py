@@ -7,11 +7,11 @@ from . import translations
 from .add_valid import AddValidMixin
 from .commons import QCommonsMixin
 from .errors import DoesNotMatchRegexError, PanicError
-from .fields import DateTimeField, IDField
+from .fields import DateTimeField, IDField  # type: ignore[attr-defined]
 from .hooks import HooksMixin
 from .indexing import IndexMixin
 from .model import Model
-from .paladins import CheckMixin, QPaladinsMixin, ToolMixin
+from .paladins import CheckMixin, QPaladinsMixin, ToolMixin  # type: ignore[attr-defined]
 from .store import REGEX
 
 
@@ -24,10 +24,10 @@ def model(
     is_create_doc: bool = True,
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
-):
+) -> Any:
     """Decorator for converting into a Model."""
 
-    def decorator(cls):
+    def decorator(cls: Any) -> Any:
         if REGEX["service_name"].match(service_name) is None:
             raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
         if fixture_name is not None:
@@ -72,7 +72,7 @@ def model(
     return decorator
 
 
-def caching(cls, service_name) -> dict[str, Any]:
+def caching(cls: Any, service_name: str) -> dict[str, Any]:
     """Get additional metadata for `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name = cls.__name__
