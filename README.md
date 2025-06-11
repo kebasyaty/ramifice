@@ -206,8 +206,8 @@ if __name__ == "__main__":
 ```python
 from ramifice import translations
 
-translations.DEFAULT_LOCALE = "en"  # By default in Ramifice = "en"
-translations.LANGUAGES = ["en", "ru"]  # By default in Ramifice = ["en", "ru"]
+translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
+translations.LANGUAGES = ["en", "ru"]  # For Ramifice by default = ["en", "ru"]
 ```
 
 ```shell
