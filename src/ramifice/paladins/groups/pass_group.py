@@ -25,6 +25,10 @@ class PassGroupMixin:
             return
         # Get current value.
         value = field.value or None
+
+        if not isinstance(value, (str, type(None))):
+            self.type_value_error("str", params)  # type: ignore[attr-defined]
+
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")

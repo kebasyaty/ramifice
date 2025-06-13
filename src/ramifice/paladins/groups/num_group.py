@@ -23,6 +23,14 @@ class NumGroupMixin:
         value = field.value
         if value is None:
             value = field.default
+
+        if "Float" in field.field_type:
+            if not isinstance(value, (float, type(None))):
+                self.type_value_error("float", params)  # type: ignore[attr-defined]
+        else:
+            if not isinstance(value, (int, type(None))):
+                self.type_value_error("int", params)  # type: ignore[attr-defined]
+
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")

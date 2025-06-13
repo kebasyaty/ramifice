@@ -19,6 +19,10 @@ class BoolGroupMixin:
         field = params["field_data"]
         # Get current value.
         value = field.value
+
+        if not isinstance(value, (bool, type(None))):
+            self.type_value_error("bool", params)  # type: ignore[attr-defined]
+
         if not params["is_update"] and value is None:
             value = field.default
         # Insert result.

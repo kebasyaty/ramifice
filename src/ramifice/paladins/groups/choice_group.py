@@ -27,6 +27,7 @@ class ChoiceGroupMixin:
         field = params["field_data"]
         # Get current value.
         value = field.value or field.__dict__.get("default") or None
+
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")

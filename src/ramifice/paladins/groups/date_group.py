@@ -4,6 +4,7 @@ Supported fields:
     DateTimeField | DateField
 """
 
+from datetime import datetime
 from typing import Any
 
 from babel.dates import format_date, format_datetime
@@ -23,6 +24,10 @@ class DateGroupMixin:
         field = params["field_data"]
         # Get current value.
         value = field.value or field.default or None
+
+        if not isinstance(value, (datetime, type(None))):
+            self.type_value_error("datetime", params)  # type: ignore[attr-defined]
+
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
@@ -30,7 +35,7 @@ class DateGroupMixin:
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
-        #
+
         # Validation the `max_date` field attribute.
         max_date = field.max_date
         if max_date is not None and value > max_date:
