@@ -13,6 +13,14 @@ class ChoiceGroup:
         multiple -- Specifies that multiple options can be selected at once.
     """
 
+    __slots__ = [
+        "placeholder",
+        "required",
+        "readonly",
+        "unique",
+        "multiple",
+    ]
+
     def __init__(  # noqa: D107
         self,
         placeholder: str = "",
