@@ -1,6 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
 from ..mixins import JsonMixin
+from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -23,6 +24,28 @@ class SlugField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):
+        if DEBUG:
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `default` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if warning is not None and not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(readonly, bool):
+                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            if not isinstance(slug_sources, list):
+                raise AssertionError("Parameter `slug_sources` - Not а `list` type!")
+
         Field.__init__(
             self,
             label=label,

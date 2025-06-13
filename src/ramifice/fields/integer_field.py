@@ -50,6 +50,28 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                     raise AssertionError("Parameter `default` is more `max_number`!")
                 if max_number is not None and default < min_number:  # type: ignore
                     raise AssertionError("Parameter `default` is less `min_number`!")
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `default` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if warning is not None and not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(required, bool):
+                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            if not isinstance(readonly, bool):
+                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            if not isinstance(unique, bool):
+                raise AssertionError("Parameter `unique` - Not а `bool` type!")
 
         Field.__init__(
             self,
