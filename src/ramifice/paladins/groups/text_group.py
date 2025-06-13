@@ -27,7 +27,7 @@ class TextGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (str, type(None))):
-            self.type_value_error("str", params)  # type: ignore[attr-defined]
+            self.panic_type_error("str", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

@@ -22,7 +22,7 @@ class FileGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
-            self.type_value_error("dict", params)  # type: ignore[attr-defined]
+            self.panic_type_error("dict", params)  # type: ignore[attr-defined]
 
         if not params["is_update"]:
             if value is None:

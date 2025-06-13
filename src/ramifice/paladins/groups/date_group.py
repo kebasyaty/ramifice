@@ -26,7 +26,7 @@ class DateGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (datetime, type(None))):
-            self.type_value_error("datetime", params)  # type: ignore[attr-defined]
+            self.panic_type_error("datetime", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

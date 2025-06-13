@@ -21,7 +21,7 @@ class BoolGroupMixin:
         value = field.value
 
         if not isinstance(value, (bool, type(None))):
-            self.type_value_error("bool", params)  # type: ignore[attr-defined]
+            self.panic_type_error("bool", params)  # type: ignore[attr-defined]
 
         if not params["is_update"] and value is None:
             value = field.default
