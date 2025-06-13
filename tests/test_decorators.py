@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.decor_model`."""
+"""Testing the module `ramifice.decorators`."""
 
 import unittest
 
@@ -11,7 +11,7 @@ from ramifice.model import Model
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
@@ -21,13 +21,13 @@ class User:
 class UserProfile:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.profession = TextField()
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.decor_model`."""
+    """Testing the module `ramifice.decorators`."""
 
     def setUp(self):
         """Set data for testing."""

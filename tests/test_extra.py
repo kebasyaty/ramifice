@@ -10,7 +10,7 @@ from ramifice.fields import TextField
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
 
@@ -19,7 +19,7 @@ class User:
 class User2:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
 

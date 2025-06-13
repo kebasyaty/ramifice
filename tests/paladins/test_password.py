@@ -13,7 +13,7 @@ from ramifice.migration import Monitor
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.password = PasswordField()
         self.password_2 = PasswordField()

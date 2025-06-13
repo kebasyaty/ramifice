@@ -43,11 +43,11 @@ class Model(metaclass=ABCMeta):
             hide=True,
             disabled=True,
         )
-        self.fields(translations.gettext)
+        self.fields()
         self.inject()
 
     @abstractmethod
-    def fields(self, gettext: Any) -> None:
+    def fields(self) -> None:
         """For add fields."""
         pass
 

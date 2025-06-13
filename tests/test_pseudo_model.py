@@ -15,7 +15,7 @@ from ramifice.model import Model
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
@@ -28,7 +28,7 @@ class User:
 class UserProfile:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.profession = TextField()
 

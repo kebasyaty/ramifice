@@ -43,7 +43,7 @@ from ramifice.migration import Monitor
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.url = URLField()
         self.txt = TextField()
@@ -82,7 +82,7 @@ class User:
 class PseudoUser:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.url = URLField()
         self.txt = TextField()

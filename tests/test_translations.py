@@ -2,7 +2,7 @@
 
 import unittest
 
-from ramifice import model, translations
+from ramifice import change_locale, gettext, model
 from ramifice.fields import EmailField
 
 
@@ -10,10 +10,9 @@ from ramifice.fields import EmailField
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
-        ngettext = translations.ngettext
-        self.email = EmailField()
+        self.email = EmailField(label=gettext("Email"))
 
 
 class TestTranslations(unittest.TestCase):
@@ -21,7 +20,7 @@ class TestTranslations(unittest.TestCase):
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
-        translations.change_locale("ru")
+        change_locale("ru")
 
         user = User()
 

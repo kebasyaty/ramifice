@@ -112,7 +112,7 @@ from ramifice.migration import Monitor
 
 @model(service_name="Accounts")
 class User:
-    def fields(self, gettext):
+    def fields(self):
         # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
@@ -313,7 +313,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
     is_delete_doc = True,
 )
 class User:
-    def fields(self, gettext):
+    def fields(self):
         self.username = TextField(
             label=gettext("Username"),
             required=True,

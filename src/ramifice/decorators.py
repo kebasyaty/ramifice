@@ -1,4 +1,4 @@
-"""Decorator for converting into a Model."""
+"""Decorators."""
 
 import os
 from typing import Any
@@ -95,7 +95,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     count_fields_for_migrating = 0
 
     old_model = cls()
-    old_model.fields(translations.gettext)
+    old_model.fields()
     default_fields: dict[str, Any] = {
         "_id": IDField(),
         "created_at": DateTimeField(),
