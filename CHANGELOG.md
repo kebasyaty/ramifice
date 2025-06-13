@@ -1,3 +1,7 @@
+#### v0.3.13 2025-06-13
+
+- Added types checks to field groups (paladins.groups).
+
 #### v0.3.11 2025-06-13
 
 - The parameter `gettext` has been removed from the function `Model.fields`.
