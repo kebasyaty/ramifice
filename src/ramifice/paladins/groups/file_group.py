@@ -20,7 +20,10 @@ class FileGroupMixin:
         """Checking file fields."""
         field = params["field_data"]
         value = field.value or None
-        #
+
+        if not isinstance(value, (dict, type(None))):
+            self.type_value_error("dict", params)  # type: ignore[attr-defined]
+
         if not params["is_update"]:
             if value is None:
                 default = field.default or None
