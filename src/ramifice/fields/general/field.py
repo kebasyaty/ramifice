@@ -16,20 +16,6 @@ class Field:
         group -- To optimize field traversal in the `check` method.
     """
 
-    __slots__ = [
-        "label",
-        "disabled",
-        "hide",
-        "ignored",
-        "hint",
-        "warning",
-        "errors",
-        "field_type",
-        "group",
-        "id",
-        "name",
-    ]
-
     def __init__(  # noqa: D107
         self,
         label: str = "",
