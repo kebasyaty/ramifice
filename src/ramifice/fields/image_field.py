@@ -74,6 +74,32 @@ class ImageField(Field, FileGroup, JsonMixin):
                                 + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
                             )
                         curr_size_thumb = max_size_thumb
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `default` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if warning is not None and not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(required, bool):
+                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            if not isinstance(max_size, int):
+                raise AssertionError("Parameter `max_size` - Not а `int` type!")
+            if not isinstance(target_dir, str):
+                raise AssertionError("Parameter `target_dir` - Not а `str` type!")
+            if not isinstance(accept, str):
+                raise AssertionError("Parameter `accept` - Not а `str` type!")
+            if not isinstance(high_quality, bool):
+                raise AssertionError("Parameter `high_quality` - Not а `bool` type!")
 
         Field.__init__(
             self,
@@ -238,11 +264,3 @@ class ImageField(Field, FileGroup, JsonMixin):
 
         # to value.
         self.value = img_info
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            obj.__dict__[name] = data
-        return obj
