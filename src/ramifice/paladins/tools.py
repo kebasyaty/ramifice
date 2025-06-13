@@ -62,7 +62,7 @@ class ToolMixin:
             )
             raise PanicError(msg)
 
-    def type_value_error(self, value_type: str, params: dict[str, Any]) -> None:
+    def panic_type_error(self, value_type: str, params: dict[str, Any]) -> None:
         """Unacceptable type of value."""
         msg = (
             f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]

@@ -25,7 +25,7 @@ class IDGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (ObjectId, type(None))):
-            self.type_value_error("ObjectId", params)  # type: ignore[attr-defined]
+            self.panic_type_error("ObjectId", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:
