@@ -18,7 +18,6 @@
       "type": "shell",
       "command": [
         "uv run pybabel extract -o config/translations/ramifice.pot src/ramifice;",
-        "uv run pybabel extract -o config/translations/ramifice.pot tests;",
         "uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice;"
       ],
       "problemMatcher": []
