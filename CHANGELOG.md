@@ -1,3 +1,7 @@
+#### v0.3.11 2025-06-13
+
+- The parameter `gettext` has been removed from the function `Model.fields`.
+
 #### v0.3.10 2025-06-10
 
 - Updated typification using mypy.
