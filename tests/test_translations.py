@@ -1,8 +1,8 @@
-"""Testing  ramifice > translations."""
+"""Testing the module  `ramifice > translations`."""
 
 import unittest
 
-from ramifice import change_locale, gettext, model
+from ramifice import model, translations
 from ramifice.fields import EmailField
 
 
@@ -12,15 +12,18 @@ class User:
 
     def fields(self):
         """For add fields."""
-        self.email = EmailField(label=gettext("Email"))
+        self.email = EmailField()
 
 
 class TestTranslations(unittest.TestCase):
-    """Testing  ramifice > translations."""
+    """Testing the module  `ramifice > translations`."""
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
-        change_locale("ru")
+        self.assertEqual(translations._("Document ID"), "Document ID")
+        self.assertEqual(translations.gettext("Document ID"), "Document ID")
+        translations.change_locale("ru")
+        self.assertEqual(translations._("Document ID"), "Идентификатор документа")
 
         user = User()
 
