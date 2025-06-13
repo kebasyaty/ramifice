@@ -264,11 +264,3 @@ class ImageField(Field, FileGroup, JsonMixin):
 
         # to value.
         self.value = img_info
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            obj.__dict__[name] = data
-        return obj
