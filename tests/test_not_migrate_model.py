@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
+"""Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
 import pprint
 import unittest
@@ -10,7 +10,7 @@ from ramifice.model import Model
 
 @model(
     service_name="Accounts",
-    is_migrat_model=False,
+    is_migrate_model=False,
 )
 class User:
     """Model for testing."""
@@ -23,7 +23,7 @@ class User:
 
 @model(
     service_name="Profiles",
-    is_migrat_model=False,
+    is_migrate_model=False,
 )
 class UserProfile:
     """Model for testing."""
@@ -34,7 +34,7 @@ class UserProfile:
 
 
 class TestPseudoModel(unittest.TestCase):
-    """Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
+    """Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
     def setUp(self):
         """Set date for testing."""
@@ -65,7 +65,7 @@ class TestPseudoModel(unittest.TestCase):
             "full_model_name": "tests.test_pseudo_model.User",
             "is_create_doc": False,
             "is_delete_doc": False,
-            "is_migrat_model": False,
+            "is_migrate_model": False,
             "is_update_doc": False,
             "model_name": "User",
             "service_name": "Accounts",
@@ -92,7 +92,7 @@ class TestPseudoModel(unittest.TestCase):
             "full_model_name": "tests.test_pseudo_model.UserProfile",
             "is_create_doc": False,
             "is_delete_doc": False,
-            "is_migrat_model": False,
+            "is_migrate_model": False,
             "is_update_doc": False,
             "model_name": "UserProfile",
             "service_name": "Profiles",

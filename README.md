@@ -270,7 +270,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
        <td align="left">limiting query results.</td>
      </tr>
      <tr>
-       <td align="left">is_migrat_model</td>
+       <td align="left">is_migrate_model</td>
        <td align="left">True</td>
        <td align="left">
          Set to <b>False</b> if you do not need to migrate the Model to the database.<br>
@@ -307,7 +307,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
     service_name="ServiceName",
     fixture_name="FixtureName",
     db_query_docs_limit=1000,
-    is_migrat_model=True,
+    is_migrate_model=True,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,

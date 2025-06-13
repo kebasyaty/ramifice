@@ -76,7 +76,7 @@ class User:
 
 @model(
     service_name="Accounts",
-    is_migrat_model=False,
+    is_migrate_model=False,
 )
 class PseudoUser:
     """Model for testing."""

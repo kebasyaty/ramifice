@@ -42,7 +42,7 @@ class CheckMixin(
     ) -> dict[str, Any]:
         """Validation of Model data before saving to the database."""
         cls_model = self.__class__
-        if not cls_model.META["is_migrat_model"] and is_save:  # type: ignore[attr-defined]
+        if not cls_model.META["is_migrate_model"] and is_save:  # type: ignore[attr-defined]
             msg = (
                 f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
                 + "Method: `check` => "

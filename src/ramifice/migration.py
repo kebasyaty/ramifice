@@ -33,7 +33,7 @@ class Monitor:
         store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
         # Get Model list.
         self.model_list: list[Any] = [
-            cls_model for cls_model in Model.__subclasses__() if cls_model.META["is_migrat_model"]
+            cls_model for cls_model in Model.__subclasses__() if cls_model.META["is_migrate_model"]
         ]
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
