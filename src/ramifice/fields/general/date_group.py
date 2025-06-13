@@ -16,6 +16,17 @@ class DateGroup:
         min_date -- Minimum allowed date.
     """
 
+    __slots__ = [
+        "input_type",
+        "placeholder",
+        "required",
+        "readonly",
+        "unique",
+        "max_date",
+        "min_date",
+        "value",
+    ]
+
     def __init__(  # noqa: D107
         self,
         input_type: str = "",
