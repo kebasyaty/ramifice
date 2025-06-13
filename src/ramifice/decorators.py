@@ -1,4 +1,4 @@
-"""Decorator for converting into a Model."""
+"""Decorators."""
 
 import os
 from typing import Any
@@ -20,7 +20,7 @@ def model(
     service_name: str,
     fixture_name: str | None = None,
     db_query_docs_limit: int = 1000,
-    is_migrat_model: bool = True,
+    is_migrate_model: bool = True,
     is_create_doc: bool = True,
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
@@ -46,14 +46,14 @@ def model(
             "service_name": service_name,
             "fixture_name": fixture_name,
             "db_query_docs_limit": db_query_docs_limit,
-            "is_migrat_model": is_migrat_model,
-            "is_create_doc": is_create_doc if is_migrat_model else False,
-            "is_update_doc": is_update_doc if is_migrat_model else False,
-            "is_delete_doc": is_delete_doc if is_migrat_model else False,
+            "is_migrate_model": is_migrate_model,
+            "is_create_doc": is_create_doc if is_migrate_model else False,
+            "is_update_doc": is_update_doc if is_migrate_model else False,
+            "is_delete_doc": is_delete_doc if is_migrate_model else False,
         }
         attrs["META"] = {**metadata, **caching(cls, service_name)}
 
-        if is_migrat_model:
+        if is_migrate_model:
             return type(
                 cls.__name__,
                 (
@@ -95,7 +95,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     count_fields_for_migrating = 0
 
     old_model = cls()
-    old_model.fields(translations.gettext)
+    old_model.fields()
     default_fields: dict[str, Any] = {
         "_id": IDField(),
         "created_at": DateTimeField(),

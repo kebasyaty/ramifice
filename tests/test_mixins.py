@@ -58,7 +58,7 @@ class StandardTypes(JsonMixin):
 class User:
     """Model for testing."""
 
-    def fields(self, gettext: Any) -> None:
+    def fields(self) -> None:
         """For add fields."""
         self.url = URLField()
         self.txt = TextField()

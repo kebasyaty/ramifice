@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.decor_model`."""
+"""Testing the module `ramifice.decorators`."""
 
 import unittest
 
@@ -11,7 +11,7 @@ from ramifice.model import Model
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
@@ -21,13 +21,13 @@ class User:
 class UserProfile:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.profession = TextField()
 
 
 class TestModel(unittest.TestCase):
-    """Testing the module `ramifice.decor_model`."""
+    """Testing the module `ramifice.decorators`."""
 
     def setUp(self):
         """Set data for testing."""
@@ -55,10 +55,10 @@ class TestModel(unittest.TestCase):
                 "username": "TextField",
             },
             "fixture_name": None,
-            "full_model_name": "tests.test_decor_model.User",
+            "full_model_name": "tests.test_decorators.User",
             "is_create_doc": True,
             "is_delete_doc": True,
-            "is_migrat_model": True,
+            "is_migrate_model": True,
             "is_update_doc": True,
             "model_name": "User",
             "service_name": "Accounts",
@@ -82,10 +82,10 @@ class TestModel(unittest.TestCase):
                 "updated_at": "DateTimeField",
             },
             "fixture_name": None,
-            "full_model_name": "tests.test_decor_model.UserProfile",
+            "full_model_name": "tests.test_decorators.UserProfile",
             "is_create_doc": True,
             "is_delete_doc": True,
-            "is_migrat_model": True,
+            "is_migrate_model": True,
             "is_update_doc": True,
             "model_name": "UserProfile",
             "service_name": "Profiles",
@@ -97,14 +97,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "tests.test_decor_model")
+        self.assertEqual(User.__module__, "tests.test_decorators")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
         m = User()
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_decor_model.User")
+        self.assertEqual(m.full_model_name(), "tests.test_decorators.User")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
@@ -119,14 +119,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "tests.test_decor_model")
+        self.assertEqual(UserProfile.__module__, "tests.test_decorators")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_decor_model.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_decorators.UserProfile")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)

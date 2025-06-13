@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
+"""Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
 import pprint
 import unittest
@@ -10,12 +10,12 @@ from ramifice.model import Model
 
 @model(
     service_name="Accounts",
-    is_migrat_model=False,
+    is_migrate_model=False,
 )
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
@@ -23,18 +23,18 @@ class User:
 
 @model(
     service_name="Profiles",
-    is_migrat_model=False,
+    is_migrate_model=False,
 )
 class UserProfile:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.profession = TextField()
 
 
 class TestPseudoModel(unittest.TestCase):
-    """Testing the module `ramifice.decor_model (is_migrat_model=False)`."""
+    """Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
     def setUp(self):
         """Set date for testing."""
@@ -62,10 +62,10 @@ class TestPseudoModel(unittest.TestCase):
                 "username": "TextField",
             },
             "fixture_name": None,
-            "full_model_name": "tests.test_pseudo_model.User",
+            "full_model_name": "tests.test_not_migrate_model.User",
             "is_create_doc": False,
             "is_delete_doc": False,
-            "is_migrat_model": False,
+            "is_migrate_model": False,
             "is_update_doc": False,
             "model_name": "User",
             "service_name": "Accounts",
@@ -89,10 +89,10 @@ class TestPseudoModel(unittest.TestCase):
                 "updated_at": "DateTimeField",
             },
             "fixture_name": None,
-            "full_model_name": "tests.test_pseudo_model.UserProfile",
+            "full_model_name": "tests.test_not_migrate_model.UserProfile",
             "is_create_doc": False,
             "is_delete_doc": False,
-            "is_migrat_model": False,
+            "is_migrate_model": False,
             "is_update_doc": False,
             "model_name": "UserProfile",
             "service_name": "Profiles",
@@ -104,14 +104,14 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "tests.test_pseudo_model")
+        self.assertEqual(User.__module__, "tests.test_not_migrate_model")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
         m = User()
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_pseudo_model.User")
+        self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.User")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)
@@ -126,14 +126,14 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "tests.test_pseudo_model")
+        self.assertEqual(UserProfile.__module__, "tests.test_not_migrate_model")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_pseudo_model.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.UserProfile")
 
         self.assertIsNone(m._id.value)
         self.assertIsNone(m.created_at.value)

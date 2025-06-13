@@ -24,7 +24,7 @@ from ramifice.types import Unit
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
         self.choice_float_dyn = ChoiceFloatDynField()
         self.choice_float_mult_dyn = ChoiceFloatMultDynField()

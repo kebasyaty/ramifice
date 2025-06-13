@@ -49,15 +49,6 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
   </a>
 </p>
 
-<br>
-<br>
-
-<img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/attention.svg" alt="Attention">
-<p><b>For version `0.3.x`, do not forget to update `config` and `public` directories in root of your project:</b></p>
-<a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config" alt="Download config directory">Download config directory</a>
-<br>
-<a href="https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public" alt="Download config directory">Download public directory</a>
-
 ## Documentation
 
 Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
@@ -112,7 +103,8 @@ from ramifice.migration import Monitor
 
 @model(service_name="Accounts")
 class User:
-    def fields(self, gettext):
+    def fields(self):
+        gettext = translations.gettext
         # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
@@ -270,7 +262,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
        <td align="left">limiting query results.</td>
      </tr>
      <tr>
-       <td align="left">is_migrat_model</td>
+       <td align="left">is_migrate_model</td>
        <td align="left">True</td>
        <td align="left">
          Set to <b>False</b> if you do not need to migrate the Model to the database.<br>
@@ -307,13 +299,13 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
     service_name="ServiceName",
     fixture_name="FixtureName",
     db_query_docs_limit=1000,
-    is_migrat_model=True,
+    is_migrate_model=True,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,
 )
 class User:
-    def fields(self, gettext):
+    def fields(self):
         self.username = TextField(
             label=gettext("Username"),
             required=True,

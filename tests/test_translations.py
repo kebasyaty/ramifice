@@ -1,4 +1,4 @@
-"""Testing  ramifice > translations."""
+"""Testing the module  `ramifice > translations`."""
 
 import unittest
 
@@ -10,18 +10,20 @@ from ramifice.fields import EmailField
 class User:
     """Model for testing."""
 
-    def fields(self, gettext):
+    def fields(self):
         """For add fields."""
-        ngettext = translations.ngettext
         self.email = EmailField()
 
 
 class TestTranslations(unittest.TestCase):
-    """Testing  ramifice > translations."""
+    """Testing the module  `ramifice > translations`."""
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
+        self.assertEqual(translations._("Document ID"), "Document ID")
+        self.assertEqual(translations.gettext("Document ID"), "Document ID")
         translations.change_locale("ru")
+        self.assertEqual(translations._("Document ID"), "Идентификатор документа")
 
         user = User()
 
