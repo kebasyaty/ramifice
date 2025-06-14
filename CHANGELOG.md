@@ -1,3 +1,8 @@
+#### v0.3.15 2025-06-14
+
+- A lot of different optimizations have been added.
+- Updated README.md .
+
 #### v0.3.13 2025-06-13
 
 - Added types checks to field groups (paladins.groups).
