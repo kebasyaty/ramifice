@@ -321,8 +321,8 @@ _List of frequently used methods:_
 count: int = await User.estimated_document_count()
 
 # Gets an estimate of the count of documents in a collection using collection metadata.
-filter = {"first_name": "John"}
-count: int = await User.count_documents(filter)
+q_filter = {"first_name": "John"}
+count: int = await User.count_documents(q_filter)
 
 # Runs an aggregation framework pipeline.
 from bson.bson import BSON
@@ -334,8 +334,8 @@ pipeline = [
 docs = await User.aggregate(pipeline)
 
 # Finds the distinct values for a specified field across a single collection.
-filter = "key_name"
-values = await User.distinct(filter)
+q_filter = "key_name"
+values = await User.distinct(q_filter)
 
 # Get collection name.
 name = await User.collection_name()
@@ -350,42 +350,80 @@ database = await User.database()
 collection = await User.collection()
 
 # Find a single document.
-filter = {"email": "John_Smith@gmail.com"}
-mongo_doc = await User.find_one(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+mongo_doc = await User.find_one(q_filter)
 
 # Find a single document and converting to raw document.
-filter = {"email": "John_Smith@gmail.com"}
-raw_doc = await User.find_one_to_raw_doc(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+raw_doc = await User.find_one_to_raw_doc(q_filter)
 
 # Find a single document and convert it to a Model instance.
-filter = {"email": "John_Smith@gmail.com"}
-user = await User.find_one_to_instance(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+user = await User.find_one_to_instance(q_filter)
 
 # Find a single document and convert it to a JSON string.
-filter = {"email": "John_Smith@gmail.com"}
-json = await User.find_one_to_json(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+json = await User.find_one_to_json(q_filter)
 
 # Find a single document and delete it.
-filter = {"email": "John_Smith@gmail.com"}
-delete_result = await User.delete_one(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+delete_result = await User.delete_one(q_filter)
 
 # Find a single document and delete it, return original.
-filter = {"email": "John_Smith@gmail.com"}
-mongo_doc = await User.find_one_and_delete(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+mongo_doc = await User.find_one_and_delete(q_filter)
 
 # Find documents.
-filter = {"first_name": "John"}
-mongo_docs = await User.find_many(filter)
+q_filter = {"first_name": "John"}
+mongo_docs = await User.find_many(q_filter)
 
 # Find documents and convert to a raw documents.
-filter = {"first_name": "John"}
-raw_docs = await User.find_many_to_raw_docs(filter)
+q_filter = {"first_name": "John"}
+raw_docs = await User.find_many_to_raw_docs(q_filter)
 
 # Find documents and convert to a json string.
-filter = {"email": "John_Smith@gmail.com"}
-json = await User.find_many_to_json(filter)
+q_filter = {"email": "John_Smith@gmail.com"}
+json = await User.find_many_to_json(q_filter)
 
-# ?
+# Find documents matching with Model.
+q_filter = {"email": "John_Smith@gmail.com"}
+delete_result = await User.delete_many(q_filter)
+
+# Creates an index on this collection.
+from pymongo import ASCENDING
+keys = [("email", ASCENDING)]
+result: str = await User.create_index(keys, name="idx_email")
+
+# Drops the specified index on this collection.
+User.drop_index("idx_email")
+
+# Create one or more indexes on this collection.
+from pymongo import ASCENDING, DESCENDING
+index_1 = IndexModel([("username", DESCENDING), ("email", ASCENDING)], name="idx_username_email")
+index_2 = IndexModel([("first_name", DESCENDING)], name="idx_first_name")
+result: list[str] = await User.create_indexes([index_1, index_2])
+
+# Drops all indexes on this collection.
+User.drop_index()
+
+# Get information on this collection’s indexes.
+result = await User.index_information()
+
+# Get a cursor over the index documents for this collection.
+async for index in await User.list_indexes():
+    print(index)
+
+# Units Management.
+# Management for `choices` parameter in dynamic field types.
+from ramifice.types import Unit
+unit = Unit(
+  field="field_name",  # The name of the dynamic field.
+  title="Title",  # The name of the choice item.
+  value="Some text or number",  # The value of the choice item.
+  is_delete=False, # True - if you need to remove the item of choice.
+                   # by default = False (add item to choice)
+)
+User.unit_manager(unit)
 ```
 
 ## Instance methods
