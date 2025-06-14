@@ -9,7 +9,8 @@ from typing import Any
 from PIL import Image
 
 from ... import translations
-from ...utilities import accumulate_error, panic_type_error, to_human_size
+from ...utilities import to_human_size
+from ..tools import accumulate_error, panic_type_error
 
 
 class ImgGroupMixin:
@@ -24,7 +25,7 @@ class ImgGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
-            panic_type_error(self.full_model_name(), "dict | None", params)  # type: ignore[attr-defined]
+            panic_type_error(params["full_model_name"], "dict | None", params)
 
         if not params["is_update"]:
             if value is None:
@@ -38,7 +39,7 @@ class ImgGroupMixin:
                 if value is None:
                     if field.required:
                         err_msg = translations._("Required field !")
-                        accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(params["full_model_name"], err_msg, params)
                     if params["is_save"]:
                         params["result_map"][field.name] = None
                     return
@@ -59,14 +60,14 @@ class ImgGroupMixin:
                             params["result_map"][field.name] = None
                     else:
                         err_msg = translations._("Required field !")
-                        accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(params["full_model_name"], err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
                     "Image size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
-                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(params["full_model_name"], err_msg, params)
                 return
             # Return if there is no need to save.
             if not params["is_save"]:

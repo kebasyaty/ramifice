@@ -7,6 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
+from .tools import ignored_fields_to_none, refresh_from_mongo_doc
 
 
 class SaveMixin:
@@ -33,7 +34,7 @@ class SaveMixin:
             result_check["is_valid"] = False
         # Leave the method if the check fails.
         if not result_check["is_valid"]:
-            self.ignored_fields_to_none()  # type: ignore[attr-defined]
+            ignored_fields_to_none(self)
             return False
         # Get data for document.
         checked_data: dict[str, Any] = result_check["data"]
@@ -48,8 +49,17 @@ class SaveMixin:
             # Run hook.
             await self.post_update()  # type: ignore[attr-defined]
             # Refresh Model.
-            mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
-            self.refrash_from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
+            mongo_doc: dict[str, Any] | None = await collection.find_one(
+                {"_id": checked_data["_id"]}
+            )
+            if mongo_doc is None:
+                msg = (
+                    f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                    + "Method: `save` => "
+                    + "Geted value is None - it is impossible to refresh the current Model."
+                )
+                raise PanicError(msg)
+            refresh_from_mongo_doc(self, mongo_doc)
         else:
             # Add date and time.
             today = datetime.now()
@@ -63,8 +73,15 @@ class SaveMixin:
             await self.post_create()  # type: ignore[attr-defined]
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
+            if mongo_doc is None:
+                msg = (
+                    f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                    + "Method: `save` => "
+                    + "Geted value is None - it is impossible to refresh the current Model."
+                )
+                raise PanicError(msg)
             if mongo_doc is not None:
-                self.refrash_from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
+                refresh_from_mongo_doc(self, mongo_doc)
             else:
                 msg = (
                     f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]

@@ -11,7 +11,7 @@ from .fields import DateTimeField, IDField  # type: ignore[attr-defined]
 from .hooks import HooksMixin
 from .indexing import IndexMixin
 from .model import Model
-from .paladins import CheckMixin, QPaladinsMixin, ToolMixin  # type: ignore[attr-defined]
+from .paladins import CheckMixin, QPaladinsMixin, ValidationMixin  # type: ignore[attr-defined]
 from .store import REGEX
 
 
@@ -67,7 +67,7 @@ def model(
                 attrs,
             )
         else:
-            return type(cls.__name__, (Model, ToolMixin, CheckMixin, AddValidMixin), attrs)
+            return type(cls.__name__, (Model, ValidationMixin, CheckMixin, AddValidMixin), attrs)
 
     return decorator
 

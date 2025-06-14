@@ -3,7 +3,6 @@
 import ipaddress
 import math
 import os
-from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
 
@@ -11,7 +10,6 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from .errors import PanicError
 from .store import REGEX
 
 
@@ -97,45 +95,3 @@ def is_mongo_id(oid: Any) -> bool:
 def hash_to_obj_id(hash: str) -> ObjectId | None:
     """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None
-
-
-def panic_type_error(model_name: str, value_type: str, params: dict[str, Any]) -> None:
-    """Unacceptable type of value."""
-    msg = (
-        f"Model: `{model_name}` > "
-        + f"Field: `{params['field_data'].name}` > "
-        + f"Parameter: `value` => Must be `{value_type}` type!"
-    )
-    raise PanicError(msg)
-
-
-def accumulate_error(model_name: str, err_msg: str, params: dict[str, Any]) -> None:
-    """For accumulating errors to ModelName.field_name.errors ."""
-    if not params["field_data"].hide:
-        params["field_data"].errors.append(err_msg)
-        if not params["is_error_symptom"]:
-            params["is_error_symptom"] = True
-    else:
-        msg = (
-            f">>hidden field<< -> Model: `{model_name}` > "
-            + f"Field: `{params['field_data'].name}`"
-            + f" => {err_msg}"
-        )
-        raise PanicError(msg)
-
-
-async def check_uniqueness(
-    is_migrate_model: bool,
-    value: str | int | float,
-    params: dict[str, Any],
-) -> bool:
-    """Check the uniqueness of the value in the collection."""
-    if not is_migrate_model:
-        return True
-    q_filter = {
-        "$and": [
-            {"_id": {"$ne": params["doc_id"]}},
-            {params["field_data"].name: value},
-        ],
-    }
-    return await params["collection"].find_one(q_filter) is None

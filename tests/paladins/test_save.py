@@ -5,7 +5,7 @@ import unittest
 from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
-from ramifice import model
+from ramifice import model, paladins
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,

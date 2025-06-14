@@ -6,6 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
+from .tools import refresh_from_mongo_doc
 
 
 class RefrashMixin:
@@ -25,4 +26,4 @@ class RefrashMixin:
             )
             raise PanicError(msg)
         self.inject()  # type: ignore[attr-defined]
-        self.refrash_from_mongo_doc(mongo_doc)  # type: ignore[attr-defined]
+        refresh_from_mongo_doc(self, mongo_doc)

@@ -1,4 +1,4 @@
-"""A set of additional auxiliary methods for Commons."""
+"""Tool of Commons - A set of auxiliary methods."""
 
 from typing import Any
 
@@ -8,7 +8,7 @@ from .. import translations
 
 
 class ToolMixin:
-    """A set of additional auxiliary methods for Commons."""
+    """Tool of Commons - A set of auxiliary methods."""
 
     @classmethod
     def password_to_none(cls: Any, mongo_doc: dict[str, Any]) -> dict[str, Any]:

@@ -6,7 +6,7 @@ Supported fields:
 
 from typing import Any
 
-from ...utilities import panic_type_error
+from ..tools import panic_type_error
 
 
 class BoolGroupMixin:
@@ -23,7 +23,7 @@ class BoolGroupMixin:
         value = field.value
 
         if not isinstance(value, (bool, type(None))):
-            panic_type_error(self.full_model_name(), "bool | None", params)  # type: ignore[attr-defined]
+            panic_type_error(params["full_model_name"], "bool | None", params)
 
         if not params["is_update"] and value is None:
             value = field.default
