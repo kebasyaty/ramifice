@@ -1,6 +1,7 @@
 """Group for checking slug fields.
 
-Supported fields: SlugField
+Supported fields:
+    SlugField
 """
 
 from typing import Any
@@ -14,7 +15,8 @@ from ...utilities import check_uniqueness
 class SlugGroupMixin:
     """Group for checking slug fields.
 
-    Supported fields: SlugField
+    Supported fields:
+        SlugField
     """
 
     async def slug_group(self, params: dict[str, Any]) -> None:
