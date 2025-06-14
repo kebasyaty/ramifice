@@ -415,6 +415,7 @@ async for index in await User.list_indexes():
 
 # Units Management.
 # Management for `choices` parameter in dynamic field types.
+# Units are stored in a separate collection.
 from ramifice.types import Unit
 unit = Unit(
   field="field_name",  # The name of the dynamic field.
