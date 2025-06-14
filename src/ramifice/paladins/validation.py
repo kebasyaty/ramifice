@@ -12,6 +12,7 @@ class ValidationMixin:
         """Check data validity.
 
         The main use is to check data from web forms.
+        It is also used to verify Models that do not migrate to the database.
         """
         result_check: dict[str, Any] = await self.check()  # type: ignore[attr-defined]
         return result_check["is_valid"]

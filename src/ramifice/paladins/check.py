@@ -40,7 +40,10 @@ class CheckMixin(
     async def check(
         self, is_save: bool = False, collection: AsyncCollection | None = None
     ) -> dict[str, Any]:
-        """Validation of Model data before saving to the database."""
+        """Validation of Model data before saving to the database.
+
+        It is also used to verify Models that do not migrate to the database.
+        """
         cls_model = self.__class__
         if not cls_model.META["is_migrate_model"] and is_save:  # type: ignore[attr-defined]
             msg = (
