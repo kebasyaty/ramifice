@@ -25,6 +25,7 @@ zh | zh_cn
 
 import copy
 import gettext as _gettext
+from gettext import NullTranslations
 from typing import Any
 
 # Language code by default.
@@ -128,5 +129,6 @@ def change_locale(lang_code: str) -> None:
     if lang_code != CURRENT_LOCALE:
         CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
         _ = get_ramifice_translator(CURRENT_LOCALE).gettext
-        gettext = get_custom_translator(CURRENT_LOCALE).gettext
-        ngettext = get_custom_translator(CURRENT_LOCALE).ngettext
+        translator: NullTranslations = get_custom_translator(CURRENT_LOCALE)
+        gettext = translator.gettext
+        ngettext = translator.ngettext
