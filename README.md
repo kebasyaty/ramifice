@@ -455,7 +455,7 @@ await user.delete(remove_files=False)
 # Verification, replacement and recoverang of password.
 user = User()
 await user.verify_password(password="12345678")
-await user.update_password(
+await user.update_password(  # uses verify_password
   old_password="12345678",
   new_password="O2eA4GIr38KGGlS",
 )
