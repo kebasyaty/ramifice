@@ -419,7 +419,8 @@ from ramifice.types import Unit
 unit = Unit(
   field="field_name",  # The name of the dynamic field.
   title="Title",  # The name of the choice item.
-  value="Some text or number",  # The value of the choice item.
+  value="Some text ...",  # The value of the choice item.
+                          # Hint: float | int | str
   is_delete=False, # True - if you need to remove the item of choice.
                    # by default = False (add item to choice)
 )
