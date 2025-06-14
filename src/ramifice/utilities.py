@@ -3,6 +3,7 @@
 import ipaddress
 import math
 import os
+from datetime import datetime
 from typing import Any
 from urllib.parse import urlparse
 
@@ -121,3 +122,20 @@ def accumulate_error(model_name: str, err_msg: str, params: dict[str, Any]) -> N
             + f" => {err_msg}"
         )
         raise PanicError(msg)
+
+
+async def check_uniqueness(
+    is_migrate_model: bool,
+    value: str | int | float,
+    params: dict[str, Any],
+) -> bool:
+    """Check the uniqueness of the value in the collection."""
+    if not is_migrate_model:
+        return True
+    q_filter = {
+        "$and": [
+            {"_id": {"$ne": params["doc_id"]}},
+            {params["field_data"].name: value},
+        ],
+    }
+    return await params["collection"].find_one(q_filter) is None

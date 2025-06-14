@@ -1,4 +1,4 @@
-"""Tools - A set of additional auxiliary methods for Paladins."""
+"""A set of additional auxiliary methods for Paladins."""
 
 from datetime import datetime
 from typing import Any
@@ -47,22 +47,6 @@ class ToolMixin:
             print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # type: ignore[attr-defined]
         else:
             print(end="\n\n")
-
-    async def check_uniqueness(
-        self,
-        value: str | int | float | datetime,
-        params: dict[str, Any],
-    ) -> bool:
-        """Check the uniqueness of the value in the collection."""
-        if not self.__class__.META["is_migrate_model"]:  # type: ignore[attr-defined]
-            return True
-        q_filter = {
-            "$and": [
-                {"_id": {"$ne": params["doc_id"]}},
-                {params["field_data"].name: value},
-            ],
-        }
-        return await params["collection"].find_one(q_filter) is None
 
     def ignored_fields_to_none(self) -> None:
         """Reset the values of ignored fields to None."""

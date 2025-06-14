@@ -7,7 +7,7 @@ Supported fields:
 from typing import Any
 
 from ... import translations
-from ...utilities import accumulate_error, panic_type_error
+from ...utilities import accumulate_error, check_uniqueness, panic_type_error
 
 
 class NumGroupMixin:
@@ -54,7 +54,11 @@ class NumGroupMixin:
             )
             accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
-        if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+        if field.unique and not await check_uniqueness(
+            self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
+            value,
+            params,
+        ):
             err_msg = translations._("Is not unique !")
             accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Insert result.

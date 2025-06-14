@@ -1,4 +1,4 @@
-"""Tools - A set of additional auxiliary methods for Commons."""
+"""A set of additional auxiliary methods for Commons."""
 
 from typing import Any
 
