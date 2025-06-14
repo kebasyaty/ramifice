@@ -15,7 +15,7 @@ class DeleteMixin:
 
     async def delete(
         self,
-        delete_files: bool = True,
+        remove_files: bool = True,
         projection: Any | None = None,
         sort: Any | None = None,
         hint: Any | None = None,
@@ -72,7 +72,7 @@ class DeleteMixin:
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if delete_files and not field_data.ignored:
+            if remove_files and not field_data.ignored:
                 group = field_data.group
                 if group == "file":
                     file_data = mongo_doc[field_name]
