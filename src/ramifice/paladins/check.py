@@ -74,7 +74,7 @@ class CheckMixin(
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
             "field_data": None,
-            "full_model_name": self.full_model_name(),  # type: ignore[attr-defined]
+            "full_model_name": cls_model.META["full_model_name"],  # type: ignore[attr-defined]
         }
         #
         # Run checking fields.
