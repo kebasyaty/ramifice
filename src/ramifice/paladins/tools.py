@@ -62,15 +62,6 @@ class ToolMixin:
             )
             raise PanicError(msg)
 
-    def panic_type_error(self, value_type: str, params: dict[str, Any]) -> None:
-        """Unacceptable type of value."""
-        msg = (
-            f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
-            + f"Field: `{params['field_data'].name}` > "
-            + f"Parameter: `value` => Must be `{value_type}` type!"
-        )
-        raise PanicError(msg)
-
     async def check_uniqueness(
         self,
         value: str | int | float | datetime,

@@ -10,6 +10,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 
 from ... import translations
+from ...utilities import panic_type_error
 
 
 class DateGroupMixin:
@@ -26,7 +27,7 @@ class DateGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (datetime, type(None))):
-            self.panic_type_error("datetime", params)  # type: ignore[attr-defined]
+            panic_type_error(self.full_model_name(), "datetime | None", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

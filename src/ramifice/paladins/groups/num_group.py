@@ -7,6 +7,7 @@ Supported fields:
 from typing import Any
 
 from ... import translations
+from ...utilities import panic_type_error
 
 
 class NumGroupMixin:
@@ -26,10 +27,10 @@ class NumGroupMixin:
 
         if "Float" in field.field_type:
             if not isinstance(value, (float, type(None))):
-                self.panic_type_error("float", params)  # type: ignore[attr-defined]
+                panic_type_error(self.full_model_name(), "float | None", params)  # type: ignore[attr-defined]
         else:
             if not isinstance(value, (int, type(None))):
-                self.panic_type_error("int", params)  # type: ignore[attr-defined]
+                panic_type_error(self.full_model_name(), "int | None", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

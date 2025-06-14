@@ -10,6 +10,7 @@ from typing import Any
 from email_validator import EmailNotValidError, validate_email
 
 from ... import translations
+from ...utilities import panic_type_error
 
 
 class TextGroupMixin:
@@ -27,7 +28,7 @@ class TextGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (str, type(None))):
-            self.panic_type_error("str", params)  # type: ignore[attr-defined]
+            panic_type_error(self.full_model_name(), "str | None", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

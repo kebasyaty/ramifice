@@ -9,6 +9,7 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from ... import translations
+from ...utilities import panic_type_error
 
 
 class IDGroupMixin:
@@ -25,7 +26,7 @@ class IDGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (ObjectId, type(None))):
-            self.panic_type_error("ObjectId", params)  # type: ignore[attr-defined]
+            panic_type_error(self.full_model_name(), "ObjectId | None", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:

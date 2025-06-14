@@ -1,4 +1,4 @@
-"""Global collection of auxiliary tools."""
+"""Global collection of auxiliary methods."""
 
 import ipaddress
 import math
@@ -10,6 +10,7 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
+from .errors import PanicError
 from .store import REGEX
 
 
@@ -95,3 +96,13 @@ def is_mongo_id(oid: Any) -> bool:
 def hash_to_obj_id(hash: str) -> ObjectId | None:
     """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None
+
+
+def panic_type_error(model_name: str, value_type: str, params: dict[str, Any]) -> None:
+    """Unacceptable type of value."""
+    msg = (
+        f"Model: `{model_name}` > "
+        + f"Field: `{params['field_data'].name}` > "
+        + f"Parameter: `value` => Must be `{value_type}` type!"
+    )
+    raise PanicError(msg)

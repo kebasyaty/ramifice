@@ -7,7 +7,7 @@ import os
 from typing import Any
 
 from ... import translations
-from ...tools import to_human_size
+from ...utilities import panic_type_error, to_human_size
 
 
 class FileGroupMixin:
@@ -22,7 +22,7 @@ class FileGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
-            self.panic_type_error("dict", params)  # type: ignore[attr-defined]
+            panic_type_error(self.full_model_name(), "dict | None", params)  # type: ignore[attr-defined]
 
         if not params["is_update"]:
             if value is None:

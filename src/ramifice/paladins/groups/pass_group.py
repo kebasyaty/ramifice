@@ -8,6 +8,7 @@ from typing import Any
 from argon2 import PasswordHasher
 
 from ... import translations
+from ...utilities import panic_type_error
 
 
 class PassGroupMixin:
@@ -27,7 +28,7 @@ class PassGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (str, type(None))):
-            self.panic_type_error("str", params)  # type: ignore[attr-defined]
+            panic_type_error(self.full_model_name(), "str | None", params)  # type: ignore[attr-defined]
 
         if value is None:
             if field.required:
