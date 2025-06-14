@@ -107,7 +107,7 @@ class CheckMixin(
                 elif group == "id":
                     self.id_group(params)
                 elif group == "slug":
-                    self.slug_group(params)
+                    await self.slug_group(params)
                 elif group == "pass":
                     self.pass_group(params)
 
