@@ -317,6 +317,82 @@ class User:
 _List of frequently used methods:_
 
 ```python
+# Gets an estimate of the count of documents in a collection using collection metadata.
+count: int = await User.estimated_document_count()
+
+# Gets an estimate of the count of documents in a collection using collection metadata.
+filter = {"first_name": "John"}
+count: int = await User.count_documents(filter)
+
+# Runs an aggregation framework pipeline.
+from bson.bson import BSON
+pipeline = [
+    {"$unwind": "$tags"},
+    {"$group": {"_id": "$tags", "count": {"$sum": 1}}},
+    {"$sort": BSON([("count", -1), ("_id", -1)])},
+]
+docs = await User.aggregate(pipeline)
+
+# Finds the distinct values for a specified field across a single collection.
+filter = "key_name"
+values = await User.distinct(filter)
+
+# Get collection name.
+name = await User.collection_name()
+
+# The full name is of the form database_name.collection_name.
+name = await User.collection_full_name()
+
+# Get AsyncBatabase for the current Model.
+database = await User.database()
+
+# Get AsyncCollection for the current Model.
+collection = await User.collection()
+
+# Find a single document.
+filter = {"email": "John_Smith@gmail.com"}
+mongo_doc = await User.find_one(filter)
+
+# Find a single document and converting to raw document.
+filter = {"email": "John_Smith@gmail.com"}
+raw_doc = await User.find_one_to_raw_doc(filter)
+
+# Find a single document and convert it to a Model instance.
+filter = {"email": "John_Smith@gmail.com"}
+user = await User.find_one_to_instance(filter)
+
+# Find a single document and convert it to a JSON string.
+filter = {"email": "John_Smith@gmail.com"}
+json = await User.find_one_to_json(filter)
+
+# Find a single document and delete it.
+filter = {"email": "John_Smith@gmail.com"}
+delete_result = await User.delete_one(filter)
+
+# Find a single document and delete it, return original.
+filter = {"email": "John_Smith@gmail.com"}
+mongo_doc = await User.find_one_and_delete(filter)
+
+# Find documents.
+filter = {"first_name": "John"}
+mongo_docs = await User.find_many(filter)
+
+# Find documents and convert to a raw documents.
+filter = {"first_name": "John"}
+raw_docs = await User.find_many_to_raw_docs(filter)
+
+# Find documents and convert to a json string.
+filter = {"email": "John_Smith@gmail.com"}
+json = await User.find_many_to_json(filter)
+
+# ?
+```
+
+## Instance methods
+
+_List of frequently used methods:_
+
+```python
 # Check data validity.
 # The main use is to check data from web forms.
 # It is also used to verify Models that do not migrate to the database.
@@ -343,14 +419,6 @@ await user.update_password(
   old_password="12345678",
   new_password="O2eA4GIr38KGGlS",
 )
-```
-
-## Instance methods
-
-_List of frequently used methods:_
-
-```python
-
 ```
 
 ## Contributing
