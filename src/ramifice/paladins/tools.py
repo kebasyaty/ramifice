@@ -48,20 +48,6 @@ class ToolMixin:
         else:
             print(end="\n\n")
 
-    def accumulate_error(self, err_msg: str, params: dict[str, Any]) -> None:
-        """For accumulating errors to ModelName.field_name.errors ."""
-        if not params["field_data"].hide:
-            params["field_data"].errors.append(err_msg)
-            if not params["is_error_symptom"]:
-                params["is_error_symptom"] = True
-        else:
-            msg = (
-                f">>hidden field<< - Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
-                + f"Field: `{params['field_data'].name}`"
-                + f" => {err_msg}"
-            )
-            raise PanicError(msg)
-
     async def check_uniqueness(
         self,
         value: str | int | float | datetime,

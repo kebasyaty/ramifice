@@ -10,7 +10,7 @@ from typing import Any
 from email_validator import EmailNotValidError, validate_email
 
 from ... import translations
-from ...utilities import panic_type_error
+from ...utilities import accumulate_error, panic_type_error
 
 
 class TextGroupMixin:
@@ -33,7 +33,7 @@ class TextGroupMixin:
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -41,11 +41,11 @@ class TextGroupMixin:
         maxlength: int | None = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
             err_msg = translations._("The length of the string exceeds maxlength=%d !" % maxlength)
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
             err_msg = translations._("Is not unique !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation Email, Url, IP, Color, Phone.
         field_type = field.field_type
         if "Email" in field_type:
@@ -58,19 +58,19 @@ class TextGroupMixin:
                 params["field_data"].value = value
             except EmailNotValidError:
                 err_msg = translations._("Invalid Email address !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         elif "URL" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid URL address !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         elif "IP" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid IP address !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         elif "Color" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid Color code !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         elif "Phone" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid Phone number !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

@@ -106,3 +106,18 @@ def panic_type_error(model_name: str, value_type: str, params: dict[str, Any]) -
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
     raise PanicError(msg)
+
+
+def accumulate_error(model_name: str, err_msg: str, params: dict[str, Any]) -> None:
+    """For accumulating errors to ModelName.field_name.errors ."""
+    if not params["field_data"].hide:
+        params["field_data"].errors.append(err_msg)
+        if not params["is_error_symptom"]:
+            params["is_error_symptom"] = True
+    else:
+        msg = (
+            f">>hidden field<< -> Model: `{model_name}` > "
+            + f"Field: `{params['field_data'].name}`"
+            + f" => {err_msg}"
+        )
+        raise PanicError(msg)

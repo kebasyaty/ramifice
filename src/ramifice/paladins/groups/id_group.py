@@ -9,7 +9,7 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from ... import translations
-from ...utilities import panic_type_error
+from ...utilities import accumulate_error, panic_type_error
 
 
 class IDGroupMixin:
@@ -31,14 +31,14 @@ class IDGroupMixin:
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Validation of the MongoDB identifier in a string form.
         if not ObjectId.is_valid(value):
             err_msg = translations._("Invalid document ID !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

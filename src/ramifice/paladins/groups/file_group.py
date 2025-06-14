@@ -7,7 +7,7 @@ import os
 from typing import Any
 
 from ... import translations
-from ...utilities import panic_type_error, to_human_size
+from ...utilities import accumulate_error, panic_type_error, to_human_size
 
 
 class FileGroupMixin:
@@ -36,7 +36,7 @@ class FileGroupMixin:
                 if value is None:
                     if field.required:
                         err_msg = translations._("Required field !")
-                        self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
                     if params["is_save"]:
                         params["result_map"][field.name] = None
                     return
@@ -57,14 +57,14 @@ class FileGroupMixin:
                             params["result_map"][field.name] = None
                     else:
                         err_msg = translations._("Required field !")
-                        self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
                     "File size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
                 return
             # Return if there is no need to save.
             if not params["is_save"]:

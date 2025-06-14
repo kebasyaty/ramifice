@@ -7,7 +7,7 @@ Supported fields:
 from typing import Any
 
 from ... import translations
-from ...utilities import panic_type_error
+from ...utilities import accumulate_error, panic_type_error
 
 
 class NumGroupMixin:
@@ -35,7 +35,7 @@ class NumGroupMixin:
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -45,18 +45,18 @@ class NumGroupMixin:
             err_msg = translations._(
                 "The value %d must not be greater than max=%d !" % value, max_number
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
             err_msg = translations._(
                 "The value %d must not be less than min=%d !" % value, min_number
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation the `unique` field attribute.
         if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
             err_msg = translations._("Is not unique !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

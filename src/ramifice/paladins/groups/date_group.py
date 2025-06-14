@@ -10,7 +10,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 
 from ... import translations
-from ...utilities import panic_type_error
+from ...utilities import accumulate_error, panic_type_error
 
 
 class DateGroupMixin:
@@ -32,7 +32,7 @@ class DateGroupMixin:
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -70,7 +70,7 @@ class DateGroupMixin:
                 "The date %s must not be greater than max=%s !" % value_str,
                 max_date_str,
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Validation the `min_date` field attribute.
         min_date = field.min_date
         if min_date is not None and value < min_date:
@@ -103,7 +103,7 @@ class DateGroupMixin:
             err_msg = translations._(
                 "The date %s must not be less than min=%s !" % value_str, min_date_str
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(self.full_model_name(), err_msg, params)  # type: ignore[attr-defined]
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value
