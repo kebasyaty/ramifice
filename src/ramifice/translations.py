@@ -36,7 +36,7 @@ CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 LANGUAGES: list[str] = ["en", "ru"]
 
 # Add translations for Ramifice.
-ramifice_translations = {
+ramifice_translations: dict[str, NullTranslations] = {
     lang: _gettext.translation(
         domain="messages",
         localedir="config/translations/ramifice",
@@ -48,7 +48,7 @@ ramifice_translations = {
 }
 
 # Add translations for custom project.
-custom_translations = {
+custom_translations: dict[str, NullTranslations] = {
     lang: _gettext.translation(
         domain="messages",
         localedir="config/translations/custom",
@@ -105,11 +105,11 @@ def get_custom_translator(lang_code: str) -> Any:
 
 
 # The object of the current translation, for Ramifice.
-_ = get_ramifice_translator(DEFAULT_LOCALE).gettext
+_: Any = get_ramifice_translator(DEFAULT_LOCALE).gettext
 
 # The object of the current translation, for custom project.
-gettext = get_custom_translator(DEFAULT_LOCALE).gettext
-ngettext = get_custom_translator(DEFAULT_LOCALE).ngettext
+gettext: Any = get_custom_translator(DEFAULT_LOCALE).gettext
+ngettext: Any = get_custom_translator(DEFAULT_LOCALE).ngettext
 
 
 def change_locale(lang_code: str) -> None:
