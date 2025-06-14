@@ -1,6 +1,7 @@
 """Group for checking slug fields.
 
-Supported fields: SlugField
+Supported fields:
+    SlugField
 """
 
 from typing import Any
@@ -8,15 +9,17 @@ from typing import Any
 from slugify import slugify
 
 from ...errors import PanicError
+from ..tools import check_uniqueness
 
 
 class SlugGroupMixin:
     """Group for checking slug fields.
 
-    Supported fields: SlugField
+    Supported fields:
+        SlugField
     """
 
-    def slug_group(self, params: dict[str, Any]) -> None:
+    async def slug_group(self, params: dict[str, Any]) -> None:
         """Checking slug fields."""
         if not params["is_save"]:
             return
@@ -36,7 +39,7 @@ class SlugGroupMixin:
                     raw_str_list.append(value if field_name != "_id" else str(value))
                 else:
                     err_msg = (
-                        f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                        f"Model: `{params['full_model_name']}` > "
                         + f"Field: `{field.name}` => "
                         + f"{field_name} - "
                         + "This field is specified in slug_sources. "
@@ -45,5 +48,20 @@ class SlugGroupMixin:
                     raise PanicError(err_msg)
         # Insert result.
         if params["is_save"]:
-            value = "-".join(raw_str_list)
-            params["result_map"][field.name] = slugify(value)
+            # Convert to slug.
+            value = slugify("-".join(raw_str_list))
+            # Validation of uniqueness of the value.
+            if not await check_uniqueness(
+                self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
+                value,
+                params,
+            ):
+                err_msg = (
+                    f"Model: `{params['full_model_name']}` > "
+                    + f"Field: `{field.name}` > "
+                    + f"Parameter: `slug_sources` => "
+                    + "At least one field should be unique!"
+                )
+                raise PanicError(err_msg)
+            # Add value to map.
+            params["result_map"][field.name] = value

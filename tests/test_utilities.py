@@ -1,11 +1,12 @@
-"""Testing the module `ramifice.tools`."""
+"""Testing the module `ramifice.utilities`."""
 
 import unittest
 
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 
-from ramifice.tools import (  # get_file_size,
+from ramifice.utilities import (
+    get_file_size,
     hash_to_obj_id,
     is_color,
     is_email,
@@ -19,7 +20,7 @@ from ramifice.tools import (  # get_file_size,
 
 
 class TestTools(unittest.TestCase):
-    """Testing the module `ramifice.tools`."""
+    """Testing the module `ramifice.utilities`."""
 
     def test_normal_email(self):
         """Testing a method `normal_email`."""
@@ -86,10 +87,10 @@ class TestTools(unittest.TestCase):
         """Testing a method `to_human_size`."""
         self.assertEqual(to_human_size(2097152), "2.0 MB")
 
-    # def test_get_file_size(self):
-    #     """Testing a method `get_file_size()`."""
-    #     path = "public/media/default/no_doc.odt"
-    #     self.assertEqual(get_file_size(path), "9.61 KB")
+    def test_get_file_size(self):
+        """Testing a method `get_file_size`."""
+        path = "public/media/default/no_doc.odt"
+        self.assertEqual(get_file_size(path), "9.61 KB")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,8 @@ import os
 from typing import Any
 
 from ... import translations
-from ...tools import to_human_size
+from ...utilities import to_human_size
+from ..tools import accumulate_error, panic_type_error
 
 
 class FileGroupMixin:
@@ -22,7 +23,7 @@ class FileGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
-            self.panic_type_error("dict", params)  # type: ignore[attr-defined]
+            panic_type_error(params["full_model_name"], "dict | None", params)
 
         if not params["is_update"]:
             if value is None:
@@ -36,7 +37,7 @@ class FileGroupMixin:
                 if value is None:
                     if field.required:
                         err_msg = translations._("Required field !")
-                        self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(params["full_model_name"], err_msg, params)
                     if params["is_save"]:
                         params["result_map"][field.name] = None
                     return
@@ -57,14 +58,14 @@ class FileGroupMixin:
                             params["result_map"][field.name] = None
                     else:
                         err_msg = translations._("Required field !")
-                        self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                        accumulate_error(params["full_model_name"], err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
                     "File size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(params["full_model_name"], err_msg, params)
                 return
             # Return if there is no need to save.
             if not params["is_save"]:

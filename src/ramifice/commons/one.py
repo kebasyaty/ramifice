@@ -35,7 +35,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document."""
+        """Find a single document and converting to raw document."""
         # Get collection for current model.
         collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index]
         # Get document.

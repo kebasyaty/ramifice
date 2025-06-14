@@ -1,4 +1,4 @@
-"""Global collection of auxiliary tools."""
+"""Global collection of auxiliary methods."""
 
 import ipaddress
 import math

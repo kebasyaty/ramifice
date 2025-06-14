@@ -10,6 +10,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 
 from ... import translations
+from ..tools import accumulate_error, panic_type_error
 
 
 class DateGroupMixin:
@@ -26,12 +27,12 @@ class DateGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (datetime, type(None))):
-            self.panic_type_error("datetime", params)  # type: ignore[attr-defined]
+            panic_type_error(params["full_model_name"], "datetime | None", params)
 
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(params["full_model_name"], err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -69,7 +70,7 @@ class DateGroupMixin:
                 "The date %s must not be greater than max=%s !" % value_str,
                 max_date_str,
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(params["full_model_name"], err_msg, params)
         # Validation the `min_date` field attribute.
         min_date = field.min_date
         if min_date is not None and value < min_date:
@@ -102,7 +103,7 @@ class DateGroupMixin:
             err_msg = translations._(
                 "The date %s must not be less than min=%s !" % value_str, min_date_str
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(params["full_model_name"], err_msg, params)
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

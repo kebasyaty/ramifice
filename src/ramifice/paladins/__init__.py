@@ -5,16 +5,16 @@ from .delete import DeleteMixin
 from .password import PasswordMixin
 from .refrash import RefrashMixin
 from .save import SaveMixin
-from .tools import ToolMixin
+from .validation import ValidationMixin
 
 
 class QPaladinsMixin(
-    ToolMixin,
     CheckMixin,
     SaveMixin,
     PasswordMixin,
     DeleteMixin,
     RefrashMixin,
+    ValidationMixin,
 ):
     """Paladins - Model instance methods."""
 

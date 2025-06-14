@@ -7,6 +7,7 @@ Supported fields:
 from typing import Any
 
 from ... import translations
+from ..tools import accumulate_error, check_uniqueness, panic_type_error
 
 
 class NumGroupMixin:
@@ -26,15 +27,15 @@ class NumGroupMixin:
 
         if "Float" in field.field_type:
             if not isinstance(value, (float, type(None))):
-                self.panic_type_error("float", params)  # type: ignore[attr-defined]
+                panic_type_error(params["full_model_name"], "float | None", params)
         else:
             if not isinstance(value, (int, type(None))):
-                self.panic_type_error("int", params)  # type: ignore[attr-defined]
+                panic_type_error(params["full_model_name"], "int | None", params)
 
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+                accumulate_error(params["full_model_name"], err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -44,18 +45,22 @@ class NumGroupMixin:
             err_msg = translations._(
                 "The value %d must not be greater than max=%d !" % value, max_number
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(params["full_model_name"], err_msg, params)
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
             err_msg = translations._(
                 "The value %d must not be less than min=%d !" % value, min_number
             )
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(params["full_model_name"], err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await self.check_uniqueness(value, params):  # type: ignore[attr-defined]
+        if field.unique and not await check_uniqueness(
+            self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
+            value,
+            params,
+        ):
             err_msg = translations._("Is not unique !")
-            self.accumulate_error(err_msg, params)  # type: ignore[attr-defined]
+            accumulate_error(params["full_model_name"], err_msg, params)
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value
