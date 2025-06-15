@@ -48,7 +48,7 @@ class Model(metaclass=ABCMeta):
 
     @abstractmethod
     def fields(self) -> None:
-        """For add fields."""
+        """For adding fields."""
         pass
 
     def model_name(self) -> str:

@@ -11,7 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.email = EmailField()
 
 

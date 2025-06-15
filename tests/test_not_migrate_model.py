@@ -16,7 +16,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.username = TextField()
         self.favorite_color = ChoiceTextDynField()
 
@@ -29,7 +29,7 @@ class UserProfile:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.profession = TextField()
 
 

@@ -43,7 +43,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -79,7 +79,7 @@ class User2:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()

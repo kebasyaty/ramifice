@@ -14,7 +14,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.password = PasswordField()
         self.password_2 = PasswordField()
 
