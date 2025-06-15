@@ -1,7 +1,7 @@
 """Field of Model for enter color code."""
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG, REGEX
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -31,7 +31,7 @@ class ColorField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -39,7 +39,7 @@ class ColorField(Field, TextGroup, JsonMixin):
                     raise AssertionError(
                         "The `default` parameter should not contain an empty string!"
                     )
-                if REGEX["color_code"].match(default) is None:
+                if store.REGEX["color_code"].match(default) is None:
                     raise AssertionError("Parameter `default` - Not а color code!")
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -91,6 +91,6 @@ class ColorField(Field, TextGroup, JsonMixin):
         """Validate Color code."""
         flag = True
         color_code = str(value or self.value or self.default)
-        if REGEX["color_code"].match(color_code) is None:
+        if store.REGEX["color_code"].match(color_code) is None:
             flag = False
         return flag

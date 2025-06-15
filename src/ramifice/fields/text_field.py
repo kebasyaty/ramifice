@@ -1,7 +1,7 @@
 """Field of Model for enter text."""
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -26,7 +26,7 @@ class TextField(Field, TextGroup, JsonMixin):
         unique: bool = False,
         maxlength: int = 256,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
             if default is not None:

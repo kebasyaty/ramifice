@@ -2,8 +2,8 @@
 
 from urllib.parse import urlparse
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -39,7 +39,7 @@ class URLField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -98,9 +98,8 @@ class URLField(Field, TextGroup, JsonMixin):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validate URL address."""
-        flag = True
         url = str(value or self.value or self.default)
         result = urlparse(url)
         if not result.scheme or not result.netloc:
-            flag = False
-        return flag
+            return False
+        return True

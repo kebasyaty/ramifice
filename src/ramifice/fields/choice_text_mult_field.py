@@ -3,8 +3,8 @@
 Type of selective text field with static of elements.
 """
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
@@ -52,7 +52,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         self.default = default
         self.choices = choices
 
-        if DEBUG:
+        if store.DEBUG:
             if choices is not None:
                 if not isinstance(choices, dict):
                     raise AssertionError("Parameter `choices` - Not а `dict` type!")

@@ -2,8 +2,8 @@
 
 import phonenumbers
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -28,7 +28,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

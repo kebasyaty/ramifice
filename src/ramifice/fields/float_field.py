@@ -1,7 +1,7 @@
 """Field of Model for enter (float) number."""
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.field import Field
 from .general.number_group import NumberGroup
 
@@ -27,7 +27,7 @@ class FloatField(Field, NumberGroup, JsonMixin):
         step: float = 1.0,
         input_type: str = "number",  # number | range
     ):
-        if DEBUG:
+        if store.DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
                     "Parameter `input_type` - Invalid input type! "
