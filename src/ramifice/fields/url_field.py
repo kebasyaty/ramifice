@@ -96,9 +96,9 @@ class URLField(Field, TextGroup, JsonMixin):
 
         self.default = default
 
-    def is_valid(self) -> bool:
+    def is_valid(self, value: str | None = None) -> bool:
         """Validate URL address."""
-        url = str(self.value or self.default)
+        url = str(value or self.value or self.default)
         result = urlparse(url)
         if not result.scheme or not result.netloc:
             return False

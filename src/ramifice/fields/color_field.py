@@ -89,8 +89,7 @@ class ColorField(Field, TextGroup, JsonMixin):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Color code."""
-        flag = True
         color_code = str(value or self.value or self.default)
         if store.REGEX["color_code"].match(color_code) is None:
-            flag = False
-        return flag
+            return False
+        return True

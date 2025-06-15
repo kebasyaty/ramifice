@@ -90,12 +90,11 @@ class PhoneField(Field, TextGroup, JsonMixin):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Phone number."""
-        flag = True
         number = str(value or self.value or self.default)
         try:
             phone = phonenumbers.parse(number)
             if not phonenumbers.is_valid_number(phone):
-                flag = False
+                return False
         except phonenumbers.phonenumberutil.NumberParseException:
-            flag = False
-        return flag
+            return False
+        return True
