@@ -40,51 +40,46 @@ def normal_email(email: str) -> str | None:
 
 def is_email(email: str) -> bool:
     """Validate Email address."""
-    flag = True
     try:
         validate_email(str(email), check_deliverability=True)
     except EmailNotValidError:
-        flag = False
-    return flag
+        return False
+    return True
 
 
 def is_url(url: str) -> bool:
     """Validate URL address."""
-    flag = True
     result = urlparse(str(url))
     if not result.scheme or not result.netloc:
-        flag = False
-    return flag
+        return False
+    return True
 
 
 def is_ip(address: str | int) -> bool:
     """Validate IP address."""
-    flag = True
     try:
         ipaddress.ip_address(str(address))
     except ValueError:
-        flag = False
-    return flag
+        return False
+    return True
 
 
 def is_color(color_code: str) -> bool:
     """Validate Color code."""
-    flag = True
     if REGEX["color_code"].match(str(color_code)) is None:
-        flag = False
-    return flag
+        return False
+    return True
 
 
 def is_phone(number: str) -> bool:
     """Validate Phone number."""
-    flag = True
     try:
         phone = phonenumbers.parse(str(number))
         if not phonenumbers.is_valid_number(phone):
-            flag = False
+            return False
     except phonenumbers.phonenumberutil.NumberParseException:
-        flag = False
-    return flag
+        return False
+    return True
 
 
 def is_mongo_id(oid: Any) -> bool:

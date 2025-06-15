@@ -3,7 +3,7 @@
 import json
 from typing import Any
 
-from ..store import DEBUG, REGEX
+from .. import store
 from .general.field import Field
 
 
@@ -26,7 +26,7 @@ class PasswordField(Field):
         placeholder: str = "",
         required: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(hide, bool):
@@ -63,11 +63,10 @@ class PasswordField(Field):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validate Password."""
-        flag = True
         password = str(value or self.value)
-        if not REGEX["password"].match(password):
-            flag = False
-        return flag
+        if not store.REGEX["password"].match(password):
+            return False
+        return True
 
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""

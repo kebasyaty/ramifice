@@ -7,8 +7,7 @@ from typing import Any
 from babel.dates import format_datetime
 from dateutil.parser import parse
 
-from .. import translations
-from ..store import DEBUG
+from .. import store, translations
 from .general.date_group import DateGroup
 from .general.field import Field
 
@@ -31,7 +30,7 @@ class DateTimeField(Field, DateGroup):
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if max_date is not None:
                 if not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")

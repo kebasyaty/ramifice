@@ -2,8 +2,8 @@
 
 import ipaddress
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.field import Field
 from .general.text_group import TextGroup
 
@@ -25,7 +25,7 @@ class IPField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -85,10 +85,9 @@ class IPField(Field, TextGroup, JsonMixin):
 
     def is_valid(self, value: str | None = None) -> bool:
         """Validate IP address."""
-        flag = True
         address = str(value or self.value or self.default)
         try:
             ipaddress.ip_address(address)
         except ValueError:
-            flag = False
-        return flag
+            return False
+        return True

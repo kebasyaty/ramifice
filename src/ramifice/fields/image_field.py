@@ -10,9 +10,9 @@ from typing import Any
 
 from PIL import Image
 
+from .. import store
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
-from ..store import DEBUG, IMG_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -41,7 +41,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         # True - high quality and low performance for thumbnails.
         high_quality: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -135,13 +135,14 @@ class ImageField(Field, FileGroup, JsonMixin):
         base64_str: str | None = None,
         filename: str | None = None,
         is_delete: bool = False,
+        add_wh: bool = False,
     ) -> None:
         """Convert base64 to a image,
         get image information and save in the target directory.
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        img_info = IMG_INFO_DICT.copy()
+        img_info = store.IMG_INFO_DICT.copy()
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
@@ -180,10 +181,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
-            with Image.open(main_img_path) as img:
-                width, height = img.size
-                img_info["width"] = width
-                img_info["height"] = height
+            if add_wh:
+                with Image.open(main_img_path) as img:
+                    width, height = img.size
+                    img_info["width"] = width
+                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = filename
             # Add image extension.
@@ -208,10 +210,11 @@ class ImageField(Field, FileGroup, JsonMixin):
         self,
         src_path: str | None = None,
         is_delete: bool = False,
+        add_wh: bool = False,
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
-        img_info = IMG_INFO_DICT.copy()
+        img_info = store.IMG_INFO_DICT.copy()
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
@@ -242,10 +245,11 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
-            with Image.open(main_img_path) as img:
-                width, height = img.size
-                img_info["width"] = width
-                img_info["height"] = height
+            if add_wh:
+                with Image.open(main_img_path) as img:
+                    width, height = img.size
+                    img_info["width"] = width
+                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = os.path.basename(src_path)
             # Add image extension.

@@ -111,7 +111,13 @@ class TestFileFields(unittest.TestCase):
         with self.assertRaises(FileHasNoExtensionError):
             f.from_path("public/media/default/no_doc")
         # from_base64
-        self.assertIsNone(f.from_base64(self.img_base64_str, "image_name.png"))
+        self.assertIsNone(
+            f.from_base64(
+                base64_str=self.img_base64_str,
+                filename="image_name.png",
+                add_wh=True,
+            )
+        )
         self.assertEqual(f.value["name"], "image_name.png")
         self.assertEqual(f.value["size"], 120)
         self.assertEqual(f.value["width"], 1)
@@ -122,7 +128,12 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.value["is_delete"])
         self.assertFalse(f.value["save_as_is"])
         # from_path
-        self.assertIsNone(f.from_path("public/media/default/no-photo.png"))
+        self.assertIsNone(
+            f.from_path(
+                src_path="public/media/default/no-photo.png",
+                add_wh=True,
+            )
+        )
         self.assertEqual(f.value["name"], "no-photo.png")
         self.assertEqual(f.value["size"], 41554)
         self.assertEqual(f.value["width"], 1024)

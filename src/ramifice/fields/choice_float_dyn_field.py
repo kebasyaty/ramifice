@@ -3,8 +3,8 @@
 Type of selective float field with dynamic addition of elements.
 """
 
+from .. import store
 from ..mixins import JsonMixin
-from ..store import DEBUG
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 
@@ -28,7 +28,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
-        if DEBUG:
+        if store.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):

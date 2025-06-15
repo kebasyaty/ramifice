@@ -8,9 +8,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from .. import store
 from ..errors import FileHasNoExtensionError
 from ..mixins import JsonMixin
-from ..store import DEBUG, FILE_INFO_DICT
 from .general.field import Field
 from .general.file_group import FileGroup
 
@@ -34,7 +34,7 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
-        if DEBUG:
+        if store.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -102,7 +102,7 @@ class FileField(Field, FileGroup, JsonMixin):
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        file_info = FILE_INFO_DICT.copy()
+        file_info = store.FILE_INFO_DICT.copy()
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 
@@ -154,7 +154,7 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        file_info = FILE_INFO_DICT.copy()
+        file_info = store.FILE_INFO_DICT.copy()
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 
