@@ -1,3 +1,7 @@
+#### v0.3.16 2025-06-15
+
+- Added checking of types for parameters of decorator of `model`.
+
 #### v0.3.15 2025-06-14
 
 - A lot of different optimizations have been added.
