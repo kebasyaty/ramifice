@@ -87,6 +87,9 @@ class ImgGroupMixin:
                     ext_upper = value["ext_upper"]
                     # Get image file.
                     with Image.open(path) as img:
+                        width, height = img.size
+                        value["width"] = width
+                        value["height"] = height
                         resample = (
                             Image.Resampling.LANCZOS  # High quality and low performance.
                             if params["field_data"].high_quality
