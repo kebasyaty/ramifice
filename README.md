@@ -425,7 +425,7 @@ unit = Unit(
   is_delete=False, # True - if you need to remove the item of choice.
                    # by default = False (add item to choice)
 )
-User.unit_manager(unit)
+await User.unit_manager(unit)
 ```
 
 ## Instance methods
