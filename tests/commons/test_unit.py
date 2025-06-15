@@ -25,7 +25,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.choice_float_dyn = ChoiceFloatDynField()
         self.choice_float_mult_dyn = ChoiceFloatMultDynField()
         self.choice_int_dyn = ChoiceIntDynField()

@@ -11,7 +11,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.username = TextField()
 
 
@@ -20,7 +20,7 @@ class User2:
     """Model for testing."""
 
     def fields(self):
-        """For add fields."""
+        """For adding fields."""
         self.username = TextField()
 
     async def add_validation(self) -> dict[str, str]:
