@@ -26,6 +26,20 @@ def model(
     is_delete_doc: bool = True,
 ) -> Any:
     """Decorator for converting into a Model."""
+    if not isinstance(service_name, str):
+        raise AssertionError("Parameter `service_name` - Must be `str` type!")
+    if not isinstance(fixture_name, (str, type(None))):
+        raise AssertionError("Parameter `fixture_name` - Must be `str | None` type!")
+    if not isinstance(db_query_docs_limit, int):
+        raise AssertionError("Parameter `db_query_docs_limit` - Must be `int` type!")
+    if not isinstance(is_migrate_model, bool):
+        raise AssertionError("Parameter `is_migrate_model` - Must be `bool` type!")
+    if not isinstance(is_create_doc, bool):
+        raise AssertionError("Parameter `is_create_doc` - Must be `bool` type!")
+    if not isinstance(is_update_doc, bool):
+        raise AssertionError("Parameter `is_update_doc` - Must be `bool` type!")
+    if not isinstance(is_delete_doc, bool):
+        raise AssertionError("Parameter `is_delete_doc` - Must be `bool` type!")
 
     def decorator(cls: Any) -> Any:
         if REGEX["service_name"].match(service_name) is None:
@@ -67,7 +81,16 @@ def model(
                 attrs,
             )
         else:
-            return type(cls.__name__, (Model, ValidationMixin, CheckMixin, AddValidMixin), attrs)
+            return type(
+                cls.__name__,
+                (
+                    Model,
+                    ValidationMixin,
+                    CheckMixin,
+                    AddValidMixin,
+                ),
+                attrs,
+            )
 
     return decorator
 
