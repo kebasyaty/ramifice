@@ -248,7 +248,7 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
      </tr>
      <tr>
        <td align="left">fixture_name</td>
-       <td align="left">no</td>
+       <td align="left">None</td>
        <td align="left">
          The name of the fixture in the <b>config/fixtures</b> directory (without extension).
          <br>
