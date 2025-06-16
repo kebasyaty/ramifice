@@ -4,7 +4,7 @@ import os
 import shutil
 import uuid
 from base64 import b64decode
-from datetime import datetime
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -121,7 +121,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            date_str: str = str(date.today())
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
@@ -166,7 +166,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            date_str: str = str(date.today())
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.

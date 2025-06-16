@@ -65,7 +65,10 @@ def model(
             "is_update_doc": is_update_doc if is_migrate_model else False,
             "is_delete_doc": is_delete_doc if is_migrate_model else False,
         }
-        attrs["META"] = {**metadata, **caching(cls, service_name)}
+        attrs["META"] = {
+            **metadata,
+            **caching(cls, service_name),
+        }
 
         if is_migrate_model:
             return type(
@@ -117,14 +120,14 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     # Count fields for migrating.
     count_fields_for_migrating = 0
 
-    old_model = cls()
-    old_model.fields()
+    raw_model = cls()
+    raw_model.fields()
     default_fields: dict[str, Any] = {
         "_id": IDField(),
         "created_at": DateTimeField(),
         "updated_at": DateTimeField(),
     }
-    fields = {**old_model.__dict__, **default_fields}
+    fields = {**raw_model.__dict__, **default_fields}
     for f_name, f_type in fields.items():
         if not callable(f_type):
             f_type_str = f_type.__class__.__name__

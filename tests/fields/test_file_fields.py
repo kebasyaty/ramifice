@@ -70,6 +70,7 @@ class TestFileFields(unittest.TestCase):
         """Testing `ImageField`."""
         # Parameters by default:
         f = ImageField()
+        f.__dict__["add_width_height"] = True
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -115,7 +116,6 @@ class TestFileFields(unittest.TestCase):
             f.from_base64(
                 base64_str=self.img_base64_str,
                 filename="image_name.png",
-                add_wh=True,
             )
         )
         self.assertEqual(f.value["name"], "image_name.png")
@@ -131,7 +131,6 @@ class TestFileFields(unittest.TestCase):
         self.assertIsNone(
             f.from_path(
                 src_path="public/media/default/no-photo.png",
-                add_wh=True,
             )
         )
         self.assertEqual(f.value["name"], "no-photo.png")
