@@ -1,7 +1,6 @@
 """Testing the class `ramifice.mixins.JsonMixin`."""
 
 import unittest
-from typing import Any
 
 from ramifice import model
 from ramifice.fields import (
@@ -35,7 +34,43 @@ from ramifice.fields import (
     URLField,
 )
 from ramifice.mixins import JsonMixin
-from ramifice.store import FILE_INFO_DICT, IMG_INFO_DICT
+
+# For `FileField.value`.
+FILE_INFO_DICT: dict[str, str | int | bool] = dict(
+    path="",
+    url="",
+    name="",
+    size=0,
+    is_new_file=False,
+    is_delete=False,
+    extension="",
+    save_as_is=False,
+)
+
+# For `ImageField.value`.
+IMG_INFO_DICT: dict[str, str | int | bool] = dict(
+    path="",
+    path_xs="",
+    path_sm="",
+    path_md="",
+    path_lg="",
+    url="",
+    url_xs="",
+    url_sm="",
+    url_md="",
+    url_lg="",
+    name="",
+    width=0,
+    height=0,
+    size=0,
+    is_new_img=False,
+    is_delete=False,
+    extension="",
+    imgs_dir_path="",
+    imgs_dir_url="",
+    save_as_is=False,
+    ext_upper="",
+)
 
 
 class StandardTypes(JsonMixin):

@@ -15,7 +15,6 @@ from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .fixtures import apply_fixture
 from .model import Model
-from .store import FILE_INFO_DICT, IMG_INFO_DICT
 
 
 class Monitor:
@@ -137,13 +136,19 @@ class Monitor:
                         field_type = metadata["field_name_and_type"].get(field_name)
                         if field_type is not None:
                             if field_type == "FileField":
-                                file_data = FILE_INFO_DICT.copy()
-                                file_data["is_delete"] = True
-                                mongo_doc[field_name] = file_data
+                                file_info = {
+                                    "path": "",
+                                    "is_delete": True,
+                                    "save_as_is": False,
+                                }
+                                mongo_doc[field_name] = file_info
                             elif field_type == "ImageField":
-                                img_data = IMG_INFO_DICT.copy()
-                                img_data["is_delete"] = True
-                                mongo_doc[field_name] = img_data
+                                img_info = {
+                                    "path": "",
+                                    "is_delete": True,
+                                    "save_as_is": False,
+                                }
+                                mongo_doc[field_name] = img_info
                             else:
                                 mongo_doc[field_name] = None
                     #

@@ -46,7 +46,7 @@ class FileGroupMixin:
             return
         if not value["save_as_is"]:
             # If the file needs to be delete.
-            if value["is_delete"] and len(value.path) == 0:
+            if value["is_delete"] and len(value["path"]) == 0:
                 default = field.default or None
                 # If necessary, use the default value.
                 if default is not None:
