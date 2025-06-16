@@ -205,7 +205,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         # to value.
         self.value = img_info
 
-    # --------------------------------------------------------------------------
     def from_path(
         self,
         src_path: str | None = None,

@@ -146,7 +146,6 @@ class FileField(Field, FileGroup, JsonMixin):
         # to value.
         self.value = file_info
 
-    # --------------------------------------------------------------------------
     def from_path(
         self,
         src_path: str | None = None,
