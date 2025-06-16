@@ -46,6 +46,11 @@ class Model(metaclass=ABCMeta):
         )
         self.fields()
         self.inject()
+        if not self.__class__.META["is_migrate_model"]:
+            for _, f_type in self.__dict__.items():
+                if not callable(f_type):
+                    if f_type.group == "img":
+                        f_type.__dict__["add_width_height"] = True
 
     def __del__(self) -> None:  # noqa: D105
         # If the model is not migrated,

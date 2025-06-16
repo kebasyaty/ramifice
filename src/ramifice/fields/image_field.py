@@ -4,7 +4,7 @@ import os
 import shutil
 import uuid
 from base64 import b64decode
-from datetime import datetime
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -135,7 +135,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         base64_str: str | None = None,
         filename: str | None = None,
         is_delete: bool = False,
-        add_wh: bool = False,
     ) -> None:
         """Convert base64 to a image,
         get image information and save in the target directory.
@@ -159,7 +158,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            date_str: str = str(date.today())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -181,7 +180,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
-            if add_wh:
+            if self.__dict__.get("add_width_height", False):
                 with Image.open(main_img_path) as img:
                     width, height = img.size
                     img_info["width"] = width
@@ -209,7 +208,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         self,
         src_path: str | None = None,
         is_delete: bool = False,
-        add_wh: bool = False,
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
@@ -224,7 +222,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 msg = f"The image `{src_path}` has no extension."
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str = datetime.now().strftime("%Y-%m-%d")
+            date_str: str = str(date.today())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -244,7 +242,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add width and height.
-            if add_wh:
+            if self.__dict__.get("add_width_height", False):
                 with Image.open(main_img_path) as img:
                     width, height = img.size
                     img_info["width"] = width

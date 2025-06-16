@@ -66,7 +66,6 @@ class TestDestructorModel(unittest.IsolatedAsyncioTestCase):
         user = User()
         user.avatar.from_path(
             src_path="public/media/default/no-photo.png",
-            add_wh=True,
         )
         user.resume.from_path(
             src_path="public/media/default/no_doc.odt",
