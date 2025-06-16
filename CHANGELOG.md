@@ -1,3 +1,8 @@
+#### v0.3.19 2025-06-16
+
+- For models that do not migrate, a destructor has been added to delete files and images.
+- Added small corrections and optimizations.
+
 #### v0.3.18 2025-06-15
 
 - Fixed README.md .
