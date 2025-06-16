@@ -12,6 +12,7 @@ from .hooks import HooksMixin
 from .indexing import IndexMixin
 from .model import Model
 from .paladins import CheckMixin, QPaladinsMixin, ValidationMixin  # type: ignore[attr-defined]
+from .pseudo_model import PseudoModel
 from .store import REGEX
 
 
@@ -55,7 +56,10 @@ def model(
                 raise PanicError(msg)
 
         attrs = {key: val for key, val in cls.__dict__.items()}
-        attrs["__dict__"] = Model.__dict__["__dict__"]
+        if is_migrate_model:
+            attrs["__dict__"] = Model.__dict__["__dict__"]
+        else:
+            attrs["__dict__"] = PseudoModel.__dict__["__dict__"]
         metadata = {
             "service_name": service_name,
             "fixture_name": fixture_name,
@@ -67,7 +71,7 @@ def model(
         }
         attrs["META"] = {
             **metadata,
-            **caching(cls, service_name),
+            **caching(cls, service_name, is_migrate_model),
         }
 
         if is_migrate_model:
@@ -87,7 +91,7 @@ def model(
             return type(
                 cls.__name__,
                 (
-                    Model,
+                    PseudoModel,
                     ValidationMixin,
                     CheckMixin,
                     AddValidMixin,
@@ -98,7 +102,7 @@ def model(
     return decorator
 
 
-def caching(cls: Any, service_name: str) -> dict[str, Any]:
+def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, Any]:
     """Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name = cls.__name__
@@ -122,11 +126,10 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
 
     raw_model = cls()
     raw_model.fields()
-    default_fields: dict[str, Any] = {
-        "_id": IDField(),
-        "created_at": DateTimeField(),
-        "updated_at": DateTimeField(),
-    }
+    default_fields: dict[str, Any] = {"_id": IDField()}
+    if is_migrate_model:
+        default_fields["created_at"] = DateTimeField()
+        default_fields["updated_at"] = DateTimeField()
     fields = {**raw_model.__dict__, **default_fields}
     for f_name, f_type in fields.items():
         if not callable(f_type):
@@ -141,7 +144,8 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
             #
             if not f_type.ignored:
                 # Count fields for migrating.
-                count_fields_for_migrating += 1
+                if is_migrate_model:
+                    count_fields_for_migrating += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
