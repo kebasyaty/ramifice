@@ -144,7 +144,8 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
             #
             if not f_type.ignored:
                 # Count fields for migrating.
-                count_fields_for_migrating += 1
+                if is_migrate_model:
+                    count_fields_for_migrating += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.

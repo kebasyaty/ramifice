@@ -40,7 +40,7 @@ class TestPseudoModel(unittest.TestCase):
         self.user_meta = {
             "collection_name": "Accounts_User",
             "count_all_fields": 3,
-            "count_fields_for_migrating": 3,
+            "count_fields_for_migrating": 0,
             "data_dynamic_fields": {"favorite_color": None},
             "db_query_docs_limit": 1000,
             "field_attrs": {
@@ -68,7 +68,7 @@ class TestPseudoModel(unittest.TestCase):
         self.user_profile_meta = {
             "collection_name": "Profiles_UserProfile",
             "count_all_fields": 2,
-            "count_fields_for_migrating": 2,
+            "count_fields_for_migrating": 0,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
