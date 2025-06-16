@@ -142,7 +142,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        img_info = store.IMG_INFO_DICT.copy()
+        img_info: dict[str, str | int | bool] = {"save_as_is": False}
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
@@ -201,11 +201,10 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
             img_info["size"] = os.path.getsize(main_img_path)
-
+        #
         # to value.
         self.value = img_info
 
-    # --------------------------------------------------------------------------
     def from_path(
         self,
         src_path: str | None = None,
@@ -214,7 +213,7 @@ class ImageField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
-        img_info = store.IMG_INFO_DICT.copy()
+        img_info: dict[str, str | int | bool] = {"save_as_is": False}
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
@@ -265,6 +264,6 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
             img_info["size"] = os.path.getsize(main_img_path)
-
+        #
         # to value.
         self.value = img_info

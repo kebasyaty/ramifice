@@ -96,7 +96,7 @@ def model(
 
 
 def caching(cls: Any, service_name: str) -> dict[str, Any]:
-    """Get additional metadata for `Model.META`."""
+    """Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name = cls.__name__
     if REGEX["model_name"].match(model_name) is None:
