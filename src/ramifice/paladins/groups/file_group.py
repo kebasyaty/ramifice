@@ -3,7 +3,6 @@
 Supported fields: FileField
 """
 
-import os
 from typing import Any
 
 from ... import translations

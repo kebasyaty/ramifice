@@ -3,7 +3,6 @@
 Supported fields: ImageField
 """
 
-import shutil
 from typing import Any
 
 from PIL import Image
