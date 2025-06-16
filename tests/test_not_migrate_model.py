@@ -1,6 +1,5 @@
 """Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
-import pprint
 import unittest
 
 from ramifice import model
@@ -40,25 +39,21 @@ class TestPseudoModel(unittest.TestCase):
         """Set date for testing."""
         self.user_meta = {
             "collection_name": "Accounts_User",
-            "count_all_fields": 5,
-            "count_fields_for_migrating": 5,
+            "count_all_fields": 3,
+            "count_fields_for_migrating": 3,
             "data_dynamic_fields": {"favorite_color": None},
             "db_query_docs_limit": 1000,
             "field_attrs": {
                 "_id": {"id": "User--id", "name": "_id"},
-                "created_at": {"id": "User--created-at", "name": "created_at"},
                 "favorite_color": {
                     "id": "User--favorite-color",
                     "name": "favorite_color",
                 },
-                "updated_at": {"id": "User--updated-at", "name": "updated_at"},
                 "username": {"id": "User--username", "name": "username"},
             },
             "field_name_and_type": {
                 "_id": "IDField",
-                "created_at": "DateTimeField",
                 "favorite_color": "ChoiceTextDynField",
-                "updated_at": "DateTimeField",
                 "username": "TextField",
             },
             "fixture_name": None,
@@ -72,21 +67,17 @@ class TestPseudoModel(unittest.TestCase):
         }
         self.user_profile_meta = {
             "collection_name": "Profiles_UserProfile",
-            "count_all_fields": 4,
-            "count_fields_for_migrating": 4,
+            "count_all_fields": 2,
+            "count_fields_for_migrating": 2,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
                 "_id": {"id": "UserProfile--id", "name": "_id"},
-                "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
                 "profession": {"id": "UserProfile--profession", "name": "profession"},
-                "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
             },
             "field_name_and_type": {
                 "_id": "IDField",
-                "created_at": "DateTimeField",
                 "profession": "TextField",
-                "updated_at": "DateTimeField",
             },
             "fixture_name": None,
             "full_model_name": "tests.test_not_migrate_model.UserProfile",
@@ -114,8 +105,8 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.User")
 
         self.assertIsNone(m._id.value)
-        self.assertIsNone(m.created_at.value)
-        self.assertIsNone(m.updated_at.value)
+        self.assertIsNone(m.__dict__.get("created_at"))
+        self.assertIsNone(m.__dict__.get("updated_at"))
         self.assertIsNone(m.username.value)
         self.assertIsNone(m.favorite_color.value)
         self.assertEqual(m.username.id, "User--username")
@@ -136,8 +127,8 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.UserProfile")
 
         self.assertIsNone(m._id.value)
-        self.assertIsNone(m.created_at.value)
-        self.assertIsNone(m.updated_at.value)
+        self.assertIsNone(m.__dict__.get("created_at"))
+        self.assertIsNone(m.__dict__.get("updated_at"))
         self.assertIsNone(m.profession.value)
         self.assertEqual(m.profession.id, "UserProfile--profession")
         self.assertEqual(m.profession.name, "profession")
