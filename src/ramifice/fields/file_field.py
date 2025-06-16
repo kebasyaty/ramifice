@@ -102,7 +102,7 @@ class FileField(Field, FileGroup, JsonMixin):
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        file_info = store.FILE_INFO_DICT.copy()
+        file_info: dict[str, str | int | bool] = {"save_as_is": False}
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 
@@ -154,7 +154,7 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        file_info = store.FILE_INFO_DICT.copy()
+        file_info: dict[str, str | int | bool] = {"save_as_is": False}
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 

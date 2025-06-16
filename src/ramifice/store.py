@@ -44,18 +44,6 @@ REGEX: dict[str, re.Pattern] = {
     "password": re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
 }
 
-# Caching a dictionary to transmit information about the file.
-# Hint: `FileField.value`.
-FILE_INFO_DICT: dict[str, str | int | bool] = dict(
-    path="",
-    url="",
-    name="",
-    size=0,
-    is_new_file=False,
-    is_delete=False,
-    extension="",
-    save_as_is=False,
-)
 
 # Caching a dictionary to transmit information about the image.
 # Hint: `ImageField.value`.
