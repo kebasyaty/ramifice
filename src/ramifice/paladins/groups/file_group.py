@@ -67,12 +67,6 @@ class FileGroupMixin:
                 )
                 accumulate_error(params["full_model_name"], err_msg, params)
                 return
-            # Return if there is no need to save.
-            if not params["is_save"]:
-                if value["is_new_file"]:
-                    os.remove(value["path"])
-                    params["field_data"].value = None
-                return
         # Insert result.
         if params["is_save"] and (value["is_new_file"] or value["save_as_is"]):
             value["is_delete"] = False

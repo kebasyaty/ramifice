@@ -69,12 +69,6 @@ class ImgGroupMixin:
                 )
                 accumulate_error(params["full_model_name"], err_msg, params)
                 return
-            # Return if there is no need to save.
-            if not params["is_save"]:
-                if value["is_new_img"]:
-                    shutil.rmtree(value["imgs_dir_path"])
-                    params["field_data"].value = None
-                return
             # Create thumbnails.
             if value["is_new_img"]:
                 thumbnails = field.thumbnails
