@@ -142,7 +142,7 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = os.path.getsize(f_target_path)
-
+        #
         # to value.
         self.value = file_info
 
@@ -186,6 +186,6 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = os.path.getsize(f_target_path)
-
+        #
         # to value.
         self.value = file_info
