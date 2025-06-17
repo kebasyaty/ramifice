@@ -1,8 +1,8 @@
-## Project manager
+### Project manager
 
 - [uv](https://astral.sh/ "uv")
 
-## Dependencies
+### Dependencies
 
 - [pymongo](https://pypi.org/project/pymongo/ "pymongo")
 - [pillow](https://pypi.org/project/pillow/ "pillow")
@@ -15,7 +15,7 @@
 - [Babel](https://pypi.org/project/Babel/ "Babel")
 - [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
 
-## Dev-Dependencies
+### Dev-Dependencies
 
 - [ruff](https://pypi.org/project/ruff/ "ruff")
 - [mypy](https://pypi.org/project/mypy/ "mypy")
