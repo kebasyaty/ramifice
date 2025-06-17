@@ -31,31 +31,34 @@ class PseudoModel(metaclass=ABCMeta):
             hide=True,
             disabled=True,
         )
-        self.remove_files: bool = True
         self.fields()
         self.inject()
+
         for _, f_type in self.__dict__.items():
             if not callable(f_type):
                 if f_type.group == "img":
                     f_type.__dict__["add_width_height"] = True
 
+        self.remove_files: bool = True
+
     def __del__(self) -> None:  # noqa: D105
         # If the model is not migrated,
         # it must delete files and images in the destructor.
         if self.remove_files:
-            for _, f_type in self.__dict__.items():
-                if not callable(f_type):
-                    value = f_type.value
-                    if value is None:
-                        continue
-                    if f_type.group == "file":
-                        value = value.get("path")
-                        if value is not None:
-                            os.remove(value)
-                    elif f_type.group == "img":
-                        value = value.get("imgs_dir_path")
-                        if value is not None:
-                            shutil.rmtree(value)
+            for f_name, f_type in self.__dict__.items():
+                if callable(f_type) or f_name == "remove_files":
+                    continue
+                value = f_type.value
+                if value is None:
+                    continue
+                if f_type.group == "file":
+                    value = value.get("path")
+                    if value is not None:
+                        os.remove(value)
+                elif f_type.group == "img":
+                    value = value.get("imgs_dir_path")
+                    if value is not None:
+                        shutil.rmtree(value)
 
     @abstractmethod
     def fields(self) -> None:
@@ -77,7 +80,7 @@ class PseudoModel(metaclass=ABCMeta):
         if bool(metadata):
             field_attrs = metadata["field_attrs"]
             for f_name, f_type in self.__dict__.items():
-                if callable(f_type) or f_name == "remove_files":
+                if callable(f_type):
                     continue
                 f_type.id = field_attrs[f_name]["id"]
                 f_type.name = field_attrs[f_name]["name"]
@@ -126,7 +129,6 @@ class PseudoModel(metaclass=ABCMeta):
         for name, data in self.__dict__.items():
             if callable(data) or name == "remove_files":
                 continue
-
             value = data.value
             if value is not None:
                 group = data.group
