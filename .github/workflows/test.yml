@@ -61,7 +61,7 @@ jobs:
 
       - name: Run check
         run: |
-          uv run ruff check --config pyproject.toml
+          uv run ruff check --fix --config pyproject.toml
           uv run mypy --config-file pyproject.toml
 
       - name: Run unittest

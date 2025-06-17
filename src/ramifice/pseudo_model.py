@@ -30,6 +30,7 @@ class PseudoModel(metaclass=ABCMeta):
             hide=True,
             disabled=True,
         )
+        self.remove_files: bool = True
         self.fields()
         self.inject()
         for _, f_type in self.__dict__.items():
@@ -40,19 +41,20 @@ class PseudoModel(metaclass=ABCMeta):
     def __del__(self) -> None:  # noqa: D105
         # If the model is not migrated,
         # it must delete files and images in the destructor.
-        for _, f_type in self.__dict__.items():
-            if not callable(f_type):
-                value = f_type.value
-                if value is None:
-                    continue
-                if f_type.group == "file":
-                    value = value.get("path")
-                    if value is not None:
-                        os.remove(value)
-                elif f_type.group == "img":
-                    value = value.get("imgs_dir_path")
-                    if value is not None:
-                        shutil.rmtree(value)
+        if self.remove_files:
+            for _, f_type in self.__dict__.items():
+                if not callable(f_type):
+                    value = f_type.value
+                    if value is None:
+                        continue
+                    if f_type.group == "file":
+                        value = value.get("path")
+                        if value is not None:
+                            os.remove(value)
+                    elif f_type.group == "img":
+                        value = value.get("imgs_dir_path")
+                        if value is not None:
+                            shutil.rmtree(value)
 
     @abstractmethod
     def fields(self) -> None:

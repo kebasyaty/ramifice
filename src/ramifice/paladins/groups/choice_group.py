@@ -32,14 +32,14 @@ class ChoiceGroupMixin:
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Does the field value match the possible options in choices.
         if not field.has_value():
             err_msg = translations._("Your choice does not match the options offered !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

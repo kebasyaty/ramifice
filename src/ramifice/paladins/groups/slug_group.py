@@ -51,11 +51,7 @@ class SlugGroupMixin:
             # Convert to slug.
             value = slugify("-".join(raw_str_list))
             # Validation of uniqueness of the value.
-            if not await check_uniqueness(
-                self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
-                value,
-                params,
-            ):
+            if not await check_uniqueness(value, params):
                 err_msg = (
                     f"Model: `{params['full_model_name']}` > "
                     + f"Field: `{field.name}` > "

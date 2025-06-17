@@ -45,11 +45,12 @@ class CheckMixin(
         It is also used to verify Models that do not migrate to the database.
         """
         cls_model = self.__class__
-        if not cls_model.META["is_migrate_model"] and is_save:  # type: ignore[attr-defined]
+        is_migrate_model: bool = cls_model.META["is_migrate_model"]  # type: ignore[attr-defined]
+        if not is_migrate_model and is_save:
             msg = (
                 f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
                 + "Method: `check` => "
-                + "For a non-migrating Model, the `is_save` parameter cannot be equal to `True`!"
+                + "For a non -migrating Model, the `is_save` parameter must be equal to` False` !"
             )
             raise PanicError(msg)
         # Get the document ID.
@@ -78,6 +79,7 @@ class CheckMixin(
             "collection": collection,
             "field_data": None,
             "full_model_name": cls_model.META["full_model_name"],  # type: ignore[attr-defined]
+            "is_migrate_model": is_migrate_model,
         }
         #
         # Run checking fields.
