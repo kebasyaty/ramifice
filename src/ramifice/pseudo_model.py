@@ -38,23 +38,22 @@ class PseudoModel(metaclass=ABCMeta):
             if not callable(f_type) and f_type.group == "img":
                 f_type.__dict__["add_width_height"] = True
 
-    def __del__(self, remove_files: bool = True) -> None:  # noqa: D105
+    def __del__(self) -> None:  # noqa: D105
         # If the model is not migrated,
         # it must delete files and images in the destructor.
-        if remove_files:
-            for f_name, f_type in self.__dict__.items():
-                if callable(f_type):
-                    continue
-                value = f_type.value
-                if value is not None:
-                    if f_type.group == "file":
-                        value = value.get("path")
-                        if value is not None:
-                            os.remove(value)
-                    elif f_type.group == "img":
-                        value = value.get("imgs_dir_path")
-                        if value is not None:
-                            shutil.rmtree(value)
+        for _, f_type in self.__dict__.items():
+            if callable(f_type):
+                continue
+            value = f_type.value
+            if value is not None:
+                if f_type.group == "file":
+                    value = value.get("path")
+                    if value is not None:
+                        os.remove(value)
+                elif f_type.group == "img":
+                    value = value.get("imgs_dir_path")
+                    if value is not None:
+                        shutil.rmtree(value)
 
     @abstractmethod
     def fields(self) -> None:
