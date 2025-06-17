@@ -11,6 +11,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from . import translations
+from .errors import PanicError
 from .fields import IDField  # type: ignore[attr-defined]
 
 
@@ -32,19 +33,19 @@ class PseudoModel(metaclass=ABCMeta):
         )
         self.fields()
         self.inject()
+
         for _, f_type in self.__dict__.items():
-            if not callable(f_type):
-                if f_type.group == "img":
-                    f_type.__dict__["add_width_height"] = True
+            if not callable(f_type) and f_type.group == "img":
+                f_type.__dict__["add_width_height"] = True
 
     def __del__(self) -> None:  # noqa: D105
         # If the model is not migrated,
         # it must delete files and images in the destructor.
         for _, f_type in self.__dict__.items():
-            if not callable(f_type):
-                value = f_type.value
-                if value is None:
-                    continue
+            if callable(f_type):
+                continue
+            value = f_type.value
+            if value is not None:
                 if f_type.group == "file":
                     value = value.get("path")
                     if value is not None:
@@ -73,13 +74,18 @@ class PseudoModel(metaclass=ABCMeta):
         metadata = self.__class__.META
         if bool(metadata):
             field_attrs = metadata["field_attrs"]
-            data_dynamic_fields = metadata["data_dynamic_fields"]
             for f_name, f_type in self.__dict__.items():
-                if not callable(f_type):
-                    f_type.id = field_attrs[f_name]["id"]
-                    f_type.name = field_attrs[f_name]["name"]
-                    if "Dyn" in f_type.field_type:
-                        f_type.choices = data_dynamic_fields[f_name]
+                if callable(f_type):
+                    continue
+                f_type.id = field_attrs[f_name]["id"]
+                f_type.name = field_attrs[f_name]["name"]
+                if "Dyn" in f_type.field_type:
+                    msg = (
+                        f"Model: `{metadata['full_model_name']}` > "
+                        + f"Field: `{f_name}` => "
+                        + "Dynamic field only for a migrated Model."
+                    )
+                    raise PanicError(msg)
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------

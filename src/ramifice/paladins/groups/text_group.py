@@ -28,12 +28,12 @@ class TextGroupMixin:
         value = field.value or field.default or None
 
         if not isinstance(value, (str, type(None))):
-            panic_type_error(params["full_model_name"], "str | None", params)
+            panic_type_error("str | None", params)
 
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -41,15 +41,11 @@ class TextGroupMixin:
         maxlength: int | None = field.__dict__.get("maxlength")
         if maxlength is not None and len(value) > maxlength:
             err_msg = translations._("The length of the string exceeds maxlength=%d !" % maxlength)
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await check_uniqueness(
-            self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
-            value,
-            params,
-        ):
+        if field.unique and not await check_uniqueness(value, params):
             err_msg = translations._("Is not unique !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Validation Email, Url, IP, Color, Phone.
         field_type = field.field_type
         if "Email" in field_type:
@@ -62,19 +58,19 @@ class TextGroupMixin:
                 params["field_data"].value = value
             except EmailNotValidError:
                 err_msg = translations._("Invalid Email address !")
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
         elif "URL" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid URL address !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         elif "IP" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid IP address !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         elif "Color" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid Color code !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         elif "Phone" in field_type and not field.is_valid(value):
             err_msg = translations._("Invalid Phone number !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value

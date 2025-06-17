@@ -3,7 +3,7 @@
 import unittest
 
 from ramifice import model
-from ramifice.fields import ChoiceTextDynField, TextField
+from ramifice.fields import ChoiceTextField, TextField
 from ramifice.model import Model
 
 
@@ -17,7 +17,7 @@ class User:
     def fields(self):
         """For adding fields."""
         self.username = TextField()
-        self.favorite_color = ChoiceTextDynField()
+        self.favorite_color = ChoiceTextField()
 
 
 @model(
@@ -40,8 +40,8 @@ class TestPseudoModel(unittest.TestCase):
         self.user_meta = {
             "collection_name": "Accounts_User",
             "count_all_fields": 3,
-            "count_fields_for_migrating": 0,
-            "data_dynamic_fields": {"favorite_color": None},
+            "count_fields_no_ignored": 0,
+            "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
                 "_id": {"id": "User--id", "name": "_id"},
@@ -53,7 +53,7 @@ class TestPseudoModel(unittest.TestCase):
             },
             "field_name_and_type": {
                 "_id": "IDField",
-                "favorite_color": "ChoiceTextDynField",
+                "favorite_color": "ChoiceTextField",
                 "username": "TextField",
             },
             "fixture_name": None,
@@ -68,7 +68,7 @@ class TestPseudoModel(unittest.TestCase):
         self.user_profile_meta = {
             "collection_name": "Profiles_UserProfile",
             "count_all_fields": 2,
-            "count_fields_for_migrating": 0,
+            "count_fields_no_ignored": 0,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {

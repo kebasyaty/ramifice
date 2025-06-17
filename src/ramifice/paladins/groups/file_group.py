@@ -22,7 +22,7 @@ class FileGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
-            panic_type_error(params["full_model_name"], "dict | None", params)
+            panic_type_error("dict | None", params)
 
         if not params["is_update"]:
             if value is None:
@@ -36,7 +36,7 @@ class FileGroupMixin:
                 if value is None:
                     if field.required:
                         err_msg = translations._("Required field !")
-                        accumulate_error(params["full_model_name"], err_msg, params)
+                        accumulate_error(err_msg, params)
                     if params["is_save"]:
                         params["result_map"][field.name] = None
                     return
@@ -57,14 +57,14 @@ class FileGroupMixin:
                             params["result_map"][field.name] = None
                     else:
                         err_msg = translations._("Required field !")
-                        accumulate_error(params["full_model_name"], err_msg, params)
+                        accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 err_msg = translations._(
                     "File size exceeds the maximum value %s !" % to_human_size(field.max_size)
                 )
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
                 return
         # Insert result.
         if params["is_save"] and (value["is_new_file"] or value["save_as_is"]):

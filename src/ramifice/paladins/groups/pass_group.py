@@ -28,24 +28,24 @@ class PassGroupMixin:
         value = field.value or None
 
         if not isinstance(value, (str, type(None))):
-            panic_type_error(params["full_model_name"], "str | None", params)
+            panic_type_error("str | None", params)
 
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Validation Passwor.
         if not field.is_valid(value):
             err_msg = translations._("Invalid Password !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
             chars = "a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
             err_msg = translations._("Valid characters: %s" % chars)
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
             err_msg = translations._("Number of characters: from 8 to 256")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
             ph = PasswordHasher()

@@ -27,15 +27,15 @@ class NumGroupMixin:
 
         if "Float" in field.field_type:
             if not isinstance(value, (float, type(None))):
-                panic_type_error(params["full_model_name"], "float | None", params)
+                panic_type_error("float | None", params)
         else:
             if not isinstance(value, (int, type(None))):
-                panic_type_error(params["full_model_name"], "int | None", params)
+                panic_type_error("int | None", params)
 
         if value is None:
             if field.required:
                 err_msg = translations._("Required field !")
-                accumulate_error(params["full_model_name"], err_msg, params)
+                accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
@@ -45,22 +45,18 @@ class NumGroupMixin:
             err_msg = translations._(
                 "The value %d must not be greater than max=%d !" % value, max_number
             )
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
             err_msg = translations._(
                 "The value %d must not be less than min=%d !" % value, min_number
             )
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await check_uniqueness(
-            self.__class__.META["is_migrate_model"],  # type: ignore[attr-defined]
-            value,
-            params,
-        ):
+        if field.unique and not await check_uniqueness(value, params):
             err_msg = translations._("Is not unique !")
-            accumulate_error(params["full_model_name"], err_msg, params)
+            accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
             params["result_map"][field.name] = value
