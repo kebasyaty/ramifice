@@ -1,9 +1,9 @@
-- [ruff](https://pypi.org/project/ruff/ "ruff")
-- [mypy](https://pypi.org/project/mypy/ "mypy")
-- [poetry](https://pypi.org/project/poetry/ "poetry")
-- [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
-- [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
-- [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
+## Project manager
+
+- [uv](https://astral.sh/ "uv")
+
+## Dependencies
+
 - [pymongo](https://pypi.org/project/pymongo/ "pymongo")
 - [pillow](https://pypi.org/project/pillow/ "pillow")
 - [phonenumbers](https://pypi.org/project/phonenumbers/ "phonenumbers")
@@ -14,3 +14,11 @@
 - [pyyaml](https://pypi.org/project/PyYAML/ "pyyaml")
 - [Babel](https://pypi.org/project/Babel/ "Babel")
 - [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
+
+## Dev-Dependencies
+
+- [ruff](https://pypi.org/project/ruff/ "ruff")
+- [mypy](https://pypi.org/project/mypy/ "mypy")
+- [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
+- [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
+- [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
