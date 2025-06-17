@@ -11,6 +11,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from . import translations
+from .errors import PanicError
 from .fields import IDField  # type: ignore[attr-defined]
 
 
@@ -75,13 +76,18 @@ class PseudoModel(metaclass=ABCMeta):
         metadata = self.__class__.META
         if bool(metadata):
             field_attrs = metadata["field_attrs"]
-            data_dynamic_fields = metadata["data_dynamic_fields"]
             for f_name, f_type in self.__dict__.items():
-                if not callable(f_type):
-                    f_type.id = field_attrs[f_name]["id"]
-                    f_type.name = field_attrs[f_name]["name"]
-                    if "Dyn" in f_type.field_type:
-                        f_type.choices = data_dynamic_fields[f_name]
+                if callable(f_type) or f_name == "remove_files":
+                    continue
+                f_type.id = field_attrs[f_name]["id"]
+                f_type.name = field_attrs[f_name]["name"]
+                if "Dyn" in f_type.field_type:
+                    msg = (
+                        f"Model: `{metadata['full_model_name']}` > "
+                        + f"Field: `{f_name}` => "
+                        + "Dynamic field only for a migrated Model."
+                    )
+                    raise PanicError(msg)
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
@@ -89,8 +95,9 @@ class PseudoModel(metaclass=ABCMeta):
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
-            if not callable(data):
-                json_dict[name] = data.to_dict()
+            if callable(data) or name == "remove_files":
+                continue
+            json_dict[name] = data.to_dict()
         return json_dict
 
     def to_json(self) -> str:
@@ -117,8 +124,9 @@ class PseudoModel(metaclass=ABCMeta):
         json_dict: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
         for name, data in self.__dict__.items():
-            if callable(data):
+            if callable(data) or name == "remove_files":
                 continue
+
             value = data.value
             if value is not None:
                 group = data.group

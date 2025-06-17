@@ -150,6 +150,13 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
                 if "Dyn" in f_type.field_type:
+                    if not is_migrate_model:
+                        msg = (
+                            f"Model: `{cls.__module__}.{model_name}` > "
+                            + f"Field: `{f_name}` => "
+                            + "Dynamic field only for a migrated Model."
+                        )
+                        raise PanicError(msg)
                     data_dynamic_fields[f_name] = None
 
     metadata["field_name_and_type"] = field_name_and_type
