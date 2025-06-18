@@ -39,12 +39,11 @@ class TestPseudoModel(unittest.TestCase):
         """Set date for testing."""
         self.user_meta = {
             "collection_name": "Accounts_User",
-            "count_all_fields": 3,
+            "count_all_fields": 2,
             "count_fields_no_ignored": 0,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
-                "_id": {"id": "User--id", "name": "_id"},
                 "favorite_color": {
                     "id": "User--favorite-color",
                     "name": "favorite_color",
@@ -52,7 +51,6 @@ class TestPseudoModel(unittest.TestCase):
                 "username": {"id": "User--username", "name": "username"},
             },
             "field_name_and_type": {
-                "_id": "IDField",
                 "favorite_color": "ChoiceTextField",
                 "username": "TextField",
             },
@@ -67,16 +65,14 @@ class TestPseudoModel(unittest.TestCase):
         }
         self.user_profile_meta = {
             "collection_name": "Profiles_UserProfile",
-            "count_all_fields": 2,
+            "count_all_fields": 1,
             "count_fields_no_ignored": 0,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
-                "_id": {"id": "UserProfile--id", "name": "_id"},
                 "profession": {"id": "UserProfile--profession", "name": "profession"},
             },
             "field_name_and_type": {
-                "_id": "IDField",
                 "profession": "TextField",
             },
             "fixture_name": None,
@@ -104,7 +100,7 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.User")
 
-        self.assertIsNone(m._id.value)
+        self.assertIsNone(m.__dict__.get("_id"))
         self.assertIsNone(m.__dict__.get("created_at"))
         self.assertIsNone(m.__dict__.get("updated_at"))
         self.assertIsNone(m.username.value)
@@ -126,7 +122,7 @@ class TestPseudoModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "UserProfile")
         self.assertEqual(m.full_model_name(), "tests.test_not_migrate_model.UserProfile")
 
-        self.assertIsNone(m._id.value)
+        self.assertIsNone(m.__dict__.get("_id"))
         self.assertIsNone(m.__dict__.get("created_at"))
         self.assertIsNone(m.__dict__.get("updated_at"))
         self.assertIsNone(m.profession.value)
