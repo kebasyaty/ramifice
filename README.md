@@ -214,20 +214,9 @@ uv run pybabel compile -d config/translations/custom
 uv run pybabel extract -o config/translations/custom.pot src
 uv run pybabel update -i config/translations/custom.pot -d config/translations/custom
 uv run pybabel compile -d config/translations/custom
-#
-# Add new languages ​​to Ramifice:
-# Example:
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
-...
-uv run pybabel compile -d config/translations/ramifice
-# Update translations to Ramifice:
-uv run pybabel extract -o config/translations/ramifice.pot ramifice
-uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
-uv run pybabel compile -d config/translations/ramifice
 ```
 
-#### How add new languages ​​to Ramifice ?
+#### How to add new languages ​​to Ramifice ?
 
 ```shell
 cd project_name
