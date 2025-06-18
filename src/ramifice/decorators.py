@@ -126,8 +126,9 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
 
     raw_model = cls()
     raw_model.fields()
-    default_fields: dict[str, Any] = {"_id": IDField()}
+    default_fields: dict[str, Any] = {}
     if is_migrate_model:
+        default_fields["_id"] = IDField()
         default_fields["created_at"] = DateTimeField()
         default_fields["updated_at"] = DateTimeField()
     fields = {**raw_model.__dict__, **default_fields}

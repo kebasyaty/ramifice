@@ -12,7 +12,6 @@ from dateutil.parser import parse
 
 from . import translations
 from .errors import PanicError
-from .fields import IDField  # type: ignore[attr-defined]
 
 
 class PseudoModel(metaclass=ABCMeta):
@@ -24,13 +23,6 @@ class PseudoModel(metaclass=ABCMeta):
     META: dict[str, Any] = {}
 
     def __init__(self) -> None:  # noqa: D107
-        self._id = IDField(
-            label="Stub",
-            placeholder="Stub",
-            hint="Stub",
-            hide=True,
-            disabled=True,
-        )
         self.fields()
         self.inject()
 

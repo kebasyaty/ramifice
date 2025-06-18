@@ -46,6 +46,7 @@ class CheckMixin(
         """
         cls_model = self.__class__
         is_migrate_model: bool = cls_model.META["is_migrate_model"]  # type: ignore[attr-defined]
+
         if not is_migrate_model and is_save:
             msg = (
                 f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
@@ -53,16 +54,19 @@ class CheckMixin(
                 + "For a non -migrating Model, the `is_save` parameter must be equal to` False` !"
             )
             raise PanicError(msg)
-        # Get the document ID.
-        doc_id: ObjectId | None = self._id.value  # type: ignore[attr-defined]
-        # Does the document exist in the database?
-        is_update: bool = doc_id is not None
-        # Create an identifier for a new document.
-        if not is_update:
-            doc_id = ObjectId()
-        if is_save and not is_update:
-            self._id.value = doc_id  # type: ignore[attr-defined]
-        #
+
+        doc_id: ObjectId | None = None
+        is_update: bool = False
+        if is_migrate_model:
+            # Get the document ID.
+            doc_id = self._id.value  # type: ignore[attr-defined]
+            # Does the document exist in the database?
+            is_update = doc_id is not None
+            # Create an identifier for a new document.
+            if is_save and not is_update:
+                doc_id = ObjectId()
+                self._id.value = doc_id  # type: ignore[attr-defined]
+
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
         error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
@@ -81,7 +85,7 @@ class CheckMixin(
             "full_model_name": cls_model.META["full_model_name"],  # type: ignore[attr-defined]
             "is_migrate_model": is_migrate_model,
         }
-        #
+
         # Run checking fields.
         for field_name, field_data in self.__dict__.items():
             if callable(field_data):
