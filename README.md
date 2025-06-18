@@ -104,6 +104,7 @@ from ramifice.migration import Monitor
 @model(service_name="Accounts")
 class User:
     def fields(self):
+        # For custom translations.
         gettext = translations.gettext
         # ngettext = translations.ngettext
         self.avatar = ImageField(
