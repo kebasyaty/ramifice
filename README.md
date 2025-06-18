@@ -193,7 +193,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### How to create custom translations
+### How to create custom translations ?
 
 ```python
 from ramifice import translations
@@ -227,7 +227,7 @@ uv run pybabel update -i config/translations/ramifice.pot -d config/translations
 uv run pybabel compile -d config/translations/ramifice
 ```
 
-#### Add new languages ​​to Ramifice
+#### How add new languages ​​to Ramifice ?
 
 ```shell
 cd project_name
