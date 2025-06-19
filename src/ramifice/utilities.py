@@ -29,13 +29,17 @@ def to_human_size(size: int) -> str:
 
 
 def get_file_size(path: str) -> int:
-    """Get human readable version of file size."""
+    """Get file size in bytes."""
     size: int = os.path.getsize(path)
     return size
 
 
 def normal_email(email: str | None) -> str | None:
-    """Normalizing email address."""
+    """Normalizing email address.
+    
+    Use this before requeste to a database.
+    For example, on the login page.
+    """
     normal: str | None = None
     try:
         emailinfo = validate_email(str(email), check_deliverability=False)

@@ -498,34 +498,47 @@ from ramifice.utilities import (
     to_human_size,
 )
 
+# Validate Password.
 if is_password("12345678"):
     ...
 
+# Validate Email address.
 if is_email("kebasyaty@gmail.com"):
     ...
 
+# Normalizing email address.
+# Use this before requeste to a database.
+# For example, on the login page.
 email: str | None = normal_email("kebasyaty@gmail.com")  # None, if not valid
 
+# Validate URL address.
 if is_url("https://www.google.com"):
     ...
 
+# Validate IP address.
 if is_ip("127.0.0.1"):
     ...
 
+# Validate Color code.
 if is_color("#000"):
     ...
 
+# Validate Phone number.
 if is_phone("+447986123456"):
     ...
 
+# Validation of the Mongodb identifier.
 if is_mongo_id("666f6f2d6261722d71757578"):
     ...
 
+# Get ObjectId from hash string.
 from bson.objectid import ObjectId
 _id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
 
+# Convert number of bytes to readable format.
 size: str = to_human_size(2097152)  # => 2.0 MB
 
+# Get file size in bytes.
 path = "public/media/default/no_doc.odt"
 size: int = get_file_size(path)  # => 9843
 ```
