@@ -475,7 +475,7 @@ await user.delete(remove_files=False)
 # Verification, replacement and recoverang of password.
 user = User()
 await user.verify_password(password="12345678")
-await user.update_password(  # uses verify_password
+await user.update_password(  # + verify_password
   old_password="12345678",
   new_password="O2eA4GIr38KGGlS",
 )
@@ -504,7 +504,7 @@ if is_password("12345678"):
 if is_email("kebasyaty@gmail.com"):
     ...
 
-email = normal_email("kebasyaty@gmail.com")  # + validate_email
+email: str | None = normal_email("kebasyaty@gmail.com")  # None, if not valid
 
 if is_url("https://www.google.com"):
     ...
