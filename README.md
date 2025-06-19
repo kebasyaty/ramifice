@@ -484,7 +484,7 @@ await user.update_password(  # + verify_password
 ## General auxiliary methods
 
 ```python
-from ramifice.utilities import (
+from ramifice.tools import (
     get_file_size,
     hash_to_obj_id,
     is_color,

@@ -1,11 +1,11 @@
-"""Testing the module `ramifice.utilities`."""
+"""Testing the module `ramifice.tools`."""
 
 import unittest
 
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 
-from ramifice.utilities import (
+from ramifice.tools import (
     get_file_size,
     hash_to_obj_id,
     is_color,
@@ -21,7 +21,7 @@ from ramifice.utilities import (
 
 
 class TestTools(unittest.TestCase):
-    """Testing the module `ramifice.utilities`."""
+    """Testing the module `ramifice.tools`."""
 
     def test_is_password(self):
         """Testing a method `is_password`."""
