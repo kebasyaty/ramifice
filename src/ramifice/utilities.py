@@ -21,10 +21,10 @@ def to_human_size(size: int) -> str:
     return f"{size} {order}"
 
 
-def get_file_size(path: str) -> str:
+def get_file_size(path: str) -> int:
     """Get human readable version of file size."""
-    size = os.path.getsize(path)
-    return to_human_size(size)
+    size: int = os.path.getsize(path)
+    return size
 
 
 def normal_email(email: str) -> str | None:
