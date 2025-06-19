@@ -6,7 +6,7 @@ Supported fields: FileField
 from typing import Any
 
 from ... import translations
-from ...utilities import to_human_size
+from ...tools import to_human_size
 from ..tools import accumulate_error, panic_type_error
 
 
