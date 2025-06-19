@@ -86,10 +86,3 @@ class ColorField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.default = default
-
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate Color code."""
-        color_code = str(value or self.value or self.default)
-        if store.REGEX["color_code"].match(color_code) is None:
-            return False
-        return True

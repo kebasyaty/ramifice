@@ -34,7 +34,7 @@ def get_file_size(path: str) -> int:
     return size
 
 
-def normal_email(email: str) -> str | None:
+def normal_email(email: str | None) -> str | None:
     """Normalizing email address."""
     normal: str | None = None
     try:

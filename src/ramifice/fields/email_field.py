@@ -82,12 +82,3 @@ class EmailField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.default = default
-
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate Email address."""
-        email = str(value or self.value or self.default)
-        try:
-            validate_email(email, check_deliverability=True)
-        except EmailNotValidError:
-            return False
-        return True

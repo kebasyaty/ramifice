@@ -10,6 +10,7 @@ from typing import Any
 from email_validator import EmailNotValidError, validate_email
 
 from ... import translations
+from ...utilities import is_color, is_ip, is_phone, is_url
 from ..tools import accumulate_error, check_uniqueness, panic_type_error
 
 
@@ -59,16 +60,16 @@ class TextGroupMixin:
             except EmailNotValidError:
                 err_msg = translations._("Invalid Email address !")
                 accumulate_error(err_msg, params)
-        elif "URL" in field_type and not field.is_valid(value):
+        elif "URL" in field_type and not is_url(value):
             err_msg = translations._("Invalid URL address !")
             accumulate_error(err_msg, params)
-        elif "IP" in field_type and not field.is_valid(value):
+        elif "IP" in field_type and not is_ip(value):
             err_msg = translations._("Invalid IP address !")
             accumulate_error(err_msg, params)
-        elif "Color" in field_type and not field.is_valid(value):
+        elif "Color" in field_type and not is_color(value):
             err_msg = translations._("Invalid Color code !")
             accumulate_error(err_msg, params)
-        elif "Phone" in field_type and not field.is_valid(value):
+        elif "Phone" in field_type and not is_phone(value):
             err_msg = translations._("Invalid Phone number !")
             accumulate_error(err_msg, params)
         # Insert result.
