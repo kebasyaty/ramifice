@@ -106,7 +106,7 @@ class User:
     def fields(self):
         # For custom translations.
         gettext = translations.gettext
-        # ngettext = translations.ngettext
+        ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             default="public/media/default/no-photo.png",
@@ -479,6 +479,55 @@ await user.update_password(  # uses verify_password
   old_password="12345678",
   new_password="O2eA4GIr38KGGlS",
 )
+```
+
+## General auxiliary methods
+
+```python
+from ramifice.utilities import (
+    get_file_size,
+    hash_to_obj_id,
+    is_color,
+    is_email,
+    is_ip,
+    is_mongo_id,
+    is_password,
+    is_phone,
+    is_url,
+    normal_email,
+    to_human_size,
+)
+
+if is_password("12345678"):
+    ...
+
+if is_email("kebasyaty@gmail.com"):
+    ...
+
+email = normal_email("kebasyaty@gmail.com")  # + validate_email
+
+if is_url("https://www.google.com"):
+    ...
+
+if is_ip("127.0.0.1"):
+    ...
+
+if is_color("#000"):
+    ...
+
+if is_phone("+447986123456"):
+    ...
+
+if is_mongo_id("666f6f2d6261722d71757578"):
+    ...
+
+from bson.objectid import ObjectId
+_id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
+
+size: str = to_human_size(2097152)  # => 2.0 MB
+
+path = "public/media/default/no_doc.odt"
+size: int = get_file_size(path)  # => 9843
 ```
 
 ## Contributing

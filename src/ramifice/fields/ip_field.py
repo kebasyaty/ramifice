@@ -82,12 +82,3 @@ class IPField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.default = default
-
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate IP address."""
-        address = str(value or self.value or self.default)
-        try:
-            ipaddress.ip_address(address)
-        except ValueError:
-            return False
-        return True

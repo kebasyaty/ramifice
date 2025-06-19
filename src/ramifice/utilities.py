@@ -13,6 +13,13 @@ from email_validator import EmailNotValidError, validate_email
 from .store import REGEX
 
 
+def is_password(password: str | None) -> bool:
+    """Validate Password."""
+    if not REGEX["password"].match(str(password)):
+        return False
+    return True
+
+
 def to_human_size(size: int) -> str:
     """Convert number of bytes to readable format."""
     idx = int(math.floor(math.log(size) / math.log(1024)))
@@ -21,13 +28,13 @@ def to_human_size(size: int) -> str:
     return f"{size} {order}"
 
 
-def get_file_size(path: str) -> str:
+def get_file_size(path: str) -> int:
     """Get human readable version of file size."""
-    size = os.path.getsize(path)
-    return to_human_size(size)
+    size: int = os.path.getsize(path)
+    return size
 
 
-def normal_email(email: str) -> str | None:
+def normal_email(email: str | None) -> str | None:
     """Normalizing email address."""
     normal: str | None = None
     try:
@@ -38,7 +45,7 @@ def normal_email(email: str) -> str | None:
     return normal
 
 
-def is_email(email: str) -> bool:
+def is_email(email: str | None) -> bool:
     """Validate Email address."""
     try:
         validate_email(str(email), check_deliverability=True)
@@ -47,7 +54,7 @@ def is_email(email: str) -> bool:
     return True
 
 
-def is_url(url: str) -> bool:
+def is_url(url: str | None) -> bool:
     """Validate URL address."""
     result = urlparse(str(url))
     if not result.scheme or not result.netloc:
@@ -55,7 +62,7 @@ def is_url(url: str) -> bool:
     return True
 
 
-def is_ip(address: str | int) -> bool:
+def is_ip(address: str | int | None) -> bool:
     """Validate IP address."""
     try:
         ipaddress.ip_address(str(address))
@@ -64,14 +71,14 @@ def is_ip(address: str | int) -> bool:
     return True
 
 
-def is_color(color_code: str) -> bool:
+def is_color(color_code: str | None) -> bool:
     """Validate Color code."""
     if REGEX["color_code"].match(str(color_code)) is None:
         return False
     return True
 
 
-def is_phone(number: str) -> bool:
+def is_phone(number: str | None) -> bool:
     """Validate Phone number."""
     try:
         phone = phonenumbers.parse(str(number))
@@ -87,6 +94,6 @@ def is_mongo_id(oid: Any) -> bool:
     return ObjectId.is_valid(oid)
 
 
-def hash_to_obj_id(hash: str) -> ObjectId | None:
+def hash_to_obj_id(hash: str | None) -> ObjectId | None:
     """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None

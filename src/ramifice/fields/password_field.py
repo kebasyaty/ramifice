@@ -61,13 +61,6 @@ class PasswordField(Field):
         self.placeholder = placeholder
         self.required = required
 
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate Password."""
-        password = str(value or self.value)
-        if not store.REGEX["password"].match(password):
-            return False
-        return True
-
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}

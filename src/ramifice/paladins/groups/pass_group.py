@@ -8,6 +8,7 @@ from typing import Any
 from argon2 import PasswordHasher
 
 from ... import translations
+from ...utilities import is_password
 from ..tools import accumulate_error, panic_type_error
 
 
@@ -38,7 +39,7 @@ class PassGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Validation Passwor.
-        if not field.is_valid(value):
+        if not is_password(value):
             err_msg = translations._("Invalid Password !")
             accumulate_error(err_msg, params)
             chars = "a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
