@@ -12,6 +12,7 @@ from ramifice.utilities import (
     is_email,
     is_ip,
     is_mongo_id,
+    is_password,
     is_phone,
     is_url,
     normal_email,
@@ -21,6 +22,15 @@ from ramifice.utilities import (
 
 class TestTools(unittest.TestCase):
     """Testing the module `ramifice.utilities`."""
+
+    def test_is_password(self):
+        """Testing a method `is_password`."""
+        self.assertFalse(is_password(None))
+        self.assertFalse(is_password("пока-пока"))
+        self.assertFalse(is_password("再見-再見-再見"))
+        self.assertFalse(is_password("1234567"))
+        self.assertFalse(is_password(("12345678" * 32) + "1"))  # > 256 characters
+        self.assertTrue(is_password("12345678"))
 
     def test_normal_email(self):
         """Testing a method `normal_email`."""
@@ -90,7 +100,7 @@ class TestTools(unittest.TestCase):
     def test_get_file_size(self):
         """Testing a method `get_file_size`."""
         path = "public/media/default/no_doc.odt"
-        self.assertEqual(get_file_size(path), "9.61 KB")
+        self.assertEqual(get_file_size(path), 9843)
 
 
 if __name__ == "__main__":

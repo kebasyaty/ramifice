@@ -82,10 +82,6 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             URLField(default="http://???")
         URLField(default="https://www.google.com")
-        # Methods:
-        self.assertFalse(f.is_valid())
-        self.assertFalse(f.is_valid("http://???"))
-        self.assertTrue(f.is_valid("https://www.google.com"))
 
     def test_slug_field(self):
         """Testing `SlugField`."""
@@ -142,10 +138,6 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             PhoneField(default="+4002123456")
         PhoneField(default="+447986123456")
-        # Methods:
-        self.assertFalse(f.is_valid())
-        self.assertFalse(f.is_valid("+4002123456"))
-        self.assertTrue(f.is_valid("+447986123456"))
 
     def test_password_field(self):
         """Testing `PasswordField`."""
@@ -166,13 +158,6 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
         self.assertFalse(f.required)
-        # Methods:
-        self.assertFalse(f.is_valid())
-        self.assertFalse(f.is_valid("пока-пока"))
-        self.assertFalse(f.is_valid("再見-再見-再見"))
-        self.assertFalse(f.is_valid("1234567"))
-        self.assertFalse(f.is_valid(("12345678" * 32) + "1"))  # > 256 characters
-        self.assertTrue(f.is_valid("12345678"))
 
     def test_ip_field(self):
         """Testing `IPField`."""
@@ -206,10 +191,6 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             IPField(default="127.0.")
         IPField(default="127.0.0.1")
-        # Methods:
-        self.assertFalse(f.is_valid())
-        self.assertFalse(f.is_valid("127.0."))
-        self.assertTrue(f.is_valid("127.0.0.1"))
 
     def test_email_field(self):
         """Testing `EmailField`."""
@@ -241,10 +222,6 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             EmailField(default="my+address@example.net")
         EmailField(default="kebasyaty@gmail.com")
-        # Methods:
-        self.assertFalse(f.is_valid())
-        self.assertFalse(f.is_valid("my+address@example.net"))
-        self.assertTrue(f.is_valid("kebasyaty@gmail.com"))
 
     def test_color_field(self):
         """Testing `ColorField`."""
@@ -276,10 +253,6 @@ class TestTextFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             ColorField(default="color")
         ColorField(default="#000")
-        # Methods:
-        self.assertTrue(f.is_valid())  # defaul = "#000000"
-        self.assertFalse(f.is_valid("color"))
-        self.assertTrue(f.is_valid("#000"))
 
 
 if __name__ == "__main__":
