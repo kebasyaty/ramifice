@@ -87,14 +87,3 @@ class PhoneField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.default = default
-
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate Phone number."""
-        number = str(value or self.value or self.default)
-        try:
-            phone = phonenumbers.parse(number)
-            if not phonenumbers.is_valid_number(phone):
-                return False
-        except phonenumbers.phonenumberutil.NumberParseException:
-            return False
-        return True

@@ -95,11 +95,3 @@ class URLField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.default = default
-
-    def is_valid(self, value: str | None = None) -> bool:
-        """Validate URL address."""
-        url = str(value or self.value or self.default)
-        result = urlparse(url)
-        if not result.scheme or not result.netloc:
-            return False
-        return True
