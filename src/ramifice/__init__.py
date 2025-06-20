@@ -14,4 +14,4 @@
 
 """ORM-like API MongoDB for Python language."""
 
-from .decorators import model
+from .models.decorator import model

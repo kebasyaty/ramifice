@@ -14,7 +14,7 @@ from termcolor import colored
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .fixtures import apply_fixture
-from .model import Model
+from .models.model import Model
 
 
 class Monitor:

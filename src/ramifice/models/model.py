@@ -1,8 +1,6 @@
-"""For converting Python classes into Ramifice Model."""
+"""For converting Python classes into Ramifice models."""
 
 import json
-import os
-import shutil
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
@@ -10,42 +8,42 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from . import translations
-from .errors import PanicError
+from .. import translations
+from ..fields import DateTimeField, IDField  # type: ignore[attr-defined]
 
 
-class PseudoModel(metaclass=ABCMeta):
-    """For convert the Python class into a pseudo model Ramifice.
-
-    Used for a Model that do not migrate into the database.
-    """
+class Model(metaclass=ABCMeta):
+    """Converting Python Class into Ramifice Model."""
 
     META: dict[str, Any] = {}
 
     def __init__(self) -> None:  # noqa: D107
+        _ = translations._
+        self._id = IDField(
+            label=_("Document ID"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
+            hide=True,
+            disabled=True,
+        )
+        self.created_at = DateTimeField(
+            label=_("Created at"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
+            warning=[_("When the document was created.")],
+            hide=True,
+            disabled=True,
+        )
+        self.updated_at = DateTimeField(
+            label=_("Updated at"),
+            placeholder=_("It is added automatically"),
+            hint=_("It is added automatically"),
+            warning=[_("When the document was updated.")],
+            hide=True,
+            disabled=True,
+        )
         self.fields()
         self.inject()
-
-        for _, f_type in self.__dict__.items():
-            if not callable(f_type) and f_type.group == "img":
-                f_type.__dict__["add_width_height"] = True
-
-    def __del__(self) -> None:  # noqa: D105
-        # If the model is not migrated,
-        # it must delete files and images in the destructor.
-        for _, f_type in self.__dict__.items():
-            if callable(f_type):
-                continue
-            value = f_type.value
-            if value is not None:
-                if f_type.group == "file":
-                    value = value.get("path")
-                    if value is not None:
-                        os.remove(value)
-                elif f_type.group == "img":
-                    value = value.get("imgs_dir_path")
-                    if value is not None:
-                        shutil.rmtree(value)
 
     @abstractmethod
     def fields(self) -> None:
@@ -66,18 +64,13 @@ class PseudoModel(metaclass=ABCMeta):
         metadata = self.__class__.META
         if bool(metadata):
             field_attrs = metadata["field_attrs"]
+            data_dynamic_fields = metadata["data_dynamic_fields"]
             for f_name, f_type in self.__dict__.items():
-                if callable(f_type):
-                    continue
-                f_type.id = field_attrs[f_name]["id"]
-                f_type.name = field_attrs[f_name]["name"]
-                if "Dyn" in f_type.field_type:
-                    msg = (
-                        f"Model: `{metadata['full_model_name']}` > "
-                        + f"Field: `{f_name}` => "
-                        + "Dynamic field only for a migrated Model."
-                    )
-                    raise PanicError(msg)
+                if not callable(f_type):
+                    f_type.id = field_attrs[f_name]["id"]
+                    f_type.name = field_attrs[f_name]["name"]
+                    if "Dyn" in f_type.field_type:
+                        f_type.choices = data_dynamic_fields[f_name]
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------

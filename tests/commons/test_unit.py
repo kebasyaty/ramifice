@@ -17,7 +17,7 @@ from ramifice.fields import (
     ChoiceTextMultDynField,
 )
 from ramifice.migration import Monitor
-from ramifice.types import Unit
+from ramifice.unit import Unit
 
 
 @model(service_name="Accounts")
