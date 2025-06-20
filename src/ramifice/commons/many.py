@@ -9,6 +9,7 @@ from pymongo.results import DeleteResult
 
 from .. import store
 from ..errors import PanicError
+from .tools import mongo_doc_to_raw_doc, password_to_none
 
 
 class ManyMixin:
@@ -67,8 +68,9 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
+        field_name_and_type = cls.META["field_name_and_type"]  # type: ignore[attr-defined]
         async for mongo_doc in cursor:
-            doc_list.append(cls.password_to_none(mongo_doc))  # type: ignore[attr-defined]
+            doc_list.append(password_to_none(field_name_and_type, mongo_doc))
         return doc_list
 
     @classmethod
@@ -131,8 +133,9 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
+        field_name_and_type = cls.META["field_name_and_type"]  # type: ignore[attr-defined]
         async for mongo_doc in cursor:
-            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[attr-defined]
+            doc_list.append(mongo_doc_to_raw_doc(field_name_and_type, mongo_doc))
         return doc_list
 
     @classmethod
@@ -188,8 +191,9 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
+        field_name_and_type = cls.META["field_name_and_type"]  # type: ignore[attr-defined]
         async for mongo_doc in cursor:
-            doc_list.append(cls.mongo_doc_to_raw_doc(mongo_doc))  # type: ignore[attr-defined]
+            doc_list.append(mongo_doc_to_raw_doc(field_name_and_type, mongo_doc))
         return json.dumps(doc_list) if len(doc_list) > 0 else None
 
     @classmethod

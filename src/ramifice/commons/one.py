@@ -7,6 +7,7 @@ from pymongo.results import DeleteResult
 
 from .. import store
 from ..errors import PanicError
+from .tools import from_mongo_doc, mongo_doc_to_raw_doc, password_to_none
 
 
 class OneMixin:
@@ -25,7 +26,10 @@ class OneMixin:
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
+            mongo_doc = password_to_none(
+                cls.META["field_name_and_type"],
+                mongo_doc,
+            )
         return mongo_doc
 
     @classmethod
@@ -42,7 +46,10 @@ class OneMixin:
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
-            raw_doc = cls.mongo_doc_to_raw_doc(mongo_doc)
+            raw_doc = mongo_doc_to_raw_doc(
+                cls.META["field_name_and_type"],
+                mongo_doc,
+            )
         return raw_doc
 
     @classmethod
@@ -60,7 +67,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
+            inst_model = from_mongo_doc(cls, mongo_doc)
         return inst_model
 
     @classmethod
@@ -78,7 +85,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
+            inst_model = from_mongo_doc(cls, mongo_doc)
             json_str = inst_model.to_json()
         return json_str
 
@@ -149,5 +156,8 @@ class OneMixin:
             **kwargs,
         )
         if mongo_doc is not None:
-            mongo_doc = cls.password_to_none(mongo_doc)
+            mongo_doc = password_to_none(
+                cls.META["field_name_and_type"],
+                mongo_doc,
+            )
         return mongo_doc
