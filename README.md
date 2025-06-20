@@ -96,9 +96,8 @@ import pprint
 from datetime import datetime
 
 from pymongo import AsyncMongoClient
-from ramifice import model, translations
+from ramifice import model, translations, migration
 from ramifice.fields import DateField, EmailField, ImageField, PasswordField, TextField
-from ramifice.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -154,7 +153,7 @@ class User:
 async def main():
     client = AsyncMongoClient()
 
-    await Monitor(
+    await migration.Monitor(
         database_name="test_db",
         mongo_client=client,
     ).migrat()
@@ -484,7 +483,7 @@ await user.update_password(  # + verify_password
 ## General auxiliary methods
 
 ```python
-from ramifice.tools import (
+from ramifice.utils.tools import (
     get_file_size,
     hash_to_obj_id,
     is_color,
