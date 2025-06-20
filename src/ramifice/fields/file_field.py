@@ -8,7 +8,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from .. import store
+from ..utils import store
 from ..utils.errors import FileHasNoExtensionError
 from ..utils.mixins import JsonMixin
 from .general.field import Field

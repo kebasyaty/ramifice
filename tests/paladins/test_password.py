@@ -6,7 +6,7 @@ from pymongo import AsyncMongoClient
 
 from ramifice import model
 from ramifice.fields import PasswordField
-from ramifice.migration import Monitor
+from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")

@@ -2,8 +2,8 @@
 
 import unittest
 
-from ramifice.errors import PanicError
-from ramifice.unit import Unit
+from ramifice.utils.errors import PanicError
+from ramifice.utils.unit import Unit
 
 
 class TestTypes(unittest.TestCase):

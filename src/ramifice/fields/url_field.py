@@ -2,7 +2,7 @@
 
 from urllib.parse import urlparse
 
-from .. import store
+from ..utils import store
 from ..utils.mixins import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup

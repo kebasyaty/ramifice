@@ -1,6 +1,6 @@
 """Field of Model for enter text."""
 
-from .. import store
+from ..utils import store
 from ..utils.mixins import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup

@@ -8,8 +8,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from .. import translations
 from ..fields import DateTimeField, IDField  # type: ignore[attr-defined]
+from ..utils import translations
 
 
 class Model(metaclass=ABCMeta):
