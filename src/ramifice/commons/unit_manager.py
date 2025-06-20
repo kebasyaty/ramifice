@@ -9,7 +9,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from .. import store
 from ..errors import PanicError
-from ..types import Unit
+from ..unit import Unit
 
 
 class UnitMixin:

@@ -1,11 +1,4 @@
-"""Auxiliary types collection.
-
-These types are used to transfer information.
-
-The module contains the following types:
-
-- `Unit` - Used for data management in dynamic fields.
-"""
+"""Unit - Data management in dynamic fields."""
 
 from .errors import PanicError
 from .mixins import JsonMixin
