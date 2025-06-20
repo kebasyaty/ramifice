@@ -7,7 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType  # type: ignore[attr-defined]
 from pymongo.results import DeleteResult
 
-from .. import store
+from ..utils import store
 from ..utils.errors import PanicError
 from .tools import mongo_doc_to_raw_doc, password_to_none
 

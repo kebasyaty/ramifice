@@ -11,10 +11,10 @@ from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
+from ..models.model import Model
 from . import store
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .fixtures import apply_fixture
-from .models.model import Model
 
 
 class Monitor:

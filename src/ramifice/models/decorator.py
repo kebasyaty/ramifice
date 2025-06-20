@@ -7,7 +7,9 @@ from ..commons import QCommonsMixin
 from ..fields import DateTimeField, IDField  # type: ignore[attr-defined]
 from ..paladins import CheckMixin, QPaladinsMixin, ValidationMixin  # type: ignore[attr-defined]
 from ..utils.errors import DoesNotMatchRegexError, PanicError
-from ..utils.mixins import AddValidMixin, HooksMixin, IndexMixin
+from ..utils.mixins.add_valid import AddValidMixin
+from ..utils.mixins.hooks import HooksMixin
+from ..utils.mixins.indexing import IndexMixin
 from ..utils.store import REGEX
 from .model import Model
 from .pseudo import PseudoModel
