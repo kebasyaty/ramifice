@@ -1,22 +1,21 @@
-"""Decorators."""
+"""Decorator for converting Python classes into Ramifice models."""
 
 import os
 from typing import Any
 
-from . import translations
-from .add_valid import AddValidMixin
-from .commons import QCommonsMixin
-from .errors import DoesNotMatchRegexError, PanicError
-from .fields import DateTimeField, IDField  # type: ignore[attr-defined]
-from .hooks import HooksMixin
-from .indexing import IndexMixin
+from .. import translations
+from ..add_valid import AddValidMixin
+from ..commons import QCommonsMixin
+from ..errors import DoesNotMatchRegexError, PanicError
+from ..fields import DateTimeField, IDField  # type: ignore[attr-defined]
+from ..hooks import HooksMixin
+from ..indexing import IndexMixin
+from ..paladins import CheckMixin, QPaladinsMixin, ValidationMixin  # type: ignore[attr-defined]
+from ..store import REGEX
 from .model import Model
-from .paladins import CheckMixin, QPaladinsMixin, ValidationMixin  # type: ignore[attr-defined]
-from .pseudo_model import PseudoModel
-from .store import REGEX
+from .pseudo import PseudoModel
 
 
-# Decorator for converting into a Model.
 def model(
     service_name: str,
     fixture_name: str | None = None,
@@ -26,7 +25,7 @@ def model(
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
 ) -> Any:
-    """Decorator for converting into a Model."""
+    """Decorator for converting Python Classe into Ramifice Model."""
     if not isinstance(service_name, str):
         raise AssertionError("Parameter `service_name` - Must be `str` type!")
     if not isinstance(fixture_name, (str, type(None))):

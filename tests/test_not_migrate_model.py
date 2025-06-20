@@ -4,7 +4,7 @@ import unittest
 
 from ramifice import model
 from ramifice.fields import ChoiceTextField, TextField
-from ramifice.model import Model
+from ramifice.models.model import Model
 
 
 @model(
