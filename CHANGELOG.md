@@ -1,3 +1,8 @@
+#### v0.3.28 2025-06-20
+
+- The structure of the project is reorganized.
+- Updated README.md .
+
 #### v0.3.22 2025-06-17
 
 - Added small corrections and optimizations.
