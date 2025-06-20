@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Any
 
 from .. import store
-from ..errors import FileHasNoExtensionError
-from ..mixins import JsonMixin
+from ..utils.errors import FileHasNoExtensionError
+from ..utils.mixins import JsonMixin
 from .general.field import Field
 from .general.file_group import FileGroup
 

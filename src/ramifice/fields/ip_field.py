@@ -2,8 +2,8 @@
 
 import ipaddress
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
 

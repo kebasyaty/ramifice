@@ -1,7 +1,7 @@
 """Field of Model for enter boolean value."""
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins import JsonMixin
 from .general.field import Field
 
 

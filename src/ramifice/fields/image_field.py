@@ -10,9 +10,9 @@ from typing import Any
 
 from PIL import Image
 
-from .. import store
-from ..errors import FileHasNoExtensionError
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.errors import FileHasNoExtensionError
+from ..utils.mixins import JsonMixin
 from .general.field import Field
 from .general.file_group import FileGroup
 

@@ -1,10 +1,10 @@
-"""Additional validation of fields."""
+"""AddValidMixin - Contains an abstract method for additional validation of fields."""
 
 from abc import ABCMeta
 
 
 class AddValidMixin(metaclass=ABCMeta):
-    """Additional validation of fields."""
+    """Contains an abstract method for additional validation of fields."""
 
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""

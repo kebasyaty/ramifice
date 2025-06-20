@@ -7,8 +7,8 @@ from typing import Any
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
-from .. import store
-from ..errors import PanicError
+from ..utils import store
+from ..utils.errors import PanicError
 from .groups import (  # type: ignore[attr-defined]
     BoolGroupMixin,
     ChoiceGroupMixin,

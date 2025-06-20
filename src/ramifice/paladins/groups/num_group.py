@@ -6,7 +6,7 @@ Supported fields:
 
 from typing import Any
 
-from ... import translations
+from ...utils import translations
 from ..tools import accumulate_error, check_uniqueness, panic_type_error
 
 

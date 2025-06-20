@@ -8,7 +8,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ... import translations
+from ...utils import translations
 from ..tools import accumulate_error, panic_type_error
 
 

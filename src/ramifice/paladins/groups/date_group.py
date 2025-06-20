@@ -9,7 +9,7 @@ from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ... import translations
+from ...utils import translations
 from ..tools import accumulate_error, panic_type_error
 
 

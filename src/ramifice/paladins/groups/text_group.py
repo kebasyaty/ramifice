@@ -9,8 +9,8 @@ from typing import Any
 
 from email_validator import EmailNotValidError, validate_email
 
-from ... import translations
-from ...tools import is_color, is_ip, is_phone, is_url
+from ...utils import translations
+from ...utils.tools import is_color, is_ip, is_phone, is_url
 from ..tools import accumulate_error, check_uniqueness, panic_type_error
 
 

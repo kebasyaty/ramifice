@@ -1,10 +1,10 @@
-"""Hook methods."""
+"""HooksMixin - Contains abstract methods for creating hooks."""
 
 from abc import ABCMeta
 
 
 class HooksMixin(metaclass=ABCMeta):
-    """Hook methods and additional validation of fields."""
+    """A set of abstract methods for creating hooks."""
 
     async def pre_create(self) -> None:
         """Called before a new document is created in the database."""
