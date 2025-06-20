@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from ..errors import PanicError
+from ..utils.errors import PanicError
 
 
 def ignored_fields_to_none(inst_model: Any) -> None:

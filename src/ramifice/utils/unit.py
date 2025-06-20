@@ -1,7 +1,7 @@
 """Unit - Data management in dynamic fields."""
 
 from .errors import PanicError
-from .mixins import JsonMixin
+from .mixins.json_converter import JsonMixin
 
 
 class Unit(JsonMixin):

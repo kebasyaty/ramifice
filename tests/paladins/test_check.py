@@ -35,7 +35,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.migration import Monitor
+from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")

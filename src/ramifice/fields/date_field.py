@@ -7,7 +7,7 @@ from typing import Any
 from babel.dates import format_date
 from dateutil.parser import parse
 
-from .. import store, translations
+from ..utils import store, translations
 from .general.date_group import DateGroup
 from .general.field import Field
 

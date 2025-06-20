@@ -11,7 +11,7 @@ from pymongo import AsyncMongoClient
 
 from ramifice import model
 from ramifice.fields import FileField, ImageField, TextField
-from ramifice.migration import Monitor
+from ramifice.utils.migration import Monitor
 
 
 @model(

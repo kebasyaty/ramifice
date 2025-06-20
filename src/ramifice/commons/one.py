@@ -5,8 +5,8 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.results import DeleteResult
 
-from .. import store
-from ..errors import PanicError
+from ..utils import store
+from ..utils.errors import PanicError
 from .tools import from_mongo_doc, mongo_doc_to_raw_doc, password_to_none
 
 

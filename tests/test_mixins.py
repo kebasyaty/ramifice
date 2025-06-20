@@ -33,7 +33,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.mixins import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 # For `FileField.value`.
 FILE_INFO_DICT: dict[str, str | int | bool] = dict(

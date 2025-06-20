@@ -1,7 +1,7 @@
 """Field of Model for enter (int) number."""
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.number_group import NumberGroup
 

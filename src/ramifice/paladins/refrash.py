@@ -4,8 +4,8 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from .. import store
-from ..errors import PanicError
+from ..utils import store
+from ..utils.errors import PanicError
 from .tools import refresh_from_mongo_doc
 
 

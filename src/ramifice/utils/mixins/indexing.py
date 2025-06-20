@@ -1,10 +1,10 @@
-"""For indexing the Model in the database."""
+"""IndexMixin - Contains abstract method for indexing the model in the database."""
 
 from abc import ABCMeta
 
 
 class IndexMixin(metaclass=ABCMeta):
-    """For indexing the Model in the database."""
+    """Contains the method for indexing the model in the database."""
 
     @classmethod
     async def indexing(cls) -> None:

@@ -1,14 +1,11 @@
-"""Complect of mixins."""
+"""JsonMixin - Contains the methods for converting Fields to JSON and back."""
 
 import json
 from typing import Any
 
 
 class JsonMixin:
-    """Complect of methods for converting Fields to JSON and back.
-
-    For fields FileField and ImageField is used FileJsonMixin.
-    """
+    """Contains the methods for converting Fields to JSON and back."""
 
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""

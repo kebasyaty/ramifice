@@ -7,8 +7,8 @@ from typing import Any
 
 from argon2 import PasswordHasher
 
-from ... import translations
-from ...tools import is_password
+from ...utils import translations
+from ...utils.tools import is_password
 from ..tools import accumulate_error, panic_type_error
 
 

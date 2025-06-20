@@ -8,7 +8,7 @@ from typing import Any
 
 from slugify import slugify
 
-from ...errors import PanicError
+from ...utils.errors import PanicError
 from ..tools import check_uniqueness
 
 

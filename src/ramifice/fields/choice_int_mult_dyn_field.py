@@ -3,8 +3,8 @@
 Type of selective integer field with dynamic addition of elements.
 """
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins.json_converter import JsonMixin
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
 

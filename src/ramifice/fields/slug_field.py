@@ -1,7 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
 

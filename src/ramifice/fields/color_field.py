@@ -1,7 +1,7 @@
 """Field of Model for enter color code."""
 
-from .. import store
-from ..mixins import JsonMixin
+from ..utils import store
+from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
 

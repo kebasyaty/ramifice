@@ -6,7 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
-from .. import store
+from ..utils import store
 
 
 class GeneralMixin:

@@ -1,9 +1,9 @@
-"""Testing the module `ramifice.store`."""
+"""Testing the module `ramifice.utils.store`."""
 
 import re
 import unittest
 
-from ramifice.store import (
+from ramifice.utils.store import (
     DATABASE_NAME,
     DEBUG,
     MONGO_CLIENT,
@@ -14,7 +14,7 @@ from ramifice.store import (
 
 
 class TestStore(unittest.TestCase):
-    """Testing the module `ramifice.store`."""
+    """Testing the module `ramifice.utils.store`."""
 
     def test_values_by_default(self):
         """Testing a values by default."""

@@ -6,8 +6,8 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from .. import store
-from ..errors import PanicError
+from ..utils import store
+from ..utils.errors import PanicError
 
 
 class DeleteMixin:

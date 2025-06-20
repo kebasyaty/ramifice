@@ -5,8 +5,8 @@ from typing import Any
 from argon2 import PasswordHasher
 from pymongo.asynchronous.collection import AsyncCollection
 
-from .. import store
-from ..errors import OldPassNotMatchError, PanicError
+from ..utils import store
+from ..utils.errors import OldPassNotMatchError, PanicError
 
 
 class PasswordMixin:
