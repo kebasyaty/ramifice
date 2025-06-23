@@ -12,7 +12,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
 from ..models.model import Model
-from . import store
+from . import globals
 from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from .fixtures import apply_fixture
 
@@ -21,15 +21,15 @@ class Monitor:
     """Monitoring and updating database state for application."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
-        store.DEBUG = False
+        globals.DEBUG = False
         #
-        db_name_regex = store.REGEX["database_name"]
+        db_name_regex = globals.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
             raise DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
         #
-        store.DATABASE_NAME = database_name
-        store.MONGO_CLIENT = mongo_client
-        store.MONGO_DATABASE = store.MONGO_CLIENT[store.DATABASE_NAME]
+        globals.DATABASE_NAME = database_name
+        globals.MONGO_CLIENT = mongo_client
+        globals.MONGO_DATABASE = globals.MONGO_CLIENT[globals.DATABASE_NAME]
         # Get Model list.
         self.model_list: list[Any] = [
             cls_model for cls_model in Model.__subclasses__() if cls_model.META["is_migrate_model"]
@@ -45,7 +45,7 @@ class Monitor:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
@@ -56,7 +56,7 @@ class Monitor:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
@@ -88,10 +88,10 @@ class Monitor:
         delete collections associated with those Models.
         """  # noqa: D205
         # Get access to database.
-        database = store.MONGO_DATABASE
+        database = globals.MONGO_DATABASE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:
@@ -113,9 +113,9 @@ class Monitor:
         # Switch the `is_model_exist` parameter in the condition `False`.
         await self.reset()
         # Get access to database.
-        database = store.MONGO_DATABASE
+        database = globals.MONGO_DATABASE
         # Get access to super collection.
-        super_collection: AsyncCollection = database[store.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = database[globals.SUPER_COLLECTION_NAME]
         #
         for cls_model in self.model_list:
             # Get metadata of current Model.
@@ -194,7 +194,7 @@ class Monitor:
             )
         #
         # Block the verification code.
-        store.DEBUG = False
+        globals.DEBUG = False
         #
         # Delete data for non-existent Models from a
         # super collection and delete collections associated with those Models.
@@ -206,7 +206,7 @@ class Monitor:
             # Apply fixture to current Model.
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
-                collection: AsyncCollection = store.MONGO_DATABASE[
+                collection: AsyncCollection = globals.MONGO_DATABASE[
                     cls_model.META["collection_name"]
                 ]
                 if await collection.estimated_document_count() == 0:

@@ -3,7 +3,7 @@
 import json
 from typing import Any
 
-from ..utils import store
+from ..utils import globals
 from .general.field import Field
 
 
@@ -26,7 +26,7 @@ class PasswordField(Field):
         placeholder: str = "",
         required: bool = False,
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(hide, bool):

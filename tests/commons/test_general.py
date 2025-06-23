@@ -35,7 +35,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.utils import store
+from ramifice.utils import globals
 from ramifice.utils.migration import Monitor
 
 
@@ -108,8 +108,8 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await User.count_documents({"_id": m._id.value}), 1)
         self.assertEqual(User.collection_name(), "Accounts_User")
         self.assertEqual(User.collection_full_name(), "test_general_mixin_methods.Accounts_User")
-        self.assertEqual(User.database(), store.MONGO_DATABASE)
-        self.assertEqual(User.collection(), store.MONGO_DATABASE[User.META["collection_name"]])
+        self.assertEqual(User.database(), globals.MONGO_DATABASE)
+        self.assertEqual(User.collection(), globals.MONGO_DATABASE[User.META["collection_name"]])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

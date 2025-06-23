@@ -7,7 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType
 from pymongo.results import DeleteResult
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 from .tools import mongo_doc_to_raw_doc, password_to_none
 
@@ -42,7 +42,7 @@ class ManyMixin:
     ) -> list[dict[str, Any]]:
         """Find documents."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -107,7 +107,7 @@ class ManyMixin:
             datetime to str
         """
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -165,7 +165,7 @@ class ManyMixin:
     ) -> str | None:
         """Find documents and convert to a json string."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -216,7 +216,7 @@ class ManyMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         # Delete documents.
         result: DeleteResult = await collection.delete_many(
             filter=filter,

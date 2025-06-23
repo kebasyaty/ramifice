@@ -10,7 +10,7 @@ from ..utils.errors import DoesNotMatchRegexError, PanicError
 from ..utils.mixins.add_valid import AddValidMixin
 from ..utils.mixins.hooks import HooksMixin
 from ..utils.mixins.indexing import IndexMixin
-from ..utils.store import REGEX
+from ..utils.globals import REGEX
 from .model import Model
 from .pseudo import PseudoModel
 

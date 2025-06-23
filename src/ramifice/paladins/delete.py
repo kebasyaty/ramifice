@@ -6,7 +6,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 
 
@@ -46,7 +46,7 @@ class DeleteMixin:
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Delete document.
         mongo_doc: dict[str, Any] = {}
         mongo_doc = await collection.find_one_and_delete(

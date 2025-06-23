@@ -6,7 +6,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
-from ..utils import store
+from ..utils import globals
 
 
 class GeneralMixin:
@@ -20,7 +20,7 @@ class GeneralMixin:
     ) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return await collection.estimated_document_count(
             comment=comment,
@@ -37,7 +37,7 @@ class GeneralMixin:
     ) -> int:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return await collection.count_documents(
             filter=filter,
@@ -57,7 +57,7 @@ class GeneralMixin:
     ) -> AsyncCommandCursor:
         """Runs an aggregation framework pipeline."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return await collection.aggregate(
             pipeline=pipeline,
@@ -82,7 +82,7 @@ class GeneralMixin:
         Returns an array of unique values for specified field of collection.
         """
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return await collection.distinct(
             key=key,
@@ -97,7 +97,7 @@ class GeneralMixin:
     def collection_name(cls) -> str:
         """Get collection name."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return collection.name
 
@@ -108,7 +108,7 @@ class GeneralMixin:
         The full name is of the form database_name.collection_name.
         """
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return collection.full_name
 
@@ -116,7 +116,7 @@ class GeneralMixin:
     def database(cls) -> AsyncDatabase:
         """Get AsyncBatabase for the current Model."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return collection.database
 
@@ -124,6 +124,6 @@ class GeneralMixin:
     def collection(cls) -> AsyncCollection:
         """Get AsyncCollection for the current Model."""
         # Get collection for current model.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
         #
         return collection

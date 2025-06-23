@@ -5,7 +5,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 from .tools import ignored_fields_to_none, refresh_from_mongo_doc
 
@@ -20,7 +20,7 @@ class SaveMixin:
         """
         cls_model = self.__class__
         # Get collection.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)
         # Reset the alerts to exclude duplicates.

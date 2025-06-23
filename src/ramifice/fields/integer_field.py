@@ -1,6 +1,6 @@
 """Field of Model for enter (int) number."""
 
-from ..utils import store
+from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.number_group import NumberGroup
@@ -27,7 +27,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
         step: int = 1,
         input_type: str = "number",  # number | range
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
                     "Parameter `input_type` - Invalid input type! "

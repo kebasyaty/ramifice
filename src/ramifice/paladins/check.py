@@ -7,7 +7,7 @@ from typing import Any
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 from .groups import (
     BoolGroupMixin,
@@ -72,7 +72,7 @@ class CheckMixin(
         error_map: dict[str, str] = await self.add_validation() or {}
         # Get Model collection.
         if collection is None:
-            collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+            collection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,

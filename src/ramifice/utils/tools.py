@@ -10,7 +10,7 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from .store import REGEX
+from .globals import REGEX
 
 
 def is_password(password: str | None) -> bool:

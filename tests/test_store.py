@@ -3,7 +3,7 @@
 import re
 import unittest
 
-from ramifice.utils.store import (
+from ramifice.utils.globals import (
     DATABASE_NAME,
     DEBUG,
     MONGO_CLIENT,

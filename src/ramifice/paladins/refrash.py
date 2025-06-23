@@ -4,7 +4,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 from .tools import refresh_from_mongo_doc
 
@@ -16,7 +16,7 @@ class RefrashMixin:
         """Update Model instance from database."""
         cls_model = self.__class__
         # Get collection.
-        collection: AsyncCollection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
         mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self._id.value})
         if mongo_doc is None:
             msg = (
