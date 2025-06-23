@@ -7,7 +7,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import PanicError
 from ..utils.unit import Unit
 
@@ -26,9 +26,7 @@ class UnitMixin:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[  # type: ignore[index]
-            store.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls.META["collection_name"]}
@@ -89,7 +87,7 @@ class UnitMixin:
         if unit.is_delete:
             unit_field: str = unit.field
             unit_value: float | int | str = unit.value
-            collection: AsyncCollection = store.MONGO_DATABASE[cls.META["collection_name"]]  # type: ignore[index]
+            collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:

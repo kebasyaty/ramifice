@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.3.28"
+version = "0.3.29"
 description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
@@ -94,7 +94,14 @@ strict = true
 show_error_codes = true
 pretty = true
 files = ["*.py", "src/**/*.py", "tests/**/*.py"]
-disable_error_code = ["type-arg", "no-any-return"]
+disable_error_code = [
+    "type-arg",
+    "arg-type",
+    "no-any-return",
+    "attr-defined",
+    "index",
+    "import-not-found",
+]
 
 [[tool.mypy.overrides]]
 module = ["tests.*"]
@@ -102,8 +109,5 @@ disable_error_code = [
     "no-untyped-def",
     "no-untyped-call",
     "func-returns-value",
-    "attr-defined",
-    "arg-type",
     "union-attr",
-    "index",
 ]

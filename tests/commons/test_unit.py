@@ -15,7 +15,7 @@ from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextMultDynField,
 )
-from ramifice.utils import store
+from ramifice.utils import globals
 from ramifice.utils.errors import PanicError
 from ramifice.utils.migration import Monitor
 from ramifice.utils.unit import Unit
@@ -57,7 +57,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": User.META["collection_name"]}

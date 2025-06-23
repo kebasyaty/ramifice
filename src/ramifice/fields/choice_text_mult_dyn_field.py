@@ -3,7 +3,7 @@
 Type of selective text field with dynamic addition of elements.
 """
 
-from ..utils import store
+from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.choice_group import ChoiceGroup
 from .general.field import Field
@@ -27,7 +27,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):

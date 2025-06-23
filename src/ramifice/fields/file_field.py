@@ -8,7 +8,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import FileHasNoExtensionError
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
@@ -34,7 +34,7 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

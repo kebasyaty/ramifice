@@ -1,6 +1,6 @@
 """Field of Model for automatic generation of string `slug`."""
 
-from ..utils import store
+from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -24,7 +24,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):

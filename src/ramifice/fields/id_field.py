@@ -5,7 +5,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ..utils import store
+from ..utils import globals
 from .general.field import Field
 
 
@@ -33,7 +33,7 @@ class IDField(Field):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):

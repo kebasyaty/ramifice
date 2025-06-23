@@ -10,7 +10,7 @@ from typing import Any
 
 from PIL import Image
 
-from ..utils import store
+from ..utils import globals
 from ..utils.errors import FileHasNoExtensionError
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
@@ -41,7 +41,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         # True - high quality and low performance for thumbnails.
         high_quality: bool = False,
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

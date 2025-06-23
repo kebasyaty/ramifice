@@ -1,8 +1,6 @@
-"""Global storage for caching auxiliary variables.
+"""Global variables.
 
-The purpose of caching is production optimization.
-
-The module contains the following elements:
+List of variables:
 
 - `DEBUG` - Caching a condition for the verification code.
 - `MONGO_CLIENT` - Caching a Mongo client.

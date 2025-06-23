@@ -2,7 +2,7 @@
 
 import ipaddress
 
-from ..utils import store
+from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
 from .general.text_group import TextGroup
@@ -25,7 +25,7 @@ class IPField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if store.DEBUG:
+        if globals.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
