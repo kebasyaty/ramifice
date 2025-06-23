@@ -9,7 +9,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from ..utils import store
 from ..utils.errors import PanicError
-from .groups import (  # type: ignore[attr-defined]
+from .groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
     DateGroupMixin,
@@ -45,11 +45,11 @@ class CheckMixin(
         It is also used to verify Models that do not migrate to the database.
         """
         cls_model = self.__class__
-        is_migrate_model: bool = cls_model.META["is_migrate_model"]  # type: ignore[attr-defined]
+        is_migrate_model: bool = cls_model.META["is_migrate_model"]
 
         if not is_migrate_model and is_save:
             msg = (
-                f"Model: `{self.full_model_name()}` > "  # type: ignore[attr-defined]
+                f"Model: `{self.full_model_name()}` > "
                 + "Method: `check` => "
                 + "For a non -migrating Model, the `is_save` parameter must be equal to` False` !"
             )
@@ -59,20 +59,20 @@ class CheckMixin(
         is_update: bool = False
         if is_migrate_model:
             # Get the document ID.
-            doc_id = self._id.value  # type: ignore[attr-defined]
+            doc_id = self._id.value
             # Does the document exist in the database?
             is_update = doc_id is not None
             # Create an identifier for a new document.
             if is_save and not is_update:
                 doc_id = ObjectId()
-                self._id.value = doc_id  # type: ignore[attr-defined]
+                self._id.value = doc_id
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
-        error_map: dict[str, str] = await self.add_validation() or {}  # type: ignore[attr-defined]
+        error_map: dict[str, str] = await self.add_validation() or {}
         # Get Model collection.
         if collection is None:
-            collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]  # type: ignore[index, attr-defined]
+            collection = store.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,
@@ -82,7 +82,7 @@ class CheckMixin(
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
             "field_data": None,
-            "full_model_name": cls_model.META["full_model_name"],  # type: ignore[attr-defined]
+            "full_model_name": cls_model.META["full_model_name"],
             "is_migrate_model": is_migrate_model,
         }
 
@@ -126,7 +126,7 @@ class CheckMixin(
             if params["is_error_symptom"]:
                 # Reset the ObjectId for a new document.
                 if not is_update:
-                    self._id.value = None  # type: ignore[attr-defined]
+                    self._id.value = None
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = (
                     await collection.find_one({"_id": doc_id}) if is_update else None

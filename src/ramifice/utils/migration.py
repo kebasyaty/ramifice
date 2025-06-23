@@ -45,7 +45,7 @@ class Monitor:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
@@ -56,7 +56,7 @@ class Monitor:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
@@ -91,7 +91,7 @@ class Monitor:
         database = store.MONGO_DATABASE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = store.MONGO_DATABASE[store.SUPER_COLLECTION_NAME]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:
@@ -115,7 +115,7 @@ class Monitor:
         # Get access to database.
         database = store.MONGO_DATABASE
         # Get access to super collection.
-        super_collection: AsyncCollection = database[store.SUPER_COLLECTION_NAME]  # type: ignore[index]
+        super_collection: AsyncCollection = database[store.SUPER_COLLECTION_NAME]
         #
         for cls_model in self.model_list:
             # Get metadata of current Model.
@@ -128,7 +128,7 @@ class Monitor:
                 # Get a list of new fields.
                 new_fields: list[str] = self.new_fields(metadata, model_state)
                 # Get collection for current Model.
-                model_collection: AsyncCollection = database[model_state["collection_name"]]  # type: ignore[index]
+                model_collection: AsyncCollection = database[model_state["collection_name"]]
                 # Add new fields with default value or
                 # update existing fields whose field type has changed.
                 async for mongo_doc in model_collection.find():
@@ -207,7 +207,7 @@ class Monitor:
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
                 collection: AsyncCollection = store.MONGO_DATABASE[
-                    cls_model.META["collection_name"]  # type: ignore[index]
+                    cls_model.META["collection_name"]
                 ]
                 if await collection.estimated_document_count() == 0:
                     await apply_fixture(
