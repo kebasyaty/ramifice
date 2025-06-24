@@ -19,6 +19,10 @@ wheels/
 ### Windows ###
 desktop.ini
 
+# Ignore temporary media files
+/public/media/uploads/**
+!/public/media/uploads/.gitkeep
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
