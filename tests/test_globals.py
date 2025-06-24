@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.utils.store`."""
+"""Testing the module `ramifice.utils.globals`."""
 
 import re
 import unittest
@@ -13,8 +13,8 @@ from ramifice.utils.globals import (
 )
 
 
-class TestStore(unittest.TestCase):
-    """Testing the module `ramifice.utils.store`."""
+class TestGlobals(unittest.TestCase):
+    """Testing the module `ramifice.utils.globals`."""
 
     def test_values_by_default(self):
         """Testing a values by default."""

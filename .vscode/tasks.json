@@ -14,6 +14,12 @@
       "problemMatcher": []
     },
     {
+      "label": "UV: Run Lock",
+      "type": "shell",
+      "command": ["uv lock;"],
+      "problemMatcher": []
+    },
+    {
       "label": "Babel: Run Update Translations",
       "type": "shell",
       "command": [
@@ -34,7 +40,7 @@
       "command": [
         "uv run python -m unittest tests/test_mongo.py;",
         "uv run python -m unittest tests/test_mixins.py;",
-        "uv run python -m unittest tests/test_store.py;",
+        "uv run python -m unittest tests/test_globals.py;",
         "uv run python -m unittest tests/test_tools.py;",
         "uv run python -m unittest tests/test_types.py;",
         "uv run python -m unittest discover -s tests/fields;",

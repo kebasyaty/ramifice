@@ -621,7 +621,7 @@ wheels = [
 
 [[package]]
 name = "ramifice"
-version = "0.3.30"
+version = "0.3.31"
 source = { editable = "." }
 dependencies = [
     { name = "argon2-cffi" },
