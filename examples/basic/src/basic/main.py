@@ -1,4 +1,4 @@
-"""A simple example to start using."""
+"""App."""
 
 import asyncio
 import pprint
