@@ -1,8 +1,6 @@
 """App."""
 
 import asyncio
-import pprint
-from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import migration
@@ -24,14 +22,9 @@ async def main() -> None:
 
     user = User()
     user.username.value = "pythondev"
-    user.first_name.value = "John"
-    user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"
-    user.birthday.value = datetime(2000, 1, 25)
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
 
-    # Create User.
+    # Create User
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
@@ -41,10 +34,6 @@ async def main() -> None:
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
-
-    print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
-    pprint.pprint(user_details)
 
     # Remove User.
     await user.delete()

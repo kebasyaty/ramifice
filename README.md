@@ -142,6 +142,7 @@ class User:
             ignored=True,
         )
 
+    # Optional method.
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         gettext = translations.gettext
@@ -172,19 +173,22 @@ async def main():
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
 
+    # Create User.
     if not await user.save():
-        user.print_err()  # Convenient to use during development.
+        # Convenient to use during development.
+        user.print_err()
 
-    doc_count = await User.estimated_document_count()
-    print(f"Document count: {doc_count}")  # => 1
+    # Update User.
+    user.username.value = "pythondev-123"
+    if not await user.save():
+        user.print_err()
 
     print("User details:")
     user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
     pprint.pprint(user_details)
 
+    # Remove User.
     await user.delete(remove_files=False)
-    doc_count = await User.estimated_document_count()
-    print(f"Document count: {doc_count}")  # => 0
 
     await client.close()
 
