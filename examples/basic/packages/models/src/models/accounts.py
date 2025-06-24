@@ -55,6 +55,7 @@ class User:
             ignored=True,
         )
 
+    # Optional method.
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         error_map: dict[str, str] = {}
