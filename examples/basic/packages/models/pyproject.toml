@@ -7,9 +7,6 @@ authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
 requires-python = ">=3.12"
 dependencies = []
 
-[tool.uv]
-package = true
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

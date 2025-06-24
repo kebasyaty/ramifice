@@ -9,6 +9,10 @@ dependencies = ["ramifice>=0.3.28", "models"]
 [dependency-groups]
 dev = ["mypy>=1.16.1", "ruff>=0.12.0"]
 
+[tool.uv]
+package = false
+compile-bytecode = true
+
 [tool.uv.sources]
 models = { workspace = true }
 
@@ -45,11 +49,14 @@ strict = true
 show_error_codes = true
 pretty = true
 files = ["src/**/*.py", "packages/**/*.py"]
+disable_error_code = ["type-arg", "no-any-return", "attr-defined", "index"]
+
+[[tool.mypy.overrides]]
+module = ["packages/models/tests.*"]
 disable_error_code = [
-    "type-arg",
     "arg-type",
-    "no-any-return",
-    "attr-defined",
-    "index",
-    "import-not-found",
+    "no-untyped-def",
+    "no-untyped-call",
+    "func-returns-value",
+    "union-attr",
 ]
