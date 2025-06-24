@@ -123,7 +123,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.value: dict[str, Any] | None = None
+        self.value: dict[str, str | int | bool] | None = None
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
