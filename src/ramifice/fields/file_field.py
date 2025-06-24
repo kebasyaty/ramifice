@@ -89,7 +89,7 @@ class FileField(Field, FileGroup, JsonMixin):
         )
         JsonMixin.__init__(self)
 
-        self.value: dict[str, Any] | None = None
+        self.value: dict[str, str | int | bool] | None = None
 
     def from_base64(
         self,
