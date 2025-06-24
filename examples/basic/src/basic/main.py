@@ -24,7 +24,6 @@ async def main() -> None:
 
     user = User()
     user.username.value = "pythondev"
-    user.avatar.from_path("public/media/default/no-photo.png")
     user.first_name.value = "John"
     user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"
@@ -48,7 +47,7 @@ async def main() -> None:
     pprint.pprint(user_details)
 
     # Remove User.
-    await user.delete(remove_files=False)
+    await user.delete()
 
     await client.close()
 
