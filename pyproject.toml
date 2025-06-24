@@ -94,18 +94,12 @@ strict = true
 show_error_codes = true
 pretty = true
 files = ["*.py", "src/**/*.py", "tests/**/*.py"]
-disable_error_code = [
-    "type-arg",
-    "arg-type",
-    "no-any-return",
-    "attr-defined",
-    "index",
-    "import-not-found",
-]
+disable_error_code = ["type-arg", "no-any-return", "attr-defined", "index"]
 
 [[tool.mypy.overrides]]
 module = ["tests.*"]
 disable_error_code = [
+    "arg-type",
     "no-untyped-def",
     "no-untyped-call",
     "func-returns-value",
