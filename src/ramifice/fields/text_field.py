@@ -3,10 +3,9 @@
 from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
-from .general.text_group import TextGroup
 
 
-class TextField(Field, TextGroup, JsonMixin):
+class TextField(Field, JsonMixin):
     """Field of Model for enter text."""
 
     def __init__(  # noqa: D107
@@ -78,17 +77,15 @@ class TextField(Field, TextGroup, JsonMixin):
             field_type="TextField",
             group="text",
         )
-        TextGroup.__init__(
-            self,
-            input_type="text",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
         JsonMixin.__init__(self)
 
+        self.value: str | dict[str, str] | None = None
         self.default = default
+        self.input_type = "text"
+        self.placeholder = placeholder
+        self.required = required
+        self.readonly = readonly
+        self.unique = unique
         self.textarea = textarea
         self.use_editor = use_editor
         self.maxlength = maxlength
