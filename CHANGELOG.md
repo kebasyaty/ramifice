@@ -1,3 +1,8 @@
+#### v0.4.0 2025-06-25
+
+- Added multilingual support for `TextField`.
+- Updated README.md .
+
 #### v0.3.28 2025-06-20
 
 - The structure of the project is reorganized.

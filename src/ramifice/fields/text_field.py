@@ -3,10 +3,9 @@
 from ..utils import globals
 from ..utils.mixins.json_converter import JsonMixin
 from .general.field import Field
-from .general.text_group import TextGroup
 
 
-class TextField(Field, TextGroup, JsonMixin):
+class TextField(Field, JsonMixin):
     """Field of Model for enter text."""
 
     def __init__(  # noqa: D107
@@ -19,7 +18,6 @@ class TextField(Field, TextGroup, JsonMixin):
         warning: list[str] | None = None,
         textarea: bool = False,
         use_editor: bool = False,
-        default: str | None = None,
         placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
@@ -29,15 +27,6 @@ class TextField(Field, TextGroup, JsonMixin):
         if globals.DEBUG:
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-                if len(default) > maxlength:
-                    raise AssertionError("Parameter `default` exceeds the size of `maxlength`!")
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):
@@ -78,17 +67,28 @@ class TextField(Field, TextGroup, JsonMixin):
             field_type="TextField",
             group="text",
         )
-        TextGroup.__init__(
-            self,
-            input_type="text",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
         JsonMixin.__init__(self)
 
-        self.default = default
+        self.value: str | dict[str, str] | None = None
+        self.input_type = "text"
+        self.placeholder = placeholder
+        self.required = required
+        self.readonly = readonly
+        self.unique = unique
         self.textarea = textarea
         self.use_editor = use_editor
         self.maxlength = maxlength
+
+    def __len__(self) -> int:
+        """Return length of field `value`."""
+        value = self.value
+        if isinstance(value, str):
+            return len(value)
+        elif isinstance(value, dict):
+            count = 0
+            for text in value.values():
+                tmp = len(text)
+                if tmp > count:
+                    count = tmp
+            return count
+        return 0

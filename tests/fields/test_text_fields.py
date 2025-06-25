@@ -35,7 +35,6 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.textarea)
         self.assertFalse(f.use_editor)
         self.assertIsNone(f.value)
-        self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
         self.assertFalse(f.required)
@@ -44,14 +43,7 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.maxlength, 256)
         # Exception checking:
         with self.assertRaises(AssertionError):
-            TextField(default=12)
-        with self.assertRaises(AssertionError):
             TextField(maxlength="256")
-        with self.assertRaises(AssertionError):
-            TextField(default="")
-        with self.assertRaises(AssertionError):
-            TextField(default="Hello!", maxlength=3)
-        TextField(default="Hello!")
         TextField(maxlength=512)
 
     def test_url_field(self):

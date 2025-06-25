@@ -97,7 +97,7 @@ from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import model, translations, migration
-from ramifice.fields import DateField, EmailField, ImageField, PasswordField, TextField
+from ramifice.fields import DateField, EmailField, ImageField, PasswordField, TextField, FileField
 
 
 @model(service_name="Accounts")
@@ -118,6 +118,10 @@ class User:
             # The maximum size of the original image in bytes.
             # Hint: By default = 2 MB
             max_size=524288 # 0.5 MB = 524288 Bytes (in binary)
+        )
+        self.resume = FileField(
+          label=gettext("Resume"),
+          default="public/media/default/no_doc.odt",
         )
         self.username = TextField(
             label=gettext("Username"),
@@ -161,11 +165,13 @@ async def main():
     ).migrat()
 
     # If you need to change the language of translation.
-    # translations.change_locale("ru")
+    # Hint: For Ramifice by default = "en"
+    translations.change_locale("en")
 
     user = User()
     user.username.value = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
+    user.resume.from_path("public/media/default/no_doc.odt")
     user.first_name.value = "John"
     user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"

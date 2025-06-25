@@ -1,6 +1,12 @@
 # basic
 
-A simple example to start using.
+**A simple example to start using.**
+<br>
+<br>
+**Path to file with an example:**
+<br>
+packages\models\src\models\accounts.py
+src\basic\main.py
 
 ## Run an example
 

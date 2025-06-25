@@ -13,7 +13,7 @@ def password_to_none(
 ) -> dict[str, Any]:
     """Create object instance from Mongo document."""
     for f_name, t_name in field_name_and_type.items():
-        if "Pass" in t_name:
+        if "PasswordField" == t_name:
             mongo_doc[f_name] = None
     return mongo_doc
 
@@ -26,7 +26,14 @@ def from_mongo_doc(
     obj = cls_model()
     for name, data in mongo_doc.items():
         field = obj.__dict__[name]
-        field.value = data if field.group != "pass" else None
+        if "TextField" == field.field_type:
+            field.value = (
+                data[translations.CURRENT_LOCALE] if isinstance(field.value, dict) else None
+            )
+        elif field.group == "pass":
+            field.value = None
+        else:
+            field.value = data
     return obj
 
 
@@ -47,7 +54,9 @@ def mongo_doc_to_raw_doc(
     for f_name, t_name in field_name_and_type.items():
         value = mongo_doc[f_name]
         if value is not None:
-            if "Date" in t_name:
+            if "TextField" == t_name:
+                value = value[current_locale] if isinstance(value, dict) else None
+            elif "Date" in t_name:
                 if "Time" in t_name:
                     value = format_datetime(
                         datetime=value,
@@ -60,9 +69,9 @@ def mongo_doc_to_raw_doc(
                         format="short",
                         locale=current_locale,
                     )
-            elif "ID" in t_name:
+            elif "IDField" == t_name:
                 value = str(value)
-            elif "Pass" in t_name:
+            elif "PasswordField" == t_name:
                 value = None
         doc[f_name] = value
     return doc
