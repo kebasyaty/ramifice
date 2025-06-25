@@ -28,5 +28,5 @@ uv python install
 
 cd project_name
 uv sync
-uv run python src/basic/main.py
+uv run python src/hooks/main.py
 ```
