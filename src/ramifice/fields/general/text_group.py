@@ -26,3 +26,10 @@ class TextGroup:
         self.required = required
         self.readonly = readonly
         self.unique = unique
+
+    def __len__(self) -> int:
+        """Return length of field `value`."""
+        value = self.value
+        if value is None:
+            return 0
+        return len(value)

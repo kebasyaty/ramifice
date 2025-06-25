@@ -25,11 +25,17 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         field = params["field_data"]
+        field_type: str = field.field_type
+        is_text_field: bool = "TextField" == field_type
         # Get current value.
-        value = field.value or field.default or None
+        value = field.value or field.__dict__.get("default")
 
-        if not isinstance(value, (str, type(None))):
-            panic_type_error("str | None", params)
+        if is_text_field:
+            if not isinstance(value, (str, dict, type(None))):
+                panic_type_error("str | None", params)
+        else:
+            if not isinstance(value, (str, type(None))):
+                panic_type_error("str | None", params)
 
         if value is None:
             if field.required:
@@ -40,7 +46,7 @@ class TextGroupMixin:
             return
         # Validation the `maxlength` field attribute.
         maxlength: int | None = field.__dict__.get("maxlength")
-        if maxlength is not None and len(value) > maxlength:
+        if maxlength is not None and len(field) > maxlength:
             err_msg = translations._("The length of the string exceeds maxlength=%d !" % maxlength)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
@@ -48,8 +54,7 @@ class TextGroupMixin:
             err_msg = translations._("Is not unique !")
             accumulate_error(err_msg, params)
         # Validation Email, Url, IP, Color, Phone.
-        field_type = field.field_type
-        if "Email" in field_type:
+        if "EmailField" == field_type:
             try:
                 emailinfo = validate_email(
                     str(value),
@@ -60,18 +65,28 @@ class TextGroupMixin:
             except EmailNotValidError:
                 err_msg = translations._("Invalid Email address !")
                 accumulate_error(err_msg, params)
-        elif "URL" in field_type and not is_url(value):
+        elif "URLField" == field_type and not is_url(value):
             err_msg = translations._("Invalid URL address !")
             accumulate_error(err_msg, params)
-        elif "IP" in field_type and not is_ip(value):
+        elif "IPField" == field_type and not is_ip(value):
             err_msg = translations._("Invalid IP address !")
             accumulate_error(err_msg, params)
-        elif "Color" in field_type and not is_color(value):
+        elif "ColorField" == field_type and not is_color(value):
             err_msg = translations._("Invalid Color code !")
             accumulate_error(err_msg, params)
-        elif "Phone" in field_type and not is_phone(value):
+        elif "PhoneField" == field_type and not is_phone(value):
             err_msg = translations._("Invalid Phone number !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
+            if is_text_field:
+                mult_lang_text: dict[str, str] = {}
+                if params["mongo_doc"] is not None:
+                    mult_lang_text = params["mongo_doc"][field.name]
+                if isinstance(value, dict):
+                    for lang, text in value.items():
+                        mult_lang_text[lang] = text
+                else:
+                    mult_lang_text[translations.CURRENT_LOCALE] = value
+                value = mult_lang_text
             params["result_map"][field.name] = value

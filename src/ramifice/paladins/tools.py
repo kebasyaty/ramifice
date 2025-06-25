@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from ..utils.errors import PanicError
+from ..utils import errors, translations
 
 
 def ignored_fields_to_none(inst_model: Any) -> None:
@@ -16,7 +16,14 @@ def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
     for name, data in mongo_doc.items():
         field = inst_model.__dict__[name]
-        field.value = data if field.group != "pass" else None
+        if "TextField" == field.field_type:
+            field.value = (
+                data[translations.CURRENT_LOCALE] if isinstance(field.value, dict) else None
+            )
+        elif field.group == "pass":
+            field.value = None
+        else:
+            field.value = data
 
 
 def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
@@ -26,7 +33,7 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
         + f"Field: `{params['field_data'].name}` > "
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
-    raise PanicError(msg)
+    raise errors.PanicError(msg)
 
 
 def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
@@ -41,7 +48,7 @@ def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
             + f"Field: `{params['field_data'].name}`"
             + f" => {err_msg}"
         )
-        raise PanicError(msg)
+        raise errors.PanicError(msg)
 
 
 async def check_uniqueness(
