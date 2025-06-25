@@ -1,15 +1,13 @@
-# hooks
+# files
 
-**Hooks - Methods that are called at different stages when accessing the database.**
-<br>
-( for a general presentation, how to use hooks methods )
+**An example of using fields for files and images.**
 <br>
 <br>
 **Path to file with an example:**
 <br>
 packages\models\src\models\accounts.py
 <br>
-src\hooks\main.py
+src\files\main.py
 
 ## Run an example
 

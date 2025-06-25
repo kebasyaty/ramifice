@@ -6,6 +6,7 @@
 **Path to file with an example:**
 <br>
 packages\models\src\models\accounts.py
+<br>
 src\basic\main.py
 
 ## Run an example

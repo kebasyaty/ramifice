@@ -1,0 +1,42 @@
+"""App."""
+
+import asyncio
+import pprint
+
+from pymongo import AsyncMongoClient
+from ramifice import migration, translations
+
+from models.accounts import User
+
+
+async def main() -> None:
+    """Main."""
+    client: AsyncMongoClient = AsyncMongoClient()
+
+    await migration.Monitor(
+        database_name="test_db",
+        mongo_client=client,
+    ).migrat()
+
+    # If you need to change the language of translation.
+    translations.change_locale("en")
+
+    user = User()
+    user.avatar.from_path("public/media/default/no-photo.png")
+    user.resume.from_path("public/media/default/no_doc.odt")
+
+    if not await user.save():
+        # Convenient to use during development.
+        user.print_err()
+
+    print("User details:")
+    user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
+    pprint.pprint(user_details)
+
+    await user.delete(remove_files=False)
+
+    await client.close()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
