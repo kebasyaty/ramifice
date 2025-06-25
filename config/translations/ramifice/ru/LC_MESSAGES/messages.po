@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-24 12:31+0300\n"
+"POT-Creation-Date: 2025-06-25 12:23+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -54,7 +54,7 @@ msgstr "Когда был обновлен документ."
 #: src/ramifice/paladins/groups/img_group.py:61
 #: src/ramifice/paladins/groups/num_group.py:37
 #: src/ramifice/paladins/groups/pass_group.py:36
-#: src/ramifice/paladins/groups/text_group.py:36
+#: src/ramifice/paladins/groups/text_group.py:42
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
@@ -97,7 +97,7 @@ msgid "The value %d must not be less than min=%d !"
 msgstr "Число %d не должно быть меньше min=%d !"
 
 #: src/ramifice/paladins/groups/num_group.py:58
-#: src/ramifice/paladins/groups/text_group.py:48
+#: src/ramifice/paladins/groups/text_group.py:54
 msgid "Is not unique !"
 msgstr "Не является уникальным !"
 
@@ -114,28 +114,28 @@ msgstr "Допустимые символы: %s"
 msgid "Number of characters: from 8 to 256"
 msgstr "Количество символов: от 8 до 256"
 
-#: src/ramifice/paladins/groups/text_group.py:44
+#: src/ramifice/paladins/groups/text_group.py:50
 #, python-format
 msgid "The length of the string exceeds maxlength=%d !"
 msgstr "Длина строки превышает maxlength=%d !"
 
-#: src/ramifice/paladins/groups/text_group.py:61
+#: src/ramifice/paladins/groups/text_group.py:66
 msgid "Invalid Email address !"
 msgstr "Неверный адрес электронной почты !"
 
-#: src/ramifice/paladins/groups/text_group.py:64
+#: src/ramifice/paladins/groups/text_group.py:69
 msgid "Invalid URL address !"
 msgstr "Неверный URL адрес"
 
-#: src/ramifice/paladins/groups/text_group.py:67
+#: src/ramifice/paladins/groups/text_group.py:72
 msgid "Invalid IP address !"
 msgstr "Неверный IP адрес !"
 
-#: src/ramifice/paladins/groups/text_group.py:70
+#: src/ramifice/paladins/groups/text_group.py:75
 msgid "Invalid Color code !"
 msgstr "Некорректный цветовой код !"
 
-#: src/ramifice/paladins/groups/text_group.py:73
+#: src/ramifice/paladins/groups/text_group.py:78
 msgid "Invalid Phone number !"
 msgstr "Неверный номер телефона !"
 
