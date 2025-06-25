@@ -8,6 +8,7 @@
 **Path to file with an example:**
 <br>
 packages\models\src\models\accounts.py
+<br>
 src\hooks\main.py
 
 ## Run an example
