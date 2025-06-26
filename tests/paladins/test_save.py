@@ -108,6 +108,23 @@ class PseudoUser:
         self.choice_int = ChoiceIntField()
 
 
+@model(service_name="Accounts")
+class UniqueUser:
+    """For test the uniqueness of values."""
+
+    def fields(self):
+        """For adding fields."""
+        self.username = TextField(
+            unique=True,
+        )
+        self.email = EmailField(
+            unique=True,
+        )
+        self.age = IntegerField(
+            unique=True,
+        )
+
+
 class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
     """Testing `Ramifice > QPaladinsMixin > SaveMixin` module."""
 
@@ -154,6 +171,26 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         pseudo_user = PseudoUser()
         with self.assertRaises(AttributeError):
             await pseudo_user.save()
+
+        # Check Unique.
+        # positive
+        unique_user = UniqueUser()
+        unique_user.username.value = "pythondev"
+        unique_user.email.value = "John_Smith@gmail.com"
+        unique_user.age.value = 32
+        self.assertTrue(await unique_user.save())
+        unique_user = UniqueUser()
+        self.assertTrue(await unique_user.save())
+        # negative
+        unique_user = UniqueUser()
+        unique_user.username.value = "pythondev"
+        self.assertFalse(await unique_user.save())
+        unique_user = UniqueUser()
+        unique_user.email.value = "John_Smith@gmail.com"
+        self.assertFalse(await unique_user.save())
+        unique_user = UniqueUser()
+        unique_user.age.value = 32
+        self.assertFalse(await unique_user.save())
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

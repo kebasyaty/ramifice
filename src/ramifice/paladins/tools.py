@@ -58,10 +58,21 @@ async def check_uniqueness(
     """Check the uniqueness of the value in the collection."""
     if not params["is_migrate_model"]:
         return True
-    q_filter = {
-        "$and": [
-            {"_id": {"$ne": params["doc_id"]}},
-            {params["field_data"].name: value},
-        ],
-    }
+    q_filter = None
+    if params["field_data"].field_type == "TextField":
+        field_name = params["field_data"].name
+        lang_filter = [{f"{field_name}.{lang}": value} for lang in translations.LANGUAGES]
+        q_filter = {
+            "$and": [
+                {"_id": {"$ne": params["doc_id"]}},
+                {"$or": lang_filter},
+            ],
+        }
+    else:
+        q_filter = {
+            "$and": [
+                {"_id": {"$ne": params["doc_id"]}},
+                {params["field_data"].name: value},
+            ],
+        }
     return await params["collection"].find_one(q_filter) is None
