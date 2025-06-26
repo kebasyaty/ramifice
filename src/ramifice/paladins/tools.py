@@ -8,7 +8,7 @@ from ..utils import errors, translations
 def ignored_fields_to_none(inst_model: Any) -> None:
     """Reset the values of ignored fields to None."""
     for _, field_data in inst_model.__dict__.items():
-        if not callable(field_data) and field_data.ignored and field_data.name != "_id":
+        if not callable(field_data) and field_data.ignored:
             field_data.value = None
 
 
@@ -16,7 +16,7 @@ def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
     for name, data in mongo_doc.items():
         field = inst_model.__dict__[name]
-        if "TextField" == field.field_type:
+        if field.field_type == "TextField":
             field.value = (
                 data[translations.CURRENT_LOCALE] if isinstance(field.value, dict) else None
             )
