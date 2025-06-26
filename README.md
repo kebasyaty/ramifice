@@ -205,8 +205,14 @@ async def main():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
-    pprint.pprint(user_details)
+    user_details = await User.find_one_to_raw_doc(
+        # {"_id": user.id.value}
+        {f"username.{translations.DEFAULT_LOCALE}": user.username.value}
+    )
+    if user_details is not None:
+        pprint.pprint(user_details)
+    else:
+        print("No User!")
 
     # Remove User.
     await user.delete(remove_files=False)
