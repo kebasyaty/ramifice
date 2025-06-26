@@ -2,14 +2,14 @@
 
 **Hooks - Methods that are called at different stages when accessing the database.**
 <br>
-( for a general presentation, how to use hooks methods )
+( _for a general presentation, how to use hooks methods_ )
 <br>
 <br>
 **Path to file with an example:**
 <br>
-packages\models\src\models\accounts.py
+_packages/models/src/models/accounts.py_
 <br>
-src\hooks\main.py
+_src/hooks/main.py_
 
 ## Run an example
 
