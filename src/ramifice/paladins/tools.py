@@ -17,9 +17,7 @@ def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     for name, data in mongo_doc.items():
         field = inst_model.__dict__[name]
         if field.field_type == "TextField":
-            field.value = (
-                data[translations.CURRENT_LOCALE] if isinstance(field.value, dict) else None
-            )
+            field.value = data[translations.CURRENT_LOCALE] if isinstance(data, dict) else None
         elif field.group == "pass":
             field.value = None
         else:
