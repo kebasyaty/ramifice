@@ -9,7 +9,9 @@
 <br>
 **Path to file with an example:**
 <br>
-_packages/models/src/models/accounts.py_
+_packages/models/src/models/site.py_
+<br>
+_config/fixtures/SiteParameters.yml_
 <br>
 _src/multy_fixture/main.py_
 

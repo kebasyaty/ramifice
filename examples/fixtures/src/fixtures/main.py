@@ -6,7 +6,7 @@ import pprint
 from pymongo import AsyncMongoClient
 from ramifice import migration, translations
 
-from models.accounts import User
+from models.site import Parameters
 
 
 async def main() -> None:
@@ -19,16 +19,21 @@ async def main() -> None:
     ).migrat()
 
     # If you need to change the language of translation.
+    # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
-    user = await User.find_one_to_instance({"email": "John_Smith@gmail.com"})
+    params = await Parameters.find_one_to_instance(
+        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name"}
+    )
 
-    print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
-    pprint.pprint(user_details)
+    if params is not None:
+        print("Details of Parameters:")
+        user_details = await Parameters.find_one_to_raw_doc({"_id": params.id.value})
+        pprint.pprint(user_details)
 
-    if user is not None:
-        await user.delete(remove_files=False)
+        # await params.delete(remove_files=False)
+    else:
+        print("No parameters!")
 
     await client.close()
 

@@ -6,7 +6,7 @@ import pprint
 from pymongo import AsyncMongoClient
 from ramifice import migration, translations
 
-from models.accounts import User
+from models.site import Parameters
 
 
 async def main() -> None:
@@ -19,20 +19,30 @@ async def main() -> None:
     ).migrat()
 
     # If you need to change the language of translation.
+    # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
-    user = await User.find_one_to_instance({"email": "John_Smith@gmail.com"})
-    user2 = await User.find_one_to_instance({"email": "kebasyaty@gmail.com"})
+    params = await Parameters.find_one_to_instance(
+        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name"}
+    )
+    if params is not None:
+        print("Details of Parameters:")
+        user_details = await Parameters.find_one_to_raw_doc({"_id": params.id.value})
+        pprint.pprint(user_details)
+        # await params.delete(remove_files=False)
+    else:
+        print("No parameters!")
 
-    print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
-    pprint.pprint(user_details)
-    await user.delete(remove_files=False)
-
-    print("\nUser 2 details:")
-    user2_details = await User.find_one_to_raw_doc({"_id": user2.id.value})
-    pprint.pprint(user2_details)
-    await user2.delete(remove_files=False)
+    params_2 = await Parameters.find_one_to_instance(
+        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name 2"}
+    )
+    if params_2 is not None:
+        print("\nDetails of Parameters:")
+        user_details_2 = await Parameters.find_one_to_raw_doc({"_id": params_2.id.value})
+        pprint.pprint(user_details_2)
+        # await params_2.delete(remove_files=False)
+    else:
+        print("No parameters 2!")
 
     await client.close()
 
