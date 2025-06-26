@@ -7,7 +7,6 @@ from ramifice.fields import (
     EmailField,
     FileField,
     ImageField,
-    PasswordField,
     TextField,
 )
 
