@@ -87,11 +87,17 @@ class TextGroupMixin:
         if params["is_save"]:
             if is_text_field:
                 mult_lang_text: dict[str, str] = (
-                    params["curr_doc"][field_name] if params["is_update"] else {}
+                    params["curr_doc"][field_name]
+                    if params["is_update"]
+                    else (
+                        {lang: value for lang in translations.LANGUAGES}
+                        if isinstance(value, str)
+                        else {lang: value.get(lang, "") for lang in translations.LANGUAGES}
+                    )
                 )
                 if isinstance(value, dict):
-                    for lang, text in value.items():
-                        mult_lang_text[lang] = text
+                    for lang in translations.LANGUAGES:
+                        mult_lang_text[lang] = value.get(lang, "")
                 else:
                     mult_lang_text[translations.CURRENT_LOCALE] = value
                 value = mult_lang_text
