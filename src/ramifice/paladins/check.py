@@ -99,6 +99,8 @@ class CheckMixin(
             err_msg = error_map.get(field_name)
             if bool(err_msg):
                 field_data.errors.append(err_msg)
+                if not params["is_error_symptom"]:
+                    params["is_error_symptom"] = True
             # Checking the fields by groups.
             if not field_data.ignored:
                 group = field_data.group
