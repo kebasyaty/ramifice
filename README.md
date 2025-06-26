@@ -98,6 +98,7 @@ from datetime import datetime
 from pymongo import AsyncMongoClient
 from ramifice import model, translations, migration
 from ramifice.fields import (
+    BooleanField,
     DateField,
     EmailField,
     FileField,
@@ -155,6 +156,9 @@ class User:
             # If true, the value of this field is not saved in the database.
             ignored=True,
         )
+         self.is_admin = BooleanField(
+            label=gettext("Is Administrator?"),
+        )
 
     # Optional method.
     async def add_validation(self) -> dict[str, str]:
@@ -188,6 +192,7 @@ async def main():
     user.birthday.value = datetime(2000, 1, 25)
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
+    user.is_admin.value = True
 
     # Create User.
     if not await user.save():
