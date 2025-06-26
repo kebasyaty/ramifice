@@ -97,12 +97,22 @@ from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import model, translations, migration
-from ramifice.fields import DateField, EmailField, ImageField, PasswordField, TextField, FileField
+from ramifice.fields import (
+    DateField,
+    EmailField,
+    FileField,
+    ImageField,
+    PasswordField,
+    TextField,
+)
 
 
 @model(service_name="Accounts")
 class User:
+    """Model of User."""
+
     def fields(self):
+        """For adding fields."""
         # For custom translations.
         gettext = translations.gettext
         ngettext = translations.ngettext

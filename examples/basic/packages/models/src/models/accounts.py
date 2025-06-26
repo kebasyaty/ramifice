@@ -11,7 +11,7 @@ from ramifice.fields import (
 
 @model(service_name="Accounts")
 class User:
-    """User."""
+    """Model of User."""
 
     def fields(self) -> None:
         """For adding fields."""
