@@ -84,7 +84,7 @@ class CheckMixin(
             "field_data": None,
             "full_model_name": cls_model.META["full_model_name"],
             "is_migrate_model": is_migrate_model,
-            "mongo_doc": (
+            "curr_doc": (
                 await collection.find_one({"_id": doc_id}) if is_save and is_update else None
             ),
         }
@@ -131,9 +131,7 @@ class CheckMixin(
                 if not is_update:
                     self._id.value = None
                 # Delete orphaned files.
-                curr_doc: dict[str, Any] | None = (
-                    await collection.find_one({"_id": doc_id}) if is_update else None
-                )
+                curr_doc: dict[str, Any] | None = params["curr_doc"]
                 for field_name, field_data in self.__dict__.items():
                     if callable(field_data) or field_data.ignored:
                         continue

@@ -81,7 +81,7 @@ class TextGroupMixin:
         if params["is_save"]:
             if is_text_field:
                 mult_lang_text: dict[str, str] = (
-                    params["mongo_doc"][field.name] if params["is_update"] else {}
+                    params["curr_doc"][field.name] if params["is_update"] else {}
                 )
                 if isinstance(value, dict):
                     for lang, text in value.items():
