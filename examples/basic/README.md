@@ -5,9 +5,9 @@
 <br>
 **Path to file with an example:**
 <br>
-packages\models\src\models\accounts.py
+_packages/models/src/models/accounts.py_
 <br>
-src\basic\main.py
+_src/basic/main.py_
 
 ## Run an example
 

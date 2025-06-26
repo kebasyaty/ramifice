@@ -1,13 +1,17 @@
-# files
+# multy_fixture
 
-**An example of using fields for files and images.**
+**An example of a fixture with several documents.**
+<br>
+**Fixtures:** To populate the database with pre-created data.
+<br>
+**config/fixtures** - Directory for creating fixtures.
 <br>
 <br>
 **Path to file with an example:**
 <br>
 _packages/models/src/models/accounts.py_
 <br>
-_src/files/main.py_
+_src/multy_fixture/main.py_
 
 ## Run an example
 
@@ -26,5 +30,5 @@ uv python install
 
 cd project_name
 uv sync
-uv run python src/files/main.py
+uv run python src/multy_fixture/main.py
 ```

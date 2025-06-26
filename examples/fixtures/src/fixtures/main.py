@@ -21,19 +21,14 @@ async def main() -> None:
     # If you need to change the language of translation.
     translations.change_locale("en")
 
-    user = User()
-    user.avatar.from_path("public/media/default/no-photo.png")
-    user.resume.from_path("public/media/default/no_doc.odt")
-
-    if not await user.save():
-        # Convenient to use during development.
-        user.print_err()
+    user = await User.find_one_to_instance({"email": "John_Smith@gmail.com"})
 
     print("User details:")
     user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
     pprint.pprint(user_details)
 
-    await user.delete(remove_files=False)
+    if user is not None:
+        await user.delete(remove_files=False)
 
     await client.close()
 
