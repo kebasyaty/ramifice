@@ -105,7 +105,7 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)
         self.assertEqual(await User.count_documents({}), 1)
-        self.assertEqual(await User.count_documents({"_id": m._id.value}), 1)
+        self.assertEqual(await User.count_documents({"_id": m.id.value}), 1)
         self.assertEqual(User.collection_name(), "Accounts_User")
         self.assertEqual(User.collection_full_name(), "test_general_mixin_methods.Accounts_User")
         self.assertEqual(User.database(), globals.MONGO_DATABASE)

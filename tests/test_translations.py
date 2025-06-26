@@ -28,9 +28,9 @@ class TestTranslations(unittest.TestCase):
 
         user = User()
 
-        self.assertEqual(user._id.label, "Идентификатор документа")
-        self.assertEqual(user._id.placeholder, "Он добавляется автоматически")
-        self.assertEqual(user._id.hint, "Он добавляется автоматически")
+        self.assertEqual(user.id.label, "Идентификатор документа")
+        self.assertEqual(user.id.placeholder, "Он добавляется автоматически")
+        self.assertEqual(user.id.hint, "Он добавляется автоматически")
 
         self.assertEqual(user.created_at.label, "Создан")
         self.assertEqual(user.created_at.placeholder, "Он добавляется автоматически")
