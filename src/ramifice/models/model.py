@@ -46,7 +46,8 @@ class Model(metaclass=ABCMeta):
         self.inject()
 
     @property
-    def id(self) -> IDField:  # noqa: D102
+    def id(self) -> IDField:
+        """Getter for the field `_id`."""
         return self._id
 
     @abstractmethod
