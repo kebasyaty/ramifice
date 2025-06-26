@@ -25,23 +25,24 @@ class SlugGroupMixin:
             return
         #
         field = params["field_data"]
+        field_name = field.name
         raw_str_list: list[str] = []
         slug_sources = field.slug_sources
         #
-        for field_name, field_data in self.__dict__.items():
+        for _field_name, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if field_name in slug_sources:
+            if _field_name in slug_sources:
                 value = field_data.value
                 if value is None:
                     value = field_data.__dict__.get("default")
                 if value is not None:
-                    raw_str_list.append(value if field_name != "_id" else str(value))
+                    raw_str_list.append(value if _field_name != "_id" else str(value))
                 else:
                     err_msg = (
                         f"Model: `{params['full_model_name']}` > "
-                        + f"Field: `{field.name}` => "
-                        + f"{field_name} - "
+                        + f"Field: `{field_name}` => "
+                        + f"{_field_name} - "
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
@@ -51,13 +52,17 @@ class SlugGroupMixin:
             # Convert to slug.
             value = slugify("-".join(raw_str_list))
             # Validation of uniqueness of the value.
-            if not await check_uniqueness(value, params):
+            if not await check_uniqueness(
+                value,
+                params,
+                field_name,
+            ):
                 err_msg = (
                     f"Model: `{params['full_model_name']}` > "
-                    + f"Field: `{field.name}` > "
+                    + f"Field: `{field_name}` > "
                     + f"Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
                 raise PanicError(err_msg)
             # Add value to map.
-            params["result_map"][field.name] = value
+            params["result_map"][field_name] = value

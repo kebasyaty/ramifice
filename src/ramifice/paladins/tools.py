@@ -54,13 +54,14 @@ def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
 async def check_uniqueness(
     value: str | int | float,
     params: dict[str, Any],
+    field_name: str | None = None,
+    is_text_field: bool = False,
 ) -> bool:
     """Check the uniqueness of the value in the collection."""
     if not params["is_migrate_model"]:
         return True
     q_filter = None
-    if params["field_data"].field_type == "TextField":
-        field_name = params["field_data"].name
+    if is_text_field:
         lang_filter = [{f"{field_name}.{lang}": value} for lang in translations.LANGUAGES]
         q_filter = {
             "$and": [
@@ -72,7 +73,7 @@ async def check_uniqueness(
         q_filter = {
             "$and": [
                 {"_id": {"$ne": params["doc_id"]}},
-                {params["field_data"].name: value},
+                {field_name: value},
             ],
         }
     return await params["collection"].find_one(q_filter) is None
