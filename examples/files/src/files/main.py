@@ -19,6 +19,7 @@ async def main() -> None:
     ).migrat()
 
     # If you need to change the language of translation.
+    # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
     user = User()

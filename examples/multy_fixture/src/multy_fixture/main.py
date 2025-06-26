@@ -19,6 +19,7 @@ async def main() -> None:
     ).migrat()
 
     # If you need to change the language of translation.
+    # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
     user = await User.find_one_to_instance({"email": "John_Smith@gmail.com"})
