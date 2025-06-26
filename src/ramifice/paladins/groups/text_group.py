@@ -25,6 +25,7 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         field = params["field_data"]
+        field_name = field.name
         field_type: str = field.field_type
         is_text_field: bool = "TextField" == field_type
         # Get current value.
@@ -42,7 +43,7 @@ class TextGroupMixin:
                 err_msg = translations._("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][field_name] = None
             return
         # Validation the `maxlength` field attribute.
         maxlength: int | None = field.__dict__.get("maxlength")
@@ -50,7 +51,12 @@ class TextGroupMixin:
             err_msg = translations._("The length of the string exceeds maxlength=%d !" % maxlength)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await check_uniqueness(value, params):
+        if field.unique and not await check_uniqueness(
+            value,
+            params,
+            field_name,
+            is_text_field,
+        ):
             err_msg = translations._("Is not unique !")
             accumulate_error(err_msg, params)
         # Validation Email, Url, IP, Color, Phone.
@@ -81,7 +87,7 @@ class TextGroupMixin:
         if params["is_save"]:
             if is_text_field:
                 mult_lang_text: dict[str, str] = (
-                    params["curr_doc"][field.name] if params["is_update"] else {}
+                    params["curr_doc"][field_name] if params["is_update"] else {}
                 )
                 if isinstance(value, dict):
                     for lang, text in value.items():
@@ -89,4 +95,4 @@ class TextGroupMixin:
                 else:
                     mult_lang_text[translations.CURRENT_LOCALE] = value
                 value = mult_lang_text
-            params["result_map"][field.name] = value
+            params["result_map"][field_name] = value

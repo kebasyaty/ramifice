@@ -20,6 +20,7 @@ class NumGroupMixin:
     async def num_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         field = params["field_data"]
+        field_name = field.name
         # Get current value.
         value = field.value
         if value is None:
@@ -37,7 +38,7 @@ class NumGroupMixin:
                 err_msg = translations._("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][field_name] = None
             return
         # Validation the `max_number` field attribute.
         max_number = field.max_number
@@ -54,9 +55,9 @@ class NumGroupMixin:
             )
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await check_uniqueness(value, params):
+        if field.unique and not await check_uniqueness(value, params, field_name):
             err_msg = translations._("Is not unique !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][field_name] = value
