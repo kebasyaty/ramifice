@@ -45,6 +45,11 @@ class Model(metaclass=ABCMeta):
         self.fields()
         self.inject()
 
+    @property
+    def id(self) -> IDField:
+        """Getter for the field `_id`."""
+        return self._id
+
     @abstractmethod
     def fields(self) -> None:
         """For adding fields."""

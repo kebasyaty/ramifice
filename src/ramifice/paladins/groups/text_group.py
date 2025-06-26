@@ -32,7 +32,7 @@ class TextGroupMixin:
 
         if is_text_field:
             if not isinstance(value, (str, dict, type(None))):
-                panic_type_error("str | None", params)
+                panic_type_error("str | dict | None", params)
         else:
             if not isinstance(value, (str, type(None))):
                 panic_type_error("str | None", params)
@@ -80,9 +80,9 @@ class TextGroupMixin:
         # Insert result.
         if params["is_save"]:
             if is_text_field:
-                mult_lang_text: dict[str, str] = {}
-                if params["mongo_doc"] is not None:
-                    mult_lang_text = params["mongo_doc"][field.name]
+                mult_lang_text: dict[str, str] = (
+                    params["curr_doc"][field.name] if params["is_update"] else {}
+                )
                 if isinstance(value, dict):
                     for lang, text in value.items():
                         mult_lang_text[lang] = text

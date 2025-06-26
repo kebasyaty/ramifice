@@ -190,7 +190,7 @@ async def main():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user._id.value})
+    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
     pprint.pprint(user_details)
 
     # Remove User.

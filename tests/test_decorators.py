@@ -106,7 +106,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "tests.test_decorators.User")
 
-        self.assertIsNone(m._id.value)
+        self.assertIsNone(m.id.value)
         self.assertIsNone(m.created_at.value)
         self.assertIsNone(m.updated_at.value)
         self.assertIsNone(m.username.value)

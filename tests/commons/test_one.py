@@ -105,32 +105,32 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         if not await m.save():
             m.print_err()
         #
-        doc = await User.find_one({"_id": m._id.value})
+        doc = await User.find_one({"_id": m.id.value})
         self.assertTrue(isinstance(doc, dict))
         #
-        raw_doc = await User.find_one_to_raw_doc({"_id": m._id.value})
+        raw_doc = await User.find_one_to_raw_doc({"_id": m.id.value})
         self.assertTrue(isinstance(raw_doc, dict))
         #
-        model = await User.find_one_to_instance({"_id": m._id.value})
-        self.assertEqual(model._id.value, m._id.value)
+        model = await User.find_one_to_instance({"_id": m.id.value})
+        self.assertEqual(model.id.value, m.id.value)
         #
-        json_str = await User.find_one_to_json({"_id": m._id.value})
+        json_str = await User.find_one_to_json({"_id": m.id.value})
         self.assertEqual(json_str, m.to_json())
         #
-        await User.delete_one({"_id": m._id.value})
+        await User.delete_one({"_id": m.id.value})
         self.assertEqual(await User.estimated_document_count(), 0)
         #
         m = User()
         if not await m.save():
             m.print_err()
-        doc = await User.find_one_and_delete({"_id": m._id.value})
-        self.assertEqual(doc["_id"], m._id.value)
+        doc = await User.find_one_and_delete({"_id": m.id.value})
+        self.assertEqual(doc["_id"], m.id.value)
         self.assertEqual(await User.estimated_document_count(), 0)
         #
         m = User()
         if not await m.save():
             m.print_err()
-        result = await User.delete_one({"_id": m._id.value})
+        result = await User.delete_one({"_id": m.id.value})
         self.assertTrue(isinstance(result, DeleteResult))
         self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------
