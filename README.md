@@ -207,6 +207,7 @@ async def main():
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
         # {"_id": user.id.value}
+        # For `TextField`.
         {f"username.{translations.CURRENT_LOCALE}": user.username.value}
     )
     if user_details is not None:
