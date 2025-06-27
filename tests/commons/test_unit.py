@@ -6,7 +6,7 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import model
+from ramifice import Unit, model
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -18,7 +18,6 @@ from ramifice.fields import (
 from ramifice.utils import globals
 from ramifice.utils.errors import PanicError
 from ramifice.utils.migration import Monitor
-from ramifice.utils.unit import Unit
 
 
 @model(service_name="Accounts")
