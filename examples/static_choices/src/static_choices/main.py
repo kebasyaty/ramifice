@@ -31,12 +31,12 @@ async def main() -> None:
     product.size_txt.value = "middle"
     product.sizes_txt.value = ["big", "small"]
 
-    # Create User.
+    # Create Product.
     if not await product.save():
         # Convenient to use during development.
         product.print_err()
 
-    # Update User.
+    # Update Product.
     product.size_txt.value = "big"
     if not await product.save():
         product.print_err()
@@ -46,9 +46,9 @@ async def main() -> None:
     if product_details is not None:
         pprint.pprint(product_details)
     else:
-        print("No User!")
+        print("No Product!")
 
-    # Remove User.
+    # Remove Product.
     if product_details is not None:
         await product.delete(remove_files=False)
 
