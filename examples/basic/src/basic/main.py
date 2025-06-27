@@ -50,6 +50,10 @@ async def main() -> None:
     # Remove User.
     await user.delete()
 
+    # Remove collection.
+    # (if necessary)
+    await User.collection().drop()
+
     await client.close()
 
 

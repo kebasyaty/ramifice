@@ -19,6 +19,9 @@ async def main() -> None:
         mongo_client=client,
     ).migrat()
 
+    print("Index information:")
+    pprint.pprint(await User.index_information())
+
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
@@ -35,26 +38,38 @@ async def main() -> None:
     user.сonfirm_password.value = "12345678"
     user.is_admin.value = True
 
+    # Create User.
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
 
-    # Verification of password.
-    if await user.verify_password(password="12345678"):
-        print("12345678 - The password is valid")
+    # Update User.
+    user.username.value = "pythondev-123"
+    if not await user.save():
+        user.print_err()
 
-    # Replacement of password.
-    print("Replacement of password from `12345678` to `O2eA4GIr38KGGlS`")
-    await user.update_password(
-        old_password="12345678",
-        new_password="O2eA4GIr38KGGlS",
+    print("\n\nUser details:")
+    user_details = await User.find_one_to_raw_doc(
+        # {"_id": user.id.value}
+        # For `TextField`.
+        {f"username.{translations.CURRENT_LOCALE}": user.username.value}
     )
+    if user_details is not None:
+        pprint.pprint(user_details)
+    else:
+        print("No User!")
 
-    # Verification of new password.
-    if await user.verify_password(password="O2eA4GIr38KGGlS"):
-        print("O2eA4GIr38KGGlS - The password is valid")
+    # Remove User.
+    if user_details is not None:
+        await user.delete(remove_files=False)
 
-    await user.delete(remove_files=False)
+    # Remove indexes:
+    print("\n\nRemove indexes:")
+    await User.drop_index("username_Idx")
+    await User.drop_index("email_Idx")
+    # await User.drop_indexes()  # remove all indexes.
+    print("Index information:")
+    pprint.pprint(await User.index_information())
 
     # Remove collection.
     # (if necessary)

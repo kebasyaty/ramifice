@@ -35,6 +35,10 @@ async def main() -> None:
     else:
         print("No parameters!")
 
+    # Remove collection.
+    # (if necessary)
+    await Parameters.collection().drop()
+
     await client.close()
 
 

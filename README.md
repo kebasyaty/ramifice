@@ -165,7 +165,7 @@ class User:
         """Additional validation of fields."""
         gettext = translations.gettext
         error_map: dict[str, str] = {}
-        if self.password.value != self.сonfirm_password.value:
+        if self.id.value is None and (self.password.value != self.сonfirm_password.value):
             error_map["password"] = gettext("Passwords do not match!")
         return error_map
 
@@ -207,6 +207,7 @@ async def main():
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
         # {"_id": user.id.value}
+        # For `TextField`.
         {f"username.{translations.CURRENT_LOCALE}": user.username.value}
     )
     if user_details is not None:
@@ -216,6 +217,10 @@ async def main():
 
     # Remove User.
     await user.delete(remove_files=False)
+
+    # Remove collection.
+    # (if necessary)
+    await User.collection().drop()
 
     await client.close()
 
