@@ -2,7 +2,6 @@
 
 import asyncio
 import pprint
-from datetime import datetime
 
 from pymongo import AsyncMongoClient
 from ramifice import migration, translations
