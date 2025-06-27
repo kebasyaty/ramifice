@@ -22,9 +22,21 @@ gettext --version
 https://mlocati.github.io/articles/gettext-iconv-windows.html
 gettext --version
 
+# Install UV:
+# macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# Checking installed version:
+uv --version
+
+# Install the latest version of Python:
 uv python install
 
-cd project_name
+# Go to the directory with an example:
+cd password
+# Run:
 uv sync
 uv run python src/password/main.py
 ```
