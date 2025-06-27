@@ -23,48 +23,44 @@ class Product:
         self.size_float = ChoiceFloatField(
             label=gettext("Size in float"),
             choices={
-                "Big": 25.8,
-                "Middle": 15.6,
-                "Small": 12.5,
+                gettext("Big"): 25.8,
+                gettext("Middle"): 15.6,
+                gettext("Small"): 12.5,
             },
         )
         self.sizes_float = ChoiceFloatMultField(
             label=gettext("Sizes in float"),
             choices={
-                "Big": 25.8,
-                "Middle": 15.6,
-                "Small": 12.5,
-            },
+                gettext("Big"): 25.8,
+                gettext("Middle"): 15.6,
+                gettext("Small"): 12.5,            },
         )
         self.size_int = ChoiceIntField(
             label=gettext("Size in Int"),
             choices={
-                "Big": 25,
-                "Middle": 15,
-                "Small": 12,
-            },
+                gettext("Big"): 25,
+                gettext("Middle"): 15,
+                gettext("Small"): 12,            },
         )
         self.sizes_int = ChoiceIntMultField(
             label=gettext("Sizes in Int"),
             choices={
-                "Big": 25,
-                "Middle": 15,
-                "Small": 12,
-            },
+                gettext("Big"): 25,
+                gettext("Middle"): 15,
+                gettext("Small"): 12,            },
         )
         self.size_txt = ChoiceTextField(
             label=gettext("Size in Text"),
             choices={
-                "Big": "big",
-                "Middle": "middle",
-                "Small": "small",
+                gettext("Big"): "big",
+                gettext("Middle"): "middle",
+                gettext("Small"): "small",
             },
         )
         self.sizes_txt = ChoiceTextMultField(
             label=gettext("Sizes in Text"),
             choices={
-                "Big": "big",
-                "Middle": "middle",
-                "Small": "small",
-            },
+                gettext("Big"): "big",
+                gettext("Middle"): "middle",
+                gettext("Small"): "small",            },
         )

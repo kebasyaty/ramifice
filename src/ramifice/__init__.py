@@ -16,3 +16,4 @@
 
 from .models.decorator import model
 from .utils import migration, translations
+from .utils.unit import Unit
