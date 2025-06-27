@@ -23,11 +23,11 @@ def from_mongo_doc(
     mongo_doc: dict[str, Any],
 ) -> Any:
     """Create object instance from Mongo document."""
-    obj = cls_model()
-    lang = translations.CURRENT_LOCALE
+    obj: Any = cls_model()
+    lang: str = translations.CURRENT_LOCALE
     for name, data in mongo_doc.items():
         field = obj.__dict__[name]
-        if "TextField" == field.field_type:
+        if field.field_type == "TextField":
             field.value = data.get(lang, "") if isinstance(data, dict) else None
         elif field.group == "pass":
             field.value = None
