@@ -69,6 +69,6 @@ class User:
         """Additional validation of fields."""
         gettext = translations.gettext
         error_map: dict[str, str] = {}
-        if self.password.value != self.сonfirm_password.value:
+        if self.id.value is None and (self.password.value != self.сonfirm_password.value):
             error_map["password"] = gettext("Passwords do not match!")
         return error_map
