@@ -1,5 +1,5 @@
 [project]
-name = "fixtures"
+name = "static-choices"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
