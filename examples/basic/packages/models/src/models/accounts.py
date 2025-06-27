@@ -44,7 +44,14 @@ class User:
     # Optional method.
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
+        gettext = translations.gettext
         error_map: dict[str, str] = {}
-        if self.id.value is None and (self.password.value != self.сonfirm_password.value):
-            error_map["password"] = "Passwords do not match!"
+
+        # Get clean data.
+        id = self.id.value
+        password = self.password.value
+        сonfirm_password = self.сonfirm_password.value
+
+        if id is None and (password != сonfirm_password):
+            error_map["password"] = gettext("Passwords do not match!")
         return error_map
