@@ -1,18 +1,17 @@
-# English translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2025 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-27 09:42+0300\n"
-"PO-Revision-Date: 2025-06-04 13:04+0300\n"
+"POT-Creation-Date: 2025-06-20 12:07+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,9 +50,9 @@ msgstr ""
 #: src/ramifice/paladins/groups/id_group.py:33
 #: src/ramifice/paladins/groups/img_group.py:40
 #: src/ramifice/paladins/groups/img_group.py:61
-#: src/ramifice/paladins/groups/num_group.py:38
+#: src/ramifice/paladins/groups/num_group.py:37
 #: src/ramifice/paladins/groups/pass_group.py:36
-#: src/ramifice/paladins/groups/text_group.py:43
+#: src/ramifice/paladins/groups/text_group.py:36
 msgid "Required field !"
 msgstr ""
 
@@ -85,18 +84,18 @@ msgstr ""
 msgid "Image size exceeds the maximum value %s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:47
+#: src/ramifice/paladins/groups/num_group.py:46
 #, python-format
 msgid "The value %d must not be greater than max=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:54
+#: src/ramifice/paladins/groups/num_group.py:53
 #, python-format
 msgid "The value %d must not be less than min=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:59
-#: src/ramifice/paladins/groups/text_group.py:60
+#: src/ramifice/paladins/groups/num_group.py:58
+#: src/ramifice/paladins/groups/text_group.py:48
 msgid "Is not unique !"
 msgstr ""
 
@@ -113,28 +112,28 @@ msgstr ""
 msgid "Number of characters: from 8 to 256"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:51
+#: src/ramifice/paladins/groups/text_group.py:44
 #, python-format
 msgid "The length of the string exceeds maxlength=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:72
+#: src/ramifice/paladins/groups/text_group.py:61
 msgid "Invalid Email address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:75
+#: src/ramifice/paladins/groups/text_group.py:64
 msgid "Invalid URL address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:78
+#: src/ramifice/paladins/groups/text_group.py:67
 msgid "Invalid IP address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:81
+#: src/ramifice/paladins/groups/text_group.py:70
 msgid "Invalid Color code !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:84
+#: src/ramifice/paladins/groups/text_group.py:73
 msgid "Invalid Phone number !"
 msgstr ""
 

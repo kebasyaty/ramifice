@@ -23,13 +23,12 @@ def from_mongo_doc(
     mongo_doc: dict[str, Any],
 ) -> Any:
     """Create object instance from Mongo document."""
-    obj = cls_model()
+    obj: Any = cls_model()
+    lang: str = translations.CURRENT_LOCALE
     for name, data in mongo_doc.items():
         field = obj.__dict__[name]
-        if "TextField" == field.field_type:
-            field.value = (
-                data[translations.CURRENT_LOCALE] if isinstance(field.value, dict) else None
-            )
+        if field.field_type == "TextField":
+            field.value = data.get(lang, "") if data is not None else None
         elif field.group == "pass":
             field.value = None
         else:
@@ -50,28 +49,28 @@ def mongo_doc_to_raw_doc(
         datetime to str
     """
     doc: dict[str, Any] = {}
-    current_locale = translations.CURRENT_LOCALE
+    lang: str = translations.CURRENT_LOCALE
     for f_name, t_name in field_name_and_type.items():
         value = mongo_doc[f_name]
         if value is not None:
-            if "TextField" == t_name:
-                value = value[current_locale] if isinstance(value, dict) else None
+            if t_name == "TextField":
+                value = value.get(lang, "") if value is not None else None
             elif "Date" in t_name:
                 if "Time" in t_name:
                     value = format_datetime(
                         datetime=value,
                         format="short",
-                        locale=current_locale,
+                        locale=lang,
                     )
                 else:
                     value = format_date(
                         date=value.date(),
                         format="short",
-                        locale=current_locale,
+                        locale=lang,
                     )
-            elif "IDField" == t_name:
+            elif t_name == "IDField":
                 value = str(value)
-            elif "PasswordField" == t_name:
+            elif t_name == "PasswordField":
                 value = None
         doc[f_name] = value
     return doc

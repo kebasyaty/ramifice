@@ -1,19 +1,13 @@
-# fixtures
+# password
 
-**An example of using Fixtures.**
-<br>
-**Fixtures:** To populate the database with pre-created data.
-<br>
-**config/fixtures** - Directory for creating fixtures.
+**An example of verification and updating a password.**
 <br>
 <br>
 **Path to file with an example:**
 <br>
-_packages/models/src/models/site.py_
+_packages/models/src/models/accounts.py_
 <br>
-_config/fixtures/SiteParameters.yml_
-<br>
-_src/fixtures/main.py_
+_src/password/main.py_
 
 ## Run an example
 
@@ -41,8 +35,8 @@ uv --version
 uv python install
 
 # Go to the directory with an example:
-cd fixtures
+cd password
 # Run:
 uv sync
-uv run python src/fixtures/main.py
+uv run python src/password/main.py
 ```
