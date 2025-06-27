@@ -56,6 +56,10 @@ async def main() -> None:
 
     await user.delete(remove_files=False)
 
+    # Remove collection.
+    # (if necessary)
+    await User.collection().drop()
+
     await client.close()
 
 
