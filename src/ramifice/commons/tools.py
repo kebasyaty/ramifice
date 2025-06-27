@@ -54,23 +54,23 @@ def mongo_doc_to_raw_doc(
         value = mongo_doc[f_name]
         if value is not None:
             if t_name == "TextField":
-                doc[f_name] = value.get(lang, "") if value is not None else None
+                value = value.get(lang, "") if value is not None else None
             elif "Date" in t_name:
                 if "Time" in t_name:
-                    doc[f_name] = format_datetime(
+                    value = format_datetime(
                         datetime=value,
                         format="short",
                         locale=lang,
                     )
                 else:
-                    doc[f_name] = format_date(
+                    value = format_date(
                         date=value.date(),
                         format="short",
                         locale=lang,
                     )
             elif t_name == "IDField":
-                doc[f_name] = str(value)
+                value = str(value)
             elif t_name == "PasswordField":
-                doc[f_name] = None
+                value = None
         doc[f_name] = value
     return doc
