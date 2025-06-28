@@ -415,6 +415,11 @@ collection = await User.collection()
 q_filter = {"email": "John_Smith@gmail.com"}
 mongo_doc = await User.find_one(q_filter)
 
+# Create object instance from Mongo document.
+q_filter = {"email": "John_Smith@gmail.com"}
+mongo_doc = await User.find_one(q_filter)
+user = User.from_mongo_doc(mongo_doc)
+
 # Find a single document and converting to raw document.
 q_filter = {"email": "John_Smith@gmail.com"}
 raw_doc = await User.find_one_to_raw_doc(q_filter)
@@ -478,7 +483,7 @@ async for index in await User.list_indexes():
 # Units Management.
 # Management for `choices` parameter in dynamic field types.
 # Units are stored in a separate collection.
-from ramifice.utils.unit import Unit
+from ramifice import Unit
 unit = Unit(
   field="field_name",  # The name of the dynamic field.
   title="Title",  # The name of the choice item.

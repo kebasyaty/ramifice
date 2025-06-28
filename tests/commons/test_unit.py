@@ -42,9 +42,10 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_unit_mixin_methods"
 
+        client: AsyncMongoClient = AsyncMongoClient()
+
         # Delete database before test.
         # (if the test fails)
-        client: AsyncMongoClient = AsyncMongoClient()
         await client.drop_database(database_name)
         await client.close()
 
@@ -172,6 +173,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_int_mult_dyn.value, [2])
         self.assertEqual(user.choice_txt_dyn.value, "Some text")
         self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
+        #
         # Delete Units:
         # ------------
         unit = Unit(
