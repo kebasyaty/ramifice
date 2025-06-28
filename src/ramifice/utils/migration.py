@@ -185,10 +185,9 @@ class Monitor:
                 if field_type is not None and field_name in meta_dyn_field_list:
                     model_state["field_name_and_type"][field_name] = field_type
                     metadata["data_dynamic_fields"][field_name] = field_data
-            #
+            # Refresh state of current Model.
             model_state["data_dynamic_field"] = metadata["data_dynamic_fields"]
             model_state["field_name_and_type"] = metadata["field_name_and_type"]
-            # Refresh state of current Model.
             await super_collection.replace_one(
                 filter={"collection_name": model_state["collection_name"]},
                 replacement=model_state,
