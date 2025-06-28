@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.4.10"
+version = "0.4.11"
 description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
@@ -9,7 +9,7 @@ license-files = ["LICENSE"]
 requires-python = ">=3.12,<4.0"
 keywords = ["mongo", "mongodb", "pymongo", "orm", "ramifice"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
