@@ -69,8 +69,10 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
         self.value: list[float] | None = None
         self.choices: dict[str, float] | None = None
 
-    def has_value(self) -> bool:
+    def has_value(self, is_migrat: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
+        if is_migrat:
+            return True
         value = self.value
         if value is not None:
             choices = self.choices

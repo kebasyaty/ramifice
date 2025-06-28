@@ -37,7 +37,7 @@ class ChoiceGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Does the field value match the possible options in choices.
-        if not field.has_value():
+        if not field.has_value(is_migrat=params["is_migration_process"]):
             err_msg = translations._("Your choice does not match the options offered !")
             accumulate_error(err_msg, params)
         # Insert result.
