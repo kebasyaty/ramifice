@@ -174,7 +174,8 @@ class Monitor:
                     checked_data["updated_at"] = datetime.now()
                     # Update the document in the database.
                     await model_collection.replace_one(
-                        filter={"_id": checked_data["_id"]}, replacement=checked_data
+                        filter={"_id": checked_data["_id"]},
+                        replacement=checked_data,
                     )
             #
             # Refresh the dynamic fields data for the current model.
