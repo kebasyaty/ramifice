@@ -102,7 +102,7 @@ class Monitor:
                 # Delete collection associated with non-existent Model.
                 await database.drop_collection(collection_name)  # type: ignore[union-attr]
 
-    async def migrat(self) -> None:
+    async def migrate(self) -> None:
         """Run migration process.
 
         1) Update the state of Models in the super collection.
@@ -154,7 +154,9 @@ class Monitor:
                     #
                     inst_model = cls_model.from_mongo_doc(mongo_doc)
                     result_check: dict[str, Any] = await inst_model.check(
-                        is_save=True, collection=model_collection
+                        is_save=True,
+                        collection=model_collection,
+                        is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))

@@ -38,7 +38,10 @@ class CheckMixin(
     """Validation of Model data before saving to the database."""
 
     async def check(
-        self, is_save: bool = False, collection: AsyncCollection | None = None
+        self,
+        is_save: bool = False,
+        collection: AsyncCollection | None = None,
+        is_migration_process: bool = False,
     ) -> dict[str, Any]:
         """Validation of Model data before saving to the database.
 
@@ -84,6 +87,7 @@ class CheckMixin(
             "field_data": None,
             "full_model_name": cls_model.META["full_model_name"],
             "is_migrate_model": is_migrate_model,
+            "is_migration_process": is_migration_process,
             "curr_doc": (
                 await collection.find_one({"_id": doc_id}) if is_save and is_update else None
             ),

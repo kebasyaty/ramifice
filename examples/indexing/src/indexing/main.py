@@ -4,10 +4,10 @@ import asyncio
 import pprint
 from datetime import datetime
 
-from pymongo import AsyncMongoClient
-from ramifice import migration, translations
-
 from models.accounts import User
+from pymongo import AsyncMongoClient
+
+from ramifice import migration, translations
 
 
 async def main() -> None:
@@ -17,7 +17,7 @@ async def main() -> None:
     await migration.Monitor(
         database_name="test_db",
         mongo_client=client,
-    ).migrat()
+    ).migrate()
 
     print("Index information:")
     pprint.pprint(await User.index_information())

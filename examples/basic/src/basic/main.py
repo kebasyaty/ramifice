@@ -4,10 +4,10 @@ import asyncio
 import pprint
 from datetime import datetime
 
-from pymongo import AsyncMongoClient
-from ramifice import migration
-
 from models.accounts import User
+from pymongo import AsyncMongoClient
+
+from ramifice import migration
 
 
 async def main() -> None:
@@ -17,7 +17,7 @@ async def main() -> None:
     await migration.Monitor(
         database_name="test_db",
         mongo_client=client,
-    ).migrat()
+    ).migrate()
 
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
