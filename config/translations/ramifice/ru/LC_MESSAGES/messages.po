@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-28 11:28+0300\n"
+"POT-Creation-Date: 2025-06-28 12:52+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -45,7 +45,7 @@ msgstr "Обновлен"
 msgid "When the document was updated."
 msgstr "Когда был обновлен документ."
 
-#: src/ramifice/paladins/groups/choice_group.py:34
+#: src/ramifice/paladins/groups/choice_group.py:35
 #: src/ramifice/paladins/groups/date_group.py:34
 #: src/ramifice/paladins/groups/file_group.py:38
 #: src/ramifice/paladins/groups/file_group.py:59
@@ -58,7 +58,7 @@ msgstr "Когда был обновлен документ."
 msgid "Required field !"
 msgstr "Обязательное поле !"
 
-#: src/ramifice/paladins/groups/choice_group.py:41
+#: src/ramifice/paladins/groups/choice_group.py:42
 msgid "Your choice does not match the options offered !"
 msgstr "Ваш выбор не соответствует предложенным вариантам !"
 
