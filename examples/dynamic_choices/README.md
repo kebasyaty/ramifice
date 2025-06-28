@@ -4,10 +4,9 @@
 <br>
 <br>
 **Path to file with an example:**
-<br>
-_packages/models/src/models/goods.py_
-<br>
-_src/dynamic_choices/main.py_
+
+- _packages/models/src/models/goods.py_
+- _src/dynamic_choices/main.py_
 
 ## Run an example
 
