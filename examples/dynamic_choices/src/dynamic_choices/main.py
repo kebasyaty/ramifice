@@ -23,6 +23,7 @@ async def main() -> None:
     translations.change_locale("en")
 
     # Add Units:
+    # Hint: Enough once, then you can to comment or delete.
     for title, value in {"Big": 25.8, "Middle": 15.6, "Small": 12.5}.items():
         unit = Unit(
             field="size_float",
@@ -76,25 +77,12 @@ async def main() -> None:
         # Convenient to use during development.
         product.print_err()
 
-    # Update Product.
-    product.size_txt.value = "big"
-    if not await product.save():
-        product.print_err()
-
-    print("Product details:")
-    product_details = await Product.find_one_to_raw_doc({"_id": product.id.value})
-    if product_details is not None:
-        pprint.pprint(product_details)
+    print("Products:")
+    products = await Product.find_many_to_raw_doc()
+    if products is not None:
+        pprint.pprint(products)
     else:
-        print("No Product!")
-
-    # Remove Product.
-    if product_details is not None:
-        await product.delete(remove_files=False)
-
-    # Remove collection.
-    # (if necessary)
-    await Product.collection().drop()
+        print("No Products!")
 
     await client.close()
 
