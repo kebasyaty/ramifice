@@ -179,12 +179,13 @@ class Monitor:
                     )
             #
             # Refresh the dynamic fields data for the current model.
-            meta_dyn_field_list: list[str] = metadata["data_dynamic_fields"].keys()
-            for field_name, field_data in model_state["data_dynamic_fields"].items():
-                field_type = metadata["field_name_and_type"].get(field_name)
-                if field_type is not None and field_name in meta_dyn_field_list:
-                    model_state["field_name_and_type"][field_name] = field_type
-                    metadata["data_dynamic_fields"][field_name] = field_data
+            for field_name, field_data in metadata["data_dynamic_fields"].items():
+                if model_state["data_dynamic_fields"].get(field_name, False) == False:
+                    model_state["data_dynamic_fields"][field_name] = field_data
+                else:
+                    metadata["data_dynamic_fields"][field_name] = model_state[
+                        "data_dynamic_fields"
+                    ][field_name]
             # Refresh state of current Model.
             model_state["data_dynamic_field"] = metadata["data_dynamic_fields"]
             model_state["field_name_and_type"] = metadata["field_name_and_type"]
