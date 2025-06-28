@@ -172,6 +172,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_int_mult_dyn.value, [2])
         self.assertEqual(user.choice_txt_dyn.value, "Some text")
         self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
+        #
         # Delete Units:
         # ------------
         unit = Unit(
