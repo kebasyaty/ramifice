@@ -86,7 +86,7 @@ async def main() -> None:
     if product_details is not None:
         pprint.pprint(product_details)
     else:
-        print("No User!")
+        print("No Product!")
 
     # Remove Product.
     if product_details is not None:
