@@ -95,7 +95,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         await Monitor(
             database_name=database_name,
             mongo_client=client,
-        ).migrat()
+        ).migrate()
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
