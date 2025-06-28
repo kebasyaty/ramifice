@@ -7,7 +7,7 @@ from pymongo.results import DeleteResult
 
 from ..utils import globals
 from ..utils.errors import PanicError
-from .tools import from_mongo_doc, mongo_doc_to_raw_doc, password_to_none
+from .tools import mongo_doc_to_raw_doc, password_to_none
 
 
 class OneMixin:
@@ -67,7 +67,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = from_mongo_doc(cls, mongo_doc)
+            inst_model = cls.from_mongo_doc(mongo_doc)
         return inst_model
 
     @classmethod
@@ -85,7 +85,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = from_mongo_doc(cls, mongo_doc)
+            inst_model = cls.from_mongo_doc( mongo_doc)
             json_str = inst_model.to_json()
         return json_str
 

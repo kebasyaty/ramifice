@@ -6,11 +6,31 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
-from ..utils import globals
+from ..utils import globals, translations
 
 
 class GeneralMixin:
     """General purpose query methods."""
+
+    @classmethod
+    def from_mongo_doc(
+        cls,
+        mongo_doc: dict[str, Any],
+    ) -> Any:
+        """Create object instance from Mongo document."""
+        obj: Any = cls()
+        lang: str = translations.CURRENT_LOCALE
+        for name, data in mongo_doc.items():
+            field = obj.__dict__.get(name)
+            if field is None:
+                continue
+            if field.field_type == "TextField":
+                field.value = data.get(lang, "") if data is not None else None
+            elif field.group == "pass":
+                field.value = None
+            else:
+                field.value = data
+        return obj
 
     @classmethod
     async def estimated_document_count(  # type: ignore[no-untyped-def]

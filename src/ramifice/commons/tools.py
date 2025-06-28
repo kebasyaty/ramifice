@@ -18,24 +18,6 @@ def password_to_none(
     return mongo_doc
 
 
-def from_mongo_doc(
-    cls_model: Any,
-    mongo_doc: dict[str, Any],
-) -> Any:
-    """Create object instance from Mongo document."""
-    obj: Any = cls_model()
-    lang: str = translations.CURRENT_LOCALE
-    for name, data in mongo_doc.items():
-        field = obj.__dict__[name]
-        if field.field_type == "TextField":
-            field.value = data.get(lang, "") if data is not None else None
-        elif field.group == "pass":
-            field.value = None
-        else:
-            field.value = data
-    return obj
-
-
 def mongo_doc_to_raw_doc(
     field_name_and_type: dict[str, str],
     mongo_doc: dict[str, Any],
