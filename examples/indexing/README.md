@@ -4,10 +4,9 @@
 <br>
 <br>
 **Path to file with an example:**
-<br>
-_packages/models/src/models/accounts.py_
-<br>
-_src/indexing/main.py_
+
+- _packages/models/src/models/accounts.py_
+- _src/indexing/main.py_
 
 ## Run an example
 
