@@ -69,9 +69,9 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         self.value: list[str] | None = None
         self.choices: dict[str, str] | None = None
 
-    def has_value(self, is_migrat: bool = False) -> bool:
+    def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
-        if is_migrat:
+        if is_migrate:
             return True
         value = self.value
         if value is not None:

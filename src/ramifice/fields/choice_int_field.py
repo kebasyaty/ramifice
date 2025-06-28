@@ -80,7 +80,7 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
             if not isinstance(readonly, bool):
                 raise AssertionError("Parameter `readonly` - Not а `bool` type!")
 
-    def has_value(self, is_migrat: bool = False) -> bool:
+    def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
         value = self.value
         if value is None:

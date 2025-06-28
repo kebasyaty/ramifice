@@ -26,6 +26,7 @@ class ChoiceGroupMixin:
     def choice_group(self, params: dict[str, Any]) -> None:
         """Checking choice fields."""
         field = params["field_data"]
+        is_migrate = params["is_migration_process"]
         # Get current value.
         value = field.value or field.__dict__.get("default") or None
 
@@ -37,7 +38,7 @@ class ChoiceGroupMixin:
                 params["result_map"][field.name] = None
             return
         # Does the field value match the possible options in choices.
-        if not field.has_value(is_migrat=params["is_migration_process"]):
+        if not field.has_value(is_migrate):
             err_msg = translations._("Your choice does not match the options offered !")
             accumulate_error(err_msg, params)
         # Insert result.
