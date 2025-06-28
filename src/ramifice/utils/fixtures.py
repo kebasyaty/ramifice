@@ -68,7 +68,8 @@ async def apply_fixture(
                 print(colored("\nFIXTURE:", "red", attrs=["bold"]))
                 print(colored(fixture_path, "blue", attrs=["bold"]))
                 inst_model.print_err()
-                raise PanicError("Error: Fixtures")
+                msg = f"Fixture `{fixture_name}` failed."
+                raise PanicError(msg)
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
             # Add date and time.
