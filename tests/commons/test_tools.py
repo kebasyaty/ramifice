@@ -2,6 +2,8 @@
 
 import unittest
 
+from bson import ObjectId
+
 from ramifice import model, translations
 from ramifice.commons.tools import correct_mongo_filter
 from ramifice.fields import (
@@ -51,7 +53,7 @@ class User:
         self.num_int = IntegerField()
         self.num_float = FloatField()
         self.img = ImageField()
-        self.hash2 = IDField()
+        self.hash = IDField()
         self.file = FileField()
         self.email = EmailField()
         self.date_time = DateTimeField()
@@ -78,15 +80,18 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
     async def test_correct_mongo_filter(self):
         """Testing `correct_mongo_filter` methods."""
         translations.change_locale("en")
+        id = ObjectId("666f6f2d6261722d71757578")
         filter = {
             "txt": "John",
             "num_int": 30,
             "url": "https://www.google.com",
+            "hash": id,
         }
         correct_fielter = {
             "txt.en": "John",
             "num_int": 30,
             "url": "https://www.google.com",
+            "hash": id,
         }
         filter = correct_mongo_filter(User, filter)
         self.assertEqual(filter, correct_fielter)
@@ -95,11 +100,13 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
             "$or": [{"txt": "John"}, {"txt": "Julia"}],
             "num_int": 30,
             "url": "https://www.google.com",
+            "hash": id,
         }
         correct_fielter = {
             "$or": [{"txt.en": "John"}, {"txt.en": "Julia"}],
             "num_int": 30,
             "url": "https://www.google.com",
+            "hash": id,
         }
         filter = correct_mongo_filter(User, filter)
         self.assertEqual(filter, correct_fielter)
