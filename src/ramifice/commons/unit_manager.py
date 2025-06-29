@@ -24,7 +24,6 @@ class UnitMixin:
 
         Management for `choices` parameter in dynamic field types.
         """
-        curr_lang = translations.CURRENT_LOCALE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
