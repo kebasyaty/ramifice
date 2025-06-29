@@ -35,8 +35,9 @@ def password_to_none(
 
 
 def mongo_doc_to_raw_doc(
-    field_name_and_type: dict[str, str],
+    inst_model_dict: dict[str, Any],
     mongo_doc: dict[str, Any],
+    lang: str,
 ) -> dict[str, Any]:
     """Convert the Mongo document to the raw document.
 
@@ -47,14 +48,14 @@ def mongo_doc_to_raw_doc(
         datetime to str
     """
     doc: dict[str, Any] = {}
-    lang: str = translations.CURRENT_LOCALE
-    for f_name, t_name in field_name_and_type.items():
+    for f_name, f_data in inst_model_dict.items():
+        field_type = f_data.field_type
         value = mongo_doc[f_name]
         if value is not None:
-            if t_name == "TextField":
+            if field_type == "TextField" and f_data.multi_language:
                 value = value.get(lang, "") if value is not None else None
-            elif "Date" in t_name:
-                if "Time" in t_name:
+            elif "Date" in field_type:
+                if "Time" in field_type:
                     value = format_datetime(
                         datetime=value,
                         format="short",
@@ -66,9 +67,9 @@ def mongo_doc_to_raw_doc(
                         format="short",
                         locale=lang,
                     )
-            elif t_name == "IDField":
+            elif field_type == "IDField":
                 value = str(value)
-            elif t_name == "PasswordField":
+            elif field_type == "PasswordField":
                 value = None
         doc[f_name] = value
     return doc

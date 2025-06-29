@@ -15,9 +15,10 @@ def ignored_fields_to_none(inst_model: Any) -> None:
 def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
     lang: str = translations.CURRENT_LOCALE
+    model_dict = inst_model.__dict__
     for name, data in mongo_doc.items():
-        field = inst_model.__dict__[name]
-        if field.field_type == "TextField":
+        field = model_dict[name]
+        if field.field_type == "TextField" and field.multi_language:
             field.value = data.get(lang, "") if data is not None else None
         elif field.group == "pass":
             field.value = None
