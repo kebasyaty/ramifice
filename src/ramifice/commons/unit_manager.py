@@ -7,7 +7,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import globals
+from ..utils import globals, translations
 from ..utils.errors import PanicError
 from ..utils.unit import Unit
 
@@ -24,6 +24,7 @@ class UnitMixin:
 
         Management for `choices` parameter in dynamic field types.
         """
+        curr_lang = translations.CURRENT_LOCALE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
@@ -34,59 +35,52 @@ class UnitMixin:
         # Check the presence of a Model state.
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
-        # Get the dynamic field type.
-        field_type = model_state["field_name_and_type"][unit.field]
         # Get dynamic field data.
-        choices: dict[str, float | int | str] | None = model_state["data_dynamic_fields"][
-            unit.field
-        ]
-        # Check whether the type of value is valid for the type of field.
-        if not (
-            ("ChoiceFloat" in field_type and isinstance(unit.value, float))
-            or ("ChoiceInt" in field_type and isinstance(unit.value, int))
-            or ("ChoiceText" in field_type and isinstance(unit.value, str))
-        ):
-            msg = (
-                "Error: Method: `unit_manager(unit: Unit)` => unit.value - "
-                + f"The type of value `{type(unit.value)}` "
-                + f"does not correspond to the type of field `{field_type}`!"
-            )
-            raise PanicError(msg)
+        choices: list | None = model_state["data_dynamic_fields"][unit.field]
+        # Get Title.
+        title = unit.title
+        title = {lang: title.get(lang, "- -") for lang in translations.LANGUAGES}
+        main_lang = translations.DEFAULT_LOCALE
+        main_title = title[main_lang]
         # Add Unit to Model State.
         if not unit.is_delete:
             if choices is not None:
-                choices = {**choices, **{unit.title: unit.value}}
+                choices.append({"title": title, "value": unit.value})
             else:
-                choices = {unit.title: unit.value}
+                choices = [{"title": title, "value": unit.value}]
             model_state["data_dynamic_fields"][unit.field] = choices
-        # Delete Unit from Model State.
         else:
+            # Delete Unit from Model State.
             if choices is None:
                 msg = (
                     "Error: It is not possible to delete Unit."
-                    + f"Unit `{unit.title}: {unit.value}` not exists!"
+                    + f"Title `{main_title}` not exists!"
                 )
                 raise PanicError(msg)
-            is_key_exists: bool = unit.title in choices.keys()
+            is_key_exists: bool = False
+            for item in choices:
+                if main_title == item["title"][main_lang]:
+                    is_key_exists = True
+                    break
             if not is_key_exists:
                 msg = (
                     "Error: It is not possible to delete Unit."
-                    + f"Unit `{unit.title}: {unit.value}` not exists!"
+                    + f"Title `{main_title}` not exists!"
                 )
                 raise PanicError(msg)
-            del choices[unit.title]
+            choices = [item for item in choices if item["title"][main_lang] != main_title]
             model_state["data_dynamic_fields"][unit.field] = choices or None
-        # Update the state of the Model in the super collection.
+        # Update state of current Model in super collection.
         await super_collection.replace_one(
             filter={"collection_name": model_state["collection_name"]},
             replacement=model_state,
         )
-        # Update metadata of the current Model.
+        # Update metadata of current Model.
         cls.META["data_dynamic_fields"][unit.field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
             unit_field: str = unit.field
-            unit_value: float | int | str = unit.value
+            unit_value: float | int | str | None = unit.value
             collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
