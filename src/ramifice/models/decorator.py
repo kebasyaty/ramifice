@@ -161,7 +161,7 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
                         )
                         raise PanicError(msg)
                     data_dynamic_fields[f_name] = None
-                if f_data.field_type == "TextField":
+                if f_data.field_type == "TextField" and f_data.multi_language:
                     supported_lang_fields.append(f_name)
 
     metadata["field_name_and_type"] = field_name_and_type
