@@ -82,6 +82,7 @@ class User2:
         """For adding fields."""
         self.url = URLField()
         self.txt = TextField()
+        self.txt2 = TextField(multi_language=True)
         self.slug = SlugField()
         self.phone = PhoneField()
         self.password = PasswordField()

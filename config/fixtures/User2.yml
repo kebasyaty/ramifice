@@ -1,5 +1,6 @@
 - url: None
   txt: None
+  txt2: None
   slug: None
   phone: None
   password: None
@@ -29,6 +30,7 @@
 # ------------------------------------------------------------------------------
 - url: None
   txt: None
+  txt2: None
   slug: None
   phone: None
   password: None

@@ -1,5 +1,6 @@
 """Testing the module `ramifice.decorators`."""
 
+import re
 import unittest
 
 from ramifice import model
@@ -54,6 +55,7 @@ class TestModel(unittest.TestCase):
                 "updated_at": "DateTimeField",
                 "username": "TextField",
             },
+            "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
             "full_model_name": "tests.test_decorators.User",
             "is_create_doc": True,
@@ -81,6 +83,7 @@ class TestModel(unittest.TestCase):
                 "profession": "TextField",
                 "updated_at": "DateTimeField",
             },
+            "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
             "full_model_name": "tests.test_decorators.UserProfile",
             "is_create_doc": True,
