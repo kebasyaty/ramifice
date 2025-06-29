@@ -7,6 +7,7 @@ from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
 from ..utils import globals, translations
+from .tools import correct_mongo_filter
 
 
 class GeneralMixin:
@@ -58,7 +59,10 @@ class GeneralMixin:
         """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
+
         return await collection.count_documents(
             filter=filter,
             session=session,
@@ -78,7 +82,10 @@ class GeneralMixin:
         """Runs an aggregation framework pipeline."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        # Correcting filter.
+        if pipeline is not None:
+            pipeline = correct_mongo_filter(cls, pipeline)
+
         return await collection.aggregate(
             pipeline=pipeline,
             session=session,
@@ -103,7 +110,10 @@ class GeneralMixin:
         """
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
+
         return await collection.distinct(
             key=key,
             filter=filter,

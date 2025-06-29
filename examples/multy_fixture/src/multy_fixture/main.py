@@ -22,9 +22,7 @@ async def main() -> None:
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
-    params = await Parameters.find_one_to_instance(
-        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name"}
-    )
+    params = await Parameters.find_one_to_instance({f"brand": "Brand Name"})
     if params is not None:
         print("Details of Parameters:")
         user_details = await Parameters.find_one_to_raw_doc({"_id": params.id.value})
@@ -33,9 +31,7 @@ async def main() -> None:
     else:
         print("No parameters!")
 
-    params_2 = await Parameters.find_one_to_instance(
-        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name 2"}
-    )
+    params_2 = await Parameters.find_one_to_instance({f"brand": "Brand Name 2"})
     if params_2 is not None:
         print("\nDetails of Parameters:")
         user_details_2 = await Parameters.find_one_to_raw_doc({"_id": params_2.id.value})

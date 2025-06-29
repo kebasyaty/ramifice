@@ -1,5 +1,6 @@
 """Testing the module `ramifice.decorators.model (is_migrate_model=False)`."""
 
+import re
 import unittest
 
 from ramifice import model
@@ -54,6 +55,7 @@ class TestPseudoModel(unittest.TestCase):
                 "favorite_color": "ChoiceTextField",
                 "username": "TextField",
             },
+            "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
             "full_model_name": "tests.test_not_migrate_model.User",
             "is_create_doc": False,
@@ -75,6 +77,7 @@ class TestPseudoModel(unittest.TestCase):
             "field_name_and_type": {
                 "profession": "TextField",
             },
+            "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
             "full_model_name": "tests.test_not_migrate_model.UserProfile",
             "is_create_doc": False,

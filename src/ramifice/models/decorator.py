@@ -1,16 +1,17 @@
 """Decorator for converting Python classes into Ramifice models."""
 
 import os
+import re
 from typing import Any
 
 from ..commons import QCommonsMixin
 from ..fields import DateTimeField, IDField
 from ..paladins import CheckMixin, QPaladinsMixin, ValidationMixin
 from ..utils.errors import DoesNotMatchRegexError, PanicError
+from ..utils.globals import REGEX
 from ..utils.mixins.add_valid import AddValidMixin
 from ..utils.mixins.hooks import HooksMixin
 from ..utils.mixins.indexing import IndexMixin
-from ..utils.globals import REGEX
 from .model import Model
 from .pseudo import PseudoModel
 
@@ -103,7 +104,7 @@ def model(
 def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, Any]:
     """Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
-    model_name = cls.__name__
+    model_name: str = cls.__name__
     if REGEX["model_name"].match(model_name) is None:
         raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
     #
@@ -118,9 +119,12 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
     # Build data migration storage for dynamic fields.
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
     # Count all fields.
-    count_all_fields = 0
+    count_all_fields: int = 0
     # Count fields for migrating.
-    count_fields_no_ignored = 0
+    count_fields_no_ignored: int = 0
+    # List of fields that support localization of translates.
+    # Hint: `TextField`
+    supported_lang_fields: list[str] = []
 
     raw_model = cls()
     raw_model.fields()
@@ -130,9 +134,9 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
         default_fields["created_at"] = DateTimeField()
         default_fields["updated_at"] = DateTimeField()
     fields = {**raw_model.__dict__, **default_fields}
-    for f_name, f_type in fields.items():
-        if not callable(f_type):
-            f_type_str = f_type.__class__.__name__
+    for f_name, f_data in fields.items():
+        if not callable(f_data):
+            f_type_str = f_data.__class__.__name__
             # Count all fields.
             count_all_fields += 1
             # Get attributes value for fields of Model: id, name.
@@ -141,14 +145,14 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
                 "name": f_name,
             }
             #
-            if not f_type.ignored:
+            if not f_data.ignored:
                 # Count fields for migrating.
                 if is_migrate_model:
                     count_fields_no_ignored += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
-                if "Dyn" in f_type.field_type:
+                if "Dyn" in f_data.field_type:
                     if not is_migrate_model:
                         msg = (
                             f"Model: `{cls.__module__}.{model_name}` > "
@@ -157,11 +161,16 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
                         )
                         raise PanicError(msg)
                     data_dynamic_fields[f_name] = None
+                if f_data.field_type == "TextField" and f_data.multi_language:
+                    supported_lang_fields.append(f_name)
 
     metadata["field_name_and_type"] = field_name_and_type
     metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
     metadata["count_all_fields"] = count_all_fields
     metadata["count_fields_no_ignored"] = count_fields_no_ignored
+    metadata["regex_mongo_filter"] = re.compile(
+        rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)'
+    )
 
     return metadata
