@@ -54,13 +54,13 @@ async def check_uniqueness(
     value: str | int | float,
     params: dict[str, Any],
     field_name: str | None = None,
-    is_text_field: bool = False,
+    is_multi_language: bool = False,
 ) -> bool:
     """Check the uniqueness of the value in the collection."""
     if not params["is_migrate_model"]:
         return True
     q_filter = None
-    if is_text_field:
+    if is_multi_language:
         lang_filter = [{f"{field_name}.{lang}": value} for lang in translations.LANGUAGES]
         q_filter = {
             "$and": [

@@ -27,11 +27,11 @@ class TextGroupMixin:
         field = params["field_data"]
         field_name = field.name
         field_type: str = field.field_type
-        is_text_field: bool = "TextField" == field_type
+        is_multi_language: bool = (field_type == "TextField") and field.multi_language
         # Get current value.
         value = field.value or field.__dict__.get("default")
 
-        if is_text_field:
+        if is_multi_language:
             if not isinstance(value, (str, dict, type(None))):
                 panic_type_error("str | dict | None", params)
         else:
@@ -55,7 +55,7 @@ class TextGroupMixin:
             value,
             params,
             field_name,
-            is_text_field,
+            is_multi_language,
         ):
             err_msg = translations._("Is not unique !")
             accumulate_error(err_msg, params)
@@ -85,7 +85,7 @@ class TextGroupMixin:
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            if is_text_field:
+            if is_multi_language:
                 mult_lang_text: dict[str, str] = (
                     params["curr_doc"][field_name]
                     if params["is_update"]
