@@ -26,7 +26,7 @@ class GeneralMixin:
             if field is None:
                 continue
             if field.field_type == "TextField":
-                field.value = data.get(lang, "") if data is not None else None
+                field.value = data.get(lang, "- -") if data is not None else None
             elif field.group == "pass":
                 field.value = None
             else:

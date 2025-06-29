@@ -21,46 +21,57 @@ async def main() -> None:
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
-
     # Add Units:
     # Hint: Enough once, then you can to comment or delete.
-    for title, value in {"Big": 25.8, "Middle": 15.6, "Small": 12.5}.items():
+    for item in [
+        {"title": {"en": "Big"}, "value": 25.8},
+        {"title": {"en": "Middle"}, "value": 15.6},
+        {"title": {"en": "Small"}, "value": 12.5},
+    ]:
         unit = Unit(
             field="size_float",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_float",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
-    for title, value in {"Big": 25, "Middle": 15, "Small": 12}.items():
+    for item in [
+        {"title": {"en": "Big"}, "value": 25},
+        {"title": {"en": "Middle"}, "value": 15},
+        {"title": {"en": "Small"}, "value": 12},
+    ]:
         unit = Unit(
             field="size_int",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_int",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
-    for title, value in {"Big": "big", "Middle": "middle", "Small": "small"}.items():
+    for item in [
+        {"title": {"en": "Big"}, "value": "big"},
+        {"title": {"en": "Middle"}, "value": "middle"},
+        {"title": {"en": "Small"}, "value": "small"},
+    ]:
         unit = Unit(
             field="size_txt",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_txt",
-            title=title,
-            value=value,
+            title=item["title"]["en"],
+            value=item["value"],
         )
         await Product.unit_manager(unit)
 

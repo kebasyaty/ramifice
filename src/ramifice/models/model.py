@@ -68,6 +68,7 @@ class Model(metaclass=ABCMeta):
         """Injecting metadata from Model.META in params of fields."""
         metadata = self.__class__.META
         if bool(metadata):
+            lang = translations.CURRENT_LOCALE
             field_attrs = metadata["field_attrs"]
             data_dynamic_fields = metadata["data_dynamic_fields"]
             for f_name, f_type in self.__dict__.items():
@@ -75,7 +76,13 @@ class Model(metaclass=ABCMeta):
                     f_type.id = field_attrs[f_name]["id"]
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_type.field_type:
-                        f_type.choices = data_dynamic_fields[f_name]
+                        dyn_data = data_dynamic_fields[f_name]
+                        if dyn_data is not None:
+                            f_type.choices = {
+                                item["title"].get(lang, "- -"): item["value"] for item in dyn_data
+                            }
+                        else:
+                            f_type.choices = None
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------

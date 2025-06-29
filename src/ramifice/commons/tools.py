@@ -54,7 +54,7 @@ def mongo_doc_to_raw_doc(
         value = mongo_doc[f_name]
         if value is not None:
             if field_type == "TextField" and f_data.multi_language:
-                value = value.get(lang, "") if value is not None else None
+                value = value.get(lang, "- -") if value is not None else None
             elif "Date" in field_type:
                 if "Time" in field_type:
                     value = format_datetime(

@@ -1,5 +1,7 @@
 """Unit - Data management in dynamic fields."""
 
+from typing import Any
+
 from .errors import PanicError
 from .mixins.json_converter import JsonMixin
 
@@ -17,19 +19,22 @@ class Unit(JsonMixin):
     def __init__(  # noqa: D107
         self,
         field: str,
-        title: str,
-        value: float | int | str,
+        title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
+        value: float | int | str | None = None,  # None for is_delete=True
         is_delete: bool = False,
     ):
         # Check the match of types.
         if not isinstance(field, str):
             msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
             raise PanicError(msg)
-        if not isinstance(title, str):
-            msg = "Class: `Unit` > Field: `title` => Not а `str` type!"
+        if not isinstance(title, dict):
+            msg = (
+                "Class: `Unit` > Field: `title` => Not а `str` type! "
+                + 'Example: {"en": "Title", "ru": "Заголовок"}'
+            )
             raise PanicError(msg)
-        if not isinstance(value, (float, int, str)):
-            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str` type!"
+        if not isinstance(value, (float, int, str, type(None))):
+            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str | None` type!"
             raise PanicError(msg)
         if not isinstance(is_delete, bool):
             msg = "Class: `Unit` > Field: `is_delete` => Not а `bool` type!"
@@ -42,10 +47,10 @@ class Unit(JsonMixin):
         self.value = value
         self.is_delete = is_delete
 
-        self.check_empty_arguments()
+        self.check_value_arguments()
 
-    def check_empty_arguments(self) -> None:
-        """Error: If any of the arguments in the Unit is empty.
+    def check_value_arguments(self) -> None:
+        """Check if the values correspond to the arguments.
 
         Returns:
             `None` or raised exception `PanicError`.
@@ -56,6 +61,14 @@ class Unit(JsonMixin):
             field_name = "field"
         elif len(self.title) == 0:
             field_name = "title"
+        elif self.value is None and self.is_delete == False:
+            msg = (
+                "Method: `unit_manager` > "
+                + "Argument: `unit` > "
+                + f"Field: `{field_name}` => "
+                + "For `value` = None, `is_delete` should be True!"
+            )
+            raise PanicError(msg)
         elif isinstance(self.value, str) and len(self.value) == 0:
             field_name = "value"
 

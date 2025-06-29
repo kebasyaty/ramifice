@@ -11,35 +11,35 @@ class TestTypes(unittest.TestCase):
 
     def test_unit(self):
         """Testing a class `Unit`."""
-        u = Unit(field="field_name", title="Title", value="value")
+        u = Unit(field="field_name", title={"en": "Title"}, value="value")
         self.assertEqual(u.field, "field_name")
-        self.assertEqual(u.title, "Title")
+        self.assertEqual(u.title, {"en": "Title"})
         self.assertEqual(u.value, "value")
         self.assertFalse(u.is_delete)
 
-        u = Unit(field="field_name", title="Title", value="value", is_delete=True)
+        u = Unit(field="field_name", title={"en": "Title"}, is_delete=True)
         self.assertEqual(u.field, "field_name")
-        self.assertEqual(u.title, "Title")
-        self.assertEqual(u.value, "value")
+        self.assertEqual(u.title, {"en": "Title"})
+        self.assertIsNone(u.value)
         self.assertTrue(u.is_delete)
 
         # Check the match of types.
         with self.assertRaises(PanicError):
-            Unit(field=None, title="Title", value="value", is_delete=True)
+            Unit(field=None, title={"en": "Title"}, value="value", is_delete=True)
         with self.assertRaises(PanicError):
             Unit(field="field_name", title=None, value="value", is_delete=True)
         with self.assertRaises(PanicError):
-            Unit(field="field_name", title="Title", value=None, is_delete=True)
+            Unit(field="field_name", title={"en": "Title"}, value=None, is_delete=False)
         with self.assertRaises(PanicError):
-            Unit(field="field_name", title="Title", value="value", is_delete=None)
+            Unit(field="field_name", title={"en": "Title"}, value="value", is_delete=None)
 
         # Check empty arguments
         with self.assertRaises(PanicError):
-            Unit(field="", title="Title", value="value", is_delete=True)
+            Unit(field="", title={"en": "Title"}, value="value", is_delete=True)
         with self.assertRaises(PanicError):
             Unit(field="field_name", title="", value="value", is_delete=True)
         with self.assertRaises(PanicError):
-            Unit(field="field_name", title="Title", value="", is_delete=True)
+            Unit(field="field_name", title={"en": "Title"}, value="", is_delete=True)
 
 
 if __name__ == "__main__":
