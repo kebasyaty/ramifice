@@ -1,5 +1,7 @@
 """Unit - Data management in dynamic fields."""
 
+from typing import Any
+
 from .errors import PanicError
 from .mixins.json_converter import JsonMixin
 
@@ -17,7 +19,7 @@ class Unit(JsonMixin):
     def __init__(  # noqa: D107
         self,
         field: str,
-        title: str,
+        title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
         value: float | int | str,
         is_delete: bool = False,
     ):
@@ -25,8 +27,11 @@ class Unit(JsonMixin):
         if not isinstance(field, str):
             msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
             raise PanicError(msg)
-        if not isinstance(title, str):
-            msg = "Class: `Unit` > Field: `title` => Not а `str` type!"
+        if not isinstance(title, dict):
+            msg = (
+                "Class: `Unit` > Field: `title` => Not а `str` type! "
+                + 'Example: {"en": "Title", "ru": "Заголовок"}'
+            )
             raise PanicError(msg)
         if not isinstance(value, (float, int, str)):
             msg = "Class: `Unit` > Field: `value` => Not а `float | int | str` type!"
