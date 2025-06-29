@@ -81,37 +81,37 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # ---------
         unit = Unit(
             field="choice_float_dyn",
-            title="Title",
+            title={"en": "Title"},
             value=1.0,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
-            title="Title",
+            title={"en": "Title"},
             value=2.0,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
-            title="Title",
+            title={"en": "Title"},
             value=1,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
-            title="Title",
+            title={"en": "Title"},
             value=2,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
-            title="Title",
+            title={"en": "Title"},
             value="Some text",
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
-            title="Title",
+            title={"en": "Title"},
             value="Some text 2",
         )
         await User.unit_manager(unit)
@@ -123,32 +123,44 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
             raise PanicError("Error: Model State - Not found!")
         #
         data_dynamic_fields = model_state["data_dynamic_fields"]
-        choices = data_dynamic_fields["choice_float_dyn"]
-        self.assertEqual(choices["Title"], 1.0)
-        choices = data_dynamic_fields["choice_float_mult_dyn"]
-        self.assertEqual(choices["Title"], 2.0)
-        choices = data_dynamic_fields["choice_int_dyn"]
-        self.assertEqual(choices["Title"], 1)
-        choices = data_dynamic_fields["choice_int_mult_dyn"]
-        self.assertEqual(choices["Title"], 2)
-        choices = data_dynamic_fields["choice_txt_dyn"]
-        self.assertEqual(choices["Title"], "Some text")
-        choices = data_dynamic_fields["choice_txt_mult_dyn"]
-        self.assertEqual(choices["Title"], "Some text 2")
+        choices = data_dynamic_fields["choice_float_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 1.0)
+        choices = data_dynamic_fields["choice_float_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 2.0)
+        choices = data_dynamic_fields["choice_int_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 1.0)
+        choices = data_dynamic_fields["choice_int_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 2)
+        choices = data_dynamic_fields["choice_txt_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], "Some text")
+        choices = data_dynamic_fields["choice_txt_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], "Some text 2")
         #
         data_dynamic_fields = User.META["data_dynamic_fields"]
-        choices = data_dynamic_fields["choice_float_dyn"]
-        self.assertEqual(choices["Title"], 1.0)
-        choices = data_dynamic_fields["choice_float_mult_dyn"]
-        self.assertEqual(choices["Title"], 2.0)
-        choices = data_dynamic_fields["choice_int_dyn"]
-        self.assertEqual(choices["Title"], 1)
-        choices = data_dynamic_fields["choice_int_mult_dyn"]
-        self.assertEqual(choices["Title"], 2)
-        choices = data_dynamic_fields["choice_txt_dyn"]
-        self.assertEqual(choices["Title"], "Some text")
-        choices = data_dynamic_fields["choice_txt_mult_dyn"]
-        self.assertEqual(choices["Title"], "Some text 2")
+        choices = data_dynamic_fields["choice_float_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 1.0)
+        choices = data_dynamic_fields["choice_float_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 2.0)
+        choices = data_dynamic_fields["choice_int_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 1.0)
+        choices = data_dynamic_fields["choice_int_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], 2)
+        choices = data_dynamic_fields["choice_txt_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], "Some text")
+        choices = data_dynamic_fields["choice_txt_mult_dyn"][0]
+        self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["value"], "Some text 2")
         #
         user = User()
         self.assertEqual(user.choice_float_dyn.choices, {"Title": 1.0})
@@ -178,43 +190,37 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # ------------
         unit = Unit(
             field="choice_float_dyn",
-            title="Title",
-            value=1.0,
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
-            title="Title",
-            value=2.0,
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
-            title="Title",
-            value=1,
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
-            title="Title",
-            value=2,
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
-            title="Title",
-            value="Some text",
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
-            title="Title",
-            value="Some text 2",
+            title={"en": "Title"},
             is_delete=True,
         )
         await User.unit_manager(unit)

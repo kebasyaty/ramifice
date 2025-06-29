@@ -76,10 +76,11 @@ class Model(metaclass=ABCMeta):
                     f_type.id = field_attrs[f_name]["id"]
                     f_type.name = field_attrs[f_name]["name"]
                     if "Dyn" in f_type.field_type:
-                        f_type.choices = {
-                            item["title"].get(lang, "- -"): item["value"]
-                            for item in data_dynamic_fields[f_name]
-                        }
+                        dyn_data = data_dynamic_fields[f_name]
+                        if dyn_data is not None:
+                            f_type.choices = {
+                                item["title"].get(lang, "- -"): item["value"] for item in dyn_data
+                            }
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
