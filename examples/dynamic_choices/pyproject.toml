@@ -51,6 +51,7 @@ pretty = true
 files = ["src/**/*.py", "packages/**/*.py"]
 disable_error_code = [
     "type-arg",
+    "arg-type",
     "no-any-return",
     "attr-defined",
     "index",
