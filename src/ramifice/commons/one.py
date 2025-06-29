@@ -7,7 +7,7 @@ from pymongo.results import DeleteResult
 
 from ..utils import globals
 from ..utils.errors import PanicError
-from .tools import mongo_doc_to_raw_doc, password_to_none
+from .tools import correct_mongo_filter, mongo_doc_to_raw_doc, password_to_none
 
 
 class OneMixin:
@@ -23,6 +23,9 @@ class OneMixin:
         """Find a single document."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
@@ -42,6 +45,9 @@ class OneMixin:
         """Find a single document and converting to raw document."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
@@ -62,6 +68,9 @@ class OneMixin:
         """Find a single document and convert it to a Model instance."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         inst_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
@@ -80,12 +89,15 @@ class OneMixin:
         """Find a single document and convert it to a JSON string."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc( mongo_doc)
+            inst_model = cls.from_mongo_doc(mongo_doc)
             json_str = inst_model.to_json()
         return json_str
 
@@ -110,6 +122,9 @@ class OneMixin:
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         result: DeleteResult = await collection.delete_one(
             filter=filter,
@@ -144,6 +159,9 @@ class OneMixin:
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one_and_delete(
             filter=filter,

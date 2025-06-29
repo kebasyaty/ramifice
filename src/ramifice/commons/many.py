@@ -9,7 +9,7 @@ from pymongo.results import DeleteResult
 
 from ..utils import globals
 from ..utils.errors import PanicError
-from .tools import mongo_doc_to_raw_doc, password_to_none
+from .tools import correct_mongo_filter, mongo_doc_to_raw_doc, password_to_none
 
 
 class ManyMixin:
@@ -43,6 +43,9 @@ class ManyMixin:
         """Find documents."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -108,6 +111,9 @@ class ManyMixin:
         """
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -166,6 +172,9 @@ class ManyMixin:
         """Find documents and convert to a json string."""
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -217,6 +226,9 @@ class ManyMixin:
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        # Correcting filter.
+        if filter is not None:
+            filter = correct_mongo_filter(cls, filter)
         # Delete documents.
         result: DeleteResult = await collection.delete_many(
             filter=filter,

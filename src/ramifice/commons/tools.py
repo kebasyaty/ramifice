@@ -8,7 +8,7 @@ from babel.dates import format_date, format_datetime
 from ..utils import translations
 
 
-def correct_mongo_filter(cls_model: Any, filter: dict[str, Any]) -> dict[str, Any]:
+def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
     """Correcting filter of request.
 
     Corrects `TextField` fields that require localization of translation.
