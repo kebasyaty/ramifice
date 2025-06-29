@@ -81,6 +81,8 @@ class Model(metaclass=ABCMeta):
                             f_type.choices = {
                                 item["title"].get(lang, "- -"): item["value"] for item in dyn_data
                             }
+                        else:
+                            f_type.choices = None
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
