@@ -5,7 +5,7 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.results import DeleteResult
 
-from ..utils import globals
+from ..utils import globals, translations
 from ..utils.errors import PanicError
 from .tools import correct_mongo_filter, mongo_doc_to_raw_doc, password_to_none
 
@@ -51,10 +51,14 @@ class OneMixin:
         # Get document.
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        inst_model_dict = {
+            key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored
+        }
         if mongo_doc is not None:
             raw_doc = mongo_doc_to_raw_doc(
-                cls.META["field_name_and_type"],
+                inst_model_dict,
                 mongo_doc,
+                translations.CURRENT_LOCALE,
             )
         return raw_doc
 

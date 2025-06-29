@@ -7,7 +7,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType
 from pymongo.results import DeleteResult
 
-from ..utils import globals
+from ..utils import globals, translations
 from ..utils.errors import PanicError
 from .tools import correct_mongo_filter, mongo_doc_to_raw_doc, password_to_none
 
@@ -139,9 +139,18 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        field_name_and_type = cls.META["field_name_and_type"]
+        inst_model_dict = {
+            key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored
+        }
+        lang = translations.CURRENT_LOCALE
         async for mongo_doc in cursor:
-            doc_list.append(mongo_doc_to_raw_doc(field_name_and_type, mongo_doc))
+            doc_list.append(
+                mongo_doc_to_raw_doc(
+                    inst_model_dict,
+                    mongo_doc,
+                    lang,
+                )
+            )
         return doc_list
 
     @classmethod
@@ -200,9 +209,18 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        field_name_and_type = cls.META["field_name_and_type"]
+        inst_model_dict = {
+            key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored
+        }
+        lang = translations.CURRENT_LOCALE
         async for mongo_doc in cursor:
-            doc_list.append(mongo_doc_to_raw_doc(field_name_and_type, mongo_doc))
+            doc_list.append(
+                mongo_doc_to_raw_doc(
+                    inst_model_dict,
+                    mongo_doc,
+                    lang,
+                )
+            )
         return json.dumps(doc_list) if len(doc_list) > 0 else None
 
     @classmethod
