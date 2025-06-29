@@ -1,3 +1,7 @@
+#### v0.5.0 2025-06-29
+
+- Added support for several languages ​​for dynamic fields.
+
 #### v0.4.12 2025-06-29
 
 - Added param `multi_language` for `TextField`.
