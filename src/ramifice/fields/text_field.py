@@ -23,6 +23,7 @@ class TextField(Field, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
         maxlength: int = 256,
+        multi_language: bool = False,
     ):
         if globals.DEBUG:
             if not isinstance(maxlength, int):
@@ -55,6 +56,8 @@ class TextField(Field, JsonMixin):
                 raise AssertionError("Parameter `use_editor` - Not а `bool` type!")
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
+            if not isinstance(multi_language, bool):
+                raise AssertionError("Parameter `multi_language` - Not а `int` type!")
 
         Field.__init__(
             self,
@@ -78,6 +81,7 @@ class TextField(Field, JsonMixin):
         self.textarea = textarea
         self.use_editor = use_editor
         self.maxlength = maxlength
+        self.multi_language = multi_language
 
     def __len__(self) -> int:
         """Return length of field `value`."""
