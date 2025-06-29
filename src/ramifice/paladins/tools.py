@@ -19,7 +19,7 @@ def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     for name, data in mongo_doc.items():
         field = model_dict[name]
         if field.field_type == "TextField" and field.multi_language:
-            field.value = data.get(lang, "") if data is not None else None
+            field.value = data.get(lang, "- -") if data is not None else None
         elif field.group == "pass":
             field.value = None
         else:

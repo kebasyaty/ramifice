@@ -92,12 +92,12 @@ class TextGroupMixin:
                     else (
                         {lang: value for lang in translations.LANGUAGES}
                         if isinstance(value, str)
-                        else {lang: value.get(lang, "") for lang in translations.LANGUAGES}
+                        else {lang: value.get(lang, "- -") for lang in translations.LANGUAGES}
                     )
                 )
                 if isinstance(value, dict):
                     for lang in translations.LANGUAGES:
-                        mult_lang_text[lang] = value.get(lang, "")
+                        mult_lang_text[lang] = value.get(lang, "- -")
                 else:
                     mult_lang_text[translations.CURRENT_LOCALE] = value
                 value = mult_lang_text
