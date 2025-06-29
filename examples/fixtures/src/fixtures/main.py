@@ -22,9 +22,7 @@ async def main() -> None:
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
-    params = await Parameters.find_one_to_instance(
-        {f"brand.{translations.CURRENT_LOCALE}": "Brand Name"}
-    )
+    params = await Parameters.find_one_to_instance({f"brand": "Brand Name"})
 
     if params is not None:
         print("Details of Parameters:")

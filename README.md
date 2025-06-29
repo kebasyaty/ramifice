@@ -139,7 +139,10 @@ class User:
             required=True,
             unique=True,
         )
-        self.first_name = TextField(label=gettext("First name"), required=True)
+        self.first_name = TextField(
+          label=gettext("First name"),
+          required=True,
+        )
         self.last_name = TextField(
             label=gettext("Last name"),
             required=True,
@@ -149,8 +152,17 @@ class User:
             required=True,
             unique=True,
         )
-        self.birthday = DateField(label=gettext("Birthday"))
-        self.password = PasswordField(label=gettext("Password"))
+        self.birthday = DateField(
+          label=gettext("Birthday"),
+        )
+        self.description = TextField(
+          label=gettext("About yourself"),
+          # Support for several language.
+          multi_language=True,
+        )
+        self.password = PasswordField(
+          label=gettext("Password"),
+        )
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
             # If true, the value of this field is not saved in the database.
@@ -213,8 +225,7 @@ async def main():
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
         # {"_id": user.id.value}
-        # For `TextField`.
-        {f"username.{translations.CURRENT_LOCALE}": user.username.value}
+        {f"username": user.username.value}
     )
     if user_details is not None:
         pprint.pprint(user_details)

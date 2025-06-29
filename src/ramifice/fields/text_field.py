@@ -23,6 +23,7 @@ class TextField(Field, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
         maxlength: int = 256,
+        # Support for several language.
         multi_language: bool = False,
     ):
         if globals.DEBUG:
@@ -81,6 +82,7 @@ class TextField(Field, JsonMixin):
         self.textarea = textarea
         self.use_editor = use_editor
         self.maxlength = maxlength
+        # Support for several language.
         self.multi_language = multi_language
 
     def __len__(self) -> int:
