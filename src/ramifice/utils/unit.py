@@ -50,7 +50,7 @@ class Unit(JsonMixin):
         self.check_value_arguments()
 
     def check_value_arguments(self) -> None:
-        """Check if the values ​​correspond to the arguments.
+        """Check if the values correspond to the arguments.
 
         Returns:
             `None` or raised exception `PanicError`.
