@@ -91,35 +91,42 @@ uv add ramifice
 It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/v0/examples "here").
 
 ```python
+import re
 import asyncio
-import pprint
 from datetime import datetime
+import pprint
 
 from pymongo import AsyncMongoClient
 from ramifice import model, translations, migration
 from ramifice.fields import (
     BooleanField,
     DateField,
+    DateTimeField,
     EmailField,
-    FileField,
     ImageField,
     PasswordField,
+    PhoneField,
+    SlugField,
     TextField,
 )
+from ramifice.utils.tools import to_human_size
 
 
 @model(service_name="Accounts")
 class User:
     """Model of User."""
 
-    def fields(self):
+    def fields(self) -> None:
         """For adding fields."""
         # For custom translations.
         gettext = translations.gettext
-        ngettext = translations.ngettext
+        # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
+            placeholder=gettext("Upload your photo"),
             default="public/media/default/no-photo.png",
+            # Directory for images inside media directory.
+            target_dir="users/avatars",
             # Available 4 sizes from lg to xs or None.
             # Hint: By default = None
             thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
@@ -128,48 +135,90 @@ class User:
             high_quality=True,
             # The maximum size of the original image in bytes.
             # Hint: By default = 2 MB
-            max_size=524288 # 0.5 MB = 524288 Bytes (in binary)
-        )
-        self.resume = FileField(
-          label=gettext("Resume"),
-          default="public/media/default/no_doc.odt",
+            max_size=524288,  # 512 KB = 0.5 MB = 524288 Bytes (in binary)
+            warning=[
+                gettext("Maximum size: %s" % to_human_size(524288)),
+            ],
         )
         self.username = TextField(
             label=gettext("Username"),
+            placeholder=gettext("Enter your username"),
+            maxlength=150,
             required=True,
             unique=True,
+            warning=[
+                gettext("Allowed chars: %s" % "a-z A-Z 0-9 _"),
+            ],
         )
         self.first_name = TextField(
-          label=gettext("First name"),
-          required=True,
+            label=gettext("First name"),
+            placeholder=gettext("Enter your First name"),
+            multi_language=True,  # Support for several language.
+            maxlength=150,
+            required=True,
         )
         self.last_name = TextField(
             label=gettext("Last name"),
+            placeholder=gettext("Enter your Last name"),
+            multi_language=True,  # Support for several language.
+            maxlength=150,
             required=True,
         )
         self.email = EmailField(
             label=gettext("Email"),
+            placeholder=gettext("Enter your email"),
             required=True,
             unique=True,
         )
+        self.phone = PhoneField(
+            label=gettext("Phone number"),
+            placeholder=gettext("Enter your phone number"),
+            unique=True,
+        )
         self.birthday = DateField(
-          label=gettext("Birthday"),
+            label=gettext("Birthday"),
+            placeholder=gettext("Enter your date of birth"),
         )
         self.description = TextField(
-          label=gettext("About yourself"),
-          # Support for several language.
-          multi_language=True,
+            label=gettext("About yourself"),
+            placeholder=gettext("Tell us a little about yourself ..."),
+            multi_language=True,  # Support for several language.
         )
         self.password = PasswordField(
-          label=gettext("Password"),
+            label=gettext("Password"),
+            placeholder=gettext("Enter your password"),
         )
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
+            placeholder=gettext("Repeat your password"),
             # If true, the value of this field is not saved in the database.
             ignored=True,
         )
-         self.is_admin = BooleanField(
+        self.is_admin = BooleanField(
             label=gettext("Is Administrator?"),
+            warning=[
+                gettext("Can this user access the admin panel?"),
+            ],
+        )
+        self.is_active = BooleanField(
+            label=gettext("Is active?"),
+            warning=[
+                gettext("Is this an active account?"),
+            ],
+        )
+        self.slug = SlugField(
+            label=gettext("Slug"),
+            slug_sources=["username"],
+            disabled=True,
+            hide=True,
+        )
+        self.last_login = DateTimeField(
+            label=gettext("Last login"),
+            disabled=True,
+            hide=True,
+            warning=[
+                gettext("Date and time of user last login."),
+            ],
         )
 
     # Optional method.
@@ -180,8 +229,12 @@ class User:
 
         # Get clean data.
         id = self.id.value
+        username = self.username.value
         password = self.password.value
         сonfirm_password = self.сonfirm_password.value
+
+        if re.match(r"^[a-zA-Z0-9_]+$", username) is None:  # type: ignore[arg-type]
+            error_map["username"] = gettext("Allowed chars: %s" % "a-z A-Z 0-9 _")
 
         if id is None and (password != сonfirm_password):
             error_map["password"] = gettext("Passwords do not match!")
@@ -201,16 +254,21 @@ async def main():
     translations.change_locale("en")
 
     user = User()
+    # user.avatar.from_path("public/media/default/no-photo.png")
     user.username.value = "pythondev"
-    user.avatar.from_path("public/media/default/no-photo.png")
-    user.resume.from_path("public/media/default/no_doc.odt")
-    user.first_name.value = "John"
-    user.last_name.value = "Smith"
+    user.first_name.value = {"en": "John", "ru": "Джон"}
+    # user.first_name.value = "John"
+    user.last_name.value = {"en": "Smith", "ru": "Смит"}
+    # user.last_name.value = "Smith"
     user.email.value = "John_Smith@gmail.com"
+    user.phone.value = "+447986123456"
     user.birthday.value = datetime(2000, 1, 25)
+    user.description.value = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
+    # user.description.value = "I program on Python!"
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
     user.is_admin.value = True
+    user.is_active.value = True
 
     # Create User.
     if not await user.save():
@@ -218,7 +276,7 @@ async def main():
         user.print_err()
 
     # Update User.
-    user.username.value = "pythondev-123"
+    user.username.value = "pythondev_123"
     if not await user.save():
         user.print_err()
 
@@ -235,11 +293,13 @@ async def main():
     # Remove User.
     await user.delete(remove_files=False)
 
+    # Remove User.
+    # (if necessary)
+    # await user.delete()
+
     # Remove collection.
     # (if necessary)
-    await User.collection().drop()
-
-    await client.close()
+    # await User.collection().drop()
 
 
 if __name__ == "__main__":
