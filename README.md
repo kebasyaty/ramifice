@@ -137,7 +137,7 @@ class User:
             # Hint: By default = 2 MB
             max_size=524288,  # 512 KB = 0.5 MB = 524288 Bytes (in binary)
             warning=[
-                gettext("Maximum size: %s" % to_human_size(524288)),
+                gettext("Maximum size: %s") % to_human_size(524288),
             ],
         )
         self.username = TextField(
@@ -147,7 +147,7 @@ class User:
             required=True,
             unique=True,
             warning=[
-                gettext("Allowed chars: %s" % "a-z A-Z 0-9 _"),
+                gettext("Allowed chars: %s") % "a-z A-Z 0-9 _",
             ],
         )
         self.first_name = TextField(
@@ -234,7 +234,7 @@ class User:
         сonfirm_password = self.сonfirm_password.value
 
         if re.match(r"^[a-zA-Z0-9_]+$", username) is None:  # type: ignore[arg-type]
-            error_map["username"] = gettext("Allowed chars: %s" % "a-z A-Z 0-9 _")
+            error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         if id is None and (password != сonfirm_password):
             error_map["password"] = gettext("Passwords do not match!")
@@ -304,60 +304,9 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### How to create custom translations ?
+### How to add translation localization?
 
-```python
-from ramifice import translations
-
-translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-translations.LANGUAGES = ["en", "ru"]  # For Ramifice by default = ["en", "ru"]
-```
-
-```shell
-cd project_name
-# Add your custom translations:
-uv run pybabel extract -o config/translations/custom.pot src
-uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
-uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
-...
-
-# Hint: Do not forget to add translations for new languages.
-uv run pybabel compile -d config/translations/custom
-
-# Update your custom translations:
-uv run pybabel extract -o config/translations/custom.pot src
-uv run pybabel update -i config/translations/custom.pot -d config/translations/custom
-# Hint: Do not forget to check the translations for existing languages.
-uv run pybabel compile -d config/translations/custom
-```
-
-### How to add new languages ​​to Ramifice ?
-
-```python
-from ramifice import translations
-
-translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-translations.LANGUAGES = ["en", "ru", "de", "de_ch"]  # For Ramifice by default = ["en", "ru"]
-```
-
-```shell
-cd project_name
-# Example:
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
-...
-
-# Hint: Do not forget to add translations for new languages.
-uv run pybabel compile -d config/translations/ramifice
-
-# Update translations to Ramifice:
-uv run pybabel extract -o config/translations/ramifice.pot ramifice
-uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
-# Hint: Do not forget to check the translations for existing languages.
-uv run pybabel compile -d config/translations/ramifice
-```
-
-### [See more examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See more examples here.")
+[See in the examples.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See in the examples.")
 
 ## Model Parameters
 

@@ -50,7 +50,7 @@ async def main() -> None:
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one({"_id": user.id.value})
+    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
     if user_details is not None:
         pprint.pprint(user_details)
     else:
