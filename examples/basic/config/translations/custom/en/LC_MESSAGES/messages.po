@@ -1,0 +1,143 @@
+# English translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-06-30 19:58+0300\n"
+"PO-Revision-Date: 2025-06-30 19:59+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: packages/models/src/models/accounts.py:30
+msgid "Avatar"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:31
+msgid "Upload your photo"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:45
+#, python-format
+msgid "Maximum size: %s"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:49
+msgid "Username"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:50
+msgid "Enter your username"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:55
+#: packages/models/src/models/accounts.py:142
+#, python-format
+msgid "Allowed chars: %s"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:59
+msgid "First name"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:60
+msgid "Enter your First name"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:66
+msgid "Last name"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:67
+msgid "Enter your Last name"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:73
+msgid "Email"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:74
+msgid "Enter your email"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:79
+msgid "Phone number"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:80
+msgid "Enter your phone number"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:84
+msgid "Birthday"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:85
+msgid "Enter your date of birth"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:88
+msgid "About yourself"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:89
+msgid "Tell us a little about yourself ..."
+msgstr ""
+
+#: packages/models/src/models/accounts.py:93
+msgid "Password"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:94
+msgid "Enter your password"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:97
+msgid "Confirm password"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:98
+msgid "Repeat your password"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:103
+msgid "Is Administrator?"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:105
+msgid "Can this user access the admin panel?"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:109
+msgid "Is active?"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:111
+msgid "Is this an active account?"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:115
+msgid "Slug"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:121
+msgid "Last login"
+msgstr ""
+
+#: packages/models/src/models/accounts.py:125
+msgid "Date and time of user last login."
+msgstr ""
+
+#: packages/models/src/models/accounts.py:145
+msgid "Passwords do not match!"
+msgstr ""
+

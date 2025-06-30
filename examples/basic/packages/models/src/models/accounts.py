@@ -42,7 +42,7 @@ class User:
             # Hint: By default = 2 MB
             max_size=524288,  # 512 KB = 0.5 MB = 524288 Bytes (in binary)
             warning=[
-                gettext("Maximum size: %s" % to_human_size(524288)),
+                gettext("Maximum size: %s") % to_human_size(524288),
             ],
         )
         self.username = TextField(
@@ -52,7 +52,7 @@ class User:
             required=True,
             unique=True,
             warning=[
-                gettext("Allowed chars: %s" % "a-z A-Z 0-9 _"),
+                gettext("Allowed chars: %s") % "a-z A-Z 0-9 _",
             ],
         )
         self.first_name = TextField(
@@ -139,7 +139,7 @@ class User:
         сonfirm_password = self.сonfirm_password.value
 
         if re.match(r"^[a-zA-Z0-9_]+$", username) is None:  # type: ignore[arg-type]
-            error_map["username"] = gettext("Allowed chars: %s" % "a-z A-Z 0-9 _")
+            error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         if id is None and (password != сonfirm_password):
             error_map["password"] = gettext("Passwords do not match!")
