@@ -82,6 +82,8 @@ class Model(metaclass=ABCMeta):
                                 item["title"].get(lang, "- -"): item["value"] for item in dyn_data
                             }
                         else:
+                            # This is necessary for
+                            # `paladins > refrash > RefrashMixin > refrash_from_db`.
                             f_type.choices = None
 
     # Complect of methods for converting Model to JSON and back.
