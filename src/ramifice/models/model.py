@@ -82,6 +82,8 @@ class Model(metaclass=ABCMeta):
                                 item["title"].get(lang, "- -"): item["value"] for item in dyn_data
                             }
                         else:
+                            # This is necessary for
+                            # `paladins > refrash > RefrashMixin > refrash_from_db`.
                             f_type.choices = None
 
     # Complect of methods for converting Model to JSON and back.
@@ -171,7 +173,7 @@ class Model(metaclass=ABCMeta):
         json_dict = json.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
-    def refrash_fields(self, only_value_dict: dict[str, Any]) -> None:
+    def refrash_fields_only_value(self, only_value_dict: dict[str, Any]) -> None:
         """Partial or complete update a `value` of fields."""
         for name, data in self.__dict__.items():
             if callable(data):
