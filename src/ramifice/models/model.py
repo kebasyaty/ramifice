@@ -173,7 +173,7 @@ class Model(metaclass=ABCMeta):
         json_dict = json.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
-    def refrash_fields(self, only_value_dict: dict[str, Any]) -> None:
+    def refrash_fields_only_value(self, only_value_dict: dict[str, Any]) -> None:
         """Partial or complete update a `value` of fields."""
         for name, data in self.__dict__.items():
             if callable(data):
