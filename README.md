@@ -291,11 +291,9 @@ async def main():
         print("No User!")
 
     # Remove User.
-    await user.delete(remove_files=False)
-
-    # Remove User.
     # (if necessary)
     # await user.delete()
+    # await user.delete(remove_files=False)
 
     # Remove collection.
     # (if necessary)
