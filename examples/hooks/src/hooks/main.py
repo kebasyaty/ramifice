@@ -13,7 +13,7 @@ async def main() -> None:
     client: AsyncMongoClient = AsyncMongoClient()
 
     await migration.Monitor(
-        database_name="test_db",
+        database_name="test_hooks",
         mongo_client=client,
     ).migrate()
 
