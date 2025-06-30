@@ -304,7 +304,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### How to add translation localization?
+### How to add localization?
 
 [See in the examples.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See in the examples.")
 
