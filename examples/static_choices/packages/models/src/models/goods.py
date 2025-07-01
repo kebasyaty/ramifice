@@ -22,45 +22,49 @@ class Product:
         ngettext = translations.ngettext
         self.size_float = ChoiceFloatField(
             label=gettext("Size in float"),
-            choices={
-                gettext("Big"): 25.8,
-                gettext("Middle"): 15.6,
-                gettext("Small"): 12.5,
-            },
+            choices=[
+                (25.8, gettext("Big")),
+                (15.6, gettext("Middle")),
+                (12.5, gettext("Small")),
+            ],
         )
         self.sizes_float = ChoiceFloatMultField(
             label=gettext("Sizes in float"),
-            choices={
-                gettext("Big"): 25.8,
-                gettext("Middle"): 15.6,
-                gettext("Small"): 12.5,            },
+            choices=[
+                (25.8, gettext("Big")),
+                (15.6, gettext("Middle")),
+                (12.5, gettext("Small")),
+            ],
         )
         self.size_int = ChoiceIntField(
             label=gettext("Size in Int"),
-            choices={
-                gettext("Big"): 25,
-                gettext("Middle"): 15,
-                gettext("Small"): 12,            },
+            choices=[
+                (25, gettext("Big")),
+                (15, gettext("Middle")),
+                (12, gettext("Small")),
+            ],
         )
         self.sizes_int = ChoiceIntMultField(
             label=gettext("Sizes in Int"),
-            choices={
-                gettext("Big"): 25,
-                gettext("Middle"): 15,
-                gettext("Small"): 12,            },
+            choices=[
+                (25, gettext("Big")),
+                (15, gettext("Middle")),
+                (12, gettext("Small")),
+            ],
         )
         self.size_txt = ChoiceTextField(
             label=gettext("Size in Text"),
-            choices={
-                gettext("Big"): "big",
-                gettext("Middle"): "middle",
-                gettext("Small"): "small",
-            },
+            choices=[
+                ("big", gettext("Big")),
+                ("middle", gettext("Middle")),
+                ("small", gettext("Small")),
+            ],
         )
         self.sizes_txt = ChoiceTextMultField(
             label=gettext("Sizes in Text"),
-            choices={
-                gettext("Big"): "big",
-                gettext("Middle"): "middle",
-                gettext("Small"): "small",            },
+            choices=[
+                ("big", gettext("Big")),
+                ("middle", gettext("Middle")),
+                ("small", gettext("Small")),
+            ],
         )
