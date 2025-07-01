@@ -78,9 +78,9 @@ class Model(metaclass=ABCMeta):
                     if "Dyn" in f_type.field_type:
                         dyn_data = data_dynamic_fields[f_name]
                         if dyn_data is not None:
-                            f_type.choices = {
-                                item["title"][lang]: item["value"] for item in dyn_data
-                            }
+                            f_type.choices = [
+                                (item["value"], item["title"][lang]) for item in dyn_data
+                            ]
                         else:
                             # This is necessary for
                             # `paladins > refrash > RefrashMixin > refrash_from_db`.

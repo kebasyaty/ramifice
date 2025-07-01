@@ -67,7 +67,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: list[str] | None = None
-        self.choices: dict[str, str] | None = None
+        self.choices: list[tuple[str, str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
@@ -78,7 +78,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
             choices = self.choices
             if len(value) == 0 or not bool(choices):
                 return False
-            value_list = choices.values()  # type: ignore[union-attr]
+            value_list = [item[0] for item in choices]  # type: ignore[union-attr]
             for item in value:
                 if item not in value_list:
                     return False
