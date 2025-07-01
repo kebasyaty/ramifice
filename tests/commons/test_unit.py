@@ -191,36 +191,42 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         unit = Unit(
             field="choice_float_dyn",
             title={"en": "Title"},
+            value=1.0,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
             title={"en": "Title"},
+            value=2.0,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
             title={"en": "Title"},
+            value=1,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
             title={"en": "Title"},
+            value=2,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
             title={"en": "Title"},
+            value="Some text",
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
             title={"en": "Title"},
+            value="Some text 2",
             is_delete=True,
         )
         await User.unit_manager(unit)
