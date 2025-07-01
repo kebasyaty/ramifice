@@ -81,37 +81,37 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # ---------
         unit = Unit(
             field="choice_float_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=1.0,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=2.0,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=1,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=2,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value="Some text",
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value="Some text 2",
         )
         await User.unit_manager(unit)
@@ -125,41 +125,53 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         data_dynamic_fields = model_state["data_dynamic_fields"]
         choices = data_dynamic_fields["choice_float_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 1.0)
         choices = data_dynamic_fields["choice_float_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 2.0)
         choices = data_dynamic_fields["choice_int_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 1.0)
         choices = data_dynamic_fields["choice_int_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 2)
         choices = data_dynamic_fields["choice_txt_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], "Some text")
         choices = data_dynamic_fields["choice_txt_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], "Some text 2")
         #
         data_dynamic_fields = User.META["data_dynamic_fields"]
         choices = data_dynamic_fields["choice_float_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 1.0)
         choices = data_dynamic_fields["choice_float_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 2.0)
         choices = data_dynamic_fields["choice_int_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 1.0)
         choices = data_dynamic_fields["choice_int_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], 2)
         choices = data_dynamic_fields["choice_txt_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], "Some text")
         choices = data_dynamic_fields["choice_txt_mult_dyn"][0]
         self.assertEqual(choices["title"]["en"], "Title")
+        self.assertEqual(choices["title"]["ru"], "Заголовок")
         self.assertEqual(choices["value"], "Some text 2")
         #
         user = User()
@@ -190,42 +202,42 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # ------------
         unit = Unit(
             field="choice_float_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=1.0,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_float_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=2.0,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=1,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_int_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value=2,
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value="Some text",
             is_delete=True,
         )
         await User.unit_manager(unit)
         unit = Unit(
             field="choice_txt_mult_dyn",
-            title={"en": "Title"},
+            title={"en": "Title", "ru": "Заголовок"},
             value="Some text 2",
             is_delete=True,
         )
