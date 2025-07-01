@@ -189,7 +189,7 @@ class Monitor:
                         "data_dynamic_fields"
                     ][field_name]
             # Refresh state of current Model.
-            model_state["data_dynamic_field"] = metadata["data_dynamic_fields"]
+            model_state["data_dynamic_fields"] = metadata["data_dynamic_fields"]
             model_state["field_name_and_type"] = metadata["field_name_and_type"]
             await super_collection.replace_one(
                 filter={"collection_name": model_state["collection_name"]},

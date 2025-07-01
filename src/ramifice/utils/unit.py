@@ -20,7 +20,7 @@ class Unit(JsonMixin):
         self,
         field: str,
         title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
-        value: float | int | str | None = None,  # None for is_delete=True
+        value: float | int | str,
         is_delete: bool = False,
     ):
         # Check the match of types.
@@ -33,8 +33,8 @@ class Unit(JsonMixin):
                 + 'Example: {"en": "Title", "ru": "Заголовок"}'
             )
             raise PanicError(msg)
-        if not isinstance(value, (float, int, str, type(None))):
-            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str | None` type!"
+        if not isinstance(value, (float, int, str)):
+            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str` type!"
             raise PanicError(msg)
         if not isinstance(is_delete, bool):
             msg = "Class: `Unit` > Field: `is_delete` => Not а `bool` type!"
@@ -47,10 +47,10 @@ class Unit(JsonMixin):
         self.value = value
         self.is_delete = is_delete
 
-        self.check_value_arguments()
+        self.check_empty_arguments()
 
-    def check_value_arguments(self) -> None:
-        """Check if the values correspond to the arguments.
+    def check_empty_arguments(self) -> None:
+        """Check the arguments for empty values.
 
         Returns:
             `None` or raised exception `PanicError`.
@@ -61,14 +61,6 @@ class Unit(JsonMixin):
             field_name = "field"
         elif len(self.title) == 0:
             field_name = "title"
-        elif self.value is None and self.is_delete == False:
-            msg = (
-                "Method: `unit_manager` > "
-                + "Argument: `unit` > "
-                + f"Field: `{field_name}` => "
-                + "For `value` = None, `is_delete` should be True!"
-            )
-            raise PanicError(msg)
         elif isinstance(self.value, str) and len(self.value) == 0:
             field_name = "value"
 

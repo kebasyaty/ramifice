@@ -17,10 +17,10 @@ class TestTypes(unittest.TestCase):
         self.assertEqual(u.value, "value")
         self.assertFalse(u.is_delete)
 
-        u = Unit(field="field_name", title={"en": "Title"}, is_delete=True)
+        u = Unit(field="field_name", title={"en": "Title"}, value="value", is_delete=True)
         self.assertEqual(u.field, "field_name")
         self.assertEqual(u.title, {"en": "Title"})
-        self.assertIsNone(u.value)
+        self.assertEqual(u.value, "value")
         self.assertTrue(u.is_delete)
 
         # Check the match of types.
@@ -29,7 +29,7 @@ class TestTypes(unittest.TestCase):
         with self.assertRaises(PanicError):
             Unit(field="field_name", title=None, value="value", is_delete=True)
         with self.assertRaises(PanicError):
-            Unit(field="field_name", title={"en": "Title"}, value=None, is_delete=False)
+            Unit(field="field_name", title={"en": "Title"}, value=None, is_delete=True)
         with self.assertRaises(PanicError):
             Unit(field="field_name", title={"en": "Title"}, value="value", is_delete=None)
 
