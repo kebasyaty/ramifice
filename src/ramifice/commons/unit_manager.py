@@ -41,9 +41,23 @@ class UnitMixin:
         target_value = unit.value
         # Get dynamic field data.
         choices: list | None = model_state["data_dynamic_fields"][unit_field]
+        # Determine the presence of unit.
+        is_unit_exists: bool = False
+        if choices is not None:
+            for item in choices:
+                if item["value"] == target_value:
+                    is_unit_exists = True
+                    break
         # Add Unit to Model State.
         if not unit.is_delete:
             if choices is not None:
+                if is_unit_exists:
+                    main_lang = translations.DEFAULT_LOCALE
+                    msg = (
+                        "Error: It is impossible to add unit - "
+                        + f"Unit `{title[main_lang]}: {target_value}` is exists!"
+                    )
+                    raise PanicError(msg)
                 choices.append({"title": title, "value": target_value})
             else:
                 choices = [{"title": title, "value": target_value}]
@@ -53,16 +67,11 @@ class UnitMixin:
             if choices is None:
                 msg = "Error: It is not possible to delete Unit - Units is not exists!"
                 raise PanicError(msg)
-            is_unit_exists: bool = False
-            for item in choices:
-                if item["value"] == target_value:
-                    is_unit_exists = True
-                    break
             if not is_unit_exists:
                 main_lang = translations.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
-                    + f"Unit `{title[main_lang]}: {target_value}` not exists!"
+                    + f"Unit `{title[main_lang]}: {target_value}` is not exists!"
                 )
                 raise PanicError(msg)
             choices = [item for item in choices if item["value"] != target_value]
