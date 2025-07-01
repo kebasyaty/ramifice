@@ -79,7 +79,7 @@ class Model(metaclass=ABCMeta):
                         dyn_data = data_dynamic_fields[f_name]
                         if dyn_data is not None:
                             f_type.choices = {
-                                item["title"].get(lang, "- -"): item["value"] for item in dyn_data
+                                item["title"][lang]: item["value"] for item in dyn_data
                             }
                         else:
                             # This is necessary for
