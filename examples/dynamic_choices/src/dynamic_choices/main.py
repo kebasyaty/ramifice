@@ -3,10 +3,10 @@
 import asyncio
 import pprint
 
-from models.goods import Product
 from pymongo import AsyncMongoClient
-
 from ramifice import Unit, migration, translations
+
+from models.goods import Product
 
 
 async def main() -> None:
@@ -21,56 +21,59 @@ async def main() -> None:
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
+
     # Add Units:
     # Hint: Enough once, then you can to comment or delete.
     for item in [
-        {"title": {"en": "Big"}, "value": 25.8},
-        {"title": {"en": "Middle"}, "value": 15.6},
-        {"title": {"en": "Small"}, "value": 12.5},
+        {"title": {"en": "Big", "ru": "Большой"}, "value": 25.8},
+        {"title": {"en": "Middle", "ru": "Средний"}, "value": 15.6},
+        {"title": {"en": "Small", "ru": "Маленький"}, "value": 12.5},
     ]:
         unit = Unit(
             field="size_float",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_float",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
+
     for item in [
-        {"title": {"en": "Big"}, "value": 25},
-        {"title": {"en": "Middle"}, "value": 15},
-        {"title": {"en": "Small"}, "value": 12},
+        {"title": {"en": "Big", "ru": "Большой"}, "value": 25},
+        {"title": {"en": "Middle", "ru": "Средний"}, "value": 15},
+        {"title": {"en": "Small", "ru": "Маленький"}, "value": 12},
     ]:
         unit = Unit(
             field="size_int",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_int",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
+
     for item in [
-        {"title": {"en": "Big"}, "value": "big"},
-        {"title": {"en": "Middle"}, "value": "middle"},
-        {"title": {"en": "Small"}, "value": "small"},
+        {"title": {"en": "Big", "ru": "Большой"}, "value": "big"},
+        {"title": {"en": "Middle", "ru": "Средний"}, "value": "middle"},
+        {"title": {"en": "Small", "ru": "Маленький"}, "value": "small"},
     ]:
         unit = Unit(
             field="size_txt",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
         unit = Unit(
             field="sizes_txt",
-            title=item["title"]["en"],
+            title=item["title"],
             value=item["value"],
         )
         await Product.unit_manager(unit)
@@ -89,8 +92,8 @@ async def main() -> None:
         product.print_err()
 
     print("Products:")
-    products = await Product.find_many_to_raw_doc()
-    if products is not None:
+    products = await Product.find_many_to_raw_docs()
+    if bool(products):
         pprint.pprint(products)
     else:
         print("No Products!")

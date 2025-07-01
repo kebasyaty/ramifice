@@ -3,10 +3,10 @@
 import asyncio
 import pprint
 
-from models.goods import Product
 from pymongo import AsyncMongoClient
-
 from ramifice import migration, translations
+
+from models.goods import Product
 
 
 async def main() -> None:
@@ -40,20 +40,21 @@ async def main() -> None:
     if not await product.save():
         product.print_err()
 
-    print("Product details:")
-    product_details = await Product.find_one_to_raw_doc({"_id": product.id.value})
-    if product_details is not None:
-        pprint.pprint(product_details)
+    print("Products:")
+    products = await Product.find_many_to_raw_docs()
+    if products is not None:
+        pprint.pprint(products)
     else:
-        print("No Product!")
+        print("No Products!")
 
     # Remove Product.
-    if product_details is not None:
-        await product.delete(remove_files=False)
+    # (if necessary)
+    # if product_details is not None:
+    #     await product.delete(remove_files=False)
 
     # Remove collection.
     # (if necessary)
-    await Product.collection().drop()
+    # await Product.collection().drop()
 
     await client.close()
 
