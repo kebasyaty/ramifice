@@ -27,7 +27,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         default: list[str] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: dict[str, str] | None = None,
+        choices: list[tuple[str, str]] | None = None,
     ):
         Field.__init__(
             self,
@@ -54,8 +54,8 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
 
         if globals.DEBUG:
             if choices is not None:
-                if not isinstance(choices, dict):
-                    raise AssertionError("Parameter `choices` - Not а `dict` type!")
+                if not isinstance(choices, list):
+                    raise AssertionError("Parameter `choices` - Not а `list` type!")
                 if len(choices) == 0:
                     raise AssertionError(
                         "The `choices` parameter should not contain an empty list!"
@@ -100,7 +100,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
             choices = self.choices
             if len(value) == 0 or not bool(choices):
                 return False
-            value_list = choices.values()  # type: ignore[union-attr]
+            value_list = [item[0] for item in choices]  # type: ignore[union-attr]
             for item in value:
                 if item not in value_list:
                     return False

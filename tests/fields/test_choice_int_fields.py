@@ -41,13 +41,13 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntField(default="2")
         with self.assertRaises(AssertionError):
-            f = ChoiceIntField(default=3, choices={"Title": 1, "Title 2": 2})
+            f = ChoiceIntField(default=3, choices=[(1, "Title"), (2, "Title 2")])
         # Methods:
         f = ChoiceIntField()
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(default=2, choices={"Title": 1, "Title 2": 2})
+        f = ChoiceIntField(default=2, choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
-        f = ChoiceIntField(choices={"Title": 1, "Title 2": 2})
+        f = ChoiceIntField(choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = 2
         self.assertTrue(f.has_value())
@@ -86,15 +86,15 @@ class TestChoiceIntegerFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(default=[])
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(default=[3], choices={"Title": 1, "Title 2": 2})
+            f = ChoiceIntMultField(default=[3], choices=[(1, "Title"), (2, "Title 2")])
         with self.assertRaises(AssertionError):
-            f = ChoiceIntMultField(default=[2, 3], choices={"Title": 1, "Title 2": 2})
+            f = ChoiceIntMultField(default=[2, 3], choices=[(1, "Title"), (2, "Title 2")])
         # Methods:
         f = ChoiceIntMultField()
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(default=[2], choices={"Title": 1, "Title 2": 2})
+        f = ChoiceIntMultField(default=[2], choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
-        f = ChoiceIntMultField(choices={"Title": 1, "Title 2": 2})
+        f = ChoiceIntMultField(choices=[(1, "Title"), (2, "Title 2")])
         self.assertTrue(f.has_value())
         f.value = [2]
         self.assertTrue(f.has_value())

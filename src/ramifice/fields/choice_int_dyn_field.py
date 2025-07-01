@@ -67,7 +67,7 @@ class ChoiceIntDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: int | None = None
-        self.choices: dict[str, int] | None = None
+        self.choices: list[tuple[int, str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
@@ -78,6 +78,6 @@ class ChoiceIntDynField(Field, ChoiceGroup, JsonMixin):
             choices = self.choices
             if not bool(choices):
                 return False
-            if value not in choices.values():  # type: ignore[union-attr]
+            if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
                 return False
         return True

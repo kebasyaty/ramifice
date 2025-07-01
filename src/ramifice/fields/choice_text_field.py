@@ -27,7 +27,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         default: str | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: dict[str, str] | None = None,
+        choices: list[tuple[str, str]] | None = None,
     ):
         Field.__init__(
             self,
@@ -52,8 +52,13 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         self.choices = choices
 
         if globals.DEBUG:
-            if choices is not None and not isinstance(choices, dict):
-                raise AssertionError("Parameter `choices` - Not а `dict` type!")
+            if choices is not None:
+                if not isinstance(choices, list):
+                    raise AssertionError("Parameter `choices` - Not а `list` type!")
+                if len(choices) == 0:
+                    raise AssertionError(
+                        "The `choices` parameter should not contain an empty list!"
+                    )
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -94,6 +99,6 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
             choices = self.choices
             if not bool(choices):
                 return False
-            if value not in choices.values():  # type: ignore[union-attr]
+            if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
                 return False
         return True

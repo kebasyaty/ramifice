@@ -34,10 +34,14 @@ class UnitMixin:
         # Check the presence of a Model state.
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
+        # Get language list.
+        lang_list = translations.LANGUAGES
         # Get clean fields of Unit.
         unit_field: str = unit.field
         title = unit.title
-        title = {lang: title.get(lang, "- -") for lang in translations.LANGUAGES}
+        if len(title) != len(lang_list):
+            raise PanicError("Unit.title => There are no translations for some languages!")
+        title = {lang: title[lang] for lang in lang_list}
         target_value = unit.value
         # Get dynamic field data.
         choices: list | None = model_state["data_dynamic_fields"][unit_field]
