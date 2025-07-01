@@ -40,7 +40,7 @@ class UnitMixin:
         unit_field: str = unit.field
         title = unit.title
         if len(title) != len(lang_list):
-            raise PanicError("Unit.title - No translations for some language!")
+            raise PanicError("Unit.title => There are no translations for some languages!")
         title = {lang: title[lang] for lang in lang_list}
         target_value = unit.value
         # Get dynamic field data.
