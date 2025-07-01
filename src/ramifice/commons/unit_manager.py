@@ -34,59 +34,55 @@ class UnitMixin:
         # Check the presence of a Model state.
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
-        # Get dynamic field data.
-        choices: list | None = model_state["data_dynamic_fields"][unit.field]
-        # Get Title.
+        # Get clean fields of Unit.
+        unit_field: str = unit.field
         title = unit.title
         title = {lang: title.get(lang, "- -") for lang in translations.LANGUAGES}
-        main_lang = translations.DEFAULT_LOCALE
-        main_title = title[main_lang]
+        target_value = unit.value
+        # Get dynamic field data.
+        choices: list | None = model_state["data_dynamic_fields"][unit_field]
         # Add Unit to Model State.
         if not unit.is_delete:
             if choices is not None:
-                choices.append({"title": title, "value": unit.value})
+                choices.append({"title": title, "value": target_value})
             else:
-                choices = [{"title": title, "value": unit.value}]
-            model_state["data_dynamic_fields"][unit.field] = choices
+                choices = [{"title": title, "value": target_value}]
+            model_state["data_dynamic_fields"][unit_field] = choices
         else:
             # Delete Unit from Model State.
             if choices is None:
-                msg = (
-                    "Error: It is not possible to delete Unit."
-                    + f"Title `{main_title}` not exists!"
-                )
+                msg = "Error: It is not possible to delete Unit - Units is not exists!"
                 raise PanicError(msg)
-            is_key_exists: bool = False
+            is_unit_exists: bool = False
             for item in choices:
-                if main_title == item["title"][main_lang]:
-                    is_key_exists = True
+                if item["value"] == target_value:
+                    is_unit_exists = True
                     break
-            if not is_key_exists:
+            if not is_unit_exists:
+                main_lang = translations.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
-                    + f"Title `{main_title}` not exists!"
+                    + f"Unit `{title[main_lang]}: {target_value}` not exists!"
                 )
                 raise PanicError(msg)
-            choices = [item for item in choices if item["title"][main_lang] != main_title]
-            model_state["data_dynamic_fields"][unit.field] = choices or None
+            choices = [item for item in choices if item["value"] != target_value]
+            model_state["data_dynamic_fields"][unit_field] = choices or None
         # Update state of current Model in super collection.
         await super_collection.replace_one(
             filter={"collection_name": model_state["collection_name"]},
             replacement=model_state,
         )
         # Update metadata of current Model.
-        cls.META["data_dynamic_fields"][unit.field] = choices or None
+        cls.META["data_dynamic_fields"][unit_field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            unit_field: str = unit.field
-            unit_value: float | int | str | None = unit.value
             collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:
-                    if isinstance(unit_value, list):
+                    if isinstance(field_value, list):
                         value_list = mongo_doc[unit_field]
-                        value_list.remove(unit_value)
+                        value_list.remove(target_value)
                         mongo_doc[unit_field] = value_list or None
                     else:
                         mongo_doc[unit_field] = None
