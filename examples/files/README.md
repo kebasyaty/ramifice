@@ -46,7 +46,7 @@ uv run python src/files/main.py
 from ramifice import translations
 
 translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-translations.LANGUAGES = ["en", "ru"]  # For Ramifice by default = ["en", "ru"]
+LANGUAGES = frozenset(("en", "ru"))  # For Ramifice by default = ["en", "ru"]
 ```
 
 ```shell
@@ -73,7 +73,7 @@ uv run pybabel compile -d config/translations/custom
 from ramifice import translations
 
 translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-translations.LANGUAGES = ["en", "ru", "de", "de_ch"]  # For Ramifice by default = ["en", "ru"]
+translations.LANGUAGES = frozenset(("en", "ru", "de", "de_ch"))  # For Ramifice by default = ["en", "ru"]
 ```
 
 ```shell
@@ -92,4 +92,3 @@ uv run pybabel update -i config/translations/ramifice.pot -d config/translations
 # Hint: Do not forget to check the translations for existing languages.
 uv run pybabel compile -d config/translations/ramifice
 ```
-

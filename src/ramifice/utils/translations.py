@@ -28,12 +28,18 @@ import gettext as _gettext
 from gettext import NullTranslations
 from typing import Any
 
+from .errors import PanicError
+
 # Language code by default.
 DEFAULT_LOCALE: str = "en"
 # Code of current language.
 CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 # List of codes supported by languages.
-LANGUAGES: list[str] = ["en", "ru"]
+LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
+
+if not DEFAULT_LOCALE in LANGUAGES:
+    msg = "ERROR: DEFAULT_LOCALE is not included in the LANGUAGES!"
+    raise PanicError(msg)
 
 # Add translations for Ramifice.
 ramifice_translations: dict[str, NullTranslations] = {
