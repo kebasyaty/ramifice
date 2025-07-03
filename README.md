@@ -234,7 +234,7 @@ class User:
         password = self.password.value
         сonfirm_password = self.сonfirm_password.value
 
-        if re.match(r"^[a-zA-Z0-9_]+$", username) is None:  # type: ignore[arg-type]
+        if re.match(r"^[a-zA-Z0-9_]+$", username) is None:
             error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         if id is None and (password != сonfirm_password):
