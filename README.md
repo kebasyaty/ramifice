@@ -43,13 +43,6 @@ _Supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
 <br>
 _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")_.
 
-<p>
-  <a href="https://github.com/kebasyaty/ramifice" alt="Project Status">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/project_status/project-status-beta.svg"
-      alt="Project Status">
-  </a>
-</p>
-
 ## Documentation
 
 Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
