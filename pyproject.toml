@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.5.8"
+version = "0.5.9"
 description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
@@ -17,7 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
+    # "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Database",
     "Typing :: Typed",
 ]
