@@ -93,14 +93,8 @@ import pprint
 from pymongo import AsyncMongoClient
 from ramifice import model, translations, migration
 from ramifice.fields import (
-    BooleanField,
-    DateField,
-    DateTimeField,
-    EmailField,
     ImageField,
     PasswordField,
-    PhoneField,
-    SlugField,
     TextField,
 )
 from ramifice.utils.tools import to_human_size
@@ -129,7 +123,7 @@ class User:
             high_quality=True,
             # The maximum size of the original image in bytes.
             # Hint: By default = 2 MB
-            max_size=524288,  # 512 KB = 0.5 MB = 524288 Bytes (in binary)
+            max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
             warning=[
                 gettext("Maximum size: %s") % to_human_size(524288),
             ],
@@ -144,40 +138,6 @@ class User:
                 gettext("Allowed chars: %s") % "a-z A-Z 0-9 _",
             ],
         )
-        self.first_name = TextField(
-            label=gettext("First name"),
-            placeholder=gettext("Enter your First name"),
-            multi_language=True,  # Support for several language.
-            maxlength=150,
-            required=True,
-        )
-        self.last_name = TextField(
-            label=gettext("Last name"),
-            placeholder=gettext("Enter your Last name"),
-            multi_language=True,  # Support for several language.
-            maxlength=150,
-            required=True,
-        )
-        self.email = EmailField(
-            label=gettext("Email"),
-            placeholder=gettext("Enter your email"),
-            required=True,
-            unique=True,
-        )
-        self.phone = PhoneField(
-            label=gettext("Phone number"),
-            placeholder=gettext("Enter your phone number"),
-            unique=True,
-        )
-        self.birthday = DateField(
-            label=gettext("Birthday"),
-            placeholder=gettext("Enter your date of birth"),
-        )
-        self.description = TextField(
-            label=gettext("About yourself"),
-            placeholder=gettext("Tell us a little about yourself ..."),
-            multi_language=True,  # Support for several language.
-        )
         self.password = PasswordField(
             label=gettext("Password"),
             placeholder=gettext("Enter your password"),
@@ -188,32 +148,7 @@ class User:
             # If true, the value of this field is not saved in the database.
             ignored=True,
         )
-        self.is_admin = BooleanField(
-            label=gettext("Is Administrator?"),
-            warning=[
-                gettext("Can this user access the admin panel?"),
-            ],
-        )
-        self.is_active = BooleanField(
-            label=gettext("Is active?"),
-            warning=[
-                gettext("Is this an active account?"),
-            ],
-        )
-        self.slug = SlugField(
-            label=gettext("Slug"),
-            slug_sources=["username"],
-            disabled=True,
-            hide=True,
-        )
-        self.last_login = DateTimeField(
-            label=gettext("Last login"),
-            disabled=True,
-            hide=True,
-            warning=[
-                gettext("Date and time of user last login."),
-            ],
-        )
+
 
     # Optional method.
     async def add_validation(self) -> dict[str, str]:
@@ -250,19 +185,8 @@ async def main():
     user = User()
     # user.avatar.from_path("public/media/default/no-photo.png")
     user.username.value = "pythondev"
-    user.first_name.value = {"en": "John", "ru": "Джон"}
-    # user.first_name.value = "John"
-    user.last_name.value = {"en": "Smith", "ru": "Смит"}
-    # user.last_name.value = "Smith"
-    user.email.value = "John_Smith@gmail.com"
-    user.phone.value = "+447986123456"
-    user.birthday.value = datetime(2000, 1, 25)
-    user.description.value = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
-    # user.description.value = "I program on Python!"
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
-    user.is_admin.value = True
-    user.is_active.value = True
 
     # Create User.
     if not await user.save():
@@ -298,9 +222,56 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-### How to add localization?
+### How to create custom translations ?
 
-[See in the examples.](https://github.com/kebasyaty/ramifice/tree/v0/examples "See in the examples.")
+```python
+from ramifice import translations
+
+translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
+LANGUAGES = frozenset(("en", "ru"))  # For Ramifice by default = ["en", "ru"]
+```
+
+```shell
+cd project_name
+# Add your custom translations:
+uv run pybabel extract -o config/translations/custom.pot services
+uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
+uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
+...
+# Hint: Do not forget to add translations for new languages.
+uv run pybabel compile -d config/translations/custom
+
+# Update your custom translations:
+uv run pybabel extract -o config/translations/custom.pot services
+uv run pybabel update -i config/translations/custom.pot -d config/translations/custom
+# Hint: Do not forget to check the translations for existing languages.
+uv run pybabel compile -d config/translations/custom
+```
+
+### How to add new languages ​​to Ramifice ?
+
+```python
+from ramifice import translations
+
+translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
+translations.LANGUAGES = frozenset(("en", "ru", "de", "de_ch"))  # For Ramifice by default = ["en", "ru"]
+```
+
+```shell
+cd project_name
+# Example:
+uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
+uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
+...
+# Hint: Do not forget to add translations for new languages.
+uv run pybabel compile -d config/translations/ramifice
+
+# Update translations to Ramifice:
+uv run pybabel extract -o config/translations/ramifice.pot ramifice
+uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
+# Hint: Do not forget to check the translations for existing languages.
+uv run pybabel compile -d config/translations/ramifice
+```
 
 ## Model Parameters
 
