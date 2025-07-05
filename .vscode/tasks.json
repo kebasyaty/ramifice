@@ -35,7 +35,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Python: Run unittest",
+      "label": "UnitTest: Run tests",
       "type": "shell",
       "command": [
         "uv run python -m unittest tests/test_mongo.py;",
