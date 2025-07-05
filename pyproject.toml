@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.5.9"
+version = "0.5.10"
 description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
