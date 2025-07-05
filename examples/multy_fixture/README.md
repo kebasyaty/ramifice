@@ -61,7 +61,6 @@ uv run pybabel extract -o config/translations/custom.pot packages
 uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
 uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
 ...
-
 # Hint: Do not forget to add translations for new languages.
 uv run pybabel compile -d config/translations/custom
 
@@ -87,7 +86,6 @@ cd project_name
 uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
 uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
 ...
-
 # Hint: Do not forget to add translations for new languages.
 uv run pybabel compile -d config/translations/ramifice
 
