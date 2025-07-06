@@ -4,16 +4,16 @@ import os
 import re
 from typing import Any
 
-from ..commons import QCommonsMixin
-from ..fields import DateTimeField, IDField
-from ..paladins import CheckMixin, QPaladinsMixin, ValidationMixin
-from ..utils.errors import DoesNotMatchRegexError, PanicError
-from ..utils.globals import REGEX
-from ..utils.mixins.add_valid import AddValidMixin
-from ..utils.mixins.hooks import HooksMixin
-from ..utils.mixins.indexing import IndexMixin
-from .model import Model
-from .pseudo import PseudoModel
+from ramifice.commons import QCommonsMixin
+from ramifice.fields import DateTimeField, IDField
+from ramifice.models.model import Model
+from ramifice.models.pseudo import PseudoModel
+from ramifice.paladins import CheckMixin, QPaladinsMixin, ValidationMixin
+from ramifice.utils.errors import DoesNotMatchRegexError, PanicError
+from ramifice.utils.globals import REGEX
+from ramifice.utils.mixins.add_valid import AddValidMixin
+from ramifice.utils.mixins.hooks import HooksMixin
+from ramifice.utils.mixins.indexing import IndexMixin
 
 
 def model(

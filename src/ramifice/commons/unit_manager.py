@@ -7,9 +7,9 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import globals, translations
-from ..utils.errors import PanicError
-from ..utils.unit import Unit
+from ramifice.utils import globals, translations
+from ramifice.utils.errors import PanicError
+from ramifice.utils.unit import Unit
 
 
 class UnitMixin:

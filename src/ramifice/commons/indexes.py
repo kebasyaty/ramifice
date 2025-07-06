@@ -4,7 +4,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import globals
+from ramifice.utils import globals
 
 
 class IndexMixin:

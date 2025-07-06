@@ -8,8 +8,8 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ...utils import translations
-from ..tools import accumulate_error, panic_type_error
+from ramifice.paladins.tools import accumulate_error, panic_type_error
+from ramifice.utils import translations
 
 
 class IDGroupMixin:

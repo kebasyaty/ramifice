@@ -6,7 +6,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 from bson import json_util
 
-from ..utils import translations
+from ramifice.utils import translations
 
 
 def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:

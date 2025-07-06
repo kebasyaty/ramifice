@@ -1,8 +1,8 @@
 """Field of Model for enter boolean value."""
 
-from ..utils import globals
-from ..utils.mixins.json_converter import JsonMixin
-from .general.field import Field
+from ramifice.fields.general.field import Field
+from ramifice.utils import globals
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class BooleanField(Field, JsonMixin):

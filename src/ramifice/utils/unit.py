@@ -2,8 +2,8 @@
 
 from typing import Any
 
-from .errors import PanicError
-from .mixins.json_converter import JsonMixin
+from ramifice.utils.errors import PanicError
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class Unit(JsonMixin):

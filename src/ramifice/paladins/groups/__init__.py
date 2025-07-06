@@ -1,12 +1,12 @@
 """Groups - Model instance methods for specific processing of fields."""
 
-from .bool_group import BoolGroupMixin
-from .choice_group import ChoiceGroupMixin
-from .date_group import DateGroupMixin
-from .file_group import FileGroupMixin
-from .id_group import IDGroupMixin
-from .img_group import ImgGroupMixin
-from .num_group import NumGroupMixin
-from .pass_group import PassGroupMixin
-from .slug_group import SlugGroupMixin
-from .text_group import TextGroupMixin
+from ramifice.paladins.groups.bool_group import BoolGroupMixin
+from ramifice.paladins.groups.choice_group import ChoiceGroupMixin
+from ramifice.paladins.groups.date_group import DateGroupMixin
+from ramifice.paladins.groups.file_group import FileGroupMixin
+from ramifice.paladins.groups.id_group import IDGroupMixin
+from ramifice.paladins.groups.img_group import ImgGroupMixin
+from ramifice.paladins.groups.num_group import NumGroupMixin
+from ramifice.paladins.groups.pass_group import PassGroupMixin
+from ramifice.paladins.groups.slug_group import SlugGroupMixin
+from ramifice.paladins.groups.text_group import TextGroupMixin

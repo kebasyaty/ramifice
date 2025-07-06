@@ -11,10 +11,10 @@ from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
-from ..models.model import Model
-from . import globals
-from .errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
-from .fixtures import apply_fixture
+from ramifice.models.model import Model
+from ramifice.utils import globals
+from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
+from ramifice.utils.fixtures import apply_fixture
 
 
 class Monitor:

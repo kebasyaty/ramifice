@@ -11,7 +11,7 @@ from dateutil.parser import parse
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
-from .errors import PanicError
+from ramifice.utils.errors import PanicError
 
 
 async def apply_fixture(

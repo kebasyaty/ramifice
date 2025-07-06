@@ -1,9 +1,9 @@
 """Field of Model for enter (float) number."""
 
-from ..utils import globals
-from ..utils.mixins.json_converter import JsonMixin
-from .general.field import Field
-from .general.number_group import NumberGroup
+from ramifice.fields.general.field import Field
+from ramifice.fields.general.number_group import NumberGroup
+from ramifice.utils import globals
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class FloatField(Field, NumberGroup, JsonMixin):

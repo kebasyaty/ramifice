@@ -3,10 +3,10 @@
 Type of selective text field with dynamic addition of elements.
 """
 
-from ..utils import globals
-from ..utils.mixins.json_converter import JsonMixin
-from .general.choice_group import ChoiceGroup
-from .general.field import Field
+from ramifice.fields.general.choice_group import ChoiceGroup
+from ramifice.fields.general.field import Field
+from ramifice.utils import globals
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ChoiceTextDynField(Field, ChoiceGroup, JsonMixin):

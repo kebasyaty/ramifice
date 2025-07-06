@@ -1,7 +1,9 @@
 """General additional parameters for number fields."""
 
+from abc import ABCMeta
 
-class NumberGroup:
+
+class NumberGroup(metaclass=ABCMeta):
     """General additional parameters for number fields.
 
     Attributes:

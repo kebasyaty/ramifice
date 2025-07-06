@@ -6,7 +6,7 @@ Supported fields:
 
 from typing import Any
 
-from ..tools import panic_type_error
+from ramifice.paladins.tools import panic_type_error
 
 
 class BoolGroupMixin:

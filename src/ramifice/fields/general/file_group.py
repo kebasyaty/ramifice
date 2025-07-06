@@ -1,7 +1,9 @@
 """General additional parameters for file fields."""
 
+from abc import ABCMeta
 
-class FileGroup:
+
+class FileGroup(metaclass=ABCMeta):
     """General additional parameters for file fields.
 
     Attributes:

@@ -1,10 +1,10 @@
 """Commons - Model class methods."""
 
-from .general import GeneralMixin
-from .indexes import IndexMixin
-from .many import ManyMixin
-from .one import OneMixin
-from .unit_manager import UnitMixin
+from ramifice.commons.general import GeneralMixin
+from ramifice.commons.indexes import IndexMixin
+from ramifice.commons.many import ManyMixin
+from ramifice.commons.one import OneMixin
+from ramifice.commons.unit_manager import UnitMixin
 
 
 class QCommonsMixin(

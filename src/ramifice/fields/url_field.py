@@ -2,10 +2,10 @@
 
 from urllib.parse import urlparse
 
-from ..utils import globals
-from ..utils.mixins.json_converter import JsonMixin
-from .general.field import Field
-from .general.text_group import TextGroup
+from ramifice.fields.general.field import Field
+from ramifice.fields.general.text_group import TextGroup
+from ramifice.utils import globals
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class URLField(Field, TextGroup, JsonMixin):

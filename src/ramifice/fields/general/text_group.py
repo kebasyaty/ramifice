@@ -1,7 +1,9 @@
 """General additional parameters for text fields."""
 
+from abc import ABCMeta
 
-class TextGroup:
+
+class TextGroup(metaclass=ABCMeta):
     """General additional parameters for text fields.
 
     Attributes:

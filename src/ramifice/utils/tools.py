@@ -10,7 +10,7 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from .globals import REGEX
+from ramifice.utils.globals import REGEX
 
 
 def is_password(password: str | None) -> bool:
@@ -36,7 +36,7 @@ def get_file_size(path: str) -> int:
 
 def normal_email(email: str | None) -> str | None:
     """Normalizing email address.
-    
+
     Use this before requeste to a database.
     For example, on the login page.
     """

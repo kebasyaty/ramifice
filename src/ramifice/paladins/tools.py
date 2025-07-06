@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from ..utils import errors, translations
+from ramifice.utils import errors, translations
 
 
 def ignored_fields_to_none(inst_model: Any) -> None:

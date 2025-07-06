@@ -1,7 +1,9 @@
 """General additional parameters for choice fields."""
 
+from abc import ABCMeta
 
-class ChoiceGroup:
+
+class ChoiceGroup(metaclass=ABCMeta):
     """General additional parameters for choice fields.
 
     Attributes:

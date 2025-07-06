@@ -5,8 +5,8 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ..utils import globals
-from .general.field import Field
+from ramifice.fields.general.field import Field
+from ramifice.utils import globals
 
 
 class IDField(Field):

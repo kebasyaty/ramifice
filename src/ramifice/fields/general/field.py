@@ -1,7 +1,9 @@
 """General parameters for all types fields of Model."""
 
+from abc import ABCMeta
 
-class Field:
+
+class Field(metaclass=ABCMeta):
     """General parameters for all types fields of Model.
 
     Attributes:

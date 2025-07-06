@@ -7,9 +7,9 @@ from typing import Any
 from babel.dates import format_datetime
 from dateutil.parser import parse
 
-from ..utils import globals, translations
-from .general.date_group import DateGroup
-from .general.field import Field
+from ramifice.fields.general.date_group import DateGroup
+from ramifice.fields.general.field import Field
+from ramifice.utils import globals, translations
 
 
 class DateTimeField(Field, DateGroup):

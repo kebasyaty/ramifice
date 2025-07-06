@@ -8,8 +8,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from ..fields import DateTimeField, IDField
-from ..utils import translations
+from ramifice.fields import DateTimeField, IDField
+from ramifice.utils import translations
 
 
 class Model(metaclass=ABCMeta):
