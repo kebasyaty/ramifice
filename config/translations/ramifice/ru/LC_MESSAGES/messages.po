@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-07-01 17:12+0300\n"
+"POT-Creation-Date: 2025-07-06 13:29+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -46,13 +46,13 @@ msgid "When the document was updated."
 msgstr "Когда был обновлен документ."
 
 #: src/ramifice/paladins/groups/choice_group.py:35
-#: src/ramifice/paladins/groups/date_group.py:34
-#: src/ramifice/paladins/groups/file_group.py:38
-#: src/ramifice/paladins/groups/file_group.py:59
+#: src/ramifice/paladins/groups/date_group.py:37
+#: src/ramifice/paladins/groups/file_group.py:41
+#: src/ramifice/paladins/groups/file_group.py:62
 #: src/ramifice/paladins/groups/id_group.py:33
 #: src/ramifice/paladins/groups/img_group.py:40
 #: src/ramifice/paladins/groups/img_group.py:61
-#: src/ramifice/paladins/groups/num_group.py:38
+#: src/ramifice/paladins/groups/num_group.py:42
 #: src/ramifice/paladins/groups/pass_group.py:36
 #: src/ramifice/paladins/groups/text_group.py:43
 msgid "Required field !"
@@ -62,17 +62,17 @@ msgstr "Обязательное поле !"
 msgid "Your choice does not match the options offered !"
 msgstr "Ваш выбор не соответствует предложенным вариантам !"
 
-#: src/ramifice/paladins/groups/date_group.py:70
+#: src/ramifice/paladins/groups/date_group.py:73
 #, python-format
 msgid "The date %s must not be greater than max=%s !"
 msgstr "Дата %s не должна быть больше max=%s !"
 
-#: src/ramifice/paladins/groups/date_group.py:104
+#: src/ramifice/paladins/groups/date_group.py:107
 #, python-format
 msgid "The date %s must not be less than min=%s !"
 msgstr "Дата %s не должна быть меньше min=%s !"
 
-#: src/ramifice/paladins/groups/file_group.py:65
+#: src/ramifice/paladins/groups/file_group.py:68
 #, python-format
 msgid "File size exceeds the maximum value %s !"
 msgstr "Размер файла превышает максимальное значение %s !"
@@ -86,17 +86,17 @@ msgstr "Некорректный идентификатор документа !
 msgid "Image size exceeds the maximum value %s !"
 msgstr "Размер изображения превышает максимальное значение %s !"
 
-#: src/ramifice/paladins/groups/num_group.py:47
+#: src/ramifice/paladins/groups/num_group.py:51
 #, python-format
 msgid "The value %d must not be greater than max=%d !"
 msgstr "Число %d не должно превышать max=%d !"
 
-#: src/ramifice/paladins/groups/num_group.py:54
+#: src/ramifice/paladins/groups/num_group.py:58
 #, python-format
 msgid "The value %d must not be less than min=%d !"
 msgstr "Число %d не должно быть меньше min=%d !"
 
-#: src/ramifice/paladins/groups/num_group.py:59
+#: src/ramifice/paladins/groups/num_group.py:63
 #: src/ramifice/paladins/groups/text_group.py:60
 msgid "Is not unique !"
 msgstr "Не является уникальным !"
