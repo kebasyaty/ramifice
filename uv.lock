@@ -3,12 +3,60 @@ revision = 2
 requires-python = ">=3.12, <4.0"
 
 [[package]]
+name = "aiofile"
+version = "3.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "caio" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/67/e2/d7cb819de8df6b5c1968a2756c3cb4122d4fa2b8fc768b53b7c9e5edb646/aiofile-3.9.0.tar.gz", hash = "sha256:e5ad718bb148b265b6df1b3752c4d1d83024b93da9bd599df74b9d9ffcf7919b", size = 17943, upload-time = "2024-10-08T10:39:35.846Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/50/25/da1f0b4dd970e52bf5a36c204c107e11a0c6d3ed195eba0bfbc664c312b2/aiofile-3.9.0-py3-none-any.whl", hash = "sha256:ce2f6c1571538cbdfa0143b04e16b208ecb0e9cb4148e528af8a640ed51cc8aa", size = 19539, upload-time = "2024-10-08T10:39:32.955Z" },
+]
+
+[[package]]
 name = "aiofiles"
 version = "24.1.0"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/0b/03/a88171e277e8caa88a4c77808c20ebb04ba74cc4681bf1e9416c862de237/aiofiles-24.1.0.tar.gz", hash = "sha256:22a075c9e5a3810f0c2e48f3008c94d68c65d763b9b03857924c99e57355166c", size = 30247, upload-time = "2024-06-24T11:02:03.584Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a5/45/30bb92d442636f570cb5651bc661f52b610e2eec3f891a5dc3a4c3667db0/aiofiles-24.1.0-py3-none-any.whl", hash = "sha256:b4ec55f4195e3eb5d7abd1bf7e061763e864dd4954231fb8539a0ef8bb8260e5", size = 15896, upload-time = "2024-06-24T11:02:01.529Z" },
+]
+
+[[package]]
+name = "aiopath"
+version = "0.7.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiofile" },
+    { name = "anyio" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a4/6f/b377e3eb293feb57e457b33961004cc3716794ef97428d2ae2a326599b1c/aiopath-0.7.7.tar.gz", hash = "sha256:ad4b9d09ae08ddf6d39dd06e7b0a353939e89528da571c0cd4f3fe071aefad4f", size = 16925, upload-time = "2023-10-16T22:37:11.381Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/97/df/6a3826363e4848ffa8972410ab5234d3802597ae92f4a6397600149112c7/aiopath-0.7.7-py2.py3-none-any.whl", hash = "sha256:cd5d18de8ede167e1db659f02ee448fe085f923cb8e194407ccc568bffc4fe4e", size = 12200, upload-time = "2023-10-16T22:37:09.595Z" },
+]
+
+[[package]]
+name = "aioshutil"
+version = "1.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/75/e4/ef86f1777a9bc0c51d50487b471644ae20941afe503591d3a4c86e456dac/aioshutil-1.5.tar.gz", hash = "sha256:2756d6cd3bb03405dc7348ac11a0b60eb949ebd63cdd15f56e922410231c1201", size = 7770, upload-time = "2024-07-20T07:02:41.364Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/18/3d/eb3c7106c4672c19280515b759b674daafd2d570c952e5491faeca157ffd/aioshutil-1.5-py3-none-any.whl", hash = "sha256:bc2a6cdcf1a8615b62f856154fd81131031d03f2834912ebb06d8a2391253652", size = 4657, upload-time = "2024-07-20T07:02:40.028Z" },
+]
+
+[[package]]
+name = "anyio"
+version = "4.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "idna" },
+    { name = "sniffio" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/95/7d/4c1bd541d4dffa1b52bd83fb8527089e097a106fc90b467a7313b105f840/anyio-4.9.0.tar.gz", hash = "sha256:673c0c244e15788651a4ff38710fea9675823028a6f08a5eda409e0c9840a028", size = 190949, upload-time = "2025-03-17T00:02:54.77Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a1/ee/48ca1a7c89ffec8b6a0c5d02b89c305671d5ffd8d3c94acf8b8c408575bb/anyio-4.9.0-py3-none-any.whl", hash = "sha256:9f76d541cad6e36af7beb62e978876f3b41e3e04f2c1fbf0884604c0a9c4d93c", size = 100916, upload-time = "2025-03-17T00:02:52.713Z" },
 ]
 
 [[package]]
@@ -65,6 +113,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/10/bf/fa31834dc27a7f05e5290eae47c82690edc3a7b37d58f7fb35a1bdbf355b/backrefs-5.9-py313-none-any.whl", hash = "sha256:cc37b19fa219e93ff825ed1fed8879e47b4d89aa7a1884860e2db64ccd7c676b", size = 399843, upload-time = "2025-06-22T19:34:09.68Z" },
     { url = "https://files.pythonhosted.org/packages/fc/24/b29af34b2c9c41645a9f4ff117bae860291780d73880f449e0b5d948c070/backrefs-5.9-py314-none-any.whl", hash = "sha256:df5e169836cc8acb5e440ebae9aad4bf9d15e226d3bad049cf3f6a5c20cc8dc9", size = 411762, upload-time = "2025-06-22T19:34:11.037Z" },
     { url = "https://files.pythonhosted.org/packages/41/ff/392bff89415399a979be4a65357a41d92729ae8580a66073d8ec8d810f98/backrefs-5.9-py39-none-any.whl", hash = "sha256:f48ee18f6252b8f5777a22a00a09a85de0ca931658f1dd96d4406a34f3748c60", size = 380265, upload-time = "2025-06-22T19:34:12.405Z" },
+]
+
+[[package]]
+name = "caio"
+version = "0.9.24"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/98/04/ec9b6864135032fd454f6cd1d9444e0bb01040196ad0cd776c061fc92c6b/caio-0.9.24.tar.gz", hash = "sha256:5bcdecaea02a9aa8e3acf0364eff8ad9903d57d70cdb274a42270126290a77f1", size = 27174, upload-time = "2025-04-23T16:31:19.191Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5f/76/b33a89dc2516aae045ef509cf2febe7ffb2a36c4eebb8f301a7ef2093385/caio-0.9.24-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:7ae3566228383175265a7583107f21a7cb044a752ea29ba84fce7c1a49a05903", size = 42212, upload-time = "2025-04-23T16:31:08.457Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/8c/cb62483e69309bbad503c2ace29c4ac3466558a20e9aed840d313e1dcacd/caio-0.9.24-cp312-cp312-manylinux_2_34_aarch64.whl", hash = "sha256:a306b0dda91cb4ca3170f066c114597f8ea41b3da578574a9d2b54f86963de68", size = 81517, upload-time = "2025-04-23T16:31:09.686Z" },
+    { url = "https://files.pythonhosted.org/packages/64/80/8a8cdfd4b47e06d1e9de6d5431c2603e0741282fa06f757f10c04e619d8f/caio-0.9.24-cp312-cp312-manylinux_2_34_x86_64.whl", hash = "sha256:8ee158e56128d865fb7d57a9c9c22fca4e8aa8d8664859c977a36fff3ccb3609", size = 80216, upload-time = "2025-04-23T16:31:10.98Z" },
+    { url = "https://files.pythonhosted.org/packages/66/35/06e77837fc5455d330c5502460fc3743989d4ff840b61aa79af3a7ec5b19/caio-0.9.24-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:1d47ef8d76aca74c17cb07339a441c5530fc4b8dd9222dfb1e1abd7f9f9b814f", size = 42214, upload-time = "2025-04-23T16:31:12.272Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/e2/c16aeaea4b2103e04fdc2e7088ede6313e1971704c87fcd681b58ab1c6b4/caio-0.9.24-cp313-cp313-manylinux_2_34_aarch64.whl", hash = "sha256:d15fc746c4bf0077d75df05939d1e97c07ccaa8e580681a77021d6929f65d9f4", size = 81557, upload-time = "2025-04-23T16:31:13.526Z" },
+    { url = "https://files.pythonhosted.org/packages/78/3b/adeb0cffe98dbe60661f316ec0060037a5209a5ed8be38ac8e79fdbc856d/caio-0.9.24-cp313-cp313-manylinux_2_34_x86_64.whl", hash = "sha256:9368eae0a9badd5f31264896c51b47431d96c0d46f1979018fb1d20c49f56156", size = 80242, upload-time = "2025-04-23T16:31:14.365Z" },
 ]
 
 [[package]]
@@ -634,6 +696,8 @@ version = "0.5.12"
 source = { editable = "." }
 dependencies = [
     { name = "aiofiles" },
+    { name = "aiopath" },
+    { name = "aioshutil" },
     { name = "argon2-cffi" },
     { name = "babel" },
     { name = "email-validator" },
@@ -662,6 +726,8 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "aiofiles", specifier = ">=24.1.0" },
+    { name = "aiopath", specifier = ">=0.7.7" },
+    { name = "aioshutil", specifier = ">=1.5" },
     { name = "argon2-cffi", specifier = ">=25.1.0" },
     { name = "babel", specifier = ">=2.17.0" },
     { name = "email-validator", specifier = ">=2.2.0" },
@@ -734,6 +800,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031, upload-time = "2024-12-04T17:35:28.174Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
+]
+
+[[package]]
+name = "sniffio"
+version = "1.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a2/87/a6771e1546d97e7e041b6ae58d80074f81b7d5121207425c964ddf5cfdbd/sniffio-1.3.1.tar.gz", hash = "sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc", size = 20372, upload-time = "2024-02-25T23:20:04.057Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2", size = 10235, upload-time = "2024-02-25T23:20:01.196Z" },
 ]
 
 [[package]]

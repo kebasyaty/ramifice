@@ -23,6 +23,8 @@ classifiers = [
 ]
 dependencies = [
     "aiofiles>=24.1.0",
+    "aiopath>=0.7.7",
+    "aioshutil>=1.5",
     "argon2-cffi>=25.1.0",
     "babel>=2.17.0",
     "email-validator>=2.2.0",

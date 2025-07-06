@@ -1,12 +1,12 @@
 """Field of Model for upload file."""
 
-import os
-import shutil
 import uuid
 from base64 import b64decode
 from datetime import date
-from pathlib import Path
-from typing import Any
+
+import aioshutil
+from aiofiles import open, os
+from aiopath import AsyncPath
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -91,7 +91,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         self.value: dict[str, str | int | bool] | None = None
 
-    def from_base64(
+    async def from_base64(
         self,
         base64_str: str | None = None,
         filename: str | None = None,
@@ -108,7 +108,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         if base64_str is not None and filename is not None:
             # Get file extension.
-            extension = Path(filename).suffix
+            extension = AsyncPath(filename).suffix
             if len(extension) == 0:
                 raise FileHasNoExtensionError(f"The file `{filename}` has no extension.")
             # Prepare Base64 content.
@@ -125,14 +125,14 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not os.path.exists(dir_target_path):
-                os.makedirs(dir_target_path)
+            if not await os.path.exists(dir_target_path):
+                await os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            with open(f_target_path, mode="wb") as open_f:
+            async with open(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
-                open_f.write(f_content)
+                await open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
@@ -141,12 +141,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = await os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
 
-    def from_path(
+    async def from_path(
         self,
         src_path: str | None = None,
         is_delete: bool = False,
@@ -159,7 +159,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         if src_path is not None:
             # Get file extension.
-            extension = Path(src_path).suffix
+            extension = AsyncPath(src_path).suffix
             if len(extension) == 0:
                 msg = f"The file `{src_path}` has no extension."
                 raise FileHasNoExtensionError(msg)
@@ -170,21 +170,21 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not os.path.exists(dir_target_path):
-                os.makedirs(dir_target_path)
+            if not await os.path.exists(dir_target_path):
+                await os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            shutil.copyfile(src_path, f_target_path)
+            await aioshutil.copyfile(src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
-            file_info["name"] = os.path.basename(src_path)
+            file_info["name"] = await os.path.basename(src_path)
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = await os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
