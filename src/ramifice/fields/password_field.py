@@ -3,8 +3,8 @@
 import json
 from typing import Any
 
-from ..utils import globals
-from .general.field import Field
+from ramifice.fields.general.field import Field
+from ramifice.utils import globals
 
 
 class PasswordField(Field):

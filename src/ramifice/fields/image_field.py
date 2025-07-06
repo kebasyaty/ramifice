@@ -10,11 +10,11 @@ from typing import Any
 
 from PIL import Image
 
-from ..utils import globals
-from ..utils.errors import FileHasNoExtensionError
-from ..utils.mixins.json_converter import JsonMixin
-from .general.field import Field
-from .general.file_group import FileGroup
+from ramifice.fields.general.field import Field
+from ramifice.fields.general.file_group import FileGroup
+from ramifice.utils import globals
+from ramifice.utils.errors import FileHasNoExtensionError
+from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ImageField(Field, FileGroup, JsonMixin):

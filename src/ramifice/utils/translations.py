@@ -28,7 +28,7 @@ import gettext as _gettext
 from gettext import NullTranslations
 from typing import Any
 
-from .errors import PanicError
+from ramifice.utils.errors import PanicError
 
 # Language code by default.
 DEFAULT_LOCALE: str = "en"

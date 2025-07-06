@@ -7,9 +7,7 @@ from typing import Any
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ..utils import globals
-from ..utils.errors import PanicError
-from .groups import (
+from ramifice.paladins.groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
     DateGroupMixin,
@@ -21,6 +19,8 @@ from .groups import (
     SlugGroupMixin,
     TextGroupMixin,
 )
+from ramifice.utils import globals
+from ramifice.utils.errors import PanicError
 
 
 class CheckMixin(

@@ -8,8 +8,8 @@ from typing import Any
 
 from slugify import slugify
 
-from ...utils.errors import PanicError
-from ..tools import check_uniqueness
+from ramifice.paladins.tools import check_uniqueness
+from ramifice.utils.errors import PanicError
 
 
 class SlugGroupMixin:

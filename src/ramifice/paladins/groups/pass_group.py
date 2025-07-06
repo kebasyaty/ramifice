@@ -7,9 +7,9 @@ from typing import Any
 
 from argon2 import PasswordHasher
 
-from ...utils import translations
-from ...utils.tools import is_password
-from ..tools import accumulate_error, panic_type_error
+from ramifice.paladins.tools import accumulate_error, panic_type_error
+from ramifice.utils import translations
+from ramifice.utils.tools import is_password
 
 
 class PassGroupMixin:

@@ -6,8 +6,8 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
-from ..utils import globals, translations
-from .tools import correct_mongo_filter
+from ramifice.commons.tools import correct_mongo_filter
+from ramifice.utils import globals, translations
 
 
 class GeneralMixin:

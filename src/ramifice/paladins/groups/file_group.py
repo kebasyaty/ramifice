@@ -5,9 +5,12 @@ Supported fields: FileField
 
 from typing import Any
 
-from ...utils import translations
-from ...utils.tools import to_human_size
-from ..tools import accumulate_error, panic_type_error
+from ramifice.paladins.tools import (
+    accumulate_error,
+    panic_type_error,
+)
+from ramifice.utils import translations
+from ramifice.utils.tools import to_human_size
 
 
 class FileGroupMixin:

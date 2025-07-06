@@ -10,8 +10,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from ..utils import translations
-from ..utils.errors import PanicError
+from ramifice.utils import translations
+from ramifice.utils.errors import PanicError
 
 
 class PseudoModel(metaclass=ABCMeta):

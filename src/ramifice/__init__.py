@@ -14,6 +14,6 @@
 
 """ORM-like API MongoDB for Python language."""
 
-from .models.decorator import model
-from .utils import migration, translations
-from .utils.unit import Unit
+from ramifice.models.decorator import model
+from ramifice.utils import migration, translations
+from ramifice.utils.unit import Unit

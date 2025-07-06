@@ -1,9 +1,10 @@
 """General additional parameters for date|datetime fields."""
 
+from abc import ABCMeta
 from datetime import datetime
 
 
-class DateGroup:
+class DateGroup(metaclass=ABCMeta):
     """General additional parameters for date|datetime fields.
 
     Attributes:
