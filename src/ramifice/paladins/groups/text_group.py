@@ -8,7 +8,10 @@ Supported fields:
 import asyncio
 from typing import Any
 
-from email_validator import EmailNotValidError, validate_email
+from email_validator import (
+    EmailNotValidError,
+    validate_email,
+)
 
 from ramifice.paladins.tools import (
     accumulate_error,
@@ -70,7 +73,7 @@ class TextGroupMixin:
             err_msg = translations._("Is not unique !")
             accumulate_error(err_msg, params)
         # Validation Email, Url, IP, Color, Phone.
-        if "EmailField" == field_type:
+        if field_type == "EmailField":
             try:
                 emailinfo = await asyncio.to_thread(
                     validate_email,
@@ -82,16 +85,16 @@ class TextGroupMixin:
             except EmailNotValidError:
                 err_msg = translations._("Invalid Email address !")
                 accumulate_error(err_msg, params)
-        elif "URLField" == field_type and not is_url(value):
+        elif field_type == "URLField" and not is_url(value):
             err_msg = translations._("Invalid URL address !")
             accumulate_error(err_msg, params)
-        elif "IPField" == field_type and not is_ip(value):
+        elif field_type == "IPField" and not is_ip(value):
             err_msg = translations._("Invalid IP address !")
             accumulate_error(err_msg, params)
-        elif "ColorField" == field_type and not is_color(value):
+        elif field_type == "ColorField" and not is_color(value):
             err_msg = translations._("Invalid Color code !")
             accumulate_error(err_msg, params)
-        elif "PhoneField" == field_type and not is_phone(value):
+        elif field_type == "PhoneField" and not is_phone(value):
             err_msg = translations._("Invalid Phone number !")
             accumulate_error(err_msg, params)
         # Insert result.

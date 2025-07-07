@@ -20,7 +20,7 @@ from ramifice.utils.tools import (
 )
 
 
-class TestTools(unittest.TestCase):
+class TestTools(unittest.IsolatedAsyncioTestCase):
     """Testing the module `ramifice.utils.tools`."""
 
     def test_is_password(self):
@@ -40,12 +40,12 @@ class TestTools(unittest.TestCase):
         self.assertEqual(normal_email("my+address@example.net"), "my+address@example.net")
         self.assertEqual(normal_email("kebasyaty@gmail.com"), "kebasyaty@gmail.com")
 
-    def test_is_emale(self):
+    async def test_is_emale(self):
         """Testing a method `is_email`."""
-        self.assertFalse(is_email(None))
-        self.assertFalse(is_email(""))
-        self.assertFalse(is_email("my+address@example.net"))
-        self.assertTrue(is_email("kebasyaty@gmail.com"))
+        self.assertFalse(await is_email(None))
+        self.assertFalse(await is_email(""))
+        self.assertFalse(await is_email("my+address@example.net"))
+        self.assertTrue(await is_email("kebasyaty@gmail.com"))
 
     def test_is_url(self):
         """Testing a method `is_url`."""
