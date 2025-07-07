@@ -21,6 +21,7 @@
       <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
       <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
       <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
+      <a href="https://github.com/kebasyaty/ramifice" alt="PyPI implementation"><img src="https://img.shields.io/pypi/implementation/ramifice" alt="PyPI implementation"></a>
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
     </p>
     <p align="center">
@@ -111,16 +112,12 @@ class User:
         # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
-            placeholder=gettext("Upload your photo"),
             default="public/media/default/no-photo.png",
             # Directory for images inside media directory.
             target_dir="users/avatars",
             # Available 4 sizes from lg to xs or None.
             # Hint: By default = None
             thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
-            # True - high quality and low performance for thumbnails.
-            # Hint: By default = False
-            high_quality=True,
             # The maximum size of the original image in bytes.
             # Hint: By default = 2 MB
             max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
@@ -130,7 +127,6 @@ class User:
         )
         self.username = TextField(
             label=gettext("Username"),
-            placeholder=gettext("Enter your username"),
             maxlength=150,
             required=True,
             unique=True,
@@ -140,11 +136,9 @@ class User:
         )
         self.password = PasswordField(
             label=gettext("Password"),
-            placeholder=gettext("Enter your password"),
         )
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
-            placeholder=gettext("Repeat your password"),
             # If true, the value of this field is not saved in the database.
             ignored=True,
         )
@@ -306,14 +300,6 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
        <td align="left">limiting query results.</td>
      </tr>
      <tr>
-       <td align="left">is_migrate_model</td>
-       <td align="left">True</td>
-       <td align="left">
-         Set to <b>False</b> if you do not need to migrate the Model to the database.<br>
-         This can be use to validate a web forms - Search form, Contact form, etc.
-       </td>
-     </tr>
-     <tr>
        <td align="left">is_create_doc</td>
        <td align="left">True</td>
        <td align="left">
@@ -343,7 +329,6 @@ See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
     service_name="ServiceName",
     fixture_name="FixtureName",
     db_query_docs_limit=1000,
-    is_migrate_model=True,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,

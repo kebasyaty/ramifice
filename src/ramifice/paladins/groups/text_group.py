@@ -5,13 +5,23 @@ Supported fields:
     IPField | EmailField | ColorField
 """
 
+import asyncio
 from typing import Any
 
 from email_validator import EmailNotValidError, validate_email
 
-from ramifice.paladins.tools import accumulate_error, check_uniqueness, panic_type_error
+from ramifice.paladins.tools import (
+    accumulate_error,
+    check_uniqueness,
+    panic_type_error,
+)
 from ramifice.utils import translations
-from ramifice.utils.tools import is_color, is_ip, is_phone, is_url
+from ramifice.utils.tools import (
+    is_color,
+    is_ip,
+    is_phone,
+    is_url,
+)
 
 
 class TextGroupMixin:
@@ -62,9 +72,10 @@ class TextGroupMixin:
         # Validation Email, Url, IP, Color, Phone.
         if "EmailField" == field_type:
             try:
-                emailinfo = validate_email(
+                emailinfo = await asyncio.to_thread(
+                    validate_email,
                     str(value),
-                    check_deliverability=self.__class__.META["is_migrate_model"],
+                    check_deliverability=True,
                 )
                 value = emailinfo.normalized
                 params["field_data"].value = value

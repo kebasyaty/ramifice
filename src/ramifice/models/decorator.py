@@ -7,8 +7,7 @@ from typing import Any
 from ramifice.commons import QCommonsMixin
 from ramifice.fields import DateTimeField, IDField
 from ramifice.models.model import Model
-from ramifice.models.pseudo import PseudoModel
-from ramifice.paladins import CheckMixin, QPaladinsMixin, ValidationMixin
+from ramifice.paladins import QPaladinsMixin
 from ramifice.utils.errors import DoesNotMatchRegexError, PanicError
 from ramifice.utils.globals import REGEX
 from ramifice.utils.mixins.add_valid import AddValidMixin
@@ -20,7 +19,6 @@ def model(
     service_name: str,
     fixture_name: str | None = None,
     db_query_docs_limit: int = 1000,
-    is_migrate_model: bool = True,
     is_create_doc: bool = True,
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
@@ -32,8 +30,6 @@ def model(
         raise AssertionError("Parameter `fixture_name` - Must be `str | None` type!")
     if not isinstance(db_query_docs_limit, int):
         raise AssertionError("Parameter `db_query_docs_limit` - Must be `int` type!")
-    if not isinstance(is_migrate_model, bool):
-        raise AssertionError("Parameter `is_migrate_model` - Must be `bool` type!")
     if not isinstance(is_create_doc, bool):
         raise AssertionError("Parameter `is_create_doc` - Must be `bool` type!")
     if not isinstance(is_update_doc, bool):
@@ -55,53 +51,37 @@ def model(
                 raise PanicError(msg)
 
         attrs = {key: val for key, val in cls.__dict__.items()}
-        if is_migrate_model:
-            attrs["__dict__"] = Model.__dict__["__dict__"]
-        else:
-            attrs["__dict__"] = PseudoModel.__dict__["__dict__"]
+        attrs["__dict__"] = Model.__dict__["__dict__"]
         metadata = {
             "service_name": service_name,
             "fixture_name": fixture_name,
             "db_query_docs_limit": db_query_docs_limit,
-            "is_migrate_model": is_migrate_model,
-            "is_create_doc": is_create_doc if is_migrate_model else False,
-            "is_update_doc": is_update_doc if is_migrate_model else False,
-            "is_delete_doc": is_delete_doc if is_migrate_model else False,
+            "is_create_doc": is_create_doc,
+            "is_update_doc": is_update_doc,
+            "is_delete_doc": is_delete_doc,
         }
         attrs["META"] = {
             **metadata,
-            **caching(cls, service_name, is_migrate_model),
+            **caching(cls, service_name),
         }
 
-        if is_migrate_model:
-            return type(
-                cls.__name__,
-                (
-                    Model,
-                    QPaladinsMixin,
-                    QCommonsMixin,
-                    AddValidMixin,
-                    IndexMixin,
-                    HooksMixin,
-                ),
-                attrs,
-            )
-        else:
-            return type(
-                cls.__name__,
-                (
-                    PseudoModel,
-                    ValidationMixin,
-                    CheckMixin,
-                    AddValidMixin,
-                ),
-                attrs,
-            )
+        return type(
+            cls.__name__,
+            (
+                Model,
+                QPaladinsMixin,
+                QCommonsMixin,
+                AddValidMixin,
+                IndexMixin,
+                HooksMixin,
+            ),
+            attrs,
+        )
 
     return decorator
 
 
-def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, Any]:
+def caching(cls: Any, service_name: str) -> dict[str, Any]:
     """Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name: str = cls.__name__
@@ -128,11 +108,11 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
 
     raw_model = cls()
     raw_model.fields()
-    default_fields: dict[str, Any] = {}
-    if is_migrate_model:
-        default_fields["_id"] = IDField()
-        default_fields["created_at"] = DateTimeField()
-        default_fields["updated_at"] = DateTimeField()
+    default_fields: dict[str, Any] = {
+        "_id": IDField(),
+        "created_at": DateTimeField(),
+        "updated_at": DateTimeField(),
+    }
     fields = {**raw_model.__dict__, **default_fields}
     for f_name, f_data in fields.items():
         if not callable(f_data):
@@ -147,19 +127,11 @@ def caching(cls: Any, service_name: str, is_migrate_model: bool) -> dict[str, An
             #
             if not f_data.ignored:
                 # Count fields for migrating.
-                if is_migrate_model:
-                    count_fields_no_ignored += 1
+                count_fields_no_ignored += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
                 if "Dyn" in f_data.field_type:
-                    if not is_migrate_model:
-                        msg = (
-                            f"Model: `{cls.__module__}.{model_name}` > "
-                            + f"Field: `{f_name}` => "
-                            + "Dynamic field only for a migrated Model."
-                        )
-                        raise PanicError(msg)
                     data_dynamic_fields[f_name] = None
                 if f_data.field_type == "TextField" and f_data.multi_language:
                     supported_lang_fields.append(f_name)

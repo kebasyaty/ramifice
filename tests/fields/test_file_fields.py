@@ -6,7 +6,7 @@ from ramifice.fields import FileField, ImageField
 from ramifice.utils.errors import FileHasNoExtensionError
 
 
-class TestFileFields(unittest.TestCase):
+class TestFileFields(unittest.IsolatedAsyncioTestCase):
     """Testing file fields."""
 
     def setUp(self):
@@ -15,7 +15,7 @@ class TestFileFields(unittest.TestCase):
         self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
         return super().setUp()
 
-    def test_file_field(self):
+    async def test_file_field(self):
         """Testing `FileField`."""
         # Parameters by default:
         f = FileField()
@@ -46,11 +46,11 @@ class TestFileFields(unittest.TestCase):
             FileField(default="")
         #
         with self.assertRaises(FileHasNoExtensionError):
-            f.from_base64(self.file_base64_str, "file_name")
+            await f.from_base64(self.file_base64_str, "file_name")
         with self.assertRaises(FileHasNoExtensionError):
-            f.from_path("public/media/default/no_doc")
+            await f.from_path("public/media/default/no_doc")
         # from_base64
-        self.assertIsNone(f.from_base64(self.file_base64_str, "file_name.txt"))
+        self.assertIsNone(await f.from_base64(self.file_base64_str, "file_name.txt"))
         self.assertEqual(f.value["name"], "file_name.txt")
         self.assertEqual(f.value["size"], 13)
         self.assertTrue(f.value["is_new_file"])
@@ -58,7 +58,7 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.value["is_delete"])
         self.assertFalse(f.value["save_as_is"])
         # from_path
-        self.assertIsNone(f.from_path("public/media/default/no_doc.odt"))
+        self.assertIsNone(await f.from_path("public/media/default/no_doc.odt"))
         self.assertEqual(f.value["name"], "no_doc.odt")
         self.assertEqual(f.value["size"], 9843)
         self.assertTrue(f.value["is_new_file"])
@@ -66,11 +66,10 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.value["is_delete"])
         self.assertFalse(f.value["save_as_is"])
 
-    def test_image_field(self):
+    async def test_image_field(self):
         """Testing `ImageField`."""
         # Parameters by default:
         f = ImageField()
-        f.__dict__["add_width_height"] = True
         self.assertEqual(f.id, "")
         self.assertEqual(f.label, "")
         self.assertEqual(f.name, "")
@@ -108,20 +107,20 @@ class TestFileFields(unittest.TestCase):
             ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 301})
         #
         with self.assertRaises(FileHasNoExtensionError):
-            f.from_base64(self.img_base64_str, "file_name")
+            await f.from_base64(self.img_base64_str, "file_name")
         with self.assertRaises(FileHasNoExtensionError):
-            f.from_path("public/media/default/no_doc")
+            await f.from_path("public/media/default/no_doc")
         # from_base64
         self.assertIsNone(
-            f.from_base64(
+            await f.from_base64(
                 base64_str=self.img_base64_str,
                 filename="image_name.png",
             )
         )
         self.assertEqual(f.value["name"], "image_name.png")
         self.assertEqual(f.value["size"], 120)
-        self.assertEqual(f.value["width"], 1)
-        self.assertEqual(f.value["height"], 1)
+        # self.assertEqual(f.value["width"], 1)
+        # self.assertEqual(f.value["height"], 1)
         self.assertTrue(f.value["is_new_img"])
         self.assertEqual(f.value["extension"], ".png")
         self.assertEqual(f.value["ext_upper"], "PNG")
@@ -129,14 +128,14 @@ class TestFileFields(unittest.TestCase):
         self.assertFalse(f.value["save_as_is"])
         # from_path
         self.assertIsNone(
-            f.from_path(
+            await f.from_path(
                 src_path="public/media/default/no-photo.png",
             )
         )
         self.assertEqual(f.value["name"], "no-photo.png")
         self.assertEqual(f.value["size"], 41554)
-        self.assertEqual(f.value["width"], 1024)
-        self.assertEqual(f.value["height"], 1024)
+        # self.assertEqual(f.value["width"], 1024)
+        # self.assertEqual(f.value["height"], 1024)
         self.assertTrue(f.value["is_new_img"])
         self.assertEqual(f.value["extension"], ".png")
         self.assertEqual(f.value["ext_upper"], "PNG")

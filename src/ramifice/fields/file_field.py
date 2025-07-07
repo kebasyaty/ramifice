@@ -1,12 +1,13 @@
 """Field of Model for upload file."""
 
 import os
-import shutil
 import uuid
 from base64 import b64decode
 from datetime import date
 from pathlib import Path
-from typing import Any
+
+import aiofiles
+from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -91,7 +92,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         self.value: dict[str, str | int | bool] | None = None
 
-    def from_base64(
+    async def from_base64(
         self,
         base64_str: str | None = None,
         filename: str | None = None,
@@ -125,14 +126,14 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not os.path.exists(dir_target_path):
-                os.makedirs(dir_target_path)
+            if not await aiofiles.os.path.exists(dir_target_path):
+                await aiofiles.os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            with open(f_target_path, mode="wb") as open_f:
+            async with aiofiles.open(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
-                open_f.write(f_content)
+                await open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
@@ -141,12 +142,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = await aiofiles.os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
 
-    def from_path(
+    async def from_path(
         self,
         src_path: str | None = None,
         is_delete: bool = False,
@@ -170,12 +171,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not os.path.exists(dir_target_path):
-                os.makedirs(dir_target_path)
+            if not await aiofiles.os.path.exists(dir_target_path):
+                await aiofiles.os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            shutil.copyfile(src_path, f_target_path)
+            await copyfile(src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
@@ -184,7 +185,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = os.path.getsize(f_target_path)
+            file_info["size"] = await aiofiles.os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info

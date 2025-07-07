@@ -75,40 +75,6 @@ class User:
         self.choice_int = ChoiceIntField()
 
 
-@model(
-    service_name="Accounts",
-    is_migrate_model=False,
-)
-class PseudoUser:
-    """Model for testing."""
-
-    def fields(self):
-        """For adding fields."""
-        self.url = URLField()
-        self.txt = TextField()
-        self.txt2 = TextField(multi_language=True)
-        self.slug = SlugField()
-        self.phone = PhoneField()
-        self.password = PasswordField()
-        self.ip = IPField()
-        self.num_int = IntegerField()
-        self.num_float = FloatField()
-        self.img = ImageField()
-        self.hash2 = IDField()
-        self.file = FileField()
-        self.email = EmailField()
-        self.date_time = DateTimeField()
-        self.date = DateField()
-        self.color = ColorField()
-        self.bool = BooleanField()
-        self.choice_float = ChoiceFloatField()
-        self.choice_float_mult = ChoiceFloatMultField()
-        self.choice_int_mult = ChoiceIntMultField()
-        self.choice_txt = ChoiceTextField()
-        self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
-
-
 @model(service_name="Accounts")
 class UniqueUser:
     """For test the uniqueness of values."""
@@ -162,17 +128,13 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Update doc.
         if not await user.save():
             user.print_err()
-        #
+
         self.assertEqual(str(user.id.value), doc_id)
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await user.delete()
         self.assertTrue(isinstance(result, dict))
         self.assertEqual(len(result), 31)
         self.assertEqual(await User.estimated_document_count(), 0)
-
-        pseudo_user = PseudoUser()
-        with self.assertRaises(AttributeError):
-            await pseudo_user.save()
 
         # Check Unique.
         # positive

@@ -1,9 +1,9 @@
 """Validation of Model data before saving to the database."""
 
-import os
-import shutil
 from typing import Any
 
+from aiofiles import os
+from aioshutil import rmtree
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
@@ -48,27 +48,15 @@ class CheckMixin(
         It is also used to verify Models that do not migrate to the database.
         """
         cls_model = self.__class__
-        is_migrate_model: bool = cls_model.META["is_migrate_model"]
 
-        if not is_migrate_model and is_save:
-            msg = (
-                f"Model: `{self.full_model_name()}` > "
-                + "Method: `check` => "
-                + "For a non -migrating Model, the `is_save` parameter must be equal to` False` !"
-            )
-            raise PanicError(msg)
-
-        doc_id: ObjectId | None = None
-        is_update: bool = False
-        if is_migrate_model:
-            # Get the document ID.
-            doc_id = self._id.value
-            # Does the document exist in the database?
-            is_update = doc_id is not None
-            # Create an identifier for a new document.
-            if is_save and not is_update:
-                doc_id = ObjectId()
-                self._id.value = doc_id
+        # Get the document ID.
+        doc_id: ObjectId | None = self._id.value
+        # Does the document exist in the database?
+        is_update: bool = doc_id is not None
+        # Create an identifier for a new document.
+        if is_save and not is_update:
+            doc_id = ObjectId()
+            self._id.value = doc_id
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
@@ -86,7 +74,6 @@ class CheckMixin(
             "collection": collection,
             "field_data": None,
             "full_model_name": cls_model.META["full_model_name"],
-            "is_migrate_model": is_migrate_model,
             "is_migration_process": is_migration_process,
             "curr_doc": (
                 await collection.find_one({"_id": doc_id}) if is_save and is_update else None
@@ -116,9 +103,9 @@ class CheckMixin(
                 elif group == "date":
                     self.date_group(params)
                 elif group == "img":
-                    self.img_group(params)
+                    await self.img_group(params)
                 elif group == "file":
-                    self.file_group(params)
+                    await self.file_group(params)
                 elif group == "choice":
                     self.choice_group(params)
                 elif group == "bool":
@@ -146,7 +133,7 @@ class CheckMixin(
                         file_data = result_map.get(field_name)
                         if file_data is not None:
                             if file_data["is_new_file"]:
-                                os.remove(file_data["path"])
+                                await os.remove(file_data["path"])
                             field_data.value = None
                         if curr_doc is not None:
                             field_data.value = curr_doc[field_name]
@@ -154,7 +141,7 @@ class CheckMixin(
                         img_data = result_map.get(field_name)
                         if img_data is not None:
                             if img_data["is_new_img"]:
-                                shutil.rmtree(img_data["imgs_dir_path"])
+                                await rmtree(img_data["imgs_dir_path"])  # type: ignore[call-arg]
                             field_data.value = None
                         if curr_doc is not None:
                             field_data.value = curr_doc[field_name]

@@ -1,14 +1,13 @@
 """Field of Model for upload image."""
 
 import os
-import shutil
 import uuid
 from base64 import b64decode
 from datetime import date
 from pathlib import Path
-from typing import Any
 
-from PIL import Image
+import aiofiles
+from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -38,8 +37,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
-        # True - high quality and low performance for thumbnails.
-        high_quality: bool = False,
     ):
         if globals.DEBUG:
             if default is not None:
@@ -98,8 +95,6 @@ class ImageField(Field, FileGroup, JsonMixin):
                 raise AssertionError("Parameter `target_dir` - Not а `str` type!")
             if not isinstance(accept, str):
                 raise AssertionError("Parameter `accept` - Not а `str` type!")
-            if not isinstance(high_quality, bool):
-                raise AssertionError("Parameter `high_quality` - Not а `bool` type!")
 
         Field.__init__(
             self,
@@ -127,10 +122,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
-        # True is high quality and low performance.
-        self.high_quality = high_quality
 
-    def from_base64(
+    async def from_base64(
         self,
         base64_str: str | None = None,
         filename: str | None = None,
@@ -170,21 +163,15 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not os.path.exists(imgs_dir_path):
-                os.makedirs(imgs_dir_path)
+            if not await aiofiles.os.path.exists(imgs_dir_path):
+                await aiofiles.os.makedirs(imgs_dir_path)
             # Save main image in target directory.
-            with open(main_img_path, mode="wb") as open_f:
+            async with aiofiles.open(main_img_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
-                open_f.write(f_content)
+                await open_f.write(f_content)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add width and height.
-            if self.__dict__.get("add_width_height", False):
-                with Image.open(main_img_path) as img:
-                    width, height = img.size
-                    img_info["width"] = width
-                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = filename
             # Add image extension.
@@ -199,12 +186,12 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = os.path.getsize(main_img_path)
+            img_info["size"] = await aiofiles.os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info
 
-    def from_path(
+    async def from_path(
         self,
         src_path: str | None = None,
         is_delete: bool = False,
@@ -234,19 +221,13 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not os.path.exists(imgs_dir_path):
-                os.makedirs(imgs_dir_path)
+            if not await aiofiles.os.path.exists(imgs_dir_path):
+                await aiofiles.os.makedirs(imgs_dir_path)
             # Save main image in target directory.
-            shutil.copyfile(src_path, main_img_path)
+            await copyfile(src_path, main_img_path)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add width and height.
-            if self.__dict__.get("add_width_height", False):
-                with Image.open(main_img_path) as img:
-                    width, height = img.size
-                    img_info["width"] = width
-                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = os.path.basename(src_path)
             # Add image extension.
@@ -261,7 +242,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = os.path.getsize(main_img_path)
+            img_info["size"] = await aiofiles.os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info

@@ -19,7 +19,7 @@ class FileGroupMixin:
     Supported fields: FileField
     """
 
-    def file_group(self, params: dict[str, Any]) -> None:
+    async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
         field = params["field_data"]
         value = field.value or None

@@ -57,10 +57,9 @@ class TestModel(unittest.TestCase):
             },
             "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
-            "full_model_name": "tests.test_decorators.User",
+            "full_model_name": "test_decorators.User",
             "is_create_doc": True,
             "is_delete_doc": True,
-            "is_migrate_model": True,
             "is_update_doc": True,
             "model_name": "User",
             "service_name": "Accounts",
@@ -85,10 +84,9 @@ class TestModel(unittest.TestCase):
             },
             "regex_mongo_filter": re.compile(rf'(?P<field>"(?:)":)'),
             "fixture_name": None,
-            "full_model_name": "tests.test_decorators.UserProfile",
+            "full_model_name": "test_decorators.UserProfile",
             "is_create_doc": True,
             "is_delete_doc": True,
-            "is_migrate_model": True,
             "is_update_doc": True,
             "model_name": "UserProfile",
             "service_name": "Profiles",
@@ -100,14 +98,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
         self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "tests.test_decorators")
+        self.assertEqual(User.__module__, "test_decorators")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
         m = User()
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_decorators.User")
+        self.assertEqual(m.full_model_name(), "test_decorators.User")
 
         self.assertIsNone(m.id.value)
         self.assertIsNone(m.created_at.value)
@@ -122,14 +120,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
         self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "tests.test_decorators")
+        self.assertEqual(UserProfile.__module__, "test_decorators")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "tests.test_decorators.UserProfile")
+        self.assertEqual(m.full_model_name(), "test_decorators.UserProfile")
 
         self.assertIsNone(m.id.value)
         self.assertIsNone(m.created_at.value)
