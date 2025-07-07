@@ -1,14 +1,12 @@
 """Field of Model for upload image."""
 
-import asyncio
 import uuid
 from base64 import b64decode
 from datetime import date
+from pathlib import Path
 
-import aioshutil
 from aiofiles import open, os
-from aiopath import AsyncPath
-from PIL import Image
+from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -38,8 +36,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
-        # True - high quality and low performance for thumbnails.
-        high_quality: bool = False,
     ):
         if globals.DEBUG:
             if default is not None:
@@ -98,8 +94,6 @@ class ImageField(Field, FileGroup, JsonMixin):
                 raise AssertionError("Parameter `target_dir` - Not а `str` type!")
             if not isinstance(accept, str):
                 raise AssertionError("Parameter `accept` - Not а `str` type!")
-            if not isinstance(high_quality, bool):
-                raise AssertionError("Parameter `high_quality` - Not а `bool` type!")
 
         Field.__init__(
             self,
@@ -127,8 +121,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
-        # True is high quality and low performance.
-        self.high_quality = high_quality
 
     async def from_base64(
         self,
@@ -147,7 +139,7 @@ class ImageField(Field, FileGroup, JsonMixin):
 
         if base64_str is not None and filename is not None:
             # Get file extension.
-            extension = AsyncPath(filename).suffix
+            extension = Path(filename).suffix
             if len(extension) == 0:
                 raise FileHasNoExtensionError(f"The image `{filename}` has no extension.")
             # Prepare Base64 content.
@@ -179,12 +171,6 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add width and height.
-            if self.__dict__.get("add_width_height", False):
-                with await asyncio.to_thread(Image.open, main_img_path) as img:
-                    width, height = img.size
-                    img_info["width"] = width
-                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = filename
             # Add image extension.
@@ -217,7 +203,7 @@ class ImageField(Field, FileGroup, JsonMixin):
 
         if src_path is not None:
             # Get file extension.
-            extension = AsyncPath(src_path).suffix
+            extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The image `{src_path}` has no extension."
                 raise FileHasNoExtensionError(msg)
@@ -237,16 +223,10 @@ class ImageField(Field, FileGroup, JsonMixin):
             if not await os.path.exists(imgs_dir_path):
                 await os.makedirs(imgs_dir_path)
             # Save main image in target directory.
-            await aioshutil.copyfile(src_path, main_img_path)
+            await copyfile(src_path, main_img_path)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add width and height.
-            if self.__dict__.get("add_width_height", False):
-                with await asyncio.to_thread(Image.open, main_img_path) as img:
-                    width, height = img.size
-                    img_info["width"] = width
-                    img_info["height"] = height
             # Add original image name.
             img_info["name"] = await os.path.basename(src_path)
             # Add image extension.

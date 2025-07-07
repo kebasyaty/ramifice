@@ -3,10 +3,10 @@
 import uuid
 from base64 import b64decode
 from datetime import date
+from pathlib import Path
 
-import aioshutil
 from aiofiles import open, os
-from aiopath import AsyncPath
+from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -108,7 +108,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         if base64_str is not None and filename is not None:
             # Get file extension.
-            extension = AsyncPath(filename).suffix
+            extension = Path(filename).suffix
             if len(extension) == 0:
                 raise FileHasNoExtensionError(f"The file `{filename}` has no extension.")
             # Prepare Base64 content.
@@ -159,7 +159,7 @@ class FileField(Field, FileGroup, JsonMixin):
 
         if src_path is not None:
             # Get file extension.
-            extension = AsyncPath(src_path).suffix
+            extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The file `{src_path}` has no extension."
                 raise FileHasNoExtensionError(msg)
@@ -175,7 +175,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            await aioshutil.copyfile(src_path, f_target_path)
+            await copyfile(src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"

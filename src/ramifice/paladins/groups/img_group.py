@@ -3,6 +3,7 @@
 Supported fields: ImageField
 """
 
+import asyncio
 from typing import Any
 
 from PIL import Image
@@ -18,7 +19,7 @@ class ImgGroupMixin:
     Supported fields: ImageField
     """
 
-    def img_group(self, params: dict[str, Any]) -> None:
+    async def img_group(self, params: dict[str, Any]) -> None:
         """Checking image fields."""
         field = params["field_data"]
         value = field.value or None
@@ -79,37 +80,48 @@ class ImgGroupMixin:
                     # Extension to the upper register and delete the point.
                     ext_upper = value["ext_upper"]
                     # Get image file.
-                    with Image.open(path) as img:
+                    with await asyncio.to_thread(Image.open, path) as img:
                         width, height = img.size
                         value["width"] = width
                         value["height"] = height
-                        resample = (
-                            Image.Resampling.LANCZOS  # High quality and low performance.
-                            if params["field_data"].high_quality
-                            else Image.Resampling.BICUBIC
-                        )
                         for size_name in ["lg", "md", "sm", "xs"]:
                             max_size = thumbnails.get(size_name)
                             if max_size is None:
                                 continue
                             size = max_size, max_size
-                            img.thumbnail(size=size, resample=resample)
+                            img.thumbnail(size=size, resample=Image.Resampling.LANCZOS)
                             if size_name == "lg":
                                 value["path_lg"] = f"{imgs_dir_path}/lg{extension}"
                                 value["url_lg"] = f"{imgs_dir_url}/lg{extension}"
-                                img.save(fp=value["path_lg"], format=ext_upper)
+                                await asyncio.to_thread(
+                                    img.save,
+                                    fp=value["path_lg"],
+                                    format=ext_upper,
+                                )
                             elif size_name == "md":
                                 value["path_md"] = f"{imgs_dir_path}/md{extension}"
                                 value["url_md"] = f"{imgs_dir_url}/md{extension}"
-                                img.save(fp=value["path_md"], format=ext_upper)
+                                await asyncio.to_thread(
+                                    img.save,
+                                    fp=value["path_md"],
+                                    format=ext_upper,
+                                )
                             elif size_name == "sm":
                                 value["path_sm"] = f"{imgs_dir_path}/sm{extension}"
                                 value["url_sm"] = f"{imgs_dir_url}/sm{extension}"
-                                img.save(fp=value["path_sm"], format=ext_upper)
+                                await asyncio.to_thread(
+                                    img.save,
+                                    fp=value["path_sm"],
+                                    format=ext_upper,
+                                )
                             elif size_name == "xs":
                                 value["path_xs"] = f"{imgs_dir_path}/xs{extension}"
                                 value["url_xs"] = f"{imgs_dir_url}/xs{extension}"
-                                img.save(fp=value["path_xs"], format=ext_upper)
+                                await asyncio.to_thread(
+                                    img.save,
+                                    fp=value["path_xs"],
+                                    format=ext_upper,
+                                )
         # Insert result.
         if params["is_save"] and (value["is_new_img"] or value["save_as_is"]):
             value["is_delete"] = False
