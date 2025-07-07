@@ -518,7 +518,7 @@ if is_password("12345678"):
     ...
 
 # Validate Email address.
-if is_email("kebasyaty@gmail.com"):
+if await is_email("kebasyaty@gmail.com"):
     ...
 
 # Normalizing email address.

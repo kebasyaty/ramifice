@@ -1,5 +1,6 @@
 """Global collection of auxiliary methods."""
 
+import asyncio
 import ipaddress
 import math
 import os
@@ -49,10 +50,14 @@ def normal_email(email: str | None) -> str | None:
     return normal
 
 
-def is_email(email: str | None) -> bool:
+async def is_email(email: str | None) -> bool:
     """Validate Email address."""
     try:
-        validate_email(str(email), check_deliverability=True)
+        await asyncio.to_thread(
+            validate_email,
+            str(email),
+            check_deliverability=True,
+        )
     except EmailNotValidError:
         return False
     return True
