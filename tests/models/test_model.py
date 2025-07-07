@@ -32,7 +32,7 @@ class TestModel(unittest.TestCase):
         m = User()
         #
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "tests.test_model.User")
+        self.assertEqual(m.full_model_name(), "test_model.User")
         #
         self.assertIsNone(m.id.value)
         self.assertIsNone(m.created_at.value)

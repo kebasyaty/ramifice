@@ -1,11 +1,12 @@
 """Field of Model for upload image."""
 
+import os
 import uuid
 from base64 import b64decode
 from datetime import date
 from pathlib import Path
 
-from aiofiles import open, os
+import aiofiles
 from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
@@ -162,12 +163,12 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await os.path.exists(imgs_dir_path):
-                await os.makedirs(imgs_dir_path)
+            if not await aiofiles.os.path.exists(imgs_dir_path):
+                await aiofiles.os.makedirs(imgs_dir_path)
             # Save main image in target directory.
-            with await open(main_img_path, mode="wb") as open_f:
+            async with aiofiles.open(main_img_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
-                open_f.write(f_content)
+                await open_f.write(f_content)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
@@ -185,7 +186,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await os.path.getsize(main_img_path)
+            img_info["size"] = await aiofiles.os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info
@@ -220,15 +221,15 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await os.path.exists(imgs_dir_path):
-                await os.makedirs(imgs_dir_path)
+            if not await aiofiles.os.path.exists(imgs_dir_path):
+                await aiofiles.os.makedirs(imgs_dir_path)
             # Save main image in target directory.
             await copyfile(src_path, main_img_path)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
-            img_info["name"] = await os.path.basename(src_path)
+            img_info["name"] = os.path.basename(src_path)
             # Add image extension.
             img_info["extension"] = extension
             # Transform extension to the upper register and delete the point.
@@ -241,7 +242,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await os.path.getsize(main_img_path)
+            img_info["size"] = await aiofiles.os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info

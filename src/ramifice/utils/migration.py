@@ -31,9 +31,7 @@ class Monitor:
         globals.MONGO_CLIENT = mongo_client
         globals.MONGO_DATABASE = globals.MONGO_CLIENT[globals.DATABASE_NAME]
         # Get Model list.
-        self.model_list: list[Any] = [
-            cls_model for cls_model in Model.__subclasses__() if cls_model.META["is_migrate_model"]
-        ]
+        self.model_list: list[Any] = Model.__subclasses__()
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
             raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]

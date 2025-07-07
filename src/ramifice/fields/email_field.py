@@ -34,7 +34,7 @@ class EmailField(Field, TextGroup, JsonMixin):
                         "The `default` parameter should not contain an empty string!"
                     )
                 try:
-                    validate_email(default, check_deliverability=False)
+                    validate_email(default, check_deliverability=True)
                 except EmailNotValidError:
                     raise AssertionError("Parameter `default` - Invalid Email address!")
             if not isinstance(label, str):

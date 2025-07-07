@@ -1,11 +1,12 @@
 """Field of Model for upload file."""
 
+import os
 import uuid
 from base64 import b64decode
 from datetime import date
 from pathlib import Path
 
-from aiofiles import open, os
+import aiofiles
 from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
@@ -125,12 +126,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await os.path.exists(dir_target_path):
-                await os.makedirs(dir_target_path)
+            if not await aiofiles.os.path.exists(dir_target_path):
+                await aiofiles.os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            async with open(f_target_path, mode="wb") as open_f:
+            async with aiofiles.open(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
                 await open_f.write(f_content)
             # Add paths to target file.
@@ -141,7 +142,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await os.path.getsize(f_target_path)
+            file_info["size"] = await aiofiles.os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
@@ -170,8 +171,8 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await os.path.exists(dir_target_path):
-                await os.makedirs(dir_target_path)
+            if not await aiofiles.os.path.exists(dir_target_path):
+                await aiofiles.os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
@@ -180,11 +181,11 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["path"] = f_target_path
             file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
-            file_info["name"] = await os.path.basename(src_path)
+            file_info["name"] = os.path.basename(src_path)
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await os.path.getsize(f_target_path)
+            file_info["size"] = await aiofiles.os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info

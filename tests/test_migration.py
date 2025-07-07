@@ -76,40 +76,6 @@ class User:
         self.choice_int = ChoiceIntField()
 
 
-@model(
-    service_name="Accounts",
-    is_migrate_model=False,
-)
-class PseudoUser:
-    """Model for testing."""
-
-    def fields(self):
-        """For adding fields."""
-        self.url = URLField()
-        self.txt = TextField()
-        self.txt2 = TextField(multi_language=True)
-        self.slug = SlugField()
-        self.phone = PhoneField()
-        self.password = PasswordField()
-        self.ip = IPField()
-        self.num_int = IntegerField()
-        self.num_float = FloatField()
-        self.img = ImageField()
-        self.hash2 = IDField()
-        self.file = FileField()
-        self.email = EmailField()
-        self.date_time = DateTimeField()
-        self.date = DateField()
-        self.color = ColorField()
-        self.bool = BooleanField()
-        self.choice_float = ChoiceFloatField()
-        self.choice_float_mult = ChoiceFloatMultField()
-        self.choice_int_mult = ChoiceIntMultField()
-        self.choice_txt = ChoiceTextField()
-        self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
-
-
 class TestMigration(unittest.IsolatedAsyncioTestCase):
     """Testing the module `ramifice.migration`."""
 
