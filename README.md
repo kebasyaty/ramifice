@@ -112,7 +112,6 @@ class User:
         # ngettext = translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
-            placeholder=gettext("Upload your photo"),
             default="public/media/default/no-photo.png",
             # Directory for images inside media directory.
             target_dir="users/avatars",
@@ -128,7 +127,6 @@ class User:
         )
         self.username = TextField(
             label=gettext("Username"),
-            placeholder=gettext("Enter your username"),
             maxlength=150,
             required=True,
             unique=True,
@@ -138,11 +136,9 @@ class User:
         )
         self.password = PasswordField(
             label=gettext("Password"),
-            placeholder=gettext("Enter your password"),
         )
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
-            placeholder=gettext("Repeat your password"),
             # If true, the value of this field is not saved in the database.
             ignored=True,
         )
