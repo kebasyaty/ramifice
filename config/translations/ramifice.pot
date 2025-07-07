@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-07-06 13:29+0300\n"
+"POT-Creation-Date: 2025-07-07 13:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,11 +48,11 @@ msgstr ""
 #: src/ramifice/paladins/groups/file_group.py:41
 #: src/ramifice/paladins/groups/file_group.py:62
 #: src/ramifice/paladins/groups/id_group.py:33
-#: src/ramifice/paladins/groups/img_group.py:40
-#: src/ramifice/paladins/groups/img_group.py:61
+#: src/ramifice/paladins/groups/img_group.py:41
+#: src/ramifice/paladins/groups/img_group.py:62
 #: src/ramifice/paladins/groups/num_group.py:42
 #: src/ramifice/paladins/groups/pass_group.py:36
-#: src/ramifice/paladins/groups/text_group.py:43
+#: src/ramifice/paladins/groups/text_group.py:56
 msgid "Required field !"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Invalid document ID !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/img_group.py:67
+#: src/ramifice/paladins/groups/img_group.py:68
 #, python-format
 msgid "Image size exceeds the maximum value %s !"
 msgstr ""
@@ -95,7 +95,7 @@ msgid "The value %d must not be less than min=%d !"
 msgstr ""
 
 #: src/ramifice/paladins/groups/num_group.py:63
-#: src/ramifice/paladins/groups/text_group.py:60
+#: src/ramifice/paladins/groups/text_group.py:73
 msgid "Is not unique !"
 msgstr ""
 
@@ -112,28 +112,28 @@ msgstr ""
 msgid "Number of characters: from 8 to 256"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:51
+#: src/ramifice/paladins/groups/text_group.py:64
 #, python-format
 msgid "The length of the string exceeds maxlength=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:72
+#: src/ramifice/paladins/groups/text_group.py:86
 msgid "Invalid Email address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:75
+#: src/ramifice/paladins/groups/text_group.py:89
 msgid "Invalid URL address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:78
+#: src/ramifice/paladins/groups/text_group.py:92
 msgid "Invalid IP address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:81
+#: src/ramifice/paladins/groups/text_group.py:95
 msgid "Invalid Color code !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:84
+#: src/ramifice/paladins/groups/text_group.py:98
 msgid "Invalid Phone number !"
 msgstr ""
 
