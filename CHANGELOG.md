@@ -1,3 +1,9 @@
+#### v0.6.0 2025-07-07
+
+- Deleted a support `PseudoModel`.
+- Added total synchronization.
+- Updated README.md .
+
 #### v0.5.0 2025-06-29
 
 - Added support for several languages ​​for dynamic fields.
