@@ -19,7 +19,7 @@ from ramifice.paladins.groups import (
     SlugGroupMixin,
     TextGroupMixin,
 )
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
 
 
@@ -63,7 +63,7 @@ class CheckMixin(
         error_map: dict[str, str] = await self.add_validation() or {}
         # Get Model collection.
         if collection is None:
-            collection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
+            collection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,

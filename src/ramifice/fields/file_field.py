@@ -11,7 +11,7 @@ from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins.json_converter import JsonMixin
 
@@ -35,7 +35,7 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

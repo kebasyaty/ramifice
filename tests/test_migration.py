@@ -36,7 +36,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.utils import globals
+from ramifice.utils import constants
 
 
 @model(service_name="Accounts")
@@ -90,7 +90,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         await client.drop_database(database_name)
         await client.close()
 
-        self.assertTrue(globals.DEBUG)
+        self.assertTrue(constants.DEBUG)
 
         client = AsyncMongoClient()
         await MigrationManager(
@@ -98,8 +98,8 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
-        self.assertFalse(globals.DEBUG)
-        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
+        self.assertFalse(constants.DEBUG)
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         self.assertEqual(await super_collection.estimated_document_count(), 1)
 
         # Delete database after test.

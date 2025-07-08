@@ -7,7 +7,7 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import globals, translations
+from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
 from ramifice.utils.unit import Unit
 
@@ -26,7 +26,7 @@ class UnitMixin:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls.META["collection_name"]}
@@ -89,7 +89,7 @@ class UnitMixin:
         cls.META["data_dynamic_fields"][unit_field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+            collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:

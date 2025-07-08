@@ -1,9 +1,9 @@
-"""Testing the module `ramifice.utils.globals`."""
+"""Testing the module `ramifice.utils.constants`."""
 
 import re
 import unittest
 
-from ramifice.utils.globals import (
+from ramifice.utils.constants import (
     DATABASE_NAME,
     DEBUG,
     MONGO_CLIENT,
@@ -13,8 +13,8 @@ from ramifice.utils.globals import (
 )
 
 
-class TestGlobals(unittest.TestCase):
-    """Testing the module `ramifice.utils.globals`."""
+class TestConstants(unittest.TestCase):
+    """Testing the module `ramifice.utils.constants`."""
 
     def test_values_by_default(self):
         """Testing a values by default."""

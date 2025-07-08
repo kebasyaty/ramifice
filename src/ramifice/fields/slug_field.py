@@ -2,7 +2,7 @@
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -24,7 +24,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):

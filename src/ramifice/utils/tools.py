@@ -11,7 +11,7 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from ramifice.utils.globals import REGEX
+from ramifice.utils.constants import REGEX
 
 
 def is_password(password: str | None) -> bool:

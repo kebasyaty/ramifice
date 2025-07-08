@@ -1,8 +1,8 @@
 """Queries like `find many`."""
 
-import json
 from typing import Any
 
+import orjson
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType
 from pymongo.results import DeleteResult
@@ -12,7 +12,7 @@ from ramifice.commons.tools import (
     mongo_doc_to_raw_doc,
     password_to_none,
 )
-from ramifice.utils import globals, translations
+from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
 
 
@@ -46,7 +46,7 @@ class ManyMixin:
     ) -> list[dict[str, Any]]:
         """Find documents."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -114,7 +114,7 @@ class ManyMixin:
             datetime to str
         """
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -184,7 +184,7 @@ class ManyMixin:
     ) -> str | None:
         """Find documents and convert to a json string."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -225,7 +225,7 @@ class ManyMixin:
                     lang,
                 )
             )
-        return json.dumps(doc_list) if len(doc_list) > 0 else None
+        return orjson.dumps(doc_list).decode("utf-8") if len(doc_list) > 0 else None
 
     @classmethod
     async def delete_many(
@@ -247,7 +247,7 @@ class ManyMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)

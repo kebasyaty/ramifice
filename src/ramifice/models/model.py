@@ -1,9 +1,9 @@
 """For converting Python classes into Ramifice models."""
 
-import json
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
+import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
@@ -79,7 +79,7 @@ class Model(metaclass=ABCMeta):
                         dyn_data = data_dynamic_fields[f_name]
                         if dyn_data is not None:
                             f_type.choices = [
-                                (item["value"], item["title"][lang]) for item in dyn_data
+                                [item["value"], item["title"][lang]] for item in dyn_data
                             ]
                         else:
                             # This is necessary for
@@ -98,7 +98,7 @@ class Model(metaclass=ABCMeta):
 
     def to_json(self) -> str:
         """Convert object instance to a JSON string."""
-        return json.dumps(self.to_dict())
+        return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
@@ -111,7 +111,7 @@ class Model(metaclass=ABCMeta):
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        json_dict = json.loads(json_str)
+        json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)
 
     # --------------------------------------------------------------------------
@@ -148,7 +148,7 @@ class Model(metaclass=ABCMeta):
 
     def to_json_only_value(self) -> str:
         """Convert model.field.value (only the `value` attribute) to a JSON string."""
-        return json.dumps(self.to_dict_only_value())
+        return orjson.dumps(self.to_dict_only_value()).decode("utf-8")
 
     @classmethod
     def from_dict_only_value(cls, json_dict: dict[str, Any]) -> Any:
@@ -170,7 +170,7 @@ class Model(metaclass=ABCMeta):
     @classmethod
     def from_json_only_value(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        json_dict = json.loads(json_str)
+        json_dict = orjson.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
     def refrash_fields_only_value(self, only_value_dict: dict[str, Any]) -> None:
