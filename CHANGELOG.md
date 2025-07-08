@@ -1,5 +1,6 @@
 #### v0.7.0 2025-07-08
 
+- The transition from `json` to` orjson`.
 - Rename the migration class from `Monitor` to` MigrationManager`.
 - Updated README.md .
 
