@@ -6,7 +6,7 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import Unit, model
+from ramifice import MigrationManager, Unit, model
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -17,7 +17,6 @@ from ramifice.fields import (
 )
 from ramifice.utils import globals
 from ramifice.utils.errors import PanicError
-from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -50,7 +49,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await Monitor(
+        await MigrationManager(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

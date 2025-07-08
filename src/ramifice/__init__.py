@@ -15,5 +15,6 @@
 """ORM-like API MongoDB for Python language."""
 
 from ramifice.models.decorator import model
-from ramifice.utils import migration, translations
+from ramifice.utils import translations
+from ramifice.utils.migration import MigrationManager
 from ramifice.utils.unit import Unit

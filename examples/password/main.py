@@ -4,17 +4,18 @@ import asyncio
 import pprint
 from datetime import datetime
 
-from .accounts import User
 from pymongo import AsyncMongoClient
 
-from ramifice import migration, translations
+from ramifice import MigrationManager, translations
+
+from .accounts import User
 
 
 async def main() -> None:
     """Main."""
     client: AsyncMongoClient = AsyncMongoClient()
 
-    await migration.Monitor(
+    await MigrationManager(
         database_name="test_password",
         mongo_client=client,
     ).migrate()

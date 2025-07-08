@@ -5,7 +5,7 @@ import unittest
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import model
+from ramifice import MigrationManager, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -37,7 +37,6 @@ from ramifice.fields import (
     URLField,
 )
 from ramifice.utils import globals
-from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -79,10 +78,10 @@ class User:
 class TestMigration(unittest.IsolatedAsyncioTestCase):
     """Testing the module `ramifice.migration`."""
 
-    async def test_monitor(self):
-        """Testing a `Monitor`."""
+    async def test_migration_manager(self):
+        """Testing a `MigrationManager`."""
         # Maximum number of characters 60.
-        database_name = "test_monitor_migration"
+        database_name = "test_migration_manager"
 
         client: AsyncMongoClient = AsyncMongoClient()
 
@@ -94,7 +93,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(globals.DEBUG)
 
         client = AsyncMongoClient()
-        await Monitor(
+        await MigrationManager(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

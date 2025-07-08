@@ -4,7 +4,8 @@ import asyncio
 import pprint
 
 from pymongo import AsyncMongoClient
-from ramifice import Unit, migration, translations
+
+from ramifice import MigrationManager, Unit, translations
 
 from .goods import Product
 
@@ -13,7 +14,7 @@ async def main() -> None:
     """Main."""
     client: AsyncMongoClient = AsyncMongoClient()
 
-    await migration.Monitor(
+    await MigrationManager(
         database_name="test_dynamic_choices",
         mongo_client=client,
     ).migrate()

@@ -17,7 +17,7 @@ from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationEr
 from ramifice.utils.fixtures import apply_fixture
 
 
-class Monitor:
+class MigrationManager:
     """Monitoring and updating database state for application."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
