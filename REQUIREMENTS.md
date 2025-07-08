@@ -14,6 +14,7 @@
 - [pyyaml](https://pypi.org/project/PyYAML/ "pyyaml")
 - [Babel](https://pypi.org/project/Babel/ "Babel")
 - [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
+- [orjson](https://github.com/ijl/orjson "orjson")
 
 ### Dev-Dependencies
 
