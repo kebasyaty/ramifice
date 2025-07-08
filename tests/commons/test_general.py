@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import model
+from ramifice import MigrationManager, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -35,8 +35,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.utils import globals
-from ramifice.utils.migration import Monitor
+from ramifice.utils import constants
 
 
 @model(service_name="Accounts")
@@ -92,7 +91,7 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await Monitor(
+        await MigrationManager(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
@@ -110,8 +109,8 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await User.count_documents({"_id": m.id.value}), 1)
         self.assertEqual(User.collection_name(), "Accounts_User")
         self.assertEqual(User.collection_full_name(), "test_general_mixin_methods.Accounts_User")
-        self.assertEqual(User.database(), globals.MONGO_DATABASE)
-        self.assertEqual(User.collection(), globals.MONGO_DATABASE[User.META["collection_name"]])
+        self.assertEqual(User.database(), constants.MONGO_DATABASE)
+        self.assertEqual(User.collection(), constants.MONGO_DATABASE[User.META["collection_name"]])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

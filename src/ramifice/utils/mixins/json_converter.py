@@ -1,7 +1,8 @@
 """JsonMixin - Contains the methods for converting Fields to JSON and back."""
 
-import json
 from typing import Any
+
+import orjson
 
 
 class JsonMixin:
@@ -17,7 +18,7 @@ class JsonMixin:
 
     def to_json(self) -> str:
         """Convert object instance to a JSON string."""
-        return json.dumps(self.to_dict())
+        return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
@@ -30,5 +31,5 @@ class JsonMixin:
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        json_dict = json.loads(json_str)
+        json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

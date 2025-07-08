@@ -6,7 +6,7 @@ from aiofiles import os
 from aioshutil import rmtree
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
 
 
@@ -46,7 +46,7 @@ class DeleteMixin:
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Delete document.
         mongo_doc: dict[str, Any] = {}
         mongo_doc = await collection.find_one_and_delete(

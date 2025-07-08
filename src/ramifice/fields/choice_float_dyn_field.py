@@ -5,7 +5,7 @@ Type of selective float field with dynamic addition of elements.
 
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -28,7 +28,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(disabled, bool):
@@ -67,7 +67,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: float | None = None
-        self.choices: list[tuple[float, str]] | None = None
+        self.choices: list[list[float | str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

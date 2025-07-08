@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.6.1"
+version = "0.7.0"
 description = "ORM-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
@@ -27,6 +27,7 @@ dependencies = [
     "argon2-cffi>=25.1.0",
     "babel>=2.17.0",
     "email-validator>=2.2.0",
+    "orjson>=3.10.18",
     "phonenumbers>=9.0.6",
     "pillow>=11.2.1",
     "pymongo>=4.13.0",

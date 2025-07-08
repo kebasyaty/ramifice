@@ -6,7 +6,7 @@ import unittest
 from pymongo import AsyncMongoClient
 from pymongo.results import DeleteResult
 
-from ramifice import model
+from ramifice import MigrationManager, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -37,7 +37,6 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -93,7 +92,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await Monitor(
+        await MigrationManager(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

@@ -1,7 +1,7 @@
 """Field of Model for enter boolean value."""
 
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -18,7 +18,7 @@ class BooleanField(Field, JsonMixin):
         warning: list[str] | None = None,
         default: bool = False,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if default is not None and not isinstance(default, bool):
                 raise AssertionError("Parameter `default` - Not а `bool` type!")
             if not isinstance(label, str):

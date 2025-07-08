@@ -1,15 +1,15 @@
 """Field of Model for enter date."""
 
-import json
 from datetime import datetime
 from typing import Any
 
+import orjson
 from babel.dates import format_date
 from dateutil.parser import parse
 
 from ramifice.fields.general.date_group import DateGroup
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals, translations
+from ramifice.utils import constants, translations
 
 
 class DateField(Field, DateGroup):
@@ -30,7 +30,7 @@ class DateField(Field, DateGroup):
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if max_date is not None:
                 if not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
@@ -109,7 +109,7 @@ class DateField(Field, DateGroup):
 
     def to_json(self) -> str:
         """Convert object instance to a JSON string."""
-        return json.dumps(self.to_dict())
+        return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
@@ -125,5 +125,5 @@ class DateField(Field, DateGroup):
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        json_dict = json.loads(json_str)
+        json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

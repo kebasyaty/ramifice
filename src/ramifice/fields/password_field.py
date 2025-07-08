@@ -1,10 +1,11 @@
 """Field of Model for enter password."""
 
-import json
 from typing import Any
 
+import orjson
+
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals
+from ramifice.utils import constants
 
 
 class PasswordField(Field):
@@ -26,7 +27,7 @@ class PasswordField(Field):
         placeholder: str = "",
         required: bool = False,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")
             if not isinstance(hide, bool):
@@ -71,7 +72,7 @@ class PasswordField(Field):
 
     def to_json(self) -> str:
         """Convert object instance to a JSON string."""
-        return json.dumps(self.to_dict())
+        return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
@@ -84,5 +85,5 @@ class PasswordField(Field):
     @classmethod
     def from_json(cls, json_str: str) -> Any:
         """Convert JSON string to a object instance."""
-        json_dict = json.loads(json_str)
+        json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

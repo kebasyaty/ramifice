@@ -1,6 +1,5 @@
 """Tool of Commons - A set of auxiliary methods."""
 
-import json
 from typing import Any
 
 from babel.dates import format_date, format_datetime

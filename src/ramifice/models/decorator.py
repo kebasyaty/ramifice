@@ -8,8 +8,8 @@ from ramifice.commons import QCommonsMixin
 from ramifice.fields import DateTimeField, IDField
 from ramifice.models.model import Model
 from ramifice.paladins import QPaladinsMixin
+from ramifice.utils.constants import REGEX
 from ramifice.utils.errors import DoesNotMatchRegexError, PanicError
-from ramifice.utils.globals import REGEX
 from ramifice.utils.mixins.add_valid import AddValidMixin
 from ramifice.utils.mixins.hooks import HooksMixin
 from ramifice.utils.mixins.indexing import IndexMixin

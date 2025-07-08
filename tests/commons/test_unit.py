@@ -6,7 +6,7 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import Unit, model
+from ramifice import MigrationManager, Unit, model
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -15,9 +15,8 @@ from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextMultDynField,
 )
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
-from ramifice.utils.migration import Monitor
 
 
 @model(service_name="Accounts")
@@ -50,14 +49,16 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await Monitor(
+        await MigrationManager(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        super_collection: AsyncCollection = globals.MONGO_DATABASE[globals.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[
+            constants.SUPER_COLLECTION_NAME
+        ]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": User.META["collection_name"]}
@@ -175,12 +176,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(choices["value"], "Some text 2")
         #
         user = User()
-        self.assertEqual(user.choice_float_dyn.choices, [(1.0, "Title")])
-        self.assertEqual(user.choice_float_mult_dyn.choices, [(2.0, "Title")])
-        self.assertEqual(user.choice_int_dyn.choices, [(1, "Title")])
-        self.assertEqual(user.choice_int_mult_dyn.choices, [(2, "Title")])
-        self.assertEqual(user.choice_txt_dyn.choices, [("Some text", "Title")])
-        self.assertEqual(user.choice_txt_mult_dyn.choices, [("Some text 2", "Title")])
+        self.assertEqual(user.choice_float_dyn.choices, [[1.0, "Title"]])
+        self.assertEqual(user.choice_float_mult_dyn.choices, [[2.0, "Title"]])
+        self.assertEqual(user.choice_int_dyn.choices, [[1, "Title"]])
+        self.assertEqual(user.choice_int_mult_dyn.choices, [[2, "Title"]])
+        self.assertEqual(user.choice_txt_dyn.choices, [["Some text", "Title"]])
+        self.assertEqual(user.choice_txt_mult_dyn.choices, [["Some text 2", "Title"]])
         user.choice_float_dyn.value = 1.0
         user.choice_float_mult_dyn.value = [2.0]
         user.choice_int_dyn.value = 1

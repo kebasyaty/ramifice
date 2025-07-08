@@ -5,7 +5,7 @@ Type of selective float field with static of elements.
 
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -27,7 +27,7 @@ class ChoiceFloatField(Field, ChoiceGroup, JsonMixin):
         default: float | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[tuple[float, str]] | None = None,
+        choices: list[list[float | str]] | None = None,
     ):
         Field.__init__(
             self,
@@ -51,7 +51,7 @@ class ChoiceFloatField(Field, ChoiceGroup, JsonMixin):
         self.default = default
         self.choices = choices
 
-        if globals.DEBUG:
+        if constants.DEBUG:
             if choices is not None:
                 if not isinstance(choices, list):
                     raise AssertionError("Parameter `choices` - Not а `list` type!")

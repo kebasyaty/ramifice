@@ -2,7 +2,7 @@
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -27,7 +27,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
         step: int = 1,
         input_type: str = "number",  # number | range
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if input_type not in ["number", "range"]:
                 raise AssertionError(
                     "Parameter `input_type` - Invalid input type! "

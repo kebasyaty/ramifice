@@ -1,7 +1,7 @@
 """Field of Model for enter text."""
 
 from ramifice.fields.general.field import Field
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -26,7 +26,7 @@ class TextField(Field, JsonMixin):
         # Support for several language.
         multi_language: bool = False,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if not isinstance(maxlength, int):
                 raise AssertionError("Parameter `maxlength` - Not а `int` type!")
             if not isinstance(label, str):

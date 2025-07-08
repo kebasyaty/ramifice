@@ -2,7 +2,7 @@
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
-from ramifice.utils import globals
+from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
 
@@ -31,7 +31,7 @@ class ColorField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
-        if globals.DEBUG:
+        if constants.DEBUG:
             if default is not None:
                 if not isinstance(default, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -39,7 +39,7 @@ class ColorField(Field, TextGroup, JsonMixin):
                     raise AssertionError(
                         "The `default` parameter should not contain an empty string!"
                     )
-                if globals.REGEX["color_code"].match(default) is None:
+                if constants.REGEX["color_code"].match(default) is None:
                     raise AssertionError("Parameter `default` - Not а color code!")
             if not isinstance(label, str):
                 raise AssertionError("Parameter `default` - Not а `str` type!")

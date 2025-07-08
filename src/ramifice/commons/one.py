@@ -10,7 +10,7 @@ from ramifice.commons.tools import (
     mongo_doc_to_raw_doc,
     password_to_none,
 )
-from ramifice.utils import globals, translations
+from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
 
 
@@ -26,7 +26,7 @@ class OneMixin:
     ) -> dict[str, Any] | None:
         """Find a single document."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -48,7 +48,7 @@ class OneMixin:
     ) -> dict[str, Any] | None:
         """Find a single document and converting to raw document."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -75,7 +75,7 @@ class OneMixin:
     ) -> Any | None:
         """Find a single document and convert it to a Model instance."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -96,7 +96,7 @@ class OneMixin:
     ) -> str | None:
         """Find a single document and convert it to a JSON string."""
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -129,7 +129,7 @@ class OneMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -166,7 +166,7 @@ class OneMixin:
             )
             raise PanicError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = globals.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
