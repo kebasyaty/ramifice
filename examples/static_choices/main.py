@@ -5,7 +5,7 @@ import pprint
 
 from pymongo import AsyncMongoClient
 
-from ramifice import MongoMigrationModels, translations
+from ramifice import Migration, translations
 
 from .goods import Product
 
@@ -14,7 +14,7 @@ async def main() -> None:
     """Main."""
     client: AsyncMongoClient = AsyncMongoClient()
 
-    await MongoMigrationModels(
+    await Migration(
         database_name="test_static_choices",
         mongo_client=client,
     ).migrate()

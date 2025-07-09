@@ -4,7 +4,7 @@ import asyncio
 
 from pymongo import AsyncMongoClient
 
-from ramifice import MongoMigrationModels
+from ramifice import Migration
 
 from .accounts import User
 
@@ -13,7 +13,7 @@ async def main() -> None:
     """Main."""
     client: AsyncMongoClient = AsyncMongoClient()
 
-    await MongoMigrationModels(
+    await Migration(
         database_name="test_hooks",
         mongo_client=client,
     ).migrate()

@@ -6,7 +6,7 @@ from datetime import datetime
 
 from pymongo import AsyncMongoClient
 
-from ramifice import MongoMigrationModels, translations
+from ramifice import Migration, translations
 
 from .accounts import User
 
@@ -15,7 +15,7 @@ async def main() -> None:
     """Main."""
     client: AsyncMongoClient = AsyncMongoClient()
 
-    await MongoMigrationModels(
+    await Migration(
         database_name="test_indexing",
         mongo_client=client,
     ).migrate()

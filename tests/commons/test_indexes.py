@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import ASCENDING, DESCENDING, AsyncMongoClient, IndexModel
 
-from ramifice import MongoMigrationModels, model
+from ramifice import Migration, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -99,7 +99,7 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await MongoMigrationModels(
+        await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
