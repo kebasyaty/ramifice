@@ -6,7 +6,7 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import MigrationManager, Unit, model
+from ramifice import Migration, Unit, model
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -49,7 +49,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await MigrationManager(
+        await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

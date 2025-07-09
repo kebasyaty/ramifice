@@ -17,8 +17,8 @@ from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationEr
 from ramifice.utils.fixtures import apply_fixture
 
 
-class MigrationManager:
-    """Monitoring and updating database state for application."""
+class Migration:
+    """Migration of models to database."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
         constants.DEBUG = False
@@ -43,7 +43,9 @@ class MigrationManager:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[
+            constants.SUPER_COLLECTION_NAME
+        ]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
@@ -54,7 +56,9 @@ class MigrationManager:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[
+            constants.SUPER_COLLECTION_NAME
+        ]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
@@ -89,7 +93,9 @@ class MigrationManager:
         database = constants.MONGO_DATABASE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[
+            constants.SUPER_COLLECTION_NAME
+        ]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:

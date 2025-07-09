@@ -4,7 +4,7 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import MigrationManager, model
+from ramifice import Migration, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -126,7 +126,7 @@ class TestFixtures(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await MigrationManager(
+        await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
@@ -135,7 +135,7 @@ class TestFixtures(unittest.IsolatedAsyncioTestCase):
         # ----------------------------------------------------------------------
         self.assertEqual(await User.estimated_document_count(), 1)
         self.assertEqual(await User2.estimated_document_count(), 2)
-        await MigrationManager(
+        await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

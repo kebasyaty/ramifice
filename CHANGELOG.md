@@ -1,3 +1,9 @@
+#### v0.8.0 2025-07-09
+
+- Rename the migration class from `MigrationManager` to` Migration`.
+- Updated translations.
+- Updated README.md .
+
 #### v0.7.0 2025-07-08
 
 - The transition from `json` to` orjson`.
