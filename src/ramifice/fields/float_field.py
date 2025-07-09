@@ -22,8 +22,8 @@ class FloatField(Field, NumberGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-        max_number: int | None = None,
-        min_number: int | None = None,
+        max_number: float | None = None,
+        min_number: float | None = None,
         step: float = 1.0,
         input_type: str = "number",  # number | range
     ):
