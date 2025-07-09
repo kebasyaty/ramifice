@@ -5,7 +5,7 @@ import unittest
 from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
-from ramifice import MigrationManager, model
+from ramifice import MongoMigrationModels, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -107,7 +107,7 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         await client.close()
 
         client = AsyncMongoClient()
-        await MigrationManager(
+        await MongoMigrationModels(
             database_name=database_name,
             mongo_client=client,
         ).migrate()

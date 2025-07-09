@@ -92,7 +92,7 @@ from datetime import datetime
 import pprint
 
 from pymongo import AsyncMongoClient
-from ramifice import model, translations, MigrationManager
+from ramifice import model, translations, Migration
 from ramifice.fields import (
     ImageField,
     PasswordField,
@@ -167,7 +167,7 @@ class User:
 async def main():
     client = AsyncMongoClient()
 
-    await MigrationManager(
+    await Migration(
         database_name="test_db",
         mongo_client=client,
     ).migrate()
