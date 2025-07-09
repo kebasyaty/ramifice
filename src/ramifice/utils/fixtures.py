@@ -52,7 +52,7 @@ async def apply_fixture(
                     value = None
                 if value is not None:
                     if group == "file" or group == "img":
-                        field_data.from_path(value)
+                        await field_data.from_path(value)
                     elif group == "date":
                         field_data.value = parse(value)
                     else:
