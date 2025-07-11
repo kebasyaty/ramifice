@@ -31,5 +31,3 @@ class FileGroup(metaclass=ABCMeta):
         self.default = default
         self.target_dir = target_dir
         self.accept = accept
-        self.media_root: str = "public/media/uploads"
-        self.media_url: str = "/media/uploads"

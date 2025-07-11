@@ -6,9 +6,13 @@ import unittest
 from ramifice.utils.constants import (
     DATABASE_NAME,
     DEBUG,
+    MEDIA_ROOT,
+    MEDIA_URL,
     MONGO_CLIENT,
     MONGO_DATABASE,
     REGEX,
+    STATIC_ROOT,
+    STATIC_URL,
     SUPER_COLLECTION_NAME,
 )
 
@@ -18,15 +22,15 @@ class TestConstants(unittest.TestCase):
 
     def test_values_by_default(self):
         """Testing a values by default."""
-        global DATABASE_NAME  # pylint: disable=global-statement
-
         self.assertTrue(DEBUG)
         self.assertIsNone(MONGO_CLIENT)
         self.assertIsNone(MONGO_DATABASE)
         self.assertIsNone(DATABASE_NAME)
-        DATABASE_NAME = "test"
-        self.assertEqual(DATABASE_NAME, "test")
         self.assertEqual(SUPER_COLLECTION_NAME, "SUPER_COLLECTION")
+        self.assertEqual(MEDIA_ROOT, "public/media")
+        self.assertEqual(MEDIA_URL, "/media")
+        self.assertEqual(STATIC_ROOT, "public/static")
+        self.assertEqual(STATIC_URL, "/static")
         regex = {
             "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),
             "service_name": re.compile(r"^[A-Z][a-zA-Z0-9]{0,24}$"),

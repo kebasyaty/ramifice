@@ -37,8 +37,6 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(f.required)
         self.assertEqual(f.target_dir, "files")
         self.assertEqual(f.accept, "")
-        self.assertEqual(f.media_root, "public/media/uploads")
-        self.assertEqual(f.media_url, "/media/uploads")
         # Exception checking:
         with self.assertRaises(AssertionError):
             FileField(default=12)
@@ -88,8 +86,6 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(f.required)
         self.assertEqual(f.target_dir, "images")
         self.assertEqual(f.accept, "image/png,image/jpeg,image/webp")
-        self.assertEqual(f.media_root, "public/media/uploads")
-        self.assertEqual(f.media_url, "/media/uploads")
         # Exception checking:
         with self.assertRaises(AssertionError):
             ImageField(default=12)

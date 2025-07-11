@@ -12,6 +12,7 @@ from aioshutil import copyfile
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
+from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins.json_converter import JsonMixin
 
@@ -124,7 +125,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(date.today())
             # Create path to target directory.
-            dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
             if not await aiofiles.os.path.exists(dir_target_path):
                 await aiofiles.os.makedirs(dir_target_path)
@@ -136,7 +137,7 @@ class FileField(Field, FileGroup, JsonMixin):
                 await open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = filename
             # Add file extension.
@@ -169,7 +170,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(date.today())
             # Create path to target directory.
-            dir_target_path = f"{self.media_root}/{self.target_dir}/{date_str}"
+            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
             if not await aiofiles.os.path.exists(dir_target_path):
                 await aiofiles.os.makedirs(dir_target_path)
@@ -179,7 +180,7 @@ class FileField(Field, FileGroup, JsonMixin):
             await copyfile(src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{self.media_url}/{self.target_dir}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = os.path.basename(src_path)
             # Add file extension.
