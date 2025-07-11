@@ -12,6 +12,7 @@ from aioshutil import copyfile
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
+from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins.json_converter import JsonMixin
 
@@ -155,9 +156,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
-            imgs_dir_path = f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create url path to target directory with images.
-            imgs_dir_url = f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
@@ -213,9 +214,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
-            imgs_dir_path = f"{self.media_root}/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create url path to target directory with images.
-            imgs_dir_url = f"{self.media_url}/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.

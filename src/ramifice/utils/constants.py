@@ -7,9 +7,11 @@ List of variables:
 - `MONGO_DATABASE` - Caching a Mongo database.
 - `DATABASE_NAME` - Caching a database name.
 - `SUPER_COLLECTION_NAME` - Caching a super collection name.
+- `MEDIA_ROOT` - Absolute filesystem path to the directory that will hold user-uploaded files.
+- `MEDIA_URL` - URL that handles the media served from MEDIA_ROOT, used for managing stored files.
+- `STATIC_ROOT` - The absolute path to the directory where static files are located.
+- `STATIC_URL` - URL to use when referring to static files located in STATIC_ROOT.
 - `REGEX` - Caching a patterns of regular expression.
-- `FILE_INFO_DICT` - Caching a dictionary to transmit information about the file.
-- `IMG_INFO_DICT` - Caching a dictionary to transmit information about the image.
 """
 
 import re
@@ -30,6 +32,18 @@ DATABASE_NAME: str | None = None
 # Store technical data for Models migration into a database.
 # Store dynamic field data for simulate relationship Many-to-One and Many-to-Manyю.
 SUPER_COLLECTION_NAME: str = "SUPER_COLLECTION"
+# Absolute filesystem path to the
+# directory that will hold user-uploaded files.
+MEDIA_ROOT: str = "public/media"
+# URL that handles the media served from MEDIA_ROOT,
+# used for managing stored files.
+MEDIA_URL: str = "/media"
+# The absolute path to the
+# directory where static files are located.
+STATIC_ROOT: str = "public/static"
+# URL to use when referring to
+# static files located in STATIC_ROOT.
+STATIC_URL: str = "/static"
 # Caching a patterns of regular expression.
 REGEX: dict[str, re.Pattern] = {
     "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),
