@@ -30,11 +30,11 @@ from typing import Any
 
 from ramifice.utils.errors import PanicError
 
-# Language code by default.
+# Language by default.
 DEFAULT_LOCALE: str = "en"
 # Code of current language.
 CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
-# List of codes supported by languages.
+# List of supported languages.
 LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
 
 if not DEFAULT_LOCALE in LANGUAGES:
