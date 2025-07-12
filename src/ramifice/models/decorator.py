@@ -1,5 +1,6 @@
 """Decorator for converting Python classes into Ramifice models."""
 
+import os
 import re
 from typing import Any
 
@@ -41,7 +42,6 @@ def model(
             raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
         if fixture_name is not None:
             fixture_path = f"config/fixtures/{fixture_name}.yml"
-            import os
 
             if not os.path.exists(fixture_path):
                 msg = (

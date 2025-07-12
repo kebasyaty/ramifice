@@ -3,6 +3,7 @@
 import uuid
 from base64 import b64decode
 from datetime import date
+from os.path import basename
 from pathlib import Path
 
 import aiofiles
@@ -181,7 +182,7 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["path"] = f_target_path
             file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
-            file_info["name"] = await aiofiles.os.path.basename(src_path)
+            file_info["name"] = basename(src_path)
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
