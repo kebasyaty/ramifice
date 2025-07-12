@@ -1,8 +1,9 @@
 """Decorator for converting Python classes into Ramifice models."""
 
-import os
 import re
 from typing import Any
+
+import aiofiles.os
 
 from ramifice.commons import QCommonsMixin
 from ramifice.fields import DateTimeField, IDField
@@ -37,12 +38,12 @@ def model(
     if not isinstance(is_delete_doc, bool):
         raise AssertionError("Parameter `is_delete_doc` - Must be `bool` type!")
 
-    def decorator(cls: Any) -> Any:
+    async def decorator(cls: Any) -> Any:
         if REGEX["service_name"].match(service_name) is None:
             raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
         if fixture_name is not None:
             fixture_path = f"config/fixtures/{fixture_name}.yml"
-            if not os.path.exists(fixture_path):
+            if not await aiofiles.os.path.exists(fixture_path):
                 msg = (
                     f"Model: `{cls.__module__}.{cls.__name__}` > "
                     + f"META param: `fixture_name` => "
