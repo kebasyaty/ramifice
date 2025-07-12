@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from aiofiles import os
+from aiofiles import os as async_os
 from aioshutil import rmtree
 from pymongo.asynchronous.collection import AsyncCollection
 
@@ -77,7 +77,7 @@ class DeleteMixin:
                 if group == "file":
                     file_data = mongo_doc[field_name]
                     if file_data is not None and len(file_data["path"]) > 0:
-                        await os.remove(file_data["path"])
+                        await async_os.remove(file_data["path"])
                     file_data = None
                 elif group == "img":
                     file_data = mongo_doc[field_name]

@@ -8,7 +8,6 @@ from pathlib import Path
 
 from aiofiles import open as async_open
 from aiofiles import os as async_os
-from aiofiles import ospath
 from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
@@ -166,7 +165,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await ospath.exists(imgs_dir_path):
+            if not await async_os.path.exists(imgs_dir_path):
                 await async_os.makedirs(imgs_dir_path)
             # Save main image in target directory.
             async with async_open(main_img_path, mode="wb") as open_f:
@@ -189,7 +188,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await ospath.getsize(main_img_path)
+            img_info["size"] = await async_os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info
@@ -224,7 +223,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await ospath.exists(imgs_dir_path):
+            if not await async_os.path.exists(imgs_dir_path):
                 await async_os.makedirs(imgs_dir_path)
             # Save main image in target directory.
             await copyfile(src_path, main_img_path)
@@ -245,7 +244,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await ospath.getsize(main_img_path)
+            img_info["size"] = await async_os.path.getsize(main_img_path)
         #
         # to value.
         self.value = img_info

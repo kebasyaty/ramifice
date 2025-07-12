@@ -8,7 +8,6 @@ from pathlib import Path
 
 from aiofiles import open as async_open
 from aiofiles import os as async_os
-from aiofiles import ospath
 from aioshutil import copyfile
 
 from ramifice.fields.general.field import Field
@@ -129,7 +128,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await ospath.exists(dir_target_path):
+            if not await async_os.path.exists(dir_target_path):
                 await async_os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
@@ -145,7 +144,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await ospath.getsize(f_target_path)
+            file_info["size"] = await async_os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
@@ -174,7 +173,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await ospath.exists(dir_target_path):
+            if not await async_os.path.exists(dir_target_path):
                 await async_os.makedirs(dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
@@ -188,7 +187,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await ospath.getsize(f_target_path)
+            file_info["size"] = await async_os.path.getsize(f_target_path)
         #
         # to value.
         self.value = file_info
