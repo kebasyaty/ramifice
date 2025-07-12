@@ -1,6 +1,5 @@
 """Field of Model for upload image."""
 
-import os
 import uuid
 from base64 import b64decode
 from datetime import date
@@ -230,7 +229,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
-            img_info["name"] = os.path.basename(src_path)
+            img_info["name"] = await aiofiles.os.path.basename(src_path)
             # Add image extension.
             img_info["extension"] = extension
             # Transform extension to the upper register and delete the point.

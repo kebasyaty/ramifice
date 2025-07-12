@@ -3,7 +3,7 @@
 import re
 from typing import Any
 
-import aiofiles.os
+import aiofiles
 
 from ramifice.commons import QCommonsMixin
 from ramifice.fields import DateTimeField, IDField
