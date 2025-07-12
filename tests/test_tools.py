@@ -97,10 +97,10 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         """Testing a method `to_human_size`."""
         self.assertEqual(to_human_size(2097152), "2.0 MB")
 
-    def test_get_file_size(self):
+    async def test_get_file_size(self):
         """Testing a method `get_file_size`."""
         path = "public/media/default/no_doc.odt"
-        self.assertEqual(get_file_size(path), 9843)
+        self.assertEqual(await get_file_size(path), 9843)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from aiofiles import os
+from aiofiles import os as async_os
 from aioshutil import rmtree
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
@@ -133,7 +133,7 @@ class CheckMixin(
                         file_data = result_map.get(field_name)
                         if file_data is not None:
                             if file_data["is_new_file"]:
-                                await os.remove(file_data["path"])
+                                await async_os.remove(file_data["path"])
                             field_data.value = None
                         if curr_doc is not None:
                             field_data.value = curr_doc[field_name]

@@ -1,3 +1,8 @@
+#### v0.8.4 2025-07-12
+
+- Fixed a support async.
+- Updated translations.
+
 #### v0.8.0 2025-07-09
 
 - Rename the migration class from `MigrationManager` to` Migration`.

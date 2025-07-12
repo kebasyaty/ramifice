@@ -3,11 +3,11 @@
 import asyncio
 import ipaddress
 import math
-import os
 from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
+from aiofiles import ospath
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
@@ -29,9 +29,9 @@ def to_human_size(size: int) -> str:
     return f"{size} {order}"
 
 
-def get_file_size(path: str) -> int:
+async def get_file_size(path: str) -> int:
     """Get file size in bytes."""
-    size: int = os.path.getsize(path)
+    size: int = await ospath.getsize(path)
     return size
 
 
