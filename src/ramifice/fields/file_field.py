@@ -3,12 +3,11 @@
 import uuid
 from base64 import b64decode
 from datetime import date
-from os.path import basename
-from pathlib import Path
+from os import makedirs
+from os.path import basename, exists, getsize
+from shutil import copyfile
 
-from aiofiles import open as async_open
-from aiofiles import os as async_os
-from aioshutil import copyfile
+from anyio import Path, open_file, to_thread
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -128,12 +127,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await async_os.path.exists(dir_target_path):
-                await async_os.makedirs(dir_target_path)
+            if not await to_thread.run_sync(exists, dir_target_path):
+                await to_thread.run_sync(makedirs, dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            async with async_open(f_target_path, mode="wb") as open_f:
+            async with await open_file(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
                 await open_f.write(f_content)
             # Add paths to target file.
@@ -144,7 +143,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await async_os.path.getsize(f_target_path)
+            file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
         #
         # to value.
         self.value = file_info
@@ -173,12 +172,12 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
-            if not await async_os.path.exists(dir_target_path):
-                await async_os.makedirs(dir_target_path)
+            if not await to_thread.run_sync(exists, dir_target_path):
+                await to_thread.run_sync(makedirs, dir_target_path)
             # Create path to target file.
             f_target_path = f"{dir_target_path}/{f_uuid_name}"
             # Save file in target directory.
-            await copyfile(src_path, f_target_path)
+            await to_thread.run_sync(copyfile, src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
             file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
@@ -187,7 +186,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).
-            file_info["size"] = await async_os.path.getsize(f_target_path)
+            file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
         #
         # to value.
         self.value = file_info

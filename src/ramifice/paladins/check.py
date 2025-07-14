@@ -1,9 +1,10 @@
 """Validation of Model data before saving to the database."""
 
+from os import remove
+from shutil import rmtree
 from typing import Any
 
-from aiofiles import os as async_os
-from aioshutil import rmtree
+from anyio import to_thread
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
@@ -133,7 +134,7 @@ class CheckMixin(
                         file_data = result_map.get(field_name)
                         if file_data is not None:
                             if file_data["is_new_file"]:
-                                await async_os.remove(file_data["path"])
+                                await to_thread.run_sync(remove, file_data["path"])
                             field_data.value = None
                         if curr_doc is not None:
                             field_data.value = curr_doc[field_name]
@@ -141,7 +142,7 @@ class CheckMixin(
                         img_data = result_map.get(field_name)
                         if img_data is not None:
                             if img_data["is_new_img"]:
-                                await rmtree(img_data["imgs_dir_path"])  # type: ignore[call-arg]
+                                await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
                             field_data.value = None
                         if curr_doc is not None:
                             field_data.value = curr_doc[field_name]
