@@ -558,35 +558,6 @@ path = "public/media/default/no_doc.odt"
 size: int = get_file_size(path)  # => 9843
 ```
 
-## Contributing
-
-1. Fork it (<https://github.com/kebasyaty/ramifice/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
-
-## Install for development of Ramifice
-
-```shell
-# Fedora:
-sudo dnf install gettext
-gettext --version
-# Ubuntu:
-sudo apt install gettext
-gettext --version
-# Windows:
-https://mlocati.github.io/articles/gettext-iconv-windows.html
-gettext --version
-
-cd project_name
-uv sync
-```
-
-## Contributors
-
-- [kebasyaty](https://github.com/kebasyaty) Gennady Kostyunin - creator and maintainer
-
 ## Changelog
 
 [View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
