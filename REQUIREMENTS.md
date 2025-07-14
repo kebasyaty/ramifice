@@ -15,6 +15,7 @@
 - [Babel](https://pypi.org/project/Babel/ "Babel")
 - [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
 - [orjson](https://github.com/ijl/orjson "orjson")
+- [anyio](https://github.com/agronholm/anyio "anyio")
 
 ### Dev-Dependencies
 
