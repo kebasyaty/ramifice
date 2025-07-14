@@ -22,6 +22,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
+    "anyio>=4.9.0",
     "argon2-cffi>=25.1.0",
     "babel>=2.17.0",
     "email-validator>=2.2.0",
