@@ -3,12 +3,11 @@
 import uuid
 from base64 import b64decode
 from datetime import date
-from os.path import basename
-from pathlib import Path
+from os import makedirs
+from os.path import basename, exists, getsize
+from shutil import copyfile
 
-from aiofiles import open as async_open
-from aiofiles import os as async_os
-from aioshutil import copyfile
+from anyio import Path, open_file, to_thread
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -165,10 +164,10 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await async_os.path.exists(imgs_dir_path):
-                await async_os.makedirs(imgs_dir_path)
+            if not await to_thread.run_sync(exists, imgs_dir_path):
+                await to_thread.run_sync(makedirs, imgs_dir_path)
             # Save main image in target directory.
-            async with async_open(main_img_path, mode="wb") as open_f:
+            async with await open_file(main_img_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
                 await open_f.write(f_content)
             # Add paths for main image.
@@ -188,7 +187,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await async_os.path.getsize(main_img_path)
+            img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
         #
         # to value.
         self.value = img_info
@@ -223,10 +222,10 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create path to main image.
             main_img_path = f"{imgs_dir_path}/{new_original_name}"
             # Create target directory if it does not exist.
-            if not await async_os.path.exists(imgs_dir_path):
-                await async_os.makedirs(imgs_dir_path)
+            if not await to_thread.run_sync(exists, imgs_dir_path):
+                await to_thread.run_sync(makedirs, imgs_dir_path)
             # Save main image in target directory.
-            await copyfile(src_path, main_img_path)
+            await to_thread.run_sync(copyfile, src_path, main_img_path)
             # Add paths for main image.
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
@@ -244,7 +243,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
-            img_info["size"] = await async_os.path.getsize(main_img_path)
+            img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
         #
         # to value.
         self.value = img_info

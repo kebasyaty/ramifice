@@ -1,3 +1,8 @@
+#### v0.8.5 2025-07-16
+
+- Async to anyio.
+- Updated translations.
+
 #### v0.8.4 2025-07-12
 
 - Fixed a support async.

@@ -1,9 +1,10 @@
 """Delete document from database."""
 
+from os import remove
+from shutil import rmtree
 from typing import Any
 
-from aiofiles import os as async_os
-from aioshutil import rmtree
+from anyio import to_thread
 from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.utils import constants
@@ -77,12 +78,12 @@ class DeleteMixin:
                 if group == "file":
                     file_data = mongo_doc[field_name]
                     if file_data is not None and len(file_data["path"]) > 0:
-                        await async_os.remove(file_data["path"])
+                        await to_thread.run_sync(remove, file_data["path"])
                     file_data = None
                 elif group == "img":
                     file_data = mongo_doc[field_name]
                     if file_data is not None and len(file_data["imgs_dir_path"]) > 0:
-                        await rmtree(file_data["imgs_dir_path"])  # type: ignore[call-arg]
+                        await to_thread.run_sync(rmtree, file_data["imgs_dir_path"])
                     file_data = None
             field_data.value = None
         # Run hook.

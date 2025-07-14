@@ -3,7 +3,7 @@
 Supported fields: ImageField
 """
 
-import asyncio
+from asyncio import to_thread
 from typing import Any
 
 from PIL import Image
@@ -80,7 +80,7 @@ class ImgGroupMixin:
                     # Extension to the upper register and delete the point.
                     ext_upper = value["ext_upper"]
                     # Get image file.
-                    with await asyncio.to_thread(Image.open, path) as img:
+                    with await to_thread(Image.open, path) as img:
                         width, height = img.size
                         value["width"] = width
                         value["height"] = height
@@ -93,7 +93,7 @@ class ImgGroupMixin:
                             if size_name == "lg":
                                 value["path_lg"] = f"{imgs_dir_path}/lg{extension}"
                                 value["url_lg"] = f"{imgs_dir_url}/lg{extension}"
-                                await asyncio.to_thread(
+                                await to_thread(
                                     img.save,
                                     fp=value["path_lg"],
                                     format=ext_upper,
@@ -101,7 +101,7 @@ class ImgGroupMixin:
                             elif size_name == "md":
                                 value["path_md"] = f"{imgs_dir_path}/md{extension}"
                                 value["url_md"] = f"{imgs_dir_url}/md{extension}"
-                                await asyncio.to_thread(
+                                await to_thread(
                                     img.save,
                                     fp=value["path_md"],
                                     format=ext_upper,
@@ -109,7 +109,7 @@ class ImgGroupMixin:
                             elif size_name == "sm":
                                 value["path_sm"] = f"{imgs_dir_path}/sm{extension}"
                                 value["url_sm"] = f"{imgs_dir_url}/sm{extension}"
-                                await asyncio.to_thread(
+                                await to_thread(
                                     img.save,
                                     fp=value["path_sm"],
                                     format=ext_upper,
@@ -117,7 +117,7 @@ class ImgGroupMixin:
                             elif size_name == "xs":
                                 value["path_xs"] = f"{imgs_dir_path}/xs{extension}"
                                 value["url_xs"] = f"{imgs_dir_url}/xs{extension}"
-                                await asyncio.to_thread(
+                                await to_thread(
                                     img.save,
                                     fp=value["path_xs"],
                                     format=ext_upper,

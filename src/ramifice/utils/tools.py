@@ -1,13 +1,13 @@
 """Global collection of auxiliary methods."""
 
-import asyncio
 import ipaddress
 import math
+from asyncio import to_thread
+from os.path import getsize
 from typing import Any
 from urllib.parse import urlparse
 
 import phonenumbers
-from aiofiles import ospath
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
@@ -31,7 +31,7 @@ def to_human_size(size: int) -> str:
 
 async def get_file_size(path: str) -> int:
     """Get file size in bytes."""
-    size: int = await ospath.getsize(path)
+    size: int = await to_thread(getsize, path)
     return size
 
 
@@ -43,7 +43,10 @@ def normal_email(email: str | None) -> str | None:
     """
     normal: str | None = None
     try:
-        emailinfo = validate_email(str(email), check_deliverability=False)
+        emailinfo = validate_email(
+            str(email),
+            check_deliverability=False,
+        )
         normal = emailinfo.normalized
     except EmailNotValidError:
         pass
@@ -53,7 +56,7 @@ def normal_email(email: str | None) -> str | None:
 async def is_email(email: str | None) -> bool:
     """Validate Email address."""
     try:
-        await asyncio.to_thread(
+        await to_thread(
             validate_email,
             str(email),
             check_deliverability=True,
