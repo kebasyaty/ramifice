@@ -14,13 +14,13 @@
       "problemMatcher": []
     },
     {
-      "label": "UV: Run uv sync --upgrade",
+      "label": "UV: Run Upgrade",
       "type": "shell",
       "command": ["uv sync --upgrade"],
       "problemMatcher": []
     },
     {
-      "label": "UV: Run uv lock",
+      "label": "UV: Run Lock",
       "type": "shell",
       "command": ["uv lock"],
       "problemMatcher": []
