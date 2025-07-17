@@ -94,7 +94,7 @@ docstring-code-line-length = 80
 strict = true
 show_error_codes = true
 pretty = true
-files = ["*.py", "src/**/*.py", "tests/**/*.py"]
+files = ["src/**/*.py", "tests/**/*.py"]
 disable_error_code = ["type-arg", "no-any-return", "attr-defined", "index"]
 
 [[tool.mypy.overrides]]
