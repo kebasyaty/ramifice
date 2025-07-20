@@ -9,7 +9,7 @@
   </p>
   <p>
     <h1>ramifice</h1>
-    <h3>ORM-like API MongoDB for Python language.</h3>
+    <h3>ORM-pseudo-like API MongoDB for Python language.</h3>
     <p align="center">
       <a href="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml/badge.svg" alt="Build Status"></a>
       <a href="https://kebasyaty.github.io/ramifice/" alt="Docs"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
