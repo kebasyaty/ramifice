@@ -7,7 +7,7 @@ from pymongo import AsyncMongoClient
 
 from ramifice import Migration, translations
 
-from .site import Parameters
+from .admin import SiteParameters
 
 
 async def main() -> None:
@@ -23,12 +23,12 @@ async def main() -> None:
     # Hint: For Ramifice by default = "en"
     translations.change_locale("en")
 
-    params = await Parameters.find_one_to_instance({f"brand": "Brand Name"})
+    params = await SiteParameters.find_one_to_instance({f"brand": "Brand Name"})
 
     if params is not None:
         print("Details of Parameters:")
-        user_details = await Parameters.find_one_to_raw_doc({"_id": params.id.value})
-        pprint.pprint(user_details)
+        site_parameters = await SiteParameters.find_one_to_raw_doc({"_id": params.id.value})
+        pprint.pprint(site_parameters)
 
         # await params.delete(remove_files=False)
     else:
@@ -36,7 +36,7 @@ async def main() -> None:
 
     # Remove collection.
     # (if necessary)
-    await Parameters.collection().drop()
+    # await SiteParameters.collection().drop()
 
     await client.close()
 

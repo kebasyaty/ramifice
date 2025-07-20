@@ -12,12 +12,12 @@ from ramifice.fields import (
 
 
 @model(
-    service_name="Site",
+    service_name="Admin",
     fixture_name="SiteParameters",  # config/fixtures/SiteParameters.yml
     is_create_doc=False,  # Site parameters should be in a single document.
     is_delete_doc=False,
 )
-class Parameters:
+class SiteParameters:
     """Model of Site Parameters."""
 
     def fields(self) -> None:
