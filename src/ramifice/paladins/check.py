@@ -21,7 +21,6 @@ from ramifice.paladins.groups import (
     TextGroupMixin,
 )
 from ramifice.utils import constants
-from ramifice.utils.errors import PanicError
 
 
 class CheckMixin(
