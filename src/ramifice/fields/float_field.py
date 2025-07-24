@@ -1,5 +1,7 @@
 """Field of Model for enter (float) number."""
 
+__all__ = ("FloatField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants

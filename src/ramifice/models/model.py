@@ -1,5 +1,7 @@
 """For converting Python classes into Ramifice models."""
 
+__all__ = ("Model",)
+
 from abc import ABCMeta, abstractmethod
 from typing import Any
 

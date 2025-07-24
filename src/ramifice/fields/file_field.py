@@ -1,5 +1,7 @@
 """Field of Model for upload file."""
 
+__all__ = ("FileField",)
+
 import uuid
 from base64 import b64decode
 from datetime import date

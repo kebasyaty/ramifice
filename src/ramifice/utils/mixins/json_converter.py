@@ -1,5 +1,7 @@
 """JsonMixin - Contains the methods for converting Fields to JSON and back."""
 
+__all__ = ("JsonMixin",)
+
 from typing import Any
 
 import orjson

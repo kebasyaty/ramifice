@@ -1,5 +1,7 @@
 """Field of Model for enter text."""
 
+__all__ = ("TextField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin

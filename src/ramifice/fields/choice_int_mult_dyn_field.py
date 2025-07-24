@@ -3,6 +3,8 @@
 Type of selective integer field with dynamic addition of elements.
 """
 
+__all__ = ("ChoiceIntMultDynField",)
+
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants

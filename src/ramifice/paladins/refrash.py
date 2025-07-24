@@ -1,5 +1,7 @@
 """Update Model instance from database."""
 
+__all__ = ("RefrashMixin",)
+
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection

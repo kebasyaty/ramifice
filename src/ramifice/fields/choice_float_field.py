@@ -3,6 +3,8 @@
 Type of selective float field with static of elements.
 """
 
+__all__ = ("ChoiceFloatField",)
+
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants

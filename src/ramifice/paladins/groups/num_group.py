@@ -4,6 +4,8 @@ Supported fields:
     IntegerField | FloatField
 """
 
+__all__ = ("NumGroupMixin",)
+
 from typing import Any
 
 from ramifice.paladins.tools import (

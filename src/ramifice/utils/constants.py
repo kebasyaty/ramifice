@@ -14,6 +14,19 @@ List of variables:
 - `REGEX` - Caching a patterns of regular expression.
 """
 
+__all__ = (
+    "DEBUG",
+    "MONGO_CLIENT",
+    "MONGO_DATABASE",
+    "DATABASE_NAME",
+    "SUPER_COLLECTION_NAME",
+    "MEDIA_ROOT",
+    "MEDIA_URL",
+    "STATIC_ROOT",
+    "STATIC_URL",
+    "REGEX",
+)
+
 import re
 
 from pymongo import AsyncMongoClient

@@ -4,6 +4,8 @@ Supported fields:
     BooleanField
 """
 
+__all__ = ("BoolGroupMixin",)
+
 from typing import Any
 
 from ramifice.paladins.tools import panic_type_error

@@ -3,6 +3,8 @@
 Management for `choices` parameter in dynamic field types.
 """
 
+__all__ = ("UnitMixin",)
+
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -26,7 +28,9 @@ class UnitMixin:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[
+            constants.SUPER_COLLECTION_NAME
+        ]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls.META["collection_name"]}

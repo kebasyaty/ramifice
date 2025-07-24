@@ -1,5 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
+__all__ = ("SlugField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants

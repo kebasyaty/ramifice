@@ -1,5 +1,7 @@
 """Verification, replacement and recoverang of password."""
 
+__all__ = ("PasswordMixin",)
+
 from typing import Any
 
 from argon2 import PasswordHasher

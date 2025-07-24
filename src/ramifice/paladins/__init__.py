@@ -1,5 +1,7 @@
 """Paladins - Model instance methods."""
 
+__all__ = ("QPaladinsMixin",)
+
 from ramifice.paladins.check import CheckMixin
 from ramifice.paladins.delete import DeleteMixin
 from ramifice.paladins.password import PasswordMixin

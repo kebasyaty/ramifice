@@ -1,5 +1,7 @@
 """Field of Model for enter IP address."""
 
+__all__ = ("IPField",)
+
 import ipaddress
 
 from ramifice.fields.general.field import Field

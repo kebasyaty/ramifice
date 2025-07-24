@@ -4,6 +4,8 @@ Supported fields:
     IDField
 """
 
+__all__ = ("IDGroupMixin",)
+
 from typing import Any
 
 from bson.objectid import ObjectId

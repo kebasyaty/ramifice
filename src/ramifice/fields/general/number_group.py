@@ -1,5 +1,7 @@
 """General additional parameters for number fields."""
 
+__all__ = ("NumberGroup",)
+
 from abc import ABCMeta
 
 

@@ -1,5 +1,7 @@
 """Field of Model for enter color code."""
 
+__all__ = ("ColorField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants

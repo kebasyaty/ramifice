@@ -3,6 +3,8 @@
 Runs automatically during Model migration.
 """
 
+__all__ = ("apply_fixture",)
+
 from datetime import datetime
 from typing import Any
 

@@ -1,5 +1,7 @@
 """Field of Model for enter (int) number."""
 
+__all__ = ("IntegerField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants

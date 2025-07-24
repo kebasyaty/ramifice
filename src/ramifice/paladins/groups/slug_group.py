@@ -4,6 +4,8 @@ Supported fields:
     SlugField
 """
 
+__all__ = ("SlugGroupMixin",)
+
 from typing import Any
 
 from slugify import slugify

@@ -1,6 +1,6 @@
 """Unit - Data management in dynamic fields."""
 
-from typing import Any
+__all__ = ("Unit",)
 
 from ramifice.utils.errors import PanicError
 from ramifice.utils.mixins.json_converter import JsonMixin

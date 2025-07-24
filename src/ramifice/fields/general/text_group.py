@@ -1,5 +1,7 @@
 """General additional parameters for text fields."""
 
+__all__ = ("TextGroup",)
+
 from abc import ABCMeta
 
 

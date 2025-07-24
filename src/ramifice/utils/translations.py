@@ -23,6 +23,13 @@ sl | sq | sr | sr_latn | sv | th | tk | tr | tt | ug | uk | vi |
 zh | zh_cn
 """
 
+__all__ = (
+    "DEFAULT_LOCALE",
+    "CURRENT_LOCALE",
+    "LANGUAGES",
+    "change_locale",
+)
+
 import copy
 import gettext as _gettext
 from gettext import NullTranslations

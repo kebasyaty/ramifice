@@ -4,6 +4,8 @@ Supported fields:
     DateTimeField | DateField
 """
 
+__all__ = ("DateGroupMixin",)
+
 from datetime import datetime
 from typing import Any
 

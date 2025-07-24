@@ -1,5 +1,7 @@
 """Delete document from database."""
 
+__all__ = ("DeleteMixin",)
+
 from os import remove
 from shutil import rmtree
 from typing import Any

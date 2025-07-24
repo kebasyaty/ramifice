@@ -3,6 +3,8 @@
 Supported fields: PasswordField
 """
 
+__all__ = ("PassGroupMixin",)
+
 from typing import Any
 
 from argon2 import PasswordHasher
