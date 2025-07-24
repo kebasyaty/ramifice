@@ -1,5 +1,7 @@
 """IndexMixin - Contains abstract method for indexing the model in the database."""
 
+__all__ = ("IndexMixin",)
+
 from abc import ABCMeta
 
 

@@ -1,5 +1,7 @@
 """Field of Model for enter email address."""
 
+__all__ = ("EmailField",)
+
 from email_validator import EmailNotValidError, validate_email
 
 from ramifice.fields.general.field import Field

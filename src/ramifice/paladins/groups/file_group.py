@@ -3,6 +3,8 @@
 Supported fields: FileField
 """
 
+__all__ = ("FileGroupMixin",)
+
 from typing import Any
 
 from ramifice.paladins.tools import (

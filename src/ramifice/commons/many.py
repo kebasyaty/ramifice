@@ -1,5 +1,7 @@
 """Queries like `find many`."""
 
+__all__ = ("ManyMixin",)
+
 from typing import Any
 
 import orjson

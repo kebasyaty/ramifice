@@ -1,5 +1,7 @@
 """Field of Model for enter boolean value."""
 
+__all__ = ("BooleanField",)
+
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin

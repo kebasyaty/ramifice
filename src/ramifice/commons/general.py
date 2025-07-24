@@ -1,5 +1,7 @@
 """General purpose query methods."""
 
+__all__ = ("GeneralMixin",)
+
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection

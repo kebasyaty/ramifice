@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-07-22 13:02+0300\n"
+"POT-Creation-Date: 2025-07-24 09:15+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,123 +18,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: src/ramifice/models/model.py:23
+#: src/ramifice/models/model.py:25
 msgid "Document ID"
 msgstr ""
 
-#: src/ramifice/models/model.py:24 src/ramifice/models/model.py:25
-#: src/ramifice/models/model.py:31 src/ramifice/models/model.py:32
-#: src/ramifice/models/model.py:39 src/ramifice/models/model.py:40
+#: src/ramifice/models/model.py:26 src/ramifice/models/model.py:27
+#: src/ramifice/models/model.py:33 src/ramifice/models/model.py:34
+#: src/ramifice/models/model.py:41 src/ramifice/models/model.py:42
 msgid "It is added automatically"
 msgstr ""
 
-#: src/ramifice/models/model.py:30
+#: src/ramifice/models/model.py:32
 msgid "Created at"
 msgstr ""
 
-#: src/ramifice/models/model.py:33
+#: src/ramifice/models/model.py:35
 msgid "When the document was created."
 msgstr ""
 
-#: src/ramifice/models/model.py:38
+#: src/ramifice/models/model.py:40
 msgid "Updated at"
 msgstr ""
 
-#: src/ramifice/models/model.py:41
+#: src/ramifice/models/model.py:43
 msgid "When the document was updated."
 msgstr ""
 
-#: src/ramifice/paladins/groups/choice_group.py:35
-#: src/ramifice/paladins/groups/date_group.py:37
-#: src/ramifice/paladins/groups/file_group.py:41
-#: src/ramifice/paladins/groups/file_group.py:62
-#: src/ramifice/paladins/groups/id_group.py:33
-#: src/ramifice/paladins/groups/img_group.py:41
-#: src/ramifice/paladins/groups/img_group.py:62
-#: src/ramifice/paladins/groups/num_group.py:42
-#: src/ramifice/paladins/groups/pass_group.py:36
-#: src/ramifice/paladins/groups/text_group.py:56
+#: src/ramifice/paladins/groups/choice_group.py:37
+#: src/ramifice/paladins/groups/date_group.py:39
+#: src/ramifice/paladins/groups/file_group.py:43
+#: src/ramifice/paladins/groups/file_group.py:64
+#: src/ramifice/paladins/groups/id_group.py:35
+#: src/ramifice/paladins/groups/img_group.py:43
+#: src/ramifice/paladins/groups/img_group.py:64
+#: src/ramifice/paladins/groups/num_group.py:44
+#: src/ramifice/paladins/groups/pass_group.py:38
+#: src/ramifice/paladins/groups/text_group.py:58
 msgid "Required field !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/choice_group.py:42
+#: src/ramifice/paladins/groups/choice_group.py:44
 msgid "Your choice does not match the options offered !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/date_group.py:73
+#: src/ramifice/paladins/groups/date_group.py:75
 #, python-format
 msgid "The date %s must not be greater than max=%s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/date_group.py:107
+#: src/ramifice/paladins/groups/date_group.py:109
 #, python-format
 msgid "The date %s must not be less than min=%s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/file_group.py:68
+#: src/ramifice/paladins/groups/file_group.py:70
 #, python-format
 msgid "File size exceeds the maximum value %s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/id_group.py:40
+#: src/ramifice/paladins/groups/id_group.py:42
 msgid "Invalid document ID !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/img_group.py:68
+#: src/ramifice/paladins/groups/img_group.py:70
 #, python-format
 msgid "Image size exceeds the maximum value %s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:51
+#: src/ramifice/paladins/groups/num_group.py:53
 #, python-format
 msgid "The value %d must not be greater than max=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:58
+#: src/ramifice/paladins/groups/num_group.py:60
 #, python-format
 msgid "The value %d must not be less than min=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/num_group.py:63
-#: src/ramifice/paladins/groups/text_group.py:73
+#: src/ramifice/paladins/groups/num_group.py:65
+#: src/ramifice/paladins/groups/text_group.py:75
 msgid "Is not unique !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/pass_group.py:43
+#: src/ramifice/paladins/groups/pass_group.py:45
 msgid "Invalid Password !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/pass_group.py:46
+#: src/ramifice/paladins/groups/pass_group.py:48
 #, python-format
 msgid "Valid characters: %s"
 msgstr ""
 
-#: src/ramifice/paladins/groups/pass_group.py:48
+#: src/ramifice/paladins/groups/pass_group.py:50
 msgid "Number of characters: from 8 to 256"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:64
+#: src/ramifice/paladins/groups/text_group.py:66
 #, python-format
 msgid "The length of the string exceeds maxlength=%d !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:86
+#: src/ramifice/paladins/groups/text_group.py:88
 msgid "Invalid Email address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:89
+#: src/ramifice/paladins/groups/text_group.py:91
 msgid "Invalid URL address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:92
+#: src/ramifice/paladins/groups/text_group.py:94
 msgid "Invalid IP address !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:95
+#: src/ramifice/paladins/groups/text_group.py:97
 msgid "Invalid Color code !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/text_group.py:98
+#: src/ramifice/paladins/groups/text_group.py:100
 msgid "Invalid Phone number !"
 msgstr ""
 

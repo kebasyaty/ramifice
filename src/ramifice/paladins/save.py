@@ -1,5 +1,7 @@
 """Create or update document in database."""
 
+__all__ = ("SaveMixin",)
+
 from datetime import datetime
 from typing import Any
 

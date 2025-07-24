@@ -1,5 +1,7 @@
 """Field of Model for enter password."""
 
+__all__ = ("PasswordField",)
+
 from typing import Any
 
 import orjson

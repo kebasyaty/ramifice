@@ -1,5 +1,7 @@
 """Field of Model for enter identifier of document."""
 
+__all__ = ("IDField",)
+
 from typing import Any
 
 import orjson

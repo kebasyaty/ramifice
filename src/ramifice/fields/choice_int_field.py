@@ -3,6 +3,8 @@
 Type of selective integer field with static of elements.
 """
 
+__all__ = ("ChoiceIntField",)
+
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants

@@ -1,5 +1,7 @@
 """Indexation documents of collection."""
 
+__all__ = ("IndexMixin",)
+
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection

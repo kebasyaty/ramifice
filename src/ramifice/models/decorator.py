@@ -1,5 +1,7 @@
 """Decorator for converting Python classes into Ramifice models."""
 
+__all__ = ("model",)
+
 import re
 from os.path import exists
 from typing import Any

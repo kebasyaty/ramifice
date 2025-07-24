@@ -1,5 +1,7 @@
 """HooksMixin - Contains abstract methods for creating hooks."""
 
+__all__ = ("HooksMixin",)
+
 from abc import ABCMeta
 
 

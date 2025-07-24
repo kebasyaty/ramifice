@@ -1,5 +1,7 @@
 """General additional parameters for choice fields."""
 
+__all__ = ("ChoiceGroup",)
+
 from abc import ABCMeta
 
 

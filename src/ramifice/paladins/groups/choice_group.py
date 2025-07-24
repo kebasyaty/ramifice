@@ -7,6 +7,8 @@ Supported fields:
     | ChoiceFloatMultDynField | ChoiceFloatField | ChoiceFloatDynField
 """
 
+__all__ = ("ChoiceGroupMixin",)
+
 from typing import Any
 
 from ramifice.paladins.tools import accumulate_error

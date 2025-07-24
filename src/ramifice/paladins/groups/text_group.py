@@ -5,6 +5,8 @@ Supported fields:
     IPField | EmailField | ColorField
 """
 
+__all__ = ("TextGroupMixin",)
+
 import asyncio
 from typing import Any
 

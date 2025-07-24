@@ -1,5 +1,7 @@
 """General additional parameters for file fields."""
 
+__all__ = ("FileGroup",)
+
 from abc import ABCMeta
 
 
