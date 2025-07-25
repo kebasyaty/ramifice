@@ -4,7 +4,7 @@ __all__ = ("CheckMixin",)
 
 from os import remove
 from shutil import rmtree
-from typing import Any
+from typing import Any, assert_never
 
 from anyio import to_thread
 from bson.objectid import ObjectId
@@ -96,28 +96,30 @@ class CheckMixin(
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
             if not field_data.ignored:
-                group = field_data.group
                 params["field_data"] = field_data
-                if group == "text":
-                    await self.text_group(params)
-                elif group == "num":
-                    await self.num_group(params)
-                elif group == "date":
-                    self.date_group(params)
-                elif group == "img":
-                    await self.img_group(params)
-                elif group == "file":
-                    await self.file_group(params)
-                elif group == "choice":
-                    self.choice_group(params)
-                elif group == "bool":
-                    self.bool_group(params)
-                elif group == "id":
-                    self.id_group(params)
-                elif group == "slug":
-                    await self.slug_group(params)
-                elif group == "pass":
-                    self.pass_group(params)
+                match field_data.group:
+                    case "text":
+                        await self.text_group(params)
+                    case "num":
+                        await self.num_group(params)
+                    case "date":
+                        self.date_group(params)
+                    case "img":
+                        await self.img_group(params)
+                    case "file":
+                        await self.file_group(params)
+                    case "choice":
+                        self.choice_group(params)
+                    case "bool":
+                        self.bool_group(params)
+                    case "id":
+                        self.id_group(params)
+                    case "slug":
+                        await self.slug_group(params)
+                    case "pass":
+                        self.pass_group(params)
+                    case _ as unreachable:
+                        assert_never(unreachable)
 
         # Actions in case of error.
         if is_save:
@@ -130,36 +132,36 @@ class CheckMixin(
                 for field_name, field_data in self.__dict__.items():
                     if callable(field_data) or field_data.ignored:
                         continue
-                    group = field_data.group
-                    if group == "file":
-                        file_data = result_map.get(field_name)
-                        if file_data is not None:
-                            if file_data["is_new_file"]:
-                                await to_thread.run_sync(remove, file_data["path"])
-                            field_data.value = None
-                        if curr_doc is not None:
-                            field_data.value = curr_doc[field_name]
-                    elif group == "img":
-                        img_data = result_map.get(field_name)
-                        if img_data is not None:
-                            if img_data["is_new_img"]:
-                                await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
-                            field_data.value = None
-                        if curr_doc is not None:
-                            field_data.value = curr_doc[field_name]
+                    match field_data.group:
+                        case "file":
+                            file_data = result_map.get(field_name)
+                            if file_data is not None:
+                                if file_data["is_new_file"]:
+                                    await to_thread.run_sync(remove, file_data["path"])
+                                field_data.value = None
+                            if curr_doc is not None:
+                                field_data.value = curr_doc[field_name]
+                        case "img":
+                            img_data = result_map.get(field_name)
+                            if img_data is not None:
+                                if img_data["is_new_img"]:
+                                    await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
+                                field_data.value = None
+                            if curr_doc is not None:
+                                field_data.value = curr_doc[field_name]
             else:
                 for field_name, field_data in self.__dict__.items():
                     if callable(field_data) or field_data.ignored:
                         continue
-                    group = field_data.group
-                    if group == "file":
-                        file_data = result_map.get(field_name)
-                        if file_data is not None:
-                            file_data["is_new_file"] = False
-                    elif group == "img":
-                        img_data = result_map.get(field_name)
-                        if img_data is not None:
-                            img_data["is_new_img"] = False
+                    match field_data.group:
+                        case "file":
+                            file_data = result_map.get(field_name)
+                            if file_data is not None:
+                                file_data["is_new_file"] = False
+                        case "img":
+                            img_data = result_map.get(field_name)
+                            if img_data is not None:
+                                img_data["is_new_img"] = False
         #
         return dict(
             data=result_map,
