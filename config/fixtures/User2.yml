@@ -1,3 +1,5 @@
+# This fixture is for testing only, delete it if not needed.
+#
 - url: None
   txt: None
   txt2: None
