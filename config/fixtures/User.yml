@@ -1,3 +1,5 @@
+# This fixture is for testing only, delete it if not needed.
+#
 url: "https://translate.google.com/"
 txt: "Some text"
 txt2: "Some text"
