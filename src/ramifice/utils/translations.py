@@ -5,12 +5,11 @@ The module contains the following variables:
 - `CURRENT_LOCALE` - Code of current language.
 - `DEFAULT_LOCALE` - Language code by default.
 - `LANGUAGES` - List of codes supported by languages.
-- `translations` - List of translations
-- `gettext` - The object of the current translation.
+- `gettext` - The object of the current translator.
+- `ngettext` - The object of the current translator.
 
 The module contains the following functions:
 
-- `get_translator` - Get an object of translation for the desired language.
 - `change_locale` - To change the current language and translation object.
 
 CKEditor supported languages:
@@ -28,6 +27,8 @@ __all__ = (
     "CURRENT_LOCALE",
     "LANGUAGES",
     "change_locale",
+    "gettext",
+    "ngettext",
 )
 
 import copy
