@@ -1,4 +1,4 @@
-"""Groups - Model instance methods for specific processing of fields."""
+"""Ramifice - Groups - Model instance methods for specific processing of fields."""
 
 from ramifice.paladins.groups.bool_group import BoolGroupMixin
 from ramifice.paladins.groups.choice_group import ChoiceGroupMixin

@@ -1,4 +1,4 @@
-"""Field of Model for enter IP address."""
+"""Ramifice - Field of Model for enter IP address."""
 
 __all__ = ("IPField",)
 
@@ -11,7 +11,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class IPField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter IP address."""
+    """Ramifice - Field of Model for enter IP address."""
 
     def __init__(  # noqa: D107
         self,

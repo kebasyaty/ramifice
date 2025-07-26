@@ -1,4 +1,4 @@
-"""Field of Model for upload image."""
+"""Ramifice - Field of Model for upload image."""
 
 __all__ = ("ImageField",)
 
@@ -20,7 +20,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ImageField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload image."""
+    """Ramifice - Field of Model for upload image."""
 
     def __init__(  # noqa: D107
         self,
@@ -132,7 +132,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a image,
+        """Ramifice - Convert base64 to a image,
         get image information and save in the target directory.
         """  # noqa: D205
         base64_str = base64_str or None
@@ -199,7 +199,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         src_path: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Get image information and copy the image to the target directory."""
+        """Ramifice - Get image information and copy the image to the target directory."""
         src_path = src_path or None
         img_info: dict[str, str | int | bool] = {"save_as_is": False}
         img_info["is_new_img"] = True

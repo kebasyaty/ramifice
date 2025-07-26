@@ -1,4 +1,4 @@
-"""Available field types."""
+"""Ramifice - Available field types."""
 
 from ramifice.fields.bool_field import BooleanField
 from ramifice.fields.choice_float_dyn_field import ChoiceFloatDynField

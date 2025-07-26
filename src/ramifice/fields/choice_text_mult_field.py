@@ -1,4 +1,4 @@
-"""Field of Model.
+"""Ramifice - Field of Model.
 
 Type of selective text field with static of elements.
 """
@@ -12,7 +12,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
-    """Field of Model.
+    """Ramifice - Field of Model.
 
     Type of selective text field with static of elements.
     With multiple choice.
@@ -94,7 +94,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
                 raise AssertionError("Parameter `readonly` - Not а `bool` type!")
 
     def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
+        """Ramifice - Does the field value match the possible options in choices."""
         value = self.value
         if value is None:
             value = self.default

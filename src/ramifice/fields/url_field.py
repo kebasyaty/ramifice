@@ -1,4 +1,4 @@
-"""Field of Model for enter URL address."""
+"""Ramifice - Field of Model for enter URL address."""
 
 __all__ = ("URLField",)
 
@@ -11,7 +11,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class URLField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter URL address.
+    """Ramifice - Field of Model for enter URL address.
 
     Attributes:
         label -- Text label for a web form field.

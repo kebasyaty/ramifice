@@ -1,4 +1,4 @@
-"""Create or update document in database."""
+"""Ramifice - Create or update document in database."""
 
 __all__ = ("SaveMixin",)
 
@@ -13,10 +13,10 @@ from ramifice.utils.errors import PanicError
 
 
 class SaveMixin:
-    """Create or update document in database."""
+    """Ramifice - Create or update document in database."""
 
     async def save(self) -> bool:
-        """Create or update document in database.
+        """Ramifice - Create or update document in database.
 
         This method pre-uses the `check` method.
         """

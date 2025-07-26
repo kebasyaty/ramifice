@@ -1,4 +1,4 @@
-"""Commons - Model class methods."""
+"""Ramifice - Commons - Model class methods."""
 
 __all__ = ("QCommonsMixin",)
 
@@ -16,7 +16,7 @@ class QCommonsMixin(
     IndexMixin,
     UnitMixin,
 ):
-    """Commons - Model class methods."""
+    """Ramifice - Commons - Model class methods."""
 
     def __init__(self) -> None:  # noqa: D107
         super().__init__()

@@ -1,4 +1,4 @@
-"""Field of Model for enter boolean value."""
+"""Ramifice - Field of Model for enter boolean value."""
 
 __all__ = ("BooleanField",)
 
@@ -8,7 +8,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class BooleanField(Field, JsonMixin):
-    """Field of Model for enter boolean value."""
+    """Ramifice - Field of Model for enter boolean value."""
 
     def __init__(  # noqa: D107
         self,

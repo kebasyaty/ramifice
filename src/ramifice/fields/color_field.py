@@ -1,4 +1,4 @@
-"""Field of Model for enter color code."""
+"""Ramifice - Field of Model for enter color code."""
 
 __all__ = ("ColorField",)
 
@@ -9,7 +9,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ColorField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter color code.
+    """Ramifice - Field of Model for enter color code.
 
     Default value is #000000 (black).
 

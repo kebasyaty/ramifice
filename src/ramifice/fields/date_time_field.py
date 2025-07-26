@@ -1,4 +1,4 @@
-"""Field of Model for enter date and time."""
+"""Ramifice - Field of Model for enter date and time."""
 
 __all__ = ("DateTimeField",)
 
@@ -15,7 +15,7 @@ from ramifice.utils import constants, translations
 
 
 class DateTimeField(Field, DateGroup):
-    """Field of Model for enter date and time."""
+    """Ramifice - Field of Model for enter date and time."""
 
     def __init__(  # noqa: D107
         self,
@@ -94,7 +94,7 @@ class DateTimeField(Field, DateGroup):
         self.default = default
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
+        """Ramifice - Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
         for name, value in self.__dict__.items():
@@ -110,12 +110,12 @@ class DateTimeField(Field, DateGroup):
         return json_dict
 
     def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
+        """Ramifice - Convert object instance to a JSON string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         obj = cls()
         for name, value in json_dict.items():
             if name == "value" and value is not None:
@@ -126,6 +126,6 @@ class DateTimeField(Field, DateGroup):
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

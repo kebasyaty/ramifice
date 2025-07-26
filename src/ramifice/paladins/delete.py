@@ -1,4 +1,4 @@
-"""Delete document from database."""
+"""Ramifice - Delete document from database."""
 
 __all__ = ("DeleteMixin",)
 
@@ -14,7 +14,7 @@ from ramifice.utils.errors import PanicError
 
 
 class DeleteMixin:
-    """Delete document from database."""
+    """Ramifice - Delete document from database."""
 
     async def delete(
         self,
@@ -27,7 +27,7 @@ class DeleteMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
-        """Delete document from database."""
+        """Ramifice - Delete document from database."""
         cls_model = self.__class__
         # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:

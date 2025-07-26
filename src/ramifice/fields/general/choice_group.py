@@ -1,4 +1,4 @@
-"""General additional parameters for choice fields."""
+"""Ramifice - General additional parameters for choice fields."""
 
 __all__ = ("ChoiceGroup",)
 
@@ -6,7 +6,7 @@ from abc import ABCMeta
 
 
 class ChoiceGroup(metaclass=ABCMeta):
-    """General additional parameters for choice fields.
+    """Ramifice - General additional parameters for choice fields.
 
     Attributes:
         input_type -- Input type for a web form field.

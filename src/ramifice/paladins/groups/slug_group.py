@@ -1,4 +1,4 @@
-"""Group for checking slug fields.
+"""Ramifice - Group for checking slug fields.
 
 Supported fields:
     SlugField
@@ -15,14 +15,14 @@ from ramifice.utils.errors import PanicError
 
 
 class SlugGroupMixin:
-    """Group for checking slug fields.
+    """Ramifice - Group for checking slug fields.
 
     Supported fields:
         SlugField
     """
 
     async def slug_group(self, params: dict[str, Any]) -> None:
-        """Checking slug fields."""
+        """Ramifice - Checking slug fields."""
         if not params["is_save"]:
             return
         #

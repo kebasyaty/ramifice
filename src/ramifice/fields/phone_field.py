@@ -1,4 +1,4 @@
-"""Field of Model for enter phone number."""
+"""Ramifice - Field of Model for enter phone number."""
 
 __all__ = ("PhoneField",)
 
@@ -11,7 +11,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class PhoneField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter phone number.
+    """Ramifice - Field of Model for enter phone number.
 
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """

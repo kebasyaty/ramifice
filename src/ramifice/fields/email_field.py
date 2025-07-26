@@ -1,4 +1,4 @@
-"""Field of Model for enter email address."""
+"""Ramifice - Field of Model for enter email address."""
 
 __all__ = ("EmailField",)
 
@@ -11,7 +11,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class EmailField(Field, TextGroup, JsonMixin):
-    """Field of Model for enter email address."""
+    """Ramifice - Field of Model for enter email address."""
 
     def __init__(  # noqa: D107
         self,

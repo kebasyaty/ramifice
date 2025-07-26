@@ -1,4 +1,4 @@
-"""Units Management.
+"""Ramifice - Units Management.
 
 Management for `choices` parameter in dynamic field types.
 """
@@ -15,14 +15,14 @@ from ramifice.utils.unit import Unit
 
 
 class UnitMixin:
-    """Units Management.
+    """Ramifice - Units Management.
 
     Management for `choices` parameter in dynamic field types.
     """
 
     @classmethod
     async def unit_manager(cls: Any, unit: Unit) -> None:
-        """Units Management.
+        """Ramifice - Units Management.
 
         Management for `choices` parameter in dynamic field types.
         """

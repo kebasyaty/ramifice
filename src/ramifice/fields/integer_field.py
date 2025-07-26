@@ -1,4 +1,4 @@
-"""Field of Model for enter (int) number."""
+"""Ramifice - Field of Model for enter (int) number."""
 
 __all__ = ("IntegerField",)
 
@@ -9,7 +9,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class IntegerField(Field, NumberGroup, JsonMixin):
-    """Field of Model for enter (int) number."""
+    """Ramifice - Field of Model for enter (int) number."""
 
     def __init__(  # noqa: D107
         self,

@@ -1,4 +1,4 @@
-"""Field of Model for automatic generation of string `slug`."""
+"""Ramifice - Field of Model for automatic generation of string `slug`."""
 
 __all__ = ("SlugField",)
 
@@ -9,7 +9,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class SlugField(Field, TextGroup, JsonMixin):
-    """Field of Model for automatic generation of string `slug`.
+    """Ramifice - Field of Model for automatic generation of string `slug`.
 
     Convenient to use for Url addresses.
     """

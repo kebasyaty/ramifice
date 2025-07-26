@@ -1,4 +1,4 @@
-"""Update Model instance from database."""
+"""Ramifice - Update Model instance from database."""
 
 __all__ = ("RefrashMixin",)
 
@@ -12,10 +12,10 @@ from ramifice.utils.errors import PanicError
 
 
 class RefrashMixin:
-    """Update Model instance from database."""
+    """Ramifice - Update Model instance from database."""
 
     async def refrash_from_db(self) -> None:
-        """Update Model instance from database."""
+        """Ramifice - Update Model instance from database."""
         cls_model = self.__class__
         # Get collection.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]

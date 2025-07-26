@@ -1,4 +1,4 @@
-"""Verification, replacement and recoverang of password."""
+"""Ramifice - Verification, replacement and recoverang of password."""
 
 __all__ = ("PasswordMixin",)
 
@@ -12,14 +12,14 @@ from ramifice.utils.errors import OldPassNotMatchError, PanicError
 
 
 class PasswordMixin:
-    """Verification, replacement and recoverang of password."""
+    """Ramifice - Verification, replacement and recoverang of password."""
 
     async def verify_password(
         self,
         password: str,
         field_name: str = "password",
     ) -> bool:
-        """For password verification."""
+        """Ramifice - For password verification."""
         cls_model = self.__class__
         # Get documet ID.
         doc_id = self._id.value
@@ -70,7 +70,7 @@ class PasswordMixin:
         new_password: str,
         field_name: str = "password",
     ) -> None:
-        """For replace or recover password."""
+        """Ramifice - For replace or recover password."""
         cls_model = self.__class__
         if not await self.verify_password(old_password, field_name):
             raise OldPassNotMatchError()

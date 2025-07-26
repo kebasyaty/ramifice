@@ -1,4 +1,4 @@
-"""Field of Model for enter (float) number."""
+"""Ramifice - Field of Model for enter (float) number."""
 
 __all__ = ("FloatField",)
 
@@ -9,7 +9,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class FloatField(Field, NumberGroup, JsonMixin):
-    """Field of Model for enter (float) number."""
+    """Ramifice - Field of Model for enter (float) number."""
 
     def __init__(  # noqa: D107
         self,

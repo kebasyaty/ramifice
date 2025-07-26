@@ -1,4 +1,4 @@
-"""Field of Model.
+"""Ramifice - Field of Model.
 
 Type of selective integer field with dynamic addition of elements.
 """
@@ -12,7 +12,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class ChoiceIntMultDynField(Field, ChoiceGroup, JsonMixin):
-    """Field of Model.
+    """Ramifice - Field of Model.
 
     Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -72,7 +72,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup, JsonMixin):
         self.choices: list[list[int | str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
+        """Ramifice - Does the field value match the possible options in choices."""
         if is_migrate:
             return True
         value = self.value

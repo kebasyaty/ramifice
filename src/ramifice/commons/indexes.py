@@ -1,4 +1,4 @@
-"""Indexation documents of collection."""
+"""Ramifice - Indexation documents of collection."""
 
 __all__ = ("IndexMixin",)
 
@@ -10,7 +10,7 @@ from ramifice.utils import constants
 
 
 class IndexMixin:
-    """Indexation documents of collection."""
+    """Ramifice - Indexation documents of collection."""
 
     @classmethod
     async def create_index(  # type: ignore[no-untyped-def]
@@ -20,7 +20,7 @@ class IndexMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> str:
-        """Creates an index on this collection."""
+        """Ramifice - Creates an index on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Create index.
@@ -40,7 +40,7 @@ class IndexMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> None:
-        """Drops the specified index on this collection."""
+        """Ramifice - Drops the specified index on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Delete index.
@@ -59,7 +59,7 @@ class IndexMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> list[str]:
-        """Create one or more indexes on this collection."""
+        """Ramifice - Create one or more indexes on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Create indexes.
@@ -78,7 +78,7 @@ class IndexMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> None:
-        """Drops all indexes on this collection."""
+        """Ramifice - Drops all indexes on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Delete indexes.
@@ -90,7 +90,7 @@ class IndexMixin:
         session: Any | None = None,
         comment: Any | None = None,
     ) -> Any:
-        """Get information on this collection’s indexes."""
+        """Ramifice - Get information on this collection’s indexes."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Get information.
@@ -103,7 +103,7 @@ class IndexMixin:
         session: Any | None = None,
         comment: Any | None = None,
     ) -> Any:
-        """Get a cursor over the index documents for this collection."""
+        """Ramifice - Get a cursor over the index documents for this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Get cursor.

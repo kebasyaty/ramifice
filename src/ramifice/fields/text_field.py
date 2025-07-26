@@ -1,4 +1,4 @@
-"""Field of Model for enter text."""
+"""Ramifice - Field of Model for enter text."""
 
 __all__ = ("TextField",)
 
@@ -8,7 +8,7 @@ from ramifice.utils.mixins.json_converter import JsonMixin
 
 
 class TextField(Field, JsonMixin):
-    """Field of Model for enter text."""
+    """Ramifice - Field of Model for enter text."""
 
     def __init__(  # noqa: D107
         self,
@@ -88,7 +88,7 @@ class TextField(Field, JsonMixin):
         self.multi_language = multi_language
 
     def __len__(self) -> int:
-        """Return length of field `value`."""
+        """Ramifice - Return length of field `value`."""
         value = self.value
         if isinstance(value, str):
             return len(value)

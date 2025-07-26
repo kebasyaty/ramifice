@@ -1,4 +1,4 @@
-"""Validation of Model data before saving to the database."""
+"""Ramifice - Validation of Model data before saving to the database."""
 
 __all__ = ("CheckMixin",)
 
@@ -37,7 +37,7 @@ class CheckMixin(
     SlugGroupMixin,
     TextGroupMixin,
 ):
-    """Validation of Model data before saving to the database."""
+    """Ramifice - Validation of Model data before saving to the database."""
 
     async def check(
         self,
@@ -45,7 +45,7 @@ class CheckMixin(
         collection: AsyncCollection | None = None,
         is_migration_process: bool = False,
     ) -> dict[str, Any]:
-        """Validation of Model data before saving to the database.
+        """Ramifice - Validation of Model data before saving to the database.
 
         It is also used to verify Models that do not migrate to the database.
         """

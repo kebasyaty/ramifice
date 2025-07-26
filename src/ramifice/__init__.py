@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""ORM-like API MongoDB for Python language."""
+"""Ramifice - ORM-like API MongoDB for Python language."""
 
 from ramifice.models.decorator import model
 from ramifice.utils import translations

@@ -1,4 +1,4 @@
-"""Decorator for converting Python classes into Ramifice models."""
+"""Ramifice - Decorator for converting Python classes into Ramifice models."""
 
 __all__ = ("model",)
 
@@ -25,7 +25,7 @@ def model(
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
 ) -> Any:
-    """Decorator for converting Python Classe into Ramifice Model."""
+    """Ramifice - Decorator for converting Python Classe into Ramifice Model."""
     if not isinstance(service_name, str):
         raise AssertionError("Parameter `service_name` - Must be `str` type!")
     if not isinstance(fixture_name, (str, type(None))):
@@ -85,7 +85,7 @@ def model(
 
 
 def caching(cls: Any, service_name: str) -> dict[str, Any]:
-    """Add additional metadata to `Model.META`."""
+    """Ramifice - Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name: str = cls.__name__
     if REGEX["model_name"].match(model_name) is None:
