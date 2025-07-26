@@ -19,6 +19,13 @@ class User:
 class TestTranslations(unittest.TestCase):
     """Testing the module  `ramifice > translations`."""
 
+    def test_add_languages(self):
+        """Testing `add_languages`."""
+        translations.add_languages(
+            default_locale="en",
+            languages=frozenset(("en", "ru")),
+        )
+
     def test_change_locale(self):
         """Testing `change_locale` method."""
         self.assertEqual(translations._("Document ID"), "Document ID")
