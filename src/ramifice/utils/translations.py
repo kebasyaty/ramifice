@@ -26,9 +26,11 @@ __all__ = (
     "DEFAULT_LOCALE",
     "CURRENT_LOCALE",
     "LANGUAGES",
-    "change_locale",
+    "add_languages",
+    "_",
     "gettext",
     "ngettext",
+    "change_locale",
 )
 
 import copy
@@ -48,10 +50,20 @@ CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 # List of supported languages.
 LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
 
-if not DEFAULT_LOCALE in LANGUAGES:
-    msg = "ERROR: DEFAULT_LOCALE is not included in the LANGUAGES!"
-    logger.error(msg)
-    raise PanicError(msg)
+
+def add_languages(
+    default_locale: str,
+    languages: frozenset[str],
+) -> None:
+    """Ramifice - Add languages."""
+    global DEFAULT_LOCALE, LANGUAGES
+    if not default_locale in languages:
+        msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
+        logger.error(msg)
+        raise PanicError(msg)
+    DEFAULT_LOCALE = default_locale
+    LANGUAGES = languages
+
 
 # Add translations for Ramifice.
 ramifice_translations: dict[str, NullTranslations] = {
