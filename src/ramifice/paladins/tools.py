@@ -8,9 +8,12 @@ __all__ = (
     "check_uniqueness",
 )
 
+import logging
 from typing import Any
 
 from ramifice.utils import errors, translations
+
+logger = logging.getLogger(__name__)
 
 
 def ignored_fields_to_none(inst_model: Any) -> None:
@@ -41,6 +44,7 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
         + f"Field: `{params['field_data'].name}` > "
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
+    logger.error(msg)
     raise errors.PanicError(msg)
 
 
@@ -56,6 +60,7 @@ def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
             + f"Field: `{params['field_data'].name}`"
             + f" => {err_msg}"
         )
+        logger.error(msg)
         raise errors.PanicError(msg)
 
 

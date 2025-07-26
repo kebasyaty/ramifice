@@ -2,6 +2,7 @@
 
 __all__ = ("CheckMixin",)
 
+import logging
 from os import remove
 from shutil import rmtree
 from typing import Any, assert_never
@@ -23,6 +24,8 @@ from ramifice.paladins.groups import (
     TextGroupMixin,
 )
 from ramifice.utils import constants
+
+logger = logging.getLogger(__name__)
 
 
 class CheckMixin(
@@ -119,6 +122,8 @@ class CheckMixin(
                     case "pass":
                         self.pass_group(params)
                     case _ as unreachable:
+                        msg: str = f"Unacceptable group `{unreachable}`!"
+                        logger.error(msg)
                         assert_never(unreachable)
 
         # Actions in case of error.

@@ -2,6 +2,7 @@
 
 __all__ = ("OneMixin",)
 
+import logging
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -14,6 +15,8 @@ from ramifice.commons.tools import (
 )
 from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
+
+logger = logging.getLogger(__name__)
 
 
 class OneMixin:
@@ -129,6 +132,7 @@ class OneMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
@@ -166,6 +170,7 @@ class OneMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]

@@ -33,10 +33,13 @@ __all__ = (
 
 import copy
 import gettext as _gettext
+import logging
 from gettext import NullTranslations
 from typing import Any
 
 from ramifice.utils.errors import PanicError
+
+logger = logging.getLogger(__name__)
 
 # Language by default.
 DEFAULT_LOCALE: str = "en"
@@ -47,6 +50,7 @@ LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
 
 if not DEFAULT_LOCALE in LANGUAGES:
     msg = "ERROR: DEFAULT_LOCALE is not included in the LANGUAGES!"
+    logger.error(msg)
     raise PanicError(msg)
 
 # Add translations for Ramifice.

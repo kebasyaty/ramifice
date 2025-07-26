@@ -6,6 +6,7 @@ your database schema.
 
 __all__ = ("Migration",)
 
+import logging
 from datetime import datetime
 from typing import Any
 
@@ -18,6 +19,8 @@ from ramifice.utils import constants
 from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from ramifice.utils.fixtures import apply_fixture
 
+logger = logging.getLogger(__name__)
+
 
 class Migration:
     """Ramifice - Migration of models to database."""
@@ -27,7 +30,10 @@ class Migration:
         #
         db_name_regex = constants.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
-            raise DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
+            regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
+            msg: str = f"Does not match the regular expression: {regex_str}"
+            logger.error(msg)
+            raise DoesNotMatchRegexError(regex_str)
         #
         constants.DATABASE_NAME = database_name
         constants.MONGO_CLIENT = mongo_client
@@ -36,6 +42,7 @@ class Migration:
         self.model_list: list[Any] = Model.__subclasses__()
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
+            logger.error("No Models for Migration!")
             raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]
 
     async def reset(self) -> None:
@@ -167,7 +174,9 @@ class Migration:
                     if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
-                        raise PanicError("Migration failed.")
+                        msg: str = "Migration failed."
+                        logger.error(msg)
+                        raise PanicError(msg)
                     # Get checked data.
                     checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.

@@ -2,6 +2,7 @@
 
 __all__ = ("SaveMixin",)
 
+import logging
 from datetime import datetime
 from typing import Any
 
@@ -10,6 +11,8 @@ from pymongo.asynchronous.collection import AsyncCollection
 from ramifice.paladins.tools import ignored_fields_to_none, refresh_from_mongo_doc
 from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
+
+logger = logging.getLogger(__name__)
 
 
 class SaveMixin:
@@ -60,6 +63,7 @@ class SaveMixin:
                     + "Method: `save` => "
                     + "Geted value is None - it is impossible to refresh the current Model."
                 )
+                logger.error(msg)
                 raise PanicError(msg)
             refresh_from_mongo_doc(self, mongo_doc)
         else:
@@ -81,6 +85,7 @@ class SaveMixin:
                     + "Method: `save` => "
                     + "Geted value is None - it is impossible to refresh the current Model."
                 )
+                logger.error(msg)
                 raise PanicError(msg)
             if mongo_doc is not None:
                 refresh_from_mongo_doc(self, mongo_doc)
@@ -90,6 +95,7 @@ class SaveMixin:
                     + "Method: `save` => "
                     + "The document was not created."
                 )
+                logger.error(msg)
                 raise PanicError(msg)
         #
         # If everything is completed successfully.

@@ -2,8 +2,12 @@
 
 __all__ = ("Unit",)
 
+import logging
+
 from ramifice.utils.errors import PanicError
 from ramifice.utils.mixins.json_converter import JsonMixin
+
+logger = logging.getLogger(__name__)
 
 
 class Unit(JsonMixin):
@@ -71,4 +75,5 @@ class Unit(JsonMixin):
                 + f"Field: `{field_name}` => "
                 + "Must not be empty!"
             )
+            logger.error(msg)
             raise PanicError(msg)

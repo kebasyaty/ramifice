@@ -2,6 +2,7 @@
 
 __all__ = ("PasswordMixin",)
 
+import logging
 from typing import Any
 
 from argon2 import PasswordHasher
@@ -9,6 +10,8 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.utils import constants
 from ramifice.utils.errors import OldPassNotMatchError, PanicError
+
+logger = logging.getLogger(__name__)
 
 
 class PasswordMixin:
@@ -29,6 +32,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + "Cannot get document ID - ID field is empty."
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current Model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
@@ -40,6 +44,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + f"There is no document with ID `{self._id.value}` in the database."
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get password hash.
         hash: str | None = mongo_doc.get(field_name)
@@ -49,6 +54,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + f"The model does not have a field `{field_name}`."
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Password verification.
         is_valid: bool = False
@@ -73,6 +79,7 @@ class PasswordMixin:
         """Ramifice - For replace or recover password."""
         cls_model = self.__class__
         if not await self.verify_password(old_password, field_name):
+            logger.warning("Old password does not match!")
             raise OldPassNotMatchError()
         # Get documet ID.
         doc_id = self._id.value

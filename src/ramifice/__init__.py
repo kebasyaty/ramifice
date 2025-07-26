@@ -14,7 +14,15 @@
 
 """Ramifice - ORM-like API MongoDB for Python language."""
 
+import logging
+
 from ramifice.models.decorator import model
 from ramifice.utils import translations
 from ramifice.utils.migration import Migration
 from ramifice.utils.unit import Unit
+
+logging.basicConfig(
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+    format="[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s",
+)

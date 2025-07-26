@@ -2,6 +2,7 @@
 
 __all__ = ("RefrashMixin",)
 
+import logging
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -9,6 +10,8 @@ from pymongo.asynchronous.collection import AsyncCollection
 from ramifice.paladins.tools import refresh_from_mongo_doc
 from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
+
+logger = logging.getLogger(__name__)
 
 
 class RefrashMixin:
@@ -26,6 +29,7 @@ class RefrashMixin:
                 + "Method: `refrash_from_db` => "
                 + f"A document with an identifier `{self._id.value}` is not exists in the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         self.inject()
         refresh_from_mongo_doc(self, mongo_doc)
