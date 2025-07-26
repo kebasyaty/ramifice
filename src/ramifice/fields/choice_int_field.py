@@ -5,10 +5,14 @@ Type of selective integer field with static of elements.
 
 __all__ = ("ChoiceIntField",)
 
+import logging
+
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
+
+logger = logging.getLogger(__name__)
 
 
 class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
@@ -54,38 +58,42 @@ class ChoiceIntField(Field, ChoiceGroup, JsonMixin):
         self.choices = choices
 
         if constants.DEBUG:
-            if choices is not None:
-                if not isinstance(choices, list):
-                    raise AssertionError("Parameter `choices` - Not а `list` type!")
-                if len(choices) == 0:
+            try:
+                if choices is not None:
+                    if not isinstance(choices, list):
+                        raise AssertionError("Parameter `choices` - Not а `list` type!")
+                    if len(choices) == 0:
+                        raise AssertionError(
+                            "The `choices` parameter should not contain an empty list!"
+                        )
+                if default is not None and not isinstance(default, int):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if default is not None and choices is not None and not self.has_value():
                     raise AssertionError(
-                        "The `choices` parameter should not contain an empty list!"
+                        "Parameter `default` does not coincide with "
+                        + "list of permissive values in `choicees`."
                     )
-            if default is not None and not isinstance(default, int):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if default is not None and choices is not None and not self.has_value():
-                raise AssertionError(
-                    "Parameter `default` does not coincide with "
-                    + "list of permissive values in `choicees`."
-                )
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(readonly, bool):
-                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(readonly, bool):
+                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Ramifice - Does the field value match the possible options in choices."""

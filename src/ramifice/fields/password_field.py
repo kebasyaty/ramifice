@@ -2,12 +2,15 @@
 
 __all__ = ("PasswordField",)
 
+import logging
 from typing import Any
 
 import orjson
 
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
+
+logger = logging.getLogger(__name__)
 
 
 class PasswordField(Field):
@@ -30,22 +33,26 @@ class PasswordField(Field):
         required: bool = False,
     ):
         if constants.DEBUG:
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(placeholder, str):
-                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            try:
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(placeholder, str):
+                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,
