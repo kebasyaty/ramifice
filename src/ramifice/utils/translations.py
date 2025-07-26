@@ -49,7 +49,7 @@ CURRENT_LOCALE: str = copy.deepcopy(DEFAULT_LOCALE)
 LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
 
 if not DEFAULT_LOCALE in LANGUAGES:
-    msg = "ERROR: DEFAULT_LOCALE is not included in the LANGUAGES!"
+    msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
     logger.error(msg)
     raise PanicError(msg)
 
