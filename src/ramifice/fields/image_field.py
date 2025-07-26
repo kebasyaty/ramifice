@@ -152,7 +152,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(f"The image `{filename}` has no extension.")
+                msg = f"The image `{filename}` has no extension."
+                logger.error(msg)
+                raise FileHasNoExtensionError(msg)
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -217,6 +219,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The image `{src_path}` has no extension."
+                logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
             date_str: str = str(date.today())

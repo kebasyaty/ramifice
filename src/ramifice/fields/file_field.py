@@ -121,7 +121,9 @@ class FileField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(f"The file `{filename}` has no extension.")
+                msg = f"The file `{filename}` has no extension."
+                logger.error(msg)
+                raise FileHasNoExtensionError(msg)
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -173,6 +175,7 @@ class FileField(Field, FileGroup, JsonMixin):
             extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The file `{src_path}` has no extension."
+                logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
