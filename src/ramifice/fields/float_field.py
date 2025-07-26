@@ -2,6 +2,8 @@
 
 __all__ = ("FloatField",)
 
+from typing import Literal
+
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants
@@ -27,7 +29,7 @@ class FloatField(Field, NumberGroup, JsonMixin):
         max_number: float | None = None,
         min_number: float | None = None,
         step: float = 1.0,
-        input_type: str = "number",  # number | range
+        input_type: Literal["number", "range"] = "number",
     ):
         if constants.DEBUG:
             if input_type not in ["number", "range"]:
