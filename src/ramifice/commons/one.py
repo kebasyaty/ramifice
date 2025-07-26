@@ -1,7 +1,8 @@
-"""Requests like `find one`."""
+"""Ramifice - Requests like `find one`."""
 
 __all__ = ("OneMixin",)
 
+import logging
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -15,9 +16,11 @@ from ramifice.commons.tools import (
 from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
 
+logger = logging.getLogger(__name__)
+
 
 class OneMixin:
-    """Requests like `find one`."""
+    """Ramifice - Requests like `find one`."""
 
     @classmethod
     async def find_one(
@@ -26,7 +29,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document."""
+        """Ramifice - Find a single document."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -48,7 +51,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and converting to raw document."""
+        """Ramifice - Find a single document and converting to raw document."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -75,7 +78,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> Any | None:
-        """Find a single document and convert it to a Model instance."""
+        """Ramifice - Find a single document and convert it to a Model instance."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -96,7 +99,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> str | None:
-        """Find a single document and convert it to a JSON string."""
+        """Ramifice - Find a single document and convert it to a JSON string."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -121,7 +124,7 @@ class OneMixin:
         let: Any | None = None,
         comment: Any | None = None,
     ) -> DeleteResult:
-        """Find a single document and delete it."""
+        """Ramifice - Find a single document and delete it."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -129,6 +132,7 @@ class OneMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
@@ -158,7 +162,7 @@ class OneMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and delete it, return original."""
+        """Ramifice - Find a single document and delete it, return original."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -166,6 +170,7 @@ class OneMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]

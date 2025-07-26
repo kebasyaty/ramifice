@@ -1,7 +1,8 @@
-"""Queries like `find many`."""
+"""Ramifice - Queries like `find many`."""
 
 __all__ = ("ManyMixin",)
 
+import logging
 from typing import Any
 
 import orjson
@@ -17,9 +18,11 @@ from ramifice.commons.tools import (
 from ramifice.utils import constants, translations
 from ramifice.utils.errors import PanicError
 
+logger = logging.getLogger(__name__)
+
 
 class ManyMixin:
-    """Queries like `find many`."""
+    """Ramifice - Queries like `find many`."""
 
     @classmethod
     async def find_many(
@@ -46,7 +49,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
-        """Find documents."""
+        """Ramifice - Find documents."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -107,7 +110,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
-        """Find documents and convert to a raw documents.
+        """Ramifice - Find documents and convert to a raw documents.
 
         Special changes:
             _id to str
@@ -184,7 +187,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> str | None:
-        """Find documents and convert to a json string."""
+        """Ramifice - Find documents and convert to a json string."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -239,7 +242,7 @@ class ManyMixin:
         let: Any | None = None,
         comment: Any | None = None,
     ) -> DeleteResult:
-        """Find documents matching with Model."""
+        """Ramifice - Find documents matching with Model."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -247,6 +250,7 @@ class ManyMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]

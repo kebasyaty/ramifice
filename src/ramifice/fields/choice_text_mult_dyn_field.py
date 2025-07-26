@@ -1,18 +1,22 @@
-"""Field of Model.
+"""Ramifice - Field of Model.
 
 Type of selective text field with dynamic addition of elements.
 """
 
 __all__ = ("ChoiceTextMultDynField",)
 
+import logging
+
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
+logger = logging.getLogger(__name__)
+
 
 class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
-    """Field of Model.
+    """Ramifice - Field of Model.
 
     Type of selective text field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -30,24 +34,28 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
     ):
         if constants.DEBUG:
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(readonly, bool):
-                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            try:
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(readonly, bool):
+                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,
@@ -72,7 +80,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         self.choices: list[list[str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
+        """Ramifice - Does the field value match the possible options in choices."""
         if is_migrate:
             return True
         value = self.value

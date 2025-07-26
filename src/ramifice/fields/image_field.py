@@ -1,7 +1,8 @@
-"""Field of Model for upload image."""
+"""Ramifice - Field of Model for upload image."""
 
 __all__ = ("ImageField",)
 
+import logging
 import uuid
 from base64 import b64decode
 from datetime import date
@@ -18,9 +19,11 @@ from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins.json_converter import JsonMixin
 
+logger = logging.getLogger(__name__)
+
 
 class ImageField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload image."""
+    """Ramifice - Field of Model for upload image."""
 
     def __init__(  # noqa: D107
         self,
@@ -42,62 +45,66 @@ class ImageField(Field, FileGroup, JsonMixin):
         thumbnails: dict[str, int] | None = None,
     ):
         if constants.DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-            if thumbnails is not None:
-                if not isinstance(thumbnails, dict):
-                    raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
-                if len(thumbnails) == 0:
-                    raise AssertionError(
-                        "The `thumbnails` parameter should not contain an empty dictionary!"
-                    )
-                size_name_list = ["lg", "md", "sm", "xs"]
-                curr_size_thumb: int = 0
-                for size_name in thumbnails.keys():
-                    if size_name not in size_name_list:
+            try:
+                if default is not None:
+                    if not isinstance(default, str):
+                        raise AssertionError("Parameter `default` - Not а `str` type!")
+                    if len(default) == 0:
                         raise AssertionError(
-                            f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!\n"
-                            + " Allowed names: lg, md, sm, xs.\n"
-                            + " Use all sizes is not necessary.",
+                            "The `default` parameter should not contain an empty string!"
                         )
-                    max_size_thumb: int | None = thumbnails.get(size_name)
-                    if max_size_thumb is not None:
-                        if curr_size_thumb > 0 and max_size_thumb >= curr_size_thumb:
+                if thumbnails is not None:
+                    if not isinstance(thumbnails, dict):
+                        raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
+                    if len(thumbnails) == 0:
+                        raise AssertionError(
+                            "The `thumbnails` parameter should not contain an empty dictionary!"
+                        )
+                    size_name_list = ["lg", "md", "sm", "xs"]
+                    curr_size_thumb: int = 0
+                    for size_name in thumbnails.keys():
+                        if size_name not in size_name_list:
                             raise AssertionError(
-                                "The `thumbnails` parameter -> "
-                                + f"The `{size_name}` key should be less than a previous size!"
-                                + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
+                                f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!\n"
+                                + " Allowed names: lg, md, sm, xs.\n"
+                                + " Use all sizes is not necessary.",
                             )
-                        curr_size_thumb = max_size_thumb
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(placeholder, str):
-                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(max_size, int):
-                raise AssertionError("Parameter `max_size` - Not а `int` type!")
-            if not isinstance(target_dir, str):
-                raise AssertionError("Parameter `target_dir` - Not а `str` type!")
-            if not isinstance(accept, str):
-                raise AssertionError("Parameter `accept` - Not а `str` type!")
+                        max_size_thumb: int | None = thumbnails.get(size_name)
+                        if max_size_thumb is not None:
+                            if curr_size_thumb > 0 and max_size_thumb >= curr_size_thumb:
+                                raise AssertionError(
+                                    "The `thumbnails` parameter -> "
+                                    + f"The `{size_name}` key should be less than a previous size!"
+                                    + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
+                                )
+                            curr_size_thumb = max_size_thumb
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(placeholder, str):
+                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(max_size, int):
+                    raise AssertionError("Parameter `max_size` - Not а `int` type!")
+                if not isinstance(target_dir, str):
+                    raise AssertionError("Parameter `target_dir` - Not а `str` type!")
+                if not isinstance(accept, str):
+                    raise AssertionError("Parameter `accept` - Not а `str` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,
@@ -132,7 +139,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a image,
+        """Ramifice - Convert base64 to a image,
         get image information and save in the target directory.
         """  # noqa: D205
         base64_str = base64_str or None
@@ -145,7 +152,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(f"The image `{filename}` has no extension.")
+                msg = f"The image `{filename}` has no extension."
+                logger.error(msg)
+                raise FileHasNoExtensionError(msg)
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -199,7 +208,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         src_path: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Get image information and copy the image to the target directory."""
+        """Ramifice - Get image information and copy the image to the target directory."""
         src_path = src_path or None
         img_info: dict[str, str | int | bool] = {"save_as_is": False}
         img_info["is_new_img"] = True
@@ -210,6 +219,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The image `{src_path}` has no extension."
+                logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
             date_str: str = str(date.today())

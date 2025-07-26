@@ -1,4 +1,4 @@
-"""Migration are `Ramifice` way of
+"""Ramifice - Migration are `Ramifice` way of
 propagating changes you make to
 your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
@@ -6,6 +6,7 @@ your database schema.
 
 __all__ = ("Migration",)
 
+import logging
 from datetime import datetime
 from typing import Any
 
@@ -18,16 +19,21 @@ from ramifice.utils import constants
 from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
 from ramifice.utils.fixtures import apply_fixture
 
+logger = logging.getLogger(__name__)
+
 
 class Migration:
-    """Migration of models to database."""
+    """Ramifice - Migration of models to database."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
         constants.DEBUG = False
         #
         db_name_regex = constants.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
-            raise DoesNotMatchRegexError("^[a-zA-Z][-_a-zA-Z0-9]{0,59}$")
+            regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
+            msg: str = f"Does not match the regular expression: {regex_str}"
+            logger.error(msg)
+            raise DoesNotMatchRegexError(regex_str)
         #
         constants.DATABASE_NAME = database_name
         constants.MONGO_CLIENT = mongo_client
@@ -36,10 +42,11 @@ class Migration:
         self.model_list: list[Any] = Model.__subclasses__()
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
+            logger.error("No Models for Migration!")
             raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]
 
     async def reset(self) -> None:
-        """Reset the condition of the models in a super collection.
+        """Ramifice - Reset the condition of the models in a super collection.
 
         Switch the `is_model_exist` parameter in the condition `False`.
         """
@@ -55,7 +62,7 @@ class Migration:
             await super_collection.update_one(q_filter, update)
 
     async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
-        """Get the state of the current model from a super collection."""
+        """Ramifice - Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = constants.MONGO_DATABASE[
@@ -79,7 +86,7 @@ class Migration:
         return model_state
 
     def new_fields(self, metadata: dict[str, Any], model_state: dict[str, Any]) -> list[str]:
-        """Get a list of new fields that were added to Model."""
+        """Ramifice - Get a list of new fields that were added to Model."""
         new_fields: list[str] = []
         for field_name, field_type in metadata["field_name_and_type"].items():
             old_field_type: str | None = model_state["field_name_and_type"].get(field_name)
@@ -88,7 +95,7 @@ class Migration:
         return new_fields
 
     async def napalm(self) -> None:
-        """Delete data for non-existent Models from a super collection,
+        """Ramifice - Delete data for non-existent Models from a super collection,
         delete collections associated with those Models.
         """  # noqa: D205
         # Get access to database.
@@ -109,7 +116,7 @@ class Migration:
                 await database.drop_collection(collection_name)  # type: ignore[union-attr]
 
     async def migrate(self) -> None:
-        """Run migration process.
+        """Ramifice - Run migration process.
 
         1) Update the state of Models in the super collection.
         2) Register new Models in the super collection.
@@ -167,7 +174,9 @@ class Migration:
                     if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
-                        raise PanicError("Migration failed.")
+                        msg: str = "Migration failed."
+                        logger.error(msg)
+                        raise PanicError(msg)
                     # Get checked data.
                     checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.

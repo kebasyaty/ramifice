@@ -1,4 +1,4 @@
-"""Group for checking file fields.
+"""Ramifice - Group for checking file fields.
 
 Supported fields: FileField
 """
@@ -16,13 +16,13 @@ from ramifice.utils.tools import to_human_size
 
 
 class FileGroupMixin:
-    """Group for checking file fields.
+    """Ramifice - Group for checking file fields.
 
     Supported fields: FileField
     """
 
     async def file_group(self, params: dict[str, Any]) -> None:
-        """Checking file fields."""
+        """Ramifice - Checking file fields."""
         field = params["field_data"]
         value = field.value or None
 

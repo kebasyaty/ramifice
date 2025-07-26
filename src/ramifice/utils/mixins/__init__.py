@@ -1,4 +1,4 @@
-"""A set of mixins for Ramifice."""
+"""Ramifice - Set of mixins for Models and Fields."""
 
 from ramifice.utils.mixins.add_valid import AddValidMixin
 from ramifice.utils.mixins.hooks import HooksMixin

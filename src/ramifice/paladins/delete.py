@@ -1,7 +1,8 @@
-"""Delete document from database."""
+"""Ramifice - Delete document from database."""
 
 __all__ = ("DeleteMixin",)
 
+import logging
 from os import remove
 from shutil import rmtree
 from typing import Any
@@ -12,9 +13,11 @@ from pymongo.asynchronous.collection import AsyncCollection
 from ramifice.utils import constants
 from ramifice.utils.errors import PanicError
 
+logger = logging.getLogger(__name__)
+
 
 class DeleteMixin:
-    """Delete document from database."""
+    """Ramifice - Delete document from database."""
 
     async def delete(
         self,
@@ -27,7 +30,7 @@ class DeleteMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
-        """Delete document from database."""
+        """Ramifice - Delete document from database."""
         cls_model = self.__class__
         # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:
@@ -36,6 +39,7 @@ class DeleteMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Get documet ID.
         doc_id = self._id.value
@@ -45,6 +49,7 @@ class DeleteMixin:
                 + "Field: `_id` > "
                 + "Param: `value` => ID is missing."
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Run hook.
         await self.pre_delete()
@@ -69,6 +74,7 @@ class DeleteMixin:
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
+            logger.error(msg)
             raise PanicError(msg)
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None

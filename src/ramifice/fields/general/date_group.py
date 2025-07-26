@@ -1,4 +1,4 @@
-"""General additional parameters for date|datetime fields."""
+"""Ramifice - General additional parameters for date|datetime fields."""
 
 __all__ = ("DateGroup",)
 
@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class DateGroup(metaclass=ABCMeta):
-    """General additional parameters for date|datetime fields.
+    """Ramifice - General additional parameters for date|datetime fields.
 
     Attributes:
         input_type -- Input type for a web form field.

@@ -1,4 +1,4 @@
-"""General additional parameters for number fields."""
+"""Ramifice - General additional parameters for number fields."""
 
 __all__ = ("NumberGroup",)
 
@@ -6,7 +6,7 @@ from abc import ABCMeta
 
 
 class NumberGroup(metaclass=ABCMeta):
-    """General additional parameters for number fields.
+    """Ramifice - General additional parameters for number fields.
 
     Attributes:
         placeholder -- Displays prompt text.

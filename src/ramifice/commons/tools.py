@@ -1,4 +1,4 @@
-"""Tool of Commons - A set of auxiliary methods."""
+"""Ramifice - Tool of Commons - A set of auxiliary methods."""
 
 __all__ = (
     "correct_mongo_filter",
@@ -15,7 +15,7 @@ from ramifice.utils import translations
 
 
 def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
-    """Correcting filter of request.
+    """Ramifice - Correcting filter of request.
 
     Corrects `TextField` fields that require localization of translation.
     """
@@ -33,7 +33,7 @@ def password_to_none(
     field_name_and_type: dict[str, str],
     mongo_doc: dict[str, Any],
 ) -> dict[str, Any]:
-    """Create object instance from Mongo document."""
+    """Ramifice - Create object instance from Mongo document."""
     for f_name, t_name in field_name_and_type.items():
         if "PasswordField" == t_name:
             mongo_doc[f_name] = None
@@ -45,7 +45,7 @@ def mongo_doc_to_raw_doc(
     mongo_doc: dict[str, Any],
     lang: str,
 ) -> dict[str, Any]:
-    """Convert the Mongo document to the raw document.
+    """Ramifice - Convert the Mongo document to the raw document.
 
     Special changes:
         _id to str

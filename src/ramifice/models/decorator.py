@@ -1,7 +1,8 @@
-"""Decorator for converting Python classes into Ramifice models."""
+"""Ramifice - Decorator for converting Python classes into Ramifice models."""
 
 __all__ = ("model",)
 
+import logging
 import re
 from os.path import exists
 from typing import Any
@@ -16,6 +17,8 @@ from ramifice.utils.mixins.add_valid import AddValidMixin
 from ramifice.utils.mixins.hooks import HooksMixin
 from ramifice.utils.mixins.indexing import IndexMixin
 
+logger = logging.getLogger(__name__)
+
 
 def model(
     service_name: str,
@@ -25,23 +28,38 @@ def model(
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
 ) -> Any:
-    """Decorator for converting Python Classe into Ramifice Model."""
+    """Ramifice - Decorator for converting Python Classe into Ramifice Model."""
     if not isinstance(service_name, str):
-        raise AssertionError("Parameter `service_name` - Must be `str` type!")
+        msg = "Parameter `service_name` - Must be `str` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
     if not isinstance(fixture_name, (str, type(None))):
-        raise AssertionError("Parameter `fixture_name` - Must be `str | None` type!")
+        msg = "Parameter `fixture_name` - Must be `str | None` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
     if not isinstance(db_query_docs_limit, int):
-        raise AssertionError("Parameter `db_query_docs_limit` - Must be `int` type!")
+        msg = "Parameter `db_query_docs_limit` - Must be `int` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
     if not isinstance(is_create_doc, bool):
-        raise AssertionError("Parameter `is_create_doc` - Must be `bool` type!")
+        msg = "Parameter `is_create_doc` - Must be `bool` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
     if not isinstance(is_update_doc, bool):
-        raise AssertionError("Parameter `is_update_doc` - Must be `bool` type!")
+        msg = "Parameter `is_update_doc` - Must be `bool` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
     if not isinstance(is_delete_doc, bool):
-        raise AssertionError("Parameter `is_delete_doc` - Must be `bool` type!")
+        msg = "Parameter `is_delete_doc` - Must be `bool` type!"
+        logger.error(msg)
+        raise AssertionError(msg)
 
     def decorator(cls: Any) -> Any:
         if REGEX["service_name"].match(service_name) is None:
-            raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+            regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
+            msg = f"Does not match the regular expression: {regex_str}"
+            logger.error(msg)
+            raise DoesNotMatchRegexError(regex_str)
         if fixture_name is not None:
             fixture_path = f"config/fixtures/{fixture_name}.yml"
 
@@ -51,6 +69,7 @@ def model(
                     + f"META param: `fixture_name` => "
                     + f"Fixture the `{fixture_path}` not exists!"
                 )
+                logger.error(msg)
                 raise PanicError(msg)
 
         attrs = {key: val for key, val in cls.__dict__.items()}
@@ -85,11 +104,14 @@ def model(
 
 
 def caching(cls: Any, service_name: str) -> dict[str, Any]:
-    """Add additional metadata to `Model.META`."""
+    """Ramifice - Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name: str = cls.__name__
     if REGEX["model_name"].match(model_name) is None:
-        raise DoesNotMatchRegexError("^[A-Z][a-zA-Z0-9]{0,24}$")
+        regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
+        msg = f"Does not match the regular expression: {regex_str}"
+        logger.error(msg)
+        raise DoesNotMatchRegexError(regex_str)
     #
     metadata["model_name"] = model_name
     metadata["full_model_name"] = f"{cls.__module__}.{model_name}"

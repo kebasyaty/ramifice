@@ -1,15 +1,15 @@
-"""Custom Exceptions for Ramifice."""
+"""Ramifice - Custom Exceptions for Ramifice."""
 
 
 class RamificeException(Exception):
-    """Root Exception for Ramifice."""
+    """Ramifice - Root Exception for Ramifice."""
 
     def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def] # noqa: D107
         super().__init__(*args, **kwargs)
 
 
 class FileHasNoExtensionError(RamificeException):
-    """Exception raised if the file has no extension.
+    """Ramifice - Exception raised if the file has no extension.
 
     Attributes:
         message -- explanation of the error
@@ -21,7 +21,7 @@ class FileHasNoExtensionError(RamificeException):
 
 
 class DoesNotMatchRegexError(RamificeException):
-    """Exception raised if does not match the regular expression.
+    """Ramifice - Exception raised if does not match the regular expression.
 
     Attributes:
         regex_str -- regular expression in string representation
@@ -33,7 +33,7 @@ class DoesNotMatchRegexError(RamificeException):
 
 
 class NoModelsForMigrationError(RamificeException):
-    """Exception raised if no Models for migration."""
+    """Ramifice - Exception raised if no Models for migration."""
 
     def __init__(self):  # type: ignore[no-untyped-def] # noqa: D107
         self.message = "No Models for Migration!"
@@ -41,7 +41,7 @@ class NoModelsForMigrationError(RamificeException):
 
 
 class PanicError(RamificeException):
-    """Exception raised for cases of which should not be.
+    """Ramifice - Exception raised for cases of which should not be.
 
     Attributes:
         message -- explanation of the error
@@ -53,7 +53,7 @@ class PanicError(RamificeException):
 
 
 class OldPassNotMatchError(RamificeException):
-    """Exception raised if when updating the password,
+    """Ramifice - Exception raised if when updating the password,
     the old password does not match.
     """  # noqa: D205
 

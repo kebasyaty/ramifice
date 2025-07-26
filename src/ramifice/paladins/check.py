@@ -1,7 +1,8 @@
-"""Validation of Model data before saving to the database."""
+"""Ramifice - Validation of Model data before saving to the database."""
 
 __all__ = ("CheckMixin",)
 
+import logging
 from os import remove
 from shutil import rmtree
 from typing import Any, assert_never
@@ -24,6 +25,8 @@ from ramifice.paladins.groups import (
 )
 from ramifice.utils import constants
 
+logger = logging.getLogger(__name__)
+
 
 class CheckMixin(
     BoolGroupMixin,
@@ -37,7 +40,7 @@ class CheckMixin(
     SlugGroupMixin,
     TextGroupMixin,
 ):
-    """Validation of Model data before saving to the database."""
+    """Ramifice - Validation of Model data before saving to the database."""
 
     async def check(
         self,
@@ -45,7 +48,7 @@ class CheckMixin(
         collection: AsyncCollection | None = None,
         is_migration_process: bool = False,
     ) -> dict[str, Any]:
-        """Validation of Model data before saving to the database.
+        """Ramifice - Validation of Model data before saving to the database.
 
         It is also used to verify Models that do not migrate to the database.
         """
@@ -119,6 +122,8 @@ class CheckMixin(
                     case "pass":
                         self.pass_group(params)
                     case _ as unreachable:
+                        msg: str = f"Unacceptable group `{unreachable}`!"
+                        logger.error(msg)
                         assert_never(unreachable)
 
         # Actions in case of error.

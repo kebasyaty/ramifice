@@ -1,4 +1,4 @@
-"""Global variables.
+"""Ramifice - Global variables.
 
 List of variables:
 

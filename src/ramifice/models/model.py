@@ -1,4 +1,4 @@
-"""For converting Python classes into Ramifice models."""
+"""Ramifice - Converting Python classes into Ramifice Models."""
 
 __all__ = ("Model",)
 
@@ -15,7 +15,7 @@ from ramifice.utils import translations
 
 
 class Model(metaclass=ABCMeta):
-    """Converting Python Class into Ramifice Model."""
+    """Ramifice - Converting Python Class into Ramifice Model."""
 
     META: dict[str, Any] = {}
 
@@ -49,25 +49,25 @@ class Model(metaclass=ABCMeta):
 
     @property
     def id(self) -> IDField:
-        """Getter for the field `_id`."""
+        """Ramifice - Getter for the field `_id`."""
         return self._id
 
     @abstractmethod
     def fields(self) -> None:
-        """For adding fields."""
+        """Ramifice - Adding fields."""
         pass
 
     def model_name(self) -> str:
-        """Get Model name - Class name."""
+        """Ramifice - Get Model name - Class name."""
         return self.__class__.__name__
 
     def full_model_name(self) -> str:
-        """Get full Model name - module_name + . + ClassName."""
+        """Ramifice - Get full Model name - module_name + . + ClassName."""
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
 
     def inject(self) -> None:
-        """Injecting metadata from Model.META in params of fields."""
+        """Ramifice - Injecting metadata from Model.META in params of fields."""
         metadata = self.__class__.META
         if bool(metadata):
             lang = translations.CURRENT_LOCALE
@@ -91,7 +91,7 @@ class Model(metaclass=ABCMeta):
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
     def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
+        """Ramifice - Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
@@ -99,12 +99,12 @@ class Model(metaclass=ABCMeta):
         return json_dict
 
     def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
+        """Ramifice - Convert object instance to a JSON string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
             obj.__dict__[name] = obj.__dict__[name].__class__.from_dict(data)
@@ -112,13 +112,13 @@ class Model(metaclass=ABCMeta):
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)
 
     # --------------------------------------------------------------------------
     def to_dict_only_value(self) -> dict[str, Any]:
-        """Convert model.field.value (only the `value` attribute) to a dictionary."""
+        """Ramifice - Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
         current_locale = translations.CURRENT_LOCALE
         for name, data in self.__dict__.items():
@@ -149,12 +149,12 @@ class Model(metaclass=ABCMeta):
         return json_dict
 
     def to_json_only_value(self) -> str:
-        """Convert model.field.value (only the `value` attribute) to a JSON string."""
+        """Ramifice - Convert model.field.value (only the `value` attribute) to a JSON string."""
         return orjson.dumps(self.to_dict_only_value()).decode("utf-8")
 
     @classmethod
     def from_dict_only_value(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         obj = cls()
         for name, data in obj.__dict__.items():
             if callable(data):
@@ -171,12 +171,12 @@ class Model(metaclass=ABCMeta):
 
     @classmethod
     def from_json_only_value(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict_only_value(json_dict)
 
     def refrash_fields_only_value(self, only_value_dict: dict[str, Any]) -> None:
-        """Partial or complete update a `value` of fields."""
+        """Ramifice - Partial or complete update a `value` of fields."""
         for name, data in self.__dict__.items():
             if callable(data):
                 continue

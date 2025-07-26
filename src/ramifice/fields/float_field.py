@@ -1,15 +1,20 @@
-"""Field of Model for enter (float) number."""
+"""Ramifice - Field of Model for enter (float) number."""
 
 __all__ = ("FloatField",)
+
+import logging
+from typing import Literal
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants
 from ramifice.utils.mixins.json_converter import JsonMixin
 
+logger = logging.getLogger(__name__)
+
 
 class FloatField(Field, NumberGroup, JsonMixin):
-    """Field of Model for enter (float) number."""
+    """Ramifice - Field of Model for enter (float) number."""
 
     def __init__(  # noqa: D107
         self,
@@ -27,53 +32,57 @@ class FloatField(Field, NumberGroup, JsonMixin):
         max_number: float | None = None,
         min_number: float | None = None,
         step: float = 1.0,
-        input_type: str = "number",  # number | range
+        input_type: Literal["number", "range"] = "number",
     ):
         if constants.DEBUG:
-            if input_type not in ["number", "range"]:
-                raise AssertionError(
-                    "Parameter `input_type` - Invalid input type! "
-                    + "The permissible value of `number` or `range`."
-                )
-            if max_number is not None and not isinstance(max_number, float):
-                raise AssertionError("Parameter `max_number` - Not а number `float` type!")
-            if min_number is not None and not isinstance(min_number, float):
-                raise AssertionError("Parameter `min_number` - Not а number `float` type!")
-            if not isinstance(step, float):
-                raise AssertionError("Parameter `step` - Not а number `float` type!")
-            if max_number is not None and min_number is not None and max_number <= min_number:
-                raise AssertionError(
-                    "The `max_number` parameter should be more than the `min_number`!"
-                )
-            if default is not None:
-                if not isinstance(default, float):
-                    raise AssertionError("Parameter `default` - Not а number `float` type!")
-                if max_number is not None and default > max_number:
-                    raise AssertionError("Parameter `default` is more `max_number`!")
-                if max_number is not None and default < min_number:  # type: ignore
-                    raise AssertionError("Parameter `default` is less `min_number`!")
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(placeholder, str):
-                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(readonly, bool):
-                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-            if not isinstance(unique, bool):
-                raise AssertionError("Parameter `unique` - Not а `bool` type!")
+            try:
+                if input_type not in ["number", "range"]:
+                    raise AssertionError(
+                        "Parameter `input_type` - Invalid input type! "
+                        + "The permissible value of `number` or `range`."
+                    )
+                if max_number is not None and not isinstance(max_number, float):
+                    raise AssertionError("Parameter `max_number` - Not а number `float` type!")
+                if min_number is not None and not isinstance(min_number, float):
+                    raise AssertionError("Parameter `min_number` - Not а number `float` type!")
+                if not isinstance(step, float):
+                    raise AssertionError("Parameter `step` - Not а number `float` type!")
+                if max_number is not None and min_number is not None and max_number <= min_number:
+                    raise AssertionError(
+                        "The `max_number` parameter should be more than the `min_number`!"
+                    )
+                if default is not None:
+                    if not isinstance(default, float):
+                        raise AssertionError("Parameter `default` - Not а number `float` type!")
+                    if max_number is not None and default > max_number:
+                        raise AssertionError("Parameter `default` is more `max_number`!")
+                    if max_number is not None and default < min_number:  # type: ignore
+                        raise AssertionError("Parameter `default` is less `min_number`!")
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(placeholder, str):
+                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(readonly, bool):
+                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+                if not isinstance(unique, bool):
+                    raise AssertionError("Parameter `unique` - Not а `bool` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,

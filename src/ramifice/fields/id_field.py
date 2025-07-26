@@ -1,7 +1,8 @@
-"""Field of Model for enter identifier of document."""
+"""Ramifice - Field of Model for enter identifier of document."""
 
 __all__ = ("IDField",)
 
+import logging
 from typing import Any
 
 import orjson
@@ -10,9 +11,11 @@ from bson.objectid import ObjectId
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 
+logger = logging.getLogger(__name__)
+
 
 class IDField(Field):
-    """Field of Model for enter identifier of document.
+    """Ramifice - Field of Model for enter identifier of document.
 
     Attributes:
         input_type -- Input type for a web form field.
@@ -36,28 +39,32 @@ class IDField(Field):
         unique: bool = False,
     ):
         if constants.DEBUG:
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(placeholder, str):
-                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(readonly, bool):
-                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-            if not isinstance(unique, bool):
-                raise AssertionError("Parameter `unique` - Not а `bool` type!")
+            try:
+                if not isinstance(label, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(placeholder, str):
+                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(readonly, bool):
+                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+                if not isinstance(unique, bool):
+                    raise AssertionError("Parameter `unique` - Not а `bool` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,
@@ -80,7 +87,7 @@ class IDField(Field):
         self.alerts: list[str] = []
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
+        """Ramifice - Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
@@ -91,12 +98,12 @@ class IDField(Field):
         return json_dict
 
     def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
+        """Ramifice - Convert object instance to a JSON string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
@@ -107,6 +114,6 @@ class IDField(Field):
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
+        """Ramifice - Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

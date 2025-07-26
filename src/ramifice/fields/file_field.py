@@ -1,7 +1,8 @@
-"""Field of Model for upload file."""
+"""Ramifice - Field of Model for upload file."""
 
 __all__ = ("FileField",)
 
+import logging
 import uuid
 from base64 import b64decode
 from datetime import date
@@ -18,9 +19,11 @@ from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins.json_converter import JsonMixin
 
+logger = logging.getLogger(__name__)
+
 
 class FileField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload file."""
+    """Ramifice - Field of Model for upload file."""
 
     def __init__(  # noqa: D107
         self,
@@ -39,37 +42,41 @@ class FileField(Field, FileGroup, JsonMixin):
         accept: str = "",
     ):
         if constants.DEBUG:
-            if default is not None:
-                if not isinstance(default, str):
+            try:
+                if default is not None:
+                    if not isinstance(default, str):
+                        raise AssertionError("Parameter `default` - Not а `str` type!")
+                    if len(default) == 0:
+                        raise AssertionError(
+                            "The `default` parameter should not contain an empty string!"
+                        )
+                if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
-                if len(default) == 0:
-                    raise AssertionError(
-                        "The `default` parameter should not contain an empty string!"
-                    )
-            if not isinstance(label, str):
-                raise AssertionError("Parameter `default` - Not а `str` type!")
-            if not isinstance(disabled, bool):
-                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-            if not isinstance(hide, bool):
-                raise AssertionError("Parameter `hide` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(ignored, bool):
-                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-            if not isinstance(hint, str):
-                raise AssertionError("Parameter `hint` - Not а `str` type!")
-            if warning is not None and not isinstance(warning, list):
-                raise AssertionError("Parameter `warning` - Not а `list` type!")
-            if not isinstance(placeholder, str):
-                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-            if not isinstance(required, bool):
-                raise AssertionError("Parameter `required` - Not а `bool` type!")
-            if not isinstance(max_size, int):
-                raise AssertionError("Parameter `max_size` - Not а `int` type!")
-            if not isinstance(target_dir, str):
-                raise AssertionError("Parameter `target_dir` - Not а `str` type!")
-            if not isinstance(accept, str):
-                raise AssertionError("Parameter `accept` - Not а `str` type!")
+                if not isinstance(disabled, bool):
+                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                if not isinstance(hide, bool):
+                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(ignored, bool):
+                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                if not isinstance(hint, str):
+                    raise AssertionError("Parameter `hint` - Not а `str` type!")
+                if warning is not None and not isinstance(warning, list):
+                    raise AssertionError("Parameter `warning` - Not а `list` type!")
+                if not isinstance(placeholder, str):
+                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+                if not isinstance(required, bool):
+                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(max_size, int):
+                    raise AssertionError("Parameter `max_size` - Not а `int` type!")
+                if not isinstance(target_dir, str):
+                    raise AssertionError("Parameter `target_dir` - Not а `str` type!")
+                if not isinstance(accept, str):
+                    raise AssertionError("Parameter `accept` - Not а `str` type!")
+            except AssertionError as err:
+                logger.error(str(err))
+                raise err
 
         Field.__init__(
             self,
@@ -101,7 +108,7 @@ class FileField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a file,
+        """Ramifice - Convert base64 to a file,
         get file information and save in the target directory.
         """  # noqa: D205
         base64_str = base64_str or None
@@ -114,7 +121,9 @@ class FileField(Field, FileGroup, JsonMixin):
             # Get file extension.
             extension = Path(filename).suffix
             if len(extension) == 0:
-                raise FileHasNoExtensionError(f"The file `{filename}` has no extension.")
+                msg = f"The file `{filename}` has no extension."
+                logger.error(msg)
+                raise FileHasNoExtensionError(msg)
             # Prepare Base64 content.
             for item in enumerate(base64_str):
                 if item[1] == ",":
@@ -155,7 +164,7 @@ class FileField(Field, FileGroup, JsonMixin):
         src_path: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Get file information and copy the file to the target directory."""
+        """Ramifice - Get file information and copy the file to the target directory."""
         src_path = src_path or None
         file_info: dict[str, str | int | bool] = {"save_as_is": False}
         file_info["is_new_file"] = True
@@ -166,6 +175,7 @@ class FileField(Field, FileGroup, JsonMixin):
             extension = Path(src_path).suffix
             if len(extension) == 0:
                 msg = f"The file `{src_path}` has no extension."
+                logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"

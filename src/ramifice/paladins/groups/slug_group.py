@@ -1,4 +1,4 @@
-"""Group for checking slug fields.
+"""Ramifice - Group for checking slug fields.
 
 Supported fields:
     SlugField
@@ -6,6 +6,7 @@ Supported fields:
 
 __all__ = ("SlugGroupMixin",)
 
+import logging
 from typing import Any
 
 from slugify import slugify
@@ -13,16 +14,18 @@ from slugify import slugify
 from ramifice.paladins.tools import check_uniqueness
 from ramifice.utils.errors import PanicError
 
+logger = logging.getLogger(__name__)
+
 
 class SlugGroupMixin:
-    """Group for checking slug fields.
+    """Ramifice - Group for checking slug fields.
 
     Supported fields:
         SlugField
     """
 
     async def slug_group(self, params: dict[str, Any]) -> None:
-        """Checking slug fields."""
+        """Ramifice - Checking slug fields."""
         if not params["is_save"]:
             return
         #
@@ -48,6 +51,7 @@ class SlugGroupMixin:
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
+                    logger.error(err_msg)
                     raise PanicError(err_msg)
         # Insert result.
         if params["is_save"]:
@@ -65,6 +69,7 @@ class SlugGroupMixin:
                     + f"Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
+                logger.error(err_msg)
                 raise PanicError(err_msg)
             # Add value to map.
             params["result_map"][field_name] = value

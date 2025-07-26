@@ -1,4 +1,4 @@
-"""For localization of translations.
+"""Ramifice - Localization of translations.
 
 The module contains the following variables:
 
@@ -33,10 +33,13 @@ __all__ = (
 
 import copy
 import gettext as _gettext
+import logging
 from gettext import NullTranslations
 from typing import Any
 
 from ramifice.utils.errors import PanicError
+
+logger = logging.getLogger(__name__)
 
 # Language by default.
 DEFAULT_LOCALE: str = "en"
@@ -47,6 +50,7 @@ LANGUAGES: frozenset[str] = frozenset(("en", "ru"))
 
 if not DEFAULT_LOCALE in LANGUAGES:
     msg = "ERROR: DEFAULT_LOCALE is not included in the LANGUAGES!"
+    logger.error(msg)
     raise PanicError(msg)
 
 # Add translations for Ramifice.
@@ -75,7 +79,7 @@ custom_translations: dict[str, NullTranslations] = {
 
 
 def get_ramifice_translator(lang_code: str) -> Any:
-    """Get an object of translation for the desired language, for Ramifice.
+    """Ramifice - Get an object of translation for the desired language, for Ramifice.
 
     Examples:
         >>> from ramifice import translations
@@ -97,7 +101,7 @@ def get_ramifice_translator(lang_code: str) -> Any:
 
 
 def get_custom_translator(lang_code: str) -> Any:
-    """Get an object of translation for the desired language, for custom project.
+    """Ramifice - Get an object of translation for the desired language, for custom project.
 
     Examples:
         >>> from ramifice import translations
@@ -127,7 +131,7 @@ ngettext: Any = get_custom_translator(DEFAULT_LOCALE).ngettext
 
 
 def change_locale(lang_code: str) -> None:
-    """Change current language.
+    """Ramifice - Change current language.
 
     Examples:
         >>> from ramifice import translations
