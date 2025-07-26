@@ -221,8 +221,10 @@ if __name__ == "__main__":
 ```python
 from ramifice import translations
 
-translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-LANGUAGES = frozenset(("en", "ru"))  # For Ramifice by default = ["en", "ru"]
+translations.add_languages(
+    default_locale="en",  # For Ramifice by default = "en"
+    languages=frozenset(("en", "ru")),  # For Ramifice by default = ["en", "ru"]
+)
 ```
 
 ```shell
@@ -247,8 +249,10 @@ uv run pybabel compile -d config/translations/custom
 ```python
 from ramifice import translations
 
-translations.DEFAULT_LOCALE = "en"  # For Ramifice by default = "en"
-translations.LANGUAGES = frozenset(("en", "ru", "de", "de_ch"))  # For Ramifice by default = ["en", "ru"]
+translations.add_languages(
+    default_locale="en",  # For Ramifice by default = "en"
+    languages=frozenset(("en", "ru", "de", "de_ch")),  # For Ramifice by default = ["en", "ru"]
+)
 ```
 
 ```shell
