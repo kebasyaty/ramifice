@@ -87,6 +87,7 @@ It is recommended to look at examples [here](https://github.com/kebasyaty/ramifi
 
 ```python
 import re
+import logging
 import asyncio
 from datetime import datetime
 import pprint
@@ -165,6 +166,12 @@ class User:
 
 
 async def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        datefmt="%Y-%m-%d %H:%M:%S",
+        format="[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s",
+    )
+
     client = AsyncMongoClient()
 
     await Migration(
