@@ -123,7 +123,7 @@ class CheckMixin(
                         self.pass_group(params)
                     case _ as unreachable:
                         msg: str = f"Unacceptable group `{unreachable}`!"
-                        logger.error(msg)
+                        logger.critical(msg)
                         assert_never(unreachable)
 
         # Actions in case of error.

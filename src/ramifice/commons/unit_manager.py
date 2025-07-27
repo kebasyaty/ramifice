@@ -11,7 +11,11 @@ from typing import Any
 from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.utils import constants, translations
-from ramifice.utils.errors import PanicError
+from ramifice.utils.errors import (
+    NotPossibleAddUnitError,
+    NotPossibleDeleteUnitError,
+    PanicError,
+)
 from ramifice.utils.unit import Unit
 
 logger = logging.getLogger(__name__)
@@ -41,7 +45,7 @@ class UnitMixin:
         # Check the presence of a Model state.
         if model_state is None:
             msg = "Error: Model State - Not found!"
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Get language list.
         lang_list = translations.LANGUAGES
@@ -50,7 +54,7 @@ class UnitMixin:
         title = unit.title
         if len(title) != len(lang_list):
             msg = "Unit.title => There are no translations for some languages!"
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         title = {lang: title[lang] for lang in lang_list}
         target_value = unit.value
@@ -69,11 +73,11 @@ class UnitMixin:
                 if is_unit_exists:
                     main_lang = translations.DEFAULT_LOCALE
                     msg = (
-                        "Error: It is impossible to add unit - "
+                        "Error: It is not possible to add Unit - "
                         + f"Unit `{title[main_lang]}: {target_value}` is exists!"
                     )
                     logger.error(msg)
-                    raise PanicError(msg)
+                    raise NotPossibleAddUnitError(msg)
                 choices.append({"title": title, "value": target_value})
             else:
                 choices = [{"title": title, "value": target_value}]
@@ -83,15 +87,15 @@ class UnitMixin:
             if choices is None:
                 msg = "Error: It is not possible to delete Unit - Units is not exists!"
                 logger.error(msg)
-                raise PanicError(msg)
+                raise NotPossibleDeleteUnitError(msg)
             if not is_unit_exists:
                 main_lang = translations.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
                     + f"Unit `{title[main_lang]}: {target_value}` is not exists!"
                 )
-                logger.error(msg)
-                raise PanicError(msg)
+                logger.erro(msg)
+                raise NotPossibleDeleteUnitError(msg)
             choices = [item for item in choices if item["value"] != target_value]
             model_state["data_dynamic_fields"][unit_field] = choices or None
         # Update state of current Model in super collection.

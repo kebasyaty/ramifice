@@ -103,7 +103,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if not isinstance(accept, str):
                     raise AssertionError("Parameter `accept` - Not а `str` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

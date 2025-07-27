@@ -29,7 +29,7 @@ class RefrashMixin:
                 + "Method: `refrash_from_db` => "
                 + f"A document with an identifier `{self._id.value}` is not exists in the database!"
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         self.inject()
         refresh_from_mongo_doc(self, mongo_doc)

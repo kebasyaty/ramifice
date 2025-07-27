@@ -59,7 +59,7 @@ def add_languages(
     global DEFAULT_LOCALE, LANGUAGES
     if not default_locale in languages:
         msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
-        logger.error(msg)
+        logger.critical(msg)
         raise PanicError(msg)
     DEFAULT_LOCALE = default_locale
     LANGUAGES = languages

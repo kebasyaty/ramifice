@@ -43,7 +43,7 @@ class BooleanField(Field, JsonMixin):
                 if warning is not None and not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(
