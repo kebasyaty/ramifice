@@ -53,7 +53,7 @@ class SlugField(Field, TextGroup, JsonMixin):
                 if not isinstance(slug_sources, list):
                     raise AssertionError("Parameter `slug_sources` - Not а `list` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

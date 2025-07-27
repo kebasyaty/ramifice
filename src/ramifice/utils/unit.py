@@ -75,5 +75,5 @@ class Unit(JsonMixin):
                 + f"Field: `{field_name}` => "
                 + "Must not be empty!"
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)

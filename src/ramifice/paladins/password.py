@@ -32,7 +32,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + "Cannot get document ID - ID field is empty."
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Get collection for current Model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
@@ -44,7 +44,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + f"There is no document with ID `{self._id.value}` in the database."
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Get password hash.
         hash: str | None = mongo_doc.get(field_name)
@@ -54,7 +54,7 @@ class PasswordMixin:
                 + "Method: `verify_password` => "
                 + f"The model does not have a field `{field_name}`."
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Password verification.
         is_valid: bool = False

@@ -71,7 +71,7 @@ class ColorField(Field, TextGroup, JsonMixin):
                 if not isinstance(unique, bool):
                     raise AssertionError("Parameter `unique` - Not а `bool` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

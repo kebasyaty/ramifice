@@ -63,7 +63,7 @@ class SaveMixin:
                     + "Method: `save` => "
                     + "Geted value is None - it is impossible to refresh the current Model."
                 )
-                logger.error(msg)
+                logger.critical(msg)
                 raise PanicError(msg)
             refresh_from_mongo_doc(self, mongo_doc)
         else:
@@ -83,20 +83,11 @@ class SaveMixin:
                 msg = (
                     f"Model: `{self.full_model_name()}` > "
                     + "Method: `save` => "
-                    + "Geted value is None - it is impossible to refresh the current Model."
-                )
-                logger.error(msg)
-                raise PanicError(msg)
-            if mongo_doc is not None:
-                refresh_from_mongo_doc(self, mongo_doc)
-            else:
-                msg = (
-                    f"Model: `{self.full_model_name()}` > "
-                    + "Method: `save` => "
                     + "The document was not created."
                 )
-                logger.error(msg)
+                logger.critical(msg)
                 raise PanicError(msg)
+            refresh_from_mongo_doc(self, mongo_doc)
         #
         # If everything is completed successfully.
         return True

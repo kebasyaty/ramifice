@@ -51,7 +51,7 @@ class SlugGroupMixin:
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
-                    logger.error(err_msg)
+                    logger.critical(err_msg)
                     raise PanicError(err_msg)
         # Insert result.
         if params["is_save"]:
@@ -69,7 +69,7 @@ class SlugGroupMixin:
                     + f"Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
-                logger.error(err_msg)
+                logger.critical(err_msg)
                 raise PanicError(err_msg)
             # Add value to map.
             params["result_map"][field_name] = value

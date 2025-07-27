@@ -53,10 +53,47 @@ class PanicError(RamificeException):
 
 
 class OldPassNotMatchError(RamificeException):
-    """Ramifice - Exception raised if when updating the password,
-    the old password does not match.
-    """  # noqa: D205
+    """Ramifice - Exception is raised when trying to update the password.
+
+    Hint: If old password does not match.
+    """
 
     def __init__(self) -> None:  # noqa: D107
         self.message = "Old password does not match!"
+        super().__init__(self.message)
+
+
+class ForbiddenDeleteDocError(RamificeException):
+    """Ramifice - Exception is raised when trying to delete the document.
+
+    Attributes:
+    message -- explanation of the error
+    """
+
+    def __init__(self, message: str) -> None:  # noqa: D107
+        self.message = message
+        super().__init__(self.message)
+
+
+class NotPossibleAddUnitError(RamificeException):
+    """Ramifice - Exception is raised when not possible to add Unit.
+
+    Attributes:
+    message -- explanation of the error
+    """
+
+    def __init__(self, message: str) -> None:  # noqa: D107
+        self.message = message
+        super().__init__(self.message)
+
+
+class NotPossibleDeleteUnitError(RamificeException):
+    """Ramifice - Exception is raised when not possible to delete Unit.
+
+    Attributes:
+    message -- explanation of the error
+    """
+
+    def __init__(self, message: str) -> None:  # noqa: D107
+        self.message = message
         super().__init__(self.message)

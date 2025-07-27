@@ -11,7 +11,7 @@ from anyio import to_thread
 from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.utils import constants
-from ramifice.utils.errors import PanicError
+from ramifice.utils.errors import ForbiddenDeleteDocError, PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +39,8 @@ class DeleteMixin:
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
-            logger.error(msg)
-            raise PanicError(msg)
+            logger.warning(msg)
+            raise ForbiddenDeleteDocError(msg)
         # Get documet ID.
         doc_id = self._id.value
         if doc_id is None:
@@ -49,7 +49,7 @@ class DeleteMixin:
                 + "Field: `_id` > "
                 + "Param: `value` => ID is missing."
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Run hook.
         await self.pre_delete()
@@ -74,7 +74,7 @@ class DeleteMixin:
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
-            logger.error(msg)
+            logger.critical(msg)
             raise PanicError(msg)
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None

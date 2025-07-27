@@ -44,7 +44,7 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
         + f"Field: `{params['field_data'].name}` > "
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
-    logger.error(msg)
+    logger.critical(msg)
     raise errors.PanicError(msg)
 
 
@@ -60,7 +60,7 @@ def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
             + f"Field: `{params['field_data'].name}`"
             + f" => {err_msg}"
         )
-        logger.error(msg)
+        logger.critical(msg)
         raise errors.PanicError(msg)
 
 

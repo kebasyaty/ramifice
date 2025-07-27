@@ -16,7 +16,7 @@ from ramifice.commons.tools import (
     password_to_none,
 )
 from ramifice.utils import constants, translations
-from ramifice.utils.errors import PanicError
+from ramifice.utils.errors import ForbiddenDeleteDocError
 
 logger = logging.getLogger(__name__)
 
@@ -251,7 +251,7 @@ class ManyMixin:
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
-            raise PanicError(msg)
+            raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.

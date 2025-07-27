@@ -67,7 +67,7 @@ class TextField(Field, JsonMixin):
                 if not isinstance(multi_language, bool):
                     raise AssertionError("Parameter `multi_language` - Not а `int` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

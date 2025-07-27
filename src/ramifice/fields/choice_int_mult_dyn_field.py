@@ -54,7 +54,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup, JsonMixin):
                 if not isinstance(readonly, bool):
                     raise AssertionError("Parameter `readonly` - Not а `bool` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

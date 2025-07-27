@@ -51,7 +51,7 @@ class PasswordField(Field):
                 if not isinstance(required, bool):
                     raise AssertionError("Parameter `required` - Not а `bool` type!")
             except AssertionError as err:
-                logger.error(str(err))
+                logger.critical(str(err))
                 raise err
 
         Field.__init__(

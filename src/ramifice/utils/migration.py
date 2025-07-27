@@ -32,7 +32,7 @@ class Migration:
         if db_name_regex.match(database_name) is None:
             regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
             msg: str = f"Does not match the regular expression: {regex_str}"
-            logger.error(msg)
+            logger.critical(msg)
             raise DoesNotMatchRegexError(regex_str)
         #
         constants.DATABASE_NAME = database_name
@@ -42,7 +42,7 @@ class Migration:
         self.model_list: list[Any] = Model.__subclasses__()
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
-            logger.error("No Models for Migration!")
+            logger.critical("No Models for Migration!")
             raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]
 
     async def reset(self) -> None:
@@ -175,7 +175,7 @@ class Migration:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
                         msg: str = "Migration failed."
-                        logger.error(msg)
+                        logger.critical(msg)
                         raise PanicError(msg)
                     # Get checked data.
                     checked_data = result_check["data"]

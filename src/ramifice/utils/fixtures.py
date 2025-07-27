@@ -40,7 +40,7 @@ async def apply_fixture(
             + f"META param: `fixture_name` ({fixture_name}) => "
             + "It seems that fixture is empty or it has incorrect contents!"
         )
-        logger.error(msg)
+        logger.critical(msg)
         raise PanicError(msg)
 
     if data_yaml is not None:
@@ -75,7 +75,7 @@ async def apply_fixture(
                 print(colored(fixture_path, "blue", attrs=["bold"]))
                 inst_model.print_err()
                 msg = f"Fixture `{fixture_name}` failed."
-                logger.error(msg)
+                logger.critical(msg)
                 raise PanicError(msg)
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
