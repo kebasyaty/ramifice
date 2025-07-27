@@ -23,6 +23,11 @@
       <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
       <a href="https://github.com/kebasyaty/ramifice" alt="PyPI implementation"><img src="https://img.shields.io/pypi/implementation/ramifice" alt="PyPI implementation"></a>
       <a href="https://github.com/kebasyaty/ramifice" alt="GitHub repository"><img src="https://img.shields.io/badge/--ecebeb?logo=github&logoColor=000000" alt="GitHub repository"></a>
+      <br>
+      <a href="https://pypi.org/project/ramifice"><img src="https://img.shields.io/pypi/format/ramifice" alt="Format"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/languages/top/kebasyaty/ramifice" alt="Top"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/repo-size/kebasyaty/ramifice" alt="Size"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/last-commit/kebasyaty/ramifice/main" alt="Last commit"></a>
     </p>
     <p align="center">
       Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
