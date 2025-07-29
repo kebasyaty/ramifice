@@ -43,7 +43,7 @@ class Migration:
         # Raise the exception if there are no models for migration.
         if len(self.model_list) == 0:
             logger.critical("No Models for Migration!")
-            raise NoModelsForMigrationError()  # type: ignore[no-untyped-call]
+            raise NoModelsForMigrationError()
 
     async def reset(self) -> None:
         """Ramifice - Reset the condition of the models in a super collection.
