@@ -16,7 +16,7 @@ class Product:
     """Model of Product."""
 
     def fields(self) -> None:
-        """For adding fields."""
+        """Adding fields."""
         # For custom translations.
         gettext = translations.gettext
         ngettext = translations.ngettext

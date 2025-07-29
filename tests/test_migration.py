@@ -44,7 +44,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For adding fields."""
+        """Adding fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()

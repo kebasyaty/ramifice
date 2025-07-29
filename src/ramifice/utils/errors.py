@@ -4,7 +4,7 @@
 class RamificeException(Exception):
     """Ramifice - Root Exception for Ramifice."""
 
-    def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def] # noqa: D107
+    def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def]# noqa: D107
         super().__init__(*args, **kwargs)
 
 
@@ -35,7 +35,7 @@ class DoesNotMatchRegexError(RamificeException):
 class NoModelsForMigrationError(RamificeException):
     """Ramifice - Exception raised if no Models for migration."""
 
-    def __init__(self):  # type: ignore[no-untyped-def] # noqa: D107
+    def __init__(self) -> None:  # noqa: D107
         self.message = "No Models for Migration!"
         super().__init__(self.message)
 

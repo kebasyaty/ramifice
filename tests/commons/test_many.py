@@ -42,7 +42,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For adding fields."""
+        """Adding fields."""
         self.url = URLField()
         self.txt = TextField()
         self.txt2 = TextField(multi_language=True)
