@@ -111,7 +111,7 @@ class User:
     """Model of User."""
 
     def fields(self) -> None:
-        """For adding fields."""
+        """Adding fields."""
         # For custom translations.
         gettext = translations.gettext
         # ngettext = translations.ngettext

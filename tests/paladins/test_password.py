@@ -13,7 +13,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For adding fields."""
+        """Adding fields."""
         self.password = PasswordField()
         self.password_2 = PasswordField()
 

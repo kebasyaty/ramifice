@@ -1,6 +1,7 @@
 """Accounts."""
 
 from pymongo import ASCENDING
+
 from ramifice import model, translations
 from ramifice.fields import (
     BooleanField,
@@ -18,7 +19,7 @@ class User:
     """Model of User."""
 
     def fields(self) -> None:
-        """For adding fields."""
+        """Adding fields."""
         # For custom translations.
         gettext = translations.gettext
         ngettext = translations.ngettext

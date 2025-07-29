@@ -43,7 +43,7 @@ class User:
     """Model for testing."""
 
     def fields(self):
-        """For adding fields."""
+        """Adding fields."""
         self.url = URLField()
         self.txt = TextField()
         self.slug = SlugField()
@@ -79,7 +79,7 @@ class UniqueUser:
     """For test the uniqueness of values."""
 
     def fields(self):
-        """For adding fields."""
+        """Adding fields."""
         self.username = TextField(
             unique=True,
         )
