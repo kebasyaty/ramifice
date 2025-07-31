@@ -156,15 +156,12 @@ class User:
         error_map: dict[str, str] = {}
 
         # Get clean data.
-        id = self.id.value
-        username = self.username.value
-        password = self.password.value
-        сonfirm_password = self.сonfirm_password.value
+        cd = self.get_clean_data()
 
-        if re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
             error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
-        if id is None and (password != сonfirm_password):
+        if id is None and (cd["password"] != cd["сonfirm_password"]):
             error_map["password"] = gettext("Passwords do not match!")
         return error_map
 
