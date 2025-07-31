@@ -216,6 +216,9 @@ async def main():
     # (if necessary)
     # await User.collection().drop()
 
+    # Close connection.
+    await client.close()
+
 
 if __name__ == "__main__":
     asyncio.run(main())
