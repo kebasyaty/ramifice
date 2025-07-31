@@ -39,8 +39,12 @@ class User:
         )
         self.username = TextField(
             label=gettext("Username"),
+            maxlength=150,
             required=True,
             unique=True,
+            warning=[
+                gettext("Allowed chars: %s") % "a-z A-Z 0-9 _",
+            ],
         )
         self.first_name = TextField(label=gettext("First name"), required=True)
         self.last_name = TextField(
@@ -63,18 +67,21 @@ class User:
             label=gettext("Is Administrator?"),
         )
 
-    # Optional method.
+    # Optional method
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         gettext = translations.gettext
         error_map: dict[str, str] = {}
 
-        # Get clean data.
-        id = self.id.value
-        password = self.password.value
-        сonfirm_password = self.сonfirm_password.value
+        # Get clean data
+        cd = self.get_clean_data()
 
-        if id is None and (password != сonfirm_password):
+        # Check username
+        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
+            error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+
+        # Check password
+        if cd["id"] is None and (cd["password"] != cd["сonfirm_password"]):
             error_map["password"] = gettext("Passwords do not match!")
         return error_map
 

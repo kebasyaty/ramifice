@@ -99,6 +99,7 @@ async def main() -> None:
     else:
         print("No Products!")
 
+    # Close connection.
     await client.close()
 
 

@@ -65,6 +65,7 @@ async def main() -> None:
     # (if necessary)
     # await User.collection().drop()
 
+    # Close connection.
     await client.close()
 
 

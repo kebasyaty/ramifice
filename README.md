@@ -93,6 +93,7 @@ It is recommended to look at examples [here](https://github.com/kebasyaty/ramifi
 ```python
 import re
 import asyncio
+from typing import Any
 from datetime import datetime
 import pprint
 
@@ -148,23 +149,21 @@ class User:
             ignored=True,
         )
 
-
-    # Optional method.
+    # Optional method
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         gettext = translations.gettext
         error_map: dict[str, str] = {}
 
-        # Get clean data.
-        id = self.id.value
-        username = self.username.value
-        password = self.password.value
-        сonfirm_password = self.сonfirm_password.value
+        # Get clean data
+        cd: dict[str, Any] = self.get_clean_data()
 
-        if re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+        # Check username
+        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
             error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
-        if id is None and (password != сonfirm_password):
+        # Check password
+        if cd["id"] is None and (cd["password"] != cd["сonfirm_password"]):
             error_map["password"] = gettext("Passwords do not match!")
         return error_map
 
@@ -215,6 +214,9 @@ async def main():
     # Remove collection.
     # (if necessary)
     # await User.collection().drop()
+
+    # Close connection.
+    await client.close()
 
 
 if __name__ == "__main__":

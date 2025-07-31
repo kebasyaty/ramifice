@@ -1,3 +1,8 @@
+#### v0.8.16 2025-07-31
+
+- Added `get_clean_data` method to `Model` class.
+- Updated README.md .
+
 #### v0.8.5 2025-07-16
 
 - Async to anyio.

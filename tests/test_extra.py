@@ -1,9 +1,11 @@
 """Testing AddValidMixin, IndexMixin and HooksMixin."""
 
+import re
 import unittest
 
 from ramifice import model
 from ramifice.fields import TextField
+from ramifice.utils import translations
 
 
 @model(service_name="Accounts")
@@ -28,7 +30,11 @@ class User2:
 
         Format: <"field_name", "Error message">
         """
+        gettext = translations.gettext
         error_map: dict[str, str] = {}
+        cd = self.get_clean_data()
+        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
+            error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
         return error_map
 
     @classmethod
@@ -63,6 +69,8 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(await User2.indexing())
         #
         m = User()
+        m.username.value = "pythondev"
+
         self.assertEqual(await m.add_validation(), {})
         self.assertIsNone(await m.pre_create())
         self.assertIsNone(await m.post_create())
@@ -72,6 +80,7 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(await m.post_delete())
         #
         m2 = User2()
+        m2.username.value = "pythondev"
         self.assertEqual(await m2.add_validation(), {})
         self.assertIsNone(await m2.pre_create())
         self.assertIsNone(await m2.post_create())

@@ -57,6 +57,7 @@ async def main() -> None:
     # (if necessary)
     # await Product.collection().drop()
 
+    # Close connection.
     await client.close()
 
 

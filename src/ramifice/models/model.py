@@ -188,3 +188,12 @@ class Model(metaclass=ABCMeta):
                 elif group == "id":
                     value = ObjectId(value)
             self.__dict__[name].value = value
+
+    # --------------------------------------------------------------------------
+    def get_clean_data(self) -> dict[str, Any]:
+        """Get clean data."""
+        clean_data: dict[str, Any] = {}
+        for name, data in self.__dict__.items():
+            if not callable(data):
+                clean_data[name] = data.value
+        return clean_data
