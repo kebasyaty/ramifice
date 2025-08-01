@@ -160,7 +160,7 @@ class User:
             err_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         # Check password
-        if cd["id"] is None and (cd["password"] != cd["сonfirm_password"]):
+        if cd["_id"] is None and (cd["password"] != cd["сonfirm_password"]):
             err_map["password"] = gettext("Passwords do not match!")
         return err_map
 
