@@ -162,6 +162,7 @@ class User:
         # Check password
         if cd["_id"] is None and (cd["password"] != cd["сonfirm_password"]):
             err_map["password"] = gettext("Passwords do not match!")
+
         return err_map
 
 
