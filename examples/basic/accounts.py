@@ -127,16 +127,13 @@ class User:
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         gettext = translations.gettext
-        error_map: dict[str, str] = {}
-
-        # Get clean data
-        cd = self.get_clean_data()
+        cd, err_map = self.get_clean_data()
 
         # Check username
         if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
-            error_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+            err_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         # Check password
-        if cd["id"] is None and (cd["password"] != cd["сonfirm_password"]):
-            error_map["password"] = gettext("Passwords do not match!")
-        return error_map
+        if cd["_id"] is None and (cd["password"] != cd["сonfirm_password"]):
+            err_map["password"] = gettext("Passwords do not match!")
+        return err_map
