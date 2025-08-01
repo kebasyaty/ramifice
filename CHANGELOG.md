@@ -1,7 +1,13 @@
+#### v0.8.17 2025-08-01
+
+- Updated `get_clean_data` method to `Model` class.
+- Updated README.md
+- Updated Examples
+
 #### v0.8.16 2025-07-31
 
 - Added `get_clean_data` method to `Model` class.
-- Updated README.md .
+- Updated README.md
 
 #### v0.8.5 2025-07-16
 
@@ -29,7 +35,7 @@
 
 - Deleted a support `PseudoModel`.
 - Added total synchronization.
-- Updated README.md .
+- Updated README.md
 
 #### v0.5.0 2025-06-29
 
@@ -43,12 +49,12 @@
 #### v0.4.0 2025-06-25
 
 - Added multilingual support for `TextField`.
-- Updated README.md .
+- Updated README.md
 
 #### v0.3.28 2025-06-20
 
 - The structure of the project is reorganized.
-- Updated README.md .
+- Updated README.md
 
 #### v0.3.22 2025-06-17
 
@@ -74,7 +80,7 @@
 #### v0.3.15 2025-06-14
 
 - A lot of different optimizations have been added.
-- Updated README.md .
+- Updated README.md
 
 #### v0.3.13 2025-06-13
 
