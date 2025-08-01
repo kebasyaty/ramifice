@@ -65,7 +65,7 @@ class CheckMixin(
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
-        error_map: dict[str, str] = await self.add_validation() or {}
+        error_map: dict[str, str] = await self.add_validation()
         # Get Model collection.
         if collection is None:
             collection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]

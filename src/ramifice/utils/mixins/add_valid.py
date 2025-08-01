@@ -10,5 +10,4 @@ class AddValidMixin(metaclass=ABCMeta):
 
     async def add_validation(self) -> dict[str, str]:
         """Ramifice - Additional validation of fields."""
-        error_map: dict[str, str] = {}
-        return error_map
+        return {}

@@ -190,10 +190,12 @@ class Model(metaclass=ABCMeta):
             self.__dict__[name].value = value
 
     # --------------------------------------------------------------------------
-    def get_clean_data(self) -> dict[str, Any]:
+    def get_clean_data(self) -> tuple[dict[str, Any], dict[str, str]]:
         """Get clean data."""
         clean_data: dict[str, Any] = {}
+
         for name, data in self.__dict__.items():
             if not callable(data):
                 clean_data[name] = data.value
-        return clean_data
+
+        return (clean_data, {})

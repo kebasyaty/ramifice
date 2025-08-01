@@ -154,8 +154,6 @@ class User:
         """Additional validation of fields."""
         gettext = translations.gettext
         error_map: dict[str, str] = {}
-
-        # Get clean data
         cd: dict[str, Any] = self.get_clean_data()
 
         # Check username
