@@ -3,7 +3,7 @@ name = "ramifice"
 version = "0.8.18"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
-authors = [{ name = "Gennady Kostyunin", email = "kebasyaty@gmail.com" }]
+authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.12,<4.0"
