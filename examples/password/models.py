@@ -2,8 +2,6 @@
 
 import re
 
-from pymongo import ASCENDING
-
 from ramifice import model, translations
 from ramifice.fields import (
     BooleanField,
@@ -73,25 +71,14 @@ class User:
     async def add_validation(self) -> dict[str, str]:
         """Additional validation of fields."""
         gettext = translations.gettext
-        cd, err_map = self.get_clean_data()
+        cd, err = self.get_clean_data()
 
         # Check username
         if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
-            err_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+            err["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
         # Check password
         if cd["_id"] is None and (cd["password"] != cd["сonfirm_password"]):
-            err_map["password"] = gettext("Passwords do not match!")
-        return err_map
+            err["password"] = gettext("Passwords do not match!")
 
-    @classmethod
-    async def indexing(cls) -> None:
-        """For set up and start indexing."""
-        await cls.create_index(
-            [("username", ASCENDING)],
-            name="username_Idx",
-        )
-        await cls.create_index(
-            [("email", ASCENDING)],
-            name="email_Idx",
-        )
+        return err
