@@ -36,12 +36,12 @@ class User2:
         Format: <"field_name", "Error message">
         """
         gettext = translations.gettext
-        cd, err_map = self.get_clean_data()
+        cd, err = self.get_clean_data()
 
         if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
-            err_map["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+            err["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
 
-        return err_map
+        return err
 
     @classmethod
     async def indexing(cls) -> None:
