@@ -1,4 +1,4 @@
-"""Accounts."""
+"""Models."""
 
 from ramifice import model, translations
 from ramifice.fields import (
