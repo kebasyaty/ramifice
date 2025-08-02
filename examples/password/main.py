@@ -7,7 +7,7 @@ from pymongo import AsyncMongoClient
 
 from ramifice import Migration, translations
 
-from .accounts import User
+from .models import User
 
 
 async def main() -> None:
