@@ -1,4 +1,4 @@
-"""Accounts."""
+"""Models."""
 
 import re
 
