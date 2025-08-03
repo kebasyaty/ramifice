@@ -15,6 +15,7 @@
 """Ramifice - ORM-like API MongoDB for Python language."""
 
 __all__ = (
+    "NamedTuple",
     "model",
     "translations",
     "Migration",
@@ -22,6 +23,8 @@ __all__ = (
 )
 
 import logging
+
+from xloft import NamedTuple
 
 from ramifice.models.decorator import model
 from ramifice.utils import translations

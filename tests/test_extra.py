@@ -1,12 +1,10 @@
 """Testing AddValidMixin, IndexMixin and HooksMixin."""
 
-import collections
 import re
 import unittest
 
-from ramifice import model
+from ramifice import NamedTuple, model, translations
 from ramifice.fields import TextField
-from ramifice.utils import translations
 
 
 @model(service_name="Accounts")
@@ -30,7 +28,7 @@ class User2:
             required=True,
         )
 
-    async def add_validation(self) -> dict[str, str]:
+    async def add_validation(self) -> NamedTuple:
         """It is supposed to be use to additional validation of fields.
 
         Format: <"field_name", "Error message">
@@ -38,8 +36,8 @@ class User2:
         gettext = translations.gettext
         cd, err = self.get_clean_data()
 
-        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
-            err["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
+            err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
 
         return err
 
@@ -75,7 +73,8 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(await User2.indexing())
 
         m: User = User()
-        self.assertEqual(await m.add_validation(), {})
+        err_map = await m.add_validation()
+        self.assertEqual(err_map.to_dict(), {})
         self.assertIsNone(await m.pre_create())
         self.assertIsNone(await m.post_create())
         self.assertIsNone(await m.pre_update())
@@ -86,7 +85,7 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         m2 = User2()
         m2.username.value = "pythondev"
         err_map = await m2.add_validation()
-        self.assertIsNone(err_map.get("username"))
+        self.assertIsNone(err_map.username)
         self.assertIsNone(await m2.pre_create())
         self.assertIsNone(await m2.post_create())
         self.assertIsNone(await m2.pre_update())

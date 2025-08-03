@@ -33,6 +33,7 @@ dependencies = [
     "python-slugify>=8.0.4",
     "pyyaml>=6.0.2",
     "termcolor>=3.1.0",
+    "xloft>=0.1.6",
 ]
 
 [project.urls]
