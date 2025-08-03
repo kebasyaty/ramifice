@@ -38,10 +38,6 @@ class User2:
         if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
             err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
 
-        # Check password
-        if cd._id is None and (cd.password != cd.сonfirm_password):
-            err.update("password", gettext("Passwords do not match!"))
-
         return err
 
     @classmethod
