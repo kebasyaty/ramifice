@@ -1,3 +1,10 @@
+#### v0.8.19 2025-08-03
+
+- Added the library `xloft`.
+- Updated `get_clean_data`, `add_validation` methods to `Model` class.
+- Updated README.md
+- Updated Examples
+
 #### v0.8.17 2025-08-01
 
 - Updated `get_clean_data` method to `Model` class.

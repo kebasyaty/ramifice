@@ -4,7 +4,7 @@ import re
 
 from pymongo import ASCENDING
 
-from ramifice import model, translations
+from ramifice import NamedTuple, model, translations
 from ramifice.fields import (
     BooleanField,
     DateField,
@@ -70,18 +70,18 @@ class User:
         )
 
     # Optional method
-    async def add_validation(self) -> dict[str, str]:
+    async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
         gettext = translations.gettext
         cd, err = self.get_clean_data()
 
         # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd["username"]) is None:
-            err["username"] = gettext("Allowed chars: %s") % "a-z A-Z 0-9 _"
+        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
+            err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
 
         # Check password
-        if cd["_id"] is None and (cd["password"] != cd["сonfirm_password"]):
-            err["password"] = gettext("Passwords do not match!")
+        if cd._id is None and (cd.password != cd.сonfirm_password):
+            err.update("password", gettext("Passwords do not match!"))
 
         return err
 

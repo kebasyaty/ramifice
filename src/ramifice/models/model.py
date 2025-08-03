@@ -9,6 +9,7 @@ import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
+from xloft import NamedTuple
 
 from ramifice.fields import DateTimeField, IDField
 from ramifice.utils import translations
@@ -190,12 +191,14 @@ class Model(metaclass=ABCMeta):
             self.__dict__[name].value = value
 
     # --------------------------------------------------------------------------
-    def get_clean_data(self) -> tuple[dict[str, Any], dict[str, str]]:
+    def get_clean_data(self) -> tuple[NamedTuple, NamedTuple]:
         """Get clean data."""
         clean_data: dict[str, Any] = {}
+        error_map: dict[str, Any] = {}
 
         for name, data in self.__dict__.items():
             if not callable(data):
                 clean_data[name] = data.value
+                error_map[name] = None
 
-        return (clean_data, {})
+        return (NamedTuple(**clean_data), NamedTuple(**error_map))
