@@ -28,16 +28,19 @@ class User2:
             required=True,
         )
 
+    # Optional method
     async def add_validation(self) -> NamedTuple:
-        """It is supposed to be use to additional validation of fields.
-
-        Format: <"field_name", "Error message">
-        """
+        """Additional validation of fields."""
         gettext = translations.gettext
         cd, err = self.get_clean_data()
 
+        # Check username
         if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
             err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
+
+        # Check password
+        if cd._id is None and (cd.password != cd.сonfirm_password):
+            err.update("password", gettext("Passwords do not match!"))
 
         return err
 
