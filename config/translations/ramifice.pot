@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-08-01 16:50+0300\n"
+"POT-Creation-Date: 2025-08-04 09:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,29 +17,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: src/ramifice/models/model.py:25
+#: src/ramifice/models/model.py:26
 msgid "Document ID"
 msgstr ""
 
-#: src/ramifice/models/model.py:26 src/ramifice/models/model.py:27
-#: src/ramifice/models/model.py:33 src/ramifice/models/model.py:34
-#: src/ramifice/models/model.py:41 src/ramifice/models/model.py:42
+#: src/ramifice/models/model.py:27 src/ramifice/models/model.py:28
+#: src/ramifice/models/model.py:34 src/ramifice/models/model.py:35
+#: src/ramifice/models/model.py:42 src/ramifice/models/model.py:43
 msgid "It is added automatically"
 msgstr ""
 
-#: src/ramifice/models/model.py:32
+#: src/ramifice/models/model.py:33
 msgid "Created at"
 msgstr ""
 
-#: src/ramifice/models/model.py:35
+#: src/ramifice/models/model.py:36
 msgid "When the document was created."
 msgstr ""
 
-#: src/ramifice/models/model.py:40
+#: src/ramifice/models/model.py:41
 msgid "Updated at"
 msgstr ""
 
-#: src/ramifice/models/model.py:43
+#: src/ramifice/models/model.py:44
 msgid "When the document was updated."
 msgstr ""
 
