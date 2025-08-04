@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Ramifice - ORM-like API MongoDB for Python language."""
+"""ORM-pseudo-like API MongoDB for Python language."""
 
 __all__ = (
     "NamedTuple",
