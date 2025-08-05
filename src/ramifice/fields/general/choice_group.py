@@ -17,7 +17,7 @@ class ChoiceGroup(metaclass=ABCMeta):
         multiple -- Specifies that multiple options can be selected at once.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         placeholder: str = "",
         required: bool = False,
@@ -25,6 +25,7 @@ class ChoiceGroup(metaclass=ABCMeta):
         unique: bool = False,
         multiple: bool = False,
     ):
+        """Initialize the instance."""
         self.placeholder = placeholder
         self.required = required
         self.readonly = readonly

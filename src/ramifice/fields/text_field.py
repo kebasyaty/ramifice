@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class TextField(Field, JsonMixin):
     """Field of Model for enter text."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -32,6 +32,7 @@ class TextField(Field, JsonMixin):
         # Support for several language.
         multi_language: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(maxlength, int):

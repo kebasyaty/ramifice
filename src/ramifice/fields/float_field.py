@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class FloatField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (float) number."""
 
-    def __init__(  # noqa: D107
+    def __init__( 
         self,
         label: str = "",
         disabled: bool = False,
@@ -34,6 +34,7 @@ class FloatField(Field, NumberGroup, JsonMixin):
         step: float = 1.0,
         input_type: Literal["number", "range"] = "number",
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if input_type not in ["number", "range"]:

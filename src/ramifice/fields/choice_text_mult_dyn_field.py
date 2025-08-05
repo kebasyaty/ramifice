@@ -22,7 +22,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
     For simulate relationship Many-to-Many.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -33,6 +33,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

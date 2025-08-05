@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class IPField(Field, TextGroup, JsonMixin):
     """Field of Model for enter IP address."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -30,6 +30,7 @@ class IPField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:

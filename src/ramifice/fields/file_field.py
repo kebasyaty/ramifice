@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -41,6 +41,7 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:
@@ -108,9 +109,11 @@ class FileField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a file,
-        get file information and save in the target directory.
-        """  # noqa: D205
+        (
+            """Convert base64 to a file, """
+            """get file information and save in the target directory.
+        """
+        )
         base64_str = base64_str or None
         filename = filename or None
         file_info: dict[str, str | int | bool] = {"save_as_is": False}

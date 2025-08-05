@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class EmailField(Field, TextGroup, JsonMixin):
     """Field of Model for enter email address."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -31,6 +31,7 @@ class EmailField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:

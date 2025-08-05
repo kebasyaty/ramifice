@@ -30,7 +30,7 @@ class URLField(Field, TextGroup, JsonMixin):
         unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -44,6 +44,7 @@ class URLField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:

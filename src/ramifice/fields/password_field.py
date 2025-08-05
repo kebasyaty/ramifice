@@ -22,7 +22,7 @@ class PasswordField(Field):
             Number of characters: from 8 to 256.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         hide: bool = False,
@@ -32,6 +32,7 @@ class PasswordField(Field):
         placeholder: str = "",
         required: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

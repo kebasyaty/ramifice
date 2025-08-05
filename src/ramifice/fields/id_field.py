@@ -25,7 +25,7 @@ class IDField(Field):
         unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -38,6 +38,7 @@ class IDField(Field):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

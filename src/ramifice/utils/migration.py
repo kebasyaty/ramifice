@@ -1,8 +1,9 @@
-"""Migration are `Ramifice` way of
-propagating changes you make to
-your models (add or delete a Model, add or delete a field in Model, etc.) into
-your database schema.
-"""  # noqa: D205
+(
+    """Migration are `Ramifice` way of """
+    """propagating changes you make to """
+    """your models (add or delete a Model, add or delete a field in Model, etc.) into """
+    """your database schema."""
+)
 
 __all__ = ("Migration",)
 
@@ -96,9 +97,10 @@ class Migration:
         return new_fields
 
     async def napalm(self) -> None:
-        """Delete data for non-existent Models from a super collection,
-        delete collections associated with those Models.
-        """  # noqa: D205
+        (
+            """Delete data for non-existent Models from a super collection, """
+            """delete collections associated with those Models."""
+        )
         # Get access to database.
         database = constants.MONGO_DATABASE
         # Get access to super collection.

@@ -16,7 +16,7 @@ class TextGroup(metaclass=ABCMeta):
         unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         input_type: str = "",
         placeholder: str = "",
@@ -24,6 +24,7 @@ class TextGroup(metaclass=ABCMeta):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         self.input_type = input_type
         self.value: str | None = None
         self.placeholder = placeholder

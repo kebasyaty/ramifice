@@ -23,7 +23,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
     Element are (add|delete) via `ModelName.unit_manager(unit)` method.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -34,6 +34,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

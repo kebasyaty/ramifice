@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class ImageField(Field, FileGroup, JsonMixin):
     """Field of Model for upload image."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -44,6 +44,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:
@@ -139,9 +140,11 @@ class ImageField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a image,
-        get image information and save in the target directory.
-        """  # noqa: D205
+        (
+            """Convert base64 to a image, """
+            """get image information and save in the target directory.
+        """
+        )
         base64_str = base64_str or None
         filename = filename or None
         img_info: dict[str, str | int | bool] = {"save_as_is": False}
