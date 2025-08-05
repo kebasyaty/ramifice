@@ -37,11 +37,13 @@ plugins:
       handlers:
         python:
           paths: [src]
+          options:
+            docstring_style: google
   - search
   - tags
 
 nav:
   - Ramifice: index.md
   - Utils:
-      - utils/index.md
+      - Utils: utils/index.md
       - Errors: utils/errors.md
