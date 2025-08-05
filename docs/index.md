@@ -1,1 +1,3 @@
 ::: ramifice
+    options:
+      members: no
