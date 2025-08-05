@@ -11,8 +11,8 @@ class RamificeException(Exception):
 class FileHasNoExtensionError(RamificeException):
     """Exception raised if the file has no extension.
 
-    Attributes:
-        message -- explanation of the error
+    Args:
+        message: explanation of the error
     """
 
     def __init__(self, message: str = "File has no extension!") -> None:  # noqa: D107
@@ -23,8 +23,8 @@ class FileHasNoExtensionError(RamificeException):
 class DoesNotMatchRegexError(RamificeException):
     """Exception raised if does not match the regular expression.
 
-    Attributes:
-        regex_str -- regular expression in string representation
+    Args:
+        regex_str: regular expression in string representation
     """
 
     def __init__(self, regex_str: str) -> None:  # noqa: D107
@@ -43,8 +43,8 @@ class NoModelsForMigrationError(RamificeException):
 class PanicError(RamificeException):
     """Exception raised for cases of which should not be.
 
-    Attributes:
-        message -- explanation of the error
+    Args:
+        message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
@@ -66,8 +66,8 @@ class OldPassNotMatchError(RamificeException):
 class ForbiddenDeleteDocError(RamificeException):
     """Exception is raised when trying to delete the document.
 
-    Attributes:
-    message -- explanation of the error
+    Args:
+    message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
@@ -78,8 +78,8 @@ class ForbiddenDeleteDocError(RamificeException):
 class NotPossibleAddUnitError(RamificeException):
     """Exception is raised when not possible to add Unit.
 
-    Attributes:
-    message -- explanation of the error
+    Args:
+    message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
@@ -90,8 +90,8 @@ class NotPossibleAddUnitError(RamificeException):
 class NotPossibleDeleteUnitError(RamificeException):
     """Exception is raised when not possible to delete Unit.
 
-    Attributes:
-    message -- explanation of the error
+    Args:
+    message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107

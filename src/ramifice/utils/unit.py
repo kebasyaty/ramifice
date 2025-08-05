@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 class Unit(JsonMixin):
     """Unit of information for `choices` parameter in dynamic field types.
 
-    Attributes:
-        field -- The name of the dynamic field.
-        title -- The name of the choice item.
-        value -- The value of the choice item.
-        is_delete -- True - if you need to remove the item of choice.
+    Args:
+        field: The name of the dynamic field.
+        title: The name of the choice item.
+        value: The value of the choice item.
+        is_delete: True - if you need to remove the item of choice.
     """
 
     def __init__(  # noqa: D107

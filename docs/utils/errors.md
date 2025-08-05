@@ -1,1 +1,1 @@
-::: src.ramifice.utils.errors
+::: ramifice.utils.errors
