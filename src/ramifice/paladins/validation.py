@@ -1,4 +1,4 @@
-"""Ramifice - Validation of Model and printing errors to console."""
+"""Validation of Model and printing errors to console."""
 
 __all__ = ("ValidationMixin",)
 
@@ -8,10 +8,10 @@ from termcolor import colored
 
 
 class ValidationMixin:
-    """Ramifice - Validation of Model and printing errors to console."""
+    """Validation of Model and printing errors to console."""
 
     async def is_valid(self) -> bool:
-        """Ramifice - Check data validity.
+        """Check data validity.
 
         The main use is to check data from web forms.
         It is also used to verify Models that do not migrate to the database.
@@ -20,7 +20,7 @@ class ValidationMixin:
         return result_check["is_valid"]
 
     def print_err(self) -> None:
-        """Ramifice - Printing errors to console.
+        """Printing errors to console.
 
         Convenient to use during development.
         """

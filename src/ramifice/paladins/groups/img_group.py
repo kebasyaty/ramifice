@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking image fields.
+"""Group for checking image fields.
 
 Supported fields: ImageField
 """
@@ -16,13 +16,13 @@ from ramifice.utils.tools import to_human_size
 
 
 class ImgGroupMixin:
-    """Ramifice - Group for checking image fields.
+    """Group for checking image fields.
 
     Supported fields: ImageField
     """
 
     async def img_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking image fields."""
+        """Checking image fields."""
         field = params["field_data"]
         value = field.value or None
 

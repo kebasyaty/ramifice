@@ -1,4 +1,4 @@
-"""Ramifice - General parameters for all types fields of Model."""
+"""General parameters for all types fields of Model."""
 
 __all__ = ("Field",)
 
@@ -6,7 +6,7 @@ from abc import ABCMeta
 
 
 class Field(metaclass=ABCMeta):
-    """Ramifice - General parameters for all types fields of Model.
+    """General parameters for all types fields of Model.
 
     Attributes:
         label -- Text label for a web form field.

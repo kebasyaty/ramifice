@@ -1,4 +1,4 @@
-"""Ramifice - Verification, replacement and recoverang of password."""
+"""Verification, replacement and recoverang of password."""
 
 __all__ = ("PasswordMixin",)
 
@@ -15,14 +15,14 @@ logger = logging.getLogger(__name__)
 
 
 class PasswordMixin:
-    """Ramifice - Verification, replacement and recoverang of password."""
+    """Verification, replacement and recoverang of password."""
 
     async def verify_password(
         self,
         password: str,
         field_name: str = "password",
     ) -> bool:
-        """Ramifice - For password verification."""
+        """For password verification."""
         cls_model = self.__class__
         # Get documet ID.
         doc_id = self._id.value
@@ -76,7 +76,7 @@ class PasswordMixin:
         new_password: str,
         field_name: str = "password",
     ) -> None:
-        """Ramifice - For replace or recover password."""
+        """For replace or recover password."""
         cls_model = self.__class__
         if not await self.verify_password(old_password, field_name):
             logger.warning("Old password does not match!")

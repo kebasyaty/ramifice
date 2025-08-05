@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking id fields.
+"""Group for checking id fields.
 
 Supported fields:
     IDField
@@ -15,14 +15,14 @@ from ramifice.utils import translations
 
 
 class IDGroupMixin:
-    """Ramifice - Group for checking id fields.
+    """Group for checking id fields.
 
     Supported fields:
         IDField
     """
 
     def id_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking id fields."""
+        """Checking id fields."""
         field = params["field_data"]
         # Get current value.
         value = field.value

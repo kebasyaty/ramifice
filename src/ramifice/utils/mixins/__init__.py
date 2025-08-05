@@ -1,4 +1,4 @@
-"""Ramifice - Set of mixins for Models and Fields."""
+"""Set of mixins for Models and Fields."""
 
 __all__ = ("JsonMixin",)
 

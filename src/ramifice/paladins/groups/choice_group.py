@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking choice fields.
+"""Group for checking choice fields.
 
 Supported fields:
     ChoiceTextMultField | ChoiceTextMultDynField | ChoiceTextField
@@ -16,7 +16,7 @@ from ramifice.utils import translations
 
 
 class ChoiceGroupMixin:
-    """Ramifice - Group for checking choice fields.
+    """Group for checking choice fields.
 
     Supported fields:
             ChoiceTextMultField | ChoiceTextMultDynField | ChoiceTextField
@@ -26,7 +26,7 @@ class ChoiceGroupMixin:
     """
 
     def choice_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking choice fields."""
+        """Checking choice fields."""
         field = params["field_data"]
         is_migrate = params["is_migration_process"]
         # Get current value.

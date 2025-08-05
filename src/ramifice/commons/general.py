@@ -1,4 +1,4 @@
-"""Ramifice - General purpose query methods."""
+"""General purpose query methods."""
 
 __all__ = ("GeneralMixin",)
 
@@ -13,14 +13,14 @@ from ramifice.utils import constants, translations
 
 
 class GeneralMixin:
-    """Ramifice - General purpose query methods."""
+    """General purpose query methods."""
 
     @classmethod
     def from_mongo_doc(
         cls,
         mongo_doc: dict[str, Any],
     ) -> Any:
-        """Ramifice - Create object instance from Mongo document."""
+        """Create object instance from Mongo document."""
         obj: Any = cls()
         lang: str = translations.CURRENT_LOCALE
         for name, data in mongo_doc.items():
@@ -41,7 +41,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> int:
-        """Ramifice - Gets an estimate of the count of documents in a collection using collection metadata."""
+        """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #
@@ -58,7 +58,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> int:
-        """Ramifice - Gets an estimate of the count of documents in a collection using collection metadata."""
+        """Gets an estimate of the count of documents in a collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -81,7 +81,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> AsyncCommandCursor:
-        """Ramifice - Runs an aggregation framework pipeline."""
+        """Runs an aggregation framework pipeline."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -106,7 +106,7 @@ class GeneralMixin:
         hint: Any | None = None,
         **kwargs,
     ) -> list[Any]:
-        """Ramifice - Finds the distinct values for a specified field across a single collection.
+        """Finds the distinct values for a specified field across a single collection.
 
         Returns an array of unique values for specified field of collection.
         """
@@ -127,7 +127,7 @@ class GeneralMixin:
 
     @classmethod
     def collection_name(cls) -> str:
-        """Ramifice - Get collection name."""
+        """Get collection name."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #
@@ -135,7 +135,7 @@ class GeneralMixin:
 
     @classmethod
     def collection_full_name(cls) -> str:
-        """Ramifice - The full name of this AsyncCollection.
+        """The full name of this AsyncCollection.
 
         The full name is of the form database_name.collection_name.
         """
@@ -146,7 +146,7 @@ class GeneralMixin:
 
     @classmethod
     def database(cls) -> AsyncDatabase:
-        """Ramifice - Get AsyncBatabase for the current Model."""
+        """Get AsyncBatabase for the current Model."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #
@@ -154,7 +154,7 @@ class GeneralMixin:
 
     @classmethod
     def collection(cls) -> AsyncCollection:
-        """Ramifice - Get AsyncCollection for the current Model."""
+        """Get AsyncCollection for the current Model."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #

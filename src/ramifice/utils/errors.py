@@ -1,15 +1,15 @@
-"""Ramifice - Custom Exceptions for Ramifice."""
+"""Custom Exceptions for Ramifice."""
 
 
 class RamificeException(Exception):
-    """Ramifice - Root Exception for Ramifice."""
+    """Root Exception for Ramifice."""
 
     def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def]# noqa: D107
         super().__init__(*args, **kwargs)
 
 
 class FileHasNoExtensionError(RamificeException):
-    """Ramifice - Exception raised if the file has no extension.
+    """Exception raised if the file has no extension.
 
     Attributes:
         message -- explanation of the error
@@ -21,7 +21,7 @@ class FileHasNoExtensionError(RamificeException):
 
 
 class DoesNotMatchRegexError(RamificeException):
-    """Ramifice - Exception raised if does not match the regular expression.
+    """Exception raised if does not match the regular expression.
 
     Attributes:
         regex_str -- regular expression in string representation
@@ -33,7 +33,7 @@ class DoesNotMatchRegexError(RamificeException):
 
 
 class NoModelsForMigrationError(RamificeException):
-    """Ramifice - Exception raised if no Models for migration."""
+    """Exception raised if no Models for migration."""
 
     def __init__(self) -> None:  # noqa: D107
         self.message = "No Models for Migration!"
@@ -41,7 +41,7 @@ class NoModelsForMigrationError(RamificeException):
 
 
 class PanicError(RamificeException):
-    """Ramifice - Exception raised for cases of which should not be.
+    """Exception raised for cases of which should not be.
 
     Attributes:
         message -- explanation of the error
@@ -53,7 +53,7 @@ class PanicError(RamificeException):
 
 
 class OldPassNotMatchError(RamificeException):
-    """Ramifice - Exception is raised when trying to update the password.
+    """Exception is raised when trying to update the password.
 
     Hint: If old password does not match.
     """
@@ -64,7 +64,7 @@ class OldPassNotMatchError(RamificeException):
 
 
 class ForbiddenDeleteDocError(RamificeException):
-    """Ramifice - Exception is raised when trying to delete the document.
+    """Exception is raised when trying to delete the document.
 
     Attributes:
     message -- explanation of the error
@@ -76,7 +76,7 @@ class ForbiddenDeleteDocError(RamificeException):
 
 
 class NotPossibleAddUnitError(RamificeException):
-    """Ramifice - Exception is raised when not possible to add Unit.
+    """Exception is raised when not possible to add Unit.
 
     Attributes:
     message -- explanation of the error
@@ -88,7 +88,7 @@ class NotPossibleAddUnitError(RamificeException):
 
 
 class NotPossibleDeleteUnitError(RamificeException):
-    """Ramifice - Exception is raised when not possible to delete Unit.
+    """Exception is raised when not possible to delete Unit.
 
     Attributes:
     message -- explanation of the error

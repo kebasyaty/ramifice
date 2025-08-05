@@ -1,4 +1,4 @@
-"""Ramifice - Migration are `Ramifice` way of
+"""Migration are `Ramifice` way of
 propagating changes you make to
 your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 class Migration:
-    """Ramifice - Migration of models to database."""
+    """Migration of models to database."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient):  # noqa: D107
         constants.DEBUG = False
@@ -46,7 +46,7 @@ class Migration:
             raise NoModelsForMigrationError()
 
     async def reset(self) -> None:
-        """Ramifice - Reset the condition of the models in a super collection.
+        """Reset the condition of the models in a super collection.
 
         Switch the `is_model_exist` parameter in the condition `False`.
         """
@@ -62,7 +62,7 @@ class Migration:
             await super_collection.update_one(q_filter, update)
 
     async def model_state(self, metadata: dict[str, Any]) -> dict[str, Any]:
-        """Ramifice - Get the state of the current model from a super collection."""
+        """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = constants.MONGO_DATABASE[
@@ -86,7 +86,7 @@ class Migration:
         return model_state
 
     def new_fields(self, metadata: dict[str, Any], model_state: dict[str, Any]) -> list[str]:
-        """Ramifice - Get a list of new fields that were added to Model."""
+        """Get a list of new fields that were added to Model."""
         new_fields: list[str] = []
         for field_name, field_type in metadata["field_name_and_type"].items():
             old_field_type: str | None = model_state["field_name_and_type"].get(field_name)
@@ -95,7 +95,7 @@ class Migration:
         return new_fields
 
     async def napalm(self) -> None:
-        """Ramifice - Delete data for non-existent Models from a super collection,
+        """Delete data for non-existent Models from a super collection,
         delete collections associated with those Models.
         """  # noqa: D205
         # Get access to database.
@@ -116,7 +116,7 @@ class Migration:
                 await database.drop_collection(collection_name)  # type: ignore[union-attr]
 
     async def migrate(self) -> None:
-        """Ramifice - Run migration process.
+        """Run migration process.
 
         1) Update the state of Models in the super collection.
         2) Register new Models in the super collection.

@@ -1,4 +1,4 @@
-"""Ramifice - Paladins - Model instance methods."""
+"""Paladins - Model instance methods."""
 
 __all__ = ("QPaladinsMixin",)
 
@@ -24,7 +24,7 @@ class QPaladinsMixin(
     HooksMixin,
     IndexMixin,
 ):
-    """Ramifice - Paladins - Model instance methods."""
+    """Paladins - Model instance methods."""
 
     def __init__(self) -> None:  # noqa: D107
         super().__init__()

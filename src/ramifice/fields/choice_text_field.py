@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model.
+"""Field of Model.
 
 Type of selective text field with static of elements.
 """
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
-    """Ramifice - Field of Model.
+    """Field of Model.
 
     Type of selective text field with static of elements.
     With a single choice.
@@ -101,7 +101,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
                 raise err
 
     def has_value(self, is_migrate: bool = False) -> bool:
-        """Ramifice - Does the field value match the possible options in choices."""
+        """Does the field value match the possible options in choices."""
         value = self.value
         if value is None:
             value = self.default

@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter phone number."""
+"""Field of Model for enter phone number."""
 
 __all__ = ("PhoneField",)
 
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class PhoneField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for enter phone number.
+    """Field of Model for enter phone number.
 
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """

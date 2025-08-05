@@ -1,4 +1,4 @@
-"""Ramifice - Update Model instance from database."""
+"""Update Model instance from database."""
 
 __all__ = ("RefrashMixin",)
 
@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 
 
 class RefrashMixin:
-    """Ramifice - Update Model instance from database."""
+    """Update Model instance from database."""
 
     async def refrash_from_db(self) -> None:
-        """Ramifice - Update Model instance from database."""
+        """Update Model instance from database."""
         cls_model = self.__class__
         # Get collection.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]

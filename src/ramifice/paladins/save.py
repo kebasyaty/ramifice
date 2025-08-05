@@ -1,4 +1,4 @@
-"""Ramifice - Create or update document in database."""
+"""Create or update document in database."""
 
 __all__ = ("SaveMixin",)
 
@@ -16,10 +16,10 @@ logger = logging.getLogger(__name__)
 
 
 class SaveMixin:
-    """Ramifice - Create or update document in database."""
+    """Create or update document in database."""
 
     async def save(self) -> bool:
-        """Ramifice - Create or update document in database.
+        """Create or update document in database.
 
         This method pre-uses the `check` method.
         """

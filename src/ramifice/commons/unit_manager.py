@@ -1,4 +1,4 @@
-"""Ramifice - Units Management.
+"""Units Management.
 
 Management for `choices` parameter in dynamic field types.
 """
@@ -22,14 +22,14 @@ logger = logging.getLogger(__name__)
 
 
 class UnitMixin:
-    """Ramifice - Units Management.
+    """Units Management.
 
     Management for `choices` parameter in dynamic field types.
     """
 
     @classmethod
     async def unit_manager(cls: Any, unit: Unit) -> None:
-        """Ramifice - Units Management.
+        """Units Management.
 
         Management for `choices` parameter in dynamic field types.
         """

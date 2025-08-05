@@ -1,4 +1,4 @@
-"""Ramifice - Unit - Data management in dynamic fields."""
+"""Unit - Data management in dynamic fields."""
 
 __all__ = ("Unit",)
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class Unit(JsonMixin):
-    """Ramifice - Unit of information for `choices` parameter in dynamic field types.
+    """Unit of information for `choices` parameter in dynamic field types.
 
     Attributes:
         field -- The name of the dynamic field.
@@ -54,7 +54,7 @@ class Unit(JsonMixin):
         self.check_empty_arguments()
 
     def check_empty_arguments(self) -> None:
-        """Ramifice - Check the arguments for empty values.
+        """Check the arguments for empty values.
 
         Returns:
             `None` or raised exception `PanicError`.

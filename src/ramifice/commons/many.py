@@ -1,4 +1,4 @@
-"""Ramifice - Queries like `find many`."""
+"""Queries like `find many`."""
 
 __all__ = ("ManyMixin",)
 
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 class ManyMixin:
-    """Ramifice - Queries like `find many`."""
+    """Queries like `find many`."""
 
     @classmethod
     async def find_many(
@@ -49,7 +49,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
-        """Ramifice - Find documents."""
+        """Find documents."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -110,7 +110,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> list[dict[str, Any]]:
-        """Ramifice - Find documents and convert to a raw documents.
+        """Find documents and convert to a raw documents.
 
         Special changes:
             _id to str
@@ -187,7 +187,7 @@ class ManyMixin:
         session: Any | None = None,
         allow_disk_use: Any | None = None,
     ) -> str | None:
-        """Ramifice - Find documents and convert to a json string."""
+        """Find documents and convert to a json string."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -242,7 +242,7 @@ class ManyMixin:
         let: Any | None = None,
         comment: Any | None = None,
     ) -> DeleteResult:
-        """Ramifice - Find documents matching with Model."""
+        """Find documents matching with Model."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (

@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking password fields.
+"""Group for checking password fields.
 
 Supported fields: PasswordField
 """
@@ -15,13 +15,13 @@ from ramifice.utils.tools import is_password
 
 
 class PassGroupMixin:
-    """Ramifice - Group for checking password fields.
+    """Group for checking password fields.
 
     Supported fields: PasswordField
     """
 
     def pass_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking password fields."""
+        """Checking password fields."""
         field = params["field_data"]
         # When updating the document, skip the verification.
         if params["is_update"]:

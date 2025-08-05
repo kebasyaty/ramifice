@@ -1,1 +1,1 @@
-"""Ramifice - Models."""
+"""Models."""

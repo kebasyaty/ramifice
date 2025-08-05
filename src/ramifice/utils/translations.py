@@ -1,4 +1,4 @@
-"""Ramifice - Localization of translations.
+"""Localization of translations.
 
 The module contains the following variables:
 
@@ -55,7 +55,7 @@ def add_languages(
     default_locale: str,
     languages: frozenset[str],
 ) -> None:
-    """Ramifice - Add languages."""
+    """Add languages."""
     global DEFAULT_LOCALE, LANGUAGES
     if not default_locale in languages:
         msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
@@ -91,7 +91,7 @@ custom_translations: dict[str, NullTranslations] = {
 
 
 def get_ramifice_translator(lang_code: str) -> Any:
-    """Ramifice - Get an object of translation for the desired language, for Ramifice.
+    """Get an object of translation for the desired language, for Ramifice.
 
     Examples:
         >>> from ramifice import translations
@@ -113,7 +113,7 @@ def get_ramifice_translator(lang_code: str) -> Any:
 
 
 def get_custom_translator(lang_code: str) -> Any:
-    """Ramifice - Get an object of translation for the desired language, for custom project.
+    """Get an object of translation for the desired language, for custom project.
 
     Examples:
         >>> from ramifice import translations
@@ -143,7 +143,7 @@ ngettext: Any = get_custom_translator(DEFAULT_LOCALE).ngettext
 
 
 def change_locale(lang_code: str) -> None:
-    """Ramifice - Change current language.
+    """Change current language.
 
     Examples:
         >>> from ramifice import translations
