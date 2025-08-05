@@ -109,11 +109,9 @@ class FileField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        (
-            """Convert base64 to a file, """
-            """get file information and save in the target directory.
-        """
-        )
+        """Convert base64 to a file,
+        get file information and save in the target directory.
+        """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
         file_info: dict[str, str | int | bool] = {"save_as_is": False}
