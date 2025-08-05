@@ -956,8 +956,8 @@ wheels = [
 
 [[package]]
 name = "xloft"
-version = "0.1.11"
+version = "0.1.12"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/48/e9/b12ca600f02404211259140fbd649a1d9cd015e758990b9922e9f7740a0c/xloft-0.1.11-py3-none-any.whl", hash = "sha256:791eed355984ccfea3670be13065786724521948d3ae13153762f03f9bc0e5e9", size = 5783, upload-time = "2025-08-04T13:52:57.041Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/f3/1d89d37a9f311b47fa6229217162ed18b68badd56ed7783d6df682083151/xloft-0.1.12-py3-none-any.whl", hash = "sha256:fec449c7f169128794648fa75af9a6561d403d93066e020be132949a30f90aad", size = 5778, upload-time = "2025-08-05T08:00:31.906Z" },
 ]
