@@ -1,7 +1,18 @@
 site_name: Ramifice Docs
+repo_url: https://github.com/kebasyaty/ramifice
 
 theme:
   name: material
+  font:
+    text: Roboto
+  language: en
+  features:
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.top
+  icon:
+    repo: fontawesome/brands/github
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -23,7 +34,11 @@ theme:
 
 plugins:
   - mkdocstrings
+  - search
+  - tags
 
 nav:
   - Ramifice: index.md
-  - Utils: utils.md
+  - Utils:
+      - utils/index.md
+      - Errors: utils/errors.md
