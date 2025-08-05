@@ -5,7 +5,7 @@ __all__ = ("Unit",)
 import logging
 
 from ramifice.utils.errors import PanicError
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 

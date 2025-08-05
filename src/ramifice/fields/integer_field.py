@@ -8,7 +8,7 @@ from typing import Literal
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 

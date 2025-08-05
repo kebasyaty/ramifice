@@ -6,7 +6,7 @@ import logging
 
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
