@@ -44,6 +44,9 @@ plugins:
 
 nav:
   - Ramifice: index.md
+  - Commons:
+      - Commons: commons/index.md
+      - General: commons/general.md
   - Utils:
       - Utils: utils/index.md
       - Constants: utils/constants.md
