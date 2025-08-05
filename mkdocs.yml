@@ -46,4 +46,6 @@ nav:
   - Ramifice: index.md
   - Utils:
       - Utils: utils/index.md
+      - Constants: utils/constants.md
       - Errors: utils/errors.md
+      - Fixtures: utils/fixtures.md
