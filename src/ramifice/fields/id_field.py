@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter identifier of document."""
+"""Field of Model for enter identifier of document."""
 
 __all__ = ("IDField",)
 
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class IDField(Field):
-    """Ramifice - Field of Model for enter identifier of document.
+    """Field of Model for enter identifier of document.
 
     Attributes:
         input_type -- Input type for a web form field.
@@ -87,7 +87,7 @@ class IDField(Field):
         self.alerts: list[str] = []
 
     def to_dict(self) -> dict[str, Any]:
-        """Ramifice - Convert object instance to a dictionary."""
+        """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
@@ -98,12 +98,12 @@ class IDField(Field):
         return json_dict
 
     def to_json(self) -> str:
-        """Ramifice - Convert object instance to a JSON string."""
+        """Convert object instance to a JSON string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Ramifice - Convert JSON string to a object instance."""
+        """Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
             if name == "value" and data is not None:
@@ -114,6 +114,6 @@ class IDField(Field):
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
-        """Ramifice - Convert JSON string to a object instance."""
+        """Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

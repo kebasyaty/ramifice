@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for upload image."""
+"""Field of Model for upload image."""
 
 __all__ = ("ImageField",)
 
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 class ImageField(Field, FileGroup, JsonMixin):
-    """Ramifice - Field of Model for upload image."""
+    """Field of Model for upload image."""
 
     def __init__(  # noqa: D107
         self,
@@ -139,7 +139,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Ramifice - Convert base64 to a image,
+        """Convert base64 to a image,
         get image information and save in the target directory.
         """  # noqa: D205
         base64_str = base64_str or None
@@ -208,7 +208,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         src_path: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Ramifice - Get image information and copy the image to the target directory."""
+        """Get image information and copy the image to the target directory."""
         src_path = src_path or None
         img_info: dict[str, str | int | bool] = {"save_as_is": False}
         img_info["is_new_img"] = True

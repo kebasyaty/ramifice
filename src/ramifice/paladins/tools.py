@@ -1,4 +1,4 @@
-"""Ramifice - Tool of Paladins - A set of auxiliary methods."""
+"""Tool of Paladins - A set of auxiliary methods."""
 
 __all__ = (
     "ignored_fields_to_none",
@@ -17,14 +17,14 @@ logger = logging.getLogger(__name__)
 
 
 def ignored_fields_to_none(inst_model: Any) -> None:
-    """Ramifice - Reset the values of ignored fields to None."""
+    """Reset the values of ignored fields to None."""
     for _, field_data in inst_model.__dict__.items():
         if not callable(field_data) and field_data.ignored:
             field_data.value = None
 
 
 def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
-    """Ramifice - Update object instance from Mongo document."""
+    """Update object instance from Mongo document."""
     lang: str = translations.CURRENT_LOCALE
     model_dict = inst_model.__dict__
     for name, data in mongo_doc.items():
@@ -38,7 +38,7 @@ def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
 
 
 def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
-    """Ramifice - Unacceptable type of value."""
+    """Unacceptable type of value."""
     msg = (
         f"Model: `{params['full_model_name']}` > "
         + f"Field: `{params['field_data'].name}` > "
@@ -49,7 +49,7 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
 
 
 def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
-    """Ramifice - Accumulating errors to ModelName.field_name.errors ."""
+    """Accumulating errors to ModelName.field_name.errors ."""
     if not params["field_data"].hide:
         params["field_data"].errors.append(err_msg)
         if not params["is_error_symptom"]:
@@ -70,7 +70,7 @@ async def check_uniqueness(
     field_name: str | None = None,
     is_multi_language: bool = False,
 ) -> bool:
-    """Ramifice - Checking the uniqueness of the value in the collection."""
+    """Checking the uniqueness of the value in the collection."""
     q_filter = None
     if is_multi_language:
         lang_filter = [{f"{field_name}.{lang}": value} for lang in translations.LANGUAGES]

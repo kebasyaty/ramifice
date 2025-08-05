@@ -247,6 +247,18 @@ wheels = [
 ]
 
 [[package]]
+name = "griffe"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2d/42/486d21a6c33ff69a7381511d507b6db7a7b7f4d5bec3279bc0dc45c658a9/griffe-1.9.0.tar.gz", hash = "sha256:b5531cf45e9b73f0842c2121cc4d4bcbb98a55475e191fc9830e7aef87a920a0", size = 409341, upload-time = "2025-07-28T17:45:38.712Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e6/65/7b3fcef8c9fb6d1023484d9caf87e78450a5c9cd1e191ce9632990b65284/griffe-1.9.0-py3-none-any.whl", hash = "sha256:bcf90ee3ad42bbae70a2a490c782fc8e443de9b84aa089d857c278a4e23215fc", size = 137060, upload-time = "2025-07-28T17:45:36.973Z" },
+]
+
+[[package]]
 name = "idna"
 version = "3.10"
 source = { registry = "https://pypi.org/simple" }
@@ -421,6 +433,25 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e2/0a/7e4776217d4802009c8238c75c5345e23014a4706a8414a62c0498858183/mkdocstrings-0.30.0.tar.gz", hash = "sha256:5d8019b9c31ddacd780b6784ffcdd6f21c408f34c0bd1103b5351d609d5b4444", size = 106597, upload-time = "2025-07-22T23:48:45.998Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/de/b4/3c5eac68f31e124a55d255d318c7445840fa1be55e013f507556d6481913/mkdocstrings-0.30.0-py3-none-any.whl", hash = "sha256:ae9e4a0d8c1789697ac776f2e034e2ddd71054ae1cf2c2bb1433ccfd07c226f2", size = 36579, upload-time = "2025-07-22T23:48:44.152Z" },
+]
+
+[package.optional-dependencies]
+python = [
+    { name = "mkdocstrings-python" },
+]
+
+[[package]]
+name = "mkdocstrings-python"
+version = "1.16.12"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "griffe" },
+    { name = "mkdocs-autorefs" },
+    { name = "mkdocstrings" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bf/ed/b886f8c714fd7cccc39b79646b627dbea84cd95c46be43459ef46852caf0/mkdocstrings_python-1.16.12.tar.gz", hash = "sha256:9b9eaa066e0024342d433e332a41095c4e429937024945fea511afe58f63175d", size = 206065, upload-time = "2025-06-03T12:52:49.276Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3b/dd/a24ee3de56954bfafb6ede7cd63c2413bb842cc48eb45e41c43a05a33074/mkdocstrings_python-1.16.12-py3-none-any.whl", hash = "sha256:22ded3a63b3d823d57457a70ff9860d5a4de9e8b1e482876fc9baabaf6f5f374", size = 124287, upload-time = "2025-06-03T12:52:47.819Z" },
 ]
 
 [[package]]
@@ -785,7 +816,7 @@ dev = [
 docs = [
     { name = "mkdocs" },
     { name = "mkdocs-material" },
-    { name = "mkdocstrings" },
+    { name = "mkdocstrings", extra = ["python"] },
 ]
 
 [package.metadata]
@@ -815,7 +846,7 @@ dev = [
 docs = [
     { name = "mkdocs", specifier = ">=1.6.1" },
     { name = "mkdocs-material", specifier = ">=9.6.14" },
-    { name = "mkdocstrings", specifier = ">=0.29.1" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.29.1" },
 ]
 
 [[package]]
@@ -956,8 +987,8 @@ wheels = [
 
 [[package]]
 name = "xloft"
-version = "0.1.11"
+version = "0.1.12"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/48/e9/b12ca600f02404211259140fbd649a1d9cd015e758990b9922e9f7740a0c/xloft-0.1.11-py3-none-any.whl", hash = "sha256:791eed355984ccfea3670be13065786724521948d3ae13153762f03f9bc0e5e9", size = 5783, upload-time = "2025-08-04T13:52:57.041Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/f3/1d89d37a9f311b47fa6229217162ed18b68badd56ed7783d6df682083151/xloft-0.1.12-py3-none-any.whl", hash = "sha256:fec449c7f169128794648fa75af9a6561d403d93066e020be132949a30f90aad", size = 5778, upload-time = "2025-08-05T08:00:31.906Z" },
 ]

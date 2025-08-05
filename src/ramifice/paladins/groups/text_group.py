@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking text fields.
+"""Group for checking text fields.
 
 Supported fields:
     URLField | TextField | PhoneField
@@ -30,7 +30,7 @@ from ramifice.utils.tools import (
 
 
 class TextGroupMixin:
-    """Ramifice - Group for checking text fields.
+    """Group for checking text fields.
 
     Supported fields:
         URLField | TextField | PhoneField
@@ -38,7 +38,7 @@ class TextGroupMixin:
     """
 
     async def text_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking text fields."""
+        """Checking text fields."""
         field = params["field_data"]
         field_name = field.name
         field_type: str = field.field_type

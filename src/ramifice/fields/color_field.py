@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter color code."""
+"""Field of Model for enter color code."""
 
 __all__ = ("ColorField",)
 
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class ColorField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for enter color code.
+    """Field of Model for enter color code.
 
     Default value is #000000 (black).
 

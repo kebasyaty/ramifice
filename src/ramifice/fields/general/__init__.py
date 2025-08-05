@@ -1,1 +1,1 @@
-"""Ramifice - Abstract classes for the fields."""
+"""Abstract classes for the fields."""

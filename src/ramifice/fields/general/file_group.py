@@ -1,4 +1,4 @@
-"""Ramifice - General additional parameters for file fields."""
+"""General additional parameters for file fields."""
 
 __all__ = ("FileGroup",)
 
@@ -6,7 +6,7 @@ from abc import ABCMeta
 
 
 class FileGroup(metaclass=ABCMeta):
-    """Ramifice - General additional parameters for file fields.
+    """General additional parameters for file fields.
 
     Attributes:
         placeholder -- Displays prompt text.

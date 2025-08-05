@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter URL address."""
+"""Field of Model for enter URL address."""
 
 __all__ = ("URLField",)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class URLField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for enter URL address.
+    """Field of Model for enter URL address.
 
     Attributes:
         label -- Text label for a web form field.

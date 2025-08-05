@@ -1,4 +1,4 @@
-"""Ramifice - Groups - Model instance methods for specific processing of fields."""
+"""Groups - Model instance methods for specific processing of fields."""
 
 __all__ = (
     "BoolGroupMixin",

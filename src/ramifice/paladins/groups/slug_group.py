@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking slug fields.
+"""Group for checking slug fields.
 
 Supported fields:
     SlugField
@@ -18,14 +18,14 @@ logger = logging.getLogger(__name__)
 
 
 class SlugGroupMixin:
-    """Ramifice - Group for checking slug fields.
+    """Group for checking slug fields.
 
     Supported fields:
         SlugField
     """
 
     async def slug_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking slug fields."""
+        """Checking slug fields."""
         if not params["is_save"]:
             return
         #

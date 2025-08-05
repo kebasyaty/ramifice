@@ -1,1 +1,1 @@
-"""Ramifice - A set of Ramifice useful utilities."""
+"""A set of Ramifice useful utilities."""

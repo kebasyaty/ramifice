@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter boolean value."""
+"""Field of Model for enter boolean value."""
 
 __all__ = ("BooleanField",)
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class BooleanField(Field, JsonMixin):
-    """Ramifice - Field of Model for enter boolean value."""
+    """Field of Model for enter boolean value."""
 
     def __init__(  # noqa: D107
         self,

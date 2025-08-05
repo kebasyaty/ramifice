@@ -1,4 +1,4 @@
-"""Ramifice - Available field types."""
+"""Available field types."""
 
 __all__ = (
     "BooleanField",

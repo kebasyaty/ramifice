@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter password."""
+"""Field of Model for enter password."""
 
 __all__ = ("PasswordField",)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class PasswordField(Field):
-    r"""Ramifice - Field of Model for enter password.
+    r"""Field of Model for enter password.
 
     Warning:
             Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
@@ -72,7 +72,7 @@ class PasswordField(Field):
         self.required = required
 
     def to_dict(self) -> dict[str, Any]:
-        """Ramifice - Convert object instance to a dictionary."""
+        """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
         for name, data in self.__dict__.items():
             if not callable(data):
@@ -80,12 +80,12 @@ class PasswordField(Field):
         return json_dict
 
     def to_json(self) -> str:
-        """Ramifice - Convert object instance to a JSON string."""
+        """Convert object instance to a JSON string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Ramifice - Convert JSON string to a object instance."""
+        """Convert JSON string to a object instance."""
         obj = cls()
         for name, data in json_dict.items():
             obj.__dict__[name] = data
@@ -93,6 +93,6 @@ class PasswordField(Field):
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
-        """Ramifice - Convert JSON string to a object instance."""
+        """Convert JSON string to a object instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_dict(json_dict)

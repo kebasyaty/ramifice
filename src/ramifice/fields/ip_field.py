@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter IP address."""
+"""Field of Model for enter IP address."""
 
 __all__ = ("IPField",)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class IPField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for enter IP address."""
+    """Field of Model for enter IP address."""
 
     def __init__(  # noqa: D107
         self,

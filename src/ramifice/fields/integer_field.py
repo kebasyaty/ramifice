@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter (int) number."""
+"""Field of Model for enter (int) number."""
 
 __all__ = ("IntegerField",)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class IntegerField(Field, NumberGroup, JsonMixin):
-    """Ramifice - Field of Model for enter (int) number."""
+    """Field of Model for enter (int) number."""
 
     def __init__(  # noqa: D107
         self,

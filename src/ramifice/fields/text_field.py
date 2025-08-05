@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter text."""
+"""Field of Model for enter text."""
 
 __all__ = ("TextField",)
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class TextField(Field, JsonMixin):
-    """Ramifice - Field of Model for enter text."""
+    """Field of Model for enter text."""
 
     def __init__(  # noqa: D107
         self,
@@ -96,7 +96,7 @@ class TextField(Field, JsonMixin):
         self.multi_language = multi_language
 
     def __len__(self) -> int:
-        """Ramifice - Return length of field `value`."""
+        """Return length of field `value`."""
         value = self.value
         if isinstance(value, str):
             return len(value)

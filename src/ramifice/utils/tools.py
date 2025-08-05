@@ -1,4 +1,4 @@
-"""Ramifice - Global collection of auxiliary methods."""
+"""Global collection of auxiliary methods."""
 
 __all__ = (
     "is_password",
@@ -29,14 +29,14 @@ from ramifice.utils.constants import REGEX
 
 
 def is_password(password: str | None) -> bool:
-    """Ramifice - Validate Password."""
+    """Validate Password."""
     if not REGEX["password"].match(str(password)):
         return False
     return True
 
 
 def to_human_size(size: int) -> str:
-    """Ramifice - Convert number of bytes to readable format."""
+    """Convert number of bytes to readable format."""
     idx = int(math.floor(math.log(size) / math.log(1024)))
     size = size if size < 1024 else abs(round(size / pow(1024, idx), 2))
     order = ["bytes", "KB", "MB", "GB", "TB"][idx]
@@ -44,13 +44,13 @@ def to_human_size(size: int) -> str:
 
 
 async def get_file_size(path: str) -> int:
-    """Ramifice - Get file size in bytes."""
+    """Get file size in bytes."""
     size: int = await to_thread(getsize, path)
     return size
 
 
 def normal_email(email: str | None) -> str | None:
-    """Ramifice - Normalizing email address.
+    """Normalizing email address.
 
     Use this before requeste to a database.
     For example, on the login page.
@@ -68,7 +68,7 @@ def normal_email(email: str | None) -> str | None:
 
 
 async def is_email(email: str | None) -> bool:
-    """Ramifice - Validate Email address."""
+    """Validate Email address."""
     try:
         await to_thread(
             validate_email,
@@ -81,7 +81,7 @@ async def is_email(email: str | None) -> bool:
 
 
 def is_url(url: str | None) -> bool:
-    """Ramifice - Validate URL address."""
+    """Validate URL address."""
     result = urlparse(str(url))
     if not result.scheme or not result.netloc:
         return False
@@ -89,7 +89,7 @@ def is_url(url: str | None) -> bool:
 
 
 def is_ip(address: str | int | None) -> bool:
-    """Ramifice - Validate IP address."""
+    """Validate IP address."""
     try:
         ipaddress.ip_address(str(address))
     except ValueError:
@@ -98,14 +98,14 @@ def is_ip(address: str | int | None) -> bool:
 
 
 def is_color(color_code: str | None) -> bool:
-    """Ramifice - Validate Color code."""
+    """Validate Color code."""
     if REGEX["color_code"].match(str(color_code)) is None:
         return False
     return True
 
 
 def is_phone(number: str | None) -> bool:
-    """Ramifice - Validate Phone number."""
+    """Validate Phone number."""
     try:
         phone = phonenumbers.parse(str(number))
         if not phonenumbers.is_valid_number(phone):
@@ -116,10 +116,10 @@ def is_phone(number: str | None) -> bool:
 
 
 def is_mongo_id(oid: Any) -> bool:
-    """Ramifice - Validation of the Mongodb identifier."""
+    """Validation of the Mongodb identifier."""
     return ObjectId.is_valid(oid)
 
 
 def hash_to_obj_id(hash: str | None) -> ObjectId | None:
-    """Ramifice - Get ObjectId from hash string."""
+    """Get ObjectId from hash string."""
     return ObjectId(hash) if bool(hash) else None

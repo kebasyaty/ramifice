@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model.
+"""Field of Model.
 
 Type of selective text field with dynamic addition of elements.
 """
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
-    """Ramifice - Field of Model.
+    """Field of Model.
 
     Type of selective text field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
@@ -80,7 +80,7 @@ class ChoiceTextMultDynField(Field, ChoiceGroup, JsonMixin):
         self.choices: list[list[str]] | None = None
 
     def has_value(self, is_migrate: bool = False) -> bool:
-        """Ramifice - Does the field value match the possible options in choices."""
+        """Does the field value match the possible options in choices."""
         if is_migrate:
             return True
         value = self.value

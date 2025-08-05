@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking date fields.
+"""Group for checking date fields.
 
 Supported fields:
     DateTimeField | DateField
@@ -19,14 +19,14 @@ from ramifice.utils import translations
 
 
 class DateGroupMixin:
-    """Ramifice - Group for checking date fields.
+    """Group for checking date fields.
 
     Supported fields:
         DateTimeField | DateField
     """
 
     def date_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking date fields."""
+        """Checking date fields."""
         field = params["field_data"]
         # Get current value.
         value = field.value or field.default or None

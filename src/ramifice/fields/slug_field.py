@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for automatic generation of string `slug`."""
+"""Field of Model for automatic generation of string `slug`."""
 
 __all__ = ("SlugField",)
 
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class SlugField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for automatic generation of string `slug`.
+    """Field of Model for automatic generation of string `slug`.
 
     Convenient to use for Url addresses.
     """

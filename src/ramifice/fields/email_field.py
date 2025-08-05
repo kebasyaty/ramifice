@@ -1,4 +1,4 @@
-"""Ramifice - Field of Model for enter email address."""
+"""Field of Model for enter email address."""
 
 __all__ = ("EmailField",)
 
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class EmailField(Field, TextGroup, JsonMixin):
-    """Ramifice - Field of Model for enter email address."""
+    """Field of Model for enter email address."""
 
     def __init__(  # noqa: D107
         self,

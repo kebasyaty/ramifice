@@ -1,4 +1,4 @@
-"""Ramifice - Group for checking integer fields.
+"""Group for checking integer fields.
 
 Supported fields:
     IntegerField | FloatField
@@ -17,14 +17,14 @@ from ramifice.utils import translations
 
 
 class NumGroupMixin:
-    """Ramifice - Group for checking integer fields.
+    """Group for checking integer fields.
 
     Supported fields:
         IntegerField | FloatField
     """
 
     async def num_group(self, params: dict[str, Any]) -> None:
-        """Ramifice - Checking number fields."""
+        """Checking number fields."""
         field = params["field_data"]
         field_name = field.name
         # Get current value.

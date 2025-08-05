@@ -1,4 +1,4 @@
-"""Ramifice - Delete document from database."""
+"""Delete document from database."""
 
 __all__ = ("DeleteMixin",)
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class DeleteMixin:
-    """Ramifice - Delete document from database."""
+    """Delete document from database."""
 
     async def delete(
         self,
@@ -30,7 +30,7 @@ class DeleteMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
-        """Ramifice - Delete document from database."""
+        """Delete document from database."""
         cls_model = self.__class__
         # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:

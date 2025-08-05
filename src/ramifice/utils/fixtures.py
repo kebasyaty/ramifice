@@ -1,4 +1,4 @@
-"""Ramifice - Fixtures - To populate the database with pre-created data.
+"""Fixtures - To populate the database with pre-created data.
 
 Runs automatically during Model migration.
 """
@@ -24,7 +24,7 @@ async def apply_fixture(
     cls_model: Any,
     collection: AsyncCollection,
 ) -> None:
-    """Ramifice - Apply fixture for current Model.
+    """Apply fixture for current Model.
 
     Runs automatically during Model migration.
     """
