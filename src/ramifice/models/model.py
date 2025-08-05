@@ -20,7 +20,8 @@ class Model(metaclass=ABCMeta):
 
     META: dict[str, Any] = {}
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self) -> None:
+        """Initialize the instance."""
         _ = translations._
         self._id = IDField(
             label=_("Document ID"),
