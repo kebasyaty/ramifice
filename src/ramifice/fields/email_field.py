@@ -9,7 +9,7 @@ from email_validator import EmailNotValidError, validate_email
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class EmailField(Field, TextGroup, JsonMixin):
     """Field of Model for enter email address."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -31,6 +31,7 @@ class EmailField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:

@@ -10,7 +10,7 @@ import logging
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
     With a single choice.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -35,6 +35,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: list[list[str]] | None = None,
     ):
+        """Initialize the instance."""
         Field.__init__(
             self,
             label=label,

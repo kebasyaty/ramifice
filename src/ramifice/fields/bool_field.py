@@ -6,7 +6,7 @@ import logging
 
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class BooleanField(Field, JsonMixin):
     """Field of Model for enter boolean value."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -24,6 +24,7 @@ class BooleanField(Field, JsonMixin):
         warning: list[str] | None = None,
         default: bool = False,
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None and not isinstance(default, bool):

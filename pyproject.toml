@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.22"
+version = "0.8.23"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -68,6 +68,7 @@ docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.14",
     "mkdocstrings[python]>=0.29.1",
+    "pymdown-extensions>=10.16.1",
 ]
 
 [tool.ruff]

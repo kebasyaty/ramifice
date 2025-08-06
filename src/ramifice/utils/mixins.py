@@ -1,4 +1,4 @@
-"""JsonMixin - Contains the methods for converting Fields to JSON and back."""
+"""Set of mixins for Models and Fields."""
 
 __all__ = ("JsonMixin",)
 

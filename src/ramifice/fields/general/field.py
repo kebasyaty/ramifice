@@ -20,7 +20,7 @@ class Field(metaclass=ABCMeta):
         group -- To optimize field traversal in the `check` method.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -32,6 +32,7 @@ class Field(metaclass=ABCMeta):
         field_type: str = "",
         group: str = "",
     ):
+        """Initialize the instance."""
         self.id = ""
         self.label = label
         self.name = ""

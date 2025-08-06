@@ -15,13 +15,14 @@ class NumberGroup(metaclass=ABCMeta):
         unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
     ):
+        """Initialize the instance."""
         self.placeholder = placeholder
         self.required = required
         self.readonly = readonly

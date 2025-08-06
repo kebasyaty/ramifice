@@ -7,7 +7,7 @@ import logging
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class SlugField(Field, TextGroup, JsonMixin):
     Convenient to use for Url addresses.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -30,6 +30,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

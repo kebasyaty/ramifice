@@ -17,7 +17,7 @@ from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
 from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
 from ramifice.utils.errors import FileHasNoExtensionError
-from ramifice.utils.mixins.json_converter import JsonMixin
+from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file."""
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         disabled: bool = False,
@@ -41,6 +41,7 @@ class FileField(Field, FileGroup, JsonMixin):
         target_dir: str = "files",
         accept: str = "",
     ):
+        """Initialize the instance."""
         if constants.DEBUG:
             try:
                 if default is not None:

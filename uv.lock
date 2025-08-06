@@ -788,7 +788,7 @@ wheels = [
 
 [[package]]
 name = "ramifice"
-version = "0.8.22"
+version = "0.8.23"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
@@ -817,6 +817,7 @@ docs = [
     { name = "mkdocs" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
+    { name = "pymdown-extensions" },
 ]
 
 [package.metadata]
@@ -847,6 +848,7 @@ docs = [
     { name = "mkdocs", specifier = ">=1.6.1" },
     { name = "mkdocs-material", specifier = ">=9.6.14" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=0.29.1" },
+    { name = "pymdown-extensions", specifier = ">=10.16.1" },
 ]
 
 [[package]]
