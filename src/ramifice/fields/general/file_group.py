@@ -17,7 +17,7 @@ class FileGroup(metaclass=ABCMeta):
         accept -- Describing which file types to allow.
     """
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         placeholder: str = "",
         required: bool = False,
@@ -25,8 +25,7 @@ class FileGroup(metaclass=ABCMeta):
         default: str | None = None,
         target_dir: str = "",
         accept: str = "",
-    ):
-        """Initialize the instance."""
+    ) -> None:
         self.input_type = "file"
         self.placeholder = placeholder
         self.required = required

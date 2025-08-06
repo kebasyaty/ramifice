@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class ImageField(Field, FileGroup, JsonMixin):
     """Field of Model for upload image."""
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -43,8 +43,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         # Available 4 sizes from lg to xs or None.
         # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if default is not None:

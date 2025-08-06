@@ -76,8 +76,7 @@ IMG_INFO_DICT: dict[str, str | int | bool] = dict(
 class StandardTypes(JsonMixin):
     """Class for testing."""
 
-    def __init__(self) -> None:
-        """Initialize the instance."""
+    def __init__(self) -> None:  # noqd: D107
         JsonMixin.__init__(self)
         self.x1 = {"x": 1, "y": 2}
         self.x2 = [1, 2, 3]

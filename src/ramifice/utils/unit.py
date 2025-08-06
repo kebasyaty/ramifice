@@ -20,14 +20,13 @@ class Unit(JsonMixin):
         is_delete: True - if you need to remove the item of choice.
     """
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         field: str,
         title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
         value: float | int | str,
         is_delete: bool = False,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         # Check the match of types.
         if not isinstance(field, str):
             msg = "Class: `Unit` > Field: `field` => Not а `str` type!"

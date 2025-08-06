@@ -18,7 +18,7 @@ class SlugField(Field, TextGroup, JsonMixin):
     Convenient to use for Url addresses.
     """
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -29,8 +29,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         placeholder: str = "",
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if not isinstance(label, str):

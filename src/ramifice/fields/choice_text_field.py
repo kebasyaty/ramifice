@@ -22,7 +22,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
     With a single choice.
     """
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -34,8 +34,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
         choices: list[list[str]] | None = None,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         Field.__init__(
             self,
             label=label,

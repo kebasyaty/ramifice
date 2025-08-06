@@ -20,7 +20,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
 
-    def __init__(
+    def __init__(  # noqd: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -33,8 +33,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if default is not None:
