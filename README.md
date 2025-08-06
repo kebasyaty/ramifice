@@ -579,4 +579,4 @@ size: int = get_file_size(path)  # => 9843
 
 ## License
 
-**This project is licensed under the** [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")**.**
+This project is licensed under the [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT").
