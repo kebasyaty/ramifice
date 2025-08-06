@@ -18,7 +18,7 @@ class SlugField(Field, TextGroup, JsonMixin):
     Convenient to use for Url addresses.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

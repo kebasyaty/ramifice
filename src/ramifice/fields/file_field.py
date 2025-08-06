@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file."""
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

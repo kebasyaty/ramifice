@@ -20,7 +20,7 @@ class Model(metaclass=ABCMeta):
 
     META: dict[str, Any] = {}
 
-    def __init__(self) -> None:  # noqd: D107
+    def __init__(self) -> None:  # noqa: D107
         _ = translations._
         self._id = IDField(
             label=_("Document ID"),

@@ -17,7 +17,7 @@ class FileGroup(metaclass=ABCMeta):
         accept -- Describing which file types to allow.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         placeholder: str = "",
         required: bool = False,

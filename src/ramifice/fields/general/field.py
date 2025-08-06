@@ -20,7 +20,7 @@ class Field(metaclass=ABCMeta):
         group -- To optimize field traversal in the `check` method.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

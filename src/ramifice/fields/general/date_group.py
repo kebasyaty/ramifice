@@ -19,7 +19,7 @@ class DateGroup(metaclass=ABCMeta):
         min_date -- Minimum allowed date.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         input_type: str = "",
         placeholder: str = "",

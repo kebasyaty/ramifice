@@ -23,7 +23,7 @@ class ColorField(Field, TextGroup, JsonMixin):
         hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

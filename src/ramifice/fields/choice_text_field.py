@@ -22,7 +22,7 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
     With a single choice.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

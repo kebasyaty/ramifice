@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class BooleanField(Field, JsonMixin):
     """Field of Model for enter boolean value."""
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

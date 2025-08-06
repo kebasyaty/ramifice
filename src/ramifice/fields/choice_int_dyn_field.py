@@ -23,7 +23,7 @@ class ChoiceIntDynField(Field, ChoiceGroup, JsonMixin):
     Element are (add|delete) via `ModelName.unit_manager(unit)` method.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

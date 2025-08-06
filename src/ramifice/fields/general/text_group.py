@@ -16,7 +16,7 @@ class TextGroup(metaclass=ABCMeta):
         unique -- The unique value of a field in a collection.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         input_type: str = "",
         placeholder: str = "",

@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class FloatField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (float) number."""
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

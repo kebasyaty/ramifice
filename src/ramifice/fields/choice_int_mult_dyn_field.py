@@ -22,7 +22,7 @@ class ChoiceIntMultDynField(Field, ChoiceGroup, JsonMixin):
     For simulate relationship Many-to-Many.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

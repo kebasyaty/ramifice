@@ -20,7 +20,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
     WARNING: By default is used validator `phonenumbers.is_valid_number()`.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,

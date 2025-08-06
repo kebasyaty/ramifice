@@ -22,7 +22,7 @@ class PasswordField(Field):
             Number of characters: from 8 to 256.
     """
 
-    def __init__(  # noqd: D107
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         hide: bool = False,
