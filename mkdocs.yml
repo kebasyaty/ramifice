@@ -90,6 +90,8 @@ nav:
       - Unit Manager: commons/unit_manager.md
   - Fields:
       - Fields: fields/index.md
+      - BooleanField: fields/bool_field.md
+      - ChoiceFloatDynField: fields/choice_float_dyn_field.md
       - General:
           - General: fields/general/index.md
           - Fields: fields/general/field.md
