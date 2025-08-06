@@ -9,7 +9,6 @@ class ChoiceGroup(metaclass=ABCMeta):
     """General additional parameters for choice fields.
 
     Args:
-        input_type: Input type for a web form field.
         placeholder: Displays prompt text.
         required: Required field.
         readonly: Specifies that the field cannot be modified by the user.
