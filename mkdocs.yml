@@ -88,6 +88,16 @@ nav:
       - One: commons/one.md
       - Tools: commons/tools.md
       - Unit Manager: commons/unit_manager.md
+  - Fields:
+      - Fields: fields/index.md
+      - General:
+          - General: fields/general/index.md
+          - Fields: fields/general/field.md
+          - Choice Group: fields/general/choice_group.md
+          - Date Group: fields/general/date_group.md
+          - File Group: fields.general.file_group.md
+          - Number Group: fields.general.number_group.md
+          - Text Group: fields.general.text_group.md
   - Utils:
       - Utils: utils/index.md
       - Constants: utils/constants.md
