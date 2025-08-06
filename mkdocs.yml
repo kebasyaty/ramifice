@@ -83,6 +83,11 @@ nav:
   - Commons:
       - Commons: commons/index.md
       - General: commons/general.md
+      - Indexes: commons/indexes.md
+      - Many: commons/many.md
+      - One: commons/one.md
+      - Tools: commons/tools.md
+      - Unit Manager: commons/unit_manager.md
   - Utils:
       - Utils: utils/index.md
       - Constants: utils/constants.md
