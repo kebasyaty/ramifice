@@ -20,9 +20,9 @@ theme:
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
-    - navigation.path
     - navigation.indexes
     - navigation.top
+    - navigation.footer
     - toc.follow
   palette:
     # Palette toggle for automatic mode
@@ -47,7 +47,12 @@ theme:
 
 plugins:
   - search
-  - tags
+  - git-authors
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/
+  - tags:
+      tags_slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - mkdocstrings:
       handlers:
         python:
@@ -58,8 +63,20 @@ plugins:
 markdown_extensions:
   - markdown.extensions.toc:
       permalink: true
-      slugify:
-        !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kebasyaty
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/gennady-kostyunin-10188a1a2/
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/kebasyaty
+
+copyright: Copyright &copy; 2025 Gennady Kostyunin
 
 nav:
   - Ramifice: index.md
