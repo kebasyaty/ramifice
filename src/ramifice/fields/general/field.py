@@ -8,16 +8,16 @@ from abc import ABCMeta
 class Field(metaclass=ABCMeta):
     """General parameters for all types fields of Model.
 
-    Attributes:
-        label -- Text label for a web form field.
-        disabled -- Blocks access and modification of the element.
-        hide -- Hide field from user.
-        ignored -- If true, the value of this field is not saved in the database.
-        hint -- An alternative for the `placeholder` parameter.
-        warning -- Warning information.
-        errors -- The value is determined automatically.
-        field_type -- Field type - ClassName.
-        group -- To optimize field traversal in the `check` method.
+    Args:
+        label: Text label for a web form field.
+        disabled: Blocks access and modification of the element.
+        hide: Hide field from user.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        errors: The value is determined automatically.
+        field_type: Field type - ClassName.
+        group: To optimize field traversal in the `check` method.
     """
 
     def __init__(  # noqa: D107

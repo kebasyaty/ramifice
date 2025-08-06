@@ -8,12 +8,12 @@ from abc import ABCMeta
 class TextGroup(metaclass=ABCMeta):
     """General additional parameters for text fields.
 
-    Attributes:
-        input_type -- Input type for a web form field.
-        placeholder -- Displays prompt text.
-        required -- Required field.
-        readonly -- Specifies that the field cannot be modified by the user.
-        unique -- The unique value of a field in a collection.
+    Args:
+        input_type: Input type for a web form field.
+        placeholder: Displays prompt text.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
+        unique: The unique value of a field in a collection.
     """
 
     def __init__(  # noqa: D107

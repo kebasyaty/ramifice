@@ -8,13 +8,13 @@ from abc import ABCMeta
 class ChoiceGroup(metaclass=ABCMeta):
     """General additional parameters for choice fields.
 
-    Attributes:
-        input_type -- Input type for a web form field.
-        placeholder -- Displays prompt text.
-        required -- Required field.
-        readonly -- Specifies that the field cannot be modified by the user.
-        unique -- The unique value of a field in a collection.
-        multiple -- Specifies that multiple options can be selected at once.
+    Args:
+        input_type: Input type for a web form field.
+        placeholder: Displays prompt text.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
+        unique: The unique value of a field in a collection.
+        multiple: Specifies that multiple options can be selected at once.
     """
 
     def __init__(  # noqa: D107
