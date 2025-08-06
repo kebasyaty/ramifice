@@ -28,7 +28,7 @@
       <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/languages/top/kebasyaty/ramifice" alt="Top"></a>
       <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/repo-size/kebasyaty/ramifice" alt="Size"></a>
       <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/last-commit/kebasyaty/ramifice/main" alt="Last commit"></a>
-      <a href="https://github.com/kebasyaty/xloft/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/xloft" alt="GitHub release"></a>
+      <a href="https://github.com/kebasyaty/ramifice/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/ramifice" alt="GitHub release"></a>
     </p>
     <p align="center">
       Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
