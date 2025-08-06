@@ -1,18 +1,29 @@
 site_name: Ramifice Docs
 repo_url: https://github.com/kebasyaty/ramifice
+repo_name: kebasyaty/ramifice
 
 theme:
   name: material
   font:
     text: Roboto
+  icon:
+    repo: fontawesome/brands/github
   language: en
   features:
     - search.suggest
     - search.highlight
     - search.share
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
     - navigation.top
-  icon:
-    repo: fontawesome/brands/github
+    - toc.follow
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -22,25 +33,33 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
+      primary: blue
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
 
 plugins:
+  - search
+  - tags
   - mkdocstrings:
       handlers:
         python:
           paths: [src]
           options:
             docstring_style: google
-  - search
-  - tags
+
+markdown_extensions:
+  - markdown.extensions.toc:
+      permalink: true
+      slugify:
+        !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
 
 nav:
   - Ramifice: index.md
