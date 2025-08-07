@@ -1,3 +1,7 @@
+#### v0.8.25 2025-08-07
+
+- Upgraded the library `xloft`.
+
 #### v0.8.19 2025-08-03
 
 - Added the library `xloft`.
