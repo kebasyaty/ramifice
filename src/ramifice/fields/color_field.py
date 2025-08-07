@@ -23,7 +23,7 @@ class ColorField(Field, TextGroup, JsonMixin):
         hsla(170,23%,25%,0.2) | 0x00ffff
     """
 
-    def __init__(  
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -36,8 +36,7 @@ class ColorField(Field, TextGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if default is not None:

@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class DateField(Field, DateGroup):
     """Field of Model for enter date."""
 
-    def __init__(  
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -34,8 +34,7 @@ class DateField(Field, DateGroup):
         readonly: bool = False,
         max_date: datetime | None = None,
         min_date: datetime | None = None,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if max_date is not None:

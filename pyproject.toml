@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.23"
+version = "0.8.25"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -95,7 +95,7 @@ convention = "google"
 
 [tool.ruff.format]
 docstring-code-format = true
-docstring-code-line-length = 80
+docstring-code-line-length = 100
 
 [tool.mypy]
 strict = true

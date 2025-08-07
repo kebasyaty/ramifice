@@ -12,7 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""ORM-pseudo-like API MongoDB for Python language."""
+"""ORM-pseudo-like API MongoDB for Python language.
+
+Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
+
+For simulate relationship Many-to-One and Many-to-Many,
+a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
+The project is more concentrated for web development or for applications with a graphic interface.
+"""
 
 __all__ = (
     "NamedTuple",

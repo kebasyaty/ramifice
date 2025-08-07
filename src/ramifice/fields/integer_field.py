@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class IntegerField(Field, NumberGroup, JsonMixin):
     """Field of Model for enter (int) number."""
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -33,8 +33,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
         min_number: int | None = None,
         step: int = 1,
         input_type: Literal["number", "range"] = "number",
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if input_type not in ["number", "range"]:

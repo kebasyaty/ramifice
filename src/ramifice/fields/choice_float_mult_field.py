@@ -22,7 +22,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
     With multiple choice.
     """
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -34,8 +34,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         required: bool = False,
         readonly: bool = False,
         choices: list[list[float | str]] | None = None,
-    ):
-        """Initialize the instance."""
+    ) -> None:
         Field.__init__(
             self,
             label=label,

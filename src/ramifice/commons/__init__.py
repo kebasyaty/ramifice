@@ -18,6 +18,5 @@ class QCommonsMixin(
 ):
     """Commons - Model class methods."""
 
-    def __init__(self) -> None:
-        """Initialize the instance."""
+    def __init__(self) -> None:  # noqa: D107
         super().__init__()

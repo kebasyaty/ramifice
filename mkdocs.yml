@@ -72,17 +72,26 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/kebasyaty
     - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/gennady-kostyunin-10188a1a2/
+      link: https://www.linkedin.com
     - icon: fontawesome/brands/x-twitter
-      link: https://twitter.com/kebasyaty
+      link: https://twitter.com
 
-copyright: Copyright &copy; 2025 Gennady Kostyunin
+copyright: Copyright &copy; 2024 - 2025 Gennady Kostyunin
 
 nav:
   - Ramifice: index.md
   - Commons:
       - Commons: commons/index.md
       - General: commons/general.md
+      - Indexes: commons/indexes.md
+      - Many: commons/many.md
+      - One: commons/one.md
+      - Tools: commons/tools.md
+      - Unit Manager: commons/unit_manager.md
+  - Fields:
+      - Fields: fields/index.md
+      - BooleanField: fields/bool_field.md
+      - ChoiceFloatDynField: fields/choice_float_dyn_field.md
   - Utils:
       - Utils: utils/index.md
       - Constants: utils/constants.md

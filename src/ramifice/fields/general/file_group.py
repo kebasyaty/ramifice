@@ -8,16 +8,16 @@ from abc import ABCMeta
 class FileGroup(metaclass=ABCMeta):
     """General additional parameters for file fields.
 
-    Attributes:
-        placeholder -- Displays prompt text.
-        required -- Required field.
-        max_size -- The maximum allowed file size in bytes.
-        default -- Default file path.
-        target_dir -- Directory for files inside media directory.
-        accept -- Describing which file types to allow.
+    Args:
+        placeholder: Displays prompt text.
+        required: Required field.
+        max_size: The maximum allowed file size in bytes.
+        default: Default file path.
+        target_dir: Directory for files inside media directory.
+        accept: Describing which file types to allow.
     """
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         placeholder: str = "",
         required: bool = False,
@@ -25,8 +25,7 @@ class FileGroup(metaclass=ABCMeta):
         default: str | None = None,
         target_dir: str = "",
         accept: str = "",
-    ):
-        """Initialize the instance."""
+    ) -> None:
         self.input_type = "file"
         self.placeholder = placeholder
         self.required = required

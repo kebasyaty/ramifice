@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class FileField(Field, FileGroup, JsonMixin):
     """Field of Model for upload file."""
 
-    def __init__(
+    def __init__(  # noqa: D107
         self,
         label: str = "",
         disabled: bool = False,
@@ -40,8 +40,7 @@ class FileField(Field, FileGroup, JsonMixin):
         placeholder: str = "",
         target_dir: str = "files",
         accept: str = "",
-    ):
-        """Initialize the instance."""
+    ) -> None:
         if constants.DEBUG:
             try:
                 if default is not None:

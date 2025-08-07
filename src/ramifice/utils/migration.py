@@ -25,8 +25,7 @@ logger = logging.getLogger(__name__)
 class Migration:
     """Migration of models to database."""
 
-    def __init__(self, database_name: str, mongo_client: AsyncMongoClient) -> None:
-        """Initialize the instance."""
+    def __init__(self, database_name: str, mongo_client: AsyncMongoClient) -> None:  # noqa: D107
         constants.DEBUG = False
         #
         db_name_regex = constants.REGEX["database_name"]
