@@ -25,8 +25,8 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
     def __init__(  # noqa: D107
         self,
         label: str = "",
-        disabled: bool = False,
         hide: bool = False,
+        disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
