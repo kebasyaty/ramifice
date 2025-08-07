@@ -20,20 +20,32 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
 
     Type of selective text field with static of elements.
     With multiple choice.
+
+    Args:
+        label: Text label for a web form field.
+        default: Default value.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
+        choices: For a predefined set of options - [[value, Title], ...].
     """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
-        disabled: bool = False,
+        default: list[str] | None = None,
         hide: bool = False,
+        disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: list[str] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[list[str]] | None = None,
+        choices: list[list[str]] | None = None,  # [[value, Title], ...]
     ) -> None:
         Field.__init__(
             self,

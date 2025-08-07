@@ -1,4 +1,19 @@
-"""Paladins - Model instance methods."""
+"""Paladins - Model instance methods.
+
+This module provides:
+
+- `add_validation`: Contains an abstract method for additional validation of fields.
+- `check`: Validation of Model data before saving to the database.
+- `delete`: Delete document from database.
+- `Hooks`: A set of abstract methods for creating hooks.
+- `indexing`: Contains the method for indexing the model in the database.
+- `password`: Verification, replacement and recoverang of password.
+- `refrash_from_db`: Update Model instance from database.
+- `save`: Create or update document in database.
+- `Tools`: A set of auxiliary methods.
+- `is_valid`: Validation of Model.
+- `print_err`: Printing errors to console.
+"""
 
 __all__ = ("QPaladinsMixin",)
 

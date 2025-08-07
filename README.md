@@ -65,7 +65,7 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
    [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/UBUNTU_INSTALL_MONGODB.md)
    [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.mongodb.com/try/download/community)
 
-2. Run:
+1. Run:
 
 ```shell
 # Fedora:
@@ -84,7 +84,6 @@ uv add ramifice
 
 3. Add `config` and `public` directories in root of your project:<br>
    [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
-   <br>
    [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
 
 ## Usage

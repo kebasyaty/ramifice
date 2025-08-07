@@ -12,17 +12,27 @@ logger = logging.getLogger(__name__)
 
 
 class BooleanField(Field, JsonMixin):
-    """Field of Model for enter boolean value."""
+    """Field of Model for enter boolean value.
+
+    Args:
+        label: Text label for a web form field.
+        default: Default value.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+    """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
-        disabled: bool = False,
+        default: bool = False,
         hide: bool = False,
+        disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: bool = False,
     ) -> None:
         if constants.DEBUG:
             try:

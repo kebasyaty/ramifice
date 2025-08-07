@@ -1,0 +1,3 @@
+::: ramifice.models.decorator
+
+<hr>

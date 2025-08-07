@@ -20,13 +20,23 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
 
     Type of selective float field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
+
+    Args:
+        label: Text label for a web form field.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
     """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
-        disabled: bool = False,
         hide: bool = False,
+        disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,

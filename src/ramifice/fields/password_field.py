@@ -16,20 +16,29 @@ logger = logging.getLogger(__name__)
 class PasswordField(Field):
     r"""Field of Model for enter password.
 
-    Warning:
-            Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-            Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-            Number of characters: from 8 to 256.
+    Attention:
+    - Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+    - Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+    - Number of characters: from 8 to 256.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        hide: Hide field from user.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
     """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
         hide: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        placeholder: str = "",
         required: bool = False,
     ) -> None:
         if constants.DEBUG:
