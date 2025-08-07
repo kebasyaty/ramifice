@@ -23,11 +23,29 @@ logger = logging.getLogger(__name__)
 
 
 class ImageField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload image."""
+    """Field of Model for upload image.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        default: Value by default.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
+        max_size: The maximum allowed file size in bytes.
+        target_dir: Directory for files inside media directory.
+        accept: Describing which file types to allow. Example: "image/png,image/jpeg,image/webp".
+        thumbnails: Sizes of thumbnails - Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }.
+    """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
+        default: str | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -36,8 +54,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         required: bool = False,
         # The maximum size of the original image in bytes.
         max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
-        default: str | None = None,
-        placeholder: str = "",
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
         # Available 4 sizes from lg to xs or None.

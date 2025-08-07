@@ -23,11 +23,28 @@ logger = logging.getLogger(__name__)
 
 
 class FileField(Field, FileGroup, JsonMixin):
-    """Field of Model for upload file."""
+    """Field of Model for upload file.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        default: Value by default.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
+        max_size: The maximum allowed file size in bytes.
+        target_dir: Directory for files inside media directory.
+        accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,application/msword".
+    """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
+        default: str | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -36,10 +53,8 @@ class FileField(Field, FileGroup, JsonMixin):
         required: bool = False,
         # The maximum size of the file in bytes.
         max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
-        default: str | None = None,
-        placeholder: str = "",
         target_dir: str = "files",
-        accept: str = "",
+        accept: str = "",  # Example: ".pdf,.doc,.docx,application/msword"
     ) -> None:
         if constants.DEBUG:
             try:
