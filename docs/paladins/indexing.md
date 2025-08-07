@@ -1,0 +1,3 @@
+::: ramifice.paladins.indexing
+
+<hr>

@@ -110,6 +110,18 @@ nav:
       - ChoiceTextField: fields/choice_text_field.md
       - ChoiceTextMultDynField: fields/choice_text_mult_dyn_field.md
       - ChoiceTextMultField: fields/choice_text_mult_field.md
+  - Paladins:
+      - Paladins: paladins/index.md
+      - Check: paladins/check.md
+      - Save: paladins/save.md
+      - Delete: paladins/delete.md
+      - Add Validation: paladins/add_valid.md
+      - Hooks: paladins/hooks.md
+      - Indexing: paladins/indexing.md
+      - Password: paladins/password.md
+      - Refrash: paladins/refrash.md
+      - Validation: paladins/validation.md
+      - Tools: paladins/tools.md
   - Commons:
       - Commons: commons/index.md
       - General: commons/general.md
