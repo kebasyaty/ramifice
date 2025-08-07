@@ -18,8 +18,13 @@ class IDField(Field):
     """Field of Model for enter identifier of document.
 
     Agrs:
-        input_type: Input type for a web form field.
+        label: Text label for a web form field.
         placeholder: Displays prompt text.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
         required: Required field.
         readonly: Specifies that the field cannot be modified by the user.
         unique: The unique value of a field in a collection.
@@ -28,12 +33,12 @@ class IDField(Field):
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,

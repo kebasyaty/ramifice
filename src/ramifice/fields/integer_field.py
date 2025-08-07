@@ -14,18 +14,36 @@ logger = logging.getLogger(__name__)
 
 
 class IntegerField(Field, NumberGroup, JsonMixin):
-    """Field of Model for enter (int) number."""
+    """Field of Model for enter (int) number.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        default: Value by default.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
+        unique: The unique value of a field in a collection.
+        max_number: Maximum allowed number.
+        min_number: Minimum allowed number.
+        step: Increment step for numeric fields.
+        input_type: Field type - `number` or `range`.
+    """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
+        default: int | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        default: int | None = None,
-        placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,

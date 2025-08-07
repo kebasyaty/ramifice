@@ -16,17 +16,28 @@ class SlugField(Field, TextGroup, JsonMixin):
     """Field of Model for automatic generation of string `slug`.
 
     Convenient to use for Url addresses.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        readonly: Specifies that the field cannot be modified by the user.
+        slug_sources: List of sources fields.
     """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        placeholder: str = "",
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],
     ) -> None:

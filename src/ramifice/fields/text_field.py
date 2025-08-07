@@ -12,11 +12,29 @@ logger = logging.getLogger(__name__)
 
 
 class TextField(Field, JsonMixin):
-    """Field of Model for enter text."""
+    """Field of Model for enter text.
+
+    Agrs:
+        label: Text label for a web form field.
+        placeholder: Displays prompt text.
+        hide: Hide field from user.
+        disabled: Blocks access and modification of the element.
+        ignored: If true, the value of this field is not saved in the database.
+        hint: An alternative for the `placeholder` parameter.
+        warning: Warning information.
+        textarea: Is it necessary to use the Textarea widget.
+        use_editor: Is it necessary to use the widget of the text editor.
+        required: Required field.
+        readonly: Specifies that the field cannot be modified by the user.
+        unique: The unique value of a field in a collection.
+        maxlength: The maximum line length.
+        multi_language: Is it need support for several languages.
+    """
 
     def __init__(  # noqa: D107
         self,
         label: str = "",
+        placeholder: str = "",
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -24,7 +42,6 @@ class TextField(Field, JsonMixin):
         warning: list[str] | None = None,
         textarea: bool = False,
         use_editor: bool = False,
-        placeholder: str = "",
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
