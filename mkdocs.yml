@@ -80,6 +80,8 @@ copyright: Copyright &copy; 2024 - 2025 kebasyaty
 
 nav:
   - Ramifice: index.md
+  - Getting started:
+      - Getting started: gettin_started/index.md
   - Fields:
       - Fields: fields/index.md
       - TextField: fields/text_field.md
