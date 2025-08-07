@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 class PhoneField(Field, TextGroup, JsonMixin):
     """Field of Model for enter phone number.
 
-    WARNING: By default is used validator `phonenumbers.is_valid_number()`.
+    Attention:
+    By default is used validator `phonenumbers.is_valid_number()`.
     """
 
     def __init__(  # noqa: D107

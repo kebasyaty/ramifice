@@ -16,10 +16,10 @@ logger = logging.getLogger(__name__)
 class PasswordField(Field):
     r"""Field of Model for enter password.
 
-    Warning:
-            Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-            Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-            Number of characters: from 8 to 256.
+    Attention:
+    Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+    Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+    Number of characters: from 8 to 256.
     """
 
     def __init__(  # noqa: D107
