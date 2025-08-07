@@ -80,6 +80,36 @@ copyright: Copyright &copy; 2024 - 2025 kebasyaty
 
 nav:
   - Ramifice: index.md
+  - Fields:
+      - Fields: fields/index.md
+      - BooleanField: fields/bool_field.md
+      - ChoiceFloatDynField: fields/choice_float_dyn_field.md
+      - ChoiceFloatField: fields/choice_float_field.md
+      - ChoiceFloatMultDynField: fields/choice_float_mult_dyn_field.md
+      - ChoiceFloatMultField: fields/choice_float_mult_field.md
+      - ChoiceIntDynField: fields/choice_int_dyn_field.md
+      - ChoiceIntField: fields/choice_int_field.md
+      - ChoiceIntMultDynField: fields/choice_int_mult_dyn_field.md
+      - ChoiceIntMultField: fields/choice_int_mult_field.md
+      - ChoiceTextDynField: fields/choice_text_dyn_field.md
+      - ChoiceTextField: fields/choice_text_field.md
+      - ChoiceTextMultDynField: fields/choice_text_mult_dyn_field.md
+      - ChoiceTextMultField: fields/choice_text_mult_field.md
+      - ColorField: fields/color_field.md
+      - DateField: fields/date_field.md
+      - DateTimeField: fields/date_time_field.md
+      - EmailField: fields/email_field.md
+      - FileField: fields/file_field.md
+      - FloatField: fields/float_field.md
+      - IDField: fields/id_field.md
+      - ImageField: fields/image_field.md
+      - IntegerField: fields/integer_field.md
+      - IPField: fields/ip_field.md
+      - PasswordField: fields/password_field.md
+      - PhoneField: fields/phone_field.md
+      - SlugField: fields/slug_field.md
+      - TextField: fields/text_field.md
+      - URLField: fields/url_field.md
   - Commons:
       - Commons: commons/index.md
       - General: commons/general.md
@@ -88,36 +118,6 @@ nav:
       - One: commons/one.md
       - Tools: commons/tools.md
       - Unit Manager: commons/unit_manager.md
-  - Fields:
-      - Fields: fields/index.md
-      - BooleanField: fields/bool_field.md
-      - ChoiceFloatDynField: fields/choice_float_dyn_field.md
-      - ChoiceFloatField: fields.choice_float_field.md
-      - ChoiceFloatMultDynField: fields.choice_float_mult_dyn_field.md
-      - ChoiceFloatMultField: fields.choice_float_mult_field.md
-      - ChoiceIntDynField: fields.choice_int_dyn_field.md
-      - ChoiceIntField: fields.choice_int_field.md
-      - ChoiceIntMultDynField: fields.choice_int_mult_dyn_field.md
-      - ChoiceIntMultField: fields.choice_int_mult_field.md
-      - ChoiceTextDynField: fields.choice_text_dyn_field.md
-      - ChoiceTextField: fields.choice_text_field.md
-      - ChoiceTextMultDynField: fields.choice_text_mult_dyn_field.md
-      - ChoiceTextMultField: fields.choice_text_mult_field.md
-      - ColorField: fields.color_field.md
-      - DateField: fields.date_field.md
-      - DateTimeField: fields.date_time_field.md
-      - EmailField: fields.email_field.md
-      - FileField: fields.file_field.md
-      - FloatField: fields.float_field.md
-      - IDField: fields.id_field.md
-      - ImageField: fields.image_field.md
-      - IntegerField: fields.integer_field.md
-      - IPField: fields.ip_field.md
-      - PasswordField: fields.password_field.md
-      - PhoneField: fields.phone_field.md
-      - SlugField: fields.slug_field.md
-      - TextField: fields.text_field.md
-      - URLField: fields.url_field.md
   - Utils:
       - Utils: utils/index.md
       - Constants: utils/constants.md
