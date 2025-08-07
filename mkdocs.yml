@@ -128,3 +128,7 @@ nav:
       - Tools: utils/tools.md
       - Translations: utils/translations.md
       - Unit: utils/unit.md
+  - Models:
+      - Models: models/index.md
+      - Model: models/model.md
+      - Decorator: models/decorator.md
