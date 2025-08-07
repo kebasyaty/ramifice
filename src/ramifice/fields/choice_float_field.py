@@ -45,7 +45,7 @@ class ChoiceFloatField(Field, ChoiceGroup, JsonMixin):
         warning: list[str] | None = None,
         required: bool = False,
         readonly: bool = False,
-        choices: list[list[float | str]] | None = None,
+        choices: list[list[float | str]] | None = None,  # [[value, Title], ...]
     ) -> None:
         Field.__init__(
             self,
