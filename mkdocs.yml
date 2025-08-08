@@ -32,7 +32,8 @@ theme:
     primary: indigo
 
 extra_css:
-  - github_style/css/extra.css
+  # - custom_style/github_black/css/extra.css
+  - custom_style/github_blue/css/extra.css
 
 plugins:
   - search
