@@ -1,3 +1,4 @@
+# https://squidfunk.github.io/mkdocs-material/setup/
 site_name: Ramifice Docs
 repo_url: https://github.com/kebasyaty/ramifice
 repo_name: kebasyaty/ramifice
@@ -13,17 +14,19 @@ theme:
     - search.suggest
     - search.highlight
     - search.share
-    - navigation.instant
-    - navigation.instant.progress
+    # Minimum:
     - navigation.tracking
-    - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.indexes
     - navigation.top
     - navigation.footer
     - toc.follow
+    # Extra:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -68,6 +71,7 @@ markdown_extensions:
           case: lower
 
 extra:
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#social-links
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/kebasyaty
@@ -76,7 +80,7 @@ extra:
     - icon: fontawesome/brands/x-twitter
       link: https://twitter.com
 
-copyright: Copyright &copy; 2024 - 2025 kebasyaty
+copyright: Copyright &copy; 2025 kebasyaty
 
 nav:
   - Ramifice: index.md
