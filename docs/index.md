@@ -55,5 +55,3 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 #### License
 
 This project is licensed under the [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT").
-
-<hr>

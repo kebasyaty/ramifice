@@ -1,3 +1,0 @@
-::: ramifice.commons.many
-
-<hr>

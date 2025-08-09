@@ -1,3 +1,0 @@
-::: ramifice.utils.tools
-
-<hr>
