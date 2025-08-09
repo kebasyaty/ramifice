@@ -9,17 +9,20 @@ repo_url: https://github.com/kebasyaty/ramifice
 
 theme:
   name: material
+  language: en
   custom_dir: docs/overrides
   font:
     text: Roboto
   icon:
     repo: fontawesome/brands/github
-  language: en
   features:
     - search.suggest
     - search.highlight
     - search.share
-    # Minimum:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.tracking
     - navigation.sections
     - navigation.expand
@@ -27,11 +30,6 @@ theme:
     - navigation.top
     - navigation.footer
     - toc.follow
-    # Extra:
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.tabs
-    - navigation.tabs.sticky
   palette:
     scheme: slate
     # github_black: indigo | github_blue: blue
