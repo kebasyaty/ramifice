@@ -1,3 +1,0 @@
-::: ramifice.utils.translations
-
-<hr>

@@ -1,3 +1,0 @@
-::: ramifice.models.model
-
-<hr>

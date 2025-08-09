@@ -1,3 +1,0 @@
-::: ramifice.paladins.save
-
-<hr>
