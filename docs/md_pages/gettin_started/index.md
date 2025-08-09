@@ -1,7 +1,5 @@
 # Getting started
 
-<hr>
-
 #### Installation
 
 1. Install MongoDB (if not installed):<br>
