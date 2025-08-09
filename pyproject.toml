@@ -74,6 +74,7 @@ docs = [
 [tool.ruff]
 fix = true
 line-length = 100
+indent-width = 4
 required-version = ">=0.7.11"
 src = ["src", "tests"]
 include = [
@@ -93,6 +94,8 @@ ignore = ["D417", "D206"]
 convention = "google"
 
 [tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
 docstring-code-format = true
 docstring-code-line-length = 100
 
