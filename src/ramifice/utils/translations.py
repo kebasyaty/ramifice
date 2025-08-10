@@ -22,7 +22,7 @@ sl | sq | sr | sr_latn | sv | th | tk | tr | tt | ug | uk | vi |
 zh | zh_cn
 """
 
-__all__ = (  # noqa: RUF022
+__all__ = (
     "DEFAULT_LOCALE",
     "CURRENT_LOCALE",
     "LANGUAGES",

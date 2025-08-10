@@ -1,6 +1,6 @@
 """Global collection of auxiliary methods."""
 
-__all__ = (  # noqa: RUF022
+__all__ = (
     "is_password",
     "to_human_size",
     "get_file_size",

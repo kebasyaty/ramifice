@@ -1,6 +1,6 @@
 """Available field types."""
 
-__all__ = (  # noqa: RUF022
+__all__ = (
     "BooleanField",
     "ChoiceFloatDynField",
     "ChoiceFloatField",

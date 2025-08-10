@@ -14,7 +14,7 @@ List of variables:
 - `REGEX` - Caching a patterns of regular expression.
 """
 
-__all__ = (  # noqa: RUF022
+__all__ = (
     "DEBUG",
     "MONGO_CLIENT",
     "MONGO_DATABASE",

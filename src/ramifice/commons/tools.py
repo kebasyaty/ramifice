@@ -1,6 +1,6 @@
 """Tool of Commons - A set of auxiliary methods."""
 
-__all__ = (  # noqa: RUF022
+__all__ = (
     "correct_mongo_filter",
     "password_to_none",
     "mongo_doc_to_raw_doc",
@@ -21,11 +21,7 @@ def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
     """
     lang: str = translations.CURRENT_LOCALE
     filter_json: str = json_util.dumps(filter)
-    filter_json = (
-        cls_model.META["regex_mongo_filter"]
-        .sub(rf'\g<field>.{lang}":', filter_json)
-        .replace('":.', ".")
-    )
+    filter_json = cls_model.META["regex_mongo_filter"].sub(rf'\g<field>.{lang}":', filter_json).replace('":.', ".")
     return json_util.loads(filter_json)
 
 
