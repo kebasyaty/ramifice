@@ -61,13 +61,13 @@ def model(
             if not exists(fixture_path):
                 msg = (
                     f"Model: `{cls.__module__}.{cls.__name__}` > "
-                    + f"META param: `fixture_name` => "
+                    + "META param: `fixture_name` => "
                     + f"Fixture the `{fixture_path}` not exists!"
                 )
                 logger.critical(msg)
                 raise PanicError(msg)
 
-        attrs = {key: val for key, val in cls.__dict__.items()}
+        attrs = dict(cls.__dict__)
         attrs["__dict__"] = Model.__dict__["__dict__"]
         metadata = {
             "service_name": service_name,

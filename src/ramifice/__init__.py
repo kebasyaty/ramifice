@@ -21,7 +21,7 @@ a simplified alternative (Types of selective fields with dynamic addition of ele
 The project is more concentrated for web development or for applications with a graphic interface.
 """
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "NamedTuple",
     "model",
     "translations",

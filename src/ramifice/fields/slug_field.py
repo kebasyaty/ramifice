@@ -39,7 +39,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         hint: str = "",
         warning: list[str] | None = None,
         readonly: bool = False,
-        slug_sources: list[str] = ["_id"],
+        slug_sources: list[str] = ["_id"],  # noqa: B006
     ) -> None:
         if constants.DEBUG:
             try:

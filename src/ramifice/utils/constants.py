@@ -14,7 +14,7 @@ List of variables:
 - `REGEX` - Caching a patterns of regular expression.
 """
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "DEBUG",
     "MONGO_CLIENT",
     "MONGO_DATABASE",
@@ -64,7 +64,7 @@ REGEX: dict[str, re.Pattern] = {
     "model_name": re.compile(r"^[A-Z][a-zA-Z0-9]{0,24}$"),
     "color_code": re.compile(
         r"^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$",
-        re.I,
+        re.I,  # noqa: FURB167
     ),
     "password": re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
 }

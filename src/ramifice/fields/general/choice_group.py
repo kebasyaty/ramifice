@@ -2,10 +2,8 @@
 
 __all__ = ("ChoiceGroup",)
 
-from abc import ABCMeta
 
-
-class ChoiceGroup(metaclass=ABCMeta):
+class ChoiceGroup:  # noqa: B903
     """General additional parameters for choice fields.
 
     Args:

@@ -5,7 +5,7 @@ __all__ = ("FileField",)
 import logging
 import uuid
 from base64 import b64decode
-from datetime import date
+from datetime import datetime
 from os import makedirs
 from os.path import basename, exists, getsize
 from shutil import copyfile
@@ -149,7 +149,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(date.today())
+            date_str: str = str(datetime.date.today())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
@@ -195,7 +195,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(date.today())
+            date_str: str = str(datetime.date.today())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.

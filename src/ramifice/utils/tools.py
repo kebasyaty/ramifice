@@ -1,6 +1,6 @@
 """Global collection of auxiliary methods."""
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "is_password",
     "to_human_size",
     "get_file_size",
@@ -37,7 +37,7 @@ def is_password(password: str | None) -> bool:
 
 def to_human_size(size: int) -> str:
     """Convert number of bytes to readable format."""
-    idx = int(math.floor(math.log(size) / math.log(1024)))
+    idx = int(math.floor(math.log(size) / math.log(1024)))  # noqa: RUF046
     size = size if size < 1024 else abs(round(size / pow(1024, idx), 2))
     order = ["bytes", "KB", "MB", "GB", "TB"][idx]
     return f"{size} {order}"

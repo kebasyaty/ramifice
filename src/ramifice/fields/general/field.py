@@ -2,10 +2,8 @@
 
 __all__ = ("Field",)
 
-from abc import ABCMeta
 
-
-class Field(metaclass=ABCMeta):
+class Field:
     """General parameters for all types fields of Model.
 
     Args:
@@ -28,7 +26,7 @@ class Field(metaclass=ABCMeta):
         ignored: bool = False,
         hint: str = "",
         warning: list[str] | None = None,
-        errors: list[str] = [],
+        errors: list[str] = [],  # noqa: B006
         field_type: str = "",
         group: str = "",
     ) -> None:

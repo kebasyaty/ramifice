@@ -2,8 +2,8 @@
 
 __all__ = ("Model",)
 
-from abc import ABCMeta, abstractmethod
-from typing import Any
+from abc import abstractmethod
+from typing import Any, ClassVar
 
 import orjson
 from babel.dates import format_date, format_datetime
@@ -15,10 +15,10 @@ from ramifice.fields import DateTimeField, IDField
 from ramifice.utils import translations
 
 
-class Model(metaclass=ABCMeta):
+class Model:
     """Converting Python Class into Ramifice Model."""
 
-    META: dict[str, Any] = {}
+    META: ClassVar[dict[str, Any]] = {}
 
     def __init__(self) -> None:  # noqa: D107
         _ = translations._
@@ -81,9 +81,7 @@ class Model(metaclass=ABCMeta):
                     if "Dyn" in f_type.field_type:
                         dyn_data = data_dynamic_fields[f_name]
                         if dyn_data is not None:
-                            f_type.choices = [
-                                [item["value"], item["title"][lang]] for item in dyn_data
-                            ]
+                            f_type.choices = [[item["value"], item["title"][lang]] for item in dyn_data]
                         else:
                             # This is necessary for
                             # `paladins > refrash > RefrashMixin > refrash_from_db`.

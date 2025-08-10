@@ -22,7 +22,7 @@ sl | sq | sr | sr_latn | sv | th | tk | tr | tt | ug | uk | vi |
 zh | zh_cn
 """
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "DEFAULT_LOCALE",
     "CURRENT_LOCALE",
     "LANGUAGES",
@@ -57,7 +57,7 @@ def add_languages(
 ) -> None:
     """Add languages."""
     global DEFAULT_LOCALE, LANGUAGES
-    if not default_locale in languages:
+    if default_locale not in languages:
         msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
         logger.critical(msg)
         raise PanicError(msg)

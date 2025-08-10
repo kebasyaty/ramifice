@@ -62,7 +62,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
                         if not phonenumbers.is_valid_number(phone_default):
                             raise AssertionError()
                     except phonenumbers.phonenumberutil.NumberParseException:
-                        raise AssertionError("Parameter `default` - Invalid Phone number!")
+                        raise AssertionError("Parameter `default` - Invalid Phone number!")  # noqa: B904
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):

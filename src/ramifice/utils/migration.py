@@ -172,7 +172,7 @@ class Migration:
                         is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
-                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
+                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # noqa: T201
                         inst_model.print_err()
                         msg: str = "Migration failed."
                         logger.critical(msg)
@@ -188,7 +188,7 @@ class Migration:
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
                     # Update date and time.
-                    checked_data["updated_at"] = datetime.now()
+                    checked_data["updated_at"] = datetime.now()  # noqa: DTZ005
                     # Update the document in the database.
                     await model_collection.replace_one(
                         filter={"_id": checked_data["_id"]},
@@ -197,7 +197,7 @@ class Migration:
             #
             # Refresh the dynamic fields data for the current model.
             for field_name, field_data in metadata["data_dynamic_fields"].items():
-                if model_state["data_dynamic_fields"].get(field_name, False) == False:
+                if model_state["data_dynamic_fields"].get(field_name, False) == False:  # noqa: E712
                     model_state["data_dynamic_fields"][field_name] = field_data
                 else:
                     metadata["data_dynamic_fields"][field_name] = model_state[

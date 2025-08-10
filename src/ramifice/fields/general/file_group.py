@@ -2,10 +2,8 @@
 
 __all__ = ("FileGroup",)
 
-from abc import ABCMeta
 
-
-class FileGroup(metaclass=ABCMeta):
+class FileGroup:
     """General additional parameters for file fields.
 
     Args:

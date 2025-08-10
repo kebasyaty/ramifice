@@ -1,6 +1,6 @@
 """Tool of Paladins - A set of auxiliary methods."""
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "ignored_fields_to_none",
     "refresh_from_mongo_doc",
     "panic_type_error",

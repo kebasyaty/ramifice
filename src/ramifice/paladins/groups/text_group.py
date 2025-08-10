@@ -102,11 +102,11 @@ class TextGroupMixin:
         # Insert result.
         if params["is_save"]:
             if is_multi_language:
-                mult_lang_text: dict[str, str] = (
+                mult_lang_text = (
                     params["curr_doc"][field_name]
                     if params["is_update"]
                     else (
-                        {lang: value for lang in translations.LANGUAGES}
+                        dict.fromkeys(translations.LANGUAGES)
                         if isinstance(value, str)
                         else {lang: value.get(lang, "- -") for lang in translations.LANGUAGES}
                     )

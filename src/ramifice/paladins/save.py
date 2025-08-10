@@ -46,7 +46,7 @@ class SaveMixin:
         # Create or update a document in database.
         if result_check["is_update"]:
             # Update date and time.
-            checked_data["updated_at"] = datetime.now()
+            checked_data["updated_at"] = datetime.now()  # noqa: DTZ005
             # Run hook.
             await self.pre_update()
             # Update doc.
@@ -68,7 +68,7 @@ class SaveMixin:
             refresh_from_mongo_doc(self, mongo_doc)
         else:
             # Add date and time.
-            today = datetime.now()
+            today = datetime.now()  # noqa: DTZ005
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.

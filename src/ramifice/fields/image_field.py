@@ -5,7 +5,7 @@ __all__ = ("ImageField",)
 import logging
 import uuid
 from base64 import b64decode
-from datetime import date
+from datetime import datetime
 from os import makedirs
 from os.path import basename, exists, getsize
 from shutil import copyfile
@@ -57,7 +57,6 @@ class ImageField(Field, FileGroup, JsonMixin):
         target_dir: str = "images",
         accept: str = "image/png,image/jpeg,image/webp",
         # Available 4 sizes from lg to xs or None.
-        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         thumbnails: dict[str, int] | None = None,
     ) -> None:
         if constants.DEBUG:
@@ -146,7 +145,6 @@ class ImageField(Field, FileGroup, JsonMixin):
 
         self.value: dict[str, str | int | bool] | None = None
         # Available 4 sizes from lg to xs or None.
-        # Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }
         self.thumbnails = thumbnails
 
     async def from_base64(
@@ -179,7 +177,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str: str = str(date.today())
+            date_str: str = str(datetime.date.today())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -238,7 +236,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str: str = str(date.today())
+            date_str: str = str(datetime.date.today())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.

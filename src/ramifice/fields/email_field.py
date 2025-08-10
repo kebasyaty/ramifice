@@ -57,7 +57,7 @@ class EmailField(Field, TextGroup, JsonMixin):
                     try:
                         validate_email(default, check_deliverability=True)
                     except EmailNotValidError:
-                        raise AssertionError("Parameter `default` - Invalid Email address!")
+                        raise AssertionError("Parameter `default` - Invalid Email address!")  # noqa: B904
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):

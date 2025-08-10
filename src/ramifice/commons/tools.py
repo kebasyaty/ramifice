@@ -1,6 +1,6 @@
 """Tool of Commons - A set of auxiliary methods."""
 
-__all__ = (
+__all__ = (  # noqa: RUF022
     "correct_mongo_filter",
     "password_to_none",
     "mongo_doc_to_raw_doc",

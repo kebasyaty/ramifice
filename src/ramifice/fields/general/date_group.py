@@ -2,11 +2,10 @@
 
 __all__ = ("DateGroup",)
 
-from abc import ABCMeta
 from datetime import datetime
 
 
-class DateGroup(metaclass=ABCMeta):
+class DateGroup:
     """General additional parameters for date|datetime fields.
 
     Args:
