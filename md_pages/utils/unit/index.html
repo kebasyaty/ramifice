@@ -2547,10 +2547,10 @@
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `value` =&gt; Not а `float | int | str` type!&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `value` =&gt; Not a `float | int | str` type!&quot;</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">is_delete</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `is_delete` =&gt; Not а `bool` type!&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `is_delete` =&gt; Not a `bool` type!&quot;</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="n">JsonMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

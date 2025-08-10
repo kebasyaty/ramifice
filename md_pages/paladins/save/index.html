@@ -2478,7 +2478,7 @@
         <span class="c1"># Create or update a document in database.</span>
         <span class="k">if</span> <span class="n">result_check</span><span class="p">[</span><span class="s2">&quot;is_update&quot;</span><span class="p">]:</span>
             <span class="c1"># Update date and time.</span>
-            <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># noqa: DTZ005</span>
             <span class="c1"># Run hook.</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_update</span><span class="p">()</span>
             <span class="c1"># Update doc.</span>
@@ -2500,7 +2500,7 @@
             <span class="n">refresh_from_mongo_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mongo_doc</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Add date and time.</span>
-            <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># noqa: DTZ005</span>
             <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">today</span>
             <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">today</span>
             <span class="c1"># Run hook.</span>
@@ -2659,7 +2659,7 @@
     <span class="c1"># Create or update a document in database.</span>
     <span class="k">if</span> <span class="n">result_check</span><span class="p">[</span><span class="s2">&quot;is_update&quot;</span><span class="p">]:</span>
         <span class="c1"># Update date and time.</span>
-        <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># noqa: DTZ005</span>
         <span class="c1"># Run hook.</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_update</span><span class="p">()</span>
         <span class="c1"># Update doc.</span>
@@ -2681,7 +2681,7 @@
         <span class="n">refresh_from_mongo_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mongo_doc</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Add date and time.</span>
-        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  <span class="c1"># noqa: DTZ005</span>
         <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">today</span>
         <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;updated_at&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">today</span>
         <span class="c1"># Run hook.</span>

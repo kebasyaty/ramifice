@@ -2380,22 +2380,14 @@
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">correct_mongo_filter</span><span class="p">(</span><span class="n">cls_model</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">correct_mongo_filter</span><span class="p">(</span><span class="n">cls_model</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Correcting filter of request.</span>
 
 <span class="sd">    Corrects `TextField` fields that require localization of translation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">translations</span><span class="o">.</span><span class="n">CURRENT_LOCALE</span>
     <span class="n">filter_json</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">json_util</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
-    <span class="n">filter_json</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;regex_mongo_filter&quot;</span><span class="p">]</span>
-        <span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;\g&lt;field&gt;.</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s1">&quot;:&#39;</span><span class="p">,</span> <span class="n">filter_json</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;:.&#39;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">filter_json</span> <span class="o">=</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;regex_mongo_filter&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;\g&lt;field&gt;.</span><span class="si">{</span><span class="n">lang</span><span class="si">}</span><span class="s1">&quot;:&#39;</span><span class="p">,</span> <span class="n">filter_json</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;:.&#39;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">json_util</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">filter_json</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2427,7 +2419,11 @@ datetime to str</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\commons\tools.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -2461,11 +2457,7 @@ datetime to str</p>
 <span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">mongo_doc_to_raw_doc</span><span class="p">(</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">mongo_doc_to_raw_doc</span><span class="p">(</span>
     <span class="n">inst_model_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2526,15 +2518,15 @@ datetime to str</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\commons\tools.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">password_to_none</span><span class="p">(</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">password_to_none</span><span class="p">(</span>
     <span class="n">field_name_and_type</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>

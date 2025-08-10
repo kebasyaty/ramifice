@@ -2600,9 +2600,7 @@ accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,applicat
 <span class="normal">214</span>
 <span class="normal">215</span>
 <span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FileField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">FileGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">217</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FileField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">FileGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Field of Model for upload file.</span>
 
 <span class="sd">    Agrs:</span>
@@ -2642,9 +2640,7 @@ accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,applicat
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                            <span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span>
-                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">disabled</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
@@ -2729,7 +2725,7 @@ accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,applicat
             <span class="c1"># Create new (uuid) file name.</span>
             <span class="n">f_uuid_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="c1"># Create the current date for the directory name.</span>
-            <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+            <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>  <span class="c1"># noqa: DTZ005</span>
             <span class="c1"># Create path to target directory.</span>
             <span class="n">dir_target_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MEDIA_ROOT</span><span class="si">}</span><span class="s2">/uploads/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="c1"># Create target directory if it does not exist.</span>
@@ -2775,7 +2771,7 @@ accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,applicat
             <span class="c1"># Create new (uuid) file name.</span>
             <span class="n">f_uuid_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="c1"># Create the current date for the directory name.</span>
-            <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+            <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>  <span class="c1"># noqa: DTZ005</span>
             <span class="c1"># Create path to target directory.</span>
             <span class="n">dir_target_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MEDIA_ROOT</span><span class="si">}</span><span class="s2">/uploads/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="c1"># Create target directory if it does not exist.</span>
@@ -2833,7 +2829,9 @@ get file information and save in the target directory.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\fields\file_field.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
@@ -2886,9 +2884,7 @@ get file information and save in the target directory.</p>
 <span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">from_base64</span><span class="p">(</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">from_base64</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">base64_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2920,7 +2916,7 @@ get file information and save in the target directory.</p>
         <span class="c1"># Create new (uuid) file name.</span>
         <span class="n">f_uuid_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="c1"># Create the current date for the directory name.</span>
-        <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+        <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>  <span class="c1"># noqa: DTZ005</span>
         <span class="c1"># Create path to target directory.</span>
         <span class="n">dir_target_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MEDIA_ROOT</span><span class="si">}</span><span class="s2">/uploads/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="c1"># Create target directory if it does not exist.</span>
@@ -2970,7 +2966,9 @@ get file information and save in the target directory.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\fields\file_field.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">177</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
 <span class="normal">180</span>
@@ -3010,9 +3008,7 @@ get file information and save in the target directory.</p>
 <span class="normal">214</span>
 <span class="normal">215</span>
 <span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">from_path</span><span class="p">(</span>
+<span class="normal">217</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">from_path</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">src_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">is_delete</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -3033,7 +3029,7 @@ get file information and save in the target directory.</p>
         <span class="c1"># Create new (uuid) file name.</span>
         <span class="n">f_uuid_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="c1"># Create the current date for the directory name.</span>
-        <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+        <span class="n">date_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>  <span class="c1"># noqa: DTZ005</span>
         <span class="c1"># Create path to target directory.</span>
         <span class="n">dir_target_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MEDIA_ROOT</span><span class="si">}</span><span class="s2">/uploads/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="c1"># Create target directory if it does not exist.</span>

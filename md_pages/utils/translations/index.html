@@ -2425,7 +2425,7 @@ zh | zh_cn</p>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add languages.&quot;&quot;&quot;</span>
     <span class="k">global</span> <span class="n">DEFAULT_LOCALE</span><span class="p">,</span> <span class="n">LANGUAGES</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">default_locale</span> <span class="ow">in</span> <span class="n">languages</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">default_locale</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">languages</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;DEFAULT_LOCALE is not included in the LANGUAGES!&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
