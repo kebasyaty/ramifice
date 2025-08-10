@@ -65,16 +65,12 @@ class ImageField(Field, FileGroup, JsonMixin):
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
                     if len(default) == 0:
-                        raise AssertionError(
-                            "The `default` parameter should not contain an empty string!"
-                        )
+                        raise AssertionError("The `default` parameter should not contain an empty string!")
                 if thumbnails is not None:
                     if not isinstance(thumbnails, dict):
                         raise AssertionError("Parameter `thumbnails` - Not а `dict` type!")
                     if len(thumbnails) == 0:
-                        raise AssertionError(
-                            "The `thumbnails` parameter should not contain an empty dictionary!"
-                        )
+                        raise AssertionError("The `thumbnails` parameter should not contain an empty dictionary!")
                     size_name_list = ["lg", "md", "sm", "xs"]
                     curr_size_thumb: int = 0
                     for size_name in thumbnails.keys():
@@ -177,7 +173,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str: str = str(datetime.date.today())
+            date_str: str = str(datetime.now().date())  # noqa: DTZ005
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -236,7 +232,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str: str = str(datetime.date.today())
+            date_str: str = str(datetime.now().date())  # noqa: DTZ005
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
