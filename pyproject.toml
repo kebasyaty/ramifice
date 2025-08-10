@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.26"
+version = "0.8.27"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -73,22 +73,48 @@ docs = [
 
 [tool.ruff]
 fix = true
-line-length = 100
+line-length = 120
 indent-width = 4
 required-version = ">=0.7.11"
-src = ["src", "tests"]
-include = [
-    "*.py",
-    "*.pyi",
-    "*.ipynb",
-    "**/pyproject.toml",
-    "src/**/*.py",
-    "tests/**/*.py",
-]
+src = ["src"]
+include = ["*.py", "*.pyi", "*.ipynb", "**/pyproject.toml", "src/**/*.py"]
+exclude = ["tests/**/*.py", "examples/**/*.py"]
 
 [tool.ruff.lint]
-select = ["D"]
-ignore = ["D417", "D206"]
+preview = true
+select = [
+    "D",    # pydocstyle
+    "I",    # isort
+    "E",    # flake8-errors
+    "W",    # flake8-warnings
+    "F",    # flake8-pyflakes
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "S",    # flake8-bandit
+    "BLE",  # flake8-blind-except
+    "T20",  # flake8-print
+    "T10",  # flake8-debugger
+    "PT",   # flake8-pytest-style
+    "RUF",  # Ruff
+    "DTZ",  # flake8-datetimez
+    "ERA",  # eradicate
+    "FURB", # refurb
+]
+ignore = [
+    "D417",
+    "D206",
+    "C408",
+    "RUF001",
+    "RUF002",
+    "RUF003",
+    "RUF022",
+    "E722",
+    "S110",
+]
+fixable = ["I"]
+
+[tool.ruff.lint.flake8-bandit]
+check-typed-exception = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

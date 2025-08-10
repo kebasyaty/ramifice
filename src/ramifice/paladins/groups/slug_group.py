@@ -66,7 +66,7 @@ class SlugGroupMixin:
                 err_msg = (
                     f"Model: `{params['full_model_name']}` > "
                     + f"Field: `{field_name}` > "
-                    + f"Parameter: `slug_sources` => "
+                    + "Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
                 logger.critical(err_msg)

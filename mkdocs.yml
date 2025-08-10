@@ -1,4 +1,3 @@
-# https://squidfunk.github.io/mkdocs-material/setup/
 site_name: Ramifice Docs
 site_description: "ORM-pseudo-like API MongoDB for Python language."
 site_url: https://kebasyaty.github.io/ramifice/

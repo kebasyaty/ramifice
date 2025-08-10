@@ -2,10 +2,8 @@
 
 __all__ = ("NumberGroup",)
 
-from abc import ABCMeta
 
-
-class NumberGroup(metaclass=ABCMeta):
+class NumberGroup:  # noqa: B903
     """General additional parameters for number fields.
 
     Args:

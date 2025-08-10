@@ -38,10 +38,10 @@ class Unit(JsonMixin):
             )
             raise PanicError(msg)
         if not isinstance(value, (float, int, str)):
-            msg = "Class: `Unit` > Field: `value` => Not а `float | int | str` type!"
+            msg = "Class: `Unit` > Field: `value` => Not a `float | int | str` type!"
             raise PanicError(msg)
         if not isinstance(is_delete, bool):
-            msg = "Class: `Unit` > Field: `is_delete` => Not а `bool` type!"
+            msg = "Class: `Unit` > Field: `is_delete` => Not a `bool` type!"
             raise PanicError(msg)
 
         JsonMixin.__init__(self)

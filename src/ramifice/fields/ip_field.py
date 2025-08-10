@@ -56,7 +56,7 @@ class IPField(Field, TextGroup, JsonMixin):
                     try:
                         ipaddress.ip_address(default)
                     except ValueError:
-                        raise AssertionError("Parameter `default` - Invalid IP address!")
+                        raise AssertionError("Parameter `default` - Invalid IP address!")  # noqa: B904
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):

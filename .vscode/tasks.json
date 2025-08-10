@@ -24,7 +24,8 @@
       "type": "shell",
       "command": ["uv lock"],
       "problemMatcher": []
-    },    {
+    },
+    {
       "label": "Babel: Run Update Translations",
       "type": "shell",
       "command": [

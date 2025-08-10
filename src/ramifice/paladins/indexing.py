@@ -2,12 +2,13 @@
 
 __all__ = ("IndexMixin",)
 
-from abc import ABCMeta
+from abc import abstractmethod
 
 
-class IndexMixin(metaclass=ABCMeta):
+class IndexMixin:
     """Contains the method for indexing the model in the database."""
 
     @classmethod
+    @abstractmethod
     async def indexing(cls) -> None:
         """Set up and start indexing."""

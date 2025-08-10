@@ -2,10 +2,8 @@
 
 __all__ = ("TextGroup",)
 
-from abc import ABCMeta
 
-
-class TextGroup(metaclass=ABCMeta):
+class TextGroup:
     """General additional parameters for text fields.
 
     Args:
