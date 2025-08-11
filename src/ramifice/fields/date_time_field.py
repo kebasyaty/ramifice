@@ -59,9 +59,7 @@ class DateTimeField(Field, DateGroup):
                     if not isinstance(min_date, datetime):
                         raise AssertionError("Parameter `min_date` - Not а `str` type!")
                 if max_date is not None and min_date is not None and max_date <= min_date:
-                    raise AssertionError(
-                        "The `max_date` parameter should be more than the `min_date`!"
-                    )
+                    raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
                 if default is not None:
                     if not isinstance(default, datetime):
                         raise AssertionError("Parameter `default` - Not а `str` type!")

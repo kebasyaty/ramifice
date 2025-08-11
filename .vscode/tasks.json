@@ -2,18 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Ruff: Run Check",
-      "type": "shell",
-      "command": ["uv run ruff check --fix --config pyproject.toml"],
-      "problemMatcher": []
-    },
-    {
-      "label": "MyPy: Run Check",
-      "type": "shell",
-      "command": ["uv run mypy --config-file pyproject.toml"],
-      "problemMatcher": []
-    },
-    {
       "label": "UV: Run Upgrade",
       "type": "shell",
       "command": ["uv sync --upgrade"],
@@ -26,18 +14,50 @@
       "problemMatcher": []
     },
     {
-      "label": "Babel: Run Update Translations",
+      "label": "Ruff: Run Check",
       "type": "shell",
       "command": [
-        "uv run pybabel extract -o config/translations/ramifice.pot src/ramifice;",
-        "uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice"
+        "uv run ruff check --fix --show-fixes --config pyproject.toml"
       ],
       "problemMatcher": []
     },
     {
-      "label": "Babel: Run Compile Translations",
+      "label": "MyPy: Run Check",
       "type": "shell",
-      "command": ["uv run pybabel compile -d config/translations/ramifice"],
+      "command": ["uv run mypy --config-file pyproject.toml"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Pre-Commit: Run Install",
+      "type": "shell",
+      "command": ["uv run pre-commit install"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Pre-Commit: Run Autoupdate",
+      "type": "shell",
+      "command": ["uv run pre-commit autoupdate"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Pre-Commit: Run Check",
+      "type": "shell",
+      "command": [
+        "uv run pre-commit run --all-files;",
+        "uv run python -m unittest tests/test_mongo.py;",
+        "uv run python -m unittest tests/test_mixins.py;",
+        "uv run python -m unittest tests/test_constants.py;",
+        "uv run python -m unittest tests/test_tools.py;",
+        "uv run python -m unittest tests/test_types.py;",
+        "uv run python -m unittest discover -s tests/fields;",
+        "uv run python -m unittest tests/test_extra.py;",
+        "uv run python -m unittest tests/test_migration.py;",
+        "uv run python -m unittest tests/test_fixtures.py;",
+        "uv run python -m unittest discover -s tests/paladins;",
+        "uv run python -m unittest discover -s tests/commons;",
+        "uv run python -m unittest discover -s tests/models;",
+        "uv run python -m unittest tests/test_translations.py"
+      ],
       "problemMatcher": []
     },
     {
@@ -82,6 +102,21 @@
       "label": "MkDocs: Run Deploy",
       "type": "shell",
       "command": ["uv run mkdocs gh-deploy"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Babel: Run Update Translations",
+      "type": "shell",
+      "command": [
+        "uv run pybabel extract -o config/translations/ramifice.pot src/ramifice;",
+        "uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Babel: Run Compile Translations",
+      "type": "shell",
+      "command": ["uv run pybabel compile -d config/translations/ramifice"],
       "problemMatcher": []
     }
   ]

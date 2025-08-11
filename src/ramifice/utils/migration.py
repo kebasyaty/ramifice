@@ -52,9 +52,7 @@ class Migration:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[
-            constants.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
@@ -65,9 +63,7 @@ class Migration:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[
-            constants.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]}
@@ -102,9 +98,7 @@ class Migration:
         database = constants.MONGO_DATABASE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[
-            constants.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:
@@ -183,8 +177,7 @@ class Migration:
                     for field_name, field_type in metadata["field_name_and_type"].items():
                         if (
                             field_type == "PasswordField"
-                            and model_state["field_name_and_type"].get(field_name)
-                            == "PasswordField"
+                            and model_state["field_name_and_type"].get(field_name) == "PasswordField"
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
                     # Update date and time.
@@ -200,9 +193,7 @@ class Migration:
                 if model_state["data_dynamic_fields"].get(field_name, False) == False:  # noqa: E712
                     model_state["data_dynamic_fields"][field_name] = field_data
                 else:
-                    metadata["data_dynamic_fields"][field_name] = model_state[
-                        "data_dynamic_fields"
-                    ][field_name]
+                    metadata["data_dynamic_fields"][field_name] = model_state["data_dynamic_fields"][field_name]
             # Refresh state of current Model.
             model_state["data_dynamic_fields"] = metadata["data_dynamic_fields"]
             model_state["field_name_and_type"] = metadata["field_name_and_type"]
@@ -224,9 +215,7 @@ class Migration:
             # Apply fixture to current Model.
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
-                collection: AsyncCollection = constants.MONGO_DATABASE[
-                    cls_model.META["collection_name"]
-                ]
+                collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
                 if await collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,
