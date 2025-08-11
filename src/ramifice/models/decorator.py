@@ -158,8 +158,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     metadata["data_dynamic_fields"] = data_dynamic_fields
     metadata["count_all_fields"] = count_all_fields
     metadata["count_fields_no_ignored"] = count_fields_no_ignored
-    metadata["regex_mongo_filter"] = re.compile(
-        rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)'
-    )
+    metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)')
 
     return metadata

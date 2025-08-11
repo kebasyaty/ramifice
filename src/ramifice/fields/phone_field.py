@@ -54,9 +54,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
                     if len(default) == 0:
-                        raise AssertionError(
-                            "The `default` parameter should not contain an empty string!"
-                        )
+                        raise AssertionError("The `default` parameter should not contain an empty string!")
                     try:
                         phone_default = phonenumbers.parse(default)
                         if not phonenumbers.is_valid_number(phone_default):

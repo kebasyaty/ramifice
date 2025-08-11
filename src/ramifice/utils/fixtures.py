@@ -31,7 +31,7 @@ async def apply_fixture(
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
 
-    with open(fixture_path, "r") as file:
+    with open(fixture_path) as file:
         data_yaml = yaml.safe_load(file)
 
     if not bool(data_yaml):

@@ -80,9 +80,7 @@ class CheckMixin(
             "field_data": None,
             "full_model_name": cls_model.META["full_model_name"],
             "is_migration_process": is_migration_process,
-            "curr_doc": (
-                await collection.find_one({"_id": doc_id}) if is_save and is_update else None
-            ),
+            "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
         }
 
         # Run checking fields.

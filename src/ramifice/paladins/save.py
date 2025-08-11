@@ -54,9 +54,7 @@ class SaveMixin:
             # Run hook.
             await self.post_update()
             # Refresh Model.
-            mongo_doc: dict[str, Any] | None = await collection.find_one(
-                {"_id": checked_data["_id"]}
-            )
+            mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
                 msg = (
                     f"Model: `{self.full_model_name()}` > "
@@ -80,11 +78,7 @@ class SaveMixin:
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
-                msg = (
-                    f"Model: `{self.full_model_name()}` > "
-                    + "Method: `save` => "
-                    + "The document was not created."
-                )
+                msg = f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."
                 logger.critical(msg)
                 raise PanicError(msg)
             refresh_from_mongo_doc(self, mongo_doc)

@@ -32,10 +32,7 @@ class Unit(JsonMixin):
             msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
             raise PanicError(msg)
         if not isinstance(title, dict):
-            msg = (
-                "Class: `Unit` > Field: `title` => Not а `str` type! "
-                + 'Example: {"en": "Title", "ru": "Заголовок"}'
-            )
+            msg = "Class: `Unit` > Field: `title` => Not а `str` type! " + 'Example: {"en": "Title", "ru": "Заголовок"}'
             raise PanicError(msg)
         if not isinstance(value, (float, int, str)):
             msg = "Class: `Unit` > Field: `value` => Not a `float | int | str` type!"

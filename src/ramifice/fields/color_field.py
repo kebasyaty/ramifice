@@ -56,9 +56,7 @@ class ColorField(Field, TextGroup, JsonMixin):
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
                     if len(default) == 0:
-                        raise AssertionError(
-                            "The `default` parameter should not contain an empty string!"
-                        )
+                        raise AssertionError("The `default` parameter should not contain an empty string!")
                     if constants.REGEX["color_code"].match(default) is None:
                         raise AssertionError("Parameter `default` - Not а color code!")
                 if not isinstance(label, str):
