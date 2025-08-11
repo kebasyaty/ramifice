@@ -77,7 +77,7 @@ line-length = 120
 indent-width = 4
 required-version = ">=0.7.11"
 src = ["src"]
-include = ["*.py", "*.pyi", "*.ipynb", "**/pyproject.toml", "src/**/*.py"]
+include = ["src/**/*.py"]
 exclude = [
     ".bzr",
     ".direnv",
@@ -105,8 +105,13 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
-    "tests/**/*.py",
-    "examples/**/*.py",
+    ".github",
+    "assets",
+    "config",
+    "docs",
+    "examples",
+    "public",
+    "tests",
 ]
 
 [tool.ruff.lint]
