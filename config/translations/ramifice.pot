@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-08-12 12:10+0300\n"
+"POT-Creation-Date: 2025-08-12 12:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,3 +136,4 @@ msgstr ""
 #: src/ramifice/paladins/groups/text_group.py:100
 msgid "Invalid Phone number !"
 msgstr ""
+
