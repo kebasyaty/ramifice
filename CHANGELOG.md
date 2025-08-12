@@ -1,4 +1,4 @@
-# CHANGELOG
+### CHANGELOG
 
 #### v0.8.25 2025-08-07
 
