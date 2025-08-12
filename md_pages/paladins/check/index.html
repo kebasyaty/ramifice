@@ -2516,9 +2516,7 @@
 <span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CheckMixin</span><span class="p">(</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CheckMixin</span><span class="p">(</span>
     <span class="n">BoolGroupMixin</span><span class="p">,</span>
     <span class="n">ChoiceGroupMixin</span><span class="p">,</span>
     <span class="n">DateGroupMixin</span><span class="p">,</span>
@@ -2570,9 +2568,7 @@
             <span class="s2">&quot;field_data&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s2">&quot;full_model_name&quot;</span><span class="p">:</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;full_model_name&quot;</span><span class="p">],</span>
             <span class="s2">&quot;is_migration_process&quot;</span><span class="p">:</span> <span class="n">is_migration_process</span><span class="p">,</span>
-            <span class="s2">&quot;curr_doc&quot;</span><span class="p">:</span> <span class="p">(</span>
-                <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">})</span> <span class="k">if</span> <span class="n">is_save</span> <span class="ow">and</span> <span class="n">is_update</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="p">),</span>
+            <span class="s2">&quot;curr_doc&quot;</span><span class="p">:</span> <span class="p">(</span><span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">})</span> <span class="k">if</span> <span class="n">is_save</span> <span class="ow">and</span> <span class="n">is_update</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
         <span class="p">}</span>
 
         <span class="c1"># Run checking fields.</span>
@@ -2827,9 +2823,7 @@
 <span class="normal">170</span>
 <span class="normal">171</span>
 <span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">is_save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2867,9 +2861,7 @@
         <span class="s2">&quot;field_data&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;full_model_name&quot;</span><span class="p">:</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;full_model_name&quot;</span><span class="p">],</span>
         <span class="s2">&quot;is_migration_process&quot;</span><span class="p">:</span> <span class="n">is_migration_process</span><span class="p">,</span>
-        <span class="s2">&quot;curr_doc&quot;</span><span class="p">:</span> <span class="p">(</span>
-            <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">})</span> <span class="k">if</span> <span class="n">is_save</span> <span class="ow">and</span> <span class="n">is_update</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="p">),</span>
+        <span class="s2">&quot;curr_doc&quot;</span><span class="p">:</span> <span class="p">(</span><span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">})</span> <span class="k">if</span> <span class="n">is_save</span> <span class="ow">and</span> <span class="n">is_update</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="c1"># Run checking fields.</span>

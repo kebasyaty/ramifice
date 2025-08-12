@@ -2488,9 +2488,7 @@ unique: The unique value of a field in a collection.</p>
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ColorField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ColorField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Field of Model for enter color code.</span>
 
 <span class="sd">    Default value is #000000 (black).</span>
@@ -2534,9 +2532,7 @@ unique: The unique value of a field in a collection.</p>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                            <span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span>
-                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">constants</span><span class="o">.</span><span class="n">REGEX</span><span class="p">[</span><span class="s2">&quot;color_code&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а color code!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>

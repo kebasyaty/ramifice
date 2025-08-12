@@ -2471,9 +2471,7 @@
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">UnitMixin</span><span class="p">:</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">UnitMixin</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Units Management.</span>
 
 <span class="sd">    Management for `choices` parameter in dynamic field types.</span>
@@ -2487,12 +2485,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get access to super collection.</span>
         <span class="c1"># (Contains Model state and dynamic field data.)</span>
-        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-            <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-        <span class="p">]</span>
+        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
         <span class="c1"># Get Model state.</span>
         <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-            <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]},</span>
         <span class="p">)</span>
         <span class="c1"># Check the presence of a Model state.</span>
         <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2701,9 +2697,7 @@
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">unit_manager</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Units Management.</span>
 
@@ -2711,12 +2705,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get access to super collection.</span>
     <span class="c1"># (Contains Model state and dynamic field data.)</span>
-    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-        <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-    <span class="p">]</span>
+    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
     <span class="c1"># Get Model state.</span>
     <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-        <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>
+        <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]},</span>
     <span class="p">)</span>
     <span class="c1"># Check the presence of a Model state.</span>
     <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

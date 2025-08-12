@@ -2441,13 +2441,7 @@
 <span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SaveMixin</span><span class="p">:</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SaveMixin</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create or update document in database.&quot;&quot;&quot;</span>
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -2486,9 +2480,7 @@
             <span class="c1"># Run hook.</span>
             <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_update</span><span class="p">()</span>
             <span class="c1"># Refresh Model.</span>
-            <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]}</span>
-            <span class="p">)</span>
+            <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]})</span>
             <span class="k">if</span> <span class="n">mongo_doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span>
@@ -2512,11 +2504,7 @@
             <span class="c1"># Refresh Model.</span>
             <span class="n">mongo_doc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]})</span>
             <span class="k">if</span> <span class="n">mongo_doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span>
-                    <span class="o">+</span> <span class="s2">&quot;Method: `save` =&gt; &quot;</span>
-                    <span class="o">+</span> <span class="s2">&quot;The document was not created.&quot;</span>
-                <span class="p">)</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span> <span class="o">+</span> <span class="s2">&quot;Method: `save` =&gt; &quot;</span> <span class="o">+</span> <span class="s2">&quot;The document was not created.&quot;</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="n">refresh_from_mongo_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mongo_doc</span><span class="p">)</span>
@@ -2625,13 +2613,7 @@
 <span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create or update document in database.</span>
 
 <span class="sd">    This method pre-uses the `check` method.</span>
@@ -2667,9 +2649,7 @@
         <span class="c1"># Run hook.</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_update</span><span class="p">()</span>
         <span class="c1"># Refresh Model.</span>
-        <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]}</span>
-        <span class="p">)</span>
+        <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]})</span>
         <span class="k">if</span> <span class="n">mongo_doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span>
@@ -2693,11 +2673,7 @@
         <span class="c1"># Refresh Model.</span>
         <span class="n">mongo_doc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">checked_data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]})</span>
         <span class="k">if</span> <span class="n">mongo_doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;Method: `save` =&gt; &quot;</span>
-                <span class="o">+</span> <span class="s2">&quot;The document was not created.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Model: `</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">full_model_name</span><span class="p">()</span><span class="si">}</span><span class="s2">` &gt; &quot;</span> <span class="o">+</span> <span class="s2">&quot;Method: `save` =&gt; &quot;</span> <span class="o">+</span> <span class="s2">&quot;The document was not created.&quot;</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="n">refresh_from_mongo_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mongo_doc</span><span class="p">)</span>

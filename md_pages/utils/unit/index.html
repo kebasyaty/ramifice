@@ -2516,10 +2516,7 @@
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Unit</span><span class="p">(</span><span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Unit</span><span class="p">(</span><span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Unit of information for `choices` parameter in dynamic field types.</span>
 
 <span class="sd">    Args:</span>
@@ -2541,10 +2538,7 @@
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `field` =&gt; Not а `str` type!&quot;</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s2">&quot;Class: `Unit` &gt; Field: `title` =&gt; Not а `str` type! &quot;</span>
-                <span class="o">+</span> <span class="s1">&#39;Example: {&quot;en&quot;: &quot;Title&quot;, &quot;ru&quot;: &quot;Заголовок&quot;}&#39;</span>
-            <span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `title` =&gt; Not а `str` type! &quot;</span> <span class="o">+</span> <span class="s1">&#39;Example: {&quot;en&quot;: &quot;Title&quot;, &quot;ru&quot;: &quot;Заголовок&quot;}&#39;</span>
             <span class="k">raise</span> <span class="n">PanicError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Class: `Unit` &gt; Field: `value` =&gt; Not a `float | int | str` type!&quot;</span>
@@ -2640,7 +2634,10 @@
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\utils\unit.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
@@ -2660,10 +2657,7 @@
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_empty_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_empty_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check the arguments for empty values.</span>
 
 <span class="sd">    Returns:</span>

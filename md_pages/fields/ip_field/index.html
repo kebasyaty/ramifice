@@ -2448,9 +2448,7 @@ unique: The unique value of a field in a collection.</p>
 <span class="normal">102</span>
 <span class="normal">103</span>
 <span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IPField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IPField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Field of Model for enter IP address.</span>
 
 <span class="sd">    Agrs:</span>
@@ -2487,9 +2485,7 @@ unique: The unique value of a field in a collection.</p>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                            <span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span>
-                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span><span class="p">)</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">ipaddress</span><span class="o">.</span><span class="n">ip_address</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>

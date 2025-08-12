@@ -2646,18 +2646,7 @@ your database schema.</p>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">:</span>
+<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Migration</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Migration of models to database.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mongo_client</span><span class="p">:</span> <span class="n">AsyncMongoClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D107</span>
@@ -2687,9 +2676,7 @@ your database schema.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get access to super collection.</span>
         <span class="c1"># (Contains Model state and dynamic field data.)</span>
-        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-            <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-        <span class="p">]</span>
+        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
         <span class="c1"># Switch the `is_model_exist` parameter in `False`.</span>
         <span class="k">async</span> <span class="k">for</span> <span class="n">model_state</span> <span class="ow">in</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
             <span class="n">q_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>
@@ -2700,12 +2687,10 @@ your database schema.</p>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the state of the current model from a super collection.&quot;&quot;&quot;</span>
         <span class="c1"># Get access to super collection.</span>
         <span class="c1"># (Contains Model state and dynamic field data.)</span>
-        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-            <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-        <span class="p">]</span>
+        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
         <span class="c1"># Get state of current Model.</span>
         <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>
+            <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]},</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;is_model_exist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
@@ -2737,9 +2722,7 @@ your database schema.</p>
         <span class="n">database</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span>
         <span class="c1"># Get access to super collection.</span>
         <span class="c1"># (Contains Model state and dynamic field data.)</span>
-        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-            <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-        <span class="p">]</span>
+        <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
         <span class="c1"># Delete data for non-existent Models.</span>
         <span class="k">async</span> <span class="k">for</span> <span class="n">model_state</span> <span class="ow">in</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;is_model_exist&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -2818,8 +2801,7 @@ your database schema.</p>
                     <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">field_type</span> <span class="ow">in</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                         <span class="k">if</span> <span class="p">(</span>
                             <span class="n">field_type</span> <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
-                            <span class="ow">and</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span>
-                            <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
+                            <span class="ow">and</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
                         <span class="p">):</span>
                             <span class="n">checked_data</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mongo_doc</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span>
                     <span class="c1"># Update date and time.</span>
@@ -2835,9 +2817,7 @@ your database schema.</p>
                 <span class="k">if</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># noqa: E712</span>
                     <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_data</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_state</span><span class="p">[</span>
-                        <span class="s2">&quot;data_dynamic_fields&quot;</span>
-                    <span class="p">][</span><span class="n">field_name</span><span class="p">]</span>
+                    <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span>
             <span class="c1"># Refresh state of current Model.</span>
             <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span>
             <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span>
@@ -2859,9 +2839,7 @@ your database schema.</p>
             <span class="c1"># Apply fixture to current Model.</span>
             <span class="n">fixture_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;fixture_name&quot;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">fixture_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-                    <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]</span>
-                <span class="p">]</span>
+                <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]]</span>
                 <span class="k">if</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">estimated_document_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">await</span> <span class="n">apply_fixture</span><span class="p">(</span>
                         <span class="n">fixture_name</span><span class="o">=</span><span class="n">fixture_name</span><span class="p">,</span>
@@ -2906,7 +2884,13 @@ your database schema.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\utils\migration.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
@@ -3012,18 +2996,7 @@ your database schema.</p>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">migrate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run migration process.</span>
 
 <span class="sd">    1) Update the state of Models in the super collection.</span>
@@ -3091,8 +3064,7 @@ your database schema.</p>
                 <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">field_type</span> <span class="ow">in</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="k">if</span> <span class="p">(</span>
                         <span class="n">field_type</span> <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
-                        <span class="ow">and</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span>
-                        <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
+                        <span class="ow">and</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;PasswordField&quot;</span>
                     <span class="p">):</span>
                         <span class="n">checked_data</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mongo_doc</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span>
                 <span class="c1"># Update date and time.</span>
@@ -3108,9 +3080,7 @@ your database schema.</p>
             <span class="k">if</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># noqa: E712</span>
                 <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_data</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_state</span><span class="p">[</span>
-                    <span class="s2">&quot;data_dynamic_fields&quot;</span>
-                <span class="p">][</span><span class="n">field_name</span><span class="p">]</span>
+                <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">][</span><span class="n">field_name</span><span class="p">]</span>
         <span class="c1"># Refresh state of current Model.</span>
         <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;data_dynamic_fields&quot;</span><span class="p">]</span>
         <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span>
@@ -3132,9 +3102,7 @@ your database schema.</p>
         <span class="c1"># Apply fixture to current Model.</span>
         <span class="n">fixture_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;fixture_name&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">fixture_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-                <span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]</span>
-            <span class="p">]</span>
+            <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]]</span>
             <span class="k">if</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">estimated_document_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">await</span> <span class="n">apply_fixture</span><span class="p">(</span>
                     <span class="n">fixture_name</span><span class="o">=</span><span class="n">fixture_name</span><span class="p">,</span>
@@ -3167,7 +3135,9 @@ your database schema.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\utils\migration.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
@@ -3185,20 +3155,14 @@ your database schema.</p>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">model_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">model_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the state of the current model from a super collection.&quot;&quot;&quot;</span>
     <span class="c1"># Get access to super collection.</span>
     <span class="c1"># (Contains Model state and dynamic field data.)</span>
-    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-        <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-    <span class="p">]</span>
+    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
     <span class="c1"># Get state of current Model.</span>
     <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="k">await</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>
+        <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]},</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">model_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;is_model_exist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
@@ -3239,7 +3203,11 @@ delete collections associated with those Models.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\utils\migration.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -3252,13 +3220,7 @@ delete collections associated with those Models.</p>
 <span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">napalm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">napalm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete data for non-existent Models from a super collection,</span>
 <span class="sd">    delete collections associated with those Models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: D205</span>
@@ -3266,9 +3228,7 @@ delete collections associated with those Models.</p>
     <span class="n">database</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span>
     <span class="c1"># Get access to super collection.</span>
     <span class="c1"># (Contains Model state and dynamic field data.)</span>
-    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-        <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-    <span class="p">]</span>
+    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
     <span class="c1"># Delete data for non-existent Models.</span>
     <span class="k">async</span> <span class="k">for</span> <span class="n">model_state</span> <span class="ow">in</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;is_model_exist&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -3300,14 +3260,14 @@ delete collections associated with those Models.</p>
 
             <details class="quote">
               <summary>Source code in <code>src\ramifice\utils\migration.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">88</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
 <span class="normal">89</span>
 <span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">new_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">new_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">model_state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a list of new fields that were added to Model.&quot;&quot;&quot;</span>
     <span class="n">new_fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">field_type</span> <span class="ow">in</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;field_name_and_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -3354,18 +3314,14 @@ delete collections associated with those Models.</p>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the condition of the models in a super collection.</span>
 
 <span class="sd">    Switch the `is_model_exist` parameter in the condition `False`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get access to super collection.</span>
     <span class="c1"># (Contains Model state and dynamic field data.)</span>
-    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span>
-        <span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span>
-    <span class="p">]</span>
+    <span class="n">super_collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">SUPER_COLLECTION_NAME</span><span class="p">]</span>
     <span class="c1"># Switch the `is_model_exist` parameter in `False`.</span>
     <span class="k">async</span> <span class="k">for</span> <span class="n">model_state</span> <span class="ow">in</span> <span class="n">super_collection</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
         <span class="n">q_filter</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;collection_name&quot;</span><span class="p">:</span> <span class="n">model_state</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]}</span>

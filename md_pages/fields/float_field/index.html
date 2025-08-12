@@ -2475,9 +2475,7 @@ input_type: Field type - <code>number</code> or <code>range</code>.</p>
 <span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FloatField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">NumberGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FloatField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">NumberGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Field of Model for enter (float) number.</span>
 
 <span class="sd">    Agrs:</span>
@@ -2521,7 +2519,7 @@ input_type: Field type - <code>number</code> or <code>range</code>.</p>
                 <span class="k">if</span> <span class="n">input_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;range&quot;</span><span class="p">]:</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
                         <span class="s2">&quot;Parameter `input_type` - Invalid input type! &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot;The permissible value of `number` or `range`.&quot;</span>
+                        <span class="o">+</span> <span class="s2">&quot;The permissible value of `number` or `range`.&quot;</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="k">if</span> <span class="n">max_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_number</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `max_number` - Not а number `float` type!&quot;</span><span class="p">)</span>
@@ -2530,15 +2528,13 @@ input_type: Field type - <code>number</code> or <code>range</code>.</p>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `step` - Not а number `float` type!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">max_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">min_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_number</span> <span class="o">&lt;=</span> <span class="n">min_number</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                        <span class="s2">&quot;The `max_number` parameter should be more than the `min_number`!&quot;</span>
-                    <span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;The `max_number` parameter should be more than the `min_number`!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а number `float` type!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">max_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">default</span> <span class="o">&gt;</span> <span class="n">max_number</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` is more `max_number`!&quot;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">max_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">default</span> <span class="o">&lt;</span> <span class="n">min_number</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+                    <span class="k">if</span> <span class="n">max_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">default</span> <span class="o">&lt;</span> <span class="n">min_number</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` is less `min_number`!&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>

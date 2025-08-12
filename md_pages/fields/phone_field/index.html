@@ -2455,9 +2455,7 @@ unique: The unique value of a field in a collection.</p>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PhoneField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">PhoneField</span><span class="p">(</span><span class="n">Field</span><span class="p">,</span> <span class="n">TextGroup</span><span class="p">,</span> <span class="n">JsonMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Field of Model for enter phone number.</span>
 
 <span class="sd">    Attention:</span>
@@ -2497,9 +2495,7 @@ unique: The unique value of a field in a collection.</p>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Parameter `default` - Not а `str` type!&quot;</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">default</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                            <span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span>
-                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;The `default` parameter should not contain an empty string!&quot;</span><span class="p">)</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">phone_default</span> <span class="o">=</span> <span class="n">phonenumbers</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">phonenumbers</span><span class="o">.</span><span class="n">is_valid_number</span><span class="p">(</span><span class="n">phone_default</span><span class="p">):</span>
