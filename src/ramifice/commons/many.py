@@ -156,7 +156,7 @@ class ManyMixin:
                     inst_model_dict,
                     mongo_doc,
                     lang,
-                )
+                ),
             )
         return doc_list
 
@@ -224,7 +224,7 @@ class ManyMixin:
                     inst_model_dict,
                     mongo_doc,
                     lang,
-                )
+                ),
             )
         return orjson.dumps(doc_list).decode("utf-8") if len(doc_list) > 0 else None
 

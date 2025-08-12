@@ -66,7 +66,7 @@ class Migration:
         super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            {"collection_name": metadata["collection_name"]}
+            {"collection_name": metadata["collection_name"]},
         )
         if model_state is not None:
             model_state["is_model_exist"] = True

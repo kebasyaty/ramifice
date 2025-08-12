@@ -38,7 +38,7 @@ class UnitMixin:
         super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            filter={"collection_name": cls.META["collection_name"]}
+            filter={"collection_name": cls.META["collection_name"]},
         )
         # Check the presence of a Model state.
         if model_state is None:

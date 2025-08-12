@@ -43,20 +43,7 @@
       "label": "Pre-Commit: Run Check",
       "type": "shell",
       "command": [
-        "uv run pre-commit run --all-files;",
-        "uv run python -m unittest tests/test_mongo.py;",
-        "uv run python -m unittest tests/test_mixins.py;",
-        "uv run python -m unittest tests/test_constants.py;",
-        "uv run python -m unittest tests/test_tools.py;",
-        "uv run python -m unittest tests/test_types.py;",
-        "uv run python -m unittest discover -s tests/fields;",
-        "uv run python -m unittest tests/test_extra.py;",
-        "uv run python -m unittest tests/test_migration.py;",
-        "uv run python -m unittest tests/test_fixtures.py;",
-        "uv run python -m unittest discover -s tests/paladins;",
-        "uv run python -m unittest discover -s tests/commons;",
-        "uv run python -m unittest discover -s tests/models;",
-        "uv run python -m unittest tests/test_translations.py"
+        "uv run pre-commit run --show-diff-on-failure --color=always --all-files;"
       ],
       "problemMatcher": []
     },

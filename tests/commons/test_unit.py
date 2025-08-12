@@ -61,7 +61,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         ]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            {"collection_name": User.META["collection_name"]}
+            {"collection_name": User.META["collection_name"]},
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
@@ -118,7 +118,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         await User.unit_manager(unit)
         #
         model_state = await super_collection.find_one(
-            {"collection_name": User.META["collection_name"]}
+            {"collection_name": User.META["collection_name"]},
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")
@@ -245,7 +245,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         await User.unit_manager(unit)
         #
         model_state = await super_collection.find_one(
-            {"collection_name": User.META["collection_name"]}
+            {"collection_name": User.META["collection_name"]},
         )
         if model_state is None:
             raise PanicError("Error: Model State - Not found!")

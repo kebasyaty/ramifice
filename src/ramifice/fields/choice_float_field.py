@@ -80,7 +80,7 @@ class ChoiceFloatField(Field, ChoiceGroup, JsonMixin):
                     raise AssertionError("Parameter `default` - Not а `float` type!")
                 if default is not None and choices is not None and not self.has_value():
                     raise AssertionError(
-                        "Parameter `default` does not coincide with " + "list of permissive values in `choicees`."
+                        "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                     )
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

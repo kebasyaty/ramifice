@@ -57,7 +57,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
                 if input_type not in ["number", "range"]:
                     raise AssertionError(
                         "Parameter `input_type` - Invalid input type! "
-                        + "The permissible value of `number` or `range`."
+                        + "The permissible value of `number` or `range`.",
                     )
                 if max_number is not None and not isinstance(max_number, int):
                     raise AssertionError("Parameter `max_number` - Not а number `int` type!")
