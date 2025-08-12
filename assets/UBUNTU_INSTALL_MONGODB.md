@@ -7,7 +7,7 @@
 grep -qm1 '^flags.*avx' /proc/cpuinfo && echo OK || echo NOT OK
 ```
 
-### Add repository:
+### Add Repository
 
 ```shell
 sudo apt install curl gnupg2
@@ -19,7 +19,7 @@ echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gp
 sudo apt update
 ```
 
-### Install:
+### Install
 
 ```shell
 sudo apt install -y mongodb-org
