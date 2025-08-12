@@ -20,7 +20,6 @@ repos:
       - id: check-toml
       - id: check-xml
       - id: check-yaml
-        args: [--allow-multiple-documents]
         exclude: mkdocs.yml
       - id: forbid-new-submodules
       - id: name-tests-test
@@ -30,9 +29,22 @@ repos:
         exclude: \.(json|svg|pot|po)$
       - id: mixed-line-ending
       - id: trailing-whitespace
-        args: [--markdown-linebreak-ext=md]
+        args: ["--markdown-linebreak-ext=md,mdown,markdown"]
         exclude: \.(json|svg)$
       - id: fix-byte-order-marker
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        args:
+          [
+            "--disable=MD001",
+            "--disable=MD013",
+            "--disable=MD029",
+            "--disable=MD033",
+            "--disable=MD041",
+          ]
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0

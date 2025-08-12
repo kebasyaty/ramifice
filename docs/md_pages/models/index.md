@@ -6,7 +6,7 @@
 
 #### Model Parameters
 
-See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
+[See the documentation.](https://kebasyaty.github.io/ramifice/ "See the documentation.")
 
 ###### ( only `service_name` is a required parameter )
 

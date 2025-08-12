@@ -1,3 +1,5 @@
+### CHANGELOG
+
 #### v0.8.25 2025-08-07
 
 - Upgraded the library `xloft`.
@@ -32,14 +34,14 @@
 
 #### v0.8.0 2025-07-09
 
-- Rename the migration class from `MigrationManager` to` Migration`.
+- Rename the migration class from `MigrationManager` to `Migration`.
 - Updated translations.
 - Updated README.md .
 
 #### v0.7.0 2025-07-08
 
-- The transition from `json` to` orjson`.
-- Rename the migration class from `Monitor` to` MigrationManager`.
+- The transition from `json` to `orjson`.
+- Rename the migration class from `Monitor` to `MigrationManager`.
 - Updated README.md .
 
 #### v0.6.0 2025-07-07

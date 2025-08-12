@@ -89,7 +89,7 @@ uv add ramifice
 
 ## Usage
 
-It is recommended to look at examples [here](https://github.com/kebasyaty/ramifice/tree/v0/examples "here").
+[It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here.")
 
 ```python
 import re
@@ -284,7 +284,7 @@ uv run pybabel compile -d config/translations/ramifice
 
 ## Model Parameters
 
-See the documentation [here](https://kebasyaty.github.io/ramifice/ "here").
+[See the documentation here.](https://kebasyaty.github.io/ramifice/ "See the documentation here.")
 
 ###### ( only `service_name` is a required parameter )
 
