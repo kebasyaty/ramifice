@@ -40,7 +40,7 @@ class TestConstants(unittest.TestCase):
                 re.I,
             ),
             "password": re.compile(
-                r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'
+                r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$',
             ),
         }
         self.assertEqual(REGEX, regex)

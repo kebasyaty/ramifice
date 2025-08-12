@@ -137,4 +137,3 @@ msgstr ""
 #: src/ramifice/paladins/groups/text_group.py:100
 msgid "Invalid Phone number !"
 msgstr ""
-

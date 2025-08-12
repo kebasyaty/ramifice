@@ -86,7 +86,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                                 raise AssertionError(
                                     "The `thumbnails` parameter -> "
                                     + f"The `{size_name}` key should be less than a previous size!"
-                                    + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }'
+                                    + 'Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }',
                                 )
                             curr_size_thumb = max_size_thumb
                 if not isinstance(label, str):

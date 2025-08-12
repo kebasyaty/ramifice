@@ -44,7 +44,7 @@ class TestChoiceTextFields(unittest.TestCase):
             f = ChoiceTextField(default="")
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(
-                default="value 3", choices=[["value", "Title"], ["value 2", "Title 2"]]
+                default="value 3", choices=[["value", "Title"], ["value 2", "Title 2"]],
             )
         # Methods:
         f = ChoiceTextField()
@@ -103,7 +103,7 @@ class TestChoiceTextFields(unittest.TestCase):
         f = ChoiceTextMultField()
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
-            default=["value 2"], choices=[["value", "Title"], ["value 2", "Title 2"]]
+            default=["value 2"], choices=[["value", "Title"], ["value 2", "Title 2"]],
         )
         self.assertTrue(f.has_value())
         f = ChoiceTextMultField(choices=[["value", "Title"], ["value 2", "Title 2"]])

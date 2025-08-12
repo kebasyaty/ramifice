@@ -26,11 +26,27 @@ repos:
       - id: name-tests-test
         args: [--pytest-test-first]
       - id: debug-statements
+      - id: end-of-file-fixer
+        exclude_types: [json]
       - id: mixed-line-ending
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
         exclude_types: [json]
       - id: fix-byte-order-marker
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-check-mock-methods
+      - id: python-no-eval
+      - id: python-use-type-annotations
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v3.2.0
+    hooks:
+      - id: add-trailing-comma
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.20.0
@@ -59,17 +75,9 @@ repos:
           ]
         exclude: examples
 
-  - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.10.0
-    hooks:
-      - id: python-check-blanket-noqa
-      - id: python-check-blanket-type-ignore
-      - id: python-check-mock-methods
-      - id: python-no-eval
-      - id: python-use-type-annotations
-
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.33.2
     hooks:
       - id: check-github-workflows
         args: [--verbose]
+      - id: check-dependabot

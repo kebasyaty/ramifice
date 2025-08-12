@@ -138,4 +138,3 @@ msgstr "Некорректный цветовой код !"
 #: src/ramifice/paladins/groups/text_group.py:100
 msgid "Invalid Phone number !"
 msgstr "Неверный номер телефона !"
-

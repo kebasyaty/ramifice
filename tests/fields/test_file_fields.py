@@ -111,7 +111,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
             await f.from_base64(
                 base64_str=self.img_base64_str,
                 filename="image_name.png",
-            )
+            ),
         )
         self.assertEqual(f.value["name"], "image_name.png")
         self.assertEqual(f.value["size"], 120)
@@ -126,7 +126,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(
             await f.from_path(
                 src_path="public/media/default/no-photo.png",
-            )
+            ),
         )
         self.assertEqual(f.value["name"], "no-photo.png")
         self.assertEqual(f.value["size"], 41554)
