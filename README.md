@@ -57,7 +57,7 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 ## Requirements
 
-[View the list of requirements.](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "View the list of requirements.")
+[View the list of requirements](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements").
 
 ## Installation
 
@@ -89,7 +89,7 @@ uv add ramifice
 
 ## Usage
 
-[It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here.")
+[It is recommended to look at examples here](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here").
 
 ```python
 import re
@@ -575,7 +575,7 @@ size: int = get_file_size(path)  # => 9843
 
 ## Changelog
 
-[View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
+[View the change history](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog").
 
 ## License
 

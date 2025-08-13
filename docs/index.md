@@ -39,6 +39,7 @@
 <hr>
 
 <br>
+<br>
 
 #### Documentation
 
@@ -46,11 +47,11 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 
 #### Requirements
 
-[View the list of requirements.](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "View the list of requirements.")
+[View the list of requirements](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements").
 
 #### Changelog
 
-[View the change history.](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
+[View the change history](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog").
 
 #### License
 
