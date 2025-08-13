@@ -32,14 +32,13 @@
 
 <hr>
 
+<br>
+
 ::: ramifice
     options:
       members: no
 
 <hr>
-
-<br>
-<br>
 
 #### Documentation
 
