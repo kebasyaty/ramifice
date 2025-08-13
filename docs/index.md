@@ -38,6 +38,8 @@
 
 <hr>
 
+<br>
+
 #### Documentation
 
 Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
