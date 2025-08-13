@@ -46,7 +46,7 @@ Changelog = "https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md"
 
 [tool.uv]
 package = true
-default-groups = ["dev", "docs"]
+default-groups = ["dev", "lint", "docs", "types"]
 compile-bytecode = true
 check-url = "https://pypi.org/simple"
 
@@ -58,10 +58,15 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
-    "mypy>=1.16.0",
-    "pre-commit>=4.3.0",
-    "ruff>=0.11.13",
+dev = []
+lint = ["mypy>=1.16.0", "pre-commit>=4.3.0", "ruff>=0.11.13"]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.14",
+    "mkdocstrings[python]>=0.29.1",
+    "pymdown-extensions>=10.16.1",
+]
+types = [
     "types-defusedxml>=0.7.0.20250809",
     "types-pyopenssl>=24.1.0.20240722",
     "types-python-dateutil>=2.9.0.20250516",
@@ -69,12 +74,6 @@ dev = [
     "types-pywin32>=311.0.0.20250809",
     "types-pyyaml>=6.0.12.20250516",
     "types-requests>=2.32.4.20250809",
-]
-docs = [
-    "mkdocs>=1.6.1",
-    "mkdocs-material>=9.6.14",
-    "mkdocstrings[python]>=0.29.1",
-    "pymdown-extensions>=10.16.1",
 ]
 
 [tool.ruff]
