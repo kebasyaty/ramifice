@@ -49,7 +49,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install the project dependencies
-        run: uv sync --locked --dev --group lint types
+        run: uv sync --locked --no-group docs
 
       - name: Run check
         run: |
