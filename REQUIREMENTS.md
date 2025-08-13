@@ -1,8 +1,10 @@
-### Project manager
+### REQUIREMENTS
+
+#### Project manager
 
 - [uv](https://astral.sh/ "uv")
 
-### Dependencies
+#### Dependencies
 
 - [pymongo](https://pypi.org/project/pymongo/ "pymongo")
 - [pillow](https://pypi.org/project/pillow/ "pillow")
@@ -18,12 +20,12 @@
 - [anyio](https://github.com/agronholm/anyio "anyio")
 - [xloft](https://github.com/agronholm/xloft "xloft")
 
-### Dev-Dependencies
+#### Dev-Dependencies
 
 - [ruff](https://pypi.org/project/ruff/ "ruff")
 - [mypy](https://pypi.org/project/mypy/ "mypy")
+- [pre-commit](https://pypi.org/project/pre-commit/ "pre-commit")
 - [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
 - [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
 - [mkdocs-material](https://pypi.org/project/mkdocs-material/ "mkdocs-material")
-- [mkdocs-git-authors-plugin](https://pypi.org/project/mkdocs-git-authors-plugin/ "mkdocs-git-authors-plugin")
 - [pymdown-extensions](https://pypi.org/project/pymdown-extensions/ "pymdown-extensions")
