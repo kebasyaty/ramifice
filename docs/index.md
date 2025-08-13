@@ -32,8 +32,6 @@
 
 <hr>
 
-##
-
 ::: ramifice
     options:
       members: no
