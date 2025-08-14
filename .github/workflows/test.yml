@@ -3,15 +3,15 @@ name: Test
 on:
   push:
     paths-ignore:
-      - "examples/**"
       - ".vscode/**"
       - "assets/**"
+      - "examples/**"
   pull_request:
     branches: [main]
     paths-ignore:
-      - "examples/**"
       - ".vscode/**"
       - "assets/**"
+      - "examples/**"
   workflow_dispatch:
 
 permissions:
