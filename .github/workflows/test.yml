@@ -38,7 +38,7 @@ jobs:
           version: ${{ matrix.uv-version }}
 
       - name: Install dependencies with uv
-        run: uv sync --locked --dev --group test
+        run: uv sync --locked --dev
 
       - name: Run unittest
         run: |
