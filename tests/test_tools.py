@@ -16,7 +16,6 @@ from ramifice.utils.tools import (
     is_phone,
     is_url,
     normal_email,
-    to_human_size,
 )
 
 
@@ -92,10 +91,6 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
             hash_to_obj_id("666f6f2d6261722d71757578"),
             ObjectId("666f6f2d6261722d71757578"),
         )
-
-    def test_to_human_size(self):
-        """Testing a method `to_human_size`."""
-        self.assertEqual(to_human_size(2097152), "2 MB")
 
     async def test_get_file_size(self):
         """Testing a method `get_file_size`."""

@@ -23,21 +23,20 @@ The project is more concentrated for web development or for applications with a 
 
 __all__ = (
     "NamedTuple",
+    "to_human_size",
     "model",
     "translations",
     "Migration",
-    "to_human_size",
     "Unit",
 )
 
 import logging
 
-from xloft import NamedTuple
+from xloft import NamedTuple, to_human_size
 
 from ramifice.models.decorator import model
 from ramifice.utils import translations
 from ramifice.utils.migration import Migration
-from ramifice.utils.tools import to_human_size
 from ramifice.utils.unit import Unit
 
 logging.basicConfig(

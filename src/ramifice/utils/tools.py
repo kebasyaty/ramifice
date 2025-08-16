@@ -2,7 +2,6 @@
 
 __all__ = (
     "is_password",
-    "to_human_size",
     "get_file_size",
     "normal_email",
     "is_email",
@@ -15,7 +14,6 @@ __all__ = (
 )
 
 import ipaddress
-import math
 from asyncio import to_thread
 from os.path import getsize
 from typing import Any
@@ -33,14 +31,6 @@ def is_password(password: str | None) -> bool:
     if not REGEX["password"].match(str(password)):
         return False
     return True
-
-
-def to_human_size(size: int) -> str:
-    """Convert number of bytes to readable format."""
-    idx = int(math.floor(math.log(size) / math.log(1024)))  # noqa: RUF046
-    size = size if size < 1024 else abs(round(size / pow(1024, idx), 2))
-    order = ["bytes", "KB", "MB", "GB", "TB"][idx]
-    return "{:g} {}".format(size, order)
 
 
 async def get_file_size(path: str) -> int:
