@@ -95,7 +95,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
 
     def test_to_human_size(self):
         """Testing a method `to_human_size`."""
-        self.assertEqual(to_human_size(2097152), "2.0 MB")
+        self.assertEqual(to_human_size(2097152), "2 MB")
 
     async def test_get_file_size(self):
         """Testing a method `get_file_size`."""
