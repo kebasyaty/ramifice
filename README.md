@@ -95,7 +95,7 @@ import re
 import asyncio
 from typing import Any
 from datetime import datetime
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 from ramifice import (
@@ -205,7 +205,7 @@ async def main():
         {f"username": user.username.value}
     )
     if user_details is not None:
-        pprint.pprint(user_details)
+        pp(user_details)
     else:
         print("No User!")
 
@@ -285,7 +285,7 @@ uv run pybabel compile -d config/translations/ramifice
 
 [See the documentation here.](https://kebasyaty.github.io/ramifice/ "See the documentation here.")
 
-###### ( only `service_name` is a required parameter )
+( only `service_name` is a required parameter )
 
 <div>
    <table>

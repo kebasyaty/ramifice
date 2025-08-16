@@ -1,6 +1,6 @@
 # Getting started
 
-#### Installation
+## Installation
 
 1. Install MongoDB (if not installed):<br>
    [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/FEDORA_INSTALL_MONGODB.md)
@@ -28,7 +28,7 @@ uv add ramifice
    [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")<br>
    [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
 
-#### Usage
+## Usage
 
 [It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here.")
 
@@ -37,7 +37,7 @@ import re
 import asyncio
 from typing import Any
 from datetime import datetime
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 from ramifice import (
@@ -147,7 +147,7 @@ async def main():
         {f"username": user.username.value}
     )
     if user_details is not None:
-        pprint.pprint(user_details)
+        pp(user_details)
     else:
         print("No User!")
 
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-#### How to create custom translations ?
+### How to create custom translations ?
 
 ```python
 from ramifice import translations
@@ -196,7 +196,7 @@ uv run pybabel update -i config/translations/custom.pot -d config/translations/c
 uv run pybabel compile -d config/translations/custom
 ```
 
-#### How to add new languages ​​to Ramifice ?
+### How to add new languages ​​to Ramifice ?
 
 ```python
 from ramifice import translations
