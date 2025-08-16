@@ -8,7 +8,7 @@
 
 [See the documentation.](https://kebasyaty.github.io/ramifice/ "See the documentation.")
 
-###### ( only `service_name` is a required parameter )
+( only `service_name` is a required parameter )
 
 <div>
    <table>

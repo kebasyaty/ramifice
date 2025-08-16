@@ -26,6 +26,7 @@ __all__ = (
     "model",
     "translations",
     "Migration",
+    "to_human_size",
     "Unit",
 )
 
@@ -36,6 +37,7 @@ from xloft import NamedTuple
 from ramifice.models.decorator import model
 from ramifice.utils import translations
 from ramifice.utils.migration import Migration
+from ramifice.utils.tools import to_human_size
 from ramifice.utils.unit import Unit
 
 logging.basicConfig(

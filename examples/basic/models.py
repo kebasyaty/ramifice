@@ -2,7 +2,7 @@
 
 import re
 
-from ramifice import NamedTuple, model, translations
+from ramifice import NamedTuple, model, translations, to_human_size
 from ramifice.fields import (
     BooleanField,
     DateField,
@@ -14,7 +14,6 @@ from ramifice.fields import (
     SlugField,
     TextField,
 )
-from ramifice.utils.tools import to_human_size
 
 
 @model(service_name="Accounts")
