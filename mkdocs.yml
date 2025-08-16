@@ -68,12 +68,9 @@ extra:
 
 nav:
   - Ramifice: index.md
-  - Installation:
-      - Installation: md_pages/installation/index.md
-  - Localization:
-      - Localization: md_pages/localization/index.md
-  - Usage:
-      - Usage: md_pages/usage/index.md
+  - Installation: md_pages/installation/index.md
+  - Localization: md_pages/localization/index.md
+  - Usage: md_pages/usage/index.md
   - Fields:
       - Fields: md_pages/fields/index.md
       - TextField: md_pages/fields/text_field.md
