@@ -1,34 +1,6 @@
-# Getting started
+# Usage
 
-## Installation
-
-1. Install MongoDB (if not installed):<br>
-   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/FEDORA_INSTALL_MONGODB.md)
-   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v0/assets/UBUNTU_INSTALL_MONGODB.md)
-   [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.mongodb.com/try/download/community)
-
-1. Run:
-
-```shell
-# Fedora:
-sudo dnf install gettext
-gettext --version
-# Ubuntu:
-sudo apt install gettext
-gettext --version
-# Windows:
-https://mlocati.github.io/articles/gettext-iconv-windows.html
-gettext --version
-
-cd project_name
-uv add ramifice
-```
-
-3. Add `config` and `public` directories in root of your project:<br>
-   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")<br>
-   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
-
-## Usage
+##
 
 [It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here.")
 
@@ -126,7 +98,7 @@ async def main():
     translations.change_locale("en")
 
     user = User()
-    # user.avatar.from_path("public/media/default/no-photo.png")
+    user.avatar.from_path("public/media/default/no-photo.png")
     user.username.value = "pythondev"
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
@@ -151,74 +123,10 @@ async def main():
     else:
         print("No User!")
 
-    # Remove User.
-    # (if necessary)
-    # await user.delete()
-    # await user.delete(remove_files=False)
-
-    # Remove collection.
-    # (if necessary)
-    # await User.collection().drop()
-
     # Close connection.
     await client.close()
 
 
 if __name__ == "__main__":
     asyncio.run(main())
-```
-
-### How to create custom translations ?
-
-```python
-from ramifice import translations
-
-translations.add_languages(
-    default_locale="en",  # For Ramifice by default = "en"
-    languages=frozenset(("en", "ru")),  # For Ramifice by default = ["en", "ru"]
-)
-```
-
-```shell
-cd project_name
-# Add your custom translations:
-uv run pybabel extract -o config/translations/custom.pot src
-uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l en
-uv run pybabel init -i config/translations/custom.pot -d config/translations/custom -l ru
-...
-# Hint: Do not forget to add translations for new languages.
-uv run pybabel compile -d config/translations/custom
-
-# Update your custom translations:
-uv run pybabel extract -o config/translations/custom.pot src
-uv run pybabel update -i config/translations/custom.pot -d config/translations/custom
-# Hint: Do not forget to check the translations for existing languages.
-uv run pybabel compile -d config/translations/custom
-```
-
-### How to add new languages ​​to Ramifice ?
-
-```python
-from ramifice import translations
-
-translations.add_languages(
-    default_locale="en",  # For Ramifice by default = "en"
-    languages=frozenset(("en", "ru", "de", "de_ch")),  # For Ramifice by default = ["en", "ru"]
-)
-```
-
-```shell
-cd project_name
-# Example:
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de
-uv run pybabel init -i config/translations/ramifice.pot -d config/translations/ramifice -l de_ch
-...
-# Hint: Do not forget to add translations for new languages.
-uv run pybabel compile -d config/translations/ramifice
-
-# Update translations to Ramifice:
-uv run pybabel extract -o config/translations/ramifice.pot ramifice
-uv run pybabel update -i config/translations/ramifice.pot -d config/translations/ramifice
-# Hint: Do not forget to check the translations for existing languages.
-uv run pybabel compile -d config/translations/ramifice
 ```
