@@ -45,13 +45,13 @@ from ramifice import (
     model,
     translations,
     Migration,
+    to_human_size
 )
 from ramifice.fields import (
     ImageField,
     PasswordField,
     TextField,
 )
-from ramifice.utils.tools import to_human_size
 
 
 @model(service_name="Accounts")
