@@ -7,12 +7,13 @@ __all__ = ("FileGroupMixin",)
 
 from typing import Any
 
+from xloft import to_human_size
+
 from ramifice.paladins.tools import (
     accumulate_error,
     panic_type_error,
 )
 from ramifice.utils import translations
-from ramifice.utils.tools import to_human_size
 
 
 class FileGroupMixin:

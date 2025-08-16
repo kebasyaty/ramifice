@@ -1,5 +1,10 @@
 ### CHANGELOG
 
+#### v0.8.30 2025-08-16
+
+- Replaced `to_human_size`  on  `xloft.to_human_size`.
+- Updated a `basic` example.
+
 #### v0.8.25 2025-08-07
 
 - Upgraded the library `xloft`.

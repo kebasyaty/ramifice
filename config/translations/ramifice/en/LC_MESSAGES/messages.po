@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-08-12 12:21+0300\n"
+"POT-Creation-Date: 2025-08-16 20:33+0300\n"
 "PO-Revision-Date: 2025-06-04 13:04+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -46,8 +46,8 @@ msgstr ""
 
 #: src/ramifice/paladins/groups/choice_group.py:37
 #: src/ramifice/paladins/groups/date_group.py:39
-#: src/ramifice/paladins/groups/file_group.py:43
-#: src/ramifice/paladins/groups/file_group.py:64
+#: src/ramifice/paladins/groups/file_group.py:44
+#: src/ramifice/paladins/groups/file_group.py:65
 #: src/ramifice/paladins/groups/id_group.py:35
 #: src/ramifice/paladins/groups/img_group.py:43
 #: src/ramifice/paladins/groups/img_group.py:64
@@ -71,7 +71,7 @@ msgstr ""
 msgid "The date %s must not be less than min=%s !"
 msgstr ""
 
-#: src/ramifice/paladins/groups/file_group.py:69
+#: src/ramifice/paladins/groups/file_group.py:70
 #, python-format
 msgid "File size exceeds the maximum value %s !"
 msgstr ""
