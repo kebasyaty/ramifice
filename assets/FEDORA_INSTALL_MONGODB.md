@@ -1,4 +1,4 @@
-# Fedora >= 40
+## Fedora >= 40
 
 **Your processor must support AVX/AVX2 instructions.**
 

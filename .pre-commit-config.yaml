@@ -40,7 +40,6 @@ repos:
       - id: markdownlint
         args:
           [
-            "--disable=MD001",
             "--disable=MD013",
             "--disable=MD029",
             "--disable=MD033",

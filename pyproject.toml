@@ -109,6 +109,7 @@ exclude = [
     "assets",
     "config",
     "docs",
+    "site",
     "examples",
     "public",
     "tests",
