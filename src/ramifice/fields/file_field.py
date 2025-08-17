@@ -15,7 +15,11 @@ from anyio import Path, open_file, to_thread
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
-from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
+from ramifice.utils.constants import (
+    MEDIA_ROOT,
+    MEDIA_URL,
+    UTC_TIMEZONE,
+)
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins import JsonMixin
 
@@ -147,7 +151,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())
+            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
@@ -193,7 +197,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())
+            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.

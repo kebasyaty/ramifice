@@ -11,6 +11,7 @@ List of variables:
 - `MEDIA_URL` - URL that handles the media served from MEDIA_ROOT, used for managing stored files.
 - `STATIC_ROOT` - The absolute path to the directory where static files are located.
 - `STATIC_URL` - URL to use when referring to static files located in STATIC_ROOT.
+- `UTC_TIMEZONE` - Caching a patterns of regular expression.
 - `REGEX` - Caching a patterns of regular expression.
 """
 
@@ -24,11 +25,13 @@ __all__ = (
     "MEDIA_URL",
     "STATIC_ROOT",
     "STATIC_URL",
+    "UTC_TIMEZONE",
     "REGEX",
 )
 
 import re
 
+import pytz
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
@@ -57,6 +60,8 @@ STATIC_ROOT: str = "public/static"
 # URL to use when referring to
 # static files located in STATIC_ROOT.
 STATIC_URL: str = "/static"
+# Caching a UTC timezone object.
+UTC_TIMEZONE = pytz.timezone("UTC")
 # Caching a patterns of regular expression.
 REGEX: dict[str, re.Pattern] = {
     "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),

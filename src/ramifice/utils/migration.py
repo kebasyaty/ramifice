@@ -16,7 +16,12 @@ from termcolor import colored
 
 from ramifice.models.model import Model
 from ramifice.utils import constants
-from ramifice.utils.errors import DoesNotMatchRegexError, NoModelsForMigrationError, PanicError
+from ramifice.utils.constants import UTC_TIMEZONE
+from ramifice.utils.errors import (
+    DoesNotMatchRegexError,
+    NoModelsForMigrationError,
+    PanicError,
+)
 from ramifice.utils.fixtures import apply_fixture
 
 logger = logging.getLogger(__name__)
@@ -181,7 +186,7 @@ class Migration:
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
                     # Update date and time.
-                    checked_data["updated_at"] = datetime.now()
+                    checked_data["updated_at"] = datetime.now(UTC_TIMEZONE)
                     # Update the document in the database.
                     await model_collection.replace_one(
                         filter={"_id": checked_data["_id"]},

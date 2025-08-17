@@ -37,6 +37,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
+from ramifice.utils.constants import UTC_TIMEZONE
 
 
 @model(service_name="Accounts")
@@ -100,8 +101,8 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        m.date.value = datetime.datetime(2000, 1, 25)
-        m.date_time.value = datetime.datetime(2000, 1, 25)
+        m.date.value = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
+        m.date_time.value = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
 
         if not await m.save():
             m.print_err()
