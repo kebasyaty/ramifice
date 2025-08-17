@@ -14,6 +14,7 @@ from dateutil.parser import parse
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
+from ramifice.utils.constants import UTC_TIMEZONE
 from ramifice.utils.errors import PanicError
 
 logger = logging.getLogger(__name__)
@@ -80,7 +81,7 @@ async def apply_fixture(
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
             # Add date and time.
-            today = datetime.now()
+            today = datetime.now(UTC_TIMEZONE)
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.

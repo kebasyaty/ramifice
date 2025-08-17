@@ -10,6 +10,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.paladins.tools import ignored_fields_to_none, refresh_from_mongo_doc
 from ramifice.utils import constants
+from ramifice.utils.constants import UTC_TIMEZONE
 from ramifice.utils.errors import PanicError
 
 logger = logging.getLogger(__name__)
@@ -46,7 +47,7 @@ class SaveMixin:
         # Create or update a document in database.
         if result_check["is_update"]:
             # Update date and time.
-            checked_data["updated_at"] = datetime.now()
+            checked_data["updated_at"] = datetime.now(UTC_TIMEZONE)
             # Run hook.
             await self.pre_update()
             # Update doc.
@@ -66,7 +67,7 @@ class SaveMixin:
             refresh_from_mongo_doc(self, mongo_doc)
         else:
             # Add date and time.
-            today = datetime.now()
+            today = datetime.now(UTC_TIMEZONE)
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.

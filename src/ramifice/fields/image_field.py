@@ -15,7 +15,11 @@ from anyio import Path, open_file, to_thread
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
-from ramifice.utils.constants import MEDIA_ROOT, MEDIA_URL
+from ramifice.utils.constants import (
+    MEDIA_ROOT,
+    MEDIA_URL,
+    UTC_TIMEZONE,
+)
 from ramifice.utils.errors import FileHasNoExtensionError
 from ramifice.utils.mixins import JsonMixin
 
@@ -173,7 +177,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())
+            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -232,7 +236,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())
+            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
