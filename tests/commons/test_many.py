@@ -98,7 +98,6 @@ class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         #

@@ -32,7 +32,7 @@ class TestNumberFields(unittest.TestCase):
         self.assertFalse(f.unique)
         self.assertIsNone(f.max_number)
         self.assertIsNone(f.min_number)
-        self.assertEqual(f.step, int(1))
+        self.assertEqual(f.step, 1)
         # Exception checking:
         with self.assertRaises(AssertionError):
             IntegerField(input_type="")
@@ -106,7 +106,7 @@ class TestNumberFields(unittest.TestCase):
         with self.assertRaises(AssertionError):
             FloatField(default="")
         with self.assertRaises(AssertionError):
-            FloatField(default=int(12))
+            FloatField(default=12)
         with self.assertRaises(AssertionError):
             FloatField(default=12)
         with self.assertRaises(AssertionError):

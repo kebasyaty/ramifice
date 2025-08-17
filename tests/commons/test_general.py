@@ -101,7 +101,6 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(await User.estimated_document_count(), 0)
         self.assertEqual(await User.count_documents({}), 0)
         m = User()
-        # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)

@@ -147,7 +147,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())  # noqa: DTZ005
+            date_str: str = str(datetime.now().date())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.
@@ -193,7 +193,7 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())  # noqa: DTZ005
+            date_str: str = str(datetime.now().date())
             # Create path to target directory.
             dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
             # Create target directory if it does not exist.

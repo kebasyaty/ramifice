@@ -99,9 +99,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         ).migrate()
 
         self.assertFalse(constants.DEBUG)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[
-            constants.SUPER_COLLECTION_NAME
-        ]
+        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
         self.assertEqual(await super_collection.estimated_document_count(), 1)
 
         # Delete database after test.

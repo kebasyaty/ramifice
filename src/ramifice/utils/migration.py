@@ -166,7 +166,7 @@ class Migration:
                         is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
-                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # noqa: T201
+                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
                         inst_model.print_err()
                         msg: str = "Migration failed."
                         logger.critical(msg)
@@ -181,7 +181,7 @@ class Migration:
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
                     # Update date and time.
-                    checked_data["updated_at"] = datetime.now()  # noqa: DTZ005
+                    checked_data["updated_at"] = datetime.now()
                     # Update the document in the database.
                     await model_collection.replace_one(
                         filter={"_id": checked_data["_id"]},

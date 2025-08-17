@@ -102,7 +102,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         m = User()
         m.date.value = datetime.datetime(2000, 1, 25)
         m.date_time.value = datetime.datetime(2000, 1, 25)
-        # self.assertTrue(await m.save())
+
         if not await m.save():
             m.print_err()
         #
