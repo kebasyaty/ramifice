@@ -108,7 +108,6 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
         # ----------------------------------------------------------------------
         m = User()
         m.email.value = "kebasyaty@gmail.com"
-        # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         #

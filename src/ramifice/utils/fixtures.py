@@ -71,8 +71,8 @@ async def apply_fixture(
             # If the check fails.
             if not result_check["is_valid"]:
                 await collection.database.drop_collection(collection.name)
-                print(colored("\nFIXTURE:", "red", attrs=["bold"]))  # noqa: T201
-                print(colored(fixture_path, "blue", attrs=["bold"]))  # noqa: T201
+                print(colored("\nFIXTURE:", "red", attrs=["bold"]))
+                print(colored(fixture_path, "blue", attrs=["bold"]))
                 inst_model.print_err()
                 msg = f"Fixture `{fixture_name}` failed."
                 logger.critical(msg)
@@ -80,7 +80,7 @@ async def apply_fixture(
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
             # Add date and time.
-            today = datetime.now()  # noqa: DTZ005
+            today = datetime.now()
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.

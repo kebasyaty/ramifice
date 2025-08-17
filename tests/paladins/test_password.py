@@ -42,13 +42,12 @@ class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        password = "12345678"
-        new_password = "new_12345678"
-        password_2 = "123456789"
-        new_password_2 = "new_123456789"
+        password = "12345678"  # noqa: S105
+        new_password = "new_12345678"  # noqa: S105
+        password_2 = "123456789"  # noqa: S105
+        new_password_2 = "new_123456789"  # noqa: S105
         m.password.value = password
         m.password_2.value = password_2
-        # self.assertTrue(await m.save())
         if not await m.save():
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)

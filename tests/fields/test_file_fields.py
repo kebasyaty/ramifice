@@ -12,7 +12,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         """Set data for testing."""
         self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
-        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"
+        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"  # noqa: E501
         return super().setUp()
 
     async def test_file_field(self):
@@ -115,8 +115,6 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(f.value["name"], "image_name.png")
         self.assertEqual(f.value["size"], 120)
-        # self.assertEqual(f.value["width"], 1)
-        # self.assertEqual(f.value["height"], 1)
         self.assertTrue(f.value["is_new_img"])
         self.assertEqual(f.value["extension"], ".png")
         self.assertEqual(f.value["ext_upper"], "PNG")
@@ -130,8 +128,6 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(f.value["name"], "no-photo.png")
         self.assertEqual(f.value["size"], 41554)
-        # self.assertEqual(f.value["width"], 1024)
-        # self.assertEqual(f.value["height"], 1024)
         self.assertTrue(f.value["is_new_img"])
         self.assertEqual(f.value["extension"], ".png")
         self.assertEqual(f.value["ext_upper"], "PNG")

@@ -97,7 +97,6 @@ class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         user = User()
-        # self.assertTrue(await user.is_valid())
         if not await user.is_valid():
             user.print_err()
         # ----------------------------------------------------------------------

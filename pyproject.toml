@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.30"
+version = "0.8.31"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -77,7 +77,7 @@ line-length = 120
 indent-width = 4
 required-version = ">=0.7.11"
 src = ["src", "tests"]
-include = ["src/**/*.py"]
+include = ["src/**/*.py", "tests/**/*.py"]
 exclude = [
     ".bzr",
     ".direnv",
@@ -108,11 +108,10 @@ exclude = [
     ".github",
     "assets",
     "config",
+    "public",
     "docs",
     "site",
     "examples",
-    "public",
-    "tests",
 ]
 
 [tool.ruff.lint]
@@ -129,7 +128,6 @@ select = [
     "BLE",  # flake8-blind-except
     "T20",  # flake8-print
     "T10",  # flake8-debugger
-    "PT",   # flake8-pytest-style
     "RUF",  # Ruff
     "DTZ",  # flake8-datetimez
     "ERA",  # eradicate
@@ -145,6 +143,9 @@ ignore = [
     "RUF022",
     "E722",
     "S110",
+    "S101",
+    "T201",
+    "DTZ00",
 ]
 fixable = ["I"]
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"

@@ -173,7 +173,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())  # noqa: DTZ005
+            date_str: str = str(datetime.now().date())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.
@@ -232,7 +232,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now().date())  # noqa: DTZ005
+            date_str: str = str(datetime.now().date())
             # Directory name for the original image and its thumbnails.
             general_dir = uuid.uuid4()
             # Create path to target directory with images.

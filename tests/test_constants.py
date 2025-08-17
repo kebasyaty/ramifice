@@ -37,7 +37,7 @@ class TestConstants(unittest.TestCase):
             "model_name": re.compile(r"^[A-Z][a-zA-Z0-9]{0,24}$"),
             "color_code": re.compile(
                 r"^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$",
-                re.I,
+                re.IGNORECASE,
             ),
             "password": re.compile(
                 r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$',
@@ -145,9 +145,9 @@ class TestConstants(unittest.TestCase):
     def test_regex_password(self):
         """Testing a regular expression for `password`."""
         p = REGEX["password"]
-        digits = "0123456789"
-        ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"
-        ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        digits = "0123456789"  # noqa: FURB156
+        ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"  # noqa: FURB156
+        ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # noqa: FURB156
         special_symbols = "-._!\"`'#%&,:;<>=@{}~$()*+/\\?[]^|"
         # Negative:
         self.assertIsNone(p.match(""))
