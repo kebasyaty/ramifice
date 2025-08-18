@@ -44,10 +44,10 @@ def mongo_doc_to_raw_doc(
     """Convert the Mongo document to the raw document.
 
     Special changes:
-        _id to str
-        password to None
-        date to str
-        datetime to str
+        - `_id to str`
+        - `password to None`
+        - `date to str`
+        - `datetime to str`
     """
     doc: dict[str, Any] = {}
     for f_name, f_data in inst_model_dict.items():

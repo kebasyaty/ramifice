@@ -18,7 +18,7 @@ class PhoneField(Field, TextGroup, JsonMixin):
     """Field of Model for enter phone number.
 
     Attention:
-    By default is used validator `phonenumbers.is_valid_number()`.
+        By default is used validator `phonenumbers.is_valid_number()`.
 
     Agrs:
         label: Text label for a web form field.
