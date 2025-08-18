@@ -32,7 +32,8 @@ __all__ = (
 
 import logging
 
-from xloft import NamedTuple, to_human_size
+from xloft import NamedTuple
+from xloft.humanism import to_human_size
 
 from ramifice.models.decorator import model
 from ramifice.utils import translations

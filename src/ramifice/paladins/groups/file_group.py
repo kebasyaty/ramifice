@@ -7,7 +7,7 @@ __all__ = ("FileGroupMixin",)
 
 from typing import Any
 
-from xloft import to_human_size
+from xloft.humanism import to_human_size
 
 from ramifice.paladins.tools import (
     accumulate_error,
