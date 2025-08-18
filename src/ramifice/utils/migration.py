@@ -171,7 +171,7 @@ class Migration:
                         is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
-                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))
+                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # noqa: T201
                         inst_model.print_err()
                         msg: str = "Migration failed."
                         logger.critical(msg)

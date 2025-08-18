@@ -866,7 +866,7 @@ wheels = [
 
 [[package]]
 name = "ramifice"
-version = "0.8.31"
+version = "0.8.32"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
@@ -1102,8 +1102,8 @@ wheels = [
 
 [[package]]
 name = "xloft"
-version = "0.1.20"
+version = "0.1.25"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a2/3a/12306644bd10701c483886d6d97f83c3eebd0ecd73c0514a92e2d406f467/xloft-0.1.20-py3-none-any.whl", hash = "sha256:cc29e327b6f133fefe57a0be2c09d48ffe00bb85bcabcab35b7b099540fb2662", size = 6762, upload-time = "2025-08-17T06:26:55.592Z" },
+    { url = "https://files.pythonhosted.org/packages/5d/6d/7c060b8929e3c5eb106611c51aaa9b4c0d48ee638118d25e9afe85193c75/xloft-0.1.25-py3-none-any.whl", hash = "sha256:ca4ba0e621905bed6a406afc8f5752c656a282aaef32c868fda01bcc7c3eecd1", size = 8433, upload-time = "2025-08-18T07:13:19.81Z" },
 ]

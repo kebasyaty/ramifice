@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.31"
+version = "0.8.32"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -146,7 +146,6 @@ ignore = [
     "E722",
     "S110",
     "S101",
-    "T201",
 ]
 fixable = ["I"]
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
