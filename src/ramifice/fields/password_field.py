@@ -17,9 +17,9 @@ class PasswordField(Field):
     r"""Field of Model for enter password.
 
     Attention:
-    - Regular expression: ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
-    - Valid characters: a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
-    - Number of characters: from 8 to 256.
+        - `Regular expression:` ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+        - `Valid characters:` a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+        - `Number of characters:` from 8 to 256.
 
     Agrs:
         label: Text label for a web form field.

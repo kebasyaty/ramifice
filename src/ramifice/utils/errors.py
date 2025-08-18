@@ -67,7 +67,7 @@ class ForbiddenDeleteDocError(RamificeException):
     """Exception is raised when trying to delete the document.
 
     Args:
-    message: explanation of the error
+        message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
@@ -79,7 +79,7 @@ class NotPossibleAddUnitError(RamificeException):
     """Exception is raised when not possible to add Unit.
 
     Args:
-    message: explanation of the error
+        message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
@@ -91,7 +91,7 @@ class NotPossibleDeleteUnitError(RamificeException):
     """Exception is raised when not possible to delete Unit.
 
     Args:
-    message: explanation of the error
+        message: explanation of the error
     """
 
     def __init__(self, message: str) -> None:  # noqa: D107
