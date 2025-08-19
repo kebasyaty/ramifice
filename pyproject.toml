@@ -185,7 +185,7 @@ convention = "google"
 quote-style = "double"
 indent-style = "space"
 docstring-code-format = true
-docstring-code-line-length = 100
+docstring-code-line-length = 120
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
