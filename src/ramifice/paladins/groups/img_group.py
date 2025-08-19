@@ -68,7 +68,9 @@ class ImgGroupMixin:
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
                 human_size = to_human_size(field.max_size)
-                err_msg = translations._(f"Image size exceeds the maximum value {human_size} !")
+                err_msg = translations._(
+                    "Image size exceeds the maximum value {} !".format(human_size),
+                )
                 accumulate_error(err_msg, params)
                 return
             # Create thumbnails.
