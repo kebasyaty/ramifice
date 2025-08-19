@@ -66,8 +66,8 @@ class TextGroupMixin:
         maxlength: int | None = field.__dict__.get("maxlength")
         if maxlength is not None and len(field) > maxlength:
             err_msg = translations._(
-                "The length of the string exceeds maxlength={} !".format(maxlength),
-            )
+                "The length of the string exceeds maxlength={} !",
+            ).format(maxlength)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
         if field.unique and not await check_uniqueness(

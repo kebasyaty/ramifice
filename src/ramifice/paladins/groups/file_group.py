@@ -70,8 +70,8 @@ class FileGroupMixin:
             if value["size"] > field.max_size:
                 human_size = to_human_size(field.max_size)
                 err_msg = translations._(
-                    "File size exceeds the maximum value {} !".format(human_size),
-                )
+                    "File size exceeds the maximum value {} !",
+                ).format(human_size)
                 accumulate_error(err_msg, params)
                 return
         # Insert result.
