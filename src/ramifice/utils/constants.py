@@ -15,6 +15,8 @@ List of variables:
 - `REGEX` - Caching a patterns of regular expression.
 """
 
+from __future__ import annotations
+
 __all__ = (
     "DEBUG",
     "MONGO_CLIENT",

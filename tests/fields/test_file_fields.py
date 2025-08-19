@@ -1,5 +1,7 @@
 """Testing file fields."""
 
+from __future__ import annotations
+
 import unittest
 
 from ramifice.fields import FileField, ImageField

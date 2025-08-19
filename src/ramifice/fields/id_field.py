@@ -1,5 +1,7 @@
 """Field of Model for enter identifier of document."""
 
+from __future__ import annotations
+
 __all__ = ("IDField",)
 
 import logging

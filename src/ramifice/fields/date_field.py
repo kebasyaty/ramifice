@@ -1,5 +1,7 @@
 """Field of Model for enter date."""
 
+from __future__ import annotations
+
 __all__ = ("DateField",)
 
 import logging
@@ -52,12 +54,10 @@ class DateField(Field, DateGroup):
     ) -> None:
         if constants.DEBUG:
             try:
-                if max_date is not None:
-                    if not isinstance(max_date, datetime):
-                        raise AssertionError("Parameter `max_date` - Not а `str` type!")
-                if min_date is not None:
-                    if not isinstance(min_date, datetime):
-                        raise AssertionError("Parameter `min_date` - Not а `str` type!")
+                if max_date is not None and not isinstance(max_date, datetime):
+                    raise AssertionError("Parameter `max_date` - Not а `str` type!")
+                if min_date is not None and not isinstance(min_date, datetime):
+                    raise AssertionError("Parameter `min_date` - Not а `str` type!")
                 if max_date is not None and min_date is not None and max_date <= min_date:
                     raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
                 if default is not None:

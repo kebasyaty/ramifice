@@ -4,6 +4,8 @@ your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
 """  # noqa: D205
 
+from __future__ import annotations
+
 __all__ = ("Migration",)
 
 import logging

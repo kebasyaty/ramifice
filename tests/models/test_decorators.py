@@ -1,5 +1,7 @@
 """Testing the module `ramifice.decorators`."""
 
+from __future__ import annotations
+
 import re
 import unittest
 

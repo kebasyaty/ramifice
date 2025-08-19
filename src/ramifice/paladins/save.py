@@ -1,5 +1,7 @@
 """Create or update document in database."""
 
+from __future__ import annotations
+
 __all__ = ("SaveMixin",)
 
 import logging

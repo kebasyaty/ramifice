@@ -4,6 +4,8 @@ Supported fields:
     IntegerField | FloatField
 """
 
+from __future__ import annotations
+
 __all__ = ("NumGroupMixin",)
 
 from typing import Any
@@ -49,12 +51,16 @@ class NumGroupMixin:
         # Validation the `max_number` field attribute.
         max_number = field.max_number
         if max_number is not None and value > max_number:
-            err_msg = translations._("The value %d must not be greater than max=%d !" % value, max_number)
+            err_msg = translations._(
+                "The value {} must not be greater than max={} !".format(value, max_number),
+            )
             accumulate_error(err_msg, params)
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
-            err_msg = translations._("The value %d must not be less than min=%d !" % value, min_number)
+            err_msg = translations._(
+                "The value {} must not be less than min={} !".format(value, min_number),
+            )
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
         if field.unique and not await check_uniqueness(value, params, field_name):

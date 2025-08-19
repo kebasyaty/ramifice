@@ -1,5 +1,7 @@
 """Field of Model for enter phone number."""
 
+from __future__ import annotations
+
 __all__ = ("PhoneField",)
 
 import logging

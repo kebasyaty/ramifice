@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.32"
+version = "0.8.33"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -119,36 +119,62 @@ exclude = [
 [tool.ruff.lint]
 preview = true
 select = [
-    "D",    # pydocstyle
-    "I",    # isort
-    "E",    # flake8-errors
-    "W",    # flake8-warnings
-    "F",    # flake8-pyflakes
-    "B",    # flake8-bugbear
-    "C4",   # flake8-comprehensions
-    "S",    # flake8-bandit
-    "BLE",  # flake8-blind-except
-    "T20",  # flake8-print
-    "T10",  # flake8-debugger
-    "RUF",  # Ruff
-    "DTZ",  # flake8-datetimez
-    "ERA",  # eradicate
-    "FURB", # refurb
+    "D",     # pydocstyle
+    "I",     # isort
+    "E",     # flake8-errors
+    "W",     # flake8-warnings
+    "F",     # flake8-pyflakes
+    "B",     # flake8-bugbear
+    "C4",    # flake8-comprehensions
+    "S",     # flake8-bandit
+    "BLE",   # flake8-blind-except
+    "T20",   # flake8-print
+    "T10",   # flake8-debugger
+    "RUF",   # Ruff-specific
+    "DTZ",   # flake8-datetimez
+    "ERA",   # eradicate
+    "FURB",  # refurb
+    "ARG",   # flake8-unused-arguments
+    "EM",    # flake8-errmsg
+    "ICN",   # flake8-import-conventions
+    "G",     # flake8-logging-format
+    "PGH",   # pygrep-hooks
+    "PIE",   # flake8-pie
+    "PL",    # pylint
+    "PTH",   # flake8-use-pathlib
+    "RET",   # flake8-return
+    "SIM",   # flake8-simplify
+    "UP",    # pyupgrade
+    "YTT",   # flake8-2020
+    "EXE",   # flake8-executable
+    "ASYNC", # flake8-async
 ]
 ignore = [
-    "D417",
-    "D206",
-    "C408",
-    "RUF001",
-    "RUF002",
-    "RUF003",
-    "RUF022",
-    "E722",
-    "S110",
-    "S101",
+    "D417",   # Missing argument descriptions in the docstring
+    "D206",   # Docstring should be indented with spaces, not tabs
+    "C408",   # Unnecessary `dict` call (rewrite as a literal)
+    "RUF001", # ambiguous-unicode-character-docstring
+    "RUF002", # ambiguous-unicode-character-docstring
+    "RUF003", # ambiguous-unicode-character-docstring
+    "RUF022", # unsorted-dunder-all
+    "E722",   # Do not use bare except
+    "S110",   # try-except-pass detected, consider logging the exception
+    "S101",   # Use of `assert` detected
+    "PLR",    # Design related pylint codes
+    "EM101",  # Exception must not use a string literal, assign to variable first
+    "EM102",  # Exception must not use an f-string literal, assign to variable first
+    "ARG002", # Unused method argument
+    "UP032",  # Use f-string instead of `format` call
 ]
 fixable = ["I"]
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+unfixable = [
+    "RUF100", # Unused noqa
+    "T20",    # Removes print statements
+    "F841",   # Removes unused variables
+]
+flake8-unused-arguments.ignore-variadic-names = true
+isort.required-imports = ["from __future__ import annotations"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?)|dummy.*)$"
 
 [tool.ruff.lint.flake8-bandit]
 check-typed-exception = true

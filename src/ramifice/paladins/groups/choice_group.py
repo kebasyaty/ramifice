@@ -7,6 +7,8 @@ Supported fields:
     | ChoiceFloatMultDynField | ChoiceFloatField | ChoiceFloatDynField
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceGroupMixin",)
 
 from typing import Any

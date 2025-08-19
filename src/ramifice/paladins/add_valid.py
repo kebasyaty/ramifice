@@ -1,5 +1,7 @@
 """AddValidMixin - Contains an abstract method for additional validation of fields."""
 
+from __future__ import annotations
+
 __all__ = ("AddValidMixin",)
 
 from abc import abstractmethod

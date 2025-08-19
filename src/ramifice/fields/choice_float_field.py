@@ -3,6 +3,8 @@
 Type of selective float field with static of elements.
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceFloatField",)
 
 import logging

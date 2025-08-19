@@ -1,5 +1,7 @@
 """Field of Model for enter URL address."""
 
+from __future__ import annotations
+
 __all__ = ("URLField",)
 
 import logging

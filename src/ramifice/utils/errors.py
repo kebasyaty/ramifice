@@ -1,5 +1,7 @@
 """Custom Exceptions for Ramifice."""
 
+from __future__ import annotations
+
 
 class RamificeException(Exception):
     """Root Exception for Ramifice."""

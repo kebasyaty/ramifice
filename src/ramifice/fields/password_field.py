@@ -1,5 +1,7 @@
 """Field of Model for enter password."""
 
+from __future__ import annotations
+
 __all__ = ("PasswordField",)
 
 import logging

@@ -15,6 +15,8 @@ This module provides:
 - `print_err`: Printing errors to console.
 """
 
+from __future__ import annotations
+
 __all__ = ("QPaladinsMixin",)
 
 from ramifice.paladins.add_valid import AddValidMixin

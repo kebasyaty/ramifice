@@ -1,5 +1,7 @@
 """Validation of Model data before saving to the database."""
 
+from __future__ import annotations
+
 __all__ = ("CheckMixin",)
 
 import logging

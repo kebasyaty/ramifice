@@ -1,5 +1,7 @@
 """Testing `Ramifice > QCommonsMixin > GeneraMixin` module."""
 
+from __future__ import annotations
+
 import unittest
 
 from pymongo import AsyncMongoClient

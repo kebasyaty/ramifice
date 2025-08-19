@@ -1,10 +1,12 @@
 """Decorator for converting Python classes into Ramifice models."""
 
+from __future__ import annotations
+
 __all__ = ("model",)
 
 import logging
 import re
-from os.path import exists
+from pathlib import Path
 from typing import Any
 
 from ramifice.commons import QCommonsMixin
@@ -58,7 +60,7 @@ def model(
         if fixture_name is not None:
             fixture_path = f"config/fixtures/{fixture_name}.yml"
 
-            if not exists(fixture_path):
+            if not Path(fixture_path).exists():
                 msg = (
                     f"Model: `{cls.__module__}.{cls.__name__}` > "
                     + "META param: `fixture_name` => "

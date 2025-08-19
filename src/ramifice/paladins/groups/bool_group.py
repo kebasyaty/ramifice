@@ -4,6 +4,8 @@ Supported fields:
     BooleanField
 """
 
+from __future__ import annotations
+
 __all__ = ("BoolGroupMixin",)
 
 from typing import Any

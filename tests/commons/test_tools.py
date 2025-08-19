@@ -1,5 +1,7 @@
 """Testing `ramifice > commons > tools` module."""
 
+from __future__ import annotations
+
 import unittest
 
 from bson import ObjectId

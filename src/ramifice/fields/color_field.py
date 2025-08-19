@@ -1,5 +1,7 @@
 """Field of Model for enter color code."""
 
+from __future__ import annotations
+
 __all__ = ("ColorField",)
 
 import logging

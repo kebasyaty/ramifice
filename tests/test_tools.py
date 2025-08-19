@@ -1,5 +1,7 @@
 """Testing the module `ramifice.utils.tools`."""
 
+from __future__ import annotations
+
 import unittest
 
 from bson.errors import InvalidId

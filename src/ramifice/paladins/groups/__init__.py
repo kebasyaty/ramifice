@@ -1,5 +1,7 @@
 """Groups - Model instance methods for specific processing of fields."""
 
+from __future__ import annotations
+
 __all__ = (
     "BoolGroupMixin",
     "ChoiceGroupMixin",

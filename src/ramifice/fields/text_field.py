@@ -1,5 +1,7 @@
 """Field of Model for enter text."""
 
+from __future__ import annotations
+
 __all__ = ("TextField",)
 
 import logging
@@ -117,7 +119,7 @@ class TextField(Field, JsonMixin):
         value = self.value
         if isinstance(value, str):
             return len(value)
-        elif isinstance(value, dict):
+        if isinstance(value, dict):
             count = 0
             for text in value.values():
                 tmp = len(text)

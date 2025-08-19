@@ -1,5 +1,7 @@
 """Unit - Data management in dynamic fields."""
 
+from __future__ import annotations
+
 __all__ = ("Unit",)
 
 import logging

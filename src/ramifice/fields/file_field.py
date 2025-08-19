@@ -1,5 +1,7 @@
 """Field of Model for upload file."""
 
+from __future__ import annotations
+
 __all__ = ("FileField",)
 
 import logging
@@ -7,7 +9,7 @@ import uuid
 from base64 import b64decode
 from datetime import datetime
 from os import makedirs
-from os.path import basename, exists, getsize
+from os.path import exists, getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
@@ -211,7 +213,7 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["path"] = f_target_path
             file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
-            file_info["name"] = basename(src_path)
+            file_info["name"] = Path(src_path).name
             # Add file extension.
             file_info["extension"] = extension
             # Add file size (in bytes).

@@ -1,5 +1,7 @@
 """Commons - Model class methods."""
 
+from __future__ import annotations
+
 __all__ = ("QCommonsMixin",)
 
 from ramifice.commons.general import GeneralMixin

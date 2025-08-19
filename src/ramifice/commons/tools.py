@@ -1,5 +1,7 @@
 """Tool of Commons - A set of auxiliary methods."""
 
+from __future__ import annotations
+
 __all__ = (
     "correct_mongo_filter",
     "password_to_none",
@@ -31,7 +33,7 @@ def password_to_none(
 ) -> dict[str, Any]:
     """Create object instance from Mongo document."""
     for f_name, t_name in field_name_and_type.items():
-        if "PasswordField" == t_name:
+        if t_name == "PasswordField":
             mongo_doc[f_name] = None
     return mongo_doc
 

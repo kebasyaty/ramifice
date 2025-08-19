@@ -1,5 +1,7 @@
 """Testing the module `ramifice.migration`."""
 
+from __future__ import annotations
+
 import unittest
 
 from pymongo import AsyncMongoClient

@@ -21,6 +21,8 @@ a simplified alternative (Types of selective fields with dynamic addition of ele
 The project is more concentrated for web development or for applications with a graphic interface.
 """
 
+from __future__ import annotations
+
 __all__ = (
     "NamedTuple",
     "to_human_size",

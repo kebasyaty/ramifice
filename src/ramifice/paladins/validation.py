@@ -1,5 +1,7 @@
 """Validation of Model and printing errors to console."""
 
+from __future__ import annotations
+
 __all__ = ("ValidationMixin",)
 
 from typing import Any

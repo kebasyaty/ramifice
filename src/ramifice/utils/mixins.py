@@ -1,5 +1,7 @@
 """Set of mixins for Models and Fields."""
 
+from __future__ import annotations
+
 __all__ = ("JsonMixin",)
 
 from typing import Any

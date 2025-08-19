@@ -1,5 +1,7 @@
 """General additional parameters for text fields."""
 
+from __future__ import annotations
+
 __all__ = ("TextGroup",)
 
 

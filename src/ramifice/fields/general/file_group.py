@@ -1,5 +1,7 @@
 """General additional parameters for file fields."""
 
+from __future__ import annotations
+
 __all__ = ("FileGroup",)
 
 

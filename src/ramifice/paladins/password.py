@@ -1,7 +1,10 @@
 """Verification, replacement and recoverang of password."""
 
+from __future__ import annotations
+
 __all__ = ("PasswordMixin",)
 
+import contextlib
 import logging
 from typing import Any
 
@@ -59,10 +62,8 @@ class PasswordMixin:
         # Password verification.
         is_valid: bool = False
         ph = PasswordHasher()
-        try:
+        with contextlib.suppress(BaseException):
             is_valid = ph.verify(hash, password)
-        except:
-            pass
         #
         if is_valid and ph.check_needs_rehash(hash):
             hash = ph.hash(password)

@@ -1,5 +1,7 @@
 """General parameters for all types fields of Model."""
 
+from __future__ import annotations
+
 __all__ = ("Field",)
 
 

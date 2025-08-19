@@ -1,5 +1,7 @@
 """Field of Model for upload image."""
 
+from __future__ import annotations
+
 __all__ = ("ImageField",)
 
 import logging
@@ -7,7 +9,7 @@ import uuid
 from base64 import b64decode
 from datetime import datetime
 from os import makedirs
-from os.path import basename, exists, getsize
+from os.path import exists, getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
@@ -77,7 +79,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                         raise AssertionError("The `thumbnails` parameter should not contain an empty dictionary!")
                     size_name_list = ["lg", "md", "sm", "xs"]
                     curr_size_thumb: int = 0
-                    for size_name in thumbnails.keys():
+                    for size_name in thumbnails:
                         if size_name not in size_name_list:
                             raise AssertionError(
                                 f"The `thumbnails` parameter contains an unacceptable size name `{size_name}`!\n"
@@ -256,7 +258,7 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["path"] = main_img_path
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
-            img_info["name"] = basename(src_path)
+            img_info["name"] = Path(src_path).name
             # Add image extension.
             img_info["extension"] = extension
             # Transform extension to the upper register and delete the point.

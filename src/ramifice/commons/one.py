@@ -1,5 +1,7 @@
 """Requests like `find one`."""
 
+from __future__ import annotations
+
 __all__ = ("OneMixin",)
 
 import logging

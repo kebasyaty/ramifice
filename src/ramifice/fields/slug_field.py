@@ -1,5 +1,7 @@
 """Field of Model for automatic generation of string `slug`."""
 
+from __future__ import annotations
+
 __all__ = ("SlugField",)
 
 import logging

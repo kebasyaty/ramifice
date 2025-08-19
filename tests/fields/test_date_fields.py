@@ -1,5 +1,7 @@
 """Testing date|datetime fields."""
 
+from __future__ import annotations
+
 import unittest
 
 from dateutil.parser import parse

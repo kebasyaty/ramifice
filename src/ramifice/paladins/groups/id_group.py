@@ -4,6 +4,8 @@ Supported fields:
     IDField
 """
 
+from __future__ import annotations
+
 __all__ = ("IDGroupMixin",)
 
 from typing import Any
