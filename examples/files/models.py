@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice import model, translations
+from ramifice import model, translations, to_human_size
 from ramifice.fields import FileField, ImageField
 
 
@@ -22,6 +22,9 @@ class User:
             # The maximum size of the original image in bytes.
             # Hint: By default = 2 MB
             max_size=524288,  # 0.5 MB = 524288 Bytes (in binary)
+            warning=[
+                gettext("Maximum size: {}").format(to_human_size(524288)),
+            ],
         )
         self.resume = FileField(
             label=gettext("Resume"),
