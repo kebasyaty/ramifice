@@ -1,5 +1,7 @@
 """Testing the module `ramifice.utils.constants`."""
 
+from __future__ import annotations
+
 import re
 import unittest
 

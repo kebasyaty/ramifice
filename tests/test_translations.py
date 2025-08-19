@@ -1,5 +1,7 @@
 """Testing the module  `ramifice > translations`."""
 
+from __future__ import annotations
+
 import unittest
 
 from ramifice import model

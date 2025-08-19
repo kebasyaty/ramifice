@@ -4,6 +4,8 @@ Supported fields:
     SlugField
 """
 
+from __future__ import annotations
+
 __all__ = ("SlugGroupMixin",)
 
 import logging

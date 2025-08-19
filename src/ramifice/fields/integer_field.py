@@ -1,5 +1,7 @@
 """Field of Model for enter (int) number."""
 
+from __future__ import annotations
+
 __all__ = ("IntegerField",)
 
 import logging

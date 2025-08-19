@@ -3,6 +3,8 @@
 Type of selective text field with dynamic addition of elements.
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceTextMultDynField",)
 
 import logging

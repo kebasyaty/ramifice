@@ -1,5 +1,7 @@
 """Testing `Ramifice > QCommonsMixin > UnitMixin` module."""
 
+from __future__ import annotations
+
 import unittest
 from typing import Any
 

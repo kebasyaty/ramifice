@@ -3,6 +3,8 @@
 Management for `choices` parameter in dynamic field types.
 """
 
+from __future__ import annotations
+
 __all__ = ("UnitMixin",)
 
 import logging

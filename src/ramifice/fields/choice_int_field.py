@@ -3,6 +3,8 @@
 Type of selective integer field with static of elements.
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceIntField",)
 
 import logging

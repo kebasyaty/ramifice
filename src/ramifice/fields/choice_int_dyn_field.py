@@ -3,6 +3,8 @@
 Type of selective integer field with dynamic addition of elements.
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceIntDynField",)
 
 import logging

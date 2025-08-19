@@ -1,5 +1,7 @@
 """General additional parameters for date|datetime fields."""
 
+from __future__ import annotations
+
 __all__ = ("DateGroup",)
 
 from datetime import datetime

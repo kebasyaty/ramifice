@@ -1,5 +1,7 @@
 """Field of Model for enter (float) number."""
 
+from __future__ import annotations
+
 __all__ = ("FloatField",)
 
 import logging

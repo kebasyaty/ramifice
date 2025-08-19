@@ -3,6 +3,8 @@
 Supported fields: FileField
 """
 
+from __future__ import annotations
+
 __all__ = ("FileGroupMixin",)
 
 from typing import Any
@@ -30,22 +32,21 @@ class FileGroupMixin:
         if not isinstance(value, (dict, type(None))):
             panic_type_error("dict | None", params)
 
-        if not params["is_update"]:
+        if not params["is_update"] and value is None:
+            default = field.default or None
+            # If necessary, use the default value.
+            if default is not None:
+                params["field_data"].from_path(default)
+                value = params["field_data"].value
+            # Validation, if the field is required and empty, accumulate the error.
+            # ( the default value is used whenever possible )
             if value is None:
-                default = field.default or None
-                # If necessary, use the default value.
-                if default is not None:
-                    params["field_data"].from_path(default)
-                    value = params["field_data"].value
-                # Validation, if the field is required and empty, accumulate the error.
-                # ( the default value is used whenever possible )
-                if value is None:
-                    if field.required:
-                        err_msg = translations._("Required field !")
-                        accumulate_error(err_msg, params)
-                    if params["is_save"]:
-                        params["result_map"][field.name] = None
-                    return
+                if field.required:
+                    err_msg = translations._("Required field !")
+                    accumulate_error(err_msg, params)
+                if params["is_save"]:
+                    params["result_map"][field.name] = None
+                return
         # Return if the current value is missing
         if value is None:
             return
@@ -67,7 +68,8 @@ class FileGroupMixin:
                     return
             # Accumulate an error if the file size exceeds the maximum value.
             if value["size"] > field.max_size:
-                err_msg = translations._("File size exceeds the maximum value %s !" % to_human_size(field.max_size))
+                human_size = to_human_size(field.max_size)
+                err_msg = translations._(f"File size exceeds the maximum value {human_size} !")
                 accumulate_error(err_msg, params)
                 return
         # Insert result.

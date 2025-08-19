@@ -1,5 +1,7 @@
 """Converting Python classes into Ramifice Models."""
 
+from __future__ import annotations
+
 __all__ = ("Model",)
 
 from abc import abstractmethod
@@ -56,7 +58,6 @@ class Model:
     @abstractmethod
     def fields(self) -> None:
         """Adding fields."""
-        pass
 
     def model_name(self) -> str:
         """Get Model name - Class name."""

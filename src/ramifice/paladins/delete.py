@@ -1,5 +1,7 @@
 """Delete document from database."""
 
+from __future__ import annotations
+
 __all__ = ("DeleteMixin",)
 
 import logging

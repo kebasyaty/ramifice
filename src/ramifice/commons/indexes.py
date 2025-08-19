@@ -1,5 +1,7 @@
 """Indexation documents of collection."""
 
+from __future__ import annotations
+
 __all__ = ("IndexMixin",)
 
 from typing import Any
@@ -93,9 +95,8 @@ class IndexMixin:
         """Get information on this collection’s indexes."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        # Get information.
-        result = await collection.index_information(session=session, comment=comment)
-        return result
+        #
+        return await collection.index_information(session=session, comment=comment)
 
     @classmethod
     async def list_indexes(
@@ -106,6 +107,5 @@ class IndexMixin:
         """Get a cursor over the index documents for this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        # Get cursor.
-        cursor = await collection.list_indexes(session=session, comment=comment)
-        return cursor
+        #
+        return await collection.list_indexes(session=session, comment=comment)

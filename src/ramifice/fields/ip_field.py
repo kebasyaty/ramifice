@@ -1,5 +1,7 @@
 """Field of Model for enter IP address."""
 
+from __future__ import annotations
+
 __all__ = ("IPField",)
 
 import ipaddress

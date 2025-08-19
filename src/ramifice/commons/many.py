@@ -1,5 +1,7 @@
 """Queries like `find many`."""
 
+from __future__ import annotations
+
 __all__ = ("ManyMixin",)
 
 import logging

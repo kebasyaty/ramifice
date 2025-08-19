@@ -1,5 +1,7 @@
 """Testing the module `ramifice.types`."""
 
+from __future__ import annotations
+
 import unittest
 
 from ramifice.utils.errors import PanicError

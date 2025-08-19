@@ -22,6 +22,8 @@ sl | sq | sr | sr_latn | sv | th | tk | tr | tt | ug | uk | vi |
 zh | zh_cn
 """
 
+from __future__ import annotations
+
 __all__ = (
     "DEFAULT_LOCALE",
     "CURRENT_LOCALE",
@@ -56,7 +58,7 @@ def add_languages(
     languages: frozenset[str],
 ) -> None:
     """Add languages."""
-    global DEFAULT_LOCALE, LANGUAGES
+    global DEFAULT_LOCALE, LANGUAGES  # noqa: PLW0603
     if default_locale not in languages:
         msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
         logger.critical(msg)
@@ -155,7 +157,7 @@ def change_locale(lang_code: str) -> None:
     Returns:
         Object `None`.
     """
-    global CURRENT_LOCALE, _, gettext, ngettext
+    global CURRENT_LOCALE, _, gettext, ngettext  # noqa: PLW0603
     if lang_code != CURRENT_LOCALE:
         CURRENT_LOCALE = lang_code if lang_code in LANGUAGES else DEFAULT_LOCALE
         _ = get_ramifice_translator(CURRENT_LOCALE).gettext

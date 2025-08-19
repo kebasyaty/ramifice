@@ -1,5 +1,7 @@
 """HooksMixin - Contains abstract methods for creating hooks."""
 
+from __future__ import annotations
+
 __all__ = ("HooksMixin",)
 
 from abc import abstractmethod

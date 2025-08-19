@@ -1,5 +1,7 @@
 """Field of Model for enter email address."""
 
+from __future__ import annotations
+
 __all__ = ("EmailField",)
 
 import logging

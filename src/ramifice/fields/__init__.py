@@ -1,5 +1,7 @@
 """Available field types."""
 
+from __future__ import annotations
+
 __all__ = (
     "BooleanField",
     "ChoiceFloatDynField",

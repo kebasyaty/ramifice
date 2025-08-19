@@ -1,5 +1,7 @@
 """Testing `Ramifice > QPaladinsMixin > SaveMixin` module."""
 
+from __future__ import annotations
+
 import unittest
 
 from bson.objectid import ObjectId

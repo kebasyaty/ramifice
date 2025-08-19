@@ -1,5 +1,7 @@
 """Global collection of auxiliary methods."""
 
+from __future__ import annotations
+
 __all__ = (
     "is_password",
     "get_file_size",
@@ -28,9 +30,7 @@ from ramifice.utils.constants import REGEX
 
 def is_password(password: str | None) -> bool:
     """Validate Password."""
-    if not REGEX["password"].match(str(password)):
-        return False
-    return True
+    return REGEX["password"].match(str(password)) is not None
 
 
 async def get_file_size(path: str) -> int:
@@ -73,9 +73,7 @@ async def is_email(email: str | None) -> bool:
 def is_url(url: str | None) -> bool:
     """Validate URL address."""
     result = urlparse(str(url))
-    if not result.scheme or not result.netloc:
-        return False
-    return True
+    return not (not result.scheme or not result.netloc)
 
 
 def is_ip(address: str | int | None) -> bool:
@@ -89,9 +87,7 @@ def is_ip(address: str | int | None) -> bool:
 
 def is_color(color_code: str | None) -> bool:
     """Validate Color code."""
-    if REGEX["color_code"].match(str(color_code)) is None:
-        return False
-    return True
+    return REGEX["color_code"].match(str(color_code)) is not None
 
 
 def is_phone(number: str | None) -> bool:

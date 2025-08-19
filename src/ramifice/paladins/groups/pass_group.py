@@ -3,6 +3,8 @@
 Supported fields: PasswordField
 """
 
+from __future__ import annotations
+
 __all__ = ("PassGroupMixin",)
 
 from typing import Any
@@ -45,7 +47,7 @@ class PassGroupMixin:
             err_msg = translations._("Invalid Password !")
             accumulate_error(err_msg, params)
             chars = "a-z A-Z 0-9 - . _ ! \" ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |"
-            err_msg = translations._("Valid characters: %s" % chars)
+            err_msg = translations._(f"Valid characters: {chars}")
             accumulate_error(err_msg, params)
             err_msg = translations._("Number of characters: from 8 to 256")
             accumulate_error(err_msg, params)

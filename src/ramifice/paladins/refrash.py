@@ -1,5 +1,7 @@
 """Update Model instance from database."""
 
+from __future__ import annotations
+
 __all__ = ("RefrashMixin",)
 
 import logging

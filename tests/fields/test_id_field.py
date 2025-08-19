@@ -1,5 +1,7 @@
 """Testing ID field."""
 
+from __future__ import annotations
+
 import unittest
 
 from ramifice.fields import IDField

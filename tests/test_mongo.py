@@ -1,5 +1,7 @@
 """Testing the `AsyncMongoClient`."""
 
+from __future__ import annotations
+
 import unittest
 
 from pymongo import AsyncMongoClient

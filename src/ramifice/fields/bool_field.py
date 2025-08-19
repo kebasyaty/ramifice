@@ -1,5 +1,7 @@
 """Field of Model for enter boolean value."""
 
+from __future__ import annotations
+
 __all__ = ("BooleanField",)
 
 import logging

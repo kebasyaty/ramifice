@@ -3,6 +3,8 @@
 Type of selective float field with dynamic addition of elements.
 """
 
+from __future__ import annotations
+
 __all__ = ("ChoiceFloatMultDynField",)
 
 import logging

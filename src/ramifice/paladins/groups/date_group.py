@@ -4,6 +4,8 @@ Supported fields:
     DateTimeField | DateField
 """
 
+from __future__ import annotations
+
 __all__ = ("DateGroupMixin",)
 
 from datetime import datetime
@@ -71,10 +73,7 @@ class DateGroupMixin:
                     locale=translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations._(
-                "The date %s must not be greater than max=%s !" % value_str,
-                max_date_str,
-            )
+            err_msg = translations._(f"The date {value_str} must not be greater than max={max_date_str} !")
             accumulate_error(err_msg, params)
         # Validation the `min_date` field attribute.
         min_date = field.min_date
@@ -105,7 +104,7 @@ class DateGroupMixin:
                     locale=translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations._("The date %s must not be less than min=%s !" % value_str, min_date_str)
+            err_msg = translations._(f"The date {value_str} must not be less than min={min_date_str} !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:

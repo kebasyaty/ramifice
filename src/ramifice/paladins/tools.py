@@ -1,5 +1,7 @@
 """Tool of Paladins - A set of auxiliary methods."""
 
+from __future__ import annotations
+
 __all__ = (
     "ignored_fields_to_none",
     "refresh_from_mongo_doc",

@@ -1,5 +1,7 @@
 """General purpose query methods."""
 
+from __future__ import annotations
+
 __all__ = ("GeneralMixin",)
 
 from typing import Any

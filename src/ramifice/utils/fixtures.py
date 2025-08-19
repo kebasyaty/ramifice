@@ -3,10 +3,13 @@
 Runs automatically during Model migration.
 """
 
+from __future__ import annotations
+
 __all__ = ("apply_fixture",)
 
 import logging
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 import yaml
@@ -32,7 +35,7 @@ async def apply_fixture(
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
 
-    with open(fixture_path) as file:
+    with Path.open(Path(fixture_path)) as file:
         data_yaml = yaml.safe_load(file)
 
     if not bool(data_yaml):

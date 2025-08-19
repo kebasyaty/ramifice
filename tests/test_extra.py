@@ -1,5 +1,7 @@
 """Testing AddValidMixin, IndexMixin and HooksMixin."""
 
+from __future__ import annotations
+
 import re
 import unittest
 
