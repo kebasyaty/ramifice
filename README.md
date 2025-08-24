@@ -565,7 +565,7 @@ from bson.objectid import ObjectId
 _id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
 
 # Convert number of bytes to readable format.
-size: str = to_human_size(2097152)  # => 2.0 MB
+size: str = to_human_size(2097152)  # => 2 MB
 
 # Get file size in bytes.
 path = "public/media/default/no_doc.odt"
