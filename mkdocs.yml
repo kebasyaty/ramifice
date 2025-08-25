@@ -12,6 +12,7 @@ theme:
   custom_dir: docs/overrides
   font:
     text: Roboto
+    code: Roboto Mono
   icon:
     repo: fontawesome/brands/github
   features:
@@ -51,7 +52,7 @@ plugins:
             docstring_style: google
 
 markdown_extensions:
-  - markdown.extensions.toc:
+  - toc:
       permalink: true
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
@@ -72,70 +73,70 @@ extra:
 
 nav:
   - Ramifice: index.md
-  - Installation: md_pages/installation/index.md
-  - Localization: md_pages/localization/index.md
-  - Usage: md_pages/usage/index.md
+  - Installation: pages/installation/index.md
+  - Localization: pages/localization/index.md
+  - Usage: pages/usage/index.md
   - Fields:
-      - Fields: md_pages/fields/index.md
-      - TextField: md_pages/fields/text_field.md
-      - EmailField: md_pages/fields/email_field.md
-      - PhoneField: md_pages/fields/phone_field.md
-      - PasswordField: md_pages/fields/password_field.md
-      - ImageField: md_pages/fields/image_field.md
-      - FileField: md_pages/fields/file_field.md
-      - DateField: md_pages/fields/date_field.md
-      - DateTimeField: md_pages/fields/date_time_field.md
-      - IntegerField: md_pages/fields/integer_field.md
-      - FloatField: md_pages/fields/float_field.md
-      - BooleanField: md_pages/fields/bool_field.md
-      - IPField: md_pages/fields/ip_field.md
-      - URLField: md_pages/fields/url_field.md
-      - ColorField: md_pages/fields/color_field.md
-      - IDField: md_pages/fields/id_field.md
-      - SlugField: md_pages/fields/slug_field.md
-      - ChoiceFloatDynField: md_pages/fields/choice_float_dyn_field.md
-      - ChoiceFloatField: md_pages/fields/choice_float_field.md
-      - ChoiceFloatMultDynField: md_pages/fields/choice_float_mult_dyn_field.md
-      - ChoiceFloatMultField: md_pages/fields/choice_float_mult_field.md
-      - ChoiceIntDynField: md_pages/fields/choice_int_dyn_field.md
-      - ChoiceIntField: md_pages/fields/choice_int_field.md
-      - ChoiceIntMultDynField: md_pages/fields/choice_int_mult_dyn_field.md
-      - ChoiceIntMultField: md_pages/fields/choice_int_mult_field.md
-      - ChoiceTextDynField: md_pages/fields/choice_text_dyn_field.md
-      - ChoiceTextField: md_pages/fields/choice_text_field.md
-      - ChoiceTextMultDynField: md_pages/fields/choice_text_mult_dyn_field.md
-      - ChoiceTextMultField: md_pages/fields/choice_text_mult_field.md
+      - Fields: pages/fields/index.md
+      - TextField: pages/fields/text_field.md
+      - EmailField: pages/fields/email_field.md
+      - PhoneField: pages/fields/phone_field.md
+      - PasswordField: pages/fields/password_field.md
+      - ImageField: pages/fields/image_field.md
+      - FileField: pages/fields/file_field.md
+      - DateField: pages/fields/date_field.md
+      - DateTimeField: pages/fields/date_time_field.md
+      - IntegerField: pages/fields/integer_field.md
+      - FloatField: pages/fields/float_field.md
+      - BooleanField: pages/fields/bool_field.md
+      - IPField: pages/fields/ip_field.md
+      - URLField: pages/fields/url_field.md
+      - ColorField: pages/fields/color_field.md
+      - IDField: pages/fields/id_field.md
+      - SlugField: pages/fields/slug_field.md
+      - ChoiceFloatDynField: pages/fields/choice_float_dyn_field.md
+      - ChoiceFloatField: pages/fields/choice_float_field.md
+      - ChoiceFloatMultDynField: pages/fields/choice_float_mult_dyn_field.md
+      - ChoiceFloatMultField: pages/fields/choice_float_mult_field.md
+      - ChoiceIntDynField: pages/fields/choice_int_dyn_field.md
+      - ChoiceIntField: pages/fields/choice_int_field.md
+      - ChoiceIntMultDynField: pages/fields/choice_int_mult_dyn_field.md
+      - ChoiceIntMultField: pages/fields/choice_int_mult_field.md
+      - ChoiceTextDynField: pages/fields/choice_text_dyn_field.md
+      - ChoiceTextField: pages/fields/choice_text_field.md
+      - ChoiceTextMultDynField: pages/fields/choice_text_mult_dyn_field.md
+      - ChoiceTextMultField: pages/fields/choice_text_mult_field.md
   - Paladins:
-      - Paladins: md_pages/paladins/index.md
-      - Check: md_pages/paladins/check.md
-      - Save: md_pages/paladins/save.md
-      - Delete: md_pages/paladins/delete.md
-      - Add Validation: md_pages/paladins/add_valid.md
-      - Hooks: md_pages/paladins/hooks.md
-      - Indexing: md_pages/paladins/indexing.md
-      - Password: md_pages/paladins/password.md
-      - Refrash: md_pages/paladins/refrash.md
-      - Validation: md_pages/paladins/validation.md
-      - Tools: md_pages/paladins/tools.md
+      - Paladins: pages/paladins/index.md
+      - Check: pages/paladins/check.md
+      - Save: pages/paladins/save.md
+      - Delete: pages/paladins/delete.md
+      - Add Validation: pages/paladins/add_valid.md
+      - Hooks: pages/paladins/hooks.md
+      - Indexing: pages/paladins/indexing.md
+      - Password: pages/paladins/password.md
+      - Refrash: pages/paladins/refrash.md
+      - Validation: pages/paladins/validation.md
+      - Tools: pages/paladins/tools.md
   - Commons:
-      - Commons: md_pages/commons/index.md
-      - General: md_pages/commons/general.md
-      - Indexes: md_pages/commons/indexes.md
-      - Many: md_pages/commons/many.md
-      - One: md_pages/commons/one.md
-      - Tools: md_pages/commons/tools.md
-      - Unit Manager: md_pages/commons/unit_manager.md
+      - Commons: pages/commons/index.md
+      - General: pages/commons/general.md
+      - Indexes: pages/commons/indexes.md
+      - Many: pages/commons/many.md
+      - One: pages/commons/one.md
+      - Tools: pages/commons/tools.md
+      - Unit Manager: pages/commons/unit_manager.md
   - Utils:
-      - Utils: md_pages/utils/index.md
-      - Constants: md_pages/utils/constants.md
-      - Errors: md_pages/utils/errors.md
-      - Fixtures: md_pages/utils/fixtures.md
-      - Migration: md_pages/utils/migration.md
-      - Mixins: md_pages/utils/mixins.md
-      - Tools: md_pages/utils/tools.md
-      - Translations: md_pages/utils/translations.md
-      - Unit: md_pages/utils/unit.md
+      - Utils: pages/utils/index.md
+      - Constants: pages/utils/constants.md
+      - Errors: pages/utils/errors.md
+      - Fixtures: pages/utils/fixtures.md
+      - Migration: pages/utils/migration.md
+      - Mixins: pages/utils/mixins.md
+      - Tools: pages/utils/tools.md
+      - Translations: pages/utils/translations.md
+      - Unit: pages/utils/unit.md
   - Models:
-      - Models: md_pages/models/index.md
-      - Model: md_pages/models/model.md
-      - Decorator: md_pages/models/decorator.md
+      - Models: pages/models/index.md
+      - Model: pages/models/model.md
+      - Decorator: pages/models/decorator.md
