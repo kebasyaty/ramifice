@@ -513,6 +513,7 @@ await user.update_password(  # + verify_password
 ## General auxiliary methods
 
 ```python
+from ramifice import to_human_size
 from ramifice.utils.tools import (
     get_file_size,
     hash_to_obj_id,
@@ -524,7 +525,6 @@ from ramifice.utils.tools import (
     is_phone,
     is_url,
     normal_email,
-    to_human_size,
 )
 
 # Validate Password.
