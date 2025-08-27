@@ -2,18 +2,23 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "UV: Run Upgrade",
-      "type": "shell",
-      "command": ["uv sync --upgrade"],
-      "problemMatcher": []
-    },
-    {
       "label": "UV: Run Lock",
       "type": "shell",
       "command": ["uv lock"],
       "problemMatcher": []
     },
     {
+      "label": "UV: Run Deploy",
+      "type": "shell",
+      "command": ["uv build --wheel;", "uv publish"],
+      "problemMatcher": []
+    },
+    {
+      "label": "UV: Run Upgrade",
+      "type": "shell",
+      "command": ["uv sync --upgrade"],
+      "problemMatcher": []
+    },    {
       "label": "Ruff: Run Check",
       "type": "shell",
       "command": [
@@ -94,7 +99,7 @@
       "problemMatcher": []
     },
     {
-      "label": "MkDocs: Run Deploy Vx.x",
+      "label": "MkDocs: Run Deploy 0.8",
       "type": "shell",
       "command": [
         "uv run mike deploy --push --update-aliases 0.8 latest;",
