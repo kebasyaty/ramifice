@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.8.35"
+version = "0.8.36"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -199,6 +199,7 @@ disable_error_code = [
     "type-arg",
     "no-any-return",
     "attr-defined",
+    "import-not-found",
     "index",
     "operator",
 ]
