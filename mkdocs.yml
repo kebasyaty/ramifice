@@ -74,8 +74,8 @@ extra:
 nav:
   - Ramifice: index.md
   - Installation: pages/installation/index.md
-  - Localization: pages/localization/index.md
   - Usage: pages/usage/index.md
+  - Localization: pages/localization/index.md
   - Models:
       - Models: pages/models/index.md
       - Model: pages/models/model.md
