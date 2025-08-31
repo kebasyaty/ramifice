@@ -76,6 +76,10 @@ nav:
   - Installation: pages/installation/index.md
   - Localization: pages/localization/index.md
   - Usage: pages/usage/index.md
+  - Models:
+      - Models: pages/models/index.md
+      - Model: pages/models/model.md
+      - Decorator: pages/models/decorator.md
   - Fields:
       - Fields: pages/fields/index.md
       - TextField: pages/fields/text_field.md
@@ -136,7 +140,3 @@ nav:
       - Tools: pages/utils/tools.md
       - Translations: pages/utils/translations.md
       - Unit: pages/utils/unit.md
-  - Models:
-      - Models: pages/models/index.md
-      - Model: pages/models/model.md
-      - Decorator: pages/models/decorator.md
