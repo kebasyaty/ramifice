@@ -15,7 +15,7 @@ from ramifice import (
     model,
     translations,
     Migration,
-    to_human_size
+    to_human_size,
 )
 from ramifice.fields import (
     ImageField,
@@ -45,7 +45,7 @@ class User:
             # Hint: By default = 2 MB
             max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
             warning=[
-                gettext("Maximum size: %s") % to_human_size(524288),
+                gettext("Maximum size: {}").format(to_human_size(524288)),
             ],
         )
         self.username = TextField(
@@ -54,7 +54,7 @@ class User:
             required=True,
             unique=True,
             warning=[
-                gettext("Allowed chars: %s") % "a-z A-Z 0-9 _",
+                gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
             ],
         )
         self.password = PasswordField(
@@ -74,7 +74,7 @@ class User:
 
         # Check username
         if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
+            err.update("username", gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"))
 
         # Check password
         if cd._id is None and (cd.password != cd.сonfirm_password):
@@ -96,7 +96,7 @@ async def main():
     translations.change_locale("en")
 
     user = User()
-    user.avatar.from_path("public/media/default/no-photo.png")
+    # user.avatar.from_path("public/media/default/no-photo.png")
     user.username.value = "pythondev"
     user.password.value = "12345678"
     user.сonfirm_password.value = "12345678"
@@ -120,6 +120,15 @@ async def main():
         pp(user_details)
     else:
         print("No User!")
+
+    # Remove User.
+    # (if necessary)
+    # await user.delete()
+    # await user.delete(remove_files=False)
+
+    # Remove collection.
+    # (if necessary)
+    # await User.collection().drop()
 
     # Close connection.
     await client.close()
