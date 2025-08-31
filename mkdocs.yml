@@ -1,7 +1,7 @@
 site_name: Ramifice Docs
 site_description: "ORM-pseudo-like API MongoDB for Python language."
 site_url: https://kebasyaty.github.io/ramifice/
-site_author: Gennady Kostyunin
+site_author: Kebasyaty
 copyright: Copyright &copy; 2025 Maintained by <a href="https://github.com/kebasyaty">Kebasyaty</a>
 repo_name: kebasyaty/ramifice
 repo_url: https://github.com/kebasyaty/ramifice
