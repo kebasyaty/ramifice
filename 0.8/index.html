@@ -9,7 +9,7 @@
         <meta name="description" content="ORM-pseudo-like API MongoDB for Python language.">
       
       
-        <meta name="author" content="Gennady Kostyunin">
+        <meta name="author" content="Kebasyaty">
       
       
         <link rel="canonical" href="https://kebasyaty.github.io/ramifice/0.8/">
@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
     
     
       
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ramifice" class="md-skip">
+        <a href="#documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -502,16 +502,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ramifice" class="md-nav__link">
-    <span class="md-ellipsis">
-      ramifice
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ramifice">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -519,8 +509,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       Requirements
@@ -528,8 +518,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#changelog" class="md-nav__link">
     <span class="md-ellipsis">
       Changelog
@@ -537,18 +527,13 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#license" class="md-nav__link">
     <span class="md-ellipsis">
       License
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2336,16 +2321,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ramifice" class="md-nav__link">
-    <span class="md-ellipsis">
-      ramifice
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ramifice">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -2353,8 +2328,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       Requirements
@@ -2362,8 +2337,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#changelog" class="md-nav__link">
     <span class="md-ellipsis">
       Changelog
@@ -2371,18 +2346,13 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#license" class="md-nav__link">
     <span class="md-ellipsis">
       License
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2412,77 +2382,49 @@
   <p align="center">
     <a href="https://github.com/kebasyaty/ramifice">
       <img
-        height="120"
+        height="80"
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/main/assets/logo.svg">
     </a>
   </p>
-  <br>
-  <p align="center">
-    <a href="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://kebasyaty.github.io/ramifice/" alt="Docs"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
-    <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI pyversions"><img src="https://img.shields.io/pypi/pyversions/ramifice.svg" alt="PyPI pyversions"></a>
-    <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI status"><img src="https://img.shields.io/pypi/status/ramifice.svg" alt="PyPI status"></a>
-    <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI version fury.io"><img src="https://badge.fury.io/py/ramifice.svg" alt="PyPI version fury.io"></a>
-    <br>
-    <a href="https://github.com/kebasyaty/ramifice/issues"><img src="https://img.shields.io/github/issues/kebasyaty/ramifice.svg" alt="GitHub issues"></a>
-    <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
-    <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
-    <a href="https://mypy-lang.org/" alt="Types: Mypy"><img src="https://img.shields.io/badge/types-Mypy-202235.svg?color=0c7ebf" alt="Types: Mypy"></a>
-    <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
-    <a href="https://github.com/kebasyaty/ramifice" alt="PyPI implementation"><img src="https://img.shields.io/pypi/implementation/ramifice" alt="PyPI implementation"></a>
-    <br>
-    <a href="https://pypi.org/project/ramifice"><img src="https://img.shields.io/pypi/format/ramifice" alt="Format"></a>
-    <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/languages/top/kebasyaty/ramifice" alt="Top"></a>
-    <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/repo-size/kebasyaty/ramifice" alt="Size"></a>
-    <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/last-commit/kebasyaty/ramifice/main" alt="Last commit"></a>
-    <a href="https://github.com/kebasyaty/ramifice/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/ramifice" alt="GitHub release"></a>
+  <p>
+    <h3>ORM-pseudo-like API MongoDB for Python language.</h3>
+    <p align="center">
+      <a href="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml" alt="Build Status"><img src="https://github.com/kebasyaty/ramifice/actions/workflows/test.yml/badge.svg" alt="Build Status"></a>
+      <a href="https://kebasyaty.github.io/ramifice/" alt="Docs"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"></a>
+      <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI pyversions"><img src="https://img.shields.io/pypi/pyversions/ramifice.svg" alt="PyPI pyversions"></a>
+      <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI status"><img src="https://img.shields.io/pypi/status/ramifice.svg" alt="PyPI status"></a>
+      <a href="https://pypi.python.org/pypi/ramifice/" alt="PyPI version fury.io"><img src="https://badge.fury.io/py/ramifice.svg" alt="PyPI version fury.io"></a>
+      <br>
+      <a href="https://github.com/kebasyaty/ramifice/issues"><img src="https://img.shields.io/github/issues/kebasyaty/ramifice.svg" alt="GitHub issues"></a>
+      <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
+      <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
+      <a href="https://mypy-lang.org/" alt="Types: Mypy"><img src="https://img.shields.io/badge/types-Mypy-202235.svg?color=0c7ebf" alt="Types: Mypy"></a>
+      <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
+      <a href="https://github.com/kebasyaty/ramifice" alt="PyPI implementation"><img src="https://img.shields.io/pypi/implementation/ramifice" alt="PyPI implementation"></a>
+      <br>
+      <a href="https://pypi.org/project/ramifice"><img src="https://img.shields.io/pypi/format/ramifice" alt="Format"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/languages/top/kebasyaty/ramifice" alt="Top"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/repo-size/kebasyaty/ramifice" alt="Size"></a>
+      <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/last-commit/kebasyaty/ramifice/main" alt="Last commit"></a>
+      <a href="https://github.com/kebasyaty/ramifice/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/ramifice" alt="GitHub release"></a>
+    </p>
+    <p align="center">
+      Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
+      <br>
+      For simulate relationship Many-to-One and Many-to-Many,
+      <br>
+      a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
+      <br>
+      The project is more concentrated for web development or for applications with a graphic interface.
+    </p>
+
   </p>
 </div>
 
 <hr>
 
-
-
-<div class="doc doc-object doc-module">
-
-
-
-<a id="ramifice"></a>
-    <div class="doc doc-contents first">
-
-        <p>ORM-pseudo-like API MongoDB for Python language.</p>
-<p>Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.</p>
-<p>For simulate relationship Many-to-One and Many-to-Many,
-a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
-The project is more concentrated for web development or for applications with a graphic interface.</p>
-
-
-
-
-
-
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-    </div>
-
-</div><hr>
-
+<p><br></p>
 <h4 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h4>
 <p>Online browsable documentation is available at <a href="https://kebasyaty.github.io/ramifice/" title="Documentation">https://kebasyaty.github.io/ramifice/</a>.</p>
 <h4 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h4>
@@ -2563,7 +2505,8 @@ The project is more concentrated for web development or for applications with a 
   
 </div>
       
-        <div class="md-social">
+        
+<div class="md-social">
   
     
     
