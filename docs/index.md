@@ -29,20 +29,23 @@
       <a href="https://github.com/kebasyaty/ramifice"><img src="https://img.shields.io/github/last-commit/kebasyaty/ramifice/main" alt="Last commit"></a>
       <a href="https://github.com/kebasyaty/ramifice/releases/" alt="GitHub release"><img src="https://img.shields.io/github/release/kebasyaty/ramifice" alt="GitHub release"></a>
     </p>
-    <p align="center">
-      Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
-      <br>
-      For simulate relationship Many-to-One and Many-to-Many,
-      <br>
-      a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
-      <br>
-      The project is more concentrated for web development or for applications with a graphic interface.
-    </p>
-
   </p>
 </div>
 
 <hr>
+
+<br>
+
+<p>
+Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
+<br>
+<br>
+For simulate relationship Many-to-One and Many-to-Many,
+<br>
+a simplified alternative (Types of selective fields with dynamic addition of elements) is used.
+<br>
+The project is more concentrated for web development or for applications with a graphic interface.
+</p>
 
 <br>
 
