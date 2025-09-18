@@ -31,14 +31,14 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - uses: pre-commit/action@v3.0.1
-
       - uses: astral-sh/setup-uv@v6
         with:
           version: ${{ matrix.uv-version }}
 
       - name: Install dependencies with uv
         run: uv sync --locked --dev
+
+      - uses: pre-commit/action@v3.0.1
 
       - name: Run unittest
         run: |
