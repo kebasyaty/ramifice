@@ -2,7 +2,7 @@
 
 [It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here.")
 
-```python
+```py title="main.py" linenums="1"
 import re
 import asyncio
 from typing import Any
