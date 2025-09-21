@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### v0.8.40 2025-09-21
+
+- Updated dependencies (xloft to v0.5.2).
+
 #### v0.8.39 2025-09-20
 
 - Updated dependencies.
