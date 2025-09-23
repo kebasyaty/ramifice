@@ -245,7 +245,7 @@ if __name__ == "__main__":
      <tr>
        <td align="left">db_query_docs_limit</td>
        <td align="left">1000</td>
-       <td align="left">limiting query results.</td>
+       <td align="left">Limiting the number of request results.</td>
      </tr>
      <tr>
        <td align="left">is_create_doc</td>
