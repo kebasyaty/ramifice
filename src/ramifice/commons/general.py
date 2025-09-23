@@ -43,7 +43,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> int:
-        """Gets an estimate of the count of documents in a collection using collection metadata."""
+        """Get an estimate of the number of documents in this collection using collection metadata."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #
@@ -60,7 +60,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> int:
-        """Gets an estimate of the count of documents in a collection using collection metadata."""
+        """Count the number of documents in this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
