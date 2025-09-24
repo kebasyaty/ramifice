@@ -31,7 +31,7 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document."""
+        """Get a single document from the database."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -124,7 +124,7 @@ class OneMixin:
         let: Any | None = None,
         comment: Any | None = None,
     ) -> DeleteResult:
-        """Find a single document and delete it."""
+        """Delete a single document matching the filter."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -162,7 +162,7 @@ class OneMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and delete it, return original."""
+        """Finds a single document and deletes it, returning the document."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (

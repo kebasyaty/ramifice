@@ -240,7 +240,7 @@ class ManyMixin:
         let: Any | None = None,
         comment: Any | None = None,
     ) -> DeleteResult:
-        """Find documents and delete."""
+        """Delete one or more documents matching the filter."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
