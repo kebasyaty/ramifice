@@ -83,7 +83,7 @@ class GeneralMixin:
         comment: Any | None = None,
         **kwargs,
     ) -> AsyncCommandCursor:
-        """Runs an aggregation framework pipeline."""
+        """Perform an aggregation using the aggregation framework on this collection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -108,7 +108,7 @@ class GeneralMixin:
         hint: Any | None = None,
         **kwargs,
     ) -> list[Any]:
-        """Finds the distinct values for a specified field across a single collection.
+        """Get a list of distinct values for key among all documents in this collection.
 
         Returns an array of unique values for specified field of collection.
         """
@@ -129,7 +129,7 @@ class GeneralMixin:
 
     @classmethod
     def collection_name(cls) -> str:
-        """Get collection name."""
+        """The name of this AsyncCollection."""
         # Get collection for current model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
         #
