@@ -49,10 +49,6 @@ The project is more concentrated for web development or for applications with a 
 
 <br>
 
-#### Documentation
-
-Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
-
 #### Requirements
 
 [View the list of requirements](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements").
