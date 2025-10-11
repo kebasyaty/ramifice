@@ -11,7 +11,7 @@ from asyncio import to_thread
 from typing import Any
 
 from PIL import Image
-from xloft.human import to_human_size
+from xloft.converters import to_human_size
 
 from ramifice.paladins.tools import accumulate_error, panic_type_error
 from ramifice.utils import translations
