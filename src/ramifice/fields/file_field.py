@@ -12,6 +12,7 @@ from os.path import getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
+from xloft.converters import to_human_size
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -178,6 +179,9 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            file_info["human_size"] = to_human_size(file_info["size"])
         #
         # to value.
         self.value = file_info
@@ -227,6 +231,9 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            file_info["human_size"] = to_human_size(file_info["size"])
         #
         # to value.
         self.value = file_info

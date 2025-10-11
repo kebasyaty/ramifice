@@ -12,6 +12,7 @@ from os.path import getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
+from xloft.converters import to_human_size
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -220,6 +221,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
             img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            img_info["human_size"] = to_human_size(img_info["size"])
         #
         # to value.
         self.value = img_info
@@ -283,6 +287,9 @@ class ImageField(Field, FileGroup, JsonMixin):
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
             img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            img_info["human_size"] = to_human_size(img_info["size"])
         #
         # to value.
         self.value = img_info
