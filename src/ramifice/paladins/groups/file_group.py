@@ -9,7 +9,7 @@ __all__ = ("FileGroupMixin",)
 
 from typing import Any
 
-from xloft.human import to_human_size
+from xloft.converters import to_human_size
 
 from ramifice.paladins.tools import (
     accumulate_error,

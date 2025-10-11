@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### v0.8.43 2025-10-11
+
+- Updated dependencies.
+
 #### v0.8.40 2025-09-21
 
 - Updated dependencies (xloft to v0.5.2).
@@ -10,7 +14,7 @@
 
 #### v0.8.30 2025-08-16
 
-- Replaced `to_human_size`  on  `xloft.to_human_size`.
+- Replaced `to_human_size` on `xloft.to_human_size`.
 - Updated a `basic` example.
 
 #### v0.8.25 2025-08-07
