@@ -8,11 +8,12 @@ import logging
 import uuid
 from base64 import b64decode
 from datetime import datetime
-from os import makedirs
-from os.path import exists, getsize
+from os.path import getsize
 from shutil import copyfile
+from typing import Any
 
 from anyio import Path, open_file, to_thread
+from xloft.converters import to_human_size
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.file_group import FileGroup
@@ -132,7 +133,7 @@ class FileField(Field, FileGroup, JsonMixin):
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        file_info: dict[str, str | int | bool] = {"save_as_is": False}
+        file_info: dict[str, Any] = {"save_as_is": False}
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 
@@ -155,12 +156,17 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
-            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
+            dir_target_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+            )
             # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, dir_target_path):
-                await to_thread.run_sync(makedirs, dir_target_path)
+            if not await dir_target_path.exists():
+                await dir_target_path.mkdir(parents=True)
             # Create path to target file.
-            f_target_path = f"{dir_target_path}/{f_uuid_name}"
+            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
             # Save file in target directory.
             async with await open_file(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
@@ -174,6 +180,9 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            file_info["human_size"] = to_human_size(file_info["size"])
         #
         # to value.
         self.value = file_info
@@ -185,7 +194,7 @@ class FileField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get file information and copy the file to the target directory."""
         src_path = src_path or None
-        file_info: dict[str, str | int | bool] = {"save_as_is": False}
+        file_info: dict[str, Any] = {"save_as_is": False}
         file_info["is_new_file"] = True
         file_info["is_delete"] = is_delete
 
@@ -201,12 +210,17 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
-            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
+            dir_target_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+            )
             # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, dir_target_path):
-                await to_thread.run_sync(makedirs, dir_target_path)
+            if not await dir_target_path.exists():
+                await dir_target_path.mkdir(parents=True)
             # Create path to target file.
-            f_target_path = f"{dir_target_path}/{f_uuid_name}"
+            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
             # Save file in target directory.
             await to_thread.run_sync(copyfile, src_path, f_target_path)
             # Add paths to target file.
@@ -218,6 +232,9 @@ class FileField(Field, FileGroup, JsonMixin):
             file_info["extension"] = extension
             # Add file size (in bytes).
             file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+            # Convert the number of bytes into a human-readable format.
+            # Examples: 200 bytes | 1 KB | 1.5 MB.
+            file_info["human_size"] = to_human_size(file_info["size"])
         #
         # to value.
         self.value = file_info

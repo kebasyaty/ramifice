@@ -968,7 +968,7 @@ wheels = [
 
 [[package]]
 name = "ramifice"
-version = "0.8.43"
+version = "0.8.44"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },

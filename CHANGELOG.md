@@ -1,5 +1,12 @@
 ### CHANGELOG
 
+#### v0.8.44 2025-10-11
+
+- Optimization for a `FileField` and `ImageField` fields.
+- Added a `human_size` param to `file_info` and `img_info` objects.
+- Updated tests to tests/fields/test_file_fields.
+- Updated documentation.
+
 #### v0.8.43 2025-10-11
 
 - Updated dependencies.
