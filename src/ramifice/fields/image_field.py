@@ -8,8 +8,7 @@ import logging
 import uuid
 from base64 import b64decode
 from datetime import datetime
-from os import makedirs
-from os.path import exists, getsize
+from os.path import getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
@@ -181,24 +180,30 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
-            general_dir = uuid.uuid4()
+            general_dir = str(uuid.uuid4())
             # Create path to target directory with images.
-            imgs_dir_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+                general_dir,
+            )
+            # Create target directory if it does not exist.
+            if not await imgs_dir_path.exists():
+                await imgs_dir_path.mkdir(parents=True)
             # Create url path to target directory with images.
             imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
-            main_img_path = f"{imgs_dir_path}/{new_original_name}"
-            # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, imgs_dir_path):
-                await to_thread.run_sync(makedirs, imgs_dir_path)
+            main_img_path = Path(imgs_dir_path, new_original_name)
             # Save main image in target directory.
             async with await open_file(main_img_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
                 await open_f.write(f_content)
             # Add paths for main image.
-            img_info["path"] = main_img_path
+            img_info["path"] = main_img_path.as_posix()
             img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
             # Add original image name.
             img_info["name"] = filename
@@ -210,7 +215,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 ext_upper = "JPEG"
             img_info["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            img_info["imgs_dir_path"] = imgs_dir_path
+            img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).
@@ -240,18 +245,24 @@ class ImageField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
-            general_dir = uuid.uuid4()
+            general_dir = str(uuid.uuid4())
             # Create path to target directory with images.
-            imgs_dir_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+                general_dir,
+            )
             # Create url path to target directory with images.
             imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            # Create target directory if it does not exist.
+            if not await imgs_dir_path.exists():
+                await imgs_dir_path.mkdir(parents=True)
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
-            main_img_path = f"{imgs_dir_path}/{new_original_name}"
-            # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, imgs_dir_path):
-                await to_thread.run_sync(makedirs, imgs_dir_path)
+            main_img_path = f"{imgs_dir_path.as_posix()}/{new_original_name}"
             # Save main image in target directory.
             await to_thread.run_sync(copyfile, src_path, main_img_path)
             # Add paths for main image.
@@ -267,7 +278,7 @@ class ImageField(Field, FileGroup, JsonMixin):
                 ext_upper = "JPEG"
             img_info["ext_upper"] = ext_upper
             # Add path to target directory with images.
-            img_info["imgs_dir_path"] = imgs_dir_path
+            img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
             # Add url path to target directory with images.
             img_info["imgs_dir_url"] = imgs_dir_url
             # Add size of main image (in bytes).

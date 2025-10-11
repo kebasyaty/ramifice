@@ -8,8 +8,7 @@ import logging
 import uuid
 from base64 import b64decode
 from datetime import datetime
-from os import makedirs
-from os.path import exists, getsize
+from os.path import getsize
 from shutil import copyfile
 
 from anyio import Path, open_file, to_thread
@@ -155,12 +154,17 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
-            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
+            dir_target_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+            )
             # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, dir_target_path):
-                await to_thread.run_sync(makedirs, dir_target_path)
+            if not await dir_target_path.exists():
+                await dir_target_path.mkdir(parents=True)
             # Create path to target file.
-            f_target_path = f"{dir_target_path}/{f_uuid_name}"
+            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
             # Save file in target directory.
             async with await open_file(f_target_path, mode="wb") as open_f:
                 f_content = b64decode(base64_str)
@@ -201,12 +205,17 @@ class FileField(Field, FileGroup, JsonMixin):
             # Create the current date for the directory name.
             date_str: str = str(datetime.now(UTC_TIMEZONE).date())
             # Create path to target directory.
-            dir_target_path = f"{MEDIA_ROOT}/uploads/{self.target_dir}/{date_str}"
+            dir_target_path = Path(
+                MEDIA_ROOT,
+                "uploads",
+                self.target_dir,
+                date_str,
+            )
             # Create target directory if it does not exist.
-            if not await to_thread.run_sync(exists, dir_target_path):
-                await to_thread.run_sync(makedirs, dir_target_path)
+            if not await dir_target_path.exists():
+                await dir_target_path.mkdir(parents=True)
             # Create path to target file.
-            f_target_path = f"{dir_target_path}/{f_uuid_name}"
+            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
             # Save file in target directory.
             await to_thread.run_sync(copyfile, src_path, f_target_path)
             # Add paths to target file.
