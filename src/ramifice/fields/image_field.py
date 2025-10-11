@@ -10,6 +10,7 @@ from base64 import b64decode
 from datetime import datetime
 from os.path import getsize
 from shutil import copyfile
+from typing import Any
 
 from anyio import Path, open_file, to_thread
 from xloft.converters import to_human_size
@@ -160,7 +161,7 @@ class ImageField(Field, FileGroup, JsonMixin):
         """  # noqa: D205
         base64_str = base64_str or None
         filename = filename or None
-        img_info: dict[str, str | int | bool] = {"save_as_is": False}
+        img_info: dict[str, Any] = {"save_as_is": False}
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
@@ -235,7 +236,7 @@ class ImageField(Field, FileGroup, JsonMixin):
     ) -> None:
         """Get image information and copy the image to the target directory."""
         src_path = src_path or None
-        img_info: dict[str, str | int | bool] = {"save_as_is": False}
+        img_info: dict[str, Any] = {"save_as_is": False}
         img_info["is_new_img"] = True
         img_info["is_delete"] = is_delete
 
