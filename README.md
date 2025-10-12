@@ -459,6 +459,7 @@ from ramifice.utils.tools import (
     is_phone,
     is_url,
     normal_email,
+    is_number,
 )
 
 # Validate Password.
@@ -498,12 +499,16 @@ if is_mongo_id("666f6f2d6261722d71757578"):
 from bson.objectid import ObjectId
 _id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
 
-# Convert number of bytes to readable format.
+# Convert the number of bytes into a human-readable format.
 size: str = to_human_size(2097152)  # => 2 MB
 
 # Get file size in bytes.
 path = "public/media/default/no_doc.odt"
 size: int = get_file_size(path)  # => 9843
+
+# Check if a string is a number.
+if is_number("5"):
+    ...
 ```
 
 ## Changelog
