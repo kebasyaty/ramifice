@@ -13,6 +13,7 @@ __all__ = (
     "is_phone",
     "is_mongo_id",
     "hash_to_obj_id",
+    "is_number",
 )
 
 import ipaddress
@@ -24,6 +25,7 @@ from urllib.parse import urlparse
 import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
+from xloft.itis import is_number
 
 from ramifice.utils.constants import REGEX
 
