@@ -1,5 +1,11 @@
 ### CHANGELOG
 
+#### v0.8.46 2025-10-12
+
+- Upgrade dependencies.
+- Updated documentation.
+- Updated README.md
+
 #### v0.8.44 2025-10-11
 
 - Optimization for a `FileField` and `ImageField` fields.
@@ -9,15 +15,15 @@
 
 #### v0.8.43 2025-10-11
 
-- Updated dependencies.
+- Upgrade dependencies.
 
 #### v0.8.40 2025-09-21
 
-- Updated dependencies (xloft to v0.5.2).
+- Upgrade dependencies (xloft to v0.5.2).
 
 #### v0.8.39 2025-09-20
 
-- Updated dependencies.
+- Upgrade dependencies.
 
 #### v0.8.30 2025-08-16
 
