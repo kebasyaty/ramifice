@@ -1,5 +1,11 @@
 ### CHANGELOG
 
+#### v0.8.47 2025-10-13
+
+- Fixed import to a `utils.tools` module.
+- Updated documentation.
+- Updated README.md
+
 #### v0.8.46 2025-10-12
 
 - Upgrade dependencies.
