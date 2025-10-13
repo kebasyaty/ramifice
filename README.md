@@ -290,9 +290,9 @@ class User:
         )
 ```
 
-## Class methods
+## Class Methods
 
-_List of frequently used methods:_
+_Examples of frequently used methods:_
 
 ```python
 # Gets an estimate of the count of documents in a collection using collection metadata.
@@ -411,9 +411,9 @@ unit = Unit(
 await User.unit_manager(unit)
 ```
 
-## Instance methods
+## Instance Methods
 
-_List of frequently used methods:_
+_Examples of frequently used methods:_
 
 ```python
 # Check data validity.
@@ -447,7 +447,8 @@ await user.update_password(  # + verify_password
 ## General auxiliary methods
 
 ```python
-from ramifice import to_human_size
+from xloft.converters import to_human_size
+from xloft.itis import is_number
 from ramifice.utils.tools import (
     get_file_size,
     hash_to_obj_id,
@@ -459,8 +460,16 @@ from ramifice.utils.tools import (
     is_phone,
     is_url,
     normal_email,
-    is_number,
 )
+
+
+# Convert the number of bytes into a human-readable format.
+size: str = to_human_size(2097152)
+print(size)  # => 2 MB
+
+# Check if a string is a number.
+if is_number("5"):
+    ...
 
 # Validate Password.
 if is_password("12345678"):
@@ -499,16 +508,10 @@ if is_mongo_id("666f6f2d6261722d71757578"):
 from bson.objectid import ObjectId
 _id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
 
-# Convert the number of bytes into a human-readable format.
-size: str = to_human_size(2097152)  # => 2 MB
-
 # Get file size in bytes.
 path = "public/media/default/no_doc.odt"
-size: int = get_file_size(path)  # => 9843
-
-# Check if a string is a number.
-if is_number("5"):
-    ...
+size: int = get_file_size(path)
+print(size)  # => 9843
 ```
 
 ## Changelog
