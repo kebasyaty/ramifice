@@ -1,4 +1,4 @@
-_General auxiliary methods._
+General auxiliary methods:
 
 ```python
 from xloft.converters import to_human_size
