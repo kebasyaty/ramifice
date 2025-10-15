@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### v0.8.48 2025-10-15
+
+- Added support `python 3.14`.
+
 #### v0.8.47 2025-10-13
 
 - Fixed import to a `utils.tools` module.
