@@ -84,11 +84,11 @@ nav:
   - Installation: pages/installation/index.md
   - Usage:
       - Usage: pages/usage/index.md
-      - Create Model: pages\usage\create_model.md
-      - Model Parameters: pages\usage\model_parameters.md
-      - Class Methods: pages\usage\class_methods.md
-      - Instance Methods: pages\usage\instance_methods.md
-      - Utils: pages\usage\utils.md
+      - Create Model: pages/usage/create_model.md
+      - Model Parameters: pages/usage/model_parameters.md
+      - Class Methods: pages/usage/class_methods.md
+      - Instance Methods: pages/usage/instance_methods.md
+      - Utils: pages/usage/utils.md
   - Localization: pages/localization/index.md
   - Models:
       - Models: pages/models/index.md
