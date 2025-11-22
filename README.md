@@ -440,7 +440,12 @@ await user.update_password(  # + verify_password
 ## General auxiliary methods
 
 ```python
-from xloft.converters import to_human_size
+from xloft.converters import (
+    to_human_size,
+    int_to_roman,
+    roman_to_int,
+    is_palindrome,
+)
 from xloft.itis import is_number
 from ramifice.utils.tools import (
     get_file_size,
@@ -463,6 +468,16 @@ print(size)  # => 2 MB
 # Check if a string is a number.
 if is_number("5"):
     ...
+
+# Roman.
+int_to_roman(1994)  # => MCMXCIV
+roman_to_int("MCMXCIV")  # => 1994
+
+# Palindrome.
+is_palindrome("Go hang a salami, I'm a lasagna hog") # True
+is_palindrome("123")  # False
+is_palindrome(123)  # TypeError
+is_palindrome("")  # ValueError
 
 # Validate Password.
 if is_password("12345678"):
