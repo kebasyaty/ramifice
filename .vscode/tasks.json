@@ -64,6 +64,7 @@
       "label": "UnitTest: Run Tests",
       "type": "shell",
       "command": [
+        "uv run python remove_pycache.py;",
         "uv run python -m unittest tests/test_mongo.py;",
         "uv run python -m unittest tests/test_mixins.py;",
         "uv run python -m unittest tests/test_constants.py;",
@@ -76,7 +77,8 @@
         "uv run python -m unittest discover -s tests/paladins;",
         "uv run python -m unittest discover -s tests/commons;",
         "uv run python -m unittest discover -s tests/models;",
-        "uv run python -m unittest tests/test_translations.py"
+        "uv run python -m unittest tests/test_translations.py;",
+        "uv run python remove_pycache.py"
       ],
       "problemMatcher": []
     },
