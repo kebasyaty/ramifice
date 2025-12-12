@@ -1,3 +1,13 @@
+#                                          ,,      ,...,,
+# `7MM"""Mq.                               db    .d' ""db
+#   MM   `MM.                                    dM`
+#   MM   ,M9   ,6"Yb.  `7MMpMMMb.pMMMb.  `7MM   mMMmm`7MM  ,p6"bo   .gP"Ya
+#   MMmmdM9   8)   MM    MM    MM    MM    MM    MM    MM 6M'  OO  ,M'   Yb
+#   MM  YM.    ,pm9MM    MM    MM    MM    MM    MM    MM 8M       8M""""""
+#   MM   `Mb. 8M   MM    MM    MM    MM    MM    MM    MM YM.    , YM.    ,
+# .JMML. .JMM.`Moo9^Yo..JMML  JMML  JMML..JMML..JMML..JMML.YMbmd'   `Mbmmd'
+#
+#
 # Copyright 2022-present MongoDB, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
