@@ -8,6 +8,11 @@
 # .JMML. .JMM.`Moo9^Yo..JMML  JMML  JMML..JMML..JMML..JMML.YMbmd'   `Mbmmd'
 #
 #
+# Copyright (c) 2024 Gennady Kostyunin
+# Ramifice is free software under terms of the MIT License.
+# Repository https://github.com/kebasyaty/ramifice
+#
+#
 # Copyright 2022-present MongoDB, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

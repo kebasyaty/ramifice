@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.9.5"
+version = "0.9.6"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
@@ -80,7 +80,6 @@ types = [
 fix = true
 line-length = 120
 indent-width = 4
-required-version = ">=0.7.11"
 src = ["src", "tests"]
 include = ["src/**/*.py", "tests/**/*.py"]
 exclude = [
@@ -204,6 +203,7 @@ disable_error_code = [
     "import-not-found",
     "index",
     "operator",
+    "untyped-decorator",
 ]
 
 [[tool.mypy.overrides]]
