@@ -7,6 +7,7 @@
 #   MM   `Mb. 8M   MM    MM    MM    MM    MM    MM    MM YM.    , YM.    ,
 # .JMML. .JMM.`Moo9^Yo..JMML  JMML  JMML..JMML..JMML..JMML.YMbmd'   `Mbmmd'
 #
+#
 # Copyright (c) 2024 Gennady Kostyunin
 # Ramifice is free software under terms of the MIT License.
 # Repository https://github.com/kebasyaty/ramifice
