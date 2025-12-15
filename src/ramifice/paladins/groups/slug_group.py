@@ -36,20 +36,20 @@ class SlugGroupMixin:
         raw_str_list: list[str] = []
         slug_sources = field.slug_sources
         #
-        for _field_name, field_data in self.__dict__.items():
+        for field_name_, field_data in self.__dict__.items():
             if callable(field_data):
                 continue
-            if _field_name in slug_sources:
+            if field_name_ in slug_sources:
                 value = field_data.value
                 if value is None:
                     value = field_data.__dict__.get("default")
                 if value is not None:
-                    raw_str_list.append(value if _field_name != "_id" else str(value))
+                    raw_str_list.append(value if field_name_ != "_id" else str(value))
                 else:
                     err_msg = (
                         f"Model: `{params['full_model_name']}` > "
                         + f"Field: `{field_name}` => "
-                        + f"{_field_name} - "
+                        + f"{field_name_} - "
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
