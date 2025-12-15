@@ -213,4 +213,5 @@ disable_error_code = [
     "no-untyped-call",
     "func-returns-value",
     "union-attr",
+    "untyped-decorator",
 ]
