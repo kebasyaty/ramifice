@@ -203,6 +203,7 @@ disable_error_code = [
     "import-not-found",
     "index",
     "operator",
+    "untyped-decorator",
 ]
 
 [[tool.mypy.overrides]]
@@ -213,5 +214,4 @@ disable_error_code = [
     "no-untyped-call",
     "func-returns-value",
     "union-attr",
-    "untyped-decorator",
 ]
