@@ -24,7 +24,7 @@
 #### Dev-Dependencies
 
 - [ruff](https://pypi.org/project/ruff/ "ruff")
-- [mypy](https://pypi.org/project/mypy/ "mypy")
+- [pyrefly](https://pypi.org/project/pyrefly/ "")
 - [pre-commit](https://pypi.org/project/pre-commit/ "pre-commit")
 - [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
 - [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
