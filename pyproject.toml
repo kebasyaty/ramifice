@@ -61,7 +61,7 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = []
-lint = ["mypy>=1.16.0", "pre-commit>=4.3.0", "ruff>=0.11.13"]
+lint = ["pre-commit>=4.3.0", "pyrefly>=0.46.0", "ruff>=0.11.13"]
 docs = [
     "mike>=2.1.3",
     "mkdocs>=1.6.1",
@@ -191,27 +191,29 @@ docstring-code-line-length = 120
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
-[tool.mypy]
-strict = true
-show_error_codes = true
-pretty = true
-files = ["src/**/*.py", "tests/**/*.py"]
-disable_error_code = [
-    "type-arg",
-    "no-any-return",
-    "untyped-decorator",
-    "attr-defined",
-    "import-not-found",
-    "index",
-    "operator",
-]
+[tool.pyrefly]
+project-includes = ["src", "tests"]
+search-path = ["src", "tests"]
+ignore-errors-in-generated-code = true
+untyped_def_behavior = "check-and-infer-return-any"
 
-[[tool.mypy.overrides]]
-module = ["tests.*"]
-disable_error_code = [
-    "arg-type",
-    "no-untyped-def",
-    "no-untyped-call",
-    "func-returns-value",
-    "union-attr",
-]
+[tool.pyrefly.errors]
+missing-attribute = false
+unsupported-operation = false
+bad-argument-type = false
+
+[[tool.pyrefly.sub-config]]
+matches = "tests/**"
+
+[tool.pyrefly.sub-config.errors]
+missing-attribute = false
+unsupported-operation = false
+bad-argument-type = false
+
+[[tool.pyrefly.sub-config]]
+matches = "examples/**"
+
+[tool.pyrefly.sub-config.errors]
+missing-module-attribute = false
+missing-attribute = false
+bad-argument-type = false
