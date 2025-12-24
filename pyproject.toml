@@ -39,7 +39,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/kebasyaty/ramifice"
+Homepage = "https://kebasyaty.github.io/ramifice/"
 Documentation = "https://kebasyaty.github.io/ramifice/"
 Repository = "https://github.com/kebasyaty/ramifice"
 Source = "https://github.com/kebasyaty/ramifice"
