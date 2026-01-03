@@ -7,7 +7,7 @@
 #   MM   `Mb. 8M   MM    MM    MM    MM    MM    MM    MM YM.    , YM.    ,
 # .JMML. .JMM.`Moo9^Yo..JMML  JMML  JMML..JMML..JMML..JMML.YMbmd'   `Mbmmd'
 #
-# Copyright (c) 2025 Gennady Kostyunin
+# Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
 #
 #
