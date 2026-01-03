@@ -1,3 +1,7 @@
+# Ramifice - ORM-pseudo-like API MongoDB for Python language.
+# Copyright (c) 2025 Gennady Kostyunin
+# SPDX-License-Identifier: MIT
+#
 """AddValidMixin - Contains an abstract method for additional validation of fields."""
 
 from __future__ import annotations
