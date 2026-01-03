@@ -63,13 +63,13 @@ Online browsable documentation is available at [https://kebasyaty.github.io/rami
 ```shell
 # Fedora:
 sudo dnf install gettext
-gettext --version
 # Ubuntu:
 sudo apt install gettext
-gettext --version
+# MacOS
+brew install gettext
+brew link gettext --force
 # Windows:
 https://mlocati.github.io/articles/gettext-iconv-windows.html
-gettext --version
 
 cd project_name
 uv add ramifice
