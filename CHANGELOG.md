@@ -1,5 +1,11 @@
 ### CHANGELOG
 
+#### v0.9.10 2026-01-03
+
+- Added a `Copyright` comments.
+- Upgrade dependencies.
+- Updated documentation.
+
 #### v0.8.48 2025-10-15
 
 - Added support `python 3.14`.

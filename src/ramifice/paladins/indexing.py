@@ -1,3 +1,7 @@
+# Ramifice - ORM-pseudo-like API MongoDB for Python language.
+# Copyright (c) 2025 Gennady Kostyunin
+# SPDX-License-Identifier: MIT
+#
 """IndexMixin - Contains abstract method for indexing the model in the database."""
 
 from __future__ import annotations
