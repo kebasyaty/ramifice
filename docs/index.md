@@ -27,8 +27,6 @@
 
 <hr>
 
-<br>
-
 <p>
 Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
 <br>
@@ -39,8 +37,6 @@ a simplified alternative (Types of selective fields with dynamic addition of ele
 <br>
 The project is more concentrated for web development or for applications with a graphic interface.
 </p>
-
-<br>
 
 #### Requirements
 
