@@ -1,4 +1,3 @@
-#                                          ,,      ,...,,
 # `7MM"""Mq.                               db    .d' ""db
 #   MM   `MM.                                    dM`
 #   MM   ,M9   ,6"Yb.  `7MMpMMMb.pMMMb.  `7MM   mMMmm`7MM  ,p6"bo   .gP"Ya
@@ -9,7 +8,6 @@
 #
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
-#
 #
 # Copyright 2022-present MongoDB, Inc.
 #
@@ -24,7 +22,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 """ORM-pseudo-like API MongoDB for Python language.
 
 Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.

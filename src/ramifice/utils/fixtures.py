@@ -1,7 +1,6 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
-#
 """Fixtures - To populate the database with pre-created data.
 
 Runs automatically during Model migration.
