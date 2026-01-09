@@ -1,4 +1,3 @@
-#                                          ,,      ,...,,
 # `7MM"""Mq.                               db    .d' ""db
 #   MM   `MM.                                    dM`
 #   MM   ,M9   ,6"Yb.  `7MMpMMMb.pMMMb.  `7MM   mMMmm`7MM  ,p6"bo   .gP"Ya
