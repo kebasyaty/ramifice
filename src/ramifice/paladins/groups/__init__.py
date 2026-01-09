@@ -1,7 +1,6 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
-#
 """Groups - Model instance methods for specific processing of fields."""
 
 from __future__ import annotations

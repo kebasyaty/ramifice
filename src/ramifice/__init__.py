@@ -10,7 +10,6 @@
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
 #
-#
 # Copyright 2022-present MongoDB, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
