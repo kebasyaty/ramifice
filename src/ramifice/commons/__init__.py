@@ -14,7 +14,7 @@ from ramifice.commons.one import OneMixin
 from ramifice.commons.unit_manager import UnitMixin
 
 
-class QCommonsMixin(
+class QCommonsMixin(  # noqa: RUF067
     GeneralMixin,
     OneMixin,
     ManyMixin,

@@ -33,7 +33,7 @@ from ramifice.paladins.save import SaveMixin
 from ramifice.paladins.validation import ValidationMixin
 
 
-class QPaladinsMixin(
+class QPaladinsMixin(  # noqa: RUF067
     CheckMixin,
     SaveMixin,
     PasswordMixin,

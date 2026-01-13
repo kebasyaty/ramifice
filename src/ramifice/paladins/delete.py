@@ -61,7 +61,7 @@ class DeleteMixin:
         # Get collection for current Model.
         collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Delete document.
-        mongo_doc: dict[str, Any] = {}
+        mongo_doc: dict[str, Any] | None = {}
         mongo_doc = await collection.find_one_and_delete(
             filter={"_id": doc_id},
             projection=projection,
