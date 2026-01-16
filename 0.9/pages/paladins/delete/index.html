@@ -57,7 +57,9 @@
     
       <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../custom_style/github_indigo.css">
+      <link rel="stylesheet" href="../../../stylesheets/themes/github_indigo.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3109,7 +3111,7 @@
 </span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="c1"># Get collection for current Model.</span>
 </span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]]</span>
 </span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="c1"># Delete document.</span>
-</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>        <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="n">mongo_doc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one_and_delete</span><span class="p">(</span>
 </span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a>            <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">},</span>
 </span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a>            <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
@@ -3302,7 +3304,7 @@
 </span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="c1"># Get collection for current Model.</span>
 </span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="n">collection</span><span class="p">:</span> <span class="n">AsyncCollection</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">MONGO_DATABASE</span><span class="p">[</span><span class="n">cls_model</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">]]</span>
 </span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a>    <span class="c1"># Delete document.</span>
-</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="n">mongo_doc</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">{}</span>
 </span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="n">mongo_doc</span> <span class="o">=</span> <span class="k">await</span> <span class="n">collection</span><span class="o">.</span><span class="n">find_one_and_delete</span><span class="p">(</span>
 </span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">doc_id</span><span class="p">},</span>
 </span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
