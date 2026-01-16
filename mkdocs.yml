@@ -37,7 +37,8 @@ theme:
     accent: indigo
 
 extra_css:
-  - custom_style/github_indigo.css
+  - stylesheets/themes/github_indigo.css
+  - stylesheets/extra.css
 
 plugins:
   - search
