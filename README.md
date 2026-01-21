@@ -45,11 +45,11 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 ## Documentation
 
-Online browsable documentation is available at [https://kebasyaty.github.io/ramifice/](https://kebasyaty.github.io/ramifice/ "Documentation").
+[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
 
 ## Requirements
 
-[View the list of requirements](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements").
+[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements")
 
 ## Installation
 
@@ -81,7 +81,7 @@ uv add ramifice
 
 ## Usage
 
-[It is recommended to look at examples here](https://github.com/kebasyaty/ramifice/tree/v0/examples "It is recommended to look at examples here").
+[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/main/examples "Examples")
 
 ```python
 import re
@@ -524,8 +524,8 @@ print(size)  # => 9843
 
 ## Changelog
 
-[View the change history](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog").
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
 
 ## License
 
-This project is licensed under the [MIT](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT").
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
