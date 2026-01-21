@@ -48,4 +48,4 @@ The project is more concentrated for web development or for applications with a 
 
 #### License
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/MIT-LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/link-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
