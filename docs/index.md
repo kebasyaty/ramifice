@@ -38,14 +38,10 @@ a simplified alternative (Types of selective fields with dynamic addition of ele
 The project is more concentrated for web development or for applications with a graphic interface.
 </p>
 
-#### Requirements
+<hr>
 
 [![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements")
 
-#### Changelog
-
 [![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
-
-#### License
 
 [![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")

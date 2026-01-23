@@ -43,11 +43,9 @@ _Supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
 <br>
 _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")_.
 
-## Documentation
+<br>
 
 [![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
-
-## Requirements
 
 [![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements")
 
@@ -522,10 +520,8 @@ size: int = get_file_size(path)
 print(size)  # => 9843
 ```
 
-## Changelog
+<br>
 
 [![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
-
-## License
 
 [![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
