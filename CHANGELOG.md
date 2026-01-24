@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### v0.9.15 2026-01-24
+
+- Upgrade dependencies.
+
 #### v0.9.10 2026-01-03
 
 - Added a `Copyright` comments.
