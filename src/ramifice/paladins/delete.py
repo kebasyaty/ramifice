@@ -96,6 +96,7 @@ class DeleteMixin:
                 elif group == "img":
                     file_data = mongo_doc[field_name]
                     if file_data is not None and len(file_data["imgs_dir_path"]) > 0:
+                        # pyrefly: ignore [incompatible-overload-residual]
                         await to_thread.run_sync(rmtree, file_data["imgs_dir_path"])
                     file_data = None
             field_data.value = None

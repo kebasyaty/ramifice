@@ -56,7 +56,7 @@ class DateTimeField(Field, DateGroup):
         min_date: datetime | None = None,
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if max_date is not None and not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
                 if min_date is not None and not isinstance(min_date, datetime):

@@ -58,7 +58,7 @@ class IntegerField(Field, NumberGroup, JsonMixin):
         input_type: Literal["number", "range"] = "number",
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if input_type not in ["number", "range"]:
                     raise AssertionError(
                         "Parameter `input_type` - Invalid input type! "

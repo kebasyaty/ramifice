@@ -76,7 +76,7 @@ class ChoiceFloatMultField(Field, ChoiceGroup, JsonMixin):
         self.choices = choices
 
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if choices is not None:
                     if not isinstance(choices, list):
                         raise AssertionError("Parameter `choices` - Not а `list` type!")

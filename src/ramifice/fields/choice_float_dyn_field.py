@@ -50,7 +50,7 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):

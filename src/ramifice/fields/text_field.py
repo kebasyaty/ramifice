@@ -55,7 +55,7 @@ class TextField(Field, JsonMixin):
         multi_language: bool = False,
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if not isinstance(maxlength, int):
                     raise AssertionError("Parameter `maxlength` - Not а `int` type!")
                 if not isinstance(label, str):

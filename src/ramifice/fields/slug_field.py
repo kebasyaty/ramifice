@@ -47,7 +47,7 @@ class SlugField(Field, TextGroup, JsonMixin):
         slug_sources: list[str] = ["_id"],  # noqa: B006
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):

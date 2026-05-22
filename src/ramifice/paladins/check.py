@@ -153,6 +153,7 @@ class CheckMixin(
                             img_data = result_map.get(field_name)
                             if img_data is not None:
                                 if img_data["is_new_img"]:
+                                    # pyrefly: ignore [incompatible-overload-residual]
                                     await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
                                 field_data.value = None
                             if curr_doc is not None:
