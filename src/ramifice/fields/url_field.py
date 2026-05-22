@@ -50,7 +50,7 @@ class URLField(Field, TextGroup, JsonMixin):
         unique: bool = False,
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if default is not None:
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")

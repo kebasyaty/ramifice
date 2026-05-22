@@ -40,7 +40,7 @@ class BooleanField(Field, JsonMixin):
         warning: list[str] | None = None,
     ) -> None:
         if constants.DEBUG:
-            try:
+            try:  # noqa: PLW0717
                 if default is not None and not isinstance(default, bool):
                     raise AssertionError("Parameter `default` - Not а `bool` type!")
                 if not isinstance(label, str):

@@ -31,7 +31,7 @@ def model(
     is_delete_doc: bool = True,
 ) -> Any:
     """Decorator for converting Python Classe into Ramifice Model."""
-    try:
+    try:  # noqa: PLW0717
         if not isinstance(service_name, str):
             msg = "Parameter `service_name` - Must be `str` type!"
             raise AssertionError(msg)
