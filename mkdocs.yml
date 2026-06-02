@@ -33,11 +33,11 @@ theme:
     - toc.follow
   palette:
     scheme: slate
-    primary: indigo
-    accent: indigo
+    primary: pink
+    accent: pink
 
 extra_css:
-  - stylesheets/themes/github_indigo.css
+  - stylesheets/themes/github_pink.css
   - stylesheets/extra.css
 
 plugins:
