@@ -2,7 +2,7 @@
   <p align="center">
     <a href="https://github.com/kebasyaty/ramifice">
       <img
-        height="60"
+        height="100"
         alt="Logo"
         src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/logo.svg">
     </a>
