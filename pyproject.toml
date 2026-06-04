@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "0.10.0"
+version = "1.0.0"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
@@ -9,7 +9,7 @@ license-files = ["LICENSE"]
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
 keywords = ["database", "mongo", "mongodb", "orm", "pymongo", "ramifice"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
@@ -42,7 +42,7 @@ dependencies = [
 
 [project.urls]
 "Bug Tracker" = "https://github.com/kebasyaty/ramifice/issues"
-Changelog = "https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md"
+Changelog = "https://github.com/kebasyaty/ramifice/blob/v1/CHANGELOG.md"
 Documentation = "https://kebasyaty.github.io/ramifice/"
 Homepage = "https://kebasyaty.github.io/ramifice/"
 Repository = "https://github.com/kebasyaty/ramifice"
