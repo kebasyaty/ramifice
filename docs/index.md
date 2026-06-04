@@ -4,7 +4,7 @@
       <img
         id="logo"
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/logo.svg">
     </a>
   </p>
   <p>
@@ -40,8 +40,8 @@ The project is more concentrated for web development or for applications with a 
 
 <hr>
 
-[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v0/REQUIREMENTS.md "Requirements")
+[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v1/REQUIREMENTS.md "Requirements")
 
-[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v0/CHANGELOG.md "Changelog")
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v1/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v0/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
