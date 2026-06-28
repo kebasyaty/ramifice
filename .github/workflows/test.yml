@@ -31,7 +31,7 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - uses: astral-sh/setup-uv@v08807647e7069bb48b6ef5acd8ec9567f424441b
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           version: ${{ matrix.uv-version }}
           python-version: ${{ matrix.python-version }}
