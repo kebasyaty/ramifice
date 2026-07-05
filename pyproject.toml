@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "1.0.0"
+version = "1.0.1"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 requires-python = ">=3.12,<4.0"

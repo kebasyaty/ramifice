@@ -192,8 +192,8 @@ async def main():
 
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
-        # {"_id": user.id.value}
-        {f"username": user.username.value}
+        # filter={"_id": user.id.value}
+        filter={"username": user.username.value}
     )
     if user_details is not None:
         pp(user_details)
