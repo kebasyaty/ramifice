@@ -42,7 +42,10 @@ __all__ = (
     "Unit",
 )
 
+# pyrefly: ignore [missing-import]
 from xloft import NamedTuple
+
+# pyrefly: ignore [missing-import]
 from xloft.converters import to_human_size
 
 from ramifice.models.decorator import model
