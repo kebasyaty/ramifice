@@ -64,15 +64,18 @@ class Model:
         """Setter."""
         if name == "id":
             name = "_id"
-        self.__dict__[name].value = value
+        if "Field" in value.__class__.__name__:
+            self.__dict__[name] = value
+        else:
+            self.__dict__[name].value = value
 
     def __delattr__(self, name: str) -> None:
         """Blocked Deleter."""
         raise errors.AttributeCannotBeDeleteError(name)
 
-    def get_field(self, name: str) -> Any:
+    def get_field(self, field_name: str) -> Any:
         """Get the field object."""
-        self.__dict__[name]
+        self.__dict__[field_name]
 
     @abstractmethod
     def fields(self) -> None:
