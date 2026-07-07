@@ -75,11 +75,11 @@ class Model:
 
     def get_field(self, field_name: str) -> Any:
         """Get the field object."""
-        self.__dict__[field_name]
+        return self.__dict__[field_name]
 
     def get_attr_field(self, field_name: str, attr_name: str) -> Any:
         """Get field attribute."""
-        self.__dict__[field_name].__dict__[attr_name]
+        return copy.deepcopy(self.__dict__[field_name].__dict__[attr_name])
 
     @abstractmethod
     def fields(self) -> None:
