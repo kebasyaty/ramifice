@@ -103,38 +103,38 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        m.date.value = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
-        m.date_time.value = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
+        m.date = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
+        m.date_time = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
 
         if not await m.save():
             m.print_err()
         #
-        doc = await User.find_one({"_id": m.id.value})
+        doc = await User.find_one({"_id": m.id})
         self.assertTrue(isinstance(doc, dict))
         #
-        raw_doc = await User.find_one_to_raw_doc({"_id": m.id.value})
+        raw_doc = await User.find_one_to_raw_doc({"_id": m.id})
         self.assertTrue(isinstance(raw_doc, dict))
         #
-        model = await User.find_one_to_instance({"_id": m.id.value})
-        self.assertEqual(model.id.value, m.id.value)
+        model = await User.find_one_to_instance({"_id": m.id})
+        self.assertEqual(model.id, m.id)
         #
-        json_str = await User.find_one_to_json({"_id": m.id.value})
+        json_str = await User.find_one_to_json({"_id": m.id})
         self.assertEqual(json_str, m.to_json())
         #
-        await User.delete_one({"_id": m.id.value})
+        await User.delete_one({"_id": m.id})
         self.assertEqual(await User.estimated_document_count(), 0)
         #
         m = User()
         if not await m.save():
             m.print_err()
-        doc = await User.find_one_and_delete({"_id": m.id.value})
-        self.assertEqual(doc["_id"], m.id.value)
+        doc = await User.find_one_and_delete({"_id": m.id})
+        self.assertEqual(doc["_id"], m.id)
         self.assertEqual(await User.estimated_document_count(), 0)
         #
         m = User()
         if not await m.save():
             m.print_err()
-        result = await User.delete_one({"_id": m.id.value})
+        result = await User.delete_one({"_id": m.id})
         self.assertTrue(isinstance(result, DeleteResult))
         self.assertEqual(await User.estimated_document_count(), 0)
         # ----------------------------------------------------------------------

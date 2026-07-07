@@ -109,7 +109,7 @@ class TestCommonIndexMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        m.email.value = "kebasyaty@gmail.com"
+        m.email = "kebasyaty@gmail.com"
         if not await m.save():
             m.print_err()
         #

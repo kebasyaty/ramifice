@@ -120,17 +120,17 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Create doc.
         if not await user.save():
             user.print_err()
-        self.assertTrue(isinstance(user.id.value, ObjectId))
-        doc_id = str(user.id.value)
+        self.assertTrue(isinstance(user.id, ObjectId))
+        doc_id = str(user.id)
         # Update doc.
         if not await user.save():
             user.print_err()
-        self.assertEqual(str(user.id.value), doc_id)
+        self.assertEqual(str(user.id), doc_id)
         # Update doc.
         if not await user.save():
             user.print_err()
 
-        self.assertEqual(str(user.id.value), doc_id)
+        self.assertEqual(str(user.id), doc_id)
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await user.delete()
         self.assertTrue(isinstance(result, dict))
@@ -140,21 +140,21 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Check Unique.
         # positive
         unique_user = UniqueUser()
-        unique_user.username.value = "pythondev"
-        unique_user.email.value = "John_Smith@gmail.com"
-        unique_user.age.value = 32
+        unique_user.username = "pythondev"
+        unique_user.email = "John_Smith@gmail.com"
+        unique_user.age = 32
         self.assertTrue(await unique_user.save())
         unique_user = UniqueUser()
         self.assertTrue(await unique_user.save())
         # negative
         unique_user = UniqueUser()
-        unique_user.username.value = "pythondev"
+        unique_user.username = "pythondev"
         self.assertFalse(await unique_user.save())
         unique_user = UniqueUser()
-        unique_user.email.value = "John_Smith@gmail.com"
+        unique_user.email = "John_Smith@gmail.com"
         self.assertFalse(await unique_user.save())
         unique_user = UniqueUser()
-        unique_user.age.value = 32
+        unique_user.age = 32
         self.assertFalse(await unique_user.save())
         # ----------------------------------------------------------------------
         #
