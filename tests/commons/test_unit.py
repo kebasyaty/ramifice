@@ -279,12 +279,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         #
         await user.refrash_from_db()
-        self.assertIsNone(user.choice_float_dyn.choices)
-        self.assertIsNone(user.choice_float_mult_dyn.choices)
-        self.assertIsNone(user.choice_int_dyn.choices)
-        self.assertIsNone(user.choice_int_mult_dyn.choices)
-        self.assertIsNone(user.choice_txt_dyn.choices)
-        self.assertIsNone(user.choice_txt_mult_dyn.choices)
+        self.assertIsNone(user.get_attr_field("choice_float_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_float_mult_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_int_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_int_mult_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_txt_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_txt_mult_dyn", "choices"))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
