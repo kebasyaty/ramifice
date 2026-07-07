@@ -68,7 +68,7 @@ class Model:
         """Blocked Deleter."""
         raise errors.AttributeCannotBeDeleteError(name)
 
-    def field(self, name: str) -> Any:
+    def get_field(self, name: str) -> Any:
         """Get the field object."""
         self.__dict__[name]
 
