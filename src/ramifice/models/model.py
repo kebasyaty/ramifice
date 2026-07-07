@@ -7,6 +7,7 @@ from __future__ import annotations
 
 __all__ = ("Model",)
 
+import copy
 from abc import abstractmethod
 from typing import Any, ClassVar
 
@@ -17,7 +18,7 @@ from dateutil.parser import parse
 from xloft import NamedTuple
 
 from ramifice.fields import DateTimeField, IDField
-from ramifice.utils import translations
+from ramifice.utils import errors, translations
 
 
 class Model:
@@ -53,10 +54,23 @@ class Model:
         self.fields()
         self.inject()
 
-    @property
-    def id(self) -> IDField:
-        """Getter for the field `_id`."""
-        return self._id
+    def __getattr__(self, name: str) -> Any:
+        """Getter."""
+        if name == "id":
+            name = "_id"
+        return copy.deepcopy(self.__dict__[name].value)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        """Setter."""
+        self.__dict__[name].value = value
+
+    def __delattr__(self, name: str) -> None:
+        """Blocked Deleter."""
+        raise errors.AttributeCannotBeDeleteError(name)
+
+    def field(self, name: str) -> Any:
+        """Get the field object."""
+        self.__dict__[name]
 
     @abstractmethod
     def fields(self) -> None:
