@@ -176,9 +176,9 @@ async def main():
 
     user = User()
     # user.avatar.from_path("public/media/default/no-photo.png")
-    user.username.value = "pythondev"
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
+    user.username = "pythondev"
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
 
     # Create User.
     if not await user.save():
@@ -186,14 +186,14 @@ async def main():
         user.print_err()
 
     # Update User.
-    user.username.value = "pythondev_123"
+    user.username = "pythondev_123"
     if not await user.save():
         user.print_err()
 
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
-        # filter={"_id": user.id.value}
-        filter={"username": user.username.value}
+        # filter={"_id": user.id}
+        filter={"username": user.username}
     )
     if user_details is not None:
         pp(user_details)
