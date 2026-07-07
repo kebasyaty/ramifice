@@ -124,6 +124,7 @@ matches = "tests/**"
 missing-attribute = false
 unsupported-operation = false
 bad-argument-type = false
+bad-assignment = false
 
 [[tool.pyrefly.sub-config]]
 matches = "examples/**"
