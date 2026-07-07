@@ -24,16 +24,16 @@ async def main() -> None:
     translations.change_locale("en")
 
     user = User()
-    user.username.value = "pythondev"
+    user.username = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
     user.resume.from_path("public/media/default/no_doc.odt")
-    user.first_name.value = "John"
-    user.last_name.value = "Smith"
-    user.email.value = "John_Smith@gmail.com"
-    user.birthday.value = datetime(2000, 1, 25)
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
-    user.is_admin.value = True
+    user.first_name = "John"
+    user.last_name = "Smith"
+    user.email = "John_Smith@gmail.com"
+    user.birthday = datetime(2000, 1, 25)
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
+    user.is_admin = True
 
     if not await user.save():
         # Convenient to use during development.

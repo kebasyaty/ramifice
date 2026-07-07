@@ -26,7 +26,7 @@ async def main() -> None:
     params = await Parameters.find_one_to_instance({f"brand": "Brand Name"})
     if params is not None:
         print("Details of Parameters:")
-        user_details = await Parameters.find_one_to_raw_doc({"_id": params.id.value})
+        user_details = await Parameters.find_one_to_raw_doc({"_id": params.id})
         pprint.pprint(user_details)
         # await params.delete(remove_files=False)
     else:
@@ -35,7 +35,7 @@ async def main() -> None:
     params_2 = await Parameters.find_one_to_instance({f"brand": "Brand Name 2"})
     if params_2 is not None:
         print("\nDetails of Parameters:")
-        user_details_2 = await Parameters.find_one_to_raw_doc({"_id": params_2.id.value})
+        user_details_2 = await Parameters.find_one_to_raw_doc({"_id": params_2.id})
         pprint.pprint(user_details_2)
         # await params_2.delete(remove_files=False)
     else:

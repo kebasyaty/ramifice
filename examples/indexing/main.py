@@ -28,16 +28,16 @@ async def main() -> None:
     translations.change_locale("en")
 
     user = User()
-    user.username.value = "pythondev"
+    user.username = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
     user.resume.from_path("public/media/default/no_doc.odt")
-    user.first_name.value = "John"
-    user.last_name.value = "Smith"
-    user.email.value = "John_Smith@gmail.com"
-    user.birthday.value = datetime(2000, 1, 25)
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
-    user.is_admin.value = True
+    user.first_name = "John"
+    user.last_name = "Smith"
+    user.email = "John_Smith@gmail.com"
+    user.birthday = datetime(2000, 1, 25)
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
+    user.is_admin = True
 
     # Create User.
     if not await user.save():
@@ -45,14 +45,14 @@ async def main() -> None:
         user.print_err()
 
     # Update User.
-    user.username.value = "pythondev-123"
+    user.username = "pythondev-123"
     if not await user.save():
         user.print_err()
 
     print("\n\nUser details:")
     user_details = await User.find_one_to_raw_doc(
-        # {"_id": user.id.value}
-        {f"username": user.username.value},
+        # {"_id": user.id}
+        {f"username": user.username},
     )
     if user_details is not None:
         pprint.pprint(user_details)

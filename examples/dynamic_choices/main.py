@@ -80,12 +80,12 @@ async def main() -> None:
         await Product.unit_manager(unit)
 
     product = Product()
-    product.size_float.value = 15.6
-    product.sizes_float.value = [25.8, 12.5]
-    product.size_int.value = 25
-    product.sizes_int.value = [15, 12]
-    product.size_txt.value = "middle"
-    product.sizes_txt.value = ["big", "small"]
+    product.size_float = 15.6
+    product.sizes_float = [25.8, 12.5]
+    product.size_int = 25
+    product.sizes_int = [15, 12]
+    product.size_txt = "middle"
+    product.sizes_txt = ["big", "small"]
 
     # Create Product.
     if not await product.save():
