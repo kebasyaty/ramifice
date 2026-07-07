@@ -62,6 +62,8 @@ class Model:
 
     def __setattr__(self, name: str, value: Any) -> None:
         """Setter."""
+        if name == "id":
+            name = "_id"
         self.__dict__[name].value = value
 
     def __delattr__(self, name: str) -> None:
