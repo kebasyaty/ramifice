@@ -102,3 +102,11 @@ class NotPossibleDeleteUnitError(RamificeException):
     def __init__(self, message: str) -> None:  # noqa: D107
         self.message = message
         super().__init__(self.message)
+
+
+class AttributeCannotBeDeleteError(RamificeException):
+    """Exception is raised if the attribute cannot be delete."""
+
+    def __init__(self, attribute_name: str) -> None:  # noqa: D107
+        self.message = f"The attribute `{attribute_name}` cannot be delete!"
+        super().__init__(self.message)
