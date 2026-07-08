@@ -74,12 +74,16 @@ class Model:
         raise errors.AttributeCannotBeDeleteError(name)
 
     def get_field(self, field_name: str) -> Any:
-        """Get the field object."""
+        """Get the field objec."""
         return self.__dict__[field_name]
 
     def get_attr_field(self, field_name: str, attr_name: str) -> Any:
-        """Get field attribute."""
+        """Get attribute of field."""
         return copy.deepcopy(self.__dict__[field_name].__dict__[attr_name])
+
+    def set_attr_field(self, field_name: str, attr_name: str, value: Any) -> Any:
+        """Set attribute of field."""
+        self.__dict__[field_name].__dict__[attr_name] = value
 
     @abstractmethod
     def fields(self) -> None:
