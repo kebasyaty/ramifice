@@ -18,7 +18,7 @@ from dateutil.parser import parse
 from xloft import NamedTuple
 
 from ramifice.fields import DateTimeField, IDField
-from ramifice.utils import errors, translations
+from ramifice.utils import translations
 
 
 class Model:
@@ -53,10 +53,6 @@ class Model:
         )
         self.fields()
         self.inject()
-
-    def __delattr__(self, name: str) -> None:
-        """Blocked Deleter."""
-        raise errors.AttributeCannotBeDeleteError(name)
 
     def get_field(self, field_name: str) -> Any:
         """Get the field objec."""
