@@ -73,7 +73,7 @@ h6 {
 }
 
 .md-search__form {
-  background-color: #620a27;
+  background-color: #651932;
   color: #d1d7e0;
 }
 .md-search__form:hover {
@@ -81,7 +81,7 @@ h6 {
 }
 
 [data-md-toggle="search"]:checked ~ .md-header .md-search__form {
-  background-color: #620a27;
+  background-color: #651932;
   color: #d1d7e0;
 }
 
