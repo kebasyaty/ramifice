@@ -84,7 +84,7 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(await m.post_delete())
 
         m2 = User2()
-        m2.username.value = "pythondev"
+        m2.username = "pythondev"
         err_map = await m2.add_validation()
         self.assertIsNone(err_map.username)
         self.assertIsNone(await m2.pre_create())

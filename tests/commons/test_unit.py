@@ -182,22 +182,22 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.choice_int_mult_dyn.choices, [[2, "Title"]])
         self.assertEqual(user.choice_txt_dyn.choices, [["Some text", "Title"]])
         self.assertEqual(user.choice_txt_mult_dyn.choices, [["Some text 2", "Title"]])
-        user.choice_float_dyn.value = 1.0
-        user.choice_float_mult_dyn.value = [2.0]
-        user.choice_int_dyn.value = 1
-        user.choice_int_mult_dyn.value = [2]
-        user.choice_txt_dyn.value = "Some text"
-        user.choice_txt_mult_dyn.value = ["Some text 2"]
+        user.choice_float_dyn = 1.0
+        user.choice_float_mult_dyn = [2.0]
+        user.choice_int_dyn = 1
+        user.choice_int_mult_dyn = [2]
+        user.choice_txt_dyn = "Some text"
+        user.choice_txt_mult_dyn = ["Some text 2"]
         #
         if not await user.save():
             user.print_err()
         #
-        self.assertEqual(user.choice_float_dyn.value, 1.0)
-        self.assertEqual(user.choice_float_mult_dyn.value, [2.0])
-        self.assertEqual(user.choice_int_dyn.value, 1)
-        self.assertEqual(user.choice_int_mult_dyn.value, [2])
-        self.assertEqual(user.choice_txt_dyn.value, "Some text")
-        self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
+        self.assertEqual(user.choice_float_dyn, 1.0)
+        self.assertEqual(user.choice_float_mult_dyn, [2.0])
+        self.assertEqual(user.choice_int_dyn, 1)
+        self.assertEqual(user.choice_int_mult_dyn, [2])
+        self.assertEqual(user.choice_txt_dyn, "Some text")
+        self.assertEqual(user.choice_txt_mult_dyn, ["Some text 2"])
         #
         # Delete Units:
         # ------------
@@ -279,12 +279,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         #
         await user.refrash_from_db()
-        self.assertIsNone(user.choice_float_dyn.choices)
-        self.assertIsNone(user.choice_float_mult_dyn.choices)
-        self.assertIsNone(user.choice_int_dyn.choices)
-        self.assertIsNone(user.choice_int_mult_dyn.choices)
-        self.assertIsNone(user.choice_txt_dyn.choices)
-        self.assertIsNone(user.choice_txt_mult_dyn.choices)
+        self.assertIsNone(user.get_attr_field("choice_float_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_float_mult_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_int_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_int_mult_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_txt_dyn", "choices"))
+        self.assertIsNone(user.get_attr_field("choice_txt_mult_dyn", "choices"))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

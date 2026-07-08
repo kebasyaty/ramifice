@@ -27,7 +27,7 @@ async def main() -> None:
 
     if params is not None:
         print("Details of Parameters:")
-        site_parameters = await SiteParameters.find_one_to_raw_doc({"_id": params.id.value})
+        site_parameters = await SiteParameters.find_one_to_raw_doc({"_id": params.id})
         pprint.pprint(site_parameters)
 
         # await params.delete(remove_files=False)

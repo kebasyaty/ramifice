@@ -26,18 +26,18 @@ async def main() -> None:
 
     user = User()
     # user.avatar.from_path("public/media/default/no-photo.png")
-    user.username.value = "pythondev"
-    user.first_name.value = {"en": "John", "ru": "Джон"}
-    # user.first_name.value = "John"
-    user.last_name.value = {"en": "Smith", "ru": "Смит"}
-    # user.last_name.value = "Smith"
-    user.email.value = "John_Smith@gmail.com"
-    user.phone.value = "+447986123456"
-    user.birthday.value = datetime(2000, 1, 25)
-    user.description.value = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
-    # user.description.value = "I program on Python!"
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
+    user.username = "pythondev"
+    user.first_name = {"en": "John", "ru": "Джон"}
+    # user.first_name = "John"
+    user.last_name = {"en": "Smith", "ru": "Смит"}
+    # user.last_name = "Smith"
+    user.email = "John_Smith@gmail.com"
+    user.phone = "+447986123456"
+    user.birthday = datetime(2000, 1, 25)
+    user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
+    # user.description = "I program on Python!"
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
 
     # Create User.
     if not await user.save():
@@ -45,13 +45,13 @@ async def main() -> None:
         user.print_err()
 
     # Update User.
-    user.username.value = "pythondev_123"
+    user.username = "pythondev_123"
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
+    user_details = await User.find_one_to_raw_doc({"_id": user.id})
     if user_details is not None:
         pprint.pprint(user_details)
     else:

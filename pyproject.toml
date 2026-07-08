@@ -1,6 +1,6 @@
 [project]
 name = "ramifice"
-version = "1.0.1"
+version = "2.0.0"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
@@ -124,6 +124,7 @@ matches = "tests/**"
 missing-attribute = false
 unsupported-operation = false
 bad-argument-type = false
+bad-assignment = false
 
 [[tool.pyrefly.sub-config]]
 matches = "examples/**"

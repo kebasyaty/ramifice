@@ -23,8 +23,8 @@ async def main() -> None:
     # translations.change_locale("ru")
 
     user = User()
-    user.username.value = "pythondev"
-    user.email.value = "John_Smith@gmail.com"
+    user.username = "pythondev"
+    user.email = "John_Smith@gmail.com"
 
     # Create User
     if not await user.save():
@@ -32,7 +32,7 @@ async def main() -> None:
         user.print_err()
 
     # Update User.
-    user.username.value = "pythondev-123"
+    user.username = "pythondev-123"
     if not await user.save():
         # Convenient to use during development.
         user.print_err()

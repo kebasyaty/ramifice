@@ -165,8 +165,8 @@ class TestJsonMixin(unittest.TestCase):
                 self.assertEqual(m3.__dict__[name].__dict__, data.__dict__)
 
         m = User()
-        m.img.value = IMG_INFO_DICT.copy()
-        m.file.value = FILE_INFO_DICT.copy()
+        m.img = IMG_INFO_DICT.copy()
+        m.file = FILE_INFO_DICT.copy()
 
         json_str = m.to_json()
         m2 = User.from_json(json_str)
