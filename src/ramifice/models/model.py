@@ -54,21 +54,6 @@ class Model:
         self.fields()
         self.inject()
 
-    def __getattr__(self, name: str) -> Any:
-        """Getter."""
-        if name == "id":
-            name = "_id"
-        return copy.deepcopy(self.__dict__[name].value)
-
-    def __setattr__(self, name: str, value: Any) -> None:
-        """Setter."""
-        if name == "id":
-            name = "_id"
-        if "Field" in value.__class__.__name__:
-            self.__dict__[name] = value
-        else:
-            self.__dict__[name].value = value
-
     def __delattr__(self, name: str) -> None:
         """Blocked Deleter."""
         raise errors.AttributeCannotBeDeleteError(name)
@@ -105,18 +90,18 @@ class Model:
             lang = translations.CURRENT_LOCALE
             field_attrs = metadata["field_attrs"]
             data_dynamic_fields = metadata["data_dynamic_fields"]
-            for f_name, f_type in self.__dict__.items():
-                if not callable(f_type):
-                    f_type.id = field_attrs[f_name]["id"]
-                    f_type.name = field_attrs[f_name]["name"]
-                    if "Dyn" in f_type.field_type:
+            for f_name, f_data in self.__dict__.items():
+                if not callable(f_data):
+                    f_data.id = field_attrs[f_name]["id"]
+                    f_data.name = field_attrs[f_name]["name"]
+                    if "Dyn" in f_data.field_type:
                         dyn_data = data_dynamic_fields[f_name]
                         if dyn_data is not None:
-                            f_type.choices = [[item["value"], item["title"][lang]] for item in dyn_data]
+                            f_data.choices = [[item["value"], item["title"][lang]] for item in dyn_data]
                         else:
                             # This is necessary for
                             # `paladins > refrash > RefrashMixin > refrash_from_db`.
-                            f_type.choices = None
+                            f_data.choices = None
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
