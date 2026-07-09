@@ -32,6 +32,7 @@ class Model:
         hide=True,
         disabled=True,
     )
+
     created_at = DateTimeField(
         label=translations._("Created at"),
         placeholder=translations._("It is added automatically"),
@@ -40,6 +41,7 @@ class Model:
         hide=True,
         disabled=True,
     )
+
     updated_at = DateTimeField(
         label=translations._("Updated at"),
         placeholder=translations._("It is added automatically"),
