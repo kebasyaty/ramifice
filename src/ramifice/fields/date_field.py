@@ -118,6 +118,21 @@ class DateField(Field, DateGroup):
 
         self.default = default
 
+    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance: Any, owner: Any) -> datetime | None:  # noqa: D105
+        if instance is None:
+            msg = f"The field `{self.name}` is not a class variable."
+            raise AttributeError(msg)
+        return instance.__dict__[self.internal_name].value
+
+    def __set__(self, instance: Any, value: datetime | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (datetime, type(None))):
+            raise TypeError("Not а `datetime | None` type!")
+        instance.__dict__[self.internal_name].value = value
+
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}

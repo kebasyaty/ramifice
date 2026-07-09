@@ -8,6 +8,7 @@ from __future__ import annotations
 __all__ = ("BooleanField",)
 
 import logging
+from typing import Any
 
 from ramifice.fields.general.field import Field
 from ramifice.utils import constants
@@ -77,3 +78,18 @@ class BooleanField(Field, JsonMixin):
         self.input_type = "checkbox"
         self.value: bool | None = None
         self.default = default
+
+    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance: Any, owner: Any) -> bool | None:  # noqa: D105
+        if instance is None:
+            msg = f"The field `{self.name}` is not a class variable."
+            raise AttributeError(msg)
+        return instance.__dict__[self.internal_name].value
+
+    def __set__(self, instance: Any, value: bool | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (bool, type(None))):
+            raise TypeError("Not а `bool | None` type!")
+        instance.__dict__[self.internal_name].value = value

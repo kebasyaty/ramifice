@@ -11,6 +11,7 @@ from __future__ import annotations
 __all__ = ("ChoiceTextField",)
 
 import logging
+from typing import Any
 
 from ramifice.fields.general.choice_group import ChoiceGroup
 from ramifice.fields.general.field import Field
@@ -111,6 +112,21 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
+
+    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance: Any, owner: Any) -> str | None:  # noqa: D105
+        if instance is None:
+            msg = f"The field `{self.name}` is not a class variable."
+            raise AttributeError(msg)
+        return instance.__dict__[self.internal_name].value
+
+    def __set__(self, instance: Any, value: str | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (str, type(None))):
+            raise TypeError("Not а `str | None` type!")
+        instance.__dict__[self.internal_name].value = value
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

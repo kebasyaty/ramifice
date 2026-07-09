@@ -8,7 +8,7 @@ from __future__ import annotations
 __all__ = ("FloatField",)
 
 import logging
-from typing import Literal
+from typing import Any, Literal
 
 from ramifice.fields.general.field import Field
 from ramifice.fields.general.number_group import NumberGroup
@@ -131,3 +131,18 @@ class FloatField(Field, NumberGroup, JsonMixin):
         self.max_number = max_number
         self.min_number = min_number
         self.step = step
+
+    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance: Any, owner: Any) -> float | None:  # noqa: D105
+        if instance is None:
+            msg = f"The field `{self.name}` is not a class variable."
+            raise AttributeError(msg)
+        return instance.__dict__[self.internal_name].value
+
+    def __set__(self, instance: Any, value: float | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (float, type(None))):
+            raise TypeError("Not а `float | None` type!")
+        instance.__dict__[self.internal_name].value = value

@@ -125,6 +125,21 @@ class FileField(Field, FileGroup, JsonMixin):
 
         self.value: dict[str, str | int | bool] | None = None
 
+    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+        self.name = name
+        self.internal_name = f"_{name}"
+
+    def __get__(self, instance: Any, owner: Any) -> dict[str, str | int | bool] | None:  # noqa: D105
+        if instance is None:
+            msg = f"The field `{self.name}` is not a class variable."
+            raise AttributeError(msg)
+        return instance.__dict__[self.internal_name].value
+
+    def __set__(self, instance: Any, value: dict[str, str | int | bool] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (str, type(None))):
+            raise TypeError("Not а `dict | None` type!")
+        instance.__dict__[self.internal_name].value = value
+
     async def from_base64(
         self,
         base64_str: str | None = None,
