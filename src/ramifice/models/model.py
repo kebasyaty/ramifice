@@ -7,8 +7,7 @@ from __future__ import annotations
 
 __all__ = ("Model",)
 
-import copy
-from abc import abstractmethod
+
 from typing import Any, ClassVar
 
 import orjson
@@ -18,7 +17,7 @@ from dateutil.parser import parse
 from xloft import NamedTuple
 
 from ramifice.fields import DateTimeField, IDField
-from ramifice.utils import translations
+from ramifice.utils import errors, translations
 
 
 class Model:
@@ -26,49 +25,36 @@ class Model:
 
     META: ClassVar[dict[str, Any]] = {}
 
+    id = IDField(
+        label=translations._("Document ID"),
+        placeholder=translations._("It is added automatically"),
+        hint=translations._("It is added automatically"),
+        hide=True,
+        disabled=True,
+    )
+    created_at = DateTimeField(
+        label=translations._("Created at"),
+        placeholder=translations._("It is added automatically"),
+        hint=translations._("It is added automatically"),
+        warning=[translations._("When the document was created.")],
+        hide=True,
+        disabled=True,
+    )
+    updated_at = DateTimeField(
+        label=translations._("Updated at"),
+        placeholder=translations._("It is added automatically"),
+        hint=translations._("It is added automatically"),
+        warning=[translations._("When the document was updated.")],
+        hide=True,
+        disabled=True,
+    )
+
     def __init__(self) -> None:  # noqa: D107
-        _ = translations._
-        self._id = IDField(
-            label=_("Document ID"),
-            placeholder=_("It is added automatically"),
-            hint=_("It is added automatically"),
-            hide=True,
-            disabled=True,
-        )
-        self.created_at = DateTimeField(
-            label=_("Created at"),
-            placeholder=_("It is added automatically"),
-            hint=_("It is added automatically"),
-            warning=[_("When the document was created.")],
-            hide=True,
-            disabled=True,
-        )
-        self.updated_at = DateTimeField(
-            label=_("Updated at"),
-            placeholder=_("It is added automatically"),
-            hint=_("It is added automatically"),
-            warning=[_("When the document was updated.")],
-            hide=True,
-            disabled=True,
-        )
-        self.fields()
         self.inject()
 
-    def get_field(self, field_name: str) -> Any:
-        """Get the field objec."""
-        return self.__dict__[field_name]
-
-    def get_attr_field(self, field_name: str, attr_name: str) -> Any:
-        """Get attribute of field."""
-        return copy.deepcopy(self.__dict__[field_name].__dict__[attr_name])
-
-    def set_attr_field(self, field_name: str, attr_name: str, value: Any) -> Any:
-        """Set attribute of field."""
-        self.__dict__[field_name].__dict__[attr_name] = value
-
-    @abstractmethod
-    def fields(self) -> None:
-        """Adding fields."""
+    def __delattr__(self, name: str) -> None:
+        """Blocked Deleter."""
+        raise errors.AttributeCannotBeDeleteError(name)
 
     def model_name(self) -> str:
         """Get Model name - Class name."""
