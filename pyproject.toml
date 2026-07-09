@@ -42,7 +42,7 @@ dependencies = [
 
 [project.urls]
 "Bug Tracker" = "https://github.com/kebasyaty/ramifice/issues"
-Changelog = "https://github.com/kebasyaty/ramifice/blob/v1/CHANGELOG.md"
+Changelog = "https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md"
 Documentation = "https://kebasyaty.github.io/ramifice/"
 Homepage = "https://kebasyaty.github.io/ramifice/"
 Repository = "https://github.com/kebasyaty/ramifice"

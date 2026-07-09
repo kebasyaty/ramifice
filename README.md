@@ -4,7 +4,7 @@
       <img
         height="100"
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/logo.svg">
     </a>
   </p>
   <p>
@@ -45,15 +45,15 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 <br>
 
-[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
+[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
 
-[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v1/REQUIREMENTS.md "Requirements")
+[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v2/REQUIREMENTS.md "Requirements")
 
 ## Installation
 
 1. Install MongoDB (if not installed):<br>
-   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v1/assets/FEDORA_INSTALL_MONGODB.md)
-   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v1/assets/UBUNTU_INSTALL_MONGODB.md)
+   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v2/assets/FEDORA_INSTALL_MONGODB.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v2/assets/UBUNTU_INSTALL_MONGODB.md)
    [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.mongodb.com/try/download/community)
 
 2. Run:
@@ -79,7 +79,7 @@ uv add ramifice
 
 ## Usage
 
-[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/main/examples "Examples")
+[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/main/examples "Examples")
 
 ```python
 import re
@@ -522,6 +522,6 @@ print(size)  # => 9843
 
 <br>
 
-[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v1/CHANGELOG.md "Changelog")
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
