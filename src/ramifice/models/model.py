@@ -55,6 +55,8 @@ class Model:
     def __init__(self) -> None:  # noqa: D107
         metadata = self.__class__.META
 
+        assert bool(metadata), "No metadata"
+
         for f_name in metadata["all_descriptor_fields"]:
             self.__dict__[f_name] = None
 
@@ -75,20 +77,19 @@ class Model:
 
     def inject(self, metadata: dict[str, Any]) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        if bool(metadata):
-            lang = trans.CURRENT_LOCALE
-            descriptor_fields = metadata["all_descriptor_fields"]
-            data_dynamic_fields = metadata["data_dynamic_fields"]
-            for f_name in descriptor_fields:
-                f_html_attrs = self.__dict__[f"{f_name}_html_attrs"]
-                if "Dyn" in f_html_attrs["field_type"]:
-                    dyn_data = data_dynamic_fields.get(f_name)
-                    if dyn_data is not None:
-                        f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
-                    else:
-                        # This is necessary for
-                        # `paladins > refrash > RefrashMixin > refrash_from_db`.
-                        f_html_attrs["choices"] = None
+        lang = trans.CURRENT_LOCALE
+        descriptor_fields = metadata["all_descriptor_fields"]
+        data_dynamic_fields = metadata["data_dynamic_fields"]
+        for f_name in descriptor_fields:
+            f_html_attrs = self.__dict__[f"{f_name}_html_attrs"]
+            if "Dyn" in f_html_attrs["field_type"]:
+                dyn_data = data_dynamic_fields.get(f_name)
+                if dyn_data is not None:
+                    f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
+                else:
+                    # This is necessary for
+                    # `paladins > refrash > RefrashMixin > refrash_from_db`.
+                    f_html_attrs["choices"] = None
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
