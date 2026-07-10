@@ -93,6 +93,8 @@ class DateField:
                 raise err
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "input_type": "date",
             "value": None,

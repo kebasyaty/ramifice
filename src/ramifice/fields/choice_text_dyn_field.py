@@ -72,6 +72,8 @@ class ChoiceTextDynField:
                 raise err
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "value": None,
             "placeholder": "",

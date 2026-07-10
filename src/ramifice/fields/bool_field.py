@@ -61,6 +61,8 @@ class BooleanField:
                 raise err
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "input_type": "checkbox",
             "value": None,
@@ -89,5 +91,7 @@ class BooleanField:
         if not isinstance(value, (bool, type(None))):
             raise TypeError("Not а `bool | None` type!")
         if not hasattr(instance, self.field_html_attrs):
+            html_attrs = self.html_attrs
+            html_attrs[""]
             instance.__dict__[self.field_html_attrs] = self.html_attrs
         instance.__dict__[self.name] = value

@@ -84,6 +84,8 @@ class URLField:
                 raise err
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "input_type": "url",
             "value": None,

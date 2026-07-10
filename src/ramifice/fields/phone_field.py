@@ -91,6 +91,8 @@ class PhoneField:
                 raise err
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "input_type": "tel",
             "value": None,

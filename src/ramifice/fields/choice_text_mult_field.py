@@ -52,6 +52,8 @@ class ChoiceTextMultField:
     ) -> None:
 
         self.html_attrs: dict[str, Any] = {
+            "id": "",
+            "name": "",
             "label": label,
             "value": None,
             "default": default,
