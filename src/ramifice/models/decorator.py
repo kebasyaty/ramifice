@@ -126,7 +126,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
         if not callable(f_obj) and "Field" in f_cls_name:
             f_html_attrs: dict[str, Any] = f_obj.html_attrs
             all_descriptor_fields.append(f_name)
-            # Get attributes value for fields of Model: id, name.
+            # Add attributes of field - `id`, `name`.
             field_attrs[f_name] = {
                 "id": f"{model_name}--{f_name.replace('_', '-') if f_name != '_id' else 'id'}",
                 "name": f_name,
