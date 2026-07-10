@@ -122,8 +122,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
-    # Count fields for migrating.
-    count_fields_no_ignored: int = 0
     # List of fields that support localization of translates.
     # Hint: `TextField`
     supported_lang_fields: list[str] = []
@@ -146,8 +144,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
             }
             #
             if not f_data.ignored:
-                # Count fields for migrating.
-                count_fields_no_ignored += 1
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_type_str
                 # Build data migration storage for dynamic fields.
@@ -161,7 +157,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
     metadata["count_descriptor_fields"] = len(descriptor_fields)
-    metadata["count_fields_no_ignored"] = count_fields_no_ignored
     metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)')
 
     return metadata

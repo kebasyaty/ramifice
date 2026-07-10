@@ -37,7 +37,6 @@ class TestModel(unittest.TestCase):
         self.user_meta = {
             "collection_name": "Accounts_User",
             "count_descriptor_fields": 5,
-            "count_fields_no_ignored": 5,
             "data_dynamic_fields": {"favorite_color": None},
             "db_query_docs_limit": 1000,
             "field_attrs": {
@@ -69,7 +68,6 @@ class TestModel(unittest.TestCase):
         self.user_profile_meta = {
             "collection_name": "Profiles_UserProfile",
             "count_descriptor_fields": 4,
-            "count_fields_no_ignored": 4,
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
             "field_attrs": {
