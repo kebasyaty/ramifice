@@ -102,6 +102,7 @@ class ColorField:
             "required": required,
             "readonly": readonly,
             "unique": unique,
+            "errors": [],
             "field_type": "ColorField",
             "group": "text",
         }

@@ -104,6 +104,7 @@ class PhoneField:
             "required": required,
             "readonly": readonly,
             "unique": unique,
+            "errors": [],
             "field_type": "PhoneField",
             "group": "text",
         }

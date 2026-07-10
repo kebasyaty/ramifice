@@ -77,6 +77,7 @@ class PasswordField:
             "hint": hint,
             "warning": warning,
             "required": required,
+            "errors": [],
             "field_type": "PasswordField",
             "group": "pass",
         }

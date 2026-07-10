@@ -13,13 +13,12 @@ from typing import Any
 import orjson
 from bson.objectid import ObjectId
 
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
 
-class IDField(Field):
+class IDField:
     """Field of Model for enter identifier of document.
 
     Agrs:
@@ -76,27 +75,24 @@ class IDField(Field):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="IDField",
-            group="id",
-        )
-
-        self.input_type = "text"
-        self.value: ObjectId | None = None
-        self.placeholder = placeholder
-        self.required = required
-        self.readonly = readonly
-        self.unique = unique
-        self.alerts: list[str] = []
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "text",
+            "value": None,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": unique,
+            "alerts": [],
+            "errors": [],
+            "field_type": "IDField",
+            "group": "id",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

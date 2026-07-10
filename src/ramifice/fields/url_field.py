@@ -97,6 +97,7 @@ class URLField:
             "required": required,
             "readonly": readonly,
             "unique": unique,
+            "errors": [],
             "field_type": "URLField",
             "group": "text",
         }

@@ -10,15 +10,12 @@ __all__ = ("FloatField",)
 import logging
 from typing import Any, Literal
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.number_group import NumberGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class FloatField(Field, NumberGroup, JsonMixin):
+class FloatField:
     """Field of Model for enter (float) number.
 
     Agrs:
@@ -105,34 +102,27 @@ class FloatField(Field, NumberGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="FloatField",
-            group="num",
-        )
-        NumberGroup.__init__(
-            self,
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
-
-        self.input_type: str = input_type
-        self.value: float | None = None
-        self.default = default
-        self.max_number = max_number
-        self.min_number = min_number
-        self.step = step
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": input_type,
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": unique,
+            "max_number": max_number,
+            "min_number": min_number,
+            "step": step,
+            "errors": [],
+            "field_type": "FloatField",
+            "group": "number",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

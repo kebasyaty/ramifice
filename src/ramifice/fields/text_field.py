@@ -108,6 +108,7 @@ class TextField:
             "use_editor": use_editor,
             "maxlength": maxlength,
             "multi_language": multi_language,
+            "errors": [],
             "field_type": "TextField",
             "group": "text",
         }

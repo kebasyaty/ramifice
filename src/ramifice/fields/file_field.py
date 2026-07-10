@@ -18,8 +18,6 @@ from typing import Any
 from anyio import Path, open_file, to_thread
 from xloft.converters import to_human_size
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.file_group import FileGroup
 from ramifice.utils import constants
 from ramifice.utils.constants import (
     MEDIA_ROOT,
@@ -27,12 +25,11 @@ from ramifice.utils.constants import (
     UTC_TIMEZONE,
 )
 from ramifice.utils.errors import FileHasNoExtensionError
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class FileField(Field, FileGroup, JsonMixin):
+class FileField:
     """Field of Model for upload file.
 
     Agrs:
@@ -101,31 +98,25 @@ class FileField(Field, FileGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="FileField",
-            group="file",
-        )
-        FileGroup.__init__(
-            self,
-            placeholder=placeholder,
-            required=required,
-            max_size=max_size,
-            default=default,
-            target_dir=target_dir,
-            accept=accept,
-        )
-        JsonMixin.__init__(self)
-
-        self.value: dict[str, str | int | bool] | None = None
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "file",
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "max_size": max_size,
+            "target_dir": target_dir,
+            "accept": accept,
+            "errors": [],
+            "field_type": "FileField",
+            "group": "file",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

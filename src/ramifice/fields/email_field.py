@@ -99,6 +99,7 @@ class EmailField:
             "required": required,
             "readonly": readonly,
             "unique": unique,
+            "errors": [],
             "field_type": "EmailField",
             "group": "text",
         }

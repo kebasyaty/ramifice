@@ -84,6 +84,7 @@ class SlugField:
             "readonly": readonly,
             "unique": True,
             "slug_sources": slug_sources,
+            "errors": [],
             "field_type": "SlugField",
             "group": "slug",
         }

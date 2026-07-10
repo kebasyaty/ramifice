@@ -101,6 +101,7 @@ class IPField(Field, TextGroup, JsonMixin):
             "required": required,
             "readonly": readonly,
             "unique": unique,
+            "errors": [],
             "field_type": "IPField",
             "group": "text",
         }

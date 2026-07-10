@@ -119,6 +119,7 @@ class IntegerField:
             "max_number": max_number,
             "min_number": min_number,
             "step": step,
+            "errors": [],
             "field_type": "IntegerField",
             "group": "number",
         }
