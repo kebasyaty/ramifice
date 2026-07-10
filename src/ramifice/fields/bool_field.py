@@ -85,11 +85,6 @@ class BooleanField:
         if instance is None:
             msg = f"The field `{self.name}` is not a class variable."
             raise AttributeError(msg)
-        return instance.__dict__[self.name]
-
-    def __set__(self, instance: Any, value: bool | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (bool, type(None))):
-            raise TypeError("Not а `bool | None` type!")
         field_name_html_attrs = self.field_name_html_attrs
         if not hasattr(instance, field_name_html_attrs):
             name = self.name
@@ -97,5 +92,10 @@ class BooleanField:
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             instance.__dict__[field_name_html_attrs] = html_attrs
+        return instance.__dict__[self.name]
+
+    def __set__(self, instance: Any, value: bool | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+        if not isinstance(value, (bool, type(None))):
+            raise TypeError("Not а `bool | None` type!")
         instance.__dict__[self.name] = value
-        instance.__dict__[field_name_html_attrs]["value"] = value
+        instance.__dict__[self.field_name_html_attrs]["value"] = value
