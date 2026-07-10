@@ -96,7 +96,6 @@ class TextField:
             "input_type": "text",
             "value": None,
             "placeholder": placeholder,
-            "default": None,
             "hide": hide,
             "disabled": disabled,
             "ignored": ignored,

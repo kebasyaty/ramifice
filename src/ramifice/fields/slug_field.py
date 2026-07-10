@@ -73,30 +73,23 @@ class SlugField(Field, TextGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="SlugField",
-            group="slug",
-        )
-        TextGroup.__init__(
-            self,
-            input_type="text",
-            placeholder=placeholder,
-            required=False,
-            readonly=readonly,
-            unique=True,
-        )
-        JsonMixin.__init__(self)
-
-        self.slug_sources = slug_sources
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "text",
+            "value": None,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": False,
+            "readonly": readonly,
+            "unique": True,
+            "slug_sources": slug_sources,
+            "field_type": "SlugField",
+            "group": "slug",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
