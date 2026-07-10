@@ -99,6 +99,7 @@ class IDField(Field):
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
         self.internal_name = f"_{name}"
+        self.field_html_attrs = f"_{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> ObjectId | None:  # noqa: D105
         if instance is None:
@@ -109,6 +110,8 @@ class IDField(Field):
     def __set__(self, instance: Any, value: ObjectId | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, (ObjectId, type(None))):
             raise TypeError("Not а `ObjectId | None` type!")
+        if not hasattr(instance, self.field_html_attrs):
+            instance.__dict__[self.field_html_attrs]
         instance.__dict__[self.internal_name] = value
 
     def to_dict(self) -> dict[str, Any]:

@@ -116,6 +116,7 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105
         self.name = name
+        self.field_html_attrs = f"{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> list[str] | None:  # noqa: D105
         if instance is None:
@@ -126,6 +127,8 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
     def __set__(self, instance: Any, value: list[str] | None) -> None:  # noqa: D105
         if not isinstance(value, (list, type(None))):
             raise TypeError("Not а `list[str] | None` type!")
+        if not hasattr(instance, self.field_html_attrs):
+            instance.__dict__[self.field_html_attrs]
         instance.__dict__[self.name] = value
 
     def has_value(self, is_migrate: bool = False) -> bool:

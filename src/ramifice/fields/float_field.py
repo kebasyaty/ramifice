@@ -134,6 +134,7 @@ class FloatField(Field, NumberGroup, JsonMixin):
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
+        self.field_html_attrs = f"{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> float | None:  # noqa: D105
         if instance is None:
@@ -144,4 +145,6 @@ class FloatField(Field, NumberGroup, JsonMixin):
     def __set__(self, instance: Any, value: float | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, (float, type(None))):
             raise TypeError("Not а `float | None` type!")
+        if not hasattr(instance, self.field_html_attrs):
+            instance.__dict__[self.field_html_attrs]
         instance.__dict__[self.name] = value
