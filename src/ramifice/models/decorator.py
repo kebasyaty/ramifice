@@ -113,8 +113,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     # Dictionary of field names and type names.
     # Format: <field_name, field_type>
     field_name_and_type: dict[str, str] = {}
-    # Attributes of fields - `id`, `name`.
-    field_attrs: dict[str, dict[str, str]] = {}
     # List of dynamic fields.
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
     # List of text fields that support localization.
@@ -126,17 +124,12 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
         if not callable(f_obj) and "Field" in f_cls_name:
             f_html_attrs: dict[str, Any] = f_obj.html_attrs
             all_descriptor_fields.append(f_name)
-            # Add attributes of field - `id`, `name`.
-            field_attrs[f_name] = {
-                "id": f"{model_name}--{f_name.replace('_', '-') if f_name != '_id' else 'id'}",
-                "name": f_name,
-            }
             #
             if not f_html_attrs["ignored"]:
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_cls_name
                 # Add dynamic field.
-                if "Dyn" in f_obj.field_type:
+                if "Dyn" in f_cls_name:
                     data_dynamic_fields[f_name] = None
                 if f_cls_name == "TextField" and f_html_attrs["multi_language"]:
                     multi_lang_text_fields.append(f_name)
@@ -146,7 +139,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     metadata["collection_name"] = f"{service_name}_{model_name}"
     metadata["all_descriptor_fields"] = all_descriptor_fields
     metadata["field_name_and_type"] = field_name_and_type
-    metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
     metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(multi_lang_text_fields)})":)')
 

@@ -35,16 +35,6 @@ class TestModel(unittest.TestCase):
             "all_descriptor_fields": ["username", "favorite_color"],
             "data_dynamic_fields": {"favorite_color": None},
             "db_query_docs_limit": 1000,
-            "field_attrs": {
-                "_id": {"id": "User--id", "name": "_id"},
-                "created_at": {"id": "User--created-at", "name": "created_at"},
-                "favorite_color": {
-                    "id": "User--favorite-color",
-                    "name": "favorite_color",
-                },
-                "updated_at": {"id": "User--updated-at", "name": "updated_at"},
-                "username": {"id": "User--username", "name": "username"},
-            },
             "field_name_and_type": {
                 "_id": "IDField",
                 "created_at": "DateTimeField",
@@ -66,12 +56,6 @@ class TestModel(unittest.TestCase):
             "all_descriptor_fields": ["profession"],
             "data_dynamic_fields": {},
             "db_query_docs_limit": 1000,
-            "field_attrs": {
-                "_id": {"id": "UserProfile--id", "name": "_id"},
-                "created_at": {"id": "UserProfile--created-at", "name": "created_at"},
-                "profession": {"id": "UserProfile--profession", "name": "profession"},
-                "updated_at": {"id": "UserProfile--updated-at", "name": "updated_at"},
-            },
             "field_name_and_type": {
                 "_id": "IDField",
                 "created_at": "DateTimeField",

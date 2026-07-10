@@ -77,22 +77,18 @@ class Model:
         """Injecting metadata from Model.META into html-attributes of fields."""
         if bool(metadata):
             lang = trans.CURRENT_LOCALE
-            field_attrs = metadata["field_attrs"]
             descriptor_fields = metadata["all_descriptor_fields"]
             data_dynamic_fields = metadata["data_dynamic_fields"]
             for f_name in descriptor_fields:
-                f_data = self.__dict__[f_name]
                 f_html_attrs = self.__dict__[f"{f_name}_html_attrs"]
-                f_html_attrs["id"] = field_attrs[f_name]["id"]
-                f_html_attrs["name"] = field_attrs[f_name]["name"]
                 if "Dyn" in f_html_attrs["field_type"]:
-                    dyn_data = data_dynamic_fields[f_name]
+                    dyn_data = data_dynamic_fields.get(f_name)
                     if dyn_data is not None:
-                        f_data.choices = [[item["value"], item["title"][lang]] for item in dyn_data]
+                        f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
                     else:
                         # This is necessary for
                         # `paladins > refrash > RefrashMixin > refrash_from_db`.
-                        f_data.choices = None
+                        f_html_attrs["choices"] = None
 
     # Complect of methods for converting Model to JSON and back.
     # --------------------------------------------------------------------------
