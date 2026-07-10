@@ -120,7 +120,7 @@ class ChoiceFloatField:
         if not isinstance(value, (float, type(None))):
             raise TypeError("Not а `float | None` type!")
         if not hasattr(instance, self.field_html_attrs):
-            instance.__dict__[self.field_html_attrs]
+            instance.__dict__[self.field_html_attrs] = self.html_attrs
         instance.__dict__[self.name] = value
 
     def has_value(self, is_migrate: bool = False) -> bool:

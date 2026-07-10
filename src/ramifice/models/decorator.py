@@ -109,10 +109,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
         msg = f"Does not match the regular expression: {regex_str}"
         logger.critical(msg)
         raise DoesNotMatchRegexError(regex_str)
-    #
-    metadata["model_name"] = model_name
-    metadata["full_model_name"] = f"{cls.__module__}.{model_name}"
-    metadata["collection_name"] = f"{service_name}_{model_name}"
     # Get descriptor fields.
     descriptor_fields: list[str] = [name for name, obj in cls.__dict__.items() if "Field" in obj.__class__.__name__]
     # Get a dictionary of field names and types.
@@ -152,6 +148,9 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
                 if f_data.field_type == "TextField" and f_data.multi_language:
                     supported_lang_fields.append(f_name)
 
+    metadata["model_name"] = model_name
+    metadata["full_model_name"] = f"{cls.__module__}.{model_name}"
+    metadata["collection_name"] = f"{service_name}_{model_name}"
     metadata["descriptor_fields"] = descriptor_fields
     metadata["field_name_and_type"] = field_name_and_type
     metadata["field_attrs"] = field_attrs

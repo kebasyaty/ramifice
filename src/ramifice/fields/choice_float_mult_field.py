@@ -123,7 +123,7 @@ class ChoiceFloatMultField:
         if not isinstance(value, (list, type(None))):
             raise TypeError("Not а `list[float] | None` type!")
         if not hasattr(instance, self.field_html_attrs):
-            instance.__dict__[self.field_html_attrs]
+            instance.__dict__[self.field_html_attrs] = self.html_attrs
         instance.__dict__[self.name] = value
 
     def has_value(self, is_migrate: bool = False) -> bool:

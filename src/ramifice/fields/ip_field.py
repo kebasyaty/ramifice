@@ -117,5 +117,5 @@ class IPField:
         if not isinstance(value, (str, type(None))):
             raise TypeError("Not а `str | None` type!")
         if not hasattr(instance, self.field_html_attrs):
-            instance.__dict__[self.field_html_attrs]
+            instance.__dict__[self.field_html_attrs] = self.html_attrs
         instance.__dict__[self.name] = value
