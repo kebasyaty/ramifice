@@ -52,7 +52,12 @@ class Model:
     )
 
     def __init__(self) -> None:  # noqa: D107
-        self.inject()
+        metadata = self.__class__.META
+
+        for f_name in metadata["all_descriptor_fields"]:
+            self.__dict__[f_name] = None
+
+        self.inject(metadata)
 
     def __delattr__(self, name: str) -> None:
         """Blocked Deleter."""
@@ -67,9 +72,8 @@ class Model:
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
 
-    def inject(self) -> None:
+    def inject(self, metadata: dict[str, Any]) -> None:
         """Injecting metadata from Model.META in params of fields."""
-        metadata = self.__class__.META
         if bool(metadata):
             lang = translations.CURRENT_LOCALE
             field_attrs = metadata["field_attrs"]
