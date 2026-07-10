@@ -95,6 +95,8 @@ class SlugField(Field, TextGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.slug_sources = slug_sources
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

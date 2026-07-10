@@ -94,6 +94,8 @@ class ChoiceFloatMultDynField(Field, ChoiceGroup, JsonMixin):
 
         self.value: list[float] | None = None
         self.choices: list[list[float | str]] | None = None
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

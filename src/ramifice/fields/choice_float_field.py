@@ -74,6 +74,8 @@ class ChoiceFloatField(Field, ChoiceGroup, JsonMixin):
         self.value: float | None = None
         self.default = default
         self.choices = choices
+        #
+        self.html_attrs: dict[str, Any] = {}
 
         if constants.DEBUG:
             try:  # noqa: PLW0717

@@ -152,6 +152,8 @@ class ImageField(Field, FileGroup, JsonMixin):
         self.value: dict[str, str | int | bool] | None = None
         # Available 4 sizes from lg to xs or None.
         self.thumbnails = thumbnails
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

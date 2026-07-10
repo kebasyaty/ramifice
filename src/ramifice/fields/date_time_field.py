@@ -117,6 +117,8 @@ class DateTimeField(Field, DateGroup):
         )
 
         self.default = default
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

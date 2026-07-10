@@ -75,6 +75,8 @@ class ChoiceTextMultField(Field, ChoiceGroup, JsonMixin):
         self.value: list[str] | None = None
         self.default = default
         self.choices = choices
+        #
+        self.html_attrs: dict[str, Any] = {}
 
         if constants.DEBUG:
             try:  # noqa: PLW0717

@@ -84,6 +84,8 @@ class PasswordField(Field):
         self.value: str | None = None
         self.placeholder = placeholder
         self.required = required
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

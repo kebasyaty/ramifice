@@ -95,6 +95,8 @@ class IDField(Field):
         self.readonly = readonly
         self.unique = unique
         self.alerts: list[str] = []
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

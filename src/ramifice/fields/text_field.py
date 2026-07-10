@@ -117,6 +117,8 @@ class TextField(Field, JsonMixin):
         self.maxlength = maxlength
         # Support for several language.
         self.multi_language = multi_language
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __len__(self) -> int:
         """Return length of field `value`."""

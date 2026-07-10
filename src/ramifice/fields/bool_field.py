@@ -78,6 +78,8 @@ class BooleanField(Field, JsonMixin):
         self.input_type = "checkbox"
         self.value: bool | None = None
         self.default = default
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

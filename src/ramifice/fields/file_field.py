@@ -124,6 +124,8 @@ class FileField(Field, FileGroup, JsonMixin):
         JsonMixin.__init__(self)
 
         self.value: dict[str, str | int | bool] | None = None
+        #
+        self.html_attrs: dict[str, Any] = {}
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
