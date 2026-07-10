@@ -10,14 +10,12 @@ __all__ = ("TextField",)
 import logging
 from typing import Any
 
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class TextField(Field, JsonMixin):
+class TextField:
     """Field of Model for enter text.
 
     Agrs:
@@ -93,32 +91,27 @@ class TextField(Field, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="TextField",
-            group="text",
-        )
-        JsonMixin.__init__(self)
-
-        self.value: str | dict[str, str] | None = None
-        self.input_type = "text"
-        self.placeholder = placeholder
-        self.required = required
-        self.readonly = readonly
-        self.unique = unique
-        self.textarea = textarea
-        self.use_editor = use_editor
-        self.maxlength = maxlength
-        # Support for several language.
-        self.multi_language = multi_language
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "text",
+            "value": None,
+            "placeholder": placeholder,
+            "default": None,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": unique,
+            "textarea": textarea,
+            "use_editor": use_editor,
+            "maxlength": maxlength,
+            "multi_language": multi_language,
+            "field_type": "TextField",
+            "group": "text",
+        }
 
     def __len__(self) -> int:
         """Return length of field `value`."""
