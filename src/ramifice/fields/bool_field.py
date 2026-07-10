@@ -10,14 +10,12 @@ __all__ = ("BooleanField",)
 import logging
 from typing import Any
 
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class BooleanField(Field, JsonMixin):
+class BooleanField:
     """Field of Model for enter boolean value.
 
     Args:
@@ -62,24 +60,20 @@ class BooleanField(Field, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="BooleanField",
-            group="bool",
-        )
-        JsonMixin.__init__(self)
-
-        self.input_type = "checkbox"
-        self.value: bool | None = None
-        self.default = default
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "checkbox",
+            "value": None,
+            "default": default,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "errors": [],
+            "field_type": "BooleanField",
+            "group": "bool",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

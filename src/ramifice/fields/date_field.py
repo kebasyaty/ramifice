@@ -15,14 +15,12 @@ import orjson
 from babel.dates import format_date
 from dateutil.parser import parse
 
-from ramifice.fields.general.date_group import DateGroup
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants, translations
 
 logger = logging.getLogger(__name__)
 
 
-class DateField(Field, DateGroup):
+class DateField:
     """Field of Model for enter date.
 
     Agrs:
@@ -94,31 +92,26 @@ class DateField(Field, DateGroup):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="DateField",
-            group="date",
-        )
-        DateGroup.__init__(
-            self,
-            input_type="date",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=False,
-            max_date=max_date,
-            min_date=min_date,
-        )
-
-        self.default = default
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "date",
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": False,
+            "max_date": max_date,
+            "min_date": min_date,
+            "errors": [],
+            "field_type": "DateField",
+            "group": "date",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
