@@ -17,7 +17,8 @@ from dateutil.parser import parse
 from xloft import NamedTuple
 
 from ramifice.fields import DateTimeField, IDField
-from ramifice.utils import errors, translations
+from ramifice.utils import errors
+from ramifice.utils import translations as trans
 
 
 class Model:
@@ -26,27 +27,27 @@ class Model:
     META: ClassVar[dict[str, Any]] = {}
 
     id = IDField(
-        label=translations._("Document ID"),
-        placeholder=translations._("It is added automatically"),
-        hint=translations._("It is added automatically"),
+        label=trans._("Document ID"),
+        placeholder=trans._("It is added automatically"),
+        hint=trans._("It is added automatically"),
         hide=True,
         disabled=True,
     )
 
     created_at = DateTimeField(
-        label=translations._("Created at"),
-        placeholder=translations._("It is added automatically"),
-        hint=translations._("It is added automatically"),
-        warning=[translations._("When the document was created.")],
+        label=trans._("Created at"),
+        placeholder=trans._("It is added automatically"),
+        hint=trans._("It is added automatically"),
+        warning=[trans._("When the document was created.")],
         hide=True,
         disabled=True,
     )
 
     updated_at = DateTimeField(
-        label=translations._("Updated at"),
-        placeholder=translations._("It is added automatically"),
-        hint=translations._("It is added automatically"),
-        warning=[translations._("When the document was updated.")],
+        label=trans._("Updated at"),
+        placeholder=trans._("It is added automatically"),
+        hint=trans._("It is added automatically"),
+        warning=[trans._("When the document was updated.")],
         hide=True,
         disabled=True,
     )
@@ -75,7 +76,7 @@ class Model:
     def inject(self, metadata: dict[str, Any]) -> None:
         """Injecting metadata from Model.META into html-attributes of fields."""
         if bool(metadata):
-            lang = translations.CURRENT_LOCALE
+            lang = trans.CURRENT_LOCALE
             field_attrs = metadata["field_attrs"]
             descriptor_fields = metadata["all_descriptor_fields"]
             data_dynamic_fields = metadata["data_dynamic_fields"]
@@ -125,7 +126,7 @@ class Model:
     def to_dict_only_value(self) -> dict[str, Any]:
         """Convert model.field.value (only the `value` attribute) to a dictionary."""
         json_dict: dict[str, Any] = {}
-        current_locale = translations.CURRENT_LOCALE
+        current_locale = trans.CURRENT_LOCALE
         for name, data in self.__dict__.items():
             if callable(data):
                 continue
