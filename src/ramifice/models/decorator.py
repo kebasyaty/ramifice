@@ -13,7 +13,6 @@ from pathlib import Path
 from typing import Any
 
 from ramifice.commons import QCommonsMixin
-from ramifice.fields import DateTimeField, IDField
 from ramifice.models.model import Model
 from ramifice.paladins import QPaladinsMixin
 from ramifice.utils.constants import REGEX
@@ -109,53 +108,46 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
         msg = f"Does not match the regular expression: {regex_str}"
         logger.critical(msg)
         raise DoesNotMatchRegexError(regex_str)
-    # Get descriptor fields.
-    descriptor_fields: list[str] = [name for name, obj in cls.__dict__.items() if "Field" in obj.__class__.__name__]
-    # Get a dictionary of field names and types.
+    # All descriptor fields.
+    all_descriptor_fields: list[str] = []
+    # Dictionary of field names and type names.
     # Format: <field_name, field_type>
     field_name_and_type: dict[str, str] = {}
-    # Get attributes value for fields of Model: id, name.
+    # Attributes of fields - `id`, `name`.
     field_attrs: dict[str, dict[str, str]] = {}
-    # Build data migration storage for dynamic fields.
+    # List of dynamic fields.
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
-    # List of fields that support localization of translates.
-    # Hint: `TextField`
-    supported_lang_fields: list[str] = []
+    # List of text fields that support localization.
+    # Hint: Only `TextField`
+    multi_lang_text_fields: list[str] = []
 
-    raw_model = cls()
-    raw_model.fields()
-    default_fields: dict[str, Any] = {
-        "_id": IDField(),
-        "created_at": DateTimeField(),
-        "updated_at": DateTimeField(),
-    }
-    fields = {**raw_model.__dict__, **default_fields}
-    for f_name, f_data in fields.items():
-        if not callable(f_data):
-            f_type_str = f_data.__class__.__name__
+    for f_name, f_obj in cls.__dict__.items():
+        f_cls_name = f_obj.__class__.__name__
+        if not callable(f_obj) and "Field" in f_cls_name:
+            f_html_attrs: dict[str, Any] = f_obj.html_attrs
+            all_descriptor_fields.append(f_name)
             # Get attributes value for fields of Model: id, name.
             field_attrs[f_name] = {
                 "id": f"{model_name}--{f_name.replace('_', '-') if f_name != '_id' else 'id'}",
                 "name": f_name,
             }
             #
-            if not f_data.ignored:
+            if not f_html_attrs["ignored"]:
                 # Get a dictionary of field names and types.
-                field_name_and_type[f_name] = f_type_str
-                # Build data migration storage for dynamic fields.
-                if "Dyn" in f_data.field_type:
+                field_name_and_type[f_name] = f_cls_name
+                # Add dynamic field.
+                if "Dyn" in f_obj.field_type:
                     data_dynamic_fields[f_name] = None
-                if f_data.field_type == "TextField" and f_data.multi_language:
-                    supported_lang_fields.append(f_name)
+                if f_cls_name == "TextField" and f_html_attrs["multi_language"]:
+                    multi_lang_text_fields.append(f_name)
 
     metadata["model_name"] = model_name
     metadata["full_model_name"] = f"{cls.__module__}.{model_name}"
     metadata["collection_name"] = f"{service_name}_{model_name}"
-    metadata["descriptor_fields"] = descriptor_fields
+    metadata["all_descriptor_fields"] = all_descriptor_fields
     metadata["field_name_and_type"] = field_name_and_type
     metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
-    metadata["count_descriptor_fields"] = len(descriptor_fields)
-    metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)')
+    metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(multi_lang_text_fields)})":)')
 
     return metadata
