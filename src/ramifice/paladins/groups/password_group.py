@@ -8,7 +8,7 @@ Supported fields: PasswordField
 
 from __future__ import annotations
 
-__all__ = ("PassGroupMixin",)
+__all__ = ("PasswordGroupMixin",)
 
 from typing import Any
 
@@ -19,13 +19,13 @@ from ramifice.utils import translations
 from ramifice.utils.tools import is_password
 
 
-class PassGroupMixin:
+class PasswordGroupMixin:
     """Group for checking password fields.
 
     Supported fields: PasswordField
     """
 
-    def pass_group(self, params: dict[str, Any]) -> None:
+    def password_group(self, params: dict[str, Any]) -> None:
         """Checking password fields."""
         field = params["field_data"]
         # When updating the document, skip the verification.

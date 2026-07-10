@@ -23,8 +23,8 @@ from ramifice.paladins.groups import (
     FileGroupMixin,
     IDGroupMixin,
     ImgGroupMixin,
-    NumGroupMixin,
-    PassGroupMixin,
+    NumberGroupMixin,
+    PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
 )
@@ -40,8 +40,8 @@ class CheckMixin(
     FileGroupMixin,
     IDGroupMixin,
     ImgGroupMixin,
-    NumGroupMixin,
-    PassGroupMixin,
+    NumberGroupMixin,
+    PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
 ):
@@ -106,8 +106,8 @@ class CheckMixin(
                 match field_data.group:
                     case "text":
                         await self.text_group(params)
-                    case "num":
-                        await self.num_group(params)
+                    case "number":
+                        await self.number_group(params)
                     case "date":
                         self.date_group(params)
                     case "img":
@@ -122,8 +122,8 @@ class CheckMixin(
                         self.id_group(params)
                     case "slug":
                         await self.slug_group(params)
-                    case "pass":
-                        self.pass_group(params)
+                    case "password":
+                        self.password_group(params)
                     case _ as unreachable:
                         msg: str = f"Unacceptable group `{unreachable}`!"
                         logger.critical(msg)

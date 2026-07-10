@@ -9,7 +9,7 @@ Supported fields:
 
 from __future__ import annotations
 
-__all__ = ("NumGroupMixin",)
+__all__ = ("NumberGroupMixin",)
 
 from typing import Any
 
@@ -21,14 +21,14 @@ from ramifice.paladins.tools import (
 from ramifice.utils import translations
 
 
-class NumGroupMixin:
+class NumberGroupMixin:
     """Group for checking integer fields.
 
     Supported fields:
         IntegerField | FloatField
     """
 
-    async def num_group(self, params: dict[str, Any]) -> None:
+    async def number_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         field = params["field_data"]
         field_name = field.name

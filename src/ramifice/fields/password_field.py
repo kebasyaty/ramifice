@@ -79,7 +79,7 @@ class PasswordField:
             "required": required,
             "errors": [],
             "field_type": "PasswordField",
-            "group": "pass",
+            "group": "password",
         }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
