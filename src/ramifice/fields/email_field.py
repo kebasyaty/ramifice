@@ -108,7 +108,7 @@ class EmailField:
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
-        self.field_html_attrs = f"{name}_html_attrs"
+        self.field_name_html_attrs = f"{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> str | None:  # noqa: D105
         if instance is None:

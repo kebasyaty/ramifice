@@ -113,7 +113,7 @@ class ChoiceTextMultField:
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105
         self.name = name
-        self.field_html_attrs = f"{name}_html_attrs"
+        self.field_name_html_attrs = f"{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> list[str] | None:  # noqa: D105
         if instance is None:
