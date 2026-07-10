@@ -126,12 +126,12 @@ class DateField(Field, DateGroup):
         if instance is None:
             msg = f"The field `{self.name}` is not a class variable."
             raise AttributeError(msg)
-        return instance.__dict__[self.internal_name].value
+        return instance.__dict__[self.internal_name]
 
     def __set__(self, instance: Any, value: datetime | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, (datetime, type(None))):
             raise TypeError("Not а `datetime | None` type!")
-        instance.__dict__[self.internal_name].value = value
+        instance.__dict__[self.internal_name] = value
 
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
