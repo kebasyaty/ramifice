@@ -13,15 +13,12 @@ __all__ = ("ChoiceFloatDynField",)
 import logging
 from typing import Any
 
-from ramifice.fields.general.choice_group import ChoiceGroup
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
+class ChoiceFloatDynField:
     """Field of Model.
 
     Type of selective integer field with dynamic addition of elements.
@@ -74,28 +71,24 @@ class ChoiceFloatDynField(Field, ChoiceGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="ChoiceFloatDynField",
-            group="choice",
-        )
-        ChoiceGroup.__init__(
-            self,
-            required=required,
-            readonly=readonly,
-        )
-        JsonMixin.__init__(self)
-
-        self.value: float | None = None
-        self.choices: list[list[float | str]] | None = None
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "value": None,
+            "placeholder": "",
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": False,
+            "multiple": False,
+            "choices": None,
+            "errors": [],
+            "field_type": "ChoiceFloatDynField",
+            "group": "choice",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

@@ -13,15 +13,12 @@ __all__ = ("ChoiceIntMultField",)
 import logging
 from typing import Any
 
-from ramifice.fields.general.choice_group import ChoiceGroup
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class ChoiceIntMultField(Field, ChoiceGroup, JsonMixin):
+class ChoiceIntMultField:
     """Field of Model.
 
     Type of selective integer field with static of elements.
@@ -53,30 +50,26 @@ class ChoiceIntMultField(Field, ChoiceGroup, JsonMixin):
         readonly: bool = False,
         choices: list[list[int | str]] | None = None,  # [[value, Title], ...]
     ) -> None:
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="ChoiceIntMultField",
-            group="choice",
-        )
-        ChoiceGroup.__init__(
-            self,
-            required=required,
-            readonly=readonly,
-            multiple=True,
-        )
-        JsonMixin.__init__(self)
 
-        self.value: list[int] | None = None
-        self.default = default
-        self.choices = choices
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "value": None,
+            "default": default,
+            "placeholder": "",
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": False,
+            "multiple": True,
+            "choices": choices,
+            "errors": [],
+            "field_type": "ChoiceIntMultField",
+            "group": "choice",
+        }
 
         if constants.DEBUG:
             try:  # noqa: PLW0717
