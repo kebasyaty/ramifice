@@ -116,18 +116,17 @@ class ChoiceIntMultField(Field, ChoiceGroup, JsonMixin):
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
-        self.internal_name = f"_{name}"
 
     def __get__(self, instance: Any, owner: Any) -> list[int] | None:  # noqa: D105
         if instance is None:
             msg = f"The field `{self.name}` is not a class variable."
             raise AttributeError(msg)
-        return instance.__dict__[self.internal_name]
+        return instance.__dict__[self.name]
 
     def __set__(self, instance: Any, value: list[int] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, (list, type(None))):
             raise TypeError("Not а `list[int] | None` type!")
-        instance.__dict__[self.internal_name] = value
+        instance.__dict__[self.name] = value
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
