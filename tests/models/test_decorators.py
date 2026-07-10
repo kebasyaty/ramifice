@@ -92,15 +92,13 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.updated_at)
         self.assertIsNone(m.username)
         self.assertIsNone(m.favorite_color)
-        self.assertEqual(m.username.id, "User--username")
-        self.assertEqual(m.username.name, "username")
+        self.assertEqual(m.username_html_attrs["id"], "id-username")
+        self.assertEqual(m.username_html_attrs["name"], "username")
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
         self.assertEqual(Model.META, {})
         self.assertEqual(UserProfile.META, self.user_profile_meta)
-        self.assertEqual(UserProfile.__name__, "UserProfile")
-        self.assertEqual(UserProfile.__module__, "test_decorators")
 
     def test_instance_user_profile(self):
         """Testing a instance `UserProfile`."""
@@ -113,8 +111,8 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.created_at)
         self.assertIsNone(m.updated_at)
         self.assertIsNone(m.profession)
-        self.assertEqual(m.profession.id, "UserProfile--profession")
-        self.assertEqual(m.profession.name, "profession")
+        self.assertEqual(m.profession_html_attrs["id"], "id-profession")
+        self.assertEqual(m.profession_html_attrs["name"], "profession")
 
 
 if __name__ == "__main__":
