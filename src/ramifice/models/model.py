@@ -73,7 +73,7 @@ class Model:
         return f"{cls.__module__}.{cls.__name__}"
 
     def inject(self, metadata: dict[str, Any]) -> None:
-        """Injecting metadata from Model.META in params of fields."""
+        """Injecting metadata from Model.META into html-attributes of fields."""
         if bool(metadata):
             lang = translations.CURRENT_LOCALE
             field_attrs = metadata["field_attrs"]
