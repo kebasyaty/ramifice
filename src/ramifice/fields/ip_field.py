@@ -11,15 +11,12 @@ import ipaddress
 import logging
 from typing import Any
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class IPField(Field, TextGroup, JsonMixin):
+class IPField:
     """Field of Model for enter IP address.
 
     Agrs:

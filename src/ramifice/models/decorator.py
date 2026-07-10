@@ -113,6 +113,8 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     metadata["model_name"] = model_name
     metadata["full_model_name"] = f"{cls.__module__}.{model_name}"
     metadata["collection_name"] = f"{service_name}_{model_name}"
+    # Get descriptor fields.
+    descriptor_fields: list[str] = [name for name, obj in cls.__dict__.items() if "Field" in obj.__class__.__name__]
     # Get a dictionary of field names and types.
     # Format: <field_name, field_type>
     field_name_and_type: dict[str, str] = {}
@@ -120,8 +122,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     field_attrs: dict[str, dict[str, str]] = {}
     # Build data migration storage for dynamic fields.
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
-    # Count all fields.
-    count_all_fields: int = 0
     # Count fields for migrating.
     count_fields_no_ignored: int = 0
     # List of fields that support localization of translates.
@@ -139,8 +139,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     for f_name, f_data in fields.items():
         if not callable(f_data):
             f_type_str = f_data.__class__.__name__
-            # Count all fields.
-            count_all_fields += 1
             # Get attributes value for fields of Model: id, name.
             field_attrs[f_name] = {
                 "id": f"{model_name}--{f_name.replace('_', '-') if f_name != '_id' else 'id'}",
@@ -158,10 +156,11 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
                 if f_data.field_type == "TextField" and f_data.multi_language:
                     supported_lang_fields.append(f_name)
 
+    metadata["descriptor_fields"] = descriptor_fields
     metadata["field_name_and_type"] = field_name_and_type
     metadata["field_attrs"] = field_attrs
     metadata["data_dynamic_fields"] = data_dynamic_fields
-    metadata["count_all_fields"] = count_all_fields
+    metadata["count_descriptor_fields"] = len(descriptor_fields)
     metadata["count_fields_no_ignored"] = count_fields_no_ignored
     metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(supported_lang_fields)})":)')
 
