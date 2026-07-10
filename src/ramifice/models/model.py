@@ -74,7 +74,7 @@ class Model:
         return f"{cls.__module__}.{cls.__name__}"
 
     def inject(self, metadata: dict[str, Any]) -> None:
-        """Injecting metadata from Model.META into html-attributes of fields."""
+        """Update the state of dynamic fields from metadata of model."""
         if bool(metadata):
             lang = trans.CURRENT_LOCALE
             descriptor_fields = metadata["all_descriptor_fields"]
