@@ -147,7 +147,7 @@ class TextField:
         return instance.__dict__[self.name]
 
     def __set__(self, instance: Any, value: str | dict[str, str] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (str, type(None))):
+        if not isinstance(value, (str, dict, type(None))):
             raise TypeError("Not а `str | dict | None` type!")
         instance.__dict__[self.name] = value
         instance.__dict__[self.field_name_html_attrs]["value"] = value
