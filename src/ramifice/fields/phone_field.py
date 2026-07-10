@@ -12,15 +12,12 @@ from typing import Any
 
 import phonenumbers
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class PhoneField(Field, TextGroup, JsonMixin):
+class PhoneField:
     """Field of Model for enter phone number.
 
     Attention:

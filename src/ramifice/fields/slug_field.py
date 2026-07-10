@@ -10,15 +10,12 @@ __all__ = ("SlugField",)
 import logging
 from typing import Any
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class SlugField(Field, TextGroup, JsonMixin):
+class SlugField:
     """Field of Model for automatic generation of string `slug`.
 
     Convenient to use for Url addresses.

@@ -87,30 +87,23 @@ class IPField(Field, TextGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="IPField",
-            group="text",
-        )
-        TextGroup.__init__(
-            self,
-            input_type="text",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
-
-        self.default = default
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "text",
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": unique,
+            "field_type": "IPField",
+            "group": "text",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

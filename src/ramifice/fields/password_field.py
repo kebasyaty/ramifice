@@ -12,13 +12,12 @@ from typing import Any
 
 import orjson
 
-from ramifice.fields.general.field import Field
 from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
 
-class PasswordField(Field):
+class PasswordField:
     r"""Field of Model for enter password.
 
     Attention:
@@ -68,24 +67,19 @@ class PasswordField(Field):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=False,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="PasswordField",
-            group="pass",
-        )
-
-        self.input_type = "password"
-        self.value: str | None = None
-        self.placeholder = placeholder
-        self.required = required
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "password",
+            "value": None,
+            "placeholder": placeholder,
+            "hide": hide,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "field_type": "PasswordField",
+            "group": "pass",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name

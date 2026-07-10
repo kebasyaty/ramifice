@@ -12,15 +12,12 @@ from typing import Any
 
 from email_validator import EmailNotValidError, validate_email
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.text_group import TextGroup
 from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class EmailField(Field, TextGroup, JsonMixin):
+class EmailField:
     """Field of Model for enter email address.
 
     Agrs:
@@ -88,30 +85,23 @@ class EmailField(Field, TextGroup, JsonMixin):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="EmailField",
-            group="text",
-        )
-        TextGroup.__init__(
-            self,
-            input_type="email",
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
-
-        self.default = default
-        #
-        self.html_attrs: dict[str, Any] = {}
+        self.html_attrs: dict[str, Any] = {
+            "label": label,
+            "input_type": "email",
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "hide": hide,
+            "disabled": disabled,
+            "ignored": ignored,
+            "hint": hint,
+            "warning": warning,
+            "required": required,
+            "readonly": readonly,
+            "unique": unique,
+            "field_type": "EmailField",
+            "group": "text",
+        }
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
