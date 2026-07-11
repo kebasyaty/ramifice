@@ -1,0 +1,127 @@
+"""Testing the module `ramifice.models.model`."""
+
+from __future__ import annotations
+
+import unittest
+
+from ramifice import model
+from ramifice.fields import (
+    BooleanField,
+    ChoiceFloatDynField,
+    ChoiceFloatField,
+    ChoiceFloatMultDynField,
+    ChoiceFloatMultField,
+    ChoiceIntDynField,
+    ChoiceIntField,
+    ChoiceIntMultDynField,
+    ChoiceIntMultField,
+    ChoiceTextDynField,
+    ChoiceTextField,
+    ChoiceTextMultDynField,
+    ChoiceTextMultField,
+    ColorField,
+    DateField,
+    DateTimeField,
+    EmailField,
+    FileField,
+    FloatField,
+    IDField,
+    ImageField,
+    IntegerField,
+    IPField,
+    PasswordField,
+    PhoneField,
+    SlugField,
+    TextField,
+    URLField,
+)
+from ramifice.models.model import Model
+
+
+@model(service_name="Accounts")
+class User:
+    """Model for testing."""
+
+    url = URLField()
+    txt = TextField()
+    slug = SlugField()
+    phone = PhoneField()
+    password = PasswordField()
+    ip = IPField()
+    num_int = IntegerField()
+    num_float = FloatField()
+    img = ImageField()
+    hash2 = IDField()
+    file = FileField()
+    email = EmailField()
+    date_time = DateTimeField()
+    date = DateField()
+    color = ColorField()
+    bool = BooleanField()
+    choice_float_dyn = ChoiceFloatDynField()
+    choice_float = ChoiceFloatField()
+    choice_float_mult_dyn = ChoiceFloatMultDynField()
+    choice_float_mult = ChoiceFloatMultField()
+    choice_int_dyn = ChoiceIntDynField()
+    choice_int_mult_dyn = ChoiceIntMultDynField()
+    choice_int_mult = ChoiceIntMultField()
+    choice_txt_dyn = ChoiceTextDynField()
+    choice_txt = ChoiceTextField()
+    choice_txt_mult_dyn = ChoiceTextMultDynField()
+    choice_txt_mult = ChoiceTextMultField()
+    choice_int = ChoiceIntField()
+
+
+class TestModel(unittest.TestCase):
+    """Testing the module `ramifice.models.model`."""
+
+    def test_class_model(self):
+        """Testing a class `Model`."""
+        self.assertFalse(bool(Model.META))
+        self.assertEqual(Model.__name__, "Model")
+        self.assertEqual(Model.__module__, "ramifice.models.model")
+        self.assertIsNotNone(Model.__dict__.get("model_name"))
+        self.assertIsNotNone(Model.__dict__.get("full_model_name"))
+
+    def test_instance_model(self):
+        """Testing a instance `Model`."""
+        m = User()
+
+        self.assertEqual(m.model_name(), "User")
+        self.assertEqual(m.full_model_name(), "test_model.User")
+
+        self.assertIsNone(m.id)
+        self.assertIsNone(m.created_at)
+        self.assertIsNone(m.updated_at)
+        self.assertIsNone(m.url)
+        self.assertIsNone(m.txt)
+        self.assertIsNone(m.slug)
+        self.assertIsNone(m.phone)
+        self.assertIsNone(m.password)
+        self.assertIsNone(m.ip)
+        self.assertIsNone(m.num_int)
+        self.assertIsNone(m.num_float)
+        self.assertIsNone(m.img)
+        self.assertIsNone(m.hash2)
+        self.assertIsNone(m.file)
+        self.assertIsNone(m.email)
+        self.assertIsNone(m.date_time)
+        self.assertIsNone(m.date)
+        self.assertIsNone(m.color)
+        self.assertIsNone(m.bool)
+        self.assertIsNone(m.choice_float_dyn)
+        self.assertIsNone(m.choice_float)
+        self.assertIsNone(m.choice_float_mult_dyn)
+        self.assertIsNone(m.choice_float_mult)
+        self.assertIsNone(m.choice_int_dyn)
+        self.assertIsNone(m.choice_int_mult_dyn)
+        self.assertIsNone(m.choice_int_mult)
+        self.assertIsNone(m.choice_txt_dyn)
+        self.assertIsNone(m.choice_txt)
+        self.assertIsNone(m.choice_txt_mult_dyn)
+        self.assertIsNone(m.choice_txt_mult)
+        self.assertIsNone(m.choice_int)
+
+
+if __name__ == "__main__":
+    unittest.main()

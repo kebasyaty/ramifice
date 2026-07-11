@@ -54,14 +54,13 @@ class Model:
 
     def __init__(self) -> None:  # noqa: D107
         metadata = self.__class__.META
+        descriptor_fields = metadata["all_descriptor_fields"]
+        data_dynamic_fields = metadata["data_dynamic_fields"]
 
-        assert bool(metadata), "No metadata"
+        for f_name in descriptor_fields:
+            setattr(self, f_name, None)
 
-        for f_name in metadata["all_descriptor_fields"]:
-            tmp_name = f_name if f_name != "id" else "_id"
-            setattr(self, tmp_name, None)
-
-        self.inject(metadata)
+        self.inject(descriptor_fields, data_dynamic_fields)
 
     def __delattr__(self, name: str) -> None:
         """Blocked Deleter."""
@@ -76,13 +75,15 @@ class Model:
         cls = self.__class__
         return f"{cls.__module__}.{cls.__name__}"
 
-    def inject(self, metadata: dict[str, Any]) -> None:
+    def inject(
+        self,
+        descriptor_fields,
+        data_dynamic_fields,
+    ) -> None:
         """Update the state of dynamic fields from metadata of model."""
         lang = trans.CURRENT_LOCALE
-        descriptor_fields = metadata["all_descriptor_fields"]
-        data_dynamic_fields = metadata["data_dynamic_fields"]
         for f_name in descriptor_fields:
-            f_html_attrs = self.__dict__[f"{f_name}_html_attrs"]
+            f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:
                 dyn_data = data_dynamic_fields.get(f_name)
                 if dyn_data is not None:

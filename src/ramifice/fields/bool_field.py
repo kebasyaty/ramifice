@@ -79,9 +79,3 @@ class BooleanField(Field):
             "field_type": "BooleanField",
             "group": "bool",
         }
-
-    def __set__(self, instance: Any, value: bool | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (bool, type(None))):
-            raise TypeError("Not а `bool | None` type!")
-        instance.__dict__[self.name] = value
-        instance.__dict__[self.field_name_html_attrs]["value"] = value
