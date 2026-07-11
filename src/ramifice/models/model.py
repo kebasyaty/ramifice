@@ -58,8 +58,8 @@ class Model:
         assert bool(metadata), "No metadata"
 
         for f_name in metadata["all_descriptor_fields"]:
-            tmp = f_name if f_name != "id" else "_id"
-            self.__dict__[tmp] = None
+            tmp_name = f_name if f_name != "id" else "_id"
+            self.__dict__[tmp_name] = None
 
         self.inject(metadata)
 

@@ -109,7 +109,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
         logger.critical(msg)
         raise DoesNotMatchRegexError(regex_str)
     # All descriptor fields.
-    all_descriptor_fields: list[str] = []
+    all_descriptor_fields: list[str] = ["id", "created_at", "updated_at"]
     # Dictionary of field names and type names.
     # Format: <field_name, field_type>
     field_name_and_type: dict[str, str] = {}
