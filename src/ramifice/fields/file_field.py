@@ -18,6 +18,7 @@ from typing import Any
 from anyio import Path, open_file, to_thread
 from xloft.converters import to_human_size
 
+from ramifice.fields.field import Field
 from ramifice.utils import constants
 from ramifice.utils.constants import (
     MEDIA_ROOT,
@@ -29,7 +30,7 @@ from ramifice.utils.errors import FileHasNoExtensionError
 logger = logging.getLogger(__name__)
 
 
-class FileField:
+class FileField(Field):
     """Field of Model for upload file.
 
     Agrs:
@@ -98,6 +99,8 @@ class FileField:
                 logger.critical(str(err))
                 raise err
 
+        Field.__init__(self, supported_types=(dict, type(None)))
+
         self.html_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
@@ -119,29 +122,6 @@ class FileField:
             "field_type": "FileField",
             "group": "file",
         }
-
-    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
-        self.name = name
-        self.field_name_html_attrs = f"{name}_html_attrs"
-
-    def __get__(self, instance: Any, owner: Any) -> dict[str, str | int | bool] | None:  # noqa: D105
-        if instance is None:
-            msg = f"The field `{self.name}` is not a class variable."
-            raise AttributeError(msg)
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            name = self.name
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            instance.__dict__[field_name_html_attrs] = html_attrs
-        return instance.__dict__[self.name]
-
-    def __set__(self, instance: Any, value: dict[str, str | int | bool] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (str, type(None))):
-            raise TypeError("Not а `dict | None` type!")
-        instance.__dict__[self.name] = value
-        instance.__dict__[self.field_name_html_attrs]["value"] = value
 
     async def from_base64(
         self,

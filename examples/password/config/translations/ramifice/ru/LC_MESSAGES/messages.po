@@ -116,8 +116,8 @@ msgstr "Количество символов: от 8 до 256"
 
 #: src/ramifice/paladins/groups/text_group.py:51
 #, python-format
-msgid "The length of the string exceeds maxlength=%d !"
-msgstr "Длина строки превышает maxlength=%d !"
+msgid "The length of the string exceeds max_length=%d !"
+msgstr "Длина строки превышает max_length=%d !"
 
 #: src/ramifice/paladins/groups/text_group.py:72
 msgid "Invalid Email address !"

@@ -115,7 +115,7 @@ msgstr ""
 
 #: src/ramifice/paladins/groups/text_group.py:69
 #, python-brace-format
-msgid "The length of the string exceeds maxlength={} !"
+msgid "The length of the string exceeds max_length={} !"
 msgstr ""
 
 #: src/ramifice/paladins/groups/text_group.py:92

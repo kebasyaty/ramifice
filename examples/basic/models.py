@@ -44,7 +44,7 @@ class User:
         self.username = TextField(
             label=gettext("Username"),
             placeholder=gettext("Enter your username"),
-            maxlength=150,
+            max_length=150,
             required=True,
             unique=True,
             warning=[
@@ -55,14 +55,14 @@ class User:
             label=gettext("First name"),
             placeholder=gettext("Enter your First name"),
             multi_language=True,  # Support for several language.
-            maxlength=150,
+            max_length=150,
             required=True,
         )
         self.last_name = TextField(
             label=gettext("Last name"),
             placeholder=gettext("Enter your Last name"),
             multi_language=True,  # Support for several language.
-            maxlength=150,
+            max_length=150,
             required=True,
         )
         self.email = EmailField(

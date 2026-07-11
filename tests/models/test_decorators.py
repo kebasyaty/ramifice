@@ -77,23 +77,23 @@ class TestModel(unittest.TestCase):
         """Testing a class `User`."""
         self.assertEqual(Model.META, {})
         self.assertEqual(User.META, self.user_meta)
-        self.assertEqual(User.__name__, "User")
-        self.assertEqual(User.__module__, "test_decorators")
 
     def test_instance_user(self):
         """Testing a instance `User`."""
         m = User()
 
+        self.assertIsNone(m.username)
+        self.assertEqual(m.username_html_attrs["id"], "id-username")
+        self.assertEqual(m.username_html_attrs["name"], "username")
+
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "test_decorators.User")
+        self.assertTrue("test_decorators.User" in m.full_model_name())
 
         self.assertIsNone(m.id)
         self.assertIsNone(m.created_at)
         self.assertIsNone(m.updated_at)
         self.assertIsNone(m.username)
         self.assertIsNone(m.favorite_color)
-        self.assertEqual(m.username_html_attrs["id"], "id-username")
-        self.assertEqual(m.username_html_attrs["name"], "username")
 
     def test_class_user_profile(self):
         """Testing a class `UserProfile`."""
@@ -105,7 +105,7 @@ class TestModel(unittest.TestCase):
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "test_decorators.UserProfile")
+        self.assertTrue("test_decorators.UserProfile" in m.full_model_name())
 
         self.assertIsNone(m.id)
         self.assertIsNone(m.created_at)

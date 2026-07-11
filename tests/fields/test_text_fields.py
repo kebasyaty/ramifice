@@ -42,11 +42,11 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.required)
         self.assertFalse(f.readonly)
         self.assertFalse(f.unique)
-        self.assertEqual(f.maxlength, 256)
+        self.assertEqual(f.max_length, 256)
         # Exception checking:
         with self.assertRaises(AssertionError):
-            TextField(maxlength="256")
-        TextField(maxlength=512)
+            TextField(max_length="256")
+        TextField(max_length=512)
 
     def test_url_field(self):
         """Testing `URLField`."""

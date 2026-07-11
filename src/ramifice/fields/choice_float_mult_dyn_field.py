@@ -13,12 +13,13 @@ __all__ = ("ChoiceFloatMultDynField",)
 import logging
 from typing import Any
 
+from ramifice.fields.field import Field
 from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
 
-class ChoiceFloatMultDynField:
+class ChoiceFloatMultDynField(Field):
     """Field of Model.
 
     Type of selective float field with dynamic addition of elements.
@@ -70,6 +71,8 @@ class ChoiceFloatMultDynField:
                 logger.critical(str(err))
                 raise err
 
+        Field.__init__(self, supported_types=(list, type(None)))
+
         self.html_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
@@ -90,29 +93,6 @@ class ChoiceFloatMultDynField:
             "field_type": "ChoiceFloatMultDynField",
             "group": "choice",
         }
-
-    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
-        self.name = name
-        self.field_name_html_attrs = f"{name}_html_attrs"
-
-    def __get__(self, instance: Any, owner: Any) -> list[float] | None:  # noqa: D105
-        if instance is None:
-            msg = f"The field `{self.name}` is not a class variable."
-            raise AttributeError(msg)
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            name = self.name
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            instance.__dict__[field_name_html_attrs] = html_attrs
-        return instance.__dict__[self.name]
-
-    def __set__(self, instance: Any, value: list[float] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (list, type(None))):
-            raise TypeError("Not а `list[float] | None` type!")
-        instance.__dict__[self.name] = value
-        instance.__dict__[self.field_name_html_attrs]["value"] = value
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

@@ -23,6 +23,7 @@ __all__ = (
     "DateField",
     "DateTimeField",
     "EmailField",
+    "Field",
     "FileField",
     "FloatField",
     "IDField",
@@ -53,6 +54,7 @@ from ramifice.fields.color_field import ColorField
 from ramifice.fields.date_field import DateField
 from ramifice.fields.date_time_field import DateTimeField
 from ramifice.fields.email_field import EmailField
+from ramifice.fields.field import Field
 from ramifice.fields.file_field import FileField
 from ramifice.fields.float_field import FloatField
 from ramifice.fields.id_field import IDField

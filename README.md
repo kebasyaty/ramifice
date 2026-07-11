@@ -129,7 +129,7 @@ class User:
         )
         self.username = TextField(
             label=gettext("Username"),
-            maxlength=150,
+            max_length=150,
             required=True,
             unique=True,
             warning=[

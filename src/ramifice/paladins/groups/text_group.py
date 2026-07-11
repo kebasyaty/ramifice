@@ -65,12 +65,12 @@ class TextGroupMixin:
             if params["is_save"]:
                 params["result_map"][field_name] = None
             return
-        # Validation the `maxlength` field attribute.
-        maxlength: int | None = field.__dict__.get("maxlength")
-        if maxlength is not None and len(field) > maxlength:
+        # Validation the `max_length` field attribute.
+        max_length: int | None = field.__dict__.get("max_length")
+        if max_length is not None and len(field) > max_length:
             err_msg = translations._(
-                "The length of the string exceeds maxlength={} !",
-            ).format(maxlength)
+                "The length of the string exceeds max_length={} !",
+            ).format(max_length)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
         if field.unique and not await check_uniqueness(

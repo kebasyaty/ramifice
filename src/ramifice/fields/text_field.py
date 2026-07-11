@@ -10,12 +10,13 @@ __all__ = ("TextField",)
 import logging
 from typing import Any
 
+from ramifice.fields.field import Field
 from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
 
-class TextField:
+class TextField(Field):
     """Field of Model for enter text.
 
     Agrs:
@@ -31,7 +32,7 @@ class TextField:
         required: Required field.
         readonly: Specifies that the field cannot be modified by the user.
         unique: The unique value of a field in a collection.
-        maxlength: The maximum line length.
+        max_length: The maximum line length.
         multi_language: Is it need support for several languages.
     """
 
@@ -49,14 +50,14 @@ class TextField:
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
-        maxlength: int = 256,
+        max_length: int = 256,
         # Support for several language.
         multi_language: bool = False,
     ) -> None:
         if constants.DEBUG:
             try:  # noqa: PLW0717
-                if not isinstance(maxlength, int):
-                    raise AssertionError("Parameter `maxlength` - Not а `int` type!")
+                if not isinstance(max_length, int):
+                    raise AssertionError("Parameter `max_length` - Not а `int` type!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
                 if not isinstance(disabled, bool):
@@ -83,13 +84,15 @@ class TextField:
                     raise AssertionError("Parameter `textarea` - Not а `bool` type!")
                 if not isinstance(use_editor, bool):
                     raise AssertionError("Parameter `use_editor` - Not а `bool` type!")
-                if not isinstance(maxlength, int):
-                    raise AssertionError("Parameter `maxlength` - Not а `int` type!")
+                if not isinstance(max_length, int):
+                    raise AssertionError("Parameter `max_length` - Not а `int` type!")
                 if not isinstance(multi_language, bool):
                     raise AssertionError("Parameter `multi_language` - Not а `int` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
+
+        Field.__init__(self, supported_types=(str, dict, type(None)))
 
         self.html_attrs: dict[str, Any] = {
             "id": "",
@@ -108,7 +111,7 @@ class TextField:
             "unique": unique,
             "textarea": textarea,
             "use_editor": use_editor,
-            "maxlength": maxlength,
+            "max_length": max_length,
             "multi_language": multi_language,
             "errors": [],
             "field_type": "TextField",
@@ -128,34 +131,3 @@ class TextField:
                     count = tmp
             return count
         return 0
-
-    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
-        self.name = name
-        self.field_name_html_attrs = f"{name}_html_attrs"
-
-    def __get__(self, instance: Any, owner: Any) -> str | dict[str, str] | None:  # noqa: D105
-        if instance is None:
-            msg = f"The field `{self.name}` is not a class variable."
-            raise AttributeError(msg)
-        name = self.name
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            instance.__dict__[field_name_html_attrs] = html_attrs
-            instance.__dict__[name] = None
-        return instance.__dict__[name]
-
-    def __set__(self, instance: Any, value: str | dict[str, str] | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (str, dict, type(None))):
-            raise TypeError("Not а `str | dict | None` type!")
-        name = self.name
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            instance.__dict__[field_name_html_attrs] = html_attrs
-        instance.__dict__[name] = value
-        instance.__dict__[field_name_html_attrs]["value"] = value
