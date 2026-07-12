@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.types`."""
+"""Testing the module `ramifice.unit`."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from ramifice.unit import Unit
 
 
 class TestTypes(unittest.TestCase):
-    """Testing the module `ramifice.types`."""
+    """Testing the module `ramifice.unit`."""
 
     def test_unit(self):
         """Testing a class `Unit`."""
