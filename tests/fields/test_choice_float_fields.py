@@ -29,7 +29,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertIsNone(f.warning)
         self.assertEqual(f.errors, [])
         self.assertEqual(f.group, "choice")
-        self.assertIsNone(f.value)
+        self.assertIsNone(f.html_attrs["value"])
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
@@ -51,9 +51,9 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertTrue(f.has_value())
         f = ChoiceFloatField(choices=[[1.0, "Title"], [2.0, "Title 2"]])
         self.assertTrue(f.has_value())
-        f.value = 2.0
+        f.html_attrs["value"] = 2.0
         self.assertTrue(f.has_value())
-        f.value = 3.0
+        f.html_attrs["value"] = 3.0
         self.assertFalse(f.has_value())
 
     def test_choice_float_mult_field(self):
@@ -70,7 +70,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertIsNone(f.warning)
         self.assertEqual(f.errors, [])
         self.assertEqual(f.group, "choice")
-        self.assertIsNone(f.value)
+        self.assertIsNone(f.html_attrs["value"])
         self.assertIsNone(f.default)
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
@@ -98,11 +98,11 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(choices=[[1.0, "Title"], [2.0, "Title 2"]])
         self.assertTrue(f.has_value())
-        f.value = [2.0]
+        f.html_attrs["value"] = [2.0]
         self.assertTrue(f.has_value())
-        f.value = [3.0]
+        f.html_attrs["value"] = [3.0]
         self.assertFalse(f.has_value())
-        f.value = [2.0, 3.0]
+        f.html_attrs["value"] = [2.0, 3.0]
         self.assertFalse(f.has_value())
 
     def test_choice_float_dyn_field(self):
@@ -119,7 +119,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertIsNone(f.warning)
         self.assertEqual(f.errors, [])
         self.assertEqual(f.group, "choice")
-        self.assertIsNone(f.value)
+        self.assertIsNone(f.html_attrs["value"])
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
         self.assertFalse(f.required)
@@ -141,7 +141,7 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertIsNone(f.warning)
         self.assertEqual(f.errors, [])
         self.assertEqual(f.group, "choice")
-        self.assertIsNone(f.value)
+        self.assertIsNone(f.html_attrs["value"])
         self.assertEqual(f.placeholder, "")
         self.assertEqual(f.hint, "")
         self.assertFalse(f.required)
