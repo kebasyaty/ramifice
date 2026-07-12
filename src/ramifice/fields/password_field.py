@@ -80,6 +80,7 @@ class PasswordField(Field):
             "hide": hide,
             "ignored": ignored,
             "hint": hint,
+            "disabled": False,
             "warning": warning,
             "required": required,
             "errors": [],
