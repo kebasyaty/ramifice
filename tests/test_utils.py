@@ -1,4 +1,4 @@
-"""Testing the module `ramifice.utils.tools`."""
+"""Testing the module `ramifice.utils`."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ from ramifice.utils import (
 
 
 class TestTools(unittest.IsolatedAsyncioTestCase):
-    """Testing the module `ramifice.utils.tools`."""
+    """Testing the module `ramifice.utils`."""
 
     def test_is_password(self):
         """Testing a method `is_password`."""
