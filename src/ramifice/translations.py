@@ -116,7 +116,7 @@ class Translations:
         Returns:
             Object of translation for the desired language.
         """
-        return cls.ramifice_Translations.get(
+        return cls.ramifice_translations.get(
             lang_code,
             cls.ramifice_translations[cls.DEFAULT_LOCALE],
         )
@@ -138,7 +138,7 @@ class Translations:
         Returns:
             Object of translation for the desired language.
         """
-        return cls.custom_Translations.get(
+        return cls.custom_translations.get(
             lang_code,
             cls.custom_translations[cls.DEFAULT_LOCALE],
         )

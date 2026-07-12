@@ -14,7 +14,6 @@ import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
-from xloft import NamedTuple
 
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
@@ -195,14 +194,13 @@ class Model:
             self.__dict__[name].value = value
 
     # --------------------------------------------------------------------------
-    def get_clean_data(self) -> tuple[NamedTuple, NamedTuple]:
+    def get_error_map(self) -> dict[str, Any]:
         """Get clean data."""
-        clean_data: dict[str, Any] = {}
+        metadata = self.__class__.META
+        descriptor_fields = metadata["all_descriptor_fields"]
         error_map: dict[str, Any] = {}
 
-        for name, data in self.__dict__.items():
-            if not callable(data):
-                clean_data[name] = data.value
-                error_map[name] = None
+        for name in descriptor_fields:
+            error_map[name] = getattr(self, name)
 
-        return (NamedTuple(**clean_data), NamedTuple(**error_map))
+        return error_map

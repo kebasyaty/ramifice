@@ -123,7 +123,7 @@ class User:
         )
 
     # Optional method
-    async def add_validation(self) -> NamedTuple:
+    async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
         gettext = Translations.gettext
         cd, err = self.get_clean_data()
