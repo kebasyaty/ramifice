@@ -34,16 +34,12 @@ The project is more concentrated for web development or for applications with a 
 from __future__ import annotations
 
 __all__ = (
-    "NamedTuple",
     "to_human_size",
     "Migration",
     "model",
     "Translations",
     "Unit",
 )
-
-# pyrefly: ignore [missing-import]
-from xloft import NamedTuple
 
 # pyrefly: ignore [missing-import]
 from xloft.converters import to_human_size
