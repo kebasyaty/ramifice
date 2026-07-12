@@ -75,6 +75,9 @@ class User:
     choice_int = ChoiceIntField()
 
 
+Translations.init_params()
+
+
 class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
     """Testing `ramifice > commons > tools` module."""
 
