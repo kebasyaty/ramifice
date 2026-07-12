@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import unittest
 
+from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields import FileField, ImageField
-from ramifice.utils.errors import FileHasNoExtensionError
 
 
 class TestFileFields(unittest.IsolatedAsyncioTestCase):

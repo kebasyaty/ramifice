@@ -16,7 +16,7 @@ from typing import Any
 from babel.dates import format_date, format_datetime
 from bson import json_util
 
-from ramifice.utils import translations
+from ramifice.translations import Translations
 
 
 def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
@@ -24,7 +24,7 @@ def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
 
     Corrects `TextField` fields that require localization of translation.
     """
-    lang: str = translations.CURRENT_LOCALE
+    lang: str = Translations.CURRENT_LOCALE
     filter_json: str = json_util.dumps(filter)
     filter_json = cls_model.META["regex_mongo_filter"].sub(rf'\g<field>.{lang}":', filter_json).replace('":.', ".")
     return json_util.loads(filter_json)

@@ -15,8 +15,8 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ramifice.paladins.tools import accumulate_error, panic_type_error
-from ramifice.utils import translations
+from ramifice.paladins.utils import accumulate_error, panic_type_error
+from ramifice.translations import Translations
 
 
 class IDGroupMixin:
@@ -37,14 +37,14 @@ class IDGroupMixin:
 
         if value is None:
             if field.required:
-                err_msg = translations._("Required field !")
+                err_msg = Translations._("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
             return
         # Validation of the MongoDB identifier in a string form.
         if not ObjectId.is_valid(value):
-            err_msg = translations._("Invalid document ID !")
+            err_msg = Translations._("Invalid document ID !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:

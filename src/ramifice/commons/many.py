@@ -15,7 +15,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType
 from pymongo.results import DeleteResult
 
-from ramifice.commons.tools import (
+from ramifice.commons.utils import (
     correct_mongo_filter,
     mongo_doc_to_raw_doc,
     password_to_none,

@@ -13,7 +13,7 @@ __all__ = ("BoolGroupMixin",)
 
 from typing import Any
 
-from ramifice.paladins.tools import panic_type_error
+from ramifice.paladins.utils import panic_type_error
 
 
 class BoolGroupMixin:

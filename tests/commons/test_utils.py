@@ -6,8 +6,8 @@ import unittest
 
 from bson import ObjectId
 
-from ramifice import model, translations
-from ramifice.commons.tools import correct_mongo_filter
+from ramifice import Translations, model
+from ramifice.commons.utils import correct_mongo_filter
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -80,7 +80,7 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
 
     async def test_correct_mongo_filter(self):
         """Testing `correct_mongo_filter` methods."""
-        translations.change_locale("en")
+        Translations.change_locale("en")
         id = ObjectId("666f6f2d6261722d71757578")
         filter = {
             "txt": "John",

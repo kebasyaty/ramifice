@@ -21,7 +21,7 @@ async def main() -> None:
 
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
+    Translations.change_locale("en")
 
     user = User()
     user.username = "pythondev"

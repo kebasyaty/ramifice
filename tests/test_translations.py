@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice import model
+from ramifice import Translations, model
 from ramifice.fields import EmailField
-from ramifice.translations import Translations
 
 
 @model(service_name="Accounts")

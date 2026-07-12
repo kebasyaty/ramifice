@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice import model, translations
+from ramifice.translations import Translations
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -17,9 +17,9 @@ class Product:
 
     def fields(self) -> None:
         """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        ngettext = translations.ngettext
+        # For custom Translations.
+        gettext = Translations.gettext
+        ngettext = Translations.ngettext
         self.size_float = ChoiceFloatDynField(
             label=gettext("Size in float"),
         )

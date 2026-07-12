@@ -9,8 +9,8 @@ __all__ = ("Unit",)
 
 import logging
 
-from ramifice.utils.errors import PanicError
-from ramifice.utils.mixins import JsonMixin
+from ramifice.errors import PanicError
+from ramifice.mixins import JsonMixin
 
 logger = logging.getLogger(__name__)
 

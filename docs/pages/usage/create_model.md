@@ -28,9 +28,9 @@ class User:
 
     def fields(self) -> None:
         """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        # ngettext = translations.ngettext
+        # For custom Translations.
+        gettext = Translations.gettext
+        # ngettext = Translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             default="public/media/default/no-photo.png",
@@ -67,7 +67,7 @@ class User:
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = translations.gettext
+        gettext = Translations.gettext
         cd, err = self.get_clean_data()
 
         # Check username
@@ -91,7 +91,7 @@ async def main():
 
     # If you need to change the language of translation.
     # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
+    Translations.change_locale("en")
 
     user = User()
     # user.avatar.from_path("public/media/default/no-photo.png")

@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice import model, translations, to_human_size
+from ramifice.translations import Translations, to_human_size
 from ramifice.fields import FileField, ImageField
 
 
@@ -10,8 +10,8 @@ class User:
 
     def fields(self) -> None:
         """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
+        # For custom Translations.
+        gettext = Translations.gettext
 
         self.avatar = ImageField(
             label=gettext("Avatar"),

@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice import model, translations, to_human_size
+from ramifice.translations import Translations, to_human_size
 from ramifice.fields import (
     BooleanField,
     DateField,
@@ -22,9 +22,9 @@ class SiteParameters:
 
     def fields(self) -> None:
         """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        ngettext = translations.ngettext
+        # For custom Translations.
+        gettext = Translations.gettext
+        ngettext = Translations.ngettext
         self.logo = ImageField(
             label=gettext("Logo"),
             default="public/media/default/no-photo.png",

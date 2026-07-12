@@ -27,37 +27,26 @@ class Model:
     META: ClassVar[dict[str, Any]] = {}
 
     id = IDField(
-        # pyrefly: ignore [not-callable]
         label=trans._("Document ID"),
-        # pyrefly: ignore [not-callable]
         placeholder=trans._("It is added automatically"),
-        # pyrefly: ignore [not-callable]
         hint=trans._("It is added automatically"),
         hide=True,
         disabled=True,
     )
 
     created_at = DateTimeField(
-        # pyrefly: ignore [not-callable]
         label=trans._("Created at"),
-        # pyrefly: ignore [not-callable]
         placeholder=trans._("It is added automatically"),
-        # pyrefly: ignore [not-callable]
         hint=trans._("It is added automatically"),
-        # pyrefly: ignore [not-callable]
         warning=[trans._("When the document was created.")],
         hide=True,
         disabled=True,
     )
 
     updated_at = DateTimeField(
-        # pyrefly: ignore [not-callable]
         label=trans._("Updated at"),
-        # pyrefly: ignore [not-callable]
         placeholder=trans._("It is added automatically"),
-        # pyrefly: ignore [not-callable]
         hint=trans._("It is added automatically"),
-        # pyrefly: ignore [not-callable]
         warning=[trans._("When the document was updated.")],
         hide=True,
         disabled=True,

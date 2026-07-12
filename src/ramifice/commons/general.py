@@ -13,7 +13,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
 from pymongo.asynchronous.database import AsyncDatabase
 
-from ramifice.commons.tools import correct_mongo_filter
+from ramifice.commons.utils import correct_mongo_filter
 from ramifice.config import Config
 from ramifice.translations import Translations
 

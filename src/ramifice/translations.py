@@ -1,7 +1,7 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
-"""Localization of translations.
+"""Localization of Translations.
 
 The localization of translations class contains the following parameters:
 
@@ -36,6 +36,7 @@ __all__ = ("Translations",)
 import copy
 import gettext as _gettext
 import logging
+from collections.abc import Callable
 from gettext import NullTranslations
 from typing import Any, ClassVar, final
 
@@ -46,7 +47,7 @@ logger = logging.getLogger(__name__)
 
 @final
 class Translations:
-    """Localization of translations."""
+    """Localization of Translations."""
 
     # Language by default.
     DEFAULT_LOCALE: ClassVar[str] = "en"
@@ -55,10 +56,10 @@ class Translations:
     # List of supported languages.
     LANGUAGES: ClassVar[frozenset[str]] = frozenset(("en", "ru"))
     # The object of the current translation, for Ramifice.
-    _: ClassVar[Any | None] = None
+    _: ClassVar[Callable] = lambda _: _
     # The object of the current translation, for custom project.
-    gettext: ClassVar[Any | None] = None
-    ngettext: ClassVar[Any | None] = None
+    gettext: ClassVar[Callable] = lambda _: _
+    ngettext: ClassVar[Callable] = lambda _: _
 
     @classmethod
     def add_languages(
@@ -115,7 +116,7 @@ class Translations:
         Returns:
             Object of translation for the desired language.
         """
-        return cls.ramifice_translations.get(
+        return cls.ramifice_Translations.get(
             lang_code,
             cls.ramifice_translations[cls.DEFAULT_LOCALE],
         )
@@ -137,7 +138,7 @@ class Translations:
         Returns:
             Object of translation for the desired language.
         """
-        return cls.custom_translations.get(
+        return cls.custom_Translations.get(
             lang_code,
             cls.custom_translations[cls.DEFAULT_LOCALE],
         )

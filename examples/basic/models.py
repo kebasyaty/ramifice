@@ -22,9 +22,9 @@ class User:
 
     def fields(self) -> None:
         """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        # ngettext = translations.ngettext
+        # For custom Translations.
+        gettext = Translations.gettext
+        # ngettext = Translations.ngettext
         self.avatar = ImageField(
             label=gettext("Avatar"),
             placeholder=gettext("Upload your photo"),
@@ -125,7 +125,7 @@ class User:
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = translations.gettext
+        gettext = Translations.gettext
         cd, err = self.get_clean_data()
 
         # Check username

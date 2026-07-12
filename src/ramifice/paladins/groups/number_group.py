@@ -13,12 +13,12 @@ __all__ = ("NumberGroupMixin",)
 
 from typing import Any
 
-from ramifice.paladins.tools import (
+from ramifice.paladins.utils import (
     accumulate_error,
     check_uniqueness,
     panic_type_error,
 )
-from ramifice.utils import translations
+from ramifice.translations import Translations
 
 
 class NumberGroupMixin:
@@ -46,7 +46,7 @@ class NumberGroupMixin:
 
         if value is None:
             if field.required:
-                err_msg = translations._("Required field !")
+                err_msg = Translations._("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field_name] = None
@@ -54,20 +54,20 @@ class NumberGroupMixin:
         # Validation the `max_number` field attribute.
         max_number = field.max_number
         if max_number is not None and value > max_number:
-            err_msg = translations._(
+            err_msg = Translations._(
                 "The value {} must not be greater than max={} !",
             ).format(value, max_number)
             accumulate_error(err_msg, params)
         # Validation the `min_number` field attribute.
         min_number = field.min_number
         if min_number is not None and value < min_number:
-            err_msg = translations._(
+            err_msg = Translations._(
                 "The value {} must not be less than min={} !",
             ).format(value, min_number)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
         if field.unique and not await check_uniqueness(value, params, field_name):
-            err_msg = translations._("Is not unique !")
+            err_msg = Translations._("Is not unique !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:

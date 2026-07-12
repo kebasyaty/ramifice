@@ -15,7 +15,7 @@ from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice.config import Config
 from ramifice.errors import PanicError
-from ramifice.paladins.tools import ignored_fields_to_none, refresh_from_mongo_doc
+from ramifice.paladins.utils import ignored_fields_to_none, refresh_from_mongo_doc
 
 logger = logging.getLogger(__name__)
 

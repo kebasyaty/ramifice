@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import unittest
 
-from ramifice import NamedTuple, model, translations
+from ramifice import NamedTuple, Translations, model
 from ramifice.fields import TextField
 
 
@@ -29,7 +29,7 @@ class User2:
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = translations.gettext
+        gettext = Translations.gettext
         cd, err = self.get_clean_data()
 
         # Check username

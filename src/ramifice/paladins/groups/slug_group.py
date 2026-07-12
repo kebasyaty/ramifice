@@ -16,8 +16,8 @@ from typing import Any
 
 from slugify import slugify
 
-from ramifice.paladins.tools import check_uniqueness
-from ramifice.utils.errors import PanicError
+from ramifice.errors import PanicError
+from ramifice.paladins.utils import check_uniqueness
 
 logger = logging.getLogger(__name__)
 

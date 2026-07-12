@@ -16,11 +16,11 @@ from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ramifice.paladins.tools import (
+from ramifice.paladins.utils import (
     accumulate_error,
     panic_type_error,
 )
-from ramifice.utils import translations
+from ramifice.translations import Translations
 
 
 class DateGroupMixin:
@@ -41,7 +41,7 @@ class DateGroupMixin:
 
         if value is None:
             if field.required:
-                err_msg = translations._("Required field !")
+                err_msg = Translations._("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -54,29 +54,29 @@ class DateGroupMixin:
                 format_date(
                     date=value.date(),
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
             )
             max_date_str = (
                 format_date(
                     date=max_date.date(),
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=max_date,
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations._(
+            err_msg = Translations._(
                 "The date {} must not be greater than max={} !",
             ).format(value_str, max_date_str)
             accumulate_error(err_msg, params)
@@ -87,29 +87,29 @@ class DateGroupMixin:
                 format_date(
                     date=value.date(),
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
             )
             min_date_str = (
                 format_date(
                     date=min_date.date(),
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=min_date,
                     format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    locale=Translations.CURRENT_LOCALE,
                 )
             )
-            err_msg = translations._(
+            err_msg = Translations._(
                 "The date {} must not be less than min={} !",
             ).format(value_str, min_date_str)
             accumulate_error(err_msg, params)

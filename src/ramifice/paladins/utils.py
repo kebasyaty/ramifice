@@ -16,7 +16,8 @@ __all__ = (
 import logging
 from typing import Any
 
-from ramifice.utils import errors, translations
+from ramifice.errors import PanicError
+from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ def ignored_fields_to_none(inst_model: Any) -> None:
 
 def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
-    lang: str = translations.CURRENT_LOCALE
+    lang: str = Translations.CURRENT_LOCALE
     model_dict = inst_model.__dict__
     for name, data in mongo_doc.items():
         field = model_dict[name]
@@ -50,7 +51,7 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
     logger.critical(msg)
-    raise errors.PanicError(msg)
+    raise PanicError(msg)
 
 
 def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
@@ -66,7 +67,7 @@ def accumulate_error(err_msg: str, params: dict[str, Any]) -> None:
             + f" => {err_msg}"
         )
         logger.critical(msg)
-        raise errors.PanicError(msg)
+        raise PanicError(msg)
 
 
 async def check_uniqueness(
@@ -78,7 +79,7 @@ async def check_uniqueness(
     """Checking the uniqueness of the value in the collection."""
     q_filter = None
     if is_multi_language:
-        lang_filter = [{f"{field_name}.{lang}": value} for lang in translations.LANGUAGES]
+        lang_filter = [{f"{field_name}.{lang}": value} for lang in Translations.LANGUAGES]
         q_filter = {
             "$and": [
                 {"_id": {"$ne": params["doc_id"]}},
