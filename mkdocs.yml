@@ -145,7 +145,6 @@ nav:
       - One: pages/commons/one.md
       - Tools: pages/commons/tools.md
       - Unit Manager: pages/commons/unit_manager.md
-
   - Config: pages/config.md
   - Errors: pages/errors.md
   - Fixtures: pages/fixtures.md
