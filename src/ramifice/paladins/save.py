@@ -13,10 +13,9 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
+from ramifice.config import Config
+from ramifice.errors import PanicError
 from ramifice.paladins.tools import ignored_fields_to_none, refresh_from_mongo_doc
-from ramifice.utils import constants
-from ramifice.utils.constants import UTC_TIMEZONE
-from ramifice.utils.errors import PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,7 @@ class SaveMixin:
         """
         cls_model = self.__class__
         # Get collection.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)
         # Reset the alerts to exclude duplicates.
@@ -52,7 +51,7 @@ class SaveMixin:
         # Create or update a document in database.
         if result_check["is_update"]:
             # Update date and time.
-            checked_data["updated_at"] = datetime.now(UTC_TIMEZONE)
+            checked_data["updated_at"] = datetime.now(Config.UTC_TIMEZONE)
             # Run hook.
             await self.pre_update()
             # Update doc.
@@ -72,7 +71,7 @@ class SaveMixin:
             refresh_from_mongo_doc(self, mongo_doc)
         else:
             # Add date and time.
-            today = datetime.now(UTC_TIMEZONE)
+            today = datetime.now(Config.UTC_TIMEZONE)
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.

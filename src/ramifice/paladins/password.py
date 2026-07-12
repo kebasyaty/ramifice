@@ -14,8 +14,8 @@ from typing import Any
 from argon2 import PasswordHasher
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants
-from ramifice.utils.errors import OldPassNotMatchError, PanicError
+from ramifice.config import Config
+from ramifice.errors import OldPassNotMatchError, PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class PasswordMixin:
             logger.critical(msg)
             raise PanicError(msg)
         # Get collection for current Model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         if mongo_doc is None:
@@ -88,7 +88,7 @@ class PasswordMixin:
         # Get documet ID.
         doc_id = self._id.value
         # Get collection for current Model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Create hash of new passwor.
         ph = PasswordHasher()
         hash: str = ph.hash(new_password)

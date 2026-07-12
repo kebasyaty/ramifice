@@ -13,7 +13,7 @@ from typing import Any
 import orjson
 from bson.objectid import ObjectId
 
-from ramifice.utils import constants
+from ramifice.config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class IDField:
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

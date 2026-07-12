@@ -13,22 +13,18 @@ from ramifice.fields import TextField
 class User:
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.username = TextField(
-            required=True,
-        )
+    username = TextField(
+        required=True,
+    )
 
 
 @model(service_name="Accounts")
 class User2:
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.username = TextField(
-            required=True,
-        )
+    username = TextField(
+        required=True,
+    )
 
     # Optional method
     async def add_validation(self) -> NamedTuple:

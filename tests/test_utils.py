@@ -7,7 +7,7 @@ import unittest
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 
-from ramifice.utils.tools import (
+from ramifice.utils import (
     get_file_size,
     hash_to_obj_id,
     is_color,

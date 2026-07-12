@@ -15,8 +15,8 @@ from typing import Any
 from anyio import to_thread
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants
-from ramifice.utils.errors import ForbiddenDeleteDocError, PanicError
+from ramifice.config import Config
+from ramifice.errors import ForbiddenDeleteDocError, PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ class DeleteMixin:
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Delete document.
         mongo_doc: dict[str, Any] | None = {}
         mongo_doc = await collection.find_one_and_delete(

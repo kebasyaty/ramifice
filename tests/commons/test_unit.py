@@ -9,6 +9,8 @@ from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
 from ramifice import Migration, Unit, model
+from ramifice.config import Config
+from ramifice.errors import PanicError
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -17,22 +19,18 @@ from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextMultDynField,
 )
-from ramifice.utils import constants
-from ramifice.utils.errors import PanicError
 
 
 @model(service_name="Accounts")
 class User:
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.choice_float_dyn = ChoiceFloatDynField()
-        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
-        self.choice_int_dyn = ChoiceIntDynField()
-        self.choice_int_mult_dyn = ChoiceIntMultDynField()
-        self.choice_txt_dyn = ChoiceTextDynField()
-        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
+    choice_float_dyn = ChoiceFloatDynField()
+    choice_float_mult_dyn = ChoiceFloatMultDynField()
+    choice_int_dyn = ChoiceIntDynField()
+    choice_int_mult_dyn = ChoiceIntMultDynField()
+    choice_txt_dyn = ChoiceTextDynField()
+    choice_txt_mult_dyn = ChoiceTextMultDynField()
 
 
 class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
@@ -58,7 +56,7 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         #
         # HELLISH BURN
         # ----------------------------------------------------------------------
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": User.META["collection_name"]},

@@ -18,14 +18,9 @@ from typing import Any
 from anyio import Path, open_file, to_thread
 from xloft.converters import to_human_size
 
+from ramifice.config import Config
+from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields.field import Field
-from ramifice.utils import constants
-from ramifice.utils.constants import (
-    MEDIA_ROOT,
-    MEDIA_URL,
-    UTC_TIMEZONE,
-)
-from ramifice.utils.errors import FileHasNoExtensionError
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +62,7 @@ class ImageField(Field):
         # Available 4 sizes from lg to xs or None.
         thumbnails: dict[str, int] | None = None,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if default is not None:
                     if not isinstance(default, str):
@@ -180,12 +175,12 @@ class ImageField(Field):
                 if item[0] == 40:
                     break
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
+            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
             general_dir = str(uuid.uuid4())
             # Create path to target directory with images.
             imgs_dir_path = Path(
-                MEDIA_ROOT,
+                Config.MEDIA_ROOT,
                 "uploads",
                 self.target_dir,
                 date_str,
@@ -195,7 +190,7 @@ class ImageField(Field):
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)
             # Create url path to target directory with images.
-            imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
@@ -248,19 +243,19 @@ class ImageField(Field):
                 logger.error(msg)
                 raise FileHasNoExtensionError(msg)
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
+            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
             # Directory name for the original image and its thumbnails.
             general_dir = str(uuid.uuid4())
             # Create path to target directory with images.
             imgs_dir_path = Path(
-                MEDIA_ROOT,
+                Config.MEDIA_ROOT,
                 "uploads",
                 self.target_dir,
                 date_str,
                 general_dir,
             )
             # Create url path to target directory with images.
-            imgs_dir_url = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
             # Create target directory if it does not exist.
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)

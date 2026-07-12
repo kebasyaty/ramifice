@@ -10,8 +10,8 @@ __all__ = ("TextField",)
 import logging
 from typing import Any
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +54,7 @@ class TextField(Field):
         # Support for several language.
         multi_language: bool = False,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if not isinstance(max_length, int):
                     raise AssertionError("Parameter `max_length` - Not а `int` type!")

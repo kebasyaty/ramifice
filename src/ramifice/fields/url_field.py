@@ -11,8 +11,8 @@ import logging
 from typing import Any
 from urllib.parse import urlparse
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ class URLField(Field):
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if default is not None:
                     if not isinstance(default, str):

@@ -15,8 +15,9 @@ import orjson
 from babel.dates import format_datetime
 from dateutil.parser import parse
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants, translations
+from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +55,7 @@ class DateTimeField(Field):
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if max_date is not None and not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
@@ -121,7 +122,7 @@ class DateTimeField(Field):
     def to_dict(self) -> dict[str, Any]:
         """Convert object instance to a dictionary."""
         json_dict: dict[str, Any] = {}
-        current_locale = translations.CURRENT_LOCALE
+        current_locale = Translations.CURRENT_LOCALE
         for name, value in self.__dict__.items():
             if not callable(value):
                 if name == "value" and value is not None:

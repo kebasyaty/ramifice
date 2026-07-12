@@ -13,10 +13,10 @@ from pathlib import Path
 from typing import Any
 
 from ramifice.commons import QCommonsMixin
+from ramifice.config import Config
+from ramifice.errors import DoesNotMatchRegexError, PanicError
 from ramifice.models.model import Model
 from ramifice.paladins import QPaladinsMixin
-from ramifice.utils.constants import REGEX
-from ramifice.utils.errors import DoesNotMatchRegexError, PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +54,7 @@ def model(
         raise err
 
     def decorator(cls: Any) -> Any:
-        if REGEX["service_name"].match(service_name) is None:
+        if Config.REGEX["service_name"].match(service_name) is None:
             regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
             msg = f"Does not match the regular expression: {regex_str}"
             logger.critical(msg)
@@ -103,7 +103,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     """Add additional metadata to `Model.META`."""
     metadata: dict[str, Any] = {}
     model_name: str = cls.__name__
-    if REGEX["model_name"].match(model_name) is None:
+    if Config.REGEX["model_name"].match(model_name) is None:
         regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
         msg = f"Does not match the regular expression: {regex_str}"
         logger.critical(msg)

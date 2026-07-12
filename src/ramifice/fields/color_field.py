@@ -10,8 +10,8 @@ __all__ = ("ColorField",)
 import logging
 from typing import Any
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -54,14 +54,14 @@ class ColorField(Field):
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if default is not None:
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
                     if len(default) == 0:
                         raise AssertionError("The `default` parameter should not contain an empty string!")
-                    if constants.REGEX["color_code"].match(default) is None:
+                    if Config.REGEX["color_code"].match(default) is None:
                         raise AssertionError("Parameter `default` - Not а color code!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

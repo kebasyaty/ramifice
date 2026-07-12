@@ -28,12 +28,12 @@ import phonenumbers
 from bson.objectid import ObjectId
 from email_validator import EmailNotValidError, validate_email
 
-from ramifice.utils.constants import REGEX
+from ramifice.config import Config
 
 
 def is_password(password: str | None) -> bool:
     """Validate Password."""
-    return REGEX["password"].match(str(password)) is not None
+    return Config.REGEX["password"].match(str(password)) is not None
 
 
 async def get_file_size(path: str) -> int:
@@ -90,7 +90,7 @@ def is_ip(address: str | int | None) -> bool:
 
 def is_color(color_code: str | None) -> bool:
     """Validate Color code."""
-    return REGEX["color_code"].match(str(color_code)) is not None
+    return Config.REGEX["color_code"].match(str(color_code)) is not None
 
 
 def is_phone(number: str | None) -> bool:

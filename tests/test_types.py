@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice.utils.errors import PanicError
-from ramifice.utils.unit import Unit
+from ramifice.errors import PanicError
+from ramifice.unit import Unit
 
 
 class TestTypes(unittest.TestCase):

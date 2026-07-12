@@ -145,13 +145,12 @@ nav:
       - One: pages/commons/one.md
       - Tools: pages/commons/tools.md
       - Unit Manager: pages/commons/unit_manager.md
-  - Utils:
-      - Utils: pages/utils/index.md
-      - Constants: pages/utils/constants.md
-      - Errors: pages/utils/errors.md
-      - Fixtures: pages/utils/fixtures.md
-      - Migration: pages/utils/migration.md
-      - Mixins: pages/utils/mixins.md
-      - Tools: pages/utils/tools.md
-      - Translations: pages/utils/translations.md
-      - Unit: pages/utils/unit.md
+
+  - Config: pages/config.md
+  - Errors: pages/errors.md
+  - Fixtures: pages/fixtures.md
+  - Migration: pages/migration.md
+  - Mixins: pages/mixins.md
+  - Utils: pages/utils.md
+  - Translations: pages/translations.md
+  - Unit: pages/unit.md

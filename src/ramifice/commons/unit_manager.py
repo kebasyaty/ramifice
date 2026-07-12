@@ -15,13 +15,14 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants, translations
-from ramifice.utils.errors import (
+from ramifice.config import Config
+from ramifice.errors import (
     NotPossibleAddUnitError,
     NotPossibleDeleteUnitError,
     PanicError,
 )
-from ramifice.utils.unit import Unit
+from ramifice.translations import Translations
+from ramifice.unit import Unit
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ class UnitMixin:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             filter={"collection_name": cls.META["collection_name"]},
@@ -51,7 +52,7 @@ class UnitMixin:
             logger.critical(msg)
             raise PanicError(msg)
         # Get language list.
-        lang_list = translations.LANGUAGES
+        lang_list = Translations.LANGUAGES
         # Get clean fields of Unit.
         unit_field: str = unit.field
         title = unit.title
@@ -74,7 +75,7 @@ class UnitMixin:
         if not unit.is_delete:
             if choices is not None:
                 if is_unit_exists:
-                    main_lang = translations.DEFAULT_LOCALE
+                    main_lang = Translations.DEFAULT_LOCALE
                     msg = (
                         "Error: It is not possible to add Unit - "
                         + f"Unit `{title[main_lang]}: {target_value}` is exists!"
@@ -92,7 +93,7 @@ class UnitMixin:
                 logger.error(msg)
                 raise NotPossibleDeleteUnitError(msg)
             if not is_unit_exists:
-                main_lang = translations.DEFAULT_LOCALE
+                main_lang = Translations.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
                     + f"Unit `{title[main_lang]}: {target_value}` is not exists!"
@@ -110,7 +111,7 @@ class UnitMixin:
         cls.META["data_dynamic_fields"][unit_field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+            collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:

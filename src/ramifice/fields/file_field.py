@@ -18,14 +18,9 @@ from typing import Any
 from anyio import Path, open_file, to_thread
 from xloft.converters import to_human_size
 
+from ramifice.config import Config
+from ramifice.errors import FileHasNoExtensionError
 from ramifice.fields.field import Field
-from ramifice.utils import constants
-from ramifice.utils.constants import (
-    MEDIA_ROOT,
-    MEDIA_URL,
-    UTC_TIMEZONE,
-)
-from ramifice.utils.errors import FileHasNoExtensionError
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +59,7 @@ class FileField(Field):
         target_dir: str = "files",
         accept: str = "",  # Example: ".pdf,.doc,.docx,application/msword"
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if default is not None:
                     if not isinstance(default, str):
@@ -155,10 +150,10 @@ class FileField(Field):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
+            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
             # Create path to target directory.
             dir_target_path = Path(
-                MEDIA_ROOT,
+                Config.MEDIA_ROOT,
                 "uploads",
                 self.target_dir,
                 date_str,
@@ -174,7 +169,7 @@ class FileField(Field):
                 await open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = filename
             # Add file extension.
@@ -209,10 +204,10 @@ class FileField(Field):
             # Create new (uuid) file name.
             f_uuid_name = f"{uuid.uuid4()}{extension}"
             # Create the current date for the directory name.
-            date_str: str = str(datetime.now(UTC_TIMEZONE).date())
+            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
             # Create path to target directory.
             dir_target_path = Path(
-                MEDIA_ROOT,
+                Config.MEDIA_ROOT,
                 "uploads",
                 self.target_dir,
                 date_str,
@@ -226,7 +221,7 @@ class FileField(Field):
             await to_thread.run_sync(copyfile, src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = Path(src_path).name
             # Add file extension.

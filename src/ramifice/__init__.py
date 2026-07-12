@@ -36,9 +36,9 @@ from __future__ import annotations
 __all__ = (
     "NamedTuple",
     "to_human_size",
-    "model",
-    "translations",
     "Migration",
+    "model",
+    "Translations",
     "Unit",
 )
 
@@ -48,7 +48,7 @@ from xloft import NamedTuple
 # pyrefly: ignore [missing-import]
 from xloft.converters import to_human_size
 
+from ramifice.migration import Migration
 from ramifice.models.decorator import model
-from ramifice.utils import translations
-from ramifice.utils.migration import Migration
-from ramifice.utils.unit import Unit
+from ramifice.translations import Translations
+from ramifice.unit import Unit

@@ -19,15 +19,15 @@ from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
-from ramifice.models.model import Model
-from ramifice.utils import constants
-from ramifice.utils.constants import UTC_TIMEZONE
-from ramifice.utils.errors import (
+from ramifice.config import Config
+from ramifice.errors import (
     DoesNotMatchRegexError,
     NoModelsForMigrationError,
     PanicError,
 )
-from ramifice.utils.fixtures import apply_fixture
+from ramifice.fixtures import apply_fixture
+from ramifice.models.model import Model
+from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -36,18 +36,16 @@ class Migration:
     """Migration of models to database."""
 
     def __init__(self, database_name: str, mongo_client: AsyncMongoClient) -> None:  # noqa: D107
-        constants.DEBUG = False
-        #
-        db_name_regex = constants.REGEX["database_name"]
+        db_name_regex = Config.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
             regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
             msg: str = f"Does not match the regular expression: {regex_str}"
             logger.critical(msg)
             raise DoesNotMatchRegexError(regex_str)
         #
-        constants.DATABASE_NAME = database_name
-        constants.MONGO_CLIENT = mongo_client
-        constants.MONGO_DATABASE = constants.MONGO_CLIENT[constants.DATABASE_NAME]
+        Config.DATABASE_NAME = database_name
+        Config.MONGO_CLIENT = mongo_client
+        Config.MONGO_DATABASE = Config.MONGO_CLIENT[Config.DATABASE_NAME]
         # Get Model list.
         self.model_list: list[Any] = Model.__subclasses__()
         # Raise the exception if there are no models for migration.
@@ -62,7 +60,7 @@ class Migration:
         """
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Switch the `is_model_exist` parameter in `False`.
         async for model_state in super_collection.find():
             q_filter = {"collection_name": model_state["collection_name"]}
@@ -73,7 +71,7 @@ class Migration:
         """Get the state of the current model from a super collection."""
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Get state of current Model.
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": metadata["collection_name"]},
@@ -105,10 +103,10 @@ class Migration:
         delete collections associated with those Models.
         """  # noqa: D205
         # Get access to database.
-        database = constants.MONGO_DATABASE
+        database = Config.MONGO_DATABASE
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Delete data for non-existent Models.
         async for model_state in super_collection.find():
             if model_state["is_model_exist"] is False:
@@ -130,9 +128,9 @@ class Migration:
         # Switch the `is_model_exist` parameter in the condition `False`.
         await self.reset()
         # Get access to database.
-        database = constants.MONGO_DATABASE
+        database = Config.MONGO_DATABASE
         # Get access to super collection.
-        super_collection: AsyncCollection = database[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = database[Config.SUPER_COLLECTION_NAME]
         #
         for cls_model in self.model_list:
             # Get metadata of current Model.
@@ -191,7 +189,7 @@ class Migration:
                         ):
                             checked_data[field_name] = mongo_doc[field_name]
                     # Update date and time.
-                    checked_data["updated_at"] = datetime.now(UTC_TIMEZONE)
+                    checked_data["updated_at"] = datetime.now(Config.UTC_TIMEZONE)
                     # Update the document in the database.
                     await model_collection.replace_one(
                         filter={"_id": checked_data["_id"]},
@@ -212,9 +210,6 @@ class Migration:
                 replacement=model_state,
             )
         #
-        # Block the verification code.
-        constants.DEBUG = False
-        #
         # Delete data for non-existent Models from a
         # super collection and delete collections associated with those Models.
         await self.napalm()
@@ -225,10 +220,15 @@ class Migration:
             # Apply fixture to current Model.
             fixture_name: str | None = cls_model.META["fixture_name"]
             if fixture_name is not None:
-                collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+                collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
                 if await collection.estimated_document_count() == 0:
                     await apply_fixture(
                         fixture_name=fixture_name,
                         cls_model=cls_model,
                         collection=collection,
                     )
+        #
+        # Initializing localization parameters
+        Translations.init_params()
+        # Block the verification code.
+        Config.DEBUG = False

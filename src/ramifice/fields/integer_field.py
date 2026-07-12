@@ -10,8 +10,8 @@ __all__ = ("IntegerField",)
 import logging
 from typing import Any, Literal
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ class IntegerField(Field):
         step: int = 1,
         input_type: Literal["number", "range"] = "number",
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if input_type not in ["number", "range"]:
                     raise AssertionError(

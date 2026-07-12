@@ -1,38 +1,27 @@
-"""Testing the module `ramifice.utils.constants`."""
+"""Testing the module `ramifice.config`."""
 
 from __future__ import annotations
 
 import re
 import unittest
 
-from ramifice.utils.constants import (
-    DATABASE_NAME,
-    DEBUG,
-    MEDIA_ROOT,
-    MEDIA_URL,
-    MONGO_CLIENT,
-    MONGO_DATABASE,
-    REGEX,
-    STATIC_ROOT,
-    STATIC_URL,
-    SUPER_COLLECTION_NAME,
-)
+from ramifice.config import Config
 
 
-class TestConstants(unittest.TestCase):
-    """Testing the module `ramifice.utils.constants`."""
+class TestConfig(unittest.TestCase):
+    """Testing the module `ramifice.config`."""
 
     def test_values_by_default(self):
         """Testing a values by default."""
-        self.assertTrue(DEBUG)
-        self.assertIsNone(MONGO_CLIENT)
-        self.assertIsNone(MONGO_DATABASE)
-        self.assertIsNone(DATABASE_NAME)
-        self.assertEqual(SUPER_COLLECTION_NAME, "SUPER_COLLECTION")
-        self.assertEqual(MEDIA_ROOT, "public/media")
-        self.assertEqual(MEDIA_URL, "/media")
-        self.assertEqual(STATIC_ROOT, "public/static")
-        self.assertEqual(STATIC_URL, "/static")
+        self.assertTrue(Config.DEBUG)
+        self.assertIsNone(Config.MONGO_CLIENT)
+        self.assertIsNone(Config.MONGO_DATABASE)
+        self.assertIsNone(Config.DATABASE_NAME)
+        self.assertEqual(Config.SUPER_COLLECTION_NAME, "SUPER_COLLECTION")
+        self.assertEqual(Config.MEDIA_ROOT, "public/media")
+        self.assertEqual(Config.MEDIA_URL, "/media")
+        self.assertEqual(Config.STATIC_ROOT, "public/static")
+        self.assertEqual(Config.STATIC_URL, "/static")
         regex = {
             "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),
             "service_name": re.compile(r"^[A-Z][a-zA-Z0-9]{0,24}$"),
@@ -45,11 +34,11 @@ class TestConstants(unittest.TestCase):
                 r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$',
             ),
         }
-        self.assertEqual(REGEX, regex)
+        self.assertEqual(Config.REGEX, regex)
 
     def test_regex_database_name(self):
         """Testing a regular expression for `database_name`."""
-        p = REGEX["database_name"]
+        p = Config.REGEX["database_name"]
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match("Database Name"))
@@ -75,7 +64,7 @@ class TestConstants(unittest.TestCase):
 
     def test_regex_service_name(self):
         """Testing a regular expression for `service_name`."""
-        p = REGEX["service_name"]
+        p = Config.REGEX["service_name"]
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match("Auto parts"))
@@ -93,7 +82,7 @@ class TestConstants(unittest.TestCase):
 
     def test_regex_model_name(self):
         """Testing a regular expression for `model_name`."""
-        p = REGEX["model_name"]
+        p = Config.REGEX["model_name"]
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match("360"))
@@ -112,7 +101,7 @@ class TestConstants(unittest.TestCase):
 
     def test_regex_color_code(self):
         """Testing a regular expression for `color_code`."""
-        p = REGEX["color_code"]
+        p = Config.REGEX["color_code"]
         # Negative:
         self.assertIsNone(p.match(""))
         self.assertIsNone(p.match("#f2ewq"))
@@ -146,7 +135,7 @@ class TestConstants(unittest.TestCase):
 
     def test_regex_password(self):
         """Testing a regular expression for `password`."""
-        p = REGEX["password"]
+        p = Config.REGEX["password"]
         digits = "0123456789"  # noqa: FURB156
         ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"  # noqa: FURB156
         ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # noqa: FURB156

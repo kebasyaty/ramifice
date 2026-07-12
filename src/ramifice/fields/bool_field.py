@@ -10,8 +10,8 @@ __all__ = ("BooleanField",)
 import logging
 from typing import Any
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class BooleanField(Field):
         hint: str = "",
         warning: list[str] | None = None,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if default is not None and not isinstance(default, bool):
                     raise AssertionError("Parameter `default` - Not а `bool` type!")

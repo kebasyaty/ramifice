@@ -16,6 +16,7 @@ from anyio import to_thread
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
 
+from ramifice.config import Config
 from ramifice.paladins.groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -28,7 +29,6 @@ from ramifice.paladins.groups import (
     SlugGroupMixin,
     TextGroupMixin,
 )
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +73,7 @@ class CheckMixin(
         error_map: dict[str, str] = await self.add_validation()
         # Get Model collection.
         if collection is None:
-            collection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+            collection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,

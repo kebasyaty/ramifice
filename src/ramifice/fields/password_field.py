@@ -12,8 +12,8 @@ from typing import Any
 
 import orjson
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ class PasswordField(Field):
         warning: list[str] | None = None,
         required: bool = False,
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

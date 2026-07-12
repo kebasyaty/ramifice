@@ -14,10 +14,8 @@ from ramifice.fields import PasswordField
 class User:
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.password = PasswordField()
-        self.password_2 = PasswordField()
+    password = PasswordField()
+    password_2 = PasswordField()
 
 
 class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):

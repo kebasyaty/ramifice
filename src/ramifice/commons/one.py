@@ -18,8 +18,9 @@ from ramifice.commons.tools import (
     mongo_doc_to_raw_doc,
     password_to_none,
 )
-from ramifice.utils import constants, translations
-from ramifice.utils.errors import ForbiddenDeleteDocError
+from ramifice.config import Config
+from ramifice.errors import ForbiddenDeleteDocError
+from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +37,7 @@ class OneMixin:
     ) -> dict[str, Any] | None:
         """Get a single document from the database."""
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -58,7 +59,7 @@ class OneMixin:
     ) -> dict[str, Any] | None:
         """Find a single document and converting to raw document."""
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -70,7 +71,7 @@ class OneMixin:
             raw_doc = mongo_doc_to_raw_doc(
                 inst_model_dict,
                 mongo_doc,
-                translations.CURRENT_LOCALE,
+                Translations.CURRENT_LOCALE,
             )
         return raw_doc
 
@@ -83,7 +84,7 @@ class OneMixin:
     ) -> Any | None:
         """Find a single document and convert it to a Model instance."""
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -104,7 +105,7 @@ class OneMixin:
     ) -> str | None:
         """Find a single document and convert it to a JSON string."""
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -138,7 +139,7 @@ class OneMixin:
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)
@@ -176,7 +177,7 @@ class OneMixin:
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter)

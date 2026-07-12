@@ -13,8 +13,8 @@ __all__ = ("ChoiceFloatMultField",)
 import logging
 from typing import Any
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +76,7 @@ class ChoiceFloatMultField(Field):
             "group": "choice",
         }
 
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if choices is not None:
                     if not isinstance(choices, list):

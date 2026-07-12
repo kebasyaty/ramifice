@@ -10,8 +10,8 @@ __all__ = ("SlugField",)
 import logging
 from typing import Any
 
+from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ class SlugField(Field):
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],  # noqa: B006
     ) -> None:
-        if constants.DEBUG:
+        if Config.DEBUG:
             try:  # noqa: PLW0717
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `default` - Not а `str` type!")

@@ -9,6 +9,7 @@ from pymongo import AsyncMongoClient
 from pymongo.results import DeleteResult
 
 from ramifice import Migration, model
+from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -39,44 +40,41 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.utils.constants import UTC_TIMEZONE
 
 
 @model(service_name="Accounts")
 class User:
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.url = URLField()
-        self.txt = TextField()
-        self.txt2 = TextField(multi_language=True)
-        self.slug = SlugField()
-        self.phone = PhoneField()
-        self.password = PasswordField()
-        self.ip = IPField()
-        self.num_int = IntegerField()
-        self.num_float = FloatField()
-        self.img = ImageField()
-        self.hash2 = IDField()
-        self.file = FileField()
-        self.email = EmailField()
-        self.date_time = DateTimeField()
-        self.date = DateField()
-        self.color = ColorField()
-        self.bool = BooleanField()
-        self.choice_float_dyn = ChoiceFloatDynField()
-        self.choice_float = ChoiceFloatField()
-        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
-        self.choice_float_mult = ChoiceFloatMultField()
-        self.choice_int_dyn = ChoiceIntDynField()
-        self.choice_int_mult_dyn = ChoiceIntMultDynField()
-        self.choice_int_mult = ChoiceIntMultField()
-        self.choice_txt_dyn = ChoiceTextDynField()
-        self.choice_txt = ChoiceTextField()
-        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
-        self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
+    url = URLField()
+    txt = TextField()
+    txt2 = TextField(multi_language=True)
+    slug = SlugField()
+    phone = PhoneField()
+    password = PasswordField()
+    ip = IPField()
+    num_int = IntegerField()
+    num_float = FloatField()
+    img = ImageField()
+    hash2 = IDField()
+    file = FileField()
+    email = EmailField()
+    date_time = DateTimeField()
+    date = DateField()
+    color = ColorField()
+    bool = BooleanField()
+    choice_float_dyn = ChoiceFloatDynField()
+    choice_float = ChoiceFloatField()
+    choice_float_mult_dyn = ChoiceFloatMultDynField()
+    choice_float_mult = ChoiceFloatMultField()
+    choice_int_dyn = ChoiceIntDynField()
+    choice_int_mult_dyn = ChoiceIntMultDynField()
+    choice_int_mult = ChoiceIntMultField()
+    choice_txt_dyn = ChoiceTextDynField()
+    choice_txt = ChoiceTextField()
+    choice_txt_mult_dyn = ChoiceTextMultDynField()
+    choice_txt_mult = ChoiceTextMultField()
+    choice_int = ChoiceIntField()
 
 
 class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
@@ -103,8 +101,8 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # HELLISH BURN
         # ----------------------------------------------------------------------
         m = User()
-        m.date = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
-        m.date_time = datetime.datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
+        m.date = datetime.datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)
+        m.date_time = datetime.datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)
 
         if not await m.save():
             m.print_err()
