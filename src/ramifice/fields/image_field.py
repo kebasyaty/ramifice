@@ -182,7 +182,7 @@ class ImageField(Field):
             imgs_dir_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.target_dir,
+                self.html_attrs["target_dir"],
                 date_str,
                 general_dir,
             )
@@ -190,7 +190,7 @@ class ImageField(Field):
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)
             # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.html_attrs['target_dir']}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
@@ -221,8 +221,8 @@ class ImageField(Field):
             # Examples: 200 bytes | 1 KB | 1.5 MB.
             img_info["human_size"] = to_human_size(img_info["size"])
         #
-        # to value.
-        self.value = img_info
+        # result to value
+        self.html_attrs["value"] = img_info
 
     async def from_path(
         self,
@@ -250,12 +250,12 @@ class ImageField(Field):
             imgs_dir_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.target_dir,
+                self.html_attrs["target_dir"],
                 date_str,
                 general_dir,
             )
             # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.html_attrs['target_dir']}/{date_str}/{general_dir}"
             # Create target directory if it does not exist.
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)
@@ -287,5 +287,5 @@ class ImageField(Field):
             # Examples: 200 bytes | 1 KB | 1.5 MB.
             img_info["human_size"] = to_human_size(img_info["size"])
         #
-        # to value.
-        self.value = img_info
+        # result to value
+        self.html_attrs["value"] = img_info
