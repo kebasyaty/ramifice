@@ -120,7 +120,7 @@ class TextField(Field):
 
     def __len__(self) -> int:
         """Return length of field `value`."""
-        value = self.value
+        value = self.html_attrs["value"]
         if isinstance(value, str):
             return len(value)
         if isinstance(value, dict):

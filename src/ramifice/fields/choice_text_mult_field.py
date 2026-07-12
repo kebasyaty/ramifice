@@ -116,11 +116,11 @@ class ChoiceTextMultField(Field):
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""
-        value = self.value
+        value = self.html_attrs["value"]
         if value is None:
-            value = self.default
+            value = self.html_attrs["default"]
         if value is not None:
-            choices = self.choices
+            choices = self.html_attrs["choices"]
             if len(value) == 0 or not bool(choices):
                 return False
             value_list = [item[0] for item in choices]  # type: ignore[union-attr]
