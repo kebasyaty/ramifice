@@ -34,6 +34,7 @@ class TestTranslations(unittest.TestCase):
         self.assertEqual(Translations._("Document ID"), "Document ID")
         self.assertIsNotNone(Translations.gettext)
         self.assertEqual(Translations.gettext("Document ID"), "Document ID")
+
         Translations.change_locale("ru")
         self.assertEqual(Translations._("Document ID"), "Идентификатор документа")
 
