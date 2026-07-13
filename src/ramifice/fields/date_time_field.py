@@ -11,13 +11,8 @@ import logging
 from datetime import datetime
 from typing import Any
 
-import orjson
-from babel.dates import format_datetime
-from dateutil.parser import parse
-
 from ramifice.config import Config
 from ramifice.fields.field import Field
-from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -116,40 +111,3 @@ class DateTimeField(Field):
             "field_type": "DateTimeField",
             "group": "date",
         }
-
-    def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
-        json_dict: dict[str, Any] = {}
-        current_locale = Translations.CURRENT_LOCALE
-        for name, value in self.__dict__.items():
-            if not callable(value):
-                if name == "value" and value is not None:
-                    json_dict[name] = format_datetime(
-                        datetime=value,
-                        format="short",
-                        locale=current_locale,
-                    )
-                else:
-                    json_dict[name] = value
-        return json_dict
-
-    def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
-        return orjson.dumps(self.to_dict()).decode("utf-8")
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, value in json_dict.items():
-            if name == "value" and value is not None:
-                obj.__dict__[name] = parse(value)
-            else:
-                obj.__dict__[name] = value
-        return obj
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
-        json_dict = orjson.loads(json_str)
-        return cls.from_dict(json_dict)

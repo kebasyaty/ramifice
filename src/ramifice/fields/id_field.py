@@ -10,7 +10,6 @@ __all__ = ("IDField",)
 import logging
 from typing import Any
 
-import orjson
 from bson.objectid import ObjectId
 
 from ramifice.config import Config
@@ -131,35 +130,3 @@ class IDField:
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value
-
-    def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
-        json_dict: dict[str, Any] = {}
-        for name, data in self.__dict__.items():
-            if not callable(data):
-                if name == "value" and data is not None:
-                    json_dict[name] = str(data)
-                else:
-                    json_dict[name] = data
-        return json_dict
-
-    def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
-        return orjson.dumps(self.to_dict()).decode("utf-8")
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            if name == "value" and data is not None:
-                obj.__dict__[name] = ObjectId(data)
-            else:
-                obj.__dict__[name] = data
-        return obj
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
-        json_dict = orjson.loads(json_str)
-        return cls.from_dict(json_dict)
