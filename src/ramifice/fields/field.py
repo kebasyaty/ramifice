@@ -9,6 +9,8 @@ __all__ = ("Field",)
 
 from typing import Any
 
+from ramifice.translations import Translations as trans
+
 
 class Field:
     """The main descriptor class for field types.
@@ -43,6 +45,9 @@ class Field:
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
+            html_attrs["label"] = trans._(html_attrs.get("label", ""))
+            html_attrs["placeholder"] = trans._(html_attrs.get("placeholder", ""))
+            html_attrs["hint"] = trans._(html_attrs.get("hint", ""))
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value

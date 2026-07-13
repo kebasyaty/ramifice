@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice import model
+from ramifice import Translations, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -72,6 +72,9 @@ class User:
     choice_int = ChoiceIntField()
 
 
+Translations.init_params()
+
+
 class TestModel(unittest.TestCase):
     """Testing the module `ramifice.models.model`."""
 
@@ -85,10 +88,29 @@ class TestModel(unittest.TestCase):
 
     def test_instance_model(self):
         """Testing a instance `Model`."""
+        Translations.change_locale("ru")
         m = User()
 
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "test_model.User")
+
+        self.assertEqual(m.id_html_attrs["label"], "Идентификатор документа")
+        self.assertEqual(m.id_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(m.id_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertTrue(m.id_html_attrs["hide"])
+        self.assertTrue(m.id_html_attrs["disabled"])
+
+        self.assertEqual(m.created_at_html_attrs["label"], "Создан")
+        self.assertEqual(m.created_at_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(m.created_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertTrue(m.created_at_html_attrs["hide"])
+        self.assertTrue(m.created_at_html_attrs["disabled"])
+
+        self.assertEqual(m.updated_at_html_attrs["label"], "Обновлен")
+        self.assertEqual(m.updated_at_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(m.updated_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertTrue(m.updated_at_html_attrs["hide"])
+        self.assertTrue(m.updated_at_html_attrs["disabled"])
 
         self.assertIsNone(m.id)
         self.assertIsNone(m.created_at)

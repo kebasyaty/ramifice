@@ -71,13 +71,11 @@ class DateTimeField(Field):
                     if min_date is not None and default < min_date:
                         raise AssertionError("Parameter `default` is less `min_date`!")
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
                 if not isinstance(hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(ignored, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):

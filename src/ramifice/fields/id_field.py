@@ -14,6 +14,7 @@ import orjson
 from bson.objectid import ObjectId
 
 from ramifice.config import Config
+from ramifice.translations import Translations as trans
 
 logger = logging.getLogger(__name__)
 
@@ -50,13 +51,11 @@ class IDField:
         if Config.DEBUG:
             try:  # noqa: PLW0717
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
                 if not isinstance(hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(ignored, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
@@ -116,6 +115,9 @@ class IDField:
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
+            html_attrs["label"] = trans._(html_attrs["label"])
+            html_attrs["placeholder"] = trans._(html_attrs["placeholder"])
+            html_attrs["hint"] = trans._(html_attrs["hint"])
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value
