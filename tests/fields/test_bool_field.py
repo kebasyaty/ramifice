@@ -21,7 +21,7 @@ class TestBooleanField(unittest.TestCase):
         self.assertFalse(f.html_attrs["disabled"])
         self.assertFalse(f.html_attrs["hide"])
         self.assertFalse(f.html_attrs["ignored"])
-        self.assertIsNone(f.html_attrs["warning"])
+        self.assertEqual(len(f.html_attrs["warning"]), 0)
         self.assertEqual(f.html_attrs["errors"], [])
         self.assertEqual(f.html_attrs["group"], "bool")
         self.assertEqual(f.html_attrs["input_type"], "checkbox")

@@ -21,7 +21,7 @@ class TestHashField(unittest.TestCase):
         self.assertFalse(f.html_attrs["disabled"])
         self.assertFalse(f.html_attrs["hide"])
         self.assertFalse(f.html_attrs["ignored"])
-        self.assertIsNone(f.html_attrs["warning"])
+        self.assertEqual(len(f.html_attrs["warning"]), 0)
         self.assertEqual(f.html_attrs["errors"], [])
         self.assertEqual(f.html_attrs["alerts"], [])
         self.assertEqual(f.html_attrs["group"], "id")
