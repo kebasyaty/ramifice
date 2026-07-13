@@ -4,15 +4,14 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice import Translations, model
-from ramifice.fields import EmailField
+from ramifice import Translations, fields, model
 
 
 @model(service_name="Accounts")
 class User:
     """Model for testing."""
 
-    email = EmailField()
+    email = fields.EmailField()
 
 
 Translations.init_params()
