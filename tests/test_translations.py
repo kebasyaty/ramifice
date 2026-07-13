@@ -39,23 +39,23 @@ class TestTranslations(unittest.TestCase):
 
         user = User()
 
-        self.assertEqual(user.id.label, "Идентификатор документа")
-        self.assertEqual(user.id.placeholder, "Он добавляется автоматически")
-        self.assertEqual(user.id.hint, "Он добавляется автоматически")
+        self.assertEqual(user.id_html_attrs["label"], "Идентификатор документа")
+        self.assertEqual(user.id_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(user.id_html_attrs["hint"], "Он добавляется автоматически")
 
-        self.assertEqual(user.created_at.label, "Создан")
-        self.assertEqual(user.created_at.placeholder, "Он добавляется автоматически")
-        self.assertEqual(user.created_at.hint, "Он добавляется автоматически")
-        self.assertEqual(user.created_at.warning, ["Когда был создан документ."])
+        self.assertEqual(user.created_at_html_attrs["label"], "Создан")
+        self.assertEqual(user.created_at_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(user.created_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertEqual(user.created_at_html_attrs["warning"], ["Когда был создан документ."])
 
-        self.assertEqual(user.updated_at.label, "Обновлен")
-        self.assertEqual(user.updated_at.placeholder, "Он добавляется автоматически")
-        self.assertEqual(user.updated_at.hint, "Он добавляется автоматически")
-        self.assertEqual(user.updated_at.warning, ["Когда был обновлен документ."])
+        self.assertEqual(user.updated_at_html_attrs["label"], "Обновлен")
+        self.assertEqual(user.updated_at_html_attrs["placeholder"], "Он добавляется автоматически")
+        self.assertEqual(user.updated_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertEqual(user.updated_at_html_attrs["warning"], ["Когда был обновлен документ."])
 
-        self.assertEqual(user.email.label, "")
-        self.assertEqual(user.email.placeholder, "")
-        self.assertEqual(user.email.hint, "")
+        self.assertEqual(user.email_html_attrs["label"], "")
+        self.assertEqual(user.email_html_attrs["placeholder"], "")
+        self.assertEqual(user.email_html_attrs["hint"], "")
 
 
 if __name__ == "__main__":
