@@ -43,7 +43,7 @@ class URLField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
+        warning: list[str] = [],  # noqa: B006
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -59,18 +59,16 @@ class URLField(Field):
                     if not result.scheme or not result.netloc:
                         raise AssertionError("Parameter `default` - Invalid URL address!")
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
                 if not isinstance(hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
                 if not isinstance(ignored, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")

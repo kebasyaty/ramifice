@@ -46,9 +46,16 @@ class Field:
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             html_attrs["label"] = Translations._(html_attrs.get("label", ""))
-            html_attrs["placeholder"] = Translations._(html_attrs.get("placeholder", ""))
+            #
+            placeholder = html_attrs.get("placeholder")
+            if placeholder is not None:
+                html_attrs["placeholder"] = Translations._(placeholder)
             html_attrs["hint"] = Translations._(html_attrs.get("hint", ""))
-            html_attrs["warning"] = [Translations._(item) for item in html_attrs.get("warning", [])]
+            #
+            warning_list = html_attrs.get("warning")
+            if warning_list is not None:
+                html_attrs["warning"] = [Translations._(item) for item in warning_list]
+            #
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value
