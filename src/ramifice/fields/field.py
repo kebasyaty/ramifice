@@ -46,12 +46,15 @@ class Field:
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             #
-            html_attrs["label"] = Translations._(html_attrs.get("label", ""))
+            label = html_attrs.get("label")
+            html_attrs["label"] = Translations._(label) if bool(label) else ""
             #
             placeholder = html_attrs.get("placeholder")
             if placeholder is not None:
-                html_attrs["placeholder"] = Translations._(placeholder)
-            html_attrs["hint"] = Translations._(html_attrs.get("hint", ""))
+                html_attrs["placeholder"] = Translations._(placeholder) if bool(placeholder) else ""
+            #
+            hint = html_attrs.get("hint")
+            html_attrs["hint"] = Translations._(hint) if bool(hint) else ""
             #
             warning_list = html_attrs.get("warning")
             if warning_list is not None:
