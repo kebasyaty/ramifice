@@ -115,10 +115,19 @@ class IDField:
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
-            html_attrs["label"] = Translations._(html_attrs["label"])
-            html_attrs["placeholder"] = Translations._(html_attrs["placeholder"])
-            html_attrs["hint"] = Translations._(html_attrs["hint"])
+            #
+            label = html_attrs["label"]
+            html_attrs["label"] = Translations._(label) if bool(label) else ""
+            #
+            placeholder = html_attrs["placeholder"]
+            if placeholder is not None:
+                html_attrs["placeholder"] = Translations._(placeholder) if bool(placeholder) else ""
+            #
+            hint = html_attrs["hint"]
+            html_attrs["hint"] = Translations._(hint) if bool(hint) else ""
+            #
             html_attrs["warning"] = [Translations._(item) for item in html_attrs["warning"]]
+            #
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value
