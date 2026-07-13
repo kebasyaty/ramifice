@@ -12,6 +12,8 @@ from typing import Any
 
 import orjson
 from babel.dates import format_date, format_datetime
+from bson.objectid import ObjectId
+from dateutil.parser import parse
 
 from ramifice.translations import Translations
 
@@ -59,10 +61,29 @@ class JsonMixin:
     @classmethod
     def from_dict(cls, json_dict: dict[str, Any]) -> Any:
         """Convert JSON-dictionary to a Model instance."""
-        obj = cls()
-        for f_name, f_value in json_dict.items():
-            obj.__dict__[f_name] = f_value
-        return obj
+        metadata = cls.META
+        descriptor_fields = metadata["all_descriptor_fields"]
+        instance = cls()
+
+        for f_name in descriptor_fields:
+            tmp_html_attrs = json_dict[f_name]
+            group = tmp_html_attrs["group"]
+            value = tmp_html_attrs["value"]
+
+            if value is not None:
+                if group == "id":
+                    tmp_html_attrs["value"] = ObjectId(value)
+                elif group == "password":
+                    tmp_html_attrs["value"] = value
+                elif group == "date":
+                    tmp_html_attrs["value"] = parse(value)
+
+            setattr(instance, f_name, value)
+            f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
+            for key, val in tmp_html_attrs.items():
+                f_html_attrs[key] = val
+
+        return instance
 
     @classmethod
     def from_json(cls, json_str: str) -> Any:
