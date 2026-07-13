@@ -105,16 +105,7 @@ class IDField:
         if instance is None:
             msg = f"The field `{self.name}` is not a class variable."
             raise AttributeError(msg)
-        name = self.name
-        internal_name = self.internal_name
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            instance.__dict__[field_name_html_attrs] = html_attrs
-            instance.__dict__[internal_name] = None
-        return instance.__dict__[internal_name]
+        return instance.__dict__[self.internal_name]
 
     def __set__(self, instance: Any, value: ObjectId | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, (ObjectId, type(None))):
