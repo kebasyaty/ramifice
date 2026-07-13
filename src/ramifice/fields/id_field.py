@@ -43,7 +43,7 @@ class IDField:
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
+        warning: list[str] = [],  # noqa: B006
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
@@ -60,7 +60,7 @@ class IDField:
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
@@ -118,6 +118,7 @@ class IDField:
             html_attrs["label"] = trans._(html_attrs["label"])
             html_attrs["placeholder"] = trans._(html_attrs["placeholder"])
             html_attrs["hint"] = trans._(html_attrs["hint"])
+            html_attrs["warning"] = [trans._(html_attrs[item]) for item in html_attrs["warning"]]
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value

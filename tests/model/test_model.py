@@ -97,6 +97,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.id_html_attrs["label"], "Идентификатор документа")
         self.assertEqual(m.id_html_attrs["placeholder"], "Он добавляется автоматически")
         self.assertEqual(m.id_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertEqual(len(m.id_html_attrs["warning"]), 0)
         self.assertTrue(m.id_html_attrs["hide"])
         self.assertTrue(m.id_html_attrs["disabled"])
 
