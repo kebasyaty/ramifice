@@ -7,9 +7,13 @@ from __future__ import annotations
 
 __all__ = ("JsonMixin",)
 
+import copy
 from typing import Any
 
 import orjson
+from babel.dates import format_date, format_datetime
+
+from ramifice.translations import Translations
 
 
 class JsonMixin:
@@ -17,10 +21,35 @@ class JsonMixin:
 
     def to_dict(self) -> dict[str, Any]:
         """Convert Model instance to a dictionary."""
+        metadata = self.__class__.META
+        descriptor_fields = metadata["all_descriptor_fields"]
+        current_locale = Translations.CURRENT_LOCALE
+
         json_dict: dict[str, Any] = {}
-        for f_name, f_value in self.__dict__.items():
-            if not callable(f_value):
-                json_dict[f_name] = f_value
+        for f_name in descriptor_fields:
+            f_html_attrs = copy.deepcopy(getattr(self, f"{f_name}_html_attrs"))
+            group = f_html_attrs["group"]
+            value = f_html_attrs["value"]
+            if value is not None:
+                if group == "id":
+                    f_html_attrs["value"] = str(value)
+                elif group == "password":
+                    f_html_attrs["value"] = None
+                elif group == "date":
+                    if f_html_attrs["field_type"] == "DateField":
+                        f_html_attrs["value"] = format_date(
+                            date=value.date(),
+                            format="short",
+                            locale=current_locale,
+                        )
+                    else:
+                        f_html_attrs["value"] = format_datetime(
+                            datetime=value,
+                            format="short",
+                            locale=current_locale,
+                        )
+            json_dict[f_name] = f_html_attrs
+
         return json_dict
 
     def to_json(self) -> str:
