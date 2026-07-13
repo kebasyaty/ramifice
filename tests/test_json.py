@@ -1,4 +1,4 @@
-"""Testing the class `ramifice.mixins.JsonMixin`."""
+"""Testing the class `ramifice.json.JsonMixin`."""
 
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.mixins import JsonMixin
+from ramifice.json import JsonMixin
 
 # For `FileField.value`.
 FILE_INFO_DICT: dict[str, str | int | bool] = dict(
