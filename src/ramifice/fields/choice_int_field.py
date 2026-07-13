@@ -60,7 +60,6 @@ class ChoiceIntField(Field):
             "label": label,
             "value": None,
             "default": default,
-            "placeholder": "",
             "hide": hide,
             "disabled": disabled,
             "ignored": ignored,

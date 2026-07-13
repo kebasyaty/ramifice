@@ -77,7 +77,6 @@ class ChoiceFloatDynField(Field):
             "name": "",
             "label": label,
             "value": None,
-            "placeholder": "",
             "hide": hide,
             "disabled": disabled,
             "ignored": ignored,
