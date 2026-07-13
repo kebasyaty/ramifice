@@ -104,12 +104,14 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.created_at_html_attrs["label"], "Создан")
         self.assertEqual(m.created_at_html_attrs["placeholder"], "Он добавляется автоматически")
         self.assertEqual(m.created_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertEqual(m.created_at_html_attrs["warning"][0], "Когда был создан документ.")
         self.assertTrue(m.created_at_html_attrs["hide"])
         self.assertTrue(m.created_at_html_attrs["disabled"])
 
         self.assertEqual(m.updated_at_html_attrs["label"], "Обновлен")
         self.assertEqual(m.updated_at_html_attrs["placeholder"], "Он добавляется автоматически")
         self.assertEqual(m.updated_at_html_attrs["hint"], "Он добавляется автоматически")
+        self.assertEqual(m.updated_at_html_attrs["warning"][0], "Когда был обновлен документ.")
         self.assertTrue(m.updated_at_html_attrs["hide"])
         self.assertTrue(m.updated_at_html_attrs["disabled"])
 

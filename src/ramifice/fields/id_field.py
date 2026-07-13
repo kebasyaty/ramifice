@@ -14,7 +14,7 @@ import orjson
 from bson.objectid import ObjectId
 
 from ramifice.config import Config
-from ramifice.translations import Translations as trans
+from ramifice.translations import Translations
 
 logger = logging.getLogger(__name__)
 
@@ -115,10 +115,10 @@ class IDField:
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
-            html_attrs["label"] = trans._(html_attrs["label"])
-            html_attrs["placeholder"] = trans._(html_attrs["placeholder"])
-            html_attrs["hint"] = trans._(html_attrs["hint"])
-            html_attrs["warning"] = [trans._(html_attrs[item]) for item in html_attrs["warning"]]
+            html_attrs["label"] = Translations._(html_attrs["label"])
+            html_attrs["placeholder"] = Translations._(html_attrs["placeholder"])
+            html_attrs["hint"] = Translations._(html_attrs["hint"])
+            html_attrs["warning"] = [Translations._(item) for item in html_attrs["warning"]]
             instance.__dict__[field_name_html_attrs] = html_attrs
         instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value

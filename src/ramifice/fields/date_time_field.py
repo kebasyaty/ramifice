@@ -49,7 +49,7 @@ class DateTimeField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
+        warning: list[str] = [],  # noqa: B006
         required: bool = False,
         readonly: bool = False,
         max_date: datetime | None = None,
@@ -80,7 +80,7 @@ class DateTimeField(Field):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
