@@ -15,6 +15,7 @@ from typing import Any
 from ramifice.commons import QCommonsMixin
 from ramifice.config import Config
 from ramifice.errors import DoesNotMatchRegexError, PanicError
+from ramifice.json import JsonMixin
 from ramifice.models.model import Model
 from ramifice.paladins import QPaladinsMixin
 
@@ -90,6 +91,7 @@ def model(
             cls.__name__,
             (
                 Model,
+                JsonMixin,
                 QPaladinsMixin,
                 QCommonsMixin,
             ),
