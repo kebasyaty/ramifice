@@ -45,6 +45,7 @@ class Field:
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
+            #
             html_attrs["label"] = Translations._(html_attrs.get("label", ""))
             #
             placeholder = html_attrs.get("placeholder")
