@@ -13,12 +13,12 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from ramifice.config import Config
-from ramifice.translations import Translations
+from ramifice.fields.field import Field
 
 logger = logging.getLogger(__name__)
 
 
-class IDField:
+class IDField(Field):
     """Field of Model for enter identifier of document.
 
     Agrs:
@@ -73,6 +73,8 @@ class IDField:
                 logger.critical(str(err))
                 raise err
 
+        Field.__init__(self, supported_types=(ObjectId, type(None)))
+
         self.html_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
@@ -93,40 +95,3 @@ class IDField:
             "field_type": "IDField",
             "group": "id",
         }
-
-    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
-        self.name = name
-        self.internal_name = f"_{name}"
-        self.field_name_html_attrs = f"{name}_html_attrs"
-
-    def __get__(self, instance: Any, owner: Any) -> ObjectId | None:  # noqa: D105
-        if instance is None:
-            msg = f"The field `{self.name}` is not a class variable."
-            raise AttributeError(msg)
-        return instance.__dict__[self.internal_name]
-
-    def __set__(self, instance: Any, value: ObjectId | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
-        if not isinstance(value, (ObjectId, type(None))):
-            raise TypeError("Not а `ObjectId | None` type!")
-        name = self.name
-        field_name_html_attrs = self.field_name_html_attrs
-        if not hasattr(instance, field_name_html_attrs):
-            html_attrs = self.html_attrs
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
-            #
-            label = html_attrs["label"]
-            html_attrs["label"] = Translations._(label) if bool(label) else ""
-            #
-            placeholder = html_attrs["placeholder"]
-            if placeholder is not None:
-                html_attrs["placeholder"] = Translations._(placeholder) if bool(placeholder) else ""
-            #
-            hint = html_attrs["hint"]
-            html_attrs["hint"] = Translations._(hint) if bool(hint) else ""
-            #
-            html_attrs["warning"] = [Translations._(item) for item in html_attrs["warning"]]
-            #
-            instance.__dict__[field_name_html_attrs] = html_attrs
-        instance.__dict__[self.internal_name] = value
-        instance.__dict__[field_name_html_attrs]["value"] = value

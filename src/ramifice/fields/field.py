@@ -24,13 +24,14 @@ class Field:
 
     def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
+        self.internal_name = f"_{name}"
         self.field_name_html_attrs = f"{name}_html_attrs"
 
     def __get__(self, instance: Any, owner: Any) -> Any | None:  # noqa: D105
         if instance is None:
             msg = f"The field `{self.name}` is not a class variable."
             raise AttributeError(msg)
-        return instance.__dict__[self.name]
+        return instance.__dict__[self.internal_name]
 
     def __set__(self, instance: Any, value: Any | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         if not isinstance(value, self.supported_types):
@@ -39,9 +40,9 @@ class Field:
             ]
             msg = f"Not а `{' | '.join(supported_types_list)}` type!"
             raise TypeError(msg)
-        name = self.name
         field_name_html_attrs = self.field_name_html_attrs
         if not hasattr(instance, field_name_html_attrs):
+            name = self.name
             html_attrs = self.html_attrs
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
@@ -61,5 +62,5 @@ class Field:
                 html_attrs["warning"] = [Translations._(item) for item in warning_list]
             #
             instance.__dict__[field_name_html_attrs] = html_attrs
-        instance.__dict__[name] = value
+        instance.__dict__[self.internal_name] = value
         instance.__dict__[field_name_html_attrs]["value"] = value
