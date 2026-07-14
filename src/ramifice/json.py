@@ -13,7 +13,7 @@ from typing import Any
 import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
-from dateparser import parse
+from dateutil.parser import parse
 
 from ramifice.config import Config
 
@@ -74,16 +74,7 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    if tmp_html_attrs["field_type"] == "DateField":
-                        tmp_html_attrs["value"] = parse(
-                            value,
-                            date_formats=["yyyy-MM-dd"],
-                        )
-                    else:
-                        tmp_html_attrs["value"] = parse(
-                            value,
-                            date_formats=["yyyy-MM-dd HH:mm:ss.ms zzz"],
-                        )
+                    tmp_html_attrs["value"] = parse(value)
 
             setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")

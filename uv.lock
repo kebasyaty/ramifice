@@ -1014,6 +1014,7 @@ dependencies = [
     { name = "phonenumbers" },
     { name = "pillow" },
     { name = "pymongo" },
+    { name = "python-dateutil" },
     { name = "python-slugify" },
     { name = "pytz" },
     { name = "pyyaml" },
@@ -1037,6 +1038,7 @@ lint = [
 ]
 types = [
     { name = "types-dateparser" },
+    { name = "types-python-dateutil" },
     { name = "types-pytz" },
     { name = "types-pyyaml" },
 ]
@@ -1052,6 +1054,7 @@ requires-dist = [
     { name = "phonenumbers", specifier = ">=9.0.6" },
     { name = "pillow", specifier = ">=11.2.1" },
     { name = "pymongo", specifier = ">=4.13.0" },
+    { name = "python-dateutil", specifier = ">=2.9.0.post0" },
     { name = "python-slugify", specifier = ">=8.0.4" },
     { name = "pytz", specifier = ">=2025.2" },
     { name = "pyyaml", specifier = ">=6.0.2" },
@@ -1076,6 +1079,7 @@ lint = [
 ]
 types = [
     { name = "types-dateparser", specifier = ">=1.4.1.20260617" },
+    { name = "types-python-dateutil", specifier = ">=2.9.0.20260518" },
     { name = "types-pytz", specifier = ">=2025.2.0.20250809" },
     { name = "types-pyyaml", specifier = ">=6.0.12.20250809" },
 ]
@@ -1242,6 +1246,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d1/1d/647618b84fe99f40ff485c859de1b0db45c95a955704f5952e719f16834c/types_dateparser-1.4.1.20260617.tar.gz", hash = "sha256:aaf1958a88e2bca849ff36b4696476c829c7b0ad06ff8d473635a8a985468346", size = 17703, upload-time = "2026-06-17T06:56:49.371Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9d/1f/75b08cc011dc70cfa9b31715dd56b0603d42dfd98f45c70131f7d2fc2da5/types_dateparser-1.4.1.20260617-py3-none-any.whl", hash = "sha256:af5619f005b56880898c54a9cb25bbc1c145751710d456be4f94c50751316ddb", size = 24889, upload-time = "2026-06-17T06:56:48.315Z" },
+]
+
+[[package]]
+name = "types-python-dateutil"
+version = "2.9.0.20260518"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8d/e8/c01bdf0d7c3659428c091fbd693177093639565bcbc86bc20098e6d37cc6/types_python_dateutil-2.9.0.20260518.tar.gz", hash = "sha256:51f02dc03b61c7f6a07df45797d4dfe8a1aa47f0b7db9ad89f6fd3a1a70e1b51", size = 17082, upload-time = "2026-05-18T06:05:24.508Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/36/22/169273273ca34e9ab0ae2f387ba72ed7e09faaaf834da01d6b89c2bea71a/types_python_dateutil-2.9.0.20260518-py3-none-any.whl", hash = "sha256:d6a9c5bd0de61460c8fdef8ab2b400f956a1a1075cce08d4e2b4434e478c50b8", size = 18431, upload-time = "2026-05-18T06:05:23.641Z" },
 ]
 
 [[package]]

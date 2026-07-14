@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from dateparser import parse
+from dateutil.parser import parse
 
 from ramifice.fields import DateField, DateTimeField
 

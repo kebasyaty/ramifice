@@ -7,7 +7,7 @@ from datetime import datetime
 
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
-from dateparser import parse
+from dateutil.parser import parse
 
 from ramifice import model
 from ramifice.config import Config
