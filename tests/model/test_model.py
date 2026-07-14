@@ -213,7 +213,67 @@ class TestModel(unittest.TestCase):
 
         # Exception checking:
         with self.assertRaises(TypeError):
+            m.id = "???"
+        with self.assertRaises(TypeError):
+            m.created_at = 12
+        with self.assertRaises(TypeError):
+            m.updated_at = "???"
+        with self.assertRaises(TypeError):
             m.url = 12
+        with self.assertRaises(TypeError):
+            m.txt = 5.2
+        with self.assertRaises(TypeError):
+            m.slug = 12
+        with self.assertRaises(TypeError):
+            m.phone = 5.2
+        with self.assertRaises(TypeError):
+            m.password = 12
+        with self.assertRaises(TypeError):
+            m.ip = 5.2
+        with self.assertRaises(TypeError):
+            m.num_int = "???"
+        with self.assertRaises(TypeError):
+            m.num_float = 12
+        with self.assertRaises(TypeError):
+            m.img = "???"
+        with self.assertRaises(TypeError):
+            m.hash2 = 12
+        with self.assertRaises(TypeError):
+            m.file = 5.2
+        with self.assertRaises(TypeError):
+            m.email = 12
+        with self.assertRaises(TypeError):
+            m.date_time = "???"
+        with self.assertRaises(TypeError):
+            m.date = 5.2
+        with self.assertRaises(TypeError):
+            m.color = 12
+        with self.assertRaises(TypeError):
+            m.bool = "???"
+        with self.assertRaises(TypeError):
+            m.choice_float_dyn = 12
+        with self.assertRaises(TypeError):
+            m.choice_float = "???"
+        with self.assertRaises(TypeError):
+            m.choice_float_mult_dyn = 5.2
+        with self.assertRaises(TypeError):
+            m.choice_float_mult = 5.2
+        with self.assertRaises(TypeError):
+            m.choice_int_dyn = 5.2
+        with self.assertRaises(TypeError):
+            m.choice_int_mult_dyn = 12
+        with self.assertRaises(TypeError):
+            m.choice_int_mult = 12
+        with self.assertRaises(TypeError):
+            m.choice_txt_dyn = 5.2
+        with self.assertRaises(TypeError):
+            m.choice_txt = 12
+        with self.assertRaises(TypeError):
+            m.choice_txt_mult_dyn = "???"
+        with self.assertRaises(TypeError):
+            m.choice_txt_mult = "???"
+        with self.assertRaises(TypeError):
+            m.choice_int = 5.2
 
 
 if __name__ == "__main__":
