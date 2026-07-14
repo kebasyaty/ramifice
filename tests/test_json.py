@@ -3,8 +3,14 @@
 from __future__ import annotations
 
 import unittest
+from datetime import datetime
 
-from ramifice import model
+from babel.dates import format_date, format_datetime
+from bson.objectid import ObjectId
+from dateparser import parse
+
+from ramifice import Translations, model
+from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -112,40 +118,127 @@ class User:
 class TestJsonMixin(unittest.TestCase):
     """Testing the class `JsonMixin`."""
 
-    def test_fields(self) -> None:
-        """Testing all fields."""
-        m = User()
+    def test_with_default_values(self) -> None:
+        """Testing with default values."""
+        metadata = User.META
+        descriptor_fields = metadata["all_descriptor_fields"]
 
+        m = User()
+        json_dict = m.to_dict()
         json_str = m.to_json()
-        User.from_json(json_str)
-        m2 = User.from_json(json_str)
-        for name, data in m.__dict__.items():
-            if not callable(data):
-                self.assertEqual(m2.__dict__[name].__dict__, data.__dict__)
 
-        json_str = m.to_json_only_value()
-        User.from_json_only_value(json_str)
-        m3 = User.from_json_only_value(json_str)
-        for name, data in m.__dict__.items():
-            if not callable(data):
-                self.assertEqual(m3.__dict__[name].__dict__, data.__dict__)
+        m2 = User.from_dict(json_dict)
+        for f_name in descriptor_fields:
+            self.assertEqual(getattr(m2, f_name), None)
+            self.assertTrue(hasattr(m2, f"{f_name}_html_attrs"))
 
-    def test_file_fields(self) -> None:
-        """Testing file type fields."""
+        m3 = User.from_json(json_str)
+        for f_name in descriptor_fields:
+            self.assertEqual(getattr(m3, f_name), None)
+            self.assertTrue(hasattr(m3, f"{f_name}_html_attrs"))
+
+    def test_with_custom_values(self) -> None:
+        """Testing with custom values."""
+        metadata = User.META
+        descriptor_fields = metadata["all_descriptor_fields"]
+        current_locale = Translations.CURRENT_LOCALE
+
         m = User()
+
+        m.id = ObjectId("507f1f77bcf86cd799439011")
+        m.created_at = datetime.now(Config.UTC_TIMEZONE)
+        m.updated_at = datetime.now(Config.UTC_TIMEZONE)
+        m.url = "https://translate.google.com"
+        m.txt = "Hello World!"
+        m.slug = "hello-world"
+        m.phone = "+1 806 589 2932"
+        m.password = "*X71M6pWIQ£ZE:0t"  # noqa: S105
+        m.ip = "192.178.24.142"
+        m.num_int = 12
+        m.num_float = 5.2
         m.img = IMG_INFO_DICT.copy()
+        m.hash2 = ObjectId("507f1f77bcf86cd799439011")
         m.file = FILE_INFO_DICT.copy()
+        m.email = "fllabrst6wi@zumnime.me"
+        m.date_time = datetime.now(Config.UTC_TIMEZONE)
+        m.date = datetime.now(Config.UTC_TIMEZONE)
+        m.color = "#F54927"
+        m.bool = True
+        m.choice_float_dyn = 5.2
+        m.choice_float = 5.2
+        m.choice_float_mult_dyn = [5.1, 5.2]
+        m.choice_float_mult = [5.1, 5.2]
+        m.choice_int_dyn = 12
+        m.choice_int_mult_dyn = [10, 12]
+        m.choice_int_mult = [10, 12]
+        m.choice_txt_dyn = "Hello World!"
+        m.choice_txt = "Hello World!"
+        m.choice_txt_mult_dyn = ["Hello World!", "Hello World!"]
+        m.choice_txt_mult = ["Hello World!", "Hello World!"]
+        m.choice_int = 12
 
+        json_dict = m.to_dict()
         json_str = m.to_json()
-        m2 = User.from_json(json_str)
-        for name, data in m.__dict__["img"].__dict__["value"].items():
-            if not callable(data):
-                data2 = m2.__dict__["img"].__dict__["value"][name]
-                self.assertEqual(data, data2)
-        for name, data in m.__dict__["file"].__dict__["value"].items():
-            if not callable(data):
-                data2 = m2.__dict__["file"].__dict__["value"][name]
-                self.assertEqual(data, data2)
+
+        m2 = User.from_dict(json_dict)
+        for f_name in descriptor_fields:
+            field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
+            if field_type == "DateField":
+                m_value = parse(
+                    format_date(
+                        date=getattr(m, f_name).date(),
+                        format="medium",
+                        locale=current_locale,
+                    ),
+                    locales=[current_locale],
+                )
+                self.assertEqual(getattr(m2, f_name), m_value)
+            elif field_type == "DateTimeField":
+                m_value = parse(
+                    format_datetime(
+                        datetime=getattr(m, f_name),
+                        format="medium",
+                        tzinfo=Config.UTC_TIMEZONE,
+                        locale=current_locale,
+                    ),
+                    locales=[current_locale],
+                )
+                self.assertEqual(getattr(m2, f_name), m_value)
+            elif field_type == "PasswordField":
+                self.assertIsNone(getattr(m2, f_name))
+            else:
+                self.assertEqual(getattr(m2, f_name), getattr(m, f_name))
+            self.assertTrue(hasattr(m2, f"{f_name}_html_attrs"))
+
+        m3 = User.from_json(json_str)
+        for f_name in descriptor_fields:
+            field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
+            if field_type == "DateField":
+                m_value = parse(
+                    format_date(
+                        date=getattr(m, f_name).date(),
+                        format="medium",
+                        locale=current_locale,
+                    ),
+                    locales=[current_locale],
+                )
+                self.assertEqual(getattr(m3, f_name), m_value)
+            elif field_type == "DateTimeField":
+                m_value = parse(
+                    format_datetime(
+                        datetime=getattr(m, f_name),
+                        format="medium",
+                        tzinfo=Config.UTC_TIMEZONE,
+                        locale=current_locale,
+                    ),
+                    locales=[current_locale],
+                )
+                self.assertEqual(getattr(m3, f_name), m_value)
+            elif field_type == "PasswordField":
+                self.assertIsNone(getattr(m3, f_name))
+            else:
+                self.assertEqual(getattr(m3, f_name), getattr(m, f_name))
+            self.assertTrue(hasattr(m3, f"{f_name}_html_attrs"))
 
 
 if __name__ == "__main__":

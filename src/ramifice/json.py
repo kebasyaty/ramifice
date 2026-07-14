@@ -13,8 +13,9 @@ from typing import Any
 import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
-from dateutil.parser import parse
+from dateparser import parse
 
+from ramifice.config import Config
 from ramifice.translations import Translations
 
 
@@ -26,8 +27,8 @@ class JsonMixin:
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         current_locale = Translations.CURRENT_LOCALE
-
         json_dict: dict[str, Any] = {}
+
         for f_name in descriptor_fields:
             f_html_attrs = copy.deepcopy(getattr(self, f"{f_name}_html_attrs"))
             group = f_html_attrs["group"]
@@ -41,13 +42,14 @@ class JsonMixin:
                     if f_html_attrs["field_type"] == "DateField":
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
-                            format="short",
+                            format="medium",
                             locale=current_locale,
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
-                            format="short",
+                            format="medium",
+                            tzinfo=Config.UTC_TIMEZONE,
                             locale=current_locale,
                         )
             json_dict[f_name] = f_html_attrs
@@ -63,6 +65,7 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
+        current_locale = Translations.CURRENT_LOCALE
         instance = cls()
 
         for f_name in descriptor_fields:
@@ -76,9 +79,12 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    tmp_html_attrs["value"] = parse(value)
+                    tmp_html_attrs["value"] = parse(
+                        value,
+                        locales=[current_locale],
+                    )
 
-            setattr(instance, f_name, value)
+            setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
             for key, val in tmp_html_attrs.items():
                 f_html_attrs[key] = val

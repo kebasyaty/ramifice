@@ -15,7 +15,7 @@
 - [argon2-cffi](https://pypi.org/project/argon2-cffi/ "argon2-cffi")
 - [pyyaml](https://pypi.org/project/PyYAML/ "pyyaml")
 - [Babel](https://pypi.org/project/Babel/ "Babel")
-- [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
+- [dateparser](https://pypi.org/project/dateparser/ "dateparser")
 - [orjson](https://github.com/ijl/orjson "orjson")
 - [anyio](https://github.com/agronholm/anyio "anyio")
 - [pytz](https://github.com/agronholm/pytz "pytz")
@@ -24,7 +24,7 @@
 #### Dev-Dependencies
 
 - [ruff](https://pypi.org/project/ruff/ "ruff")
-- [pyrefly](https://pypi.org/project/pyrefly/ "")
+- [pyrefly](https://pypi.org/project/pyrefly/)
 - [pre-commit](https://pypi.org/project/pre-commit/ "pre-commit")
 - [mkdocs](https://pypi.org/project/mkdocs/ "mkdocs")
 - [mkdocstrings](https://pypi.org/project/mkdocstrings/ "mkdocstrings")
