@@ -194,7 +194,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy-MM-dd HH:mm:ss",
+                        format="yyyy-MM-dd HH:mm:ss.ms zzz",
                         tzinfo=Config.UTC_TIMEZONE,
                     ),
                 )
@@ -220,7 +220,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy-MM-dd HH:mm:ss",
+                        format="yyyy-MM-dd HH:mm:ss.ms zzz",
                         tzinfo=Config.UTC_TIMEZONE,
                     ),
                 )
