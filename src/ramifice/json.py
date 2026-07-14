@@ -45,7 +45,7 @@ class JsonMixin:
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
-                            format="yyyy-MM-dd HH:mm:ss.ms zzz",
+                            format="yyyy-MM-ddTHH:mm:ss.ms zzz",
                             tzinfo=Config.UTC_TIMEZONE,
                         )
             json_dict[f_name] = f_html_attrs
