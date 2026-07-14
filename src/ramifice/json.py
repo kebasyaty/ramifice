@@ -40,12 +40,12 @@ class JsonMixin:
                     if f_html_attrs["field_type"] == "DateField":
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
-                            format="yyyy.MM.dd",
+                            format="yyyy-MM-dd",
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
-                            format="yyyy.MM.dd HH:mm:ss",
+                            format="yyyy-MM-dd HH:mm:ss",
                             tzinfo=Config.UTC_TIMEZONE,
                         )
             json_dict[f_name] = f_html_attrs
@@ -77,12 +77,12 @@ class JsonMixin:
                     if tmp_html_attrs["field_type"] == "DateField":
                         tmp_html_attrs["value"] = parse(
                             value,
-                            date_formats=["yyyy.MM.dd"],
+                            date_formats=["yyyy-MM-dd"],
                         )
                     else:
                         tmp_html_attrs["value"] = parse(
                             value,
-                            date_formats=["yyyy.MM.dd HH:mm:ss"],
+                            date_formats=["yyyy-MM-dd HH:mm:ss"],
                         )
 
             setattr(instance, f_name, tmp_html_attrs["value"])

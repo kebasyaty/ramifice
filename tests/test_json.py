@@ -186,7 +186,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="yyyy.MM.dd",
+                        format="yyyy-MM-dd",
                     ),
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
@@ -194,7 +194,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy.MM.dd HH:mm:ss",
+                        format="yyyy-MM-dd HH:mm:ss",
                         tzinfo=Config.UTC_TIMEZONE,
                     ),
                 )
@@ -212,7 +212,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="yyyy.MM.dd",
+                        format="yyyy-MM-dd",
                     ),
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
@@ -220,7 +220,7 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy.MM.dd HH:mm:ss",
+                        format="yyyy-MM-dd HH:mm:ss",
                         tzinfo=Config.UTC_TIMEZONE,
                     ),
                 )
