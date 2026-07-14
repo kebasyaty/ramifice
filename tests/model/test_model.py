@@ -147,6 +147,74 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.choice_txt_mult)
         self.assertIsNone(m.choice_int)
 
+        m.id = None
+        m.created_at = None
+        m.updated_at = None
+        m.url = None
+        m.txt = None
+        m.slug = None
+        m.phone = None
+        m.password = None
+        m.ip = None
+        m.num_int = None
+        m.num_float = None
+        m.img = None
+        m.hash2 = None
+        m.file = None
+        m.email = None
+        m.date_time = None
+        m.date = None
+        m.color = None
+        m.bool = None
+        m.choice_float_dyn = None
+        m.choice_float = None
+        m.choice_float_mult_dyn = None
+        m.choice_float_mult = None
+        m.choice_int_dyn = None
+        m.choice_int_mult_dyn = None
+        m.choice_int_mult = None
+        m.choice_txt_dyn = None
+        m.choice_txt = None
+        m.choice_txt_mult_dyn = None
+        m.choice_txt_mult = None
+        m.choice_int = None
+
+        self.assertIsNone(m.id)
+        self.assertIsNone(m.created_at)
+        self.assertIsNone(m.updated_at)
+        self.assertIsNone(m.url)
+        self.assertIsNone(m.txt)
+        self.assertIsNone(m.slug)
+        self.assertIsNone(m.phone)
+        self.assertIsNone(m.password)
+        self.assertIsNone(m.ip)
+        self.assertIsNone(m.num_int)
+        self.assertIsNone(m.num_float)
+        self.assertIsNone(m.img)
+        self.assertIsNone(m.hash2)
+        self.assertIsNone(m.file)
+        self.assertIsNone(m.email)
+        self.assertIsNone(m.date_time)
+        self.assertIsNone(m.date)
+        self.assertIsNone(m.color)
+        self.assertIsNone(m.bool)
+        self.assertIsNone(m.choice_float_dyn)
+        self.assertIsNone(m.choice_float)
+        self.assertIsNone(m.choice_float_mult_dyn)
+        self.assertIsNone(m.choice_float_mult)
+        self.assertIsNone(m.choice_int_dyn)
+        self.assertIsNone(m.choice_int_mult_dyn)
+        self.assertIsNone(m.choice_int_mult)
+        self.assertIsNone(m.choice_txt_dyn)
+        self.assertIsNone(m.choice_txt)
+        self.assertIsNone(m.choice_txt_mult_dyn)
+        self.assertIsNone(m.choice_txt_mult)
+        self.assertIsNone(m.choice_int)
+
+        # Exception checking:
+        with self.assertRaises(TypeError):
+            m.url = 12
+
 
 if __name__ == "__main__":
     unittest.main()
