@@ -16,7 +16,6 @@ from bson.objectid import ObjectId
 from dateparser import parse
 
 from ramifice.config import Config
-from ramifice.translations import Translations
 
 
 class JsonMixin:
@@ -26,7 +25,6 @@ class JsonMixin:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
-        current_locale = Translations.CURRENT_LOCALE
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
@@ -42,15 +40,13 @@ class JsonMixin:
                     if f_html_attrs["field_type"] == "DateField":
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
-                            format="medium",
-                            locale=current_locale,
+                            format="yyyy.MM.dd",
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
-                            format="medium",
+                            format="yyyy.MM.dd HH:mm:ss",
                             tzinfo=Config.UTC_TIMEZONE,
-                            locale=current_locale,
                         )
             json_dict[f_name] = f_html_attrs
 
@@ -65,7 +61,6 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
-        current_locale = Translations.CURRENT_LOCALE
         instance = cls()
 
         for f_name in descriptor_fields:
@@ -79,10 +74,16 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    tmp_html_attrs["value"] = parse(
-                        value,
-                        locales=[current_locale],
-                    )
+                    if tmp_html_attrs["field_type"] == "DateField":
+                        tmp_html_attrs["value"] = parse(
+                            value,
+                            date_formats=["yyyy.MM.dd"],
+                        )
+                    else:
+                        tmp_html_attrs["value"] = parse(
+                            value,
+                            date_formats=["yyyy.MM.dd HH:mm:ss"],
+                        )
 
             setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")

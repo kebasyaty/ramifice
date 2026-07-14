@@ -9,7 +9,7 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateparser import parse
 
-from ramifice import Translations, model
+from ramifice import model
 from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
@@ -141,7 +141,6 @@ class TestJsonMixin(unittest.TestCase):
         """Testing with custom values."""
         metadata = User.META
         descriptor_fields = metadata["all_descriptor_fields"]
-        current_locale = Translations.CURRENT_LOCALE
 
         m = User()
 
@@ -187,21 +186,17 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="medium",
-                        locale=current_locale,
+                        format="yyyy.MM.dd",
                     ),
-                    locales=[current_locale],
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
             elif field_type == "DateTimeField":
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="medium",
+                        format="yyyy.MM.dd HH:mm:ss",
                         tzinfo=Config.UTC_TIMEZONE,
-                        locale=current_locale,
                     ),
-                    locales=[current_locale],
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
             elif field_type == "PasswordField":
@@ -217,21 +212,17 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="medium",
-                        locale=current_locale,
+                        format="yyyy.MM.dd",
                     ),
-                    locales=[current_locale],
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
             elif field_type == "DateTimeField":
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="medium",
+                        format="yyyy.MM.dd HH:mm:ss",
                         tzinfo=Config.UTC_TIMEZONE,
-                        locale=current_locale,
                     ),
-                    locales=[current_locale],
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
             elif field_type == "PasswordField":
