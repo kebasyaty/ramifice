@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from dateutil.parser import ParserError
+from dateutil.parser import ParserError, parse
 
 from ramifice import Translations, model
 from ramifice.fields import (
@@ -218,8 +218,8 @@ class TestModel(unittest.TestCase):
             m.id = "???"
         with self.assertRaises(TypeError):
             m.created_at = 12
-        with self.assertRaises(ParserError):
-            m.updated_at = "???"
+        with self.assertRaises(TypeError):
+            m.updated_at = 5.2
         with self.assertRaises(TypeError):
             m.url = 12
         with self.assertRaises(TypeError):
@@ -244,8 +244,8 @@ class TestModel(unittest.TestCase):
             m.file = 5.2
         with self.assertRaises(TypeError):
             m.email = 12
-        with self.assertRaises(ParserError):
-            m.date_time = "???"
+        with self.assertRaises(TypeError):
+            m.date_time = 12
         with self.assertRaises(TypeError):
             m.date = 5.2
         with self.assertRaises(TypeError):
@@ -276,6 +276,25 @@ class TestModel(unittest.TestCase):
             m.choice_txt_mult = "???"
         with self.assertRaises(TypeError):
             m.choice_int = 5.2
+
+        with self.assertRaises(ParserError):
+            m.created_at = "???"
+        with self.assertRaises(ParserError):
+            m.updated_at = "???"
+        with self.assertRaises(ParserError):
+            m.date_time = "???"
+        with self.assertRaises(ParserError):
+            m.date = "???"
+
+        m.created_at = parse("August 14, 2026")
+        m.updated_at = parse("2026-08-14 14:30")
+        m.date_time = parse("14/08/2026")
+        m.date = parse("Sat Oct 11 17:13:46 UTC 2003")
+
+        m.created_at = "August 14, 2026"
+        m.updated_at = "2026-08-14 14:30"
+        m.date_time = "14/08/2026"
+        m.date = "Sat Oct 11 17:13:46 UTC 2003"
 
 
 if __name__ == "__main__":
