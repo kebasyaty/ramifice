@@ -74,6 +74,28 @@ class Translations:
     # The object of the current translation, for custom project.
     gettext: ClassVar[Callable] = lambda _: _
     ngettext: ClassVar[Callable] = lambda _: _
+    # Add translations for Ramifice.
+    ramifice_translations: ClassVar[dict[str, NullTranslations]] = {
+        lang: _gettext.translation(
+            domain="messages",
+            localedir="config/translations/ramifice",
+            languages=[lang],
+            class_=None,
+            fallback=True,
+        )
+        for lang in LANGUAGES
+    }
+    # Add translations for custom project.
+    custom_translations: ClassVar[dict[str, NullTranslations]] = {
+        lang: _gettext.translation(
+            domain="messages",
+            localedir="config/translations/custom",
+            languages=[lang],
+            class_=None,
+            fallback=True,
+        )
+        for lang in LANGUAGES
+    }
 
     @classmethod
     def add_languages(
@@ -88,30 +110,6 @@ class Translations:
             raise PanicError(msg)
         cls.DEFAULT_LOCALE = default_locale
         cls.LANGUAGES = languages
-
-    # Add translations for Ramifice.
-    ramifice_translations: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
-            domain="messages",
-            localedir="config/translations/ramifice",
-            languages=[lang],
-            class_=None,
-            fallback=True,
-        )
-        for lang in LANGUAGES
-    }
-
-    # Add translations for custom project.
-    custom_translations: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
-            domain="messages",
-            localedir="config/translations/custom",
-            languages=[lang],
-            class_=None,
-            fallback=True,
-        )
-        for lang in LANGUAGES
-    }
 
     @classmethod
     def get_ramifice_translator(cls, lang_code: str) -> Any:
