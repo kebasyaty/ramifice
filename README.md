@@ -538,4 +538,4 @@ print(size)  # => 9843
 
 [![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/MIT-LICENSE "MIT")
 
-[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/gpl-3.0-or-later.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/main/APACHE-2.0-LICENSE "APACHE-2.0")
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/main/APACHE-2.0-LICENSE "APACHE-2.0")
