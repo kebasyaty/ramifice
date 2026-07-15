@@ -536,4 +536,6 @@ print(size)  # => 9843
 
 [![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/MIT-LICENSE "MIT")
+
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/gpl-3.0-or-later.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/main/APACHE-2.0-LICENSE "APACHE-2.0")
