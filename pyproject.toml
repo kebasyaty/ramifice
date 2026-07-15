@@ -4,8 +4,8 @@ version = "2.0.0"
 description = "ORM-pseudo-like API MongoDB for Python language."
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
-license = "MIT"
-license-files = ["LICENSE"]
+license = "MIT or Apache-2.0"
+license-files = ["APACHE-2.0-LICENSE", "MIT-LICENSE"]
 authors = [{ name = "kebasyaty", email = "kebasyaty@gmail.com" }]
 keywords = ["database", "mongo", "mongodb", "orm", "pymongo", "ramifice"]
 classifiers = [
