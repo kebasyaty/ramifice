@@ -89,8 +89,8 @@ uv add ramifice
 ```
 
 4. Add `config` and `public` directories in root of your project:<br>
-   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
-   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
+   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/v2/config "Download config directory")<br>
+   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/v2/public "Download public directory")
 
 5. Run
 
@@ -309,6 +309,6 @@ class User:
 
 [![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/MIT-LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
 
-[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/main/APACHE-2.0-LICENSE "APACHE-2.0")
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")
