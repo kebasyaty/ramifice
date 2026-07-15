@@ -68,7 +68,7 @@ class Field:
             instance.__dict__[field_name_html_attrs] = html_attrs
 
         correct_value: Any | None = value
-        if html_attrs["group"] == "date":
+        if html_attrs["group"] == "date" and isinstance(value, str):
             correct_value = parse(value)
 
         instance.__dict__[self.internal_name] = correct_value

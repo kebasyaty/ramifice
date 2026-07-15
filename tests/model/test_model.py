@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import unittest
 
+from dateutil.parser import ParserError
+
 from ramifice import Translations, model
 from ramifice.fields import (
     BooleanField,
@@ -216,7 +218,7 @@ class TestModel(unittest.TestCase):
             m.id = "???"
         with self.assertRaises(TypeError):
             m.created_at = 12
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ParserError):
             m.updated_at = "???"
         with self.assertRaises(TypeError):
             m.url = 12
@@ -242,7 +244,7 @@ class TestModel(unittest.TestCase):
             m.file = 5.2
         with self.assertRaises(TypeError):
             m.email = 12
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ParserError):
             m.date_time = "???"
         with self.assertRaises(TypeError):
             m.date = 5.2
