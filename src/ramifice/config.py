@@ -24,9 +24,10 @@ __all__ = ("Config",)
 
 
 import re
+from datetime import tzinfo
 from typing import ClassVar, final
-from zoneinfo import ZoneInfo
 
+from babel.dates import get_timezone
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
@@ -61,7 +62,7 @@ class Config:
     # static files located in STATIC_ROOT.
     STATIC_URL: ClassVar[str] = "/static"
     # Caching a UTC timezone object.
-    UTC_TIMEZONE: ClassVar[ZoneInfo] = ZoneInfo("UTC")
+    UTC_TIMEZONE: ClassVar[tzinfo] = get_timezone("UTC")
     # Caching a patterns of regular expression.
     REGEX: ClassVar[dict[str, re.Pattern]] = {
         "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),

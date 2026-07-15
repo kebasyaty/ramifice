@@ -9,7 +9,7 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from ramifice import model
+from ramifice import Translations, model
 from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
@@ -186,7 +186,8 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="yyyy-MM-dd",
+                        format="medium",
+                        locale=Translations.CURRENT_LOCALE,
                     ),
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
@@ -194,8 +195,9 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy-MM-ddTHH:mm:ss.ms zzz",
+                        format="medium",
                         tzinfo=Config.UTC_TIMEZONE,
+                        locale=Translations.CURRENT_LOCALE,
                     ),
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
@@ -212,7 +214,8 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_date(
                         date=getattr(m, f_name).date(),
-                        format="yyyy-MM-dd",
+                        format="medium",
+                        locale=Translations.CURRENT_LOCALE,
                     ),
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
@@ -220,8 +223,9 @@ class TestJsonMixin(unittest.TestCase):
                 m_value = parse(
                     format_datetime(
                         datetime=getattr(m, f_name),
-                        format="yyyy-MM-ddTHH:mm:ss.ms zzz",
+                        format="medium",
                         tzinfo=Config.UTC_TIMEZONE,
+                        locale=Translations.CURRENT_LOCALE,
                     ),
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)

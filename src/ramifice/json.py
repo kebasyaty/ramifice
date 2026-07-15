@@ -16,6 +16,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from ramifice.config import Config
+from ramifice.translations import Translations
 
 
 class JsonMixin:
@@ -40,13 +41,15 @@ class JsonMixin:
                     if f_html_attrs["field_type"] == "DateField":
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
-                            format="yyyy-MM-dd",
+                            format="medium",
+                            locale=Translations.CURRENT_LOCALE,
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
-                            format="yyyy-MM-ddTHH:mm:ss.ms zzz",
+                            format="medium",
                             tzinfo=Config.UTC_TIMEZONE,
+                            locale=Translations.CURRENT_LOCALE,
                         )
             json_dict[f_name] = f_html_attrs
 
