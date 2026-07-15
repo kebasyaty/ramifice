@@ -87,7 +87,7 @@ class DateField(Field):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(self, supported_types=(datetime, type(None)))
+        Field.__init__(self, supported_types=(datetime, str, type(None)))
 
         self.html_attrs: dict[str, Any] = {
             "id": "",
