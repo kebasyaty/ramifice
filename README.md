@@ -114,76 +114,69 @@ from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 from ramifice import (
-    NamedTuple,
     model,
-    translations,
+    Translations,
     Migration,
     to_human_size,
+    fields,
 )
-from ramifice.fields import (
-    ImageField,
-    PasswordField,
-    TextField,
-)
-
+from ramifice import Translations as trans
 
 @model(service_name="Accounts")
 class User:
     """Model of User."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom Translations.
-        gettext = Translations.gettext
-        # ngettext = Translations.ngettext
-        self.avatar = ImageField(
-            label=gettext("Avatar"),
-            default="public/media/default/no-photo.png",
-            # Directory for images inside media directory.
-            target_dir="users/avatars",
-            # Available 4 sizes from lg to xs or None.
-            # Hint: By default = None
-            thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
-            # The maximum size of the original image in bytes.
-            # Hint: By default = 2 MB
-            max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
-            warning=[
-                gettext("Maximum size: {}").format(to_human_size(524288)),
-            ],
-        )
-        self.username = TextField(
-            label=gettext("Username"),
-            max_length=150,
-            required=True,
-            unique=True,
-            warning=[
-                gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
-            ],
-        )
-        self.password = PasswordField(
-            label=gettext("Password"),
-        )
-        self.сonfirm_password = PasswordField(
-            label=gettext("Confirm password"),
-            # If true, the value of this field is not saved in the database.
-            ignored=True,
-        )
+    avatar = fields.ImageField(
+        label=trans.gettext("Avatar"),
+        default="public/media/default/no-photo.png",
+        # Directory for images inside media directory.
+        target_dir="users/avatars",
+        # Available 4 sizes from lg to xs or None.
+        # Hint: Default = None
+        thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
+        # The maximum size of the original image in bytes.
+        # Hint: Default = 2 MB
+        max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
+        warning=[
+            trans.gettext("Maximum size: {}").format(to_human_size(524288)),
+        ],
+    )
+    username = fields.TextField(
+        label=trans.gettext("Username"),
+        max_length=150,
+        required=True,
+        unique=True,
+        warning=[
+            trans.gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
+        ],
+    )
+    password = fields.PasswordField(
+        label=trans.gettext("Password"),
+    )
+    сonfirm_password = fields.PasswordField(
+        label=gettext("Confirm password"),
+        # If true, the value of this field is not saved in the database.
+        ignored=True,
+    )
 
     # Optional method
-    async def add_validation(self) -> NamedTuple:
+    async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
-        gettext = Translations.gettext
-        cd, err = self.get_clean_data()
+        err_map = self.get_error_map()
+        _id = self.id
+        password = self.password
+        сonfirm_password = self.сonfirm_password
+        username = self.username
 
-        # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+        # Check Password
+        if _id is None and password != сonfirm_password:
+            err.update("password", trans.gettext("Passwords do not match!"))
 
-        # Check password
-        if cd._id is None and (cd.password != cd.сonfirm_password):
-            err.update("password", gettext("Passwords do not match!"))
+        # Check Username
+        if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+            err_map["username"] = trans.gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
 
-        return err
+        return err_map
 
 
 async def main():
@@ -217,6 +210,7 @@ async def main():
     print("User details:")
     user_details = await User.find_one_to_raw_doc(
         # filter={"_id": user.id}
+        # or
         filter={"username": user.username}
     )
     if user_details is not None:
@@ -297,12 +291,11 @@ if __name__ == "__main__":
     is_delete_doc = True,
 )
 class User:
-    def fields(self):
-        self.username = TextField(
-            label=gettext("Username"),
-            required=True,
-            unique=True,
-        )
+  username = TextField(
+      label="Username",
+      required=True,
+      unique=True,
+  )
 ```
 
 <br>
