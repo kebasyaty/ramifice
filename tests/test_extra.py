@@ -6,10 +6,10 @@ import re
 import unittest
 from typing import Any
 
-from ramifice import Translations, model
+from ramifice import Translator, model
 from ramifice.fields import TextField
 
-Translations.init_params()
+Translator.activate()
 
 
 @model(service_name="Accounts")
@@ -32,12 +32,13 @@ class User2:
     # Optional method
     async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
+        _ = Translator().get_custom_gettext()
         err_map = self.get_error_map()
         username = self.username
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map["username"] = Translations.gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
+            err_map["username"] = _("Allowed chars: {}").format("a-z A-Z 0-9 _")
 
         return err_map
 

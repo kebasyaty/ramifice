@@ -19,19 +19,15 @@
 
 The localization of translations class contains the following parameters:
 
-- `CURRENT_LOCALE` - Code of current language.
 - `DEFAULT_LOCALE` - Language code by default.
 - `LANGUAGES` - List of codes supported by languages.
-- `gettext` - The object of the current translator.
-- `ngettext` - The object of the current translator.
+- `current_locale` - Code of current language.
 
 The localization of translations class contains the following methods:
 
-- `add_languages` - Add languages.
-- `get_ramifice_translator` -Get an object of translation for the desired language, for Ramifice.
-- `get_custom_translator` - Get an object of translation for the desired language, for custom project.
+- `add_new_languages` - Add new languages.
 - `change_locale` - Change current language.
-- `init_params` - Method for general initialization of parameters.
+- `activate` - Activate translations.
 
 Hint - CKEditor supported languages:
 
@@ -45,123 +41,47 @@ zh | zh_cn
 
 from __future__ import annotations
 
-__all__ = ("Translations",)
+__all__ = ("Translator",)
 
-import copy
 import gettext as _gettext
 import logging
-from collections.abc import Callable
 from gettext import NullTranslations
-from typing import Any, ClassVar, final
-
-from ramifice.errors import PanicError
+from typing import ClassVar, final
 
 logger = logging.getLogger(__name__)
 
 
 @final
-class Translations:
-    """Localization of Translations."""
+class Translator:
+    """Manager by localization of translations."""
 
     # Language by default.
     DEFAULT_LOCALE: ClassVar[str] = "en"
-    # Code of current language.
-    CURRENT_LOCALE: ClassVar[str] = copy.deepcopy(DEFAULT_LOCALE)
     # List of supported languages.
     LANGUAGES: ClassVar[frozenset[str]] = frozenset(("en", "ru"))
-    # The object of the current translation, for Ramifice.
-    _: ClassVar[Callable] = lambda _: _
-    # The object of the current translation, for custom project.
-    gettext: ClassVar[Callable] = lambda _: _
-    ngettext: ClassVar[Callable] = lambda _: _
+    # Code of current language.
+    current_locale: ClassVar[str] = "en"
     # Add translations for Ramifice.
-    ramifice_translations: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
-            domain="messages",
-            localedir="config/translations/ramifice",
-            languages=[lang],
-            class_=None,
-            fallback=True,
-        )
-        for lang in LANGUAGES
-    }
+    RAMIFICE_TRANSLATIONS: ClassVar[dict[str, NullTranslations]]
     # Add translations for custom project.
-    custom_translations: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
-            domain="messages",
-            localedir="config/translations/custom",
-            languages=[lang],
-            class_=None,
-            fallback=True,
-        )
-        for lang in LANGUAGES
-    }
+    CUSTOM_TRANSLATIONS: ClassVar[dict[str, NullTranslations]]
+    # The object of the current translator, for Ramifice.
+    ramifice_translator: ClassVar[NullTranslations]
+    # The object of the current translator, for custom project.
+    custom_translator: ClassVar[NullTranslations]
 
     @classmethod
-    def add_languages(
-        cls,
-        default_locale: str,
-        languages: frozenset[str],
-    ) -> None:
-        """Add languages."""
-        if default_locale not in languages:
-            msg = "DEFAULT_LOCALE is not included in the LANGUAGES!"
-            logger.critical(msg)
-            raise PanicError(msg)
-        cls.DEFAULT_LOCALE = default_locale
-        cls.LANGUAGES = languages
-
-    @classmethod
-    def get_ramifice_translator(cls, lang_code: str) -> Any:
-        """Get an object of translation for the desired language, for Ramifice.
-
-        Examples:
-            >>> from ramifice.translations import Translations
-            >>> _ = Translations.get_ramifice_translator("en").gettext
-            >>> msg = _("Hello World!")
-            >>> print(msg)
-            Hello World!
-
-        Args:
-            lang_code: Language code.
-
-        Returns:
-            Object of translation for the desired language.
-        """
-        return cls.ramifice_translations.get(
-            lang_code,
-            cls.ramifice_translations[cls.DEFAULT_LOCALE],
-        )
-
-    @classmethod
-    def get_custom_translator(cls, lang_code: str) -> Any:
-        """Get an object of translation for the desired language, for custom project.
-
-        Examples:
-            >>> from ramifice.translations import Translations
-            >>> gettext = Translations.get_custom_translator("en").gettext
-            >>> msg = gettext("Hello World!")
-            >>> print(msg)
-            Hello World!
-
-        Args:
-            lang_code: Language code.
-
-        Returns:
-            Object of translation for the desired language.
-        """
-        return cls.custom_translations.get(
-            lang_code,
-            cls.custom_translations[cls.DEFAULT_LOCALE],
-        )
+    def add_new_languages(cls, languages: frozenset[str]) -> None:
+        """Add new languages."""
+        cls.LANGUAGES.union(languages)
 
     @classmethod
     def change_locale(cls, lang_code: str) -> None:
         """Change current language.
 
         Examples:
-            >>> from ramifice.translations import Translations
-            >>> Translations.change_locale("ru")
+            >>> from ramifice import Translator
+            >>> Translator.change_locale("ru")
 
         Args:
             lang_code: Language code.
@@ -170,15 +90,55 @@ class Translations:
             Object `None`.
         """
         if lang_code != cls.CURRENT_LOCALE:
-            cls.CURRENT_LOCALE = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
-            cls._ = cls.get_ramifice_translator(cls.CURRENT_LOCALE).gettext
-            translator: NullTranslations = cls.get_custom_translator(cls.CURRENT_LOCALE)
-            cls.gettext = translator.gettext
-            cls.ngettext = translator.ngettext
+            current_local = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
+            # Changing the current locale
+            cls.CURRENT_LOCALE = current_local
+            # Update translator for Ramifice
+            cls.ramifice_translator = cls.RAMIFICE_TRANSLATIONS.get(
+                current_local,
+                cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
+            )
+            # Update translator for custom project
+            cls.custom_translator = cls.CUSTOM_TRANSLATIONS.get(
+                current_local,
+                cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
+            )
 
     @classmethod
-    def init_params(cls) -> None:
-        """Method for general initialization of parameters."""
-        cls._ = cls.get_ramifice_translator(cls.DEFAULT_LOCALE).gettext
-        cls.gettext = cls.get_custom_translator(cls.DEFAULT_LOCALE).gettext
-        cls.ngettext = cls.get_custom_translator(cls.DEFAULT_LOCALE).ngettext
+    def activate(cls) -> None:
+        """Activate translations."""
+        # Add translations for Ramifice
+        cls.RAMIFICE_TRANSLATIONS = {
+            lang: _gettext.translation(
+                domain="messages",
+                localedir="config/translations/ramifice",
+                languages=[lang],
+                class_=None,
+                fallback=True,
+            )
+            for lang in cls.LANGUAGES
+        }
+        # Add translations for custom project
+        cls.CUSTOM_TRANSLATIONS = {
+            lang: _gettext.translation(
+                domain="messages",
+                localedir="config/translations/custom",
+                languages=[lang],
+                class_=None,
+                fallback=True,
+            )
+            for lang in cls.LANGUAGES
+        }
+        # Initialize translators
+        # ----------------------
+        default_locale = cls.DEFAULT_LOCAL
+        # Add translator for Ramifice
+        cls.ramifice_translator = cls.RAMIFICE_TRANSLATIONS.get(
+            default_locale,
+            cls.RAMIFICE_TRANSLATIONS[default_locale],
+        )
+        # Add translator for custom project
+        cls.custom_translator = cls.CUSTOM_TRANSLATIONS.get(
+            default_locale,
+            cls.CUSTOM_TRANSLATIONS[default_locale],
+        )

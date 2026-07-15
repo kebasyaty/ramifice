@@ -26,7 +26,9 @@ from typing import Any, ClassVar
 
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
-from ramifice.translations import Translations as trans
+from ramifice.translations import Translator
+
+_ = Translator.ramifice_translator.gettext
 
 
 class Model:
@@ -35,35 +37,37 @@ class Model:
     META: ClassVar[dict[str, Any]] = {}
 
     id = IDField(
-        label=trans._("Document ID"),
-        placeholder=trans._("It is added automatically"),
-        hint=trans._("It is added automatically"),
+        label=_("Document ID"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
         hide=True,
         disabled=True,
     )
 
     created_at = DateTimeField(
-        label=trans._("Created at"),
-        placeholder=trans._("It is added automatically"),
-        hint=trans._("It is added automatically"),
-        warning=[trans._("When the document was created.")],
+        label=_("Created at"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
+        warning=[_("When the document was created.")],
         hide=True,
         disabled=True,
     )
 
     updated_at = DateTimeField(
-        label=trans._("Updated at"),
-        placeholder=trans._("It is added automatically"),
-        hint=trans._("It is added automatically"),
-        warning=[trans._("When the document was updated.")],
+        label=_("Updated at"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
+        warning=[_("When the document was updated.")],
         hide=True,
         disabled=True,
     )
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self, current_locale: str = "en") -> None:  # noqa: D107
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
+
+        self.current_locale = current_locale
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)
@@ -89,7 +93,7 @@ class Model:
         data_dynamic_fields,
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        lang = trans.CURRENT_LOCALE
+        lang = self.current_locale
         for f_name in descriptor_fields:
             f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:

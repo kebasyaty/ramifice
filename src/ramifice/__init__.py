@@ -37,7 +37,7 @@ __all__ = (
     "to_human_size",
     "Migration",
     "model",
-    "Translations",
+    "Translator",
     "Unit",
 )
 
@@ -46,5 +46,5 @@ from xloft.converters import to_human_size
 
 from ramifice.migration import Migration
 from ramifice.models.decorator import model
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 from ramifice.unit import Unit

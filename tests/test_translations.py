@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice import Translations, fields, model
+from ramifice import Translator, fields, model
 
 
 @model(service_name="Accounts")
@@ -14,7 +14,7 @@ class User:
     email = fields.EmailField()
 
 
-Translations.init_params()
+Translator.activate()
 
 
 class TestTranslations(unittest.TestCase):
@@ -22,20 +22,17 @@ class TestTranslations(unittest.TestCase):
 
     def test_add_languages(self):
         """Testing `add_languages`."""
-        Translations.add_languages(
-            default_locale="en",
-            languages=frozenset(("en", "ru")),
-        )
+        Translator.add_new_languages(frozenset(("en", "ru")))
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
-        self.assertIsNotNone(Translations._)
-        self.assertEqual(Translations._("Document ID"), "Document ID")
-        self.assertIsNotNone(Translations.gettext)
-        self.assertEqual(Translations.gettext("Document ID"), "Document ID")
+        _ = Translator.ramifice_translator.gettext
 
-        Translations.change_locale("ru")
-        self.assertEqual(Translations._("Document ID"), "Идентификатор документа")
+        self.assertEqual(_("Document ID"), "Document ID")
+
+        Translator.change_locale("ru")
+        _ = Translator.ramifice_translator.gettext
+        self.assertEqual(_("Document ID"), "Идентификатор документа")
 
         user = User()
 
