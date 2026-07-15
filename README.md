@@ -103,7 +103,7 @@ uv run python -OOP main.py
 
 ## Usage
 
-[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/main/examples "Examples")
+[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/v2/examples "Examples")
 
 ```python
 import re
