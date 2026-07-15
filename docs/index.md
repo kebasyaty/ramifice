@@ -40,8 +40,8 @@ The project is more concentrated for web development or for applications with a 
 
 <hr>
 
-[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v2/REQUIREMENTS.md "Requirements")
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")
