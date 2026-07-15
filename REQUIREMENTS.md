@@ -15,7 +15,7 @@
 - [argon2-cffi](https://pypi.org/project/argon2-cffi/ "argon2-cffi")
 - [pyyaml](https://pypi.org/project/PyYAML/ "pyyaml")
 - [Babel](https://pypi.org/project/Babel/ "Babel")
-- [dateparser](https://pypi.org/project/dateparser/ "dateparser")
+- [python-dateutil](https://pypi.org/project/python-dateutil/ "python-dateutil")
 - [orjson](https://github.com/ijl/orjson "orjson")
 - [anyio](https://github.com/agronholm/anyio "anyio")
 - [pytz](https://github.com/agronholm/pytz "pytz")
