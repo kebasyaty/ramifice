@@ -57,7 +57,6 @@ class Field:
             ]
             msg = f"Value must be an {' | '.join(supported_types_list)}"
             raise TypeError(msg)
-
         field_name_html_attrs = self.field_name_html_attrs
         html_attrs = self.html_attrs
 
@@ -65,6 +64,7 @@ class Field:
             name = self.name
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
+            self.trans_field_attrs(instance, name)
             setattr(instance, field_name_html_attrs, html_attrs)
 
         correct_value: Any | None = value
@@ -77,3 +77,26 @@ class Field:
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""
         raise AttributeCannotBeDeleteError(self.name)
+
+    def trans_field_attrs(self, instance: Any, field_name: str) -> None:
+        """Translate field attributes."""
+        gettext = (
+            instance.__dict__["ramifice_translator"].gettext
+            if field_name in ["id", "created_at", "updated_at"]
+            else instance.__dict__["custom_translator"].gettext
+        )
+        html_attrs = self.html_attrs
+
+        label = html_attrs.get("label")
+        html_attrs["label"] = gettext(label) if bool(label) else ""
+
+        placeholder = html_attrs.get("placeholder")
+        if placeholder is not None:
+            html_attrs["placeholder"] = gettext(placeholder) if bool(placeholder) else ""
+
+        hint = html_attrs.get("hint")
+        html_attrs["hint"] = gettext(hint) if bool(hint) else ""
+
+        warning_list = html_attrs.get("warning")
+        if warning_list is not None:
+            html_attrs["warning"] = [gettext(item) for item in warning_list]

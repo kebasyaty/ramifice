@@ -49,7 +49,7 @@ class TestTranslations(unittest.TestCase):
         self.assertEqual(user.updated_at_html_attrs["hint"], "Он добавляется автоматически")
         self.assertEqual(user.updated_at_html_attrs["warning"], ["Когда был обновлен документ."])
 
-        self.assertEqual(user.email_html_attrs["label"], "")
+        self.assertEqual(user.email_html_attrs["label"], "Email")
         self.assertEqual(user.email_html_attrs["placeholder"], "")
         self.assertEqual(user.email_html_attrs["hint"], "")
 

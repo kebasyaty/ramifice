@@ -70,11 +70,11 @@ class Model:
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
-        for f_name in descriptor_fields:
-            setattr(self, f_name, None)
-
         self.ramifice_translator = Translator.ramifice_translator()
         self.custom_translator = Translator.custom_translator()
+
+        for f_name in descriptor_fields:
+            setattr(self, f_name, None)
 
         self.inject(descriptor_fields, data_dynamic_fields)
 
