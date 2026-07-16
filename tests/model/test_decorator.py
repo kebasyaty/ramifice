@@ -22,7 +22,7 @@ class User:
 class UserProfile:
     """Model for testing."""
 
-    profession = TextField()
+    profession = TextField(multi_language=True)
 
 
 class TestModel(unittest.TestCase):

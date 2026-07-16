@@ -23,10 +23,12 @@ The localization of translations class contains the following parameters:
 - `LANGUAGES` - List of codes supported by languages.
 - `RAMIFICE_TRANSLATIONS` - Translations for Ramifice.
 - `CUSTOM_TRANSLATIONS` - Translations for custom project.
+- `current_lang` - Current language.
 
 The localization of translations class contains the following methods:
 
 - `add_new_languages` - Add new languages.
+- `change_lang` - Globally changes the current language code.
 - `ramifice_translator` - Get translator for Ramifice.
 - `custom_translator` - Get translator for custom project.
 
@@ -86,6 +88,8 @@ class Translator:
         )
         for lang in LANGUAGES
     }
+    # Current language
+    current_lang: str = "en"
 
     @classmethod
     def add_new_languages(cls, languages: frozenset[str]) -> None:
@@ -93,21 +97,24 @@ class Translator:
         cls.LANGUAGES.union(languages)
 
     @classmethod
-    def ramifice_translator(cls, lang_code: str = "en") -> NullTranslations:
+    def change_lang(cls, lang_code: str) -> None:
+        """Globally changes the current language code."""
+        cls.current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
+
+    @classmethod
+    def ramifice_translator(cls) -> NullTranslations:
         """Get translator for Ramifice."""
-        current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
         # Return of the translator for Ramifice
         return cls.RAMIFICE_TRANSLATIONS.get(
-            current_lang,
+            cls.current_lang,
             cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
         )
 
     @classmethod
-    def custom_translator(cls, lang_code: str = "en") -> NullTranslations:
+    def custom_translator(cls) -> NullTranslations:
         """Get translator for custom project."""
-        current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
         # Return custom translator
         return cls.CUSTOM_TRANSLATIONS.get(
-            current_lang,
+            cls.current_lang,
             cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
         )
