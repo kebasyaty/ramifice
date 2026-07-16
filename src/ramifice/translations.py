@@ -30,6 +30,10 @@ The localization of translations class contains the following methods:
 - `ramifice_translator` - Get translator for Ramifice.
 - `custom_translator` - Get translator for custom project.
 
+Language Codes:
+
+https://support.crowdin.com/developer/language-codes/
+
 Hint - CKEditor supported languages:
 
 af | ar | ast | az | bg | ca | cs | da | de | de_ch | el | en | en_au |
