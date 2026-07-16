@@ -41,7 +41,6 @@ from ramifice.errors import (
 )
 from ramifice.fixtures import apply_fixture
 from ramifice.models.model import Model
-from ramifice.translations import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -242,7 +241,5 @@ class Migration:
                         collection=collection,
                     )
         #
-        # Initializing localization parameters
-        Translations.init_params()
         # Block the verification code.
         Config.DEBUG = False
