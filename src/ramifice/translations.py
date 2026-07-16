@@ -44,7 +44,7 @@ from __future__ import annotations
 
 __all__ = ("Translator",)
 
-import gettext as _gettext
+import gettext
 import logging
 from gettext import NullTranslations
 from typing import ClassVar, final
@@ -62,7 +62,7 @@ class Translator:
     LANGUAGES: ClassVar[frozenset[str]] = frozenset(("en", "ru"))
     # Translations for Ramifice
     RAMIFICE_TRANSLATIONS: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
+        lang: gettext.translation(
             domain="messages",
             localedir="config/translations/ramifice",
             languages=[lang],
@@ -73,7 +73,7 @@ class Translator:
     }
     # Translations for custom project
     CUSTOM_TRANSLATIONS: ClassVar[dict[str, NullTranslations]] = {
-        lang: _gettext.translation(
+        lang: gettext.translation(
             domain="messages",
             localedir="config/translations/custom",
             languages=[lang],
