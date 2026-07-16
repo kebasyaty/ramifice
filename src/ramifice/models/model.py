@@ -36,31 +36,31 @@ class Model:
 
     META: ClassVar[dict[str, Any]] = {}
 
-    # Stub for translations
-    ramifice_translator: ClassVar = Translator.ramifice_translator()
+    # Stub for translator
+    _: ClassVar = lambda _: _
 
     id = IDField(
-        label=ramifice_translator.gettext("Document ID"),
-        placeholder=ramifice_translator.gettext("It is added automatically"),
-        hint=ramifice_translator.gettext("It is added automatically"),
+        label=_("Document ID"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
         hide=True,
         disabled=True,
     )
 
     created_at = DateTimeField(
-        label=ramifice_translator.gettext("Created at"),
-        placeholder=ramifice_translator.gettext("It is added automatically"),
-        hint=ramifice_translator.gettext("It is added automatically"),
-        warning=[ramifice_translator.gettext("When the document was created.")],
+        label=_("Created at"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
+        warning=[_("When the document was created.")],
         hide=True,
         disabled=True,
     )
 
     updated_at = DateTimeField(
-        label=ramifice_translator.gettext("Updated at"),
-        placeholder=ramifice_translator.gettext("It is added automatically"),
-        hint=ramifice_translator.gettext("It is added automatically"),
-        warning=[ramifice_translator.gettext("When the document was updated.")],
+        label=_("Updated at"),
+        placeholder=_("It is added automatically"),
+        hint=_("It is added automatically"),
+        warning=[_("When the document was updated.")],
         hide=True,
         disabled=True,
     )
@@ -72,6 +72,9 @@ class Model:
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)
+
+        self.ramifice_translator = Translator.ramifice_translator()
+        self.custom_translator = Translator.custom_translator()
 
         self.inject(descriptor_fields, data_dynamic_fields)
 
