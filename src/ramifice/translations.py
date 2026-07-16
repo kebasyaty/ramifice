@@ -105,7 +105,7 @@ class Translator:
         """Get translator for Ramifice."""
         # Return of the translator for Ramifice
         return cls.RAMIFICE_TRANSLATIONS.get(
-            cls.current_lang,
+            cls.current_locale,
             cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
         )
 
@@ -114,6 +114,6 @@ class Translator:
         """Get translator for custom project."""
         # Return custom translator
         return cls.CUSTOM_TRANSLATIONS.get(
-            cls.current_lang,
+            cls.current_locale,
             cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
         )
