@@ -6,7 +6,7 @@ import unittest
 
 from dateutil.parser import ParserError, parse
 
-from ramifice import model
+from ramifice import Translator, model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -87,7 +87,7 @@ class TestModel(unittest.TestCase):
 
     def test_instance_model(self):
         """Testing a instance `Model`."""
-        Translations.change_locale("ru")
+        Translator.change_locale("ru")
         m = User()
 
         self.assertEqual(m.model_name(), "User")

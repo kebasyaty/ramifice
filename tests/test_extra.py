@@ -4,12 +4,9 @@ from __future__ import annotations
 
 import re
 import unittest
-from typing import Any
 
 from ramifice import NamedTuple, Translator, model
 from ramifice.fields import TextField
-
-Translator.activate()
 
 
 @model(service_name="Accounts")

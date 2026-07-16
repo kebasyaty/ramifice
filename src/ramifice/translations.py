@@ -28,7 +28,7 @@ The localization of translations class contains the following parameters:
 The localization of translations class contains the following methods:
 
 - `add_new_languages` - Add new languages.
-- `change_lang` - Globally changes the current language code.
+- `change_locale` - Globally change the localization of translations.
 - `ramifice_translator` - Get translator for Ramifice.
 - `custom_translator` - Get translator for custom project.
 
@@ -97,8 +97,8 @@ class Translator:
         cls.LANGUAGES.union(languages)
 
     @classmethod
-    def change_lang(cls, lang_code: str) -> None:
-        """Globally changes the current language code."""
+    def change_locale(cls, lang_code: str) -> None:
+        """Globally change the localization of translations."""
         cls.current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
 
     @classmethod
