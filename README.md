@@ -21,7 +21,7 @@
       <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
       <a href="https://pypi.org/project/ramifice"><img src="https://img.shields.io/pypi/format/ramifice" alt="Format"></a>
       <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
-      <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
+      <a href="https://github.com/kebasyaty/ramifice/blob/v2/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
     </p>
     <p align="center">
       Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
@@ -41,7 +41,7 @@
   <b>Version 2.0</b>
   <br>
   <a href="https://github.com/kebasyaty/ramifice" alt="Project Status">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/project_status/project-status-pre-alpha.svg"
+    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/project_status/pre-alpha.svg"
       alt="Project Status">
   </a>
 </p>
@@ -57,9 +57,9 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 <br>
 
-[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
+[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
 
-[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v2/REQUIREMENTS.md "Requirements")
+[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v2/REQUIREMENTS.md "Requirements")
 
 ## Installation
 
@@ -103,7 +103,7 @@ uv run python -OOP main.py
 
 ## Usage
 
-[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-more-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/v2/examples "Examples")
+[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/more-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/v2/examples "Examples")
 
 ```python
 import re
@@ -300,8 +300,8 @@ class User:
 
 <br>
 
-[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
 
-[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/link-license-apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")
