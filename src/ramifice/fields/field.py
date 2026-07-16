@@ -25,6 +25,8 @@ from typing import Any
 
 from dateutil.parser import parse
 
+from ramifice.errors import AttributeCannotBeDeleteError
+
 
 class Field:
     """The main descriptor class for field types.
@@ -36,17 +38,19 @@ class Field:
     def __init__(self, supported_types: tuple) -> None:  # noqa: D107
         self.supported_types = supported_types
 
-    def __set_name__(self, owner: Any, name: str):  # noqa: D105 pyrefly: ignore[unused-parameter]
+    def __set_name__(self, owner: Any, name: str) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
         self.name = name
         self.private_name = f"_{name}"
         self.field_name_html_attrs = f"{name}_html_attrs"
 
-    def __get__(self, instance: Any, owner: Any) -> Any | None:  # noqa: D105
+    def __get__(self, instance: Any, owner: Any) -> Any | None:
+        """Triggered when reading the field."""
         if instance is None:
             return self
         return getattr(instance, self.private_name, None)
 
-    def __set__(self, instance: Any, value: Any | None) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+    def __set__(self, instance: Any, value: Any | None) -> None:  # pyrefly: ignore[unused-parameter]
+        """Triggered when assigning a value to the field."""
         if not isinstance(value, self.supported_types):
             supported_types_list = [
                 item.__name__ if item is not type(None) else "None" for item in self.supported_types
@@ -69,3 +73,7 @@ class Field:
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value
+
+    def __delete__(self, instance) -> None:
+        """Triggered when deleting the field."""
+        raise AttributeCannotBeDeleteError(self.name)

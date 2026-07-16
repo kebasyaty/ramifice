@@ -28,6 +28,7 @@ from xloft import NamedTuple
 
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
+from ramifice.translations import Translator
 
 
 class Model:
@@ -36,30 +37,30 @@ class Model:
     META: ClassVar[dict[str, Any]] = {}
 
     # Stub for translations
-    _: ClassVar = lambda _: _
+    ramifice_translator: ClassVar = Translator.ramifice_translator()
 
     id = IDField(
-        label=_("Document ID"),
-        placeholder=_("It is added automatically"),
-        hint=_("It is added automatically"),
+        label=ramifice_translator.gettext("Document ID"),
+        placeholder=ramifice_translator.gettext("It is added automatically"),
+        hint=ramifice_translator.gettext("It is added automatically"),
         hide=True,
         disabled=True,
     )
 
     created_at = DateTimeField(
-        label=_("Created at"),
-        placeholder=_("It is added automatically"),
-        hint=_("It is added automatically"),
-        warning=[_("When the document was created.")],
+        label=ramifice_translator.gettext("Created at"),
+        placeholder=ramifice_translator.gettext("It is added automatically"),
+        hint=ramifice_translator.gettext("It is added automatically"),
+        warning=[ramifice_translator.gettext("When the document was created.")],
         hide=True,
         disabled=True,
     )
 
     updated_at = DateTimeField(
-        label=_("Updated at"),
-        placeholder=_("It is added automatically"),
-        hint=_("It is added automatically"),
-        warning=[_("When the document was updated.")],
+        label=ramifice_translator.gettext("Updated at"),
+        placeholder=ramifice_translator.gettext("It is added automatically"),
+        hint=ramifice_translator.gettext("It is added automatically"),
+        warning=[ramifice_translator.gettext("When the document was updated.")],
         hide=True,
         disabled=True,
     )
