@@ -3,18 +3,18 @@
 from __future__ import annotations
 
 import unittest
+from typing import ClassVar
 
 from ramifice import Translator, fields, model
+
+_ = Translator.ramifice_translator(lang_code="ru").gettext
 
 
 @model(service_name="Accounts")
 class User:
     """Model for testing."""
 
-    email = fields.EmailField()
-
-
-Translator.activate()
+    email = fields.EmailField(label=_("Email"))
 
 
 class TestTranslations(unittest.TestCase):
@@ -26,12 +26,11 @@ class TestTranslations(unittest.TestCase):
 
     def test_change_locale(self):
         """Testing `change_locale` method."""
-        _ = Translator.ramifice_translator.gettext
+        _ = Translator.ramifice_translator().gettext
 
         self.assertEqual(_("Document ID"), "Document ID")
 
-        Translator.change_locale("ru")
-        _ = Translator.ramifice_translator.gettext
+        _ = Translator.ramifice_translator("ru").gettext
         self.assertEqual(_("Document ID"), "Идентификатор документа")
 
         user = User()

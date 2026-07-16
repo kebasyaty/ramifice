@@ -6,7 +6,7 @@ import re
 import unittest
 from typing import Any
 
-from ramifice import Translator, model
+from ramifice import NamedTuple, Translator, model
 from ramifice.fields import TextField
 
 Translator.activate()
@@ -30,9 +30,9 @@ class User2:
     )
 
     # Optional method
-    async def add_validation(self) -> dict[str, Any]:
+    async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        _ = Translator().get_custom_gettext()
+        _ = Translator.ramifice_translator().gettext
         err_map = self.get_error_map()
         username = self.username
 

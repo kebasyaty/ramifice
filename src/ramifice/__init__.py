@@ -34,6 +34,7 @@ The project is more concentrated for web development or for applications with a 
 from __future__ import annotations
 
 __all__ = (
+    "NamedTuple",
     "to_human_size",
     "Migration",
     "model",
@@ -42,6 +43,7 @@ __all__ = (
 )
 
 # pyrefly: ignore [missing-import]
+from xloft import NamedTuple
 from xloft.converters import to_human_size
 
 from ramifice.migration import Migration

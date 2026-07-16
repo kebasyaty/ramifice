@@ -6,7 +6,7 @@ import unittest
 
 from dateutil.parser import ParserError, parse
 
-from ramifice import Translations, model
+from ramifice import model
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -72,9 +72,6 @@ class User:
     choice_txt_mult_dyn = ChoiceTextMultDynField()
     choice_txt_mult = ChoiceTextMultField()
     choice_int = ChoiceIntField()
-
-
-Translations.init_params()
 
 
 class TestModel(unittest.TestCase):

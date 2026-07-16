@@ -24,17 +24,18 @@ __all__ = ("Model",)
 
 from typing import Any, ClassVar
 
+from xloft import NamedTuple
+
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
-from ramifice.translations import Translator
-
-_ = Translator.ramifice_translator.gettext
 
 
 class Model:
     """Converting Python Class into Ramifice Model."""
 
     META: ClassVar[dict[str, Any]] = {}
+    # Stub for translations
+    _: ClassVar = lambda _: _
 
     id = IDField(
         label=_("Document ID"),
@@ -62,12 +63,10 @@ class Model:
         disabled=True,
     )
 
-    def __init__(self, current_locale: str = "en") -> None:  # noqa: D107
+    def __init__(self) -> None:  # noqa: D107
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
-
-        self.current_locale = current_locale
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)
@@ -105,7 +104,7 @@ class Model:
                     # `paladins > refrash > RefrashMixin > refrash_from_db`.
                     f_html_attrs["choices"] = None
 
-    def get_error_map(self) -> dict[str, Any]:
+    def get_error_map(self) -> NamedTuple:
         """Get clean data."""
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
@@ -114,4 +113,4 @@ class Model:
         for name in descriptor_fields:
             error_map[name] = getattr(self, name)
 
-        return error_map
+        return NamedTuple(**error_map)
