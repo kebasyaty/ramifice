@@ -36,7 +36,7 @@ class Model:
 
     META: ClassVar[dict[str, Any]] = {}
 
-    # Stub for translator
+    # Stub for translator (required)
     _: ClassVar = lambda _: _
 
     id = IDField(
