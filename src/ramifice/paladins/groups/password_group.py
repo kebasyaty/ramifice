@@ -29,7 +29,7 @@ from typing import Any
 from argon2 import PasswordHasher
 
 from ramifice.paladins.utils import accumulate_error, panic_type_error
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 from ramifice.utils import is_password
 
 

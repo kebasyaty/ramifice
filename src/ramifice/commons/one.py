@@ -34,7 +34,7 @@ from ramifice.commons.utils import (
 )
 from ramifice.config import Config
 from ramifice.errors import ForbiddenDeleteDocError
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 
 logger = logging.getLogger(__name__)
 

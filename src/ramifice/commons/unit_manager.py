@@ -35,7 +35,7 @@ from ramifice.errors import (
     NotPossibleDeleteUnitError,
     PanicError,
 )
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 from ramifice.unit import Unit
 
 logger = logging.getLogger(__name__)

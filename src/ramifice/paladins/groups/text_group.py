@@ -39,7 +39,7 @@ from ramifice.paladins.utils import (
     check_uniqueness,
     panic_type_error,
 )
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 from ramifice.utils import (
     is_color,
     is_ip,

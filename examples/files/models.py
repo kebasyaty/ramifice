@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice.translations import Translations, to_human_size
+from ramifice.translations import Translator, to_human_size
 from ramifice.fields import FileField, ImageField
 
 

@@ -34,7 +34,7 @@ from ramifice.paladins.utils import (
     accumulate_error,
     panic_type_error,
 )
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 
 
 class DateGroupMixin:

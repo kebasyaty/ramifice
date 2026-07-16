@@ -29,7 +29,7 @@ from pymongo.asynchronous.database import AsyncDatabase
 
 from ramifice.commons.utils import correct_mongo_filter
 from ramifice.config import Config
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 
 
 class GeneralMixin:

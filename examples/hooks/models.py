@@ -1,6 +1,6 @@
 """Models."""
 
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 from ramifice.fields import (
     EmailField,
     TextField,

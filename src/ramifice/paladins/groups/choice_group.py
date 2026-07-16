@@ -31,7 +31,7 @@ __all__ = ("ChoiceGroupMixin",)
 from typing import Any
 
 from ramifice.paladins.utils import accumulate_error
-from ramifice.translations import Translations
+from ramifice.translations import Translator
 
 
 class ChoiceGroupMixin:
