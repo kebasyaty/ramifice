@@ -302,6 +302,8 @@ class User:
 
 [![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
+<br>
+
 [![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
 
 [![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")
