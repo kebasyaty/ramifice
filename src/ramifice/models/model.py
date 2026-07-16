@@ -34,6 +34,7 @@ class Model:
     """Converting Python Class into Ramifice Model."""
 
     META: ClassVar[dict[str, Any]] = {}
+
     # Stub for translations
     _: ClassVar = lambda _: _
 
