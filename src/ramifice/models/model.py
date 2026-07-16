@@ -94,7 +94,7 @@ class Model:
         data_dynamic_fields,
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        lang = self.current_locale
+        lang = Translator.current_locale
         for f_name in descriptor_fields:
             f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:

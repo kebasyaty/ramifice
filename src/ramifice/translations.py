@@ -23,7 +23,7 @@ The localization of translations class contains the following parameters:
 - `LANGUAGES` - List of codes supported by languages.
 - `RAMIFICE_TRANSLATIONS` - Translations for Ramifice.
 - `CUSTOM_TRANSLATIONS` - Translations for custom project.
-- `current_lang` - Current language.
+- `current_locale` - Current language.
 
 The localization of translations class contains the following methods:
 
@@ -88,7 +88,7 @@ class Translator:
         for lang in LANGUAGES
     }
     # Current language
-    current_lang: str = "en"
+    current_locale: str = "en"
 
     @classmethod
     def add_new_languages(cls, languages: frozenset[str]) -> None:
@@ -98,7 +98,7 @@ class Translator:
     @classmethod
     def change_locale(cls, lang_code: str) -> None:
         """Globally change the localization of translations."""
-        cls.current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
+        cls.current_locale = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
 
     @classmethod
     def ramifice_translator(cls) -> _gettext.NullTranslations:
