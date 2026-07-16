@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 import unittest
+from typing import ClassVar
 
 from ramifice import Translator, fields, model
-
-_ = Translator.ramifice_translator().gettext
 
 
 @model(service_name="Accounts")
 class User:
     """Model for testing."""
+
+    # Stub for translator (required)
+    _: ClassVar = lambda _: _
 
     email = fields.EmailField(label=_("Email"))
 
