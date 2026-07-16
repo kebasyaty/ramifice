@@ -50,9 +50,8 @@ from __future__ import annotations
 
 __all__ = ("Translator",)
 
+import gettext as _gettext
 import logging
-from gettext import NullTranslations
-from gettext import gettext as _gettext
 from typing import ClassVar, final
 
 logger = logging.getLogger(__name__)
@@ -67,7 +66,7 @@ class Translator:
     # List of supported languages
     LANGUAGES: ClassVar[frozenset[str]] = frozenset(("en", "ru"))
     # Translations for Ramifice
-    RAMIFICE_TRANSLATIONS: ClassVar[dict[str, NullTranslations]] = {
+    RAMIFICE_TRANSLATIONS: ClassVar[dict[str, _gettext.NullTranslations]] = {
         lang: _gettext.translation(
             domain="messages",
             localedir="config/translations/ramifice",
@@ -78,7 +77,7 @@ class Translator:
         for lang in LANGUAGES
     }
     # Translations for custom project
-    CUSTOM_TRANSLATIONS: ClassVar[dict[str, NullTranslations]] = {
+    CUSTOM_TRANSLATIONS: ClassVar[dict[str, _gettext.NullTranslations]] = {
         lang: _gettext.translation(
             domain="messages",
             localedir="config/translations/custom",
@@ -102,7 +101,7 @@ class Translator:
         cls.current_lang = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
 
     @classmethod
-    def ramifice_translator(cls) -> NullTranslations:
+    def ramifice_translator(cls) -> _gettext.NullTranslations:
         """Get translator for Ramifice."""
         # Return of the translator for Ramifice
         return cls.RAMIFICE_TRANSLATIONS.get(
@@ -111,7 +110,7 @@ class Translator:
         )
 
     @classmethod
-    def custom_translator(cls) -> NullTranslations:
+    def custom_translator(cls) -> _gettext.NullTranslations:
         """Get translator for custom project."""
         # Return custom translator
         return cls.CUSTOM_TRANSLATIONS.get(
