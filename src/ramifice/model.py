@@ -100,13 +100,13 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         data_dynamic_fields,
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        lang_code = self.lang_code
+        lang: str = self.lang_code
         for f_name in descriptor_fields:
             f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:
                 dyn_data = data_dynamic_fields.get(f_name)
                 if dyn_data is not None:
-                    f_html_attrs["choices"] = [[item["value"], item["title"][lang_code]] for item in dyn_data]
+                    f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
                 else:
                     # This is necessary for
                     # `paladins > refrash > RefrashMixin > refrash_from_db`.

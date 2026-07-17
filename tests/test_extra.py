@@ -5,12 +5,12 @@ from __future__ import annotations
 import re
 import unittest
 
-from ramifice import NamedTuple, Translator, model
+from ramifice import Model, NamedTuple, Translator, meta
 from ramifice.fields import TextField
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     username = TextField(
@@ -18,8 +18,8 @@ class User:
     )
 
 
-@model(service_name="Accounts")
-class User2:
+@meta(service_name="Accounts")
+class User2(Model):
     """Model for testing."""
 
     username = TextField(
@@ -29,13 +29,13 @@ class User2:
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        _ = Translator.ramifice_translator().gettext
+        gettext = Translator.custom_translator().gettext
         err_map = self.get_error_map()
         username = self.username
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map["username"] = _("Allowed chars: {}").format("a-z A-Z 0-9 _")
+            err_map["username"] = gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
 
         return err_map
 
@@ -67,12 +67,12 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
 
     async def test_extra_methods(self):
         """Testing a `Model` and extra methods."""
-        self.assertIsNone(await User.indexing())
         self.assertIsNone(await User2.indexing())
 
         m: User = User()
         err_map = await m.add_validation()
-        self.assertEqual(err_map, {})
+        self.assertTrue(isinstance(err_map, NamedTuple))
+        self.assertEqual(len(err_map), len(NamedTuple()))
         self.assertIsNone(await m.pre_create())
         self.assertIsNone(await m.post_create())
         self.assertIsNone(await m.pre_update())

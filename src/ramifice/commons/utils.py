@@ -38,7 +38,7 @@ def correct_mongo_filter(cls_model: Any, filter: Any) -> Any:
 
     Corrects `TextField` fields that require localization of translation.
     """
-    lang: str = Translations.CURRENT_LOCALE
+    lang: str = Translator.CURRENT_LOCALE
     filter_json: str = json_util.dumps(filter)
     filter_json = cls_model.META["regex_mongo_filter"].sub(rf'\g<field>.{lang}":', filter_json).replace('":.', ".")
     return json_util.loads(filter_json)

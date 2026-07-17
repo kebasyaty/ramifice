@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("IndexMixin",)
 
+from abc import abstractmethod
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -30,6 +31,11 @@ from ramifice.config import Config
 
 class IndexMixin:
     """Indexation documents of collection."""
+
+    @classmethod
+    @abstractmethod
+    async def indexing(cls) -> None:
+        """Set up and start indexing."""
 
     @classmethod
     async def create_index(  # type: ignore[no-untyped-def]
