@@ -30,7 +30,6 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from ramifice.config import Config
-from ramifice.translator import Translator
 
 
 class JsonMixin:
@@ -40,6 +39,7 @@ class JsonMixin:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
+        lang_code = self.lang_code
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
@@ -56,14 +56,14 @@ class JsonMixin:
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
                             format="medium",
-                            locale=Translations.CURRENT_LOCALE,
+                            locale=lang_code,
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
                             tzinfo=Config.UTC_TIMEZONE,
-                            locale=Translations.CURRENT_LOCALE,
+                            locale=lang_code,
                         )
             json_dict[f_name] = f_html_attrs
 

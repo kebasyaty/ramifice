@@ -9,7 +9,7 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from ramifice import Translations, model
+from ramifice import Model, meta
 from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
@@ -80,8 +80,8 @@ IMG_INFO_DICT: dict[str, str | int | bool] = dict(
 )
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     url = URLField()
@@ -187,7 +187,7 @@ class TestJsonMixin(unittest.TestCase):
                     format_date(
                         date=getattr(m, f_name).date(),
                         format="medium",
-                        locale=Translations.CURRENT_LOCALE,
+                        locale=m2.lang_code,
                     ),
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
@@ -197,7 +197,7 @@ class TestJsonMixin(unittest.TestCase):
                         datetime=getattr(m, f_name),
                         format="medium",
                         tzinfo=Config.UTC_TIMEZONE,
-                        locale=Translations.CURRENT_LOCALE,
+                        locale=m2.lang_code,
                     ),
                 )
                 self.assertEqual(getattr(m2, f_name), m_value)
@@ -215,7 +215,7 @@ class TestJsonMixin(unittest.TestCase):
                     format_date(
                         date=getattr(m, f_name).date(),
                         format="medium",
-                        locale=Translations.CURRENT_LOCALE,
+                        locale=m3.lang_code,
                     ),
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
@@ -225,7 +225,7 @@ class TestJsonMixin(unittest.TestCase):
                         datetime=getattr(m, f_name),
                         format="medium",
                         tzinfo=Config.UTC_TIMEZONE,
-                        locale=Translations.CURRENT_LOCALE,
+                        locale=m3.lang_code,
                     ),
                 )
                 self.assertEqual(getattr(m3, f_name), m_value)
