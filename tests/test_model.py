@@ -80,7 +80,7 @@ class TestModel(unittest.TestCase):
         """Testing a class `Model`."""
         self.assertFalse(bool(Model.META))
         self.assertEqual(Model.__name__, "Model")
-        self.assertEqual(Model.__module__, "ramifice.models.model")
+        self.assertEqual(Model.__module__, "ramifice.model")
         self.assertIsNotNone(Model.__dict__.get("model_name"))
         self.assertIsNotNone(Model.__dict__.get("full_model_name"))
 
@@ -89,7 +89,7 @@ class TestModel(unittest.TestCase):
         m = User("ru")
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "test_model.User")
+        self.assertEqual(m.full_model_name(), "tests.test_model.User")
 
         self.assertEqual(m.id_html_attrs["label"], "Идентификатор документа")
         self.assertEqual(m.id_html_attrs["placeholder"], "Он добавляется автоматически")
