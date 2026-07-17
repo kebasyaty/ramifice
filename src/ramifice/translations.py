@@ -23,6 +23,7 @@ The localization of translations class contains the following parameters:
 - `LANGUAGES` - List of codes supported by languages.
 - `RAMIFICE_TRANSLATIONS` - Translations for Ramifice.
 - `CUSTOM_TRANSLATIONS` - Translations for custom project.
+- `STUB_TRANSLATOR` - Stub for translator.
 - `current_locale` - Current language.
 
 The localization of translations class contains the following methods:
@@ -52,6 +53,7 @@ __all__ = ("Translator",)
 
 import gettext as _gettext
 import logging
+from collections.abc import Callable
 from typing import ClassVar, final
 
 logger = logging.getLogger(__name__)
@@ -87,8 +89,10 @@ class Translator:
         )
         for lang in LANGUAGES
     }
+    # Stub for translator
+    STUB_TRANSLATOR: ClassVar[Callable] = lambda message: message
     # Current language
-    current_locale: str = "en"
+    current_locale: ClassVar[str] = "en"
 
     @classmethod
     def add_new_languages(cls, languages: frozenset[str]) -> None:

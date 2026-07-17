@@ -30,14 +30,13 @@ from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
 from ramifice.translations import Translator
 
+_ = Translator.STUB_TRANSLATOR
+
 
 class Model:
     """Converting Python Class into Ramifice Model."""
 
     META: ClassVar[dict[str, Any]] = {}
-
-    # Stub for translator (required)
-    _: ClassVar = lambda _: _
 
     id = IDField(
         label=_("Document ID"),
