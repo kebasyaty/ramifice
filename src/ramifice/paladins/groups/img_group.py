@@ -31,7 +31,7 @@ from PIL import Image
 from xloft.converters import to_human_size
 
 from ramifice.paladins.utils import accumulate_error, panic_type_error
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 
 class ImgGroupMixin:

@@ -32,7 +32,7 @@ from ramifice.paladins.utils import (
     accumulate_error,
     panic_type_error,
 )
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 
 class FileGroupMixin:

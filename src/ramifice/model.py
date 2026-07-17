@@ -31,7 +31,7 @@ from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
 from ramifice.json import JsonMixin
 from ramifice.paladins import QPaladinsMixin
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
 

@@ -50,5 +50,5 @@ from xloft.converters import to_human_size
 from ramifice.meta import meta
 from ramifice.migration import Migration
 from ramifice.model import Model
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 from ramifice.unit import Unit

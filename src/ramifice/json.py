@@ -30,7 +30,7 @@ from bson.objectid import ObjectId
 from dateutil.parser import parse
 
 from ramifice.config import Config
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 
 class JsonMixin:

@@ -31,7 +31,7 @@ import logging
 from typing import Any
 
 from ramifice.errors import PanicError
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 

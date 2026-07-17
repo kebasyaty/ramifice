@@ -30,7 +30,7 @@ from typing import Any
 from bson.objectid import ObjectId
 
 from ramifice.paladins.utils import accumulate_error, panic_type_error
-from ramifice.translations import Translator
+from ramifice.translator import Translator
 
 
 class IDGroupMixin:

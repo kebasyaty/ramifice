@@ -46,7 +46,7 @@ jobs:
 
       - name: Run unittest
         run: |
-          uv run python -m unittest tests/test_translations.py
+          uv run python -m unittest tests/test_translator.py
           uv run python -m unittest tests/test_config.py
           uv run python -m unittest tests/test_utils.py
           uv run python -m unittest tests/test_unit.py
