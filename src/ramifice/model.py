@@ -72,9 +72,8 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
-        self.lang_code = lang_code
-        self.ramifice_translator = Translator.ramifice_translator()
-        self.custom_translator = Translator.custom_translator()
+        self.ramifice_translator = Translator.ramifice_translator(lang_code)
+        self.custom_translator = Translator.custom_translator(lang_code)
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)

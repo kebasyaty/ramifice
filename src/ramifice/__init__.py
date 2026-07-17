@@ -36,8 +36,8 @@ from __future__ import annotations
 __all__ = (
     "NamedTuple",
     "to_human_size",
-    "Migration",
     "meta",
+    "Migration",
     "Model",
     "Translator",
     "Unit",
@@ -47,8 +47,8 @@ __all__ = (
 from xloft import NamedTuple
 from xloft.converters import to_human_size
 
+from ramifice.meta import meta
 from ramifice.migration import Migration
-from ramifice.models.meta import meta
-from ramifice.models.model import Model
+from ramifice.model import Model
 from ramifice.translations import Translator
 from ramifice.unit import Unit

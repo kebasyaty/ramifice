@@ -5,21 +5,20 @@ from __future__ import annotations
 import re
 import unittest
 
-from ramifice import model
+from ramifice import Model, meta
 from ramifice.fields import ChoiceTextDynField, TextField
-from ramifice.models.model import Model
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     username = TextField()
     favorite_color = ChoiceTextDynField()
 
 
-@model(service_name="Profiles")
-class UserProfile:
+@meta(service_name="Profiles")
+class UserProfile(Model):
     """Model for testing."""
 
     profession = TextField(multi_language=True)

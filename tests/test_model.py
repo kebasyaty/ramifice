@@ -6,7 +6,7 @@ import unittest
 
 from dateutil.parser import ParserError, parse
 
-from ramifice import Translator, model
+from ramifice import Model, meta
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -37,11 +37,10 @@ from ramifice.fields import (
     TextField,
     URLField,
 )
-from ramifice.models.model import Model
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     url = URLField()
@@ -87,8 +86,7 @@ class TestModel(unittest.TestCase):
 
     def test_instance_model(self):
         """Testing a instance `Model`."""
-        Translator.change_locale("ru")
-        m = User()
+        m = User("ru")
 
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "test_model.User")

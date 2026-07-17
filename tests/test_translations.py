@@ -29,8 +29,7 @@ class TestTranslations(unittest.TestCase):
 
         self.assertEqual(_("Document ID"), "Document ID")
 
-        Translator.change_locale("ru")
-        _ = Translator.ramifice_translator().gettext
+        _ = Translator.ramifice_translator("ru").gettext
         self.assertEqual(_("Document ID"), "Идентификатор документа")
 
         user = User("ru")
