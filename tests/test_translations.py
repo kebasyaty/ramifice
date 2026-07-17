@@ -6,7 +6,7 @@ import unittest
 
 from ramifice import Translator, fields, model
 
-_ = Translator.STUB_TRANSLATOR
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
 
 
 @model(service_name="Accounts")

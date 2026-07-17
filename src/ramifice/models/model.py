@@ -30,7 +30,7 @@ from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
 from ramifice.translations import Translator
 
-_ = Translator.STUB_TRANSLATOR
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
 
 
 class Model:
