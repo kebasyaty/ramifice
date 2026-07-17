@@ -53,6 +53,7 @@ __all__ = ("Translator",)
 import gettext as _gettext
 import logging
 from collections.abc import Callable
+from copy import deepcopy
 from typing import ClassVar, final
 
 logger = logging.getLogger(__name__)
@@ -99,19 +100,21 @@ class Translator:
     @classmethod
     def ramifice_translator(cls, lang_code: str = "en") -> _gettext.NullTranslations:
         """Get translator for Ramifice."""
-        current_locale = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
         # Return of the translator for Ramifice
-        return cls.RAMIFICE_TRANSLATIONS.get(
-            current_locale,
-            cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
+        return deepcopy(
+            cls.RAMIFICE_TRANSLATIONS.get(
+                lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
+                cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
+            )
         )
 
     @classmethod
     def custom_translator(cls, lang_code: str = "en") -> _gettext.NullTranslations:
         """Get translator for custom project."""
-        current_locale = lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE
         # Return custom translator
-        return cls.CUSTOM_TRANSLATIONS.get(
-            current_locale,
-            cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
+        return deepcopy(
+            cls.CUSTOM_TRANSLATIONS.get(
+                lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
+                cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
+            )
         )
