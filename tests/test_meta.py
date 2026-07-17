@@ -37,7 +37,7 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "User",
-            "full_model_name": "test_decorator.User",
+            "full_model_name": "tests.test_meta.User",
             "collection_name": "Accounts_User",
             "all_descriptor_fields": ["id", "created_at", "updated_at", "username", "favorite_color"],
             "field_name_and_type": {"username": "TextField", "favorite_color": "ChoiceTextDynField"},
@@ -52,12 +52,12 @@ class TestModel(unittest.TestCase):
             "is_update_doc": True,
             "is_delete_doc": True,
             "model_name": "UserProfile",
-            "full_model_name": "test_decorator.UserProfile",
+            "full_model_name": "tests.test_meta.UserProfile",
             "collection_name": "Profiles_UserProfile",
             "all_descriptor_fields": ["id", "created_at", "updated_at", "profession"],
             "field_name_and_type": {"profession": "TextField"},
             "data_dynamic_fields": {},
-            "regex_mongo_filter": re.compile(r'(?P<field>"(?:)":)'),
+            "regex_mongo_filter": re.compile(r'(?P<field>"(?:profession)":)'),
         }
         return super().setUp()
 
@@ -74,7 +74,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.username_html_attrs["name"], "username")
 
         self.assertEqual(m.model_name(), "User")
-        self.assertEqual(m.full_model_name(), "test_decorator.User")
+        self.assertEqual(m.full_model_name(), "tests.test_meta.User")
 
         self.assertIsNone(m.id)
         self.assertIsNone(m.created_at)
@@ -92,7 +92,7 @@ class TestModel(unittest.TestCase):
         m = UserProfile()
 
         self.assertEqual(m.model_name(), "UserProfile")
-        self.assertEqual(m.full_model_name(), "test_decorator.UserProfile")
+        self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
 
         self.assertEqual(m.profession_html_attrs["id"], "id-profession")
         self.assertEqual(m.profession_html_attrs["name"], "profession")
