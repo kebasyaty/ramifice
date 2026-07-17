@@ -26,14 +26,17 @@ from typing import Any, ClassVar
 
 from xloft import NamedTuple
 
+from ramifice.commons import QCommonsMixin
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
+from ramifice.json import JsonMixin
+from ramifice.paladins import QPaladinsMixin
 from ramifice.translations import Translator
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
 
 
-class Model:
+class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
     """Converting Python Class into Ramifice Model."""
 
     META: ClassVar[dict[str, Any]] = {}
@@ -64,11 +67,12 @@ class Model:
         disabled=True,
     )
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self, lang_code: str = "en") -> None:  # noqa: D107
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
+        self.lang_code = lang_code
         self.ramifice_translator = Translator.ramifice_translator()
         self.custom_translator = Translator.custom_translator()
 

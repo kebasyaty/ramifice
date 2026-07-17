@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import unittest
 
-from ramifice import Translator, fields, model
+from ramifice import Model, Translator, fields, meta
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     email = fields.EmailField(label=_("Email"))
@@ -33,7 +33,7 @@ class TestTranslations(unittest.TestCase):
         _ = Translator.ramifice_translator().gettext
         self.assertEqual(_("Document ID"), "Идентификатор документа")
 
-        user = User()
+        user = User("ru")
 
         self.assertEqual(user.id_html_attrs["label"], "Идентификатор документа")
         self.assertEqual(user.id_html_attrs["placeholder"], "Он добавляется автоматически")

@@ -15,28 +15,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Decorator for converting Python classes into Ramifice models."""
+"""Decorator for adding metadata to the Model."""
 
 from __future__ import annotations
 
-__all__ = ("model",)
+__all__ = ("meta",)
 
 import logging
 import re
 from pathlib import Path
 from typing import Any
 
-from ramifice.commons import QCommonsMixin
 from ramifice.config import Config
 from ramifice.errors import DoesNotMatchRegexError, PanicError
-from ramifice.json import JsonMixin
-from ramifice.models.model import Model
-from ramifice.paladins import QPaladinsMixin
 
 logger = logging.getLogger(__name__)
 
 
-def model(
+def meta(
     service_name: str,
     fixture_name: str | None = None,
     db_query_docs_limit: int = 1000,
@@ -44,7 +40,7 @@ def model(
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
 ) -> Any:
-    """Decorator for converting Python Classe into Ramifice Model."""
+    """Decorator for adding metadata to the Model."""
     try:  # noqa: PLW0717
         if not isinstance(service_name, str):
             msg = "Parameter `service_name` - Must be `str` type!"
@@ -86,8 +82,6 @@ def model(
                 logger.critical(msg)
                 raise PanicError(msg)
 
-        attrs = dict(cls.__dict__)
-        attrs["__dict__"] = Model.__dict__["__dict__"]
         metadata = {
             "service_name": service_name,
             "fixture_name": fixture_name,
@@ -96,21 +90,13 @@ def model(
             "is_update_doc": is_update_doc,
             "is_delete_doc": is_delete_doc,
         }
-        attrs["META"] = {
+
+        cls.META = {
             **metadata,
             **caching(cls, service_name),
         }
 
-        return type(
-            cls.__name__,
-            (
-                Model,
-                JsonMixin,
-                QPaladinsMixin,
-                QCommonsMixin,
-            ),
-            attrs,
-        )
+        return cls
 
     return decorator
 
