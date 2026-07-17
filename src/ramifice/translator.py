@@ -98,23 +98,23 @@ class Translator:
         cls.LANGUAGES.union(languages)
 
     @classmethod
-    def ramifice_translator(cls, lang_code: str = "en") -> _gettext.NullTranslations:
+    def ramifice_translator(cls, lang_code: str = "en", trust: bool = False) -> _gettext.NullTranslations:
         """Get translator for Ramifice."""
         # Return of the translator for Ramifice
         return deepcopy(
             cls.RAMIFICE_TRANSLATIONS.get(
-                lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
+                lang_code if trust or lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
                 cls.RAMIFICE_TRANSLATIONS[cls.DEFAULT_LOCALE],
             )
         )
 
     @classmethod
-    def custom_translator(cls, lang_code: str = "en") -> _gettext.NullTranslations:
+    def custom_translator(cls, lang_code: str = "en", trust: bool = False) -> _gettext.NullTranslations:
         """Get translator for custom project."""
         # Return custom translator
         return deepcopy(
             cls.CUSTOM_TRANSLATIONS.get(
-                lang_code if lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
+                lang_code if trust or lang_code in cls.LANGUAGES else cls.DEFAULT_LOCALE,
                 cls.CUSTOM_TRANSLATIONS[cls.DEFAULT_LOCALE],
             )
         )

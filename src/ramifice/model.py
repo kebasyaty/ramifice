@@ -72,14 +72,15 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
-        self.lang_code = lang_code if lang_code in Translator.LANGUAGES else Translator.DEFAULT_LOCALE
-        self.ramifice_translator = Translator.ramifice_translator(lang_code)
-        self.custom_translator = Translator.custom_translator(lang_code)
+        lang_code = lang_code if lang_code in Translator.LANGUAGES else Translator.DEFAULT_LOCALE
+        self.lang_code = lang_code
+        self.ramifice_translator = Translator.ramifice_translator(lang_code, True)
+        self.custom_translator = Translator.custom_translator(lang_code, True)
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)
 
-        self.inject(descriptor_fields, data_dynamic_fields)
+        self.inject(lang_code, descriptor_fields, data_dynamic_fields)
 
     def __delattr__(self, name: str) -> None:
         """Blocked Deleter."""
@@ -96,17 +97,17 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
 
     def inject(
         self,
+        lang_code,
         descriptor_fields,
         data_dynamic_fields,
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        lang: str = self.lang_code
         for f_name in descriptor_fields:
             f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:
                 dyn_data = data_dynamic_fields.get(f_name)
                 if dyn_data is not None:
-                    f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
+                    f_html_attrs["choices"] = [[item["value"], item["title"][lang_code]] for item in dyn_data]
                 else:
                     # This is necessary for
                     # `paladins > refrash > RefrashMixin > refrash_from_db`.
