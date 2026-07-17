@@ -114,20 +114,24 @@ from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 from ramifice import (
-    model,
-    Translations,
     Migration,
-    to_human_size,
+    Model,
+    Translations,
     fields,
+    meta,
+    to_human_size,
 )
 from ramifice import Translations as trans
+
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
+
 
 @model(service_name="Accounts")
 class User:
     """Model of User."""
 
     avatar = fields.ImageField(
-        label=trans.gettext("Avatar"),
+        label=_("Avatar"),
         default="public/media/default/no-photo.png",
         # Directory for images inside media directory.
         target_dir="users/avatars",
@@ -138,23 +142,23 @@ class User:
         # Hint: Default = 2 MB
         max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
         warning=[
-            trans.gettext("Maximum size: {}").format(to_human_size(524288)),
+            _("Maximum size: {}").format(to_human_size(524288)),
         ],
     )
     username = fields.TextField(
-        label=trans.gettext("Username"),
+        label=_("Username"),
         max_length=150,
         required=True,
         unique=True,
         warning=[
-            trans.gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
+            _("Allowed chars: {}").format("a-z A-Z 0-9 _"),
         ],
     )
     password = fields.PasswordField(
-        label=trans.gettext("Password"),
+        label=_("Password"),
     )
     сonfirm_password = fields.PasswordField(
-        label=gettext("Confirm password"),
+        label=_("Confirm password"),
         # If true, the value of this field is not saved in the database.
         ignored=True,
     )
@@ -162,6 +166,7 @@ class User:
     # Optional method
     async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
+        gettext = Translator.custom_translator("ru").gettext
         err_map = self.get_error_map()
         _id = self.id
         password = self.password
@@ -170,11 +175,11 @@ class User:
 
         # Check Password
         if _id is None and password != сonfirm_password:
-            err.update("password", trans.gettext("Passwords do not match!"))
+            err.update("password", gettext("Passwords do not match!"))
 
         # Check Username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map["username"] = trans.gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
+            err_map["username"] = gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
 
         return err_map
 
@@ -187,12 +192,10 @@ async def main():
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
 
-    user = User()
-    # user.avatar.from_path("public/media/default/no-photo.png")
+    user = User("ru")
+    # user.avatar_funcs["from_path"]("public/media/default/no-photo.png")
+    # user.avatar_funcs["from_base64"]("base64-string")
     user.username = "pythondev"
     user.password = "12345678"
     user.сonfirm_password = "12345678"
@@ -282,7 +285,7 @@ if __name__ == "__main__":
 **Example:**
 
 ```python
-@model(
+@meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
     db_query_docs_limit=1000,
@@ -290,7 +293,7 @@ if __name__ == "__main__":
     is_update_doc = True,
     is_delete_doc = True,
 )
-class User:
+class User(Model):
   username = TextField(
       label="Username",
       required=True,
