@@ -67,11 +67,12 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         disabled=True,
     )
 
-    def __init__(self, lang_code: str = "en") -> None:  # noqa: D107
+    def __init__(self, lang_code: str = Translator.DEFAULT_LOCALE) -> None:  # noqa: D107
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
+        self.lang_code = lang_code if lang_code in Translator.LANGUAGES else Translator.DEFAULT_LOCALE
         self.ramifice_translator = Translator.ramifice_translator(lang_code)
         self.custom_translator = Translator.custom_translator(lang_code)
 
@@ -99,13 +100,13 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         data_dynamic_fields,
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
-        lang = Translator.current_locale
+        lang_code = self.lang_code
         for f_name in descriptor_fields:
             f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             if "Dyn" in f_html_attrs["field_type"]:
                 dyn_data = data_dynamic_fields.get(f_name)
                 if dyn_data is not None:
-                    f_html_attrs["choices"] = [[item["value"], item["title"][lang]] for item in dyn_data]
+                    f_html_attrs["choices"] = [[item["value"], item["title"][lang_code]] for item in dyn_data]
                 else:
                     # This is necessary for
                     # `paladins > refrash > RefrashMixin > refrash_from_db`.

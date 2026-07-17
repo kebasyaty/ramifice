@@ -40,7 +40,7 @@ from ramifice.errors import (
     PanicError,
 )
 from ramifice.fixtures import apply_fixture
-from ramifice.models.model import Model
+from ramifice.model import Model
 
 logger = logging.getLogger(__name__)
 
