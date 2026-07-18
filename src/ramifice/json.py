@@ -29,8 +29,6 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
 
-from ramifice.config import Config
-
 
 class JsonMixin:
     """A mixin for converting Model to a JSON-string and back to a Model."""
@@ -40,6 +38,7 @@ class JsonMixin:
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         LANG_CODE = self._LANG_CODE
+        UTC_TIMEZONE = self._UTC_TIMEZONE
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
@@ -62,7 +61,7 @@ class JsonMixin:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
-                            tzinfo=Config.UTC_TIMEZONE,
+                            tzinfo=UTC_TIMEZONE,
                             locale=LANG_CODE,
                         )
             json_dict[f_name] = f_html_attrs

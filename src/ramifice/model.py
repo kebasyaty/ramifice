@@ -28,6 +28,7 @@ from typing import Any, ClassVar
 from xloft import NamedTuple
 
 from ramifice.commons import QCommonsMixin
+from ramifice.config import Config
 from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
 from ramifice.json import JsonMixin
@@ -74,9 +75,11 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
         LANGUAGES = deepcopy(Translator.LANGUAGES)
-        self._LANGUAGES = LANGUAGES
         LANG_CODE = lang_code if lang_code in LANGUAGES else Translator.DEFAULT_LOCALE
+
+        self._LANGUAGES = LANGUAGES
         self._LANG_CODE = LANG_CODE
+        self._UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
         self.__dict__["_RAMIFICE_TRANSLATOR"] = deepcopy(Translator.ramifice_translator(LANG_CODE, True))
         self.__dict__["_CUSTOM_TRANSLATOR"] = deepcopy(Translator.custom_translator(LANG_CODE, True))
 
