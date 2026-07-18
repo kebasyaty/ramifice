@@ -81,9 +81,9 @@ class Field:
     def trans_field_attrs(self, instance: Any, field_name: str) -> None:
         """Translate field attributes."""
         gettext = (
-            instance.__dict__["_RAMIFICE_TRANSLATOR"].gettext
-            if field_name in ["id", "created_at", "updated_at"]
-            else instance.__dict__["_CUSTOM_TRANSLATOR"].gettext
+            instance.__dict__["_CUSTOM_TRANSLATOR"].gettext
+            if field_name not in ["id", "created_at", "updated_at"]
+            else instance.__dict__["_RAMIFICE_TRANSLATOR"].gettext
         )
         html_attrs = self.html_attrs
 
