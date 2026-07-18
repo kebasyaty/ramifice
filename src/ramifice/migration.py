@@ -52,8 +52,8 @@ class Migration:
         db_name_regex = Config.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
             regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
-            msg: str = f"Does not match the regular expression: {regex_str}"
-            logger.critical(msg)
+            err_msg: str = f"Does not match the regular expression: {regex_str}"
+            logger.critical(err_msg)
             raise DoesNotMatchRegexError(regex_str)
         #
         Config.DATABASE_NAME = database_name
@@ -189,9 +189,9 @@ class Migration:
                     if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # noqa: T201
                         inst_model.print_err()
-                        msg: str = "Migration failed."
-                        logger.critical(msg)
-                        raise PanicError(msg)
+                        err_msg: str = "Migration failed."
+                        logger.critical(err_msg)
+                        raise PanicError(err_msg)
                     # Get checked data.
                     checked_data = result_check["data"]
                     # Add password from mongo_doc to checked_data.

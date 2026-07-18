@@ -56,13 +56,13 @@ async def apply_fixture(
         data_yaml = yaml.safe_load(file)
 
     if not bool(data_yaml):
-        msg = (
+        err_msg = (
             f"Model: `{cls_model.META['full_model_name']}` > "
             + f"META param: `fixture_name` ({fixture_name}) => "
             + "It seems that fixture is empty or it has incorrect contents!"
         )
-        logger.critical(msg)
-        raise PanicError(msg)
+        logger.critical(err_msg)
+        raise PanicError(err_msg)
 
     if data_yaml is not None:
         if not isinstance(data_yaml, list):
@@ -95,9 +95,9 @@ async def apply_fixture(
                 print(colored("\nFIXTURE:", "red", attrs=["bold"]))  # noqa: T201
                 print(colored(fixture_path, "blue", attrs=["bold"]))  # noqa: T201
                 inst_model.print_err()
-                msg = f"Fixture `{fixture_name}` failed."
-                logger.critical(msg)
-                raise PanicError(msg)
+                err_msg = f"Fixture `{fixture_name}` failed."
+                logger.critical(err_msg)
+                raise PanicError(err_msg)
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
             # Add date and time.

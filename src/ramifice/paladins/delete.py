@@ -53,23 +53,23 @@ class DeleteMixin:
         cls_model = self.__class__
         # Raises a panic if the Model cannot be removed.
         if not cls_model.META["is_delete_doc"]:
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
-            logger.warning(msg)
-            raise ForbiddenDeleteDocError(msg)
+            logger.warning(err_msg)
+            raise ForbiddenDeleteDocError(err_msg)
         # Get documet ID.
         doc_id = self._id.value
         if doc_id is None:
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "Field: `_id` > "
                 + "Param: `value` => ID is missing."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
@@ -88,13 +88,13 @@ class DeleteMixin:
         )
         # If the document failed to delete.
         if not bool(mongo_doc):
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None
         for field_name, field_data in self.__dict__.items():

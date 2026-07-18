@@ -29,6 +29,7 @@ from typing import Any, assert_never
 from anyio import to_thread
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
+from xloft import NamedTuple
 
 from ramifice.config import Config
 from ramifice.paladins.groups import (
@@ -84,7 +85,7 @@ class CheckMixin(
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
-        error_map: dict[str, str] = await self.add_validation()
+        error_map: NamedTuple = await self.add_validation()
         # Get Model collection.
         if collection is None:
             collection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
@@ -109,7 +110,7 @@ class CheckMixin(
             # Reset a field errors to exclude duplicates.
             field_data.errors = []
             # Check additional validation.
-            err_msg = error_map.get(field_name)
+            err_msg = error_map[field_name]
             if bool(err_msg):
                 field_data.errors.append(err_msg)
                 if not params["is_error_symptom"]:
@@ -139,8 +140,8 @@ class CheckMixin(
                     case "password":
                         self.password_group(params)
                     case _ as unreachable:
-                        msg: str = f"Unacceptable group `{unreachable}`!"
-                        logger.critical(msg)
+                        err_msg: str = f"Unacceptable group `{unreachable}`!"
+                        logger.critical(err_msg)
                         assert_never(unreachable)
 
         # Actions in case of error.

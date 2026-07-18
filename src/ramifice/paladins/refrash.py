@@ -43,12 +43,12 @@ class RefrashMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self._id.value})
         if mongo_doc is None:
-            msg = (
+            err_msg = (
                 f"Model: `{self.full_model_name()}` > "
                 + "Method: `refrash_from_db` => "
                 + f"A document with an identifier `{self._id.value}` is not exists in the database!"
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         self.inject()
         refresh_from_mongo_doc(self, mongo_doc)

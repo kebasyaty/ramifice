@@ -47,35 +47,35 @@ class PasswordMixin:
         # Get documet ID.
         doc_id = self._id.value
         if doc_id is None:
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + "Cannot get document ID - ID field is empty."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Get collection for current Model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         if mongo_doc is None:
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + f"There is no document with ID `{self._id.value}` in the database."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Get password hash.
         hash: str | None = mongo_doc.get(field_name)
         if hash is None:
-            msg = (
+            err_msg = (
                 f"Model: `{cls_model.META['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + f"The model does not have a field `{field_name}`."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Password verification.
         is_valid: bool = False
         ph = PasswordHasher()

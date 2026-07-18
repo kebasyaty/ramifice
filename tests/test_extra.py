@@ -29,7 +29,7 @@ class User2(Model):
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        _ = self.custom_translator.gettext
+        _ = self._CUSTOM_TRANSLATOR.gettext
         err_map = self.get_error_map()
 
         username = self.username

@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("Model",)
 
 
+from copy import deepcopy
 from typing import Any, ClassVar
 
 from xloft import NamedTuple
@@ -72,10 +73,12 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
 
-        lang_code = lang_code if lang_code in Translator.LANGUAGES else Translator.DEFAULT_LOCALE
-        self.lang_code = lang_code
-        self.ramifice_translator = Translator.ramifice_translator(lang_code, True)
-        self.custom_translator = Translator.custom_translator(lang_code, True)
+        LANGUAGES = deepcopy(Translator.LANGUAGES)
+        self._LANGUAGES = LANGUAGES
+        LANG_CODE = lang_code if lang_code in LANGUAGES else Translator.DEFAULT_LOCALE
+        self._LANG_CODE = LANG_CODE
+        self.__dict__["_RAMIFICE_TRANSLATOR"] = deepcopy(Translator.ramifice_translator(LANG_CODE, True))
+        self.__dict__["_CUSTOM_TRANSLATOR"] = deepcopy(Translator.custom_translator(LANG_CODE, True))
 
         for f_name in descriptor_fields:
             setattr(self, f_name, None)

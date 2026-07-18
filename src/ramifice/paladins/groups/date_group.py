@@ -46,6 +46,8 @@ class DateGroupMixin:
 
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
+        _ = self._RAMIFICE_TRANSLATOR.gettext
+
         field = params["field_data"]
         # Get current value.
         value = field.value or field.default or None
@@ -55,7 +57,7 @@ class DateGroupMixin:
 
         if value is None:
             if field.required:
-                err_msg = Translations._("Required field !")
+                err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field.name] = None
@@ -68,29 +70,29 @@ class DateGroupMixin:
                 format_date(
                     date=value.date(),
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
             )
             max_date_str = (
                 format_date(
                     date=max_date.date(),
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=max_date,
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
             )
-            err_msg = Translations._(
+            err_msg = _(
                 "The date {} must not be greater than max={} !",
             ).format(value_str, max_date_str)
             accumulate_error(err_msg, params)
@@ -101,29 +103,29 @@ class DateGroupMixin:
                 format_date(
                     date=value.date(),
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
             )
             min_date_str = (
                 format_date(
                     date=min_date.date(),
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=min_date,
                     format="short",
-                    locale=Translations.CURRENT_LOCALE,
+                    locale=Translator.CURRENT_LOCALE,
                 )
             )
-            err_msg = Translations._(
+            err_msg = _(
                 "The date {} must not be less than min={} !",
             ).format(value_str, min_date_str)
             accumulate_error(err_msg, params)

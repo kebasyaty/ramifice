@@ -75,13 +75,13 @@ class SaveMixin:
             # Refresh Model.
             mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
-                msg = (
+                err_msg = (
                     f"Model: `{self.full_model_name()}` > "
                     + "Method: `save` => "
                     + "Geted value is None - it is impossible to refresh the current Model."
                 )
-                logger.critical(msg)
-                raise PanicError(msg)
+                logger.critical(err_msg)
+                raise PanicError(err_msg)
             refresh_from_mongo_doc(self, mongo_doc)
         else:
             # Add date and time.
@@ -97,9 +97,11 @@ class SaveMixin:
             # Refresh Model.
             mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
-                msg = f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."
-                logger.critical(msg)
-                raise PanicError(msg)
+                err_msg = (
+                    f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."
+                )
+                logger.critical(err_msg)
+                raise PanicError(err_msg)
             refresh_from_mongo_doc(self, mongo_doc)
         #
         # If everything is completed successfully.

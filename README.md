@@ -166,7 +166,7 @@ class User:
     # Optional method
     async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
-        _ = self.custom_translator.gettext
+        _ = self._CUSTOM_TRANSLATOR.gettext
         err_map = self.get_error_map()
 
         _id = self.id

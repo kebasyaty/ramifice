@@ -48,17 +48,19 @@ class Unit(JsonMixin):
     ) -> None:
         # Check the match of types.
         if not isinstance(field, str):
-            msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
-            raise PanicError(msg)
+            err_msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
+            raise PanicError(err_msg)
         if not isinstance(title, dict):
-            msg = "Class: `Unit` > Field: `title` => Not а `str` type! " + 'Example: {"en": "Title", "ru": "Заголовок"}'
-            raise PanicError(msg)
+            err_msg = (
+                "Class: `Unit` > Field: `title` => Not а `str` type! " + 'Example: {"en": "Title", "ru": "Заголовок"}'
+            )
+            raise PanicError(err_msg)
         if not isinstance(value, (float, int, str)):
-            msg = "Class: `Unit` > Field: `value` => Not a `float | int | str` type!"
-            raise PanicError(msg)
+            err_msg = "Class: `Unit` > Field: `value` => Not a `float | int | str` type!"
+            raise PanicError(err_msg)
         if not isinstance(is_delete, bool):
-            msg = "Class: `Unit` > Field: `is_delete` => Not a `bool` type!"
-            raise PanicError(msg)
+            err_msg = "Class: `Unit` > Field: `is_delete` => Not a `bool` type!"
+            raise PanicError(err_msg)
 
         JsonMixin.__init__(self)
 
@@ -85,11 +87,11 @@ class Unit(JsonMixin):
             field_name = "value"
 
         if len(field_name) > 0:
-            msg = (
+            err_msg = (
                 "Method: `unit_manager` > "
                 + "Argument: `unit` > "
                 + f"Field: `{field_name}` => "
                 + "Must not be empty!"
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)

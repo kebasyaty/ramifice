@@ -39,7 +39,7 @@ class JsonMixin:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
-        lang_code = self.lang_code
+        LANG_CODE = self._LANG_CODE
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
@@ -56,14 +56,14 @@ class JsonMixin:
                         f_html_attrs["value"] = format_date(
                             date=value.date(),
                             format="medium",
-                            locale=lang_code,
+                            locale=LANG_CODE,
                         )
                     else:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
                             tzinfo=Config.UTC_TIMEZONE,
-                            locale=lang_code,
+                            locale=LANG_CODE,
                         )
             json_dict[f_name] = f_html_attrs
 

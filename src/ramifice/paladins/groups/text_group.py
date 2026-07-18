@@ -39,7 +39,6 @@ from ramifice.paladins.utils import (
     check_uniqueness,
     panic_type_error,
 )
-from ramifice.translator import Translator
 from ramifice.utils import (
     is_color,
     is_ip,
@@ -58,6 +57,8 @@ class TextGroupMixin:
 
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
+        _ = self._RAMIFICE_TRANSLATOR.gettext
+
         field = params["field_data"]
         field_name = field.name
         field_type: str = field.field_type
@@ -74,7 +75,7 @@ class TextGroupMixin:
 
         if value is None:
             if field.required:
-                err_msg = Translations._("Required field !")
+                err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field_name] = None
@@ -82,7 +83,7 @@ class TextGroupMixin:
         # Validation the `max_length` field attribute.
         max_length: int | None = field.__dict__.get("max_length")
         if max_length is not None and len(field) > max_length:
-            err_msg = Translations._(
+            err_msg = _(
                 "The length of the string exceeds max_length={} !",
             ).format(max_length)
             accumulate_error(err_msg, params)
@@ -93,7 +94,7 @@ class TextGroupMixin:
             field_name,
             is_multi_language,
         ):
-            err_msg = Translations._("Is not unique !")
+            err_msg = _("Is not unique !")
             accumulate_error(err_msg, params)
         # Validation Email, Url, IP, Color, Phone.
         if field_type == "EmailField":
@@ -106,36 +107,37 @@ class TextGroupMixin:
                 value = emailinfo.normalized
                 params["field_data"].value = value
             except EmailNotValidError:
-                err_msg = Translations._("Invalid Email address !")
+                err_msg = _("Invalid Email address !")
                 accumulate_error(err_msg, params)
         elif field_type == "URLField" and not is_url(value):
-            err_msg = Translations._("Invalid URL address !")
+            err_msg = _("Invalid URL address !")
             accumulate_error(err_msg, params)
         elif field_type == "IPField" and not is_ip(value):
-            err_msg = Translations._("Invalid IP address !")
+            err_msg = _("Invalid IP address !")
             accumulate_error(err_msg, params)
         elif field_type == "ColorField" and not is_color(value):
-            err_msg = Translations._("Invalid Color code !")
+            err_msg = _("Invalid Color code !")
             accumulate_error(err_msg, params)
         elif field_type == "PhoneField" and not is_phone(value):
-            err_msg = Translations._("Invalid Phone number !")
+            err_msg = _("Invalid Phone number !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
             if is_multi_language:
+                LANGUAGES = self._LANGUAGES
                 mult_lang_text = (
                     params["curr_doc"][field_name]
                     if params["is_update"]
                     else (
-                        dict.fromkeys(Translations.LANGUAGES)
+                        dict.fromkeys(LANGUAGES)
                         if isinstance(value, str)
-                        else {lang: value.get(lang, "- -") for lang in Translations.LANGUAGES}
+                        else {lang: value.get(lang, "- -") for lang in LANGUAGES}
                     )
                 )
                 if isinstance(value, dict):
-                    for lang in Translations.LANGUAGES:
+                    for lang in LANGUAGES:
                         mult_lang_text[lang] = value.get(lang, "- -")
                 else:
-                    mult_lang_text[Translations.CURRENT_LOCALE] = value
+                    mult_lang_text[self._LANG_CODE] = value
                 value = mult_lang_text
             params["result_map"][field_name] = value
