@@ -41,8 +41,7 @@ class ImgGroupMixin:
 
     async def img_group(self, params: dict[str, Any]) -> None:
         """Checking image fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         value = field.value or None
 

@@ -40,8 +40,7 @@ class PasswordGroupMixin:
 
     def password_group(self, params: dict[str, Any]) -> None:
         """Checking password fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         # When updating the document, skip the verification.
         if params["is_update"]:

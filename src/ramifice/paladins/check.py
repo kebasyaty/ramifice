@@ -101,6 +101,7 @@ class CheckMixin(
             "full_model_name": cls_model.META["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
+            "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
         # Run checking fields.

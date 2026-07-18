@@ -42,8 +42,7 @@ class FileGroupMixin:
 
     async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         value = field.value or None
 

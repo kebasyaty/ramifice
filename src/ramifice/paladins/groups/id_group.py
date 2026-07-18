@@ -41,8 +41,7 @@ class IDGroupMixin:
 
     def id_group(self, params: dict[str, Any]) -> None:
         """Checking id fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         # Get current value.
         value = field.value

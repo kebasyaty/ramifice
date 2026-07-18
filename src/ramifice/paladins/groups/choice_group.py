@@ -45,8 +45,7 @@ class ChoiceGroupMixin:
 
     def choice_group(self, params: dict[str, Any]) -> None:
         """Checking choice fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         is_migrate = params["is_migration_process"]
         # Get current value.

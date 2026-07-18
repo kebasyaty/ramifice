@@ -45,7 +45,7 @@ class DateGroupMixin:
 
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
+        _ = params["_"]
         LANG_CODE = self._LANG_CODE
 
         field = params["field_data"]

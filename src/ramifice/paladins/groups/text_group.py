@@ -57,8 +57,7 @@ class TextGroupMixin:
 
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
-        _ = self._RAMIFICE_TRANSLATOR.gettext
-
+        _ = params["_"]
         field = params["field_data"]
         field_name = field.name
         field_type: str = field.field_type
