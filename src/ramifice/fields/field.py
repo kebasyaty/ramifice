@@ -65,6 +65,9 @@ class Field:
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             self.trans_field_attrs(instance, name)
+            if html_attrs["group"] == "date":
+                field_type = html_attrs["field_type"]
+                pass
             setattr(instance, field_name_html_attrs, html_attrs)
 
         correct_value: Any | None = value
@@ -100,3 +103,6 @@ class Field:
         warning_list = html_attrs.get("warning")
         if warning_list is not None:
             html_attrs["warning"] = [_(item) for item in warning_list]
+
+    def convert_date(self, instance: Any, html_attrs: dict[str, Any]) -> None:
+        """Convert (date|datetime) to national format."""

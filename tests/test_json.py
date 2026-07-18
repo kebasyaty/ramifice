@@ -209,7 +209,30 @@ class TestJsonMixin(unittest.TestCase):
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
-            self.assertTrue(getattr(m3, f_name) == getattr(m, f_name))
+            field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
+            if field_type == "DateField":
+                m_value = parse(
+                    format_date(
+                        date=getattr(m, f_name).date(),
+                        format="medium",
+                        locale=m3.lang_code,
+                    ),
+                )
+                self.assertEqual(getattr(m3, f_name), m_value)
+            elif field_type == "DateTimeField":
+                m_value = parse(
+                    format_datetime(
+                        datetime=getattr(m, f_name),
+                        format="medium",
+                        tzinfo=Config.UTC_TIMEZONE,
+                        locale=m3.lang_code,
+                    ),
+                )
+                self.assertEqual(getattr(m3, f_name), m_value)
+            elif field_type == "PasswordField":
+                self.assertIsNone(getattr(m3, f_name))
+            else:
+                self.assertEqual(getattr(m3, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m3, f"{f_name}_html_attrs"))
 
 
