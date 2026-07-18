@@ -80,7 +80,7 @@ class Field:
 
     def trans_field_attrs(self, instance: Any, field_name: str) -> None:
         """Translate field attributes."""
-        gettext = (
+        _ = (
             instance.__dict__["_CUSTOM_TRANSLATOR"].gettext
             if field_name not in ["id", "created_at", "updated_at"]
             else instance.__dict__["_RAMIFICE_TRANSLATOR"].gettext
@@ -88,15 +88,15 @@ class Field:
         html_attrs = self.html_attrs
 
         label = html_attrs.get("label")
-        html_attrs["label"] = gettext(label) if bool(label) else ""
+        html_attrs["label"] = _(label) if bool(label) else ""
 
         placeholder = html_attrs.get("placeholder")
         if placeholder is not None:
-            html_attrs["placeholder"] = gettext(placeholder) if bool(placeholder) else ""
+            html_attrs["placeholder"] = _(placeholder) if bool(placeholder) else ""
 
         hint = html_attrs.get("hint")
-        html_attrs["hint"] = gettext(hint) if bool(hint) else ""
+        html_attrs["hint"] = _(hint) if bool(hint) else ""
 
         warning_list = html_attrs.get("warning")
         if warning_list is not None:
-            html_attrs["warning"] = [gettext(item) for item in warning_list]
+            html_attrs["warning"] = [_(item) for item in warning_list]
