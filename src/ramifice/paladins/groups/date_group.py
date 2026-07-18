@@ -34,7 +34,6 @@ from ramifice.paladins.utils import (
     accumulate_error,
     panic_type_error,
 )
-from ramifice.translator import Translator
 
 
 class DateGroupMixin:
@@ -47,6 +46,7 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         _ = self._RAMIFICE_TRANSLATOR.gettext
+        LANG_CODE = self._LANG_CODE
 
         field = params["field_data"]
         # Get current value.
@@ -69,27 +69,27 @@ class DateGroupMixin:
             value_str = (
                 format_date(
                     date=value.date(),
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             max_date_str = (
                 format_date(
                     date=max_date.date(),
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=max_date,
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             err_msg = _(
@@ -102,27 +102,27 @@ class DateGroupMixin:
             value_str = (
                 format_date(
                     date=value.date(),
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=value,
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             min_date_str = (
                 format_date(
                     date=min_date.date(),
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
                 if field.field_type == "DateField"
                 else format_datetime(
                     datetime=min_date,
-                    format="short",
-                    locale=Translator.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             err_msg = _(

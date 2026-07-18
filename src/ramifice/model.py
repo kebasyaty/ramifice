@@ -89,6 +89,11 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         """Blocked Deleter."""
         raise AttributeCannotBeDeleteError(name)
 
+    @property
+    def lang_code(self) -> str:
+        """Language code."""
+        return self._LANG_CODE
+
     def model_name(self) -> str:
         """Get Model name - Class name."""
         return self.__class__.__name__
