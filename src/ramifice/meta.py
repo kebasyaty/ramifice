@@ -43,7 +43,10 @@ def meta(
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
 ) -> Any:
-    """Decorator for adding metadata to the Model."""
+    """Decorator for generating metadata (parameters) of the Model.
+
+    The parameters are assigned to the Model.META variable.
+    """
     try:  # noqa: PLW0717
         if not isinstance(service_name, str):
             msg = "Parameter `service_name` - Must be `str` type!"
