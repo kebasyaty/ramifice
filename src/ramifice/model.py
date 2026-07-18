@@ -79,6 +79,7 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
 
         self._LANGUAGES = LANGUAGES
         self._LANG_CODE = LANG_CODE
+        self._TZ_MAPPING = deepcopy(Config.TZ_MAPPING)
         self._UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
         self.__dict__["_RAMIFICE_TRANSLATOR"] = deepcopy(Translator.ramifice_translator(LANG_CODE, True))
         self.__dict__["_CUSTOM_TRANSLATOR"] = deepcopy(Translator.custom_translator(LANG_CODE, True))

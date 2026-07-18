@@ -157,7 +157,7 @@ class TestJsonMixin(unittest.TestCase):
         m.hash2 = ObjectId("507f1f77bcf86cd799439011")
         m.file = FILE_INFO_DICT.copy()
         m.email = "fllabrst6wi@zumnime.me"
-        m.date_time = datetime.now(Config.UTC_TIMEZONE)
+        m.date_time = "July 18, 2026 12:00 PM PDT"
         m.date = datetime.now(Config.UTC_TIMEZONE)
         m.color = "#F54927"
         m.bool = True

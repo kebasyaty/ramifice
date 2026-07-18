@@ -191,7 +191,7 @@ class Field:
             if "Time" in html_attrs["field_type"]:
                 return parse(
                     format_datetime(
-                        datetime=parse(value),
+                        datetime=parse(value, tzinfos=instance._TZ_MAPPING),
                         format="medium",
                         tzinfo=instance._UTC_TIMEZONE,
                         locale=instance._LANG_CODE,
@@ -200,7 +200,7 @@ class Field:
             else:  # noqa: RET505
                 return parse(
                     format_date(
-                        date=parse(value),
+                        date=parse(value, tzinfos=instance._TZ_MAPPING),
                         format="medium",
                         locale=instance._LANG_CODE,
                     ),

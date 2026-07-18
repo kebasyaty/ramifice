@@ -29,6 +29,7 @@ The settings class contains the following parameters:
 - `STATIC_ROOT` - The absolute path to the directory where static files are located.
 - `STATIC_URL` - URL to use when referring to static files located in STATIC_ROOT.
 - `UTC_TIMEZONE` - UTC timezone object.
+- `TZ_MAPPING` - Time zone dictionary for `dateutil.parser import parse`.
 - `REGEX` - Patterns of regular expression.
 """
 
@@ -39,9 +40,10 @@ __all__ = ("Config",)
 
 import re
 from datetime import tzinfo
-from typing import ClassVar, final
+from typing import Any, ClassVar, final
 
 from babel.dates import get_timezone
+from dateutil import tz
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.database import AsyncDatabase
 
@@ -77,6 +79,12 @@ class Config:
     STATIC_URL: ClassVar[str] = "/static"
     # UTC timezone object.
     UTC_TIMEZONE: ClassVar[tzinfo] = get_timezone("UTC")
+    # Time zone dictionary for `dateutil.parser import parse`
+    TZ_MAPPING: ClassVar[dict[str, Any]] = {
+        "PST": tz.gettz("UTC"),
+        "PDT": tz.gettz("UTC"),
+        "EST": tz.gettz("UTC"),
+    }
     # Patterns of regular expression.
     REGEX: ClassVar[dict[str, re.Pattern]] = {
         "database_name": re.compile(r"^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"),

@@ -21,13 +21,15 @@ from __future__ import annotations
 
 __all__ = ("JsonMixin",)
 
-import copy
+from copy import deepcopy
 from typing import Any
 
 import orjson
 from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateutil.parser import parse
+
+from ramifice.config import Config
 
 
 class JsonMixin:
@@ -42,7 +44,7 @@ class JsonMixin:
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
-            f_html_attrs = copy.deepcopy(getattr(self, f"{f_name}_html_attrs"))
+            f_html_attrs = deepcopy(getattr(self, f"{f_name}_html_attrs"))
             group = f_html_attrs["group"]
             value = f_html_attrs["value"]
             if value is not None:
@@ -77,6 +79,7 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
+        TZ_MAPPING = deepcopy(Config.TZ_MAPPING)
         instance = cls()
 
         for f_name in descriptor_fields:
@@ -90,7 +93,7 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    tmp_html_attrs["value"] = parse(value)
+                    tmp_html_attrs["value"] = parse(value, tzinfos=TZ_MAPPING)
 
             setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
