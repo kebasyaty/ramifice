@@ -166,20 +166,21 @@ class User:
     # Optional method
     async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
-        gettext = Translator.custom_translator("ru").gettext
+        _ = self.custom_translator.gettext
         err_map = self.get_error_map()
+
         _id = self.id
         password = self.password
         сonfirm_password = self.сonfirm_password
         username = self.username
 
-        # Check Password
+        # Check password
         if _id is None and password != сonfirm_password:
-            err.update("password", gettext("Passwords do not match!"))
+            err_map.update("password", _("Passwords do not match!"))
 
-        # Check Username
+        # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map["username"] = gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
+            err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
 
         return err_map
 
