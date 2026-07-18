@@ -49,44 +49,47 @@ def meta(
     """
     try:  # noqa: PLW0717
         if not isinstance(service_name, str):
-            msg = "Parameter `service_name` - Must be `str` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `service_name` - Must be `str` type!"
+            raise AssertionError(err_msg)
         if not isinstance(fixture_name, (str, type(None))):
-            msg = "Parameter `fixture_name` - Must be `str | None` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `fixture_name` - Must be `str | None` type!"
+            raise AssertionError(err_msg)
         if not isinstance(db_query_docs_limit, int):
-            msg = "Parameter `db_query_docs_limit` - Must be `int` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `db_query_docs_limit` - Must be `int` type!"
+            raise AssertionError(err_msg)
         if not isinstance(is_create_doc, bool):
-            msg = "Parameter `is_create_doc` - Must be `bool` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `is_create_doc` - Must be `bool` type!"
+            raise AssertionError(err_msg)
         if not isinstance(is_update_doc, bool):
-            msg = "Parameter `is_update_doc` - Must be `bool` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `is_update_doc` - Must be `bool` type!"
+            raise AssertionError(err_msg)
         if not isinstance(is_delete_doc, bool):
-            msg = "Parameter `is_delete_doc` - Must be `bool` type!"
-            raise AssertionError(msg)
+            err_msg = "Parameter `is_delete_doc` - Must be `bool` type!"
+            raise AssertionError(err_msg)
     except AssertionError as err:
         logger.critical(str(err))
         raise err
 
     def decorator(cls: Any) -> Any:
+        info_msg = f"Generating metadata for the `{cls.__module__}.{cls.__name__}` model."
+        logger.info(info_msg)
+
         if Config.REGEX["service_name"].match(service_name) is None:
             regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
-            msg = f"Does not match the regular expression: {regex_str}"
-            logger.critical(msg)
+            err_msg = f"Does not match the regular expression: {regex_str}"
+            logger.critical(err_msg)
             raise DoesNotMatchRegexError(regex_str)
         if fixture_name is not None:
             fixture_path = f"config/fixtures/{fixture_name}.yml"
 
             if not Path(fixture_path).exists():
-                msg = (
+                err_msg = (
                     f"Model: `{cls.__module__}.{cls.__name__}` > "
                     + "META param: `fixture_name` => "
                     + f"Fixture the `{fixture_path}` not exists!"
                 )
-                logger.critical(msg)
-                raise PanicError(msg)
+                logger.critical(err_msg)
+                raise PanicError(err_msg)
 
         metadata = {
             "service_name": service_name,
@@ -102,6 +105,7 @@ def meta(
             **caching(cls, service_name),
         }
 
+        logger.info("Metadata generation completed successfully.")
         return cls
 
     return decorator
@@ -113,8 +117,8 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     model_name: str = cls.__name__
     if Config.REGEX["model_name"].match(model_name) is None:
         regex_str: str = "^[A-Z][a-zA-Z0-9]{0,24}$"
-        msg = f"Does not match the regular expression: {regex_str}"
-        logger.critical(msg)
+        err_msg = f"Does not match the regular expression: {regex_str}"
+        logger.critical(err_msg)
         raise DoesNotMatchRegexError(regex_str)
     # All descriptor fields.
     all_descriptor_fields: list[str] = ["id", "created_at", "updated_at"]
