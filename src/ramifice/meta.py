@@ -15,7 +15,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Decorator for adding metadata to the Model."""
+"""Decorator for generating metadata (parameters) of the Model.
+
+The parameters are assigned to the Model.META variable.
+"""
 
 from __future__ import annotations
 
