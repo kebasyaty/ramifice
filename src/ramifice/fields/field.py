@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("Field",)
 
+from datetime import datetime
 from typing import Any
 
 from babel.dates import format_date, format_datetime
@@ -71,8 +72,8 @@ class Field:
             setattr(instance, field_name_html_attrs, html_attrs)
 
         correct_value: Any | None = value
-        if html_attrs["group"] == "date" and isinstance(value, str):
-            correct_value = parse(value)
+        if html_attrs["group"] == "date" and correct_value is not None:
+            correct_value = self.convert_date_value(instance, html_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value
@@ -84,9 +85,9 @@ class Field:
     def trans_field_attrs(self, instance: Any, field_name: str) -> None:
         """Translate field attributes."""
         _ = (
-            instance.__dict__["_CUSTOM_TRANSLATOR"].gettext
+            instance._CUSTOM_TRANSLATOR.gettext
             if field_name not in ["id", "created_at", "updated_at"]
-            else instance.__dict__["_RAMIFICE_TRANSLATOR"].gettext
+            else instance._RAMIFICE_TRANSLATOR.gettext
         )
         html_attrs = self.html_attrs
 
@@ -161,6 +162,45 @@ class Field:
                 html_attrs["min_date"] = parse(
                     format_date(
                         date=min_date,
+                        format="medium",
+                        locale=instance._LANG_CODE,
+                    ),
+                )
+
+    def convert_date_value(self, instance: Any, html_attrs: dict[str, Any], value: datetime | str) -> datetime:
+        """Convert (date|datetime) to national format."""
+        if isinstance(value, datetime):
+            if "Time" in html_attrs["field_type"]:
+                return parse(
+                    format_datetime(
+                        datetime=value,
+                        format="medium",
+                        tzinfo=instance._UTC_TIMEZONE,
+                        locale=instance._LANG_CODE,
+                    ),
+                )
+            else:  # noqa: RET505
+                return parse(
+                    format_date(
+                        date=value,
+                        format="medium",
+                        locale=instance._LANG_CODE,
+                    ),
+                )
+        else:
+            if "Time" in html_attrs["field_type"]:
+                return parse(
+                    format_datetime(
+                        datetime=parse(value),
+                        format="medium",
+                        tzinfo=instance._UTC_TIMEZONE,
+                        locale=instance._LANG_CODE,
+                    ),
+                )
+            else:  # noqa: RET505
+                return parse(
+                    format_date(
+                        date=parse(value),
                         format="medium",
                         locale=instance._LANG_CODE,
                     ),
