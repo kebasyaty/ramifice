@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import unittest
 
-from ramifice import Model, NamedTuple, Translator, meta
+from ramifice import Model, NamedTuple, meta
 from ramifice.fields import TextField
 
 
@@ -29,13 +29,14 @@ class User2(Model):
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = Translator.custom_translator().gettext
+        _ = self.custom_translator.gettext
         err_map = self.get_error_map()
+
         username = self.username
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map["username"] = gettext("Allowed chars: {}").format("a-z A-Z 0-9 _")
+            err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
 
         return err_map
 
