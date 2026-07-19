@@ -115,17 +115,21 @@ class Field:
                 correct_value = parse(
                     value,
                     settings=instance._DATEPARSER_SETTINGS,
-                ).replace(microsecond=0)
+                )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0)
             else:
                 correct_value = parse(
                     value,
                     settings=instance._DATEPARSER_SETTINGS,
-                ).replace(
-                    hour=0,
-                    minute=0,
-                    second=0,
-                    microsecond=0,
                 )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0).replace(
+                        hour=0,
+                        minute=0,
+                        second=0,
+                        microsecond=0,
+                    )
         else:
             if "Time" in html_attrs["field_type"]:
                 correct_value = value.replace(microsecond=0)
