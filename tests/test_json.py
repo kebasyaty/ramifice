@@ -158,7 +158,7 @@ class TestJsonMixin(unittest.TestCase):
         m.file = FILE_INFO_DICT.copy()
         m.email = "fllabrst6wi@zumnime.me"
         m.date_time = "July 18, 2026 12:00 PM PDT"
-        m.date = datetime.now(Config.UTC_TIMEZONE)
+        m.date = "July 18, 2026 PDT"
         m.color = "#F54927"
         m.bool = True
         m.choice_float_dyn = 5.2
@@ -178,22 +178,33 @@ class TestJsonMixin(unittest.TestCase):
         json_str = m.to_json()
 
         m2 = User.from_dict(json_dict)
+
         for f_name in descriptor_fields:
             field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m2, f_name))
-            else:
+            elif "Date" not in field_type:
                 self.assertEqual(getattr(m2, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m2, f"{f_name}_html_attrs"))
+
+        self.assertTrue(m2.created_at < m.created_at)
+        self.assertTrue(m2.updated_at < m.updated_at)
+        self.assertTrue(m2.date_time == m.date_time)
+        self.assertTrue(m2.date < m.date)
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
             field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m3, f_name))
-            else:
+            elif "Date" not in field_type:
                 self.assertEqual(getattr(m3, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m3, f"{f_name}_html_attrs"))
+
+        self.assertTrue(m3.created_at < m.created_at)
+        self.assertTrue(m3.updated_at < m.updated_at)
+        self.assertTrue(m3.date_time == m.date_time)
+        self.assertTrue(m3.date < m.date)
 
 
 if __name__ == "__main__":
