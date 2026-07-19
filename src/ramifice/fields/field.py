@@ -21,7 +21,6 @@ from __future__ import annotations
 
 __all__ = ("Field",)
 
-from datetime import datetime
 from typing import Any
 
 from dateparser import parse
@@ -70,7 +69,7 @@ class Field:
 
         correct_value: Any | None = value
         if html_attrs["group"] == "date" and correct_value is not None and isinstance(value, str):
-            correct_value = self.convert_str_to_date(html_attrs, value)
+            correct_value = parse(value)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value
@@ -101,15 +100,3 @@ class Field:
         warning_list = html_attrs.get("warning")
         if warning_list is not None:
             html_attrs["warning"] = [_(item) for item in warning_list]
-
-    def convert_str_to_date(
-        self,
-        html_attrs: dict[str, Any],
-        value: datetime | str,
-    ) -> datetime | None:
-        """Convert the string representation of a date to a `datetime` object."""
-        # If Date and Time
-        if "Time" in html_attrs["field_type"]:
-            return parse(value)
-        # If only Date
-        return parse(value)
