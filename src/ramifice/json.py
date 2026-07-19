@@ -93,7 +93,21 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    tmp_html_attrs["value"] = parse(value, settings=DATEPARSER_SETTINGS)
+                    if "Time" in tmp_html_attrs["field_type"]:
+                        tmp_html_attrs["value"] = parse(
+                            value,
+                            settings=DATEPARSER_SETTINGS,
+                        ).replace(microsecond=0)
+                    else:
+                        tmp_html_attrs["value"] = parse(
+                            value,
+                            settings=DATEPARSER_SETTINGS,
+                        ).replace(
+                            hour=0,
+                            minute=0,
+                            second=0,
+                            microsecond=0,
+                        )
 
             setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
