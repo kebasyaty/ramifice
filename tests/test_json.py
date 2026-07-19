@@ -183,28 +183,18 @@ class TestJsonMixin(unittest.TestCase):
             field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m2, f_name))
-            elif "Date" not in field_type:
+            else:
                 self.assertEqual(getattr(m2, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m2, f"{f_name}_html_attrs"))
-
-        self.assertTrue(m2.created_at < m.created_at)
-        self.assertTrue(m2.updated_at < m.updated_at)
-        self.assertTrue(m2.date_time == m.date_time)
-        self.assertTrue(m2.date < m.date)
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
             field_type = getattr(m, f"{f_name}_html_attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m3, f_name))
-            elif "Date" not in field_type:
+            else:
                 self.assertEqual(getattr(m3, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m3, f"{f_name}_html_attrs"))
-
-        self.assertTrue(m3.created_at < m.created_at)
-        self.assertTrue(m3.updated_at < m.updated_at)
-        self.assertTrue(m3.date_time == m.date_time)
-        self.assertTrue(m3.date < m.date)
 
 
 if __name__ == "__main__":

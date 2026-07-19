@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("Field",)
 
+from datetime import datetime
 from typing import Any
 
 from dateparser import parse
@@ -68,8 +69,8 @@ class Field:
             setattr(instance, field_name_html_attrs, html_attrs)
 
         correct_value: Any | None = value
-        if html_attrs["group"] == "date" and correct_value is not None and isinstance(value, str):
-            correct_value = parse(value, settings=instance._DATEPARSER_SETTINGS)
+        if html_attrs["group"] == "date" and correct_value is not None:
+            correct_value = self.correction_date_value(instance, html_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value
@@ -100,3 +101,40 @@ class Field:
         warning_list = html_attrs.get("warning")
         if warning_list is not None:
             html_attrs["warning"] = [_(item) for item in warning_list]
+
+    def correction_date_value(
+        self,
+        instance: Any,
+        html_attrs: dict[str, Any],
+        value: Any,
+    ) -> datetime | None:
+        """Correction of date value."""
+        correct_value: datetime | None = None
+        if isinstance(value, str):
+            if "Time" in html_attrs["field_type"]:
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                ).replace(microsecond=0)
+            else:
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                ).replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0,
+                )
+        else:
+            if "Time" in html_attrs["field_type"]:
+                correct_value = value.replace(microsecond=0)
+            else:
+                correct_value = value.replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0,
+                )
+
+        return correct_value
