@@ -69,7 +69,7 @@ class Field:
 
         correct_value: Any | None = value
         if html_attrs["group"] == "date" and correct_value is not None and isinstance(value, str):
-            correct_value = parse(value)
+            correct_value = parse(value, settings=instance._DATEPARSER_SETTINGS)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value

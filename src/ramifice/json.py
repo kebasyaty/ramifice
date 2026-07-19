@@ -29,6 +29,8 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateparser import parse
 
+from ramifice.config import Config
+
 
 class JsonMixin:
     """A mixin for converting Model to a JSON-string and back to a Model."""
@@ -77,6 +79,7 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
+        DATEPARSER_SETTINGS = deepcopy(Config.DATEPARSER_SETTINGS)
         instance = cls()
 
         for f_name in descriptor_fields:
@@ -90,7 +93,7 @@ class JsonMixin:
                 elif group == "password":
                     tmp_html_attrs["value"] = value
                 elif group == "date":
-                    tmp_html_attrs["value"] = parse(value)
+                    tmp_html_attrs["value"] = parse(value, settings=DATEPARSER_SETTINGS)
 
             setattr(instance, f_name, tmp_html_attrs["value"])
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")

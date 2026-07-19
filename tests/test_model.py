@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import unittest
 
-from dateparser import parse
-
 from ramifice import Model, meta
 from ramifice.fields import (
     BooleanField,
@@ -289,11 +287,6 @@ class TestModel(unittest.TestCase):
         self.assertIsNone(m.updated_at)
         self.assertIsNone(m.date_time)
         self.assertIsNone(m.date)
-
-        m.created_at = parse("August 14, 2026")
-        m.updated_at = parse("2026-08-14 14:30")
-        m.date_time = parse("14/08/2026")
-        m.date = parse("Sat Oct 11 17:13:46 UTC 2003")
 
         m.created_at = "August 14, 2026"
         m.updated_at = "2026-08-14 14:30"

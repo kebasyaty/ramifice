@@ -51,6 +51,7 @@ async def apply_fixture(
     """
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
+    DATEPARSER_SETTINGS = Config.DATEPARSER_SETTINGS
 
     with Path.open(Path(fixture_path)) as file:
         data_yaml = yaml.safe_load(file)
@@ -81,7 +82,7 @@ async def apply_fixture(
                     if group == "file" or group == "img":
                         await field_data.from_path(value)
                     elif group == "date":
-                        field_data.value = parse(value)
+                        field_data.value = parse(value, settings=DATEPARSER_SETTINGS)
                     else:
                         field_data.value = value
             # Check Model.
