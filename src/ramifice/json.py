@@ -53,17 +53,17 @@ class JsonMixin:
                 elif group == "password":
                     f_html_attrs["value"] = None
                 elif group == "date":
-                    if f_html_attrs["field_type"] == "DateField":
-                        f_html_attrs["value"] = format_date(
-                            date=value.date(),
-                            format="medium",
-                            locale=LANG_CODE,
-                        )
-                    else:
+                    if "Time" in f_html_attrs["field_type"]:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
                             tzinfo=UTC_TIMEZONE,
+                            locale=LANG_CODE,
+                        )
+                    else:
+                        f_html_attrs["value"] = format_date(
+                            date=value.date(),
+                            format="medium",
                             locale=LANG_CODE,
                         )
             json_dict[f_name] = f_html_attrs
