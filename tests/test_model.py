@@ -315,6 +315,11 @@ class TestModel(unittest.TestCase):
         m.date_time = "2015, Ago 15, 1:08 pm"
         m.date = "22 Décembre 2010"
 
+        m.created_at = "1 hour ago"
+        m.updated_at = "Il ya 2 heures"
+        m.date_time = "1 anno 2 mesi"
+        m.date = "yaklaşık 23 saat önce"
+
 
 if __name__ == "__main__":
     unittest.main()
