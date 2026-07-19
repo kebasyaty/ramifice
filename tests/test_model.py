@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import unittest
 
-from dateutil.parser import ParserError, parse
+from dateparser import parse
 
 from ramifice import Model, meta
 from ramifice.fields import (
@@ -272,13 +272,13 @@ class TestModel(unittest.TestCase):
         with self.assertRaises(TypeError):
             m.choice_int = 5.2
 
-        with self.assertRaises(ParserError):
+        with self.assertRaises(ValueError):
             m.created_at = "???"
-        with self.assertRaises(ParserError):
+        with self.assertRaises(ValueError):
             m.updated_at = "???"
-        with self.assertRaises(ParserError):
+        with self.assertRaises(ValueError):
             m.date_time = "???"
-        with self.assertRaises(ParserError):
+        with self.assertRaises(ValueError):
             m.date = "???"
 
         m.created_at = parse("August 14, 2026")
@@ -290,6 +290,26 @@ class TestModel(unittest.TestCase):
         m.updated_at = "2026-08-14 14:30"
         m.date_time = "14/08/2026"
         m.date = "Sat Oct 11 17:13:46 UTC 2003"
+
+        m.created_at = "July 18, 2026 12:00 PM PST"
+        m.updated_at = "July 18, 2026 12:00 PM PDT"
+        m.date_time = "July 18, 2026 12:00 PM EST"
+        m.date = "January 12, 2012 10:00 PM EST"
+
+        m.created_at = "Martes 21 de Octubre de 2014"
+        m.updated_at = "Le 11 Décembre 2014 à 09:00"
+        m.date_time = "13 января 2015 г. в 13:34"
+        m.date = "1 เดือนตุลาคม 2005, 1:00 AM"
+
+        m.created_at = "yaklaşık 23 saat önce"
+        m.updated_at = "2小时前"
+        m.date_time = "2015, Ago 15, 1:08 pm"
+        m.date = "22 Décembre 2010"
+
+        m.created_at = ""
+        m.updated_at = ""
+        m.date_time = ""
+        m.date = ""
 
 
 if __name__ == "__main__":

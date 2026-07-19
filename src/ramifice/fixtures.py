@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from dateutil.parser import parse
+from dateparser import parse
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 

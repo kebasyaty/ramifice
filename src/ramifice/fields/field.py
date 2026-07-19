@@ -24,8 +24,7 @@ __all__ = ("Field",)
 from datetime import datetime
 from typing import Any
 
-from babel.dates import format_date, format_datetime
-from dateutil.parser import parse
+from dateparser import parse
 
 from ramifice.errors import AttributeCannotBeDeleteError
 
@@ -67,13 +66,11 @@ class Field:
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             self.trans_field_attrs(instance, name)
-            if html_attrs["group"] == "date":
-                self.convert_dates(instance, html_attrs)
             setattr(instance, field_name_html_attrs, html_attrs)
 
         correct_value: Any | None = value
-        if html_attrs["group"] == "date" and correct_value is not None:
-            correct_value = self.convert_date_value(instance, html_attrs, value)
+        if html_attrs["group"] == "date" and correct_value is not None and isinstance(value, str):
+            correct_value = self.convert_str_to_date(html_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name_html_attrs)["value"] = correct_value
@@ -105,103 +102,14 @@ class Field:
         if warning_list is not None:
             html_attrs["warning"] = [_(item) for item in warning_list]
 
-    def convert_dates(self, instance: Any, html_attrs: dict[str, Any]) -> None:
-        """Convert (date|datetime) to national format."""
+    def convert_str_to_date(
+        self,
+        html_attrs: dict[str, Any],
+        value: datetime | str,
+    ) -> datetime | None:
+        """Convert the string representation of a date to a `datetime` object."""
+        # If Date and Time
         if "Time" in html_attrs["field_type"]:
-            default = html_attrs["default"]
-            if default is not None:
-                html_attrs["default"] = parse(
-                    format_datetime(
-                        datetime=default,
-                        format="medium",
-                        tzinfo=instance._UTC_TIMEZONE,
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            max_date = html_attrs["max_date"]
-            if max_date is not None:
-                html_attrs["max_date"] = parse(
-                    format_datetime(
-                        datetime=max_date,
-                        format="medium",
-                        tzinfo=instance._UTC_TIMEZONE,
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            min_date = html_attrs["min_date"]
-            if min_date is not None:
-                html_attrs["min_date"] = parse(
-                    format_datetime(
-                        datetime=min_date,
-                        format="medium",
-                        tzinfo=instance._UTC_TIMEZONE,
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-        else:
-            default = html_attrs["default"]
-            if default is not None:
-                html_attrs["default"] = parse(
-                    format_date(
-                        date=default,
-                        format="medium",
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            max_date = html_attrs["max_date"]
-            if max_date is not None:
-                html_attrs["max_date"] = parse(
-                    format_date(
-                        date=max_date,
-                        format="medium",
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            min_date = html_attrs["min_date"]
-            if min_date is not None:
-                html_attrs["min_date"] = parse(
-                    format_date(
-                        date=min_date,
-                        format="medium",
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-
-    def convert_date_value(self, instance: Any, html_attrs: dict[str, Any], value: datetime | str) -> datetime:
-        """Convert (date|datetime) to national format."""
-        if isinstance(value, datetime):
-            if "Time" in html_attrs["field_type"]:
-                return parse(
-                    format_datetime(
-                        datetime=value,
-                        format="medium",
-                        tzinfo=instance._UTC_TIMEZONE,
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            else:  # noqa: RET505
-                return parse(
-                    format_date(
-                        date=value,
-                        format="medium",
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-        else:
-            if "Time" in html_attrs["field_type"]:
-                return parse(
-                    format_datetime(
-                        datetime=parse(value, tzinfos=instance._TZ_MAPPING),
-                        format="medium",
-                        tzinfo=instance._UTC_TIMEZONE,
-                        locale=instance._LANG_CODE,
-                    ),
-                )
-            else:  # noqa: RET505
-                return parse(
-                    format_date(
-                        date=parse(value, tzinfos=instance._TZ_MAPPING),
-                        format="medium",
-                        locale=instance._LANG_CODE,
-                    ),
-                )
+            return parse(value)
+        # If only Date
+        return parse(value)
