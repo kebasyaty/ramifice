@@ -32,23 +32,9 @@ logger = logging.getLogger(__name__)
 
 
 class URLField(Field):
-    """Field of Model for enter URL address.
+    """Field of Model for enter URL address."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -57,44 +43,55 @@ class URLField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
+        """Field of Model for enter URL address.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            unique: The unique value of a field in a collection.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
-                if default is not None:
-                    if not isinstance(default, str):
-                        raise AssertionError("Parameter `default` - Not а `str` type!")
-                    if len(default) == 0:
-                        raise AssertionError("The `default` parameter should not contain an empty string!")
-                    result = urlparse(default)
-                    if not result.scheme or not result.netloc:
-                        raise AssertionError("Parameter `default` - Invalid URL address!")
-                if not isinstance(label, str):
-                    raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(hint, str):
-                    raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if not isinstance(warning, list):
-                    raise AssertionError("Parameter `warning` - Not а `list` type!")
-                if not isinstance(placeholder, str):
-                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-                if not isinstance(unique, bool):
-                    raise AssertionError("Parameter `unique` - Not а `bool` type!")
-            except AssertionError as err:
-                logger.critical(str(err))
-                raise err
+            if default is not None:
+                if not isinstance(default, str):
+                    raise AssertionError("Parameter `default` - Not а `str` type!")
+                if len(default) == 0:
+                    raise AssertionError("The `default` parameter should not contain an empty string!")
+                result = urlparse(default)
+                if not result.scheme or not result.netloc:
+                    raise AssertionError("Parameter `default` - Invalid URL address!")
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `label` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(required, bool):
+                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            if not isinstance(readonly, bool):
+                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+            if not isinstance(unique, bool):
+                raise AssertionError("Parameter `unique` - Not а `bool` type!")
 
         Field.__init__(self, supported_types=(str, type(None)))
 

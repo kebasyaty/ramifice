@@ -55,7 +55,7 @@ class PasswordField(Field):
         hide: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
     ) -> None:
         if Config.DEBUG:

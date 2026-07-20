@@ -60,7 +60,7 @@ class ChoiceIntMultField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
         choices: list[list[int | str]] | None = None,  # [[value, Title], ...]

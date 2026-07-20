@@ -58,7 +58,7 @@ class TextField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         textarea: bool = False,
         use_editor: bool = False,
         required: bool = False,

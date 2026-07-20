@@ -55,7 +55,7 @@ class SlugField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         readonly: bool = False,
         slug_sources: list[str] = ["_id"],  # noqa: B006
     ) -> None:

@@ -67,7 +67,7 @@ class ImageField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         # The maximum size of the original image in bytes.
         max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
