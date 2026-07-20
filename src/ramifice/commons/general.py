@@ -64,6 +64,7 @@ class GeneralMixin:
                 field_type["value"] = value
 
             setattr(instance, f_name, field_type["value"])
+
         return instance
 
     @classmethod
