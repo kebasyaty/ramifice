@@ -39,21 +39,22 @@ class GeneralMixin:
     def from_mongo_doc(
         cls,
         mongo_doc: dict[str, Any],
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> Any:
         """Create object instance from Mongo document."""
-        obj: Any = cls()
-        lang: str = Translations.CURRENT_LOCALE
-        for name, data in mongo_doc.items():
-            field = obj.__dict__.get(name)
+        instance = cls()
+        for f_name, f_data in mongo_doc.items():
+            field = getattr(instance, name)
             if field is None:
                 continue
+            f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
             if field.field_type == "TextField":
-                field.value = data.get(lang, "- -") if data is not None else None
+                field.value = data.get(lang_code, "- -") if data is not None else None
             elif field.group == "pass":
                 field.value = None
             else:
                 field.value = data
-        return obj
+        return instance
 
     @classmethod
     async def estimated_document_count(  # type: ignore[no-untyped-def]
@@ -76,6 +77,7 @@ class GeneralMixin:
         filter: Any,
         session: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         **kwargs,
     ) -> int:
         """Count the number of documents in this collection."""
@@ -83,7 +85,7 @@ class GeneralMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
 
         return await collection.count_documents(
             filter=filter,
@@ -99,6 +101,7 @@ class GeneralMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         **kwargs,
     ) -> AsyncCommandCursor:
         """Perform an aggregation using the aggregation framework on this collection."""
@@ -106,7 +109,7 @@ class GeneralMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if pipeline is not None:
-            pipeline = correct_mongo_filter(cls, pipeline)
+            pipeline = correct_mongo_filter(cls, pipeline, lang_code)
 
         return await collection.aggregate(
             pipeline=pipeline,
@@ -124,6 +127,7 @@ class GeneralMixin:
         session: Any | None = None,
         comment: Any | None = None,
         hint: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         **kwargs,
     ) -> list[Any]:
         """Get a list of distinct values for key among all documents in this collection.
@@ -134,7 +138,7 @@ class GeneralMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
 
         return await collection.distinct(
             key=key,

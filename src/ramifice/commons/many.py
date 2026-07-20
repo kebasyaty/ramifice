@@ -31,7 +31,7 @@ from pymongo.results import DeleteResult
 
 from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_raw_doc,
+    mongo_doc_to_model_doc,
     password_to_none,
 )
 from ramifice.config import Config
@@ -68,13 +68,14 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> list[dict[str, Any]]:
         """Find documents."""
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -106,7 +107,7 @@ class ManyMixin:
         return doc_list
 
     @classmethod
-    async def find_many_to_raw_docs(
+    async def find_many_to_model_docs(
         cls,
         filter: Any | None = None,
         projection: Any | None = None,
@@ -129,6 +130,7 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> list[dict[str, Any]]:
         """Find documents and convert to a raw documents.
 
@@ -142,7 +144,7 @@ class ManyMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -168,14 +170,13 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
-        lang = Translations.CURRENT_LOCALE
+        model_doc = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_raw_doc(
-                    inst_model_dict,
+                mongo_doc_to_model_doc(
+                    model_doc,
                     mongo_doc,
-                    lang,
+                    lang_code,
                 ),
             )
         return doc_list
@@ -204,13 +205,14 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> str | None:
         """Find documents and convert to a json string."""
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
@@ -236,14 +238,13 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
-        lang = Translations.CURRENT_LOCALE
+        model_doc = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_raw_doc(
-                    inst_model_dict,
+                mongo_doc_to_model_doc(
+                    model_doc,
                     mongo_doc,
-                    lang,
+                    lang_code,
                 ),
             )
         return orjson.dumps(doc_list).decode("utf-8") if len(doc_list) > 0 else None
@@ -257,6 +258,7 @@ class ManyMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> DeleteResult:
         """Delete one or more documents matching the filter."""
         # Raises a panic if the Model cannot be removed.
@@ -272,7 +274,7 @@ class ManyMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Delete documents.
         result: DeleteResult = await collection.delete_many(
             filter=filter,
