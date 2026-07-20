@@ -31,26 +31,9 @@ logger = logging.getLogger(__name__)
 
 
 class TextField(Field):
-    """Field of Model for enter text.
+    """Field of Model for enter text."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        textarea: Is it necessary to use the Textarea widget.
-        use_editor: Is it necessary to use the widget of the text editor.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
-        max_length: The maximum line length.
-        multi_language: Is it need support for several languages.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -68,8 +51,26 @@ class TextField(Field):
         # Support for several language.
         multi_language: bool = False,
     ) -> None:
+        """Field of Model for enter text.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            textarea: Is it necessary to use the Textarea widget.
+            use_editor: Is it necessary to use the widget of the text editor.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            unique: The unique value of a field in a collection.
+            max_length: The maximum line length.
+            multi_language: Is it need support for several languages.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(max_length, int):
                     raise AssertionError("Parameter `max_length` - Not а `int` type!")
                 if not isinstance(label, str):

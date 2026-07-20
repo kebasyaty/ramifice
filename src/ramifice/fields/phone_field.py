@@ -37,22 +37,9 @@ class PhoneField(Field):
 
     Attention:
         By default is used validator `phonenumbers.is_valid_number()`.
-
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -66,8 +53,26 @@ class PhoneField(Field):
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
+        """Field of Model for enter phone number.
+
+        Attention:
+            By default is used validator `phonenumbers.is_valid_number()`.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            unique: The unique value of a field in a collection.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None:
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -78,7 +83,7 @@ class PhoneField(Field):
                         if not phonenumbers.is_valid_number(phone_default):
                             raise AssertionError()
                     except phonenumbers.phonenumberutil.NumberParseException:
-                        raise AssertionError("Parameter `default` - Invalid Phone number!")  # noqa: B904
+                        raise AssertionError("Parameter `default` - Invalid Phone number!")  # ruff:ignore[raise-without-from-inside-except]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):

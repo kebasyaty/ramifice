@@ -34,20 +34,9 @@ class SlugField(Field):
     """Field of Model for automatic generation of string `slug`.
 
     Convenient to use for Url addresses.
-
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        readonly: Specifies that the field cannot be modified by the user.
-        slug_sources: List of sources fields.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -57,10 +46,25 @@ class SlugField(Field):
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         readonly: bool = False,
-        slug_sources: list[str] = ["_id"],  # noqa: B006
+        slug_sources: list[str] = ["id"],  # ruff:ignore[mutable-argument-default]
     ) -> None:
+        """Field of Model for automatic generation of string `slug`.
+
+        Convenient to use for Url addresses.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            readonly: Specifies that the field cannot be modified by the user.
+            slug_sources: List of sources fields.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
