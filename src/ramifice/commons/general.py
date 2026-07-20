@@ -57,7 +57,7 @@ class GeneralMixin:
             field_type = f_html_attrs["field_type"]
 
             if field_type == "TextField":
-                field_type["value"] = value.get(lang_code, "- -") if f_html_attrs["multi_language"] else value
+                field_type["value"] = value.get(lang_code, "- -") if isinstance(value, dict) else value
             elif field_type == "PasswordField":
                 field_type["value"] = None
             else:
