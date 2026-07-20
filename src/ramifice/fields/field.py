@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("Field",)
 
+import logging
 from datetime import datetime
 from typing import Any
 
@@ -28,18 +29,21 @@ from dateparser import parse
 
 from ramifice.errors import AttributeCannotBeDeleteError
 
+logger = logging.getLogger(__name__)
+
 
 class Field:
-    """The main descriptor class for field types.
+    """The main descriptor class for field types."""
 
-    Args:
-        supported_types (tuple): Tuple of types supported by the `value` parameter.
-    """
+    def __init__(self, supported_types: tuple) -> None:
+        """The main descriptor class for field types.
 
-    def __init__(self, supported_types: tuple) -> None:  # noqa: D107
+        Args:
+            supported_types (tuple): Tuple of types supported by the `value` parameter.
+        """
         self.supported_types = supported_types
 
-    def __set_name__(self, owner: Any, name: str) -> None:  # noqa: D105 pyrefly: ignore[unused-parameter]
+    def __set_name__(self, owner: Any, name: str) -> None:  # ruff:ignore[undocumented-magic-method]
         self.name = name
         self.private_name = f"_{name}"
         self.field_name_html_attrs = f"{name}_html_attrs"
@@ -50,14 +54,15 @@ class Field:
             return self
         return getattr(instance, self.private_name, None)
 
-    def __set__(self, instance: Any, value: Any | None) -> None:  # pyrefly: ignore[unused-parameter]
+    def __set__(self, instance: Any, value: Any | None) -> None:
         """Triggered when assigning a value to the field."""
         if not isinstance(value, self.supported_types):
             supported_types_list = [
                 item.__name__ if item is not type(None) else "None" for item in self.supported_types
             ]
-            msg = f"Value must be an {' | '.join(supported_types_list)}"
-            raise TypeError(msg)
+            err_msg = f"Value must be an {' | '.join(supported_types_list)}"
+            logger.critical(err_msg)
+            raise TypeError(err_msg)
         field_name_html_attrs = self.field_name_html_attrs
         html_attrs = self.html_attrs
 
@@ -77,6 +82,8 @@ class Field:
 
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""
+        err_msg = f"The attribute `{self.name}` cannot be delete!"
+        logger.error(err_msg)
         raise AttributeCannotBeDeleteError(self.name)
 
     def trans_field_attrs(self, instance: Any, field_name: str) -> None:

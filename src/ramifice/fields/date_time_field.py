@@ -25,6 +25,8 @@ import logging
 from datetime import datetime
 from typing import Any
 
+from dateparser import parse
+
 from ramifice.config import Config
 from ramifice.fields.field import Field
 
@@ -32,24 +34,9 @@ logger = logging.getLogger(__name__)
 
 
 class DateTimeField(Field):
-    """Field of Model for enter date and time.
+    """Field of Model for enter date and time."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        max_date: Maximum allowed date and time.
-        min_date: Minimum allowed date and time.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -58,14 +45,30 @@ class DateTimeField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ) -> None:
+        """Field of Model for enter date and time.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            max_date: Maximum allowed date and time.
+            min_date: Minimum allowed date and time.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if max_date is not None and not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
                 if min_date is not None and not isinstance(min_date, datetime):
@@ -125,3 +128,44 @@ class DateTimeField(Field):
             "field_type": "DateTimeField",
             "group": "date",
         }
+
+    def correction_date_value(
+        self,
+        instance: Any,
+        html_attrs: dict[str, Any],
+        value: Any,
+    ) -> datetime | None:
+        """Correction of date value."""
+        correct_value: datetime | None = None
+        if isinstance(value, str):
+            if "Time" in html_attrs["field_type"]:
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0)
+            else:
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0).replace(
+                        hour=0,
+                        minute=0,
+                        second=0,
+                        microsecond=0,
+                    )
+        else:
+            if "Time" in html_attrs["field_type"]:
+                correct_value = value.replace(microsecond=0)
+            else:
+                correct_value = value.replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0,
+                )
+
+        return correct_value

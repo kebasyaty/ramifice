@@ -32,24 +32,9 @@ logger = logging.getLogger(__name__)
 
 
 class DateField(Field):
-    """Field of Model for enter date.
+    """Field of Model for enter date."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        max_date: Maximum allowed date.
-        min_date: Minimum allowed date.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -58,14 +43,30 @@ class DateField(Field):
         disabled: bool = False,
         ignored: bool = False,
         hint: str = "",
-        warning: list[str] = [],  # noqa: B006
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
         max_date: datetime | None = None,
         min_date: datetime | None = None,
     ) -> None:
+        """Field of Model for enter date.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            max_date: Maximum allowed date.
+            min_date: Minimum allowed date.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if max_date is not None and not isinstance(max_date, datetime):
                     raise AssertionError("Parameter `max_date` - Not а `str` type!")
                 if min_date is not None and not isinstance(min_date, datetime):
