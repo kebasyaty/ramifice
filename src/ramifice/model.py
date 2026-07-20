@@ -69,7 +69,12 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         disabled=True,
     )
 
-    def __init__(self, lang_code: str = Translator.DEFAULT_LOCALE) -> None:  # noqa: D107
+    def __init__(self, lang_code: str = Translator.DEFAULT_LOCALE) -> None:
+        """Converting Python Class into Ramifice Model.
+
+        Args:
+            lang_code (str): Language code for Model localization.
+        """
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
         data_dynamic_fields = metadata["data_dynamic_fields"]
