@@ -47,7 +47,7 @@ def meta(
 
     The parameters are assigned to the Model.META variable.
     """
-    try:  # noqa: PLW0717
+    try:  # ruff:ignore[too-many-statements-in-try-clause]
         if not isinstance(service_name, str):
             err_msg = "Parameter `service_name` - Must be `str` type!"
             raise AssertionError(err_msg)

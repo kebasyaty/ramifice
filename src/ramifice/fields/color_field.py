@@ -69,7 +69,7 @@ class ColorField(Field):
         unique: bool = False,
     ) -> None:
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None:
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")

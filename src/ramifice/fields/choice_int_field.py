@@ -90,7 +90,7 @@ class ChoiceIntField(Field):
         }
 
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if choices is not None:
                     if not isinstance(choices, list):
                         raise AssertionError("Parameter `choices` - Not а `list` type!")

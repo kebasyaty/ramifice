@@ -70,7 +70,7 @@ class IntegerField(Field):
         input_type: Literal["number", "range"] = "number",
     ) -> None:
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if input_type not in ["number", "range"]:
                     raise AssertionError(
                         "Parameter `input_type` - Invalid input type! "

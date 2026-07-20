@@ -62,7 +62,7 @@ class ChoiceIntMultDynField(Field):
         readonly: bool = False,
     ) -> None:
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):

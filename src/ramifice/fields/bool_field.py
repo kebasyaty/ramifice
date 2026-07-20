@@ -54,7 +54,7 @@ class BooleanField(Field):
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
     ) -> None:
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None and not isinstance(default, bool):
                     raise AssertionError("Parameter `default` - Not а `bool` type!")
                 if not isinstance(label, str):

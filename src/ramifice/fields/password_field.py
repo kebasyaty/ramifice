@@ -37,18 +37,9 @@ class PasswordField(Field):
         - `Regular expression:` ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
         - `Valid characters:` a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
         - `Number of characters:` from 8 to 256.
-
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        hide: Hide field from user.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -58,8 +49,24 @@ class PasswordField(Field):
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
     ) -> None:
+        r"""Field of Model for enter password.
+
+        Attention:
+            - `Regular expression:` ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+            - `Valid characters:` a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+            - `Number of characters:` from 8 to 256.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            hide: Hide field from user.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(hide, bool):

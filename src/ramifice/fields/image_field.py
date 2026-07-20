@@ -40,25 +40,9 @@ logger = logging.getLogger(__name__)
 
 
 class ImageField(Field):
-    """Field of Model for upload image.
+    """Field of Model for upload image."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        max_size: The maximum allowed file size in bytes.
-        target_dir: Directory for files inside media directory.
-        accept: Describing which file types to allow. Example: "image/png,image/jpeg,image/webp".
-        thumbnails: Sizes of thumbnails - Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -76,8 +60,25 @@ class ImageField(Field):
         # Available 4 sizes from lg to xs or None.
         thumbnails: dict[str, int] | None = None,
     ) -> None:
+        """Field of Model for upload image.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            max_size: The maximum allowed file size in bytes.
+            target_dir: Directory for files inside media directory.
+            accept: Describing which file types to allow. Example: "image/png,image/jpeg,image/webp".
+            thumbnails: Sizes of thumbnails - Example: {"lg": 1200, "md": 600, "sm": 300, "xs": 150 }.
+        """
         if Config.DEBUG:
-            try:  # noqa: PLW0717
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None:
                     if not isinstance(default, str):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
@@ -163,9 +164,7 @@ class ImageField(Field):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a image,
-        get image information and save in the target directory.
-        """  # noqa: D205
+        """Convert base64 to a image, get image information and save in the target directory."""
         base64_str = base64_str or None
         filename = filename or None
         img_info: dict[str, Any] = {"save_as_is": False}
