@@ -68,34 +68,30 @@ class DateTimeField(Field):
             min_date: Minimum allowed date and time.
         """
         if Config.DEBUG:
-            try:  # ruff:ignore[too-many-statements-in-try-clause]
-                if not isinstance(max_date, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `max_date` - Not а `datetime|str|None` type!")
-                if not isinstance(min_date, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `min_date` - Not а `datetime|str|None` type!")
-                if not isinstance(default, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
-                if not isinstance(label, str):
-                    raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(hint, str):
-                    raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if not isinstance(warning, list):
-                    raise AssertionError("Parameter `warning` - Not а `list` type!")
-                if not isinstance(placeholder, str):
-                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-            except AssertionError as err:
-                logger.critical(str(err))
-                raise err
+            if not isinstance(max_date, (datetime, str, type(None))):
+                raise AssertionError("Parameter `max_date` - Not а `datetime|str|None` type!")
+            if not isinstance(min_date, (datetime, str, type(None))):
+                raise AssertionError("Parameter `min_date` - Not а `datetime|str|None` type!")
+            if not isinstance(default, (datetime, str, type(None))):
+                raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `label` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(required, bool):
+                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            if not isinstance(readonly, bool):
+                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
 
         Field.__init__(self, supported_types=(datetime, str, type(None)))
 

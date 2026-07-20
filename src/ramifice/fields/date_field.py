@@ -25,6 +25,8 @@ import logging
 from datetime import datetime
 from typing import Any
 
+from dateparser import parse
+
 from ramifice.config import Config
 from ramifice.fields.field import Field
 
@@ -38,7 +40,7 @@ class DateField(Field):
         self,
         label: str = "",
         placeholder: str = "",
-        default: datetime | None = None,
+        default: datetime | str | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -46,8 +48,8 @@ class DateField(Field):
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
-        max_date: datetime | None = None,
-        min_date: datetime | None = None,
+        max_date: datetime | str | None = None,
+        min_date: datetime | str | None = None,
     ) -> None:
         """Field of Model for enter date.
 
@@ -66,43 +68,45 @@ class DateField(Field):
             min_date: Minimum allowed date.
         """
         if Config.DEBUG:
-            try:  # ruff:ignore[too-many-statements-in-try-clause]
-                if not isinstance(max_date, (datetime, type(None))):
-                    raise AssertionError("Parameter `max_date` - Not а `datetime|None` type!")
-                if not isinstance(min_date, (datetime, type(None))):
-                    raise AssertionError("Parameter `min_date` - Not а `datetime|None` type!")
-                if max_date is not None and min_date is not None and max_date <= min_date:
-                    raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
-                if default is not None:
-                    if not isinstance(default, datetime):
-                        raise AssertionError("Parameter `default` - Not а `datetime` type!")
-                    if max_date is not None and default > max_date:
-                        raise AssertionError("Parameter `default` is more `max_date`!")
-                    if min_date is not None and default < min_date:
-                        raise AssertionError("Parameter `default` is less `min_date`!")
-                if not isinstance(label, str):
-                    raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(hint, str):
-                    raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if not isinstance(warning, list):
-                    raise AssertionError("Parameter `warning` - Not а `list` type!")
-                if not isinstance(placeholder, str):
-                    raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-            except AssertionError as err:
-                logger.critical(str(err))
-                raise err
+            if not isinstance(max_date, (datetime, str, type(None))):
+                raise AssertionError("Parameter `max_date` - Not а `datetime|str|None` type!")
+            if not isinstance(min_date, (datetime, str, type(None))):
+                raise AssertionError("Parameter `min_date` - Not а `datetime|str|None` type!")
+            if not isinstance(default, (datetime, str, type(None))):
+                raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
+            if not isinstance(label, str):
+                raise AssertionError("Parameter `label` - Not а `str` type!")
+            if not isinstance(disabled, bool):
+                raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+            if not isinstance(hide, bool):
+                raise AssertionError("Parameter `hide` - Not а `bool` type!")
+            if not isinstance(ignored, bool):
+                raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+            if not isinstance(hint, str):
+                raise AssertionError("Parameter `hint` - Not а `str` type!")
+            if not isinstance(warning, list):
+                raise AssertionError("Parameter `warning` - Not а `list` type!")
+            if not isinstance(placeholder, str):
+                raise AssertionError("Parameter `placeholder` - Not а `str` type!")
+            if not isinstance(required, bool):
+                raise AssertionError("Parameter `required` - Not а `bool` type!")
+            if not isinstance(readonly, bool):
+                raise AssertionError("Parameter `readonly` - Not а `bool` type!")
 
         Field.__init__(self, supported_types=(datetime, str, type(None)))
+
+        default = self.correction_date(default)
+        max_date = self.correction_date(max_date)
+        min_date = self.correction_date(min_date)
+
+        if Config.DEBUG:
+            if max_date is not None and min_date is not None and max_date <= min_date:
+                raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
+            if default is not None:
+                if max_date is not None and default > max_date:
+                    raise AssertionError("Parameter `default` is more `max_date`!")
+                if min_date is not None and default < min_date:
+                    raise AssertionError("Parameter `default` is less `min_date`!")
 
         self.html_attrs: dict[str, Any] = {
             "id": "",
@@ -129,41 +133,22 @@ class DateField(Field):
 
     def correction_date(
         self,
-        value: Any|None,
+        value: Any | None,
     ) -> datetime | None:
         """Correction of date value."""
         if value is None:
             return None
 
         correct_value: datetime | None = None
-        
+
         if isinstance(value, str):
-                correct_value = parse(
-                    value,
-                    settings=instance._DATEPARSER_SETTINGS,
-                )
-                if correct_value is not None:
-                    correct_value = correct_value.replace(microsecond=0)
-            else:
-                correct_value = parse(
-                    value,
-                    settings=instance._DATEPARSER_SETTINGS,
-                )
-                if correct_value is not None:
-                    correct_value = correct_value.replace(microsecond=0).replace(
-                        hour=0,
-                        minute=0,
-                        second=0,
-                        microsecond=0,
-                    )
+            correct_value = parse(
+                value,
+                settings=Config.DATEPARSER_SETTINGS,
+            )
+            if correct_value is not None:
+                correct_value = correct_value.replace(microsecond=0)
         else:
-                correct_value = value.replace(microsecond=0)
-            else:
-                correct_value = value.replace(
-                    hour=0,
-                    minute=0,
-                    second=0,
-                    microsecond=0,
-                )
+            correct_value = value.replace(microsecond=0)
 
         return correct_value

@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 class Field:
-    """The main descriptor class for field types."""
+    """The main descriptor class for all field types."""
 
     def __init__(self, supported_types: tuple) -> None:
         """The main descriptor class for field types.
