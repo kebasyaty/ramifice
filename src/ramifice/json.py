@@ -30,6 +30,7 @@ from bson.objectid import ObjectId
 from dateparser import parse
 
 from ramifice.config import Config
+from ramifice.translator import Translator
 
 
 class JsonMixin:
@@ -53,8 +54,8 @@ class JsonMixin:
                     f_html_attrs["value"] = str(value)
                 elif group == "password":
                     f_html_attrs["value"] = None
-                elif field_type == "TextField" and isinstance(value, dict):
-                    f_html_attrs["value"] = value.get(LANG_CODE, "- -")
+                elif field_type == "TextField":
+                    f_html_attrs["value"] = value.get(LANG_CODE, "- -") if isinstance(value, dict) else value
                 elif group == "date":
                     if "Time" in field_type:
                         f_html_attrs["value"] = format_datetime(
@@ -78,12 +79,17 @@ class JsonMixin:
         return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
+    def from_dict(
+        cls,
+        json_dict: dict[str, Any],
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
+    ) -> Any:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
         DATEPARSER_SETTINGS = deepcopy(Config.DATEPARSER_SETTINGS)
-        instance: Any = cls()
+        # pyrefly: ignore [bad-argument-count]
+        instance: Any = cls(lang_code)
 
         for f_name in descriptor_fields:
             tmp_html_attrs = json_dict[f_name]

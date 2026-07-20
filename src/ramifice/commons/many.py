@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("ManyMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 import orjson
@@ -68,7 +69,7 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
         """Find documents."""
         # Get collection for current model.
@@ -130,7 +131,7 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
         """Find documents and convert to a raw documents.
 
@@ -204,7 +205,7 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> str | None:
         """Find documents and convert to a json string."""
         # Get collection for current model.
@@ -256,7 +257,7 @@ class ManyMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
         """Delete one or more documents matching the filter."""
         # Raises a panic if the Model cannot be removed.

@@ -77,7 +77,7 @@ def mongo_doc_to_model_doc(
     """
     UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
     descriptor_fields = cls_model.META["all_descriptor_fields"]
-    instance_model: Any = cls_model()
+    instance_model: Any = cls_model(lang_code)
     model_doc: dict[str, Any] = {}
 
     for f_name in descriptor_fields:

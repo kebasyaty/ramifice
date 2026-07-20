@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("OneMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -46,7 +47,7 @@ class OneMixin:
     async def find_one(
         cls: Any,
         filter: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
@@ -69,7 +70,7 @@ class OneMixin:
     async def find_one_to_raw_doc(
         cls: Any,
         filter: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
@@ -95,7 +96,7 @@ class OneMixin:
     async def find_one_to_instance_model(
         cls: Any,
         filter: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> Any | None:
@@ -117,7 +118,7 @@ class OneMixin:
     async def find_one_to_json(
         cls: Any,
         filter: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> str | None:
@@ -145,7 +146,7 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
         """Delete a single document matching the filter."""
         # Raises a panic if the Model cannot be removed.
@@ -183,7 +184,7 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
         """Finds a single document and deletes it, returning the document."""

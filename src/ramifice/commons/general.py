@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("GeneralMixin",)
 
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -39,21 +40,30 @@ class GeneralMixin:
     def from_mongo_doc(
         cls,
         mongo_doc: dict[str, Any],
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> Any:
-        """Create object instance from Mongo document."""
-        instance = cls()
-        for f_name, f_data in mongo_doc.items():
-            field = getattr(instance, name)
-            if field is None:
+        """Create a Model instance from a Mongo document."""
+        descriptor_fields = cls.META["all_descriptor_fields"]
+        # pyrefly: ignore [bad-argument-count]
+        instance: Any = cls(lang_code)
+
+        for f_name in descriptor_fields:
+            value = mongo_doc.get(f_name) if f_name != "id" else "_id"
+
+            if value is None:
                 continue
+
             f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
-            if field.field_type == "TextField":
-                field.value = data.get(lang_code, "- -") if data is not None else None
-            elif field.group == "pass":
-                field.value = None
+            field_type = f_html_attrs["field_type"]
+
+            if field_type == "TextField":
+                field_type["value"] = value.get(lang_code, "- -") if f_html_attrs["multi_language"] else value
+            elif field_type == "PasswordField":
+                field_type["value"] = None
             else:
-                field.value = data
+                field_type["value"] = value
+
+            setattr(instance, f_name, field_type["value"])
         return instance
 
     @classmethod
@@ -77,7 +87,7 @@ class GeneralMixin:
         filter: Any,
         session: Any | None = None,
         comment: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> int:
         """Count the number of documents in this collection."""
@@ -101,7 +111,7 @@ class GeneralMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> AsyncCommandCursor:
         """Perform an aggregation using the aggregation framework on this collection."""
@@ -127,7 +137,7 @@ class GeneralMixin:
         session: Any | None = None,
         comment: Any | None = None,
         hint: Any | None = None,
-        lang_code: str = Translator.DEFAULT_LOCALE,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> list[Any]:
         """Get a list of distinct values for key among all documents in this collection.
