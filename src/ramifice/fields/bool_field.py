@@ -31,19 +31,9 @@ logger = logging.getLogger(__name__)
 
 
 class BooleanField(Field):
-    """Field of Model for enter boolean value.
+    """Field of Model for enter boolean value."""
 
-    Args:
-        label: Text label for a web form field.
-        default: Default value.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         default: bool = False,
@@ -53,6 +43,17 @@ class BooleanField(Field):
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
     ) -> None:
+        """Field of Model for enter boolean value.
+
+        Args:
+            label: Text label for a web form field.
+            default: Default value.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+        """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None and not isinstance(default, bool):

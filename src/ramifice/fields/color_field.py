@@ -39,22 +39,9 @@ class ColorField(Field):
     #ffffff | #fff | #f2f2f2 | #f2f2f200 | rgb(255,0,24) |
     rgba(255,0,24,0.5) | rgba(#fff,0.5) | hsl(120,100%,50%) |
     hsla(170,23%,25%,0.2) | 0x00ffff
-
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -68,6 +55,28 @@ class ColorField(Field):
         readonly: bool = False,
         unique: bool = False,
     ) -> None:
+        """Field of Model for enter color code.
+
+        Default value is #000000 (black).
+
+        Samples:
+        #ffffff | #fff | #f2f2f2 | #f2f2f200 | rgb(255,0,24) |
+        rgba(255,0,24,0.5) | rgba(#fff,0.5) | hsl(120,100%,50%) |
+        hsla(170,23%,25%,0.2) | 0x00ffff
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            unique: The unique value of a field in a collection.
+        """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None:

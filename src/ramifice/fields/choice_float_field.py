@@ -38,21 +38,9 @@ class ChoiceFloatField(Field):
 
     Type of selective integer float with static of elements.
     With a single choice.
-
-    Args:
-        label: Text label for a web form field.
-        default: Default value.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        choices: For a predefined set of options - [[value, Title], ...].
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         default: float | None = None,
@@ -65,7 +53,23 @@ class ChoiceFloatField(Field):
         readonly: bool = False,
         choices: list[list[float | str]] | None = None,  # [[value, Title], ...]
     ) -> None:
+        """Field of Model.
 
+        Type of selective integer float with static of elements.
+        With a single choice.
+
+        Args:
+            label: Text label for a web form field.
+            default: Default value.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            choices: For a predefined set of options - [[value, Title], ...].
+        """
         Field.__init__(self, supported_types=(float, type(None)))
 
         self.html_attrs: dict[str, Any] = {

@@ -38,19 +38,9 @@ class ChoiceIntMultDynField(Field):
 
     Type of selective integer field with dynamic addition of elements.
     For simulate relationship Many-to-Many.
-
-    Args:
-        label: Text label for a web form field.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         hide: bool = False,
@@ -61,6 +51,21 @@ class ChoiceIntMultDynField(Field):
         required: bool = False,
         readonly: bool = False,
     ) -> None:
+        """Field of Model.
+
+        Type of selective integer field with dynamic addition of elements.
+        For simulate relationship Many-to-Many.
+
+        Args:
+            label: Text label for a web form field.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            readonly: Specifies that the field cannot be modified by the user.
+        """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):

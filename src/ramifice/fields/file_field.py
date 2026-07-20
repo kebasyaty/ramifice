@@ -40,24 +40,9 @@ logger = logging.getLogger(__name__)
 
 
 class FileField(Field):
-    """Field of Model for upload file.
+    """Field of Model for upload file."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        max_size: The maximum allowed file size in bytes.
-        target_dir: Directory for files inside media directory.
-        accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,application/msword".
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
@@ -73,6 +58,22 @@ class FileField(Field):
         target_dir: str = "files",
         accept: str = "",  # Example: ".pdf,.doc,.docx,application/msword"
     ) -> None:
+        """Field of Model for upload file.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            hide: Hide field from user.
+            disabled: Blocks access and modification of the element.
+            ignored: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            required: Required field.
+            max_size: The maximum allowed file size in bytes.
+            target_dir: Directory for files inside media directory.
+            accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,application/msword".
+        """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if default is not None:
@@ -136,9 +137,7 @@ class FileField(Field):
         filename: str | None = None,
         is_delete: bool = False,
     ) -> None:
-        """Convert base64 to a file,
-        get file information and save in the target directory.
-        """  # noqa: D205
+        """Convert base64 to a file, get file information and save in the target directory."""
         base64_str = base64_str or None
         filename = filename or None
         file_info: dict[str, Any] = {"save_as_is": False}
