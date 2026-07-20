@@ -6,7 +6,7 @@ import unittest
 
 from bson import ObjectId
 
-from ramifice import Translations, model
+from ramifice import Model, Translator, meta
 from ramifice.commons.utils import correct_mongo_filter
 from ramifice.fields import (
     BooleanField,
@@ -40,8 +40,8 @@ from ramifice.fields import (
 )
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     url = URLField()
@@ -75,44 +75,40 @@ class User:
     choice_int = ChoiceIntField()
 
 
-Translations.init_params()
-
-
 class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
     """Testing `ramifice > commons > tools` module."""
 
     async def test_correct_mongo_filter(self):
         """Testing `correct_mongo_filter` methods."""
-        Translations.change_locale("en")
         id = ObjectId("666f6f2d6261722d71757578")
         filter = {
             "txt": "John",
             "num_int": 30,
             "url": "https://www.google.com",
-            "hash": id,
+            "hash2": id,
         }
         correct_fielter = {
-            "txt.en": "John",
+            "txt": "John",
             "num_int": 30,
             "url": "https://www.google.com",
-            "hash": id,
+            "hash2": id,
         }
-        filter = correct_mongo_filter(User, filter)
+        filter = correct_mongo_filter(User, filter, Translator.DEFAULT_LOCALE)
         self.assertEqual(filter, correct_fielter)
 
         filter = {
-            "$or": [{"txt": "John"}, {"txt": "Julia"}],
+            "$or": [{"txt2": "John"}, {"txt2": "Julia"}],
             "num_int": 30,
             "url": "https://www.google.com",
-            "hash": id,
+            "hash2": id,
         }
         correct_fielter = {
-            "$or": [{"txt.en": "John"}, {"txt.en": "Julia"}],
+            "$or": [{"txt2.en": "John"}, {"txt2.en": "Julia"}],
             "num_int": 30,
             "url": "https://www.google.com",
-            "hash": id,
+            "hash2": id,
         }
-        filter = correct_mongo_filter(User, filter)
+        filter = correct_mongo_filter(User, filter, Translator.DEFAULT_LOCALE)
         self.assertEqual(filter, correct_fielter)
 
 
