@@ -67,15 +67,15 @@ class DateField(Field):
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
-                if max_date is not None and not isinstance(max_date, datetime):
-                    raise AssertionError("Parameter `max_date` - Not а `str` type!")
-                if min_date is not None and not isinstance(min_date, datetime):
-                    raise AssertionError("Parameter `min_date` - Not а `str` type!")
+                if not isinstance(max_date, (datetime, type(None))):
+                    raise AssertionError("Parameter `max_date` - Not а `datetime|None` type!")
+                if not isinstance(min_date, (datetime, type(None))):
+                    raise AssertionError("Parameter `min_date` - Not а `datetime|None` type!")
                 if max_date is not None and min_date is not None and max_date <= min_date:
                     raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
                 if default is not None:
                     if not isinstance(default, datetime):
-                        raise AssertionError("Parameter `default` - Not а `str` type!")
+                        raise AssertionError("Parameter `default` - Not а `datetime` type!")
                     if max_date is not None and default > max_date:
                         raise AssertionError("Parameter `default` is more `max_date`!")
                     if min_date is not None and default < min_date:
