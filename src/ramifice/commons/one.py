@@ -29,7 +29,7 @@ from pymongo.results import DeleteResult
 
 from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_raw_doc,
+    mongo_doc_to_model_doc,
     password_to_none,
 )
 from ramifice.config import Config
@@ -46,6 +46,7 @@ class OneMixin:
     async def find_one(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
@@ -54,7 +55,7 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
@@ -68,6 +69,7 @@ class OneMixin:
     async def find_one_to_raw_doc(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
@@ -76,23 +78,24 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
         if mongo_doc is not None:
-            raw_doc = mongo_doc_to_raw_doc(
+            raw_doc = mongo_doc_to_model_doc(
                 inst_model_dict,
                 mongo_doc,
-                Translations.CURRENT_LOCALE,
+                lang_code,
             )
         return raw_doc
 
     @classmethod
-    async def find_one_to_instance(
+    async def find_one_to_instance_model(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> Any | None:
@@ -101,7 +104,7 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         inst_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
@@ -114,6 +117,7 @@ class OneMixin:
     async def find_one_to_json(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> str | None:
@@ -122,14 +126,14 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
-            json_str = inst_model.to_json()
+            instance_model = cls.from_mongo_doc(mongo_doc)
+            json_str = instance_model.to_json()
         return json_str
 
     @classmethod
@@ -141,6 +145,7 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
     ) -> DeleteResult:
         """Delete a single document matching the filter."""
         # Raises a panic if the Model cannot be removed.
@@ -156,7 +161,7 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         result: DeleteResult = await collection.delete_one(
             filter=filter,
@@ -178,6 +183,7 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = Translator.DEFAULT_LOCALE,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
         """Finds a single document and deletes it, returning the document."""
@@ -194,7 +200,7 @@ class OneMixin:
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one_and_delete(
             filter=filter,

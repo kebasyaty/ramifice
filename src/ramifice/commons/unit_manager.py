@@ -25,6 +25,7 @@ from __future__ import annotations
 __all__ = ("UnitMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
@@ -66,7 +67,7 @@ class UnitMixin:
             logger.critical(msg)
             raise PanicError(msg)
         # Get language list.
-        lang_list = Translations.LANGUAGES
+        lang_list = deepcopy(Translator.LANGUAGES)
         # Get clean fields of Unit.
         unit_field: str = unit.field
         title = unit.title
@@ -89,7 +90,7 @@ class UnitMixin:
         if not unit.is_delete:
             if choices is not None:
                 if is_unit_exists:
-                    main_lang = Translations.DEFAULT_LOCALE
+                    main_lang = Translator.DEFAULT_LOCALE
                     msg = (
                         "Error: It is not possible to add Unit - "
                         + f"Unit `{title[main_lang]}: {target_value}` is exists!"
@@ -107,7 +108,7 @@ class UnitMixin:
                 logger.error(msg)
                 raise NotPossibleDeleteUnitError(msg)
             if not is_unit_exists:
-                main_lang = Translations.DEFAULT_LOCALE
+                main_lang = Translator.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
                     + f"Unit `{title[main_lang]}: {target_value}` is not exists!"
