@@ -131,15 +131,15 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     # Hint: Only `TextField`
     multi_lang_text_fields: list[str] = []
 
-    for f_name, f_obj in cls.__dict__.items():
+    for f_name, f_value in cls.__dict__.items():
         for item in ["_html_attrs", "_funcs"]:
             if item in f_name:
                 err_msg = f"The field name must not contain `{item}`."
                 logger.critical(err_msg)
                 raise KeyError(err_msg)
-        f_cls_name = f_obj.__class__.__name__
-        if not callable(f_obj) and "Field" in f_cls_name:
-            f_html_attrs: dict[str, Any] = f_obj.html_attrs
+        f_cls_name = f_value.__class__.__name__
+        if not callable(f_value) and "Field" in f_cls_name:
+            f_html_attrs: dict[str, Any] = f_value.html_attrs
             all_descriptor_fields.append(f_name)
             #
             if not f_html_attrs["ignored"]:

@@ -60,7 +60,7 @@ def password_to_none(
 
 
 def mongo_doc_to_model_doc(
-    model_doc: dict[str, Any],
+    cls_model: Any,
     mongo_doc: dict[str, Any],
     lang_code: str,
 ) -> dict[str, Any]:
@@ -72,29 +72,33 @@ def mongo_doc_to_model_doc(
         - `date to str`
         - `datetime to str`
     """
-    doc: dict[str, Any] = {}
-    for f_name, f_data in model_doc.items():
+    empty_model = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
+    model_doc: dict[str, Any] = {}
+    for f_name, f_value in model_doc.items():
         field_type = f_data.field_type
         value = mongo_doc[f_name]
         if value is not None:
             if field_type == "TextField" and f_data.multi_language:
-                value = value.get(lang_code, "- -") if value is not None else None
+                model_doc[f_name] = value.get(lang_code, "- -") if value is not None else None
             elif "Date" in field_type:
                 if "Time" in field_type:
-                    value = format_datetime(
+                    model_doc[f_name] = format_datetime(
                         datetime=value,
                         format="short",
                         locale=lang_code,
                     )
                 else:
-                    value = format_date(
+                    model_doc[f_name] = format_date(
                         date=value.date(),
                         format="short",
                         locale=lang_code,
                     )
             elif field_type == "IDField":
-                value = str(value)
+                model_doc[f_name] = str(value)
             elif field_type == "PasswordField":
-                value = None
-        doc[f_name] = value
-    return doc
+                model_doc[f_name] = None
+            else:
+                model_doc[f_name] = value
+        else:
+            model_doc[f_name] = None
+    return model_doc
