@@ -54,7 +54,7 @@ class JsonMixin:
                 elif group == "password":
                     f_html_attrs["value"] = None
                 elif field_type == "TextField" and isinstance(value, dict):
-                    f_html_attrs["value"] = value.get(LANG_CODE)
+                    f_html_attrs["value"] = value.get(LANG_CODE, "- -")
                 elif group == "date":
                     if "Time" in field_type:
                         f_html_attrs["value"] = format_datetime(
