@@ -40,7 +40,7 @@ class DateTimeField(Field):
         self,
         label: str = "",
         placeholder: str = "",
-        default: datetime | None = None,
+        default: datetime | str | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -48,8 +48,8 @@ class DateTimeField(Field):
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
-        max_date: datetime | None = None,
-        min_date: datetime | None = None,
+        max_date: datetime | str | None = None,
+        min_date: datetime | str | None = None,
     ) -> None:
         """Field of Model for enter date and time.
 
@@ -69,19 +69,12 @@ class DateTimeField(Field):
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
-                if not isinstance(max_date, (datetime, type(None))):
-                    raise AssertionError("Parameter `max_date` - Not а `datetime|None` type!")
-                if not isinstance(min_date, (datetime, type(None))):
-                    raise AssertionError("Parameter `min_date` - Not а `datetime|None` type!")
-                if max_date is not None and min_date is not None and max_date <= min_date:
-                    raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
-                if default is not None:
-                    if not isinstance(default, datetime):
-                        raise AssertionError("Parameter `default` - Not а `datetime` type!")
-                    if max_date is not None and default > max_date:
-                        raise AssertionError("Parameter `default` is more `max_date`!")
-                    if min_date is not None and default < min_date:
-                        raise AssertionError("Parameter `default` is less `min_date`!")
+                if not isinstance(max_date, (datetime, str, type(None))):
+                    raise AssertionError("Parameter `max_date` - Not а `datetime|str|None` type!")
+                if not isinstance(min_date, (datetime, str, type(None))):
+                    raise AssertionError("Parameter `min_date` - Not а `datetime|str|None` type!")
+                if not isinstance(default, (datetime, str, type(None))):
+                    raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
@@ -106,6 +99,19 @@ class DateTimeField(Field):
 
         Field.__init__(self, supported_types=(datetime, str, type(None)))
 
+        default = self.correction_datetime(default)
+        max_date = self.correction_datetime(max_date)
+        min_date = self.correction_datetime(min_date)
+
+        if Config.DEBUG:
+            if max_date is not None and min_date is not None and max_date <= min_date:
+                raise AssertionError("The `max_date` parameter should be more than the `min_date`!")
+            if default is not None:
+                if max_date is not None and default > max_date:
+                    raise AssertionError("Parameter `default` is more `max_date`!")
+                if min_date is not None and default < min_date:
+                    raise AssertionError("Parameter `default` is less `min_date`!")
+
         self.html_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
@@ -129,43 +135,34 @@ class DateTimeField(Field):
             "group": "date",
         }
 
-    def correction_date_value(
+    def correction_datetime(
         self,
-        instance: Any,
-        html_attrs: dict[str, Any],
-        value: Any,
+        value: Any | None,
     ) -> datetime | None:
-        """Correction of date value."""
+        """Correction of datetime value."""
+        if value is None:
+            return None
+
         correct_value: datetime | None = None
+
         if isinstance(value, str):
-            if "Time" in html_attrs["field_type"]:
-                correct_value = parse(
-                    value,
-                    settings=instance._DATEPARSER_SETTINGS,
-                )
-                if correct_value is not None:
-                    correct_value = correct_value.replace(microsecond=0)
-            else:
-                correct_value = parse(
-                    value,
-                    settings=instance._DATEPARSER_SETTINGS,
-                )
-                if correct_value is not None:
-                    correct_value = correct_value.replace(microsecond=0).replace(
-                        hour=0,
-                        minute=0,
-                        second=0,
-                        microsecond=0,
-                    )
-        else:
-            if "Time" in html_attrs["field_type"]:
-                correct_value = value.replace(microsecond=0)
-            else:
-                correct_value = value.replace(
+            correct_value = parse(
+                value,
+                settings=Config.DATEPARSER_SETTINGS,
+            )
+            if correct_value is not None:
+                correct_value = correct_value.replace(microsecond=0).replace(
                     hour=0,
                     minute=0,
                     second=0,
                     microsecond=0,
                 )
+        else:
+            correct_value = value.replace(
+                hour=0,
+                minute=0,
+                second=0,
+                microsecond=0,
+            )
 
         return correct_value

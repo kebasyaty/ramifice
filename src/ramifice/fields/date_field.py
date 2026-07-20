@@ -126,3 +126,44 @@ class DateField(Field):
             "field_type": "DateField",
             "group": "date",
         }
+
+    def correction_date(
+        self,
+        value: Any|None,
+    ) -> datetime | None:
+        """Correction of date value."""
+        if value is None:
+            return None
+
+        correct_value: datetime | None = None
+        
+        if isinstance(value, str):
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0)
+            else:
+                correct_value = parse(
+                    value,
+                    settings=instance._DATEPARSER_SETTINGS,
+                )
+                if correct_value is not None:
+                    correct_value = correct_value.replace(microsecond=0).replace(
+                        hour=0,
+                        minute=0,
+                        second=0,
+                        microsecond=0,
+                    )
+        else:
+                correct_value = value.replace(microsecond=0)
+            else:
+                correct_value = value.replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0,
+                )
+
+        return correct_value
