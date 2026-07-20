@@ -21,6 +21,7 @@ from __future__ import annotations
 
 __all__ = ("JsonMixin",)
 
+
 from copy import deepcopy
 from typing import Any
 
