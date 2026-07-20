@@ -44,7 +44,7 @@ class JsonMixin:
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
-            f_html_attrs = deepcopy(getattr(self, f"{f_name}_html_attrs"))
+            f_html_attrs = getattr(self, f"{f_name}_html_attrs")
             field_type = f_html_attrs["field_type"]
             group = f_html_attrs["group"]
             value = f_html_attrs["value"]

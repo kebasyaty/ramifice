@@ -237,11 +237,10 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        model_doc = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
         async for mongo_doc in cursor:
             doc_list.append(
                 mongo_doc_to_model_doc(
-                    model_doc,
+                    cls,
                     mongo_doc,
                     lang_code,
                 ),

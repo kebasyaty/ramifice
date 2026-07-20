@@ -25,10 +25,13 @@ __all__ = (
     "mongo_doc_to_model_doc",
 )
 
+from copy import deepcopy
 from typing import Any
 
 from babel.dates import format_date, format_datetime
 from bson import json_util
+
+from ramifice.config import Config
 
 
 def correct_mongo_filter(cls_model: Any, filter: Any, lang_code: str) -> Any:
@@ -72,33 +75,42 @@ def mongo_doc_to_model_doc(
         - `date to str`
         - `datetime to str`
     """
-    empty_model = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
+    UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
+    descriptor_fields = cls_model.META["all_descriptor_fields"]
+    instance_model: Any = cls_model()
     model_doc: dict[str, Any] = {}
-    for f_name, f_value in model_doc.items():
-        field_type = f_data.field_type
+
+    for f_name in descriptor_fields:
         value = mongo_doc[f_name]
-        if value is not None:
-            if field_type == "TextField" and f_data.multi_language:
-                model_doc[f_name] = value.get(lang_code, "- -") if value is not None else None
-            elif "Date" in field_type:
-                if "Time" in field_type:
-                    model_doc[f_name] = format_datetime(
-                        datetime=value,
-                        format="short",
-                        locale=lang_code,
-                    )
-                else:
-                    model_doc[f_name] = format_date(
-                        date=value.date(),
-                        format="short",
-                        locale=lang_code,
-                    )
-            elif field_type == "IDField":
-                model_doc[f_name] = str(value)
-            elif field_type == "PasswordField":
-                model_doc[f_name] = None
-            else:
-                model_doc[f_name] = value
-        else:
+
+        if value is None:
             model_doc[f_name] = None
+            continue
+
+        f_html_attrs = getattr(instance_model, f"{f_name}_html_attrs")
+        field_type = f_html_attrs["field_type"]
+
+        if field_type == "TextField" and f_html_attrs["multi_language"]:
+            model_doc[f_name] = value.get(lang_code, "- -")
+        elif "Date" in field_type:
+            if "Time" in field_type:
+                model_doc[f_name] = format_datetime(
+                    datetime=value,
+                    format="medium",
+                    tzinfo=UTC_TIMEZONE,
+                    locale=lang_code,
+                )
+            else:
+                model_doc[f_name] = format_date(
+                    date=value.date(),
+                    format="medium",
+                    locale=lang_code,
+                )
+        elif field_type == "IDField":
+            model_doc["id"] = str(value)
+        elif field_type == "PasswordField":
+            model_doc[f_name] = None
+        else:
+            model_doc[f_name] = value
+
     return model_doc

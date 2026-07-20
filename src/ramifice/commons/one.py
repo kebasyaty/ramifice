@@ -82,10 +82,10 @@ class OneMixin:
         # Get document.
         raw_doc = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
+
         if mongo_doc is not None:
             raw_doc = mongo_doc_to_model_doc(
-                inst_model_dict,
+                cls,
                 mongo_doc,
                 lang_code,
             )
