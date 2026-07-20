@@ -313,6 +313,12 @@ class TestModel(unittest.TestCase):
         m.date_time = "1 anno 2 mesi"
         m.date = "yaklaşık 23 saat önce"
 
+        m2 = User("ru")
+        self.assertIsNone(m2.created_at)
+        self.assertIsNone(m2.updated_at)
+        self.assertIsNone(m2.date_time)
+        self.assertIsNone(m2.date)
+
 
 if __name__ == "__main__":
     unittest.main()
