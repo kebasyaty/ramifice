@@ -149,7 +149,7 @@ class TestJsonMixin(unittest.TestCase):
         m.txt = "Hello World!"
         m.slug = "hello-world"
         m.phone = "+1 806 589 2932"
-        m.password = "*X71M6pWIQ£ZE:0t"  # noqa: S105
+        m.password = "*X71M6pWIQ£ZE:0t"  # ruff:ignore[hardcoded-password-string]
         m.ip = "192.178.24.142"
         m.num_int = 12
         m.num_float = 5.2
