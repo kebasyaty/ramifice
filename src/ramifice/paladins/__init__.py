@@ -45,7 +45,7 @@ from ramifice.paladins.save import SaveMixin
 from ramifice.paladins.validation import ValidationMixin
 
 
-class QPaladinsMixin(  # noqa: RUF067
+class QPaladinsMixin(  # ruff:ignore[non-empty-init-module]
     CheckMixin,
     SaveMixin,
     PasswordMixin,
@@ -57,5 +57,5 @@ class QPaladinsMixin(  # noqa: RUF067
 ):
     """Paladins - Model instance methods."""
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self) -> None:  # ruff:ignore[undocumented-public-init]
         super().__init__()

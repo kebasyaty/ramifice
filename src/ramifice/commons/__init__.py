@@ -28,7 +28,7 @@ from ramifice.commons.one import OneMixin
 from ramifice.commons.unit_manager import UnitMixin
 
 
-class QCommonsMixin(  # noqa: RUF067
+class QCommonsMixin(  # ruff:ignore[non-empty-init-module]
     GeneralMixin,
     OneMixin,
     ManyMixin,
@@ -37,5 +37,5 @@ class QCommonsMixin(  # noqa: RUF067
 ):
     """Commons - Model class methods."""
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self) -> None:  # ruff:ignore[undocumented-public-init]
         super().__init__()

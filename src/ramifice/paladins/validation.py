@@ -50,19 +50,19 @@ class ValidationMixin:
             if len(field_data.errors) > 0:
                 # title
                 if not is_err:
-                    print(colored("\nERRORS:", "red", attrs=["bold"]))  # noqa: T201
-                    print(colored("Model: ", "blue", attrs=["bold"]), end="")  # noqa: T201
-                    print(colored(f"`{self.full_model_name()}`", "blue"))  # noqa: T201
+                    print(colored("\nERRORS:", "red", attrs=["bold"]))  # ruff:ignore[print]
+                    print(colored("Model: ", "blue", attrs=["bold"]), end="")  # ruff:ignore[print]
+                    print(colored(f"`{self.full_model_name()}`", "blue"))  # ruff:ignore[print]
                     is_err = True
                 # field name
-                print(colored("Field: ", "green", attrs=["bold"]), end="")  # noqa: T201
-                print(colored(f"`{field_name}`:", "green"))  # noqa: T201
+                print(colored("Field: ", "green", attrs=["bold"]), end="")  # ruff:ignore[print]
+                print(colored(f"`{field_name}`:", "green"))  # ruff:ignore[print]
                 # error messages
-                print(colored("\n".join(field_data.errors), "red"))  # noqa: T201
+                print(colored("\n".join(field_data.errors), "red"))  # ruff:ignore[print]
         if len(self._id.alerts) > 0:
             # title
-            print(colored("AlERTS:", "yellow", attrs=["bold"]))  # noqa: T201
+            print(colored("AlERTS:", "yellow", attrs=["bold"]))  # ruff:ignore[print]
             # messages
-            print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # noqa: T201
+            print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # ruff:ignore[print]
         else:
-            print(end="\n\n")  # noqa: T201
+            print(end="\n\n")  # ruff:ignore[print]
