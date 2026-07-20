@@ -46,32 +46,32 @@ class JsonMixin:
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
-            f_html_attrs = getattr(self, f"{f_name}_html_attrs")
-            field_type = f_html_attrs["field_type"]
-            group = f_html_attrs["group"]
-            value = f_html_attrs["value"]
+            tmp_html_attrs = deepcopy(getattr(self, f"{f_name}_html_attrs"))
+            field_type = tmp_html_attrs["field_type"]
+            value = tmp_html_attrs["value"]
+
             if value is not None:
-                if group == "id":
-                    f_html_attrs["value"] = str(value)
-                elif group == "password":
-                    f_html_attrs["value"] = None
+                if field_type == "IDField":
+                    tmp_html_attrs["value"] = str(value)
+                elif field_type == "PasswordField":
+                    tmp_html_attrs["value"] = None
                 elif field_type == "TextField":
-                    f_html_attrs["value"] = value.get(LANG_CODE, "- -") if isinstance(value, dict) else value
-                elif group == "date":
+                    tmp_html_attrs["value"] = value.get(LANG_CODE, "- -") if isinstance(value, dict) else value
+                elif "Date" in field_type:
                     if "Time" in field_type:
-                        f_html_attrs["value"] = format_datetime(
+                        tmp_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
                             tzinfo=UTC_TIMEZONE,
                             locale=LANG_CODE,
                         )
                     else:
-                        f_html_attrs["value"] = format_date(
+                        tmp_html_attrs["value"] = format_date(
                             date=value.date(),
                             format="medium",
                             locale=LANG_CODE,
                         )
-            json_dict[f_name] = f_html_attrs
+            json_dict[f_name] = tmp_html_attrs
 
         return json_dict
 
@@ -93,17 +93,17 @@ class JsonMixin:
         instance: Any = cls(lang_code)
 
         for f_name in descriptor_fields:
-            tmp_html_attrs = json_dict[f_name]
-            group = tmp_html_attrs["group"]
+            tmp_html_attrs = deepcopy(json_dict[f_name])
+            field_type = tmp_html_attrs["field_type"]
             value = tmp_html_attrs["value"]
 
             if value is not None:
-                if group == "id":
+                if field_type == "IDField":
                     tmp_html_attrs["value"] = ObjectId(value)
-                elif group == "password":
+                elif field_type == "PasswordField":
                     tmp_html_attrs["value"] = value
-                elif group == "date":
-                    if "Time" in tmp_html_attrs["field_type"]:
+                elif "Date" in field_type:
+                    if "Time" in field_type:
                         tmp_html_attrs["value"] = parse(
                             value,
                             settings=DATEPARSER_SETTINGS,
