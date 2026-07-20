@@ -81,7 +81,7 @@ def mongo_doc_to_model_doc(
     model_doc: dict[str, Any] = {}
 
     for f_name in descriptor_fields:
-        value = mongo_doc[f_name]
+        value = mongo_doc.get(f_name)
 
         if value is None:
             model_doc[f_name] = None
