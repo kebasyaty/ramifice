@@ -38,19 +38,24 @@ class TestDateFields(unittest.TestCase):
         self.assertFalse(f.html_attrs["readonly"])
         self.assertIsNone(f.html_attrs["max_date"])
         self.assertIsNone(f.html_attrs["min_date"])
+
+        DateField(default="", max_date="", min_date="")
+        self.assertIsNone(f.html_attrs["default"])
+        self.assertIsNone(f.html_attrs["max_date"])
+        self.assertIsNone(f.html_attrs["min_date"])
+
+        DateField(default="???", max_date="???", min_date="???")
+        self.assertIsNone(f.html_attrs["default"])
+        self.assertIsNone(f.html_attrs["max_date"])
+        self.assertIsNone(f.html_attrs["min_date"])
+
         # Exception checking:
         with self.assertRaises(AssertionError):
             DateField(max_date=12)
         with self.assertRaises(AssertionError):
-            DateField(max_date="")
-        with self.assertRaises(AssertionError):
             DateField(min_date=12)
         with self.assertRaises(AssertionError):
-            DateField(min_date="")
-        with self.assertRaises(AssertionError):
             DateField(default=12)
-        with self.assertRaises(AssertionError):
-            DateField(default="")
         with self.assertRaises(AssertionError):
             DateField(
                 default=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
@@ -105,19 +110,24 @@ class TestDateFields(unittest.TestCase):
         self.assertFalse(f.html_attrs["readonly"])
         self.assertIsNone(f.html_attrs["max_date"])
         self.assertIsNone(f.html_attrs["min_date"])
+
+        DateTimeField(default="", max_date="", min_date="")
+        self.assertIsNone(f.html_attrs["default"])
+        self.assertIsNone(f.html_attrs["max_date"])
+        self.assertIsNone(f.html_attrs["min_date"])
+
+        DateTimeField(default="???", max_date="???", min_date="???")
+        self.assertIsNone(f.html_attrs["default"])
+        self.assertIsNone(f.html_attrs["max_date"])
+        self.assertIsNone(f.html_attrs["min_date"])
+
         # Exception checking:
         with self.assertRaises(AssertionError):
             DateTimeField(max_date=12)
         with self.assertRaises(AssertionError):
-            DateTimeField(max_date="")
-        with self.assertRaises(AssertionError):
             DateTimeField(min_date=12)
         with self.assertRaises(AssertionError):
-            DateTimeField(min_date="")
-        with self.assertRaises(AssertionError):
             DateTimeField(default=12)
-        with self.assertRaises(AssertionError):
-            DateTimeField(default="")
         with self.assertRaises(AssertionError):
             DateTimeField(
                 default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
