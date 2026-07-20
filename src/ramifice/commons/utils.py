@@ -22,7 +22,7 @@ from __future__ import annotations
 __all__ = (
     "correct_mongo_filter",
     "password_to_none",
-    "mongo_doc_to_model_doc",
+    "mongo_doc_to_model_dict",
 )
 
 from copy import deepcopy
@@ -62,7 +62,7 @@ def password_to_none(
     return mongo_doc
 
 
-def mongo_doc_to_model_doc(
+def mongo_doc_to_model_dict(
     cls_model: Any,
     mongo_doc: dict[str, Any],
     lang_code: str,

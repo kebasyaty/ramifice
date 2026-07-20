@@ -32,7 +32,7 @@ from pymongo.results import DeleteResult
 
 from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_model_doc,
+    mongo_doc_to_model_dict,
     password_to_none,
 )
 from ramifice.config import Config
@@ -108,7 +108,7 @@ class ManyMixin:
         return doc_list
 
     @classmethod
-    async def find_many_to_model_docs(
+    async def find_many_to_model_dict_list(
         cls,
         filter: Any | None = None,
         projection: Any | None = None,
@@ -133,10 +133,10 @@ class ManyMixin:
         allow_disk_use: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
-        """Find documents and convert to a raw documents.
+        """Find documents and convert to list of models in dictionary format.
 
         Special changes:
-            _id to str
+            _id to id (str)
             password to None
             date to str
             datetime to str
@@ -173,7 +173,7 @@ class ManyMixin:
         )
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_model_doc(
+                mongo_doc_to_model_dict(
                     cls,
                     mongo_doc,
                     lang_code,
@@ -240,7 +240,7 @@ class ManyMixin:
         )
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_model_doc(
+                mongo_doc_to_model_dict(
                     cls,
                     mongo_doc,
                     lang_code,

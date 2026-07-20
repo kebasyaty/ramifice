@@ -30,7 +30,7 @@ from pymongo.results import DeleteResult
 
 from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_model_doc,
+    mongo_doc_to_model_dict,
     password_to_none,
 )
 from ramifice.config import Config
@@ -67,14 +67,14 @@ class OneMixin:
         return mongo_doc
 
     @classmethod
-    async def find_one_to_raw_doc(
+    async def find_one_to_model_dict(
         cls: Any,
         filter: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and converting to raw document."""
+        """Find a single document and convert to Model in dictionary format."""
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -85,7 +85,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
 
         if mongo_doc is not None:
-            raw_doc = mongo_doc_to_model_doc(
+            raw_doc = mongo_doc_to_model_dict(
                 cls,
                 mongo_doc,
                 lang_code,
