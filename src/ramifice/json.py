@@ -45,6 +45,7 @@ class JsonMixin:
 
         for f_name in descriptor_fields:
             f_html_attrs = deepcopy(getattr(self, f"{f_name}_html_attrs"))
+            field_type = f_html_attrs["field_type"]
             group = f_html_attrs["group"]
             value = f_html_attrs["value"]
             if value is not None:
@@ -52,8 +53,10 @@ class JsonMixin:
                     f_html_attrs["value"] = str(value)
                 elif group == "password":
                     f_html_attrs["value"] = None
+                elif field_type == "TextField" and isinstance(value, dict):
+                    f_html_attrs["value"] = value.get(LANG_CODE)
                 elif group == "date":
-                    if "Time" in f_html_attrs["field_type"]:
+                    if "Time" in field_type:
                         f_html_attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
@@ -80,7 +83,7 @@ class JsonMixin:
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
         DATEPARSER_SETTINGS = deepcopy(Config.DATEPARSER_SETTINGS)
-        instance = cls()
+        instance: Any = cls()
 
         for f_name in descriptor_fields:
             tmp_html_attrs = json_dict[f_name]
