@@ -98,7 +98,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.html_attrs["required"])
         self.assertFalse(f.html_attrs["readonly"])
         self.assertTrue(f.html_attrs["unique"])
-        self.assertEqual(f.html_attrs["slug_sources"], ["_id"])
+        self.assertEqual(f.html_attrs["slug_sources"], ["id"])
 
     def test_phone_field(self):
         """Testing `PhoneField`."""
