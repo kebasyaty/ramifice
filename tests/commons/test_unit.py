@@ -8,7 +8,7 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import Migration, Unit, model
+from ramifice import Migration, Model, Unit, meta
 from ramifice.config import Config
 from ramifice.errors import PanicError
 from ramifice.fields import (
@@ -21,8 +21,8 @@ from ramifice.fields import (
 )
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     choice_float_dyn = ChoiceFloatDynField()
@@ -41,14 +41,14 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_unit_mixin_methods"
 
-        client: AsyncMongoClient = AsyncMongoClient(host=Config.MONGO_HOST)
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
 
-        client = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,

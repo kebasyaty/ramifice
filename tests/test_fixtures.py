@@ -116,14 +116,14 @@ class TestFixtures(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_apply_fixtures"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
 
-        client = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
