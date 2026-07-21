@@ -186,8 +186,10 @@ class CheckMixin(
             else:
                 for field_name in descriptor_fields:
                     f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+
                     if f__html_attrs["ignored"]:
                         continue
+
                     match f__html_attrs["group"]:
                         case "file":
                             file_data = result_map.get(field_name)
