@@ -20,6 +20,7 @@
 The settings class contains the following parameters:
 
 - `DEBUG` - Condition for the verification code.
+- `MONGO_HOST` - Mongo host.
 - `MONGO_CLIENT` - Mongo client.
 - `MONGO_DATABASE` - Mongo database.
 - `DATABASE_NAME` - Batabase name.
@@ -54,6 +55,10 @@ class Config:
     # Condition for the verification code.
     # For block the verification code, at the end of the migration to the database.
     DEBUG: ClassVar[bool] = True
+    # Mongo host.
+    MONGO_HOST: ClassVar[str] = (
+        "mongodb+srv://kebasyaty:pV89ZXdJ9V7mhobD@cluster0.fc2sa1h.mongodb.net/?appName=Cluster0"
+    )
     # Mongo client.
     MONGO_CLIENT: ClassVar[AsyncMongoClient | None] = None
     # Mongo database.
@@ -90,7 +95,7 @@ class Config:
         "model_name": re.compile(r"^[A-Z][a-zA-Z0-9]{0,24}$"),
         "color_code": re.compile(
             r"^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)$",
-            re.I,  # noqa: FURB167
+            re.I,  # ruff:ignore[regex-flag-alias]
         ),
         "password": re.compile(r'^[-._!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|a-zA-Z0-9]{8,256}$'),
     }

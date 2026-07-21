@@ -6,6 +6,8 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
+from ramifice.config import Config
+
 
 class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
     """Testing the `AsyncMongoClient`."""
@@ -13,7 +15,7 @@ class TestAsyncMongoClient(unittest.IsolatedAsyncioTestCase):
     async def test_connection_mongo_client(self):
         """Connection with AsyncMongoClient."""
         # Making a Connection with MongoClient:
-        client: AsyncMongoClient = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient(host=Config.MONGO_HOST)
         # Getting a Database:
         db = client["test-database"]
         self.assertEqual(db.name, "test-database")

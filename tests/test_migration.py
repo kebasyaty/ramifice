@@ -7,7 +7,7 @@ import unittest
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import Migration, model
+from ramifice import Migration, Model, meta
 from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
@@ -41,8 +41,8 @@ from ramifice.fields import (
 )
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
     url = URLField()
@@ -83,7 +83,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_migration_manager"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
@@ -92,7 +92,7 @@ class TestMigration(unittest.IsolatedAsyncioTestCase):
 
         self.assertTrue(Config.DEBUG)
 
-        client = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
