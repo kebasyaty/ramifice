@@ -72,23 +72,24 @@ class CheckMixin(
 
         It is also used to verify Models that do not migrate to the database.
         """
-        cls_model = self.__class__
+        metadata = self.__class__.META
+        descriptor_fields = self.__class__.META["all_descriptor_fields"]
 
         # Get the document ID.
-        doc_id: ObjectId | None = self._id.value
+        doc_id: ObjectId | None = self.id.value
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
         # Create an identifier for a new document.
         if is_save and not is_update:
             doc_id = ObjectId()
-            self._id.value = doc_id
+            self.id = doc_id
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
         error_map: NamedTuple = await self.add_validation()
         # Get Model collection.
         if collection is None:
-            collection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+            collection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,
@@ -97,29 +98,31 @@ class CheckMixin(
             "is_error_symptom": False,  # Is there any incorrect data?
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
-            "field_data": None,
-            "full_model_name": cls_model.META["full_model_name"],
+            "field_value": None,
+            "f__html_attrs": None,
+            "f__funcs": None,
+            "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
             "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
         # Run checking fields.
-        for field_name, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
+        for field_name in descriptor_fields:
+            f__html_attrs = getattr(self, f"{field_name}__html_attrs")
             # Reset a field errors to exclude duplicates.
-            field_data.errors = []
+            f__html_attrs["errors"] = []
             # Check additional validation.
             err_msg = error_map[field_name]
-            if bool(err_msg):
-                field_data.errors.append(err_msg)
+            if err_msg is not None:
+                f__html_attrs["errors"].append(err_msg)
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
-            if not field_data.ignored:
-                params["field_data"] = field_data
-                match field_data.group:
+            if not f__html_attrs["ignored"]:
+                params["field_value"] = getattr(self, field_name)
+                params["f__html_attrs"] = f__html_attrs
+                match f__html_attrs["group"]:
                     case "text":
                         await self.text_group(params)
                     case "number":
@@ -150,35 +153,42 @@ class CheckMixin(
             if params["is_error_symptom"]:
                 # Reset the ObjectId for a new document.
                 if not is_update:
-                    self._id.value = None
+                    # pyrefly: ignore [bad-assignment]
+                    self.id = None
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = params["curr_doc"]
-                for field_name, field_data in self.__dict__.items():
-                    if callable(field_data) or field_data.ignored:
-                        continue
-                    match field_data.group:
+
+                for field_name in descriptor_fields:
+                    f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+
+                    match f__html_attrs["group"]:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
                                 if file_data["is_new_file"]:
                                     await to_thread.run_sync(remove, file_data["path"])
-                                field_data.value = None
+                                f__html_attrs["value"] = None
+                                setattr(self, field_name, None)
                             if curr_doc is not None:
-                                field_data.value = curr_doc[field_name]
+                                f__html_attrs["value"] = curr_doc[field_name]
+                                setattr(self, field_name, curr_doc[field_name])
                         case "img":
                             img_data = result_map.get(field_name)
                             if img_data is not None:
                                 if img_data["is_new_img"]:
                                     # pyrefly: ignore [incompatible-overload-residual]
                                     await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
-                                field_data.value = None
+                                f__html_attrs["value"] = None
+                                setattr(self, field_name, None)
                             if curr_doc is not None:
-                                field_data.value = curr_doc[field_name]
+                                f__html_attrs["value"] = curr_doc[field_name]
+                                setattr(self, field_name, curr_doc[field_name])
             else:
-                for field_name, field_data in self.__dict__.items():
-                    if callable(field_data) or field_data.ignored:
+                for field_name in descriptor_fields:
+                    f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+                    if f__html_attrs["ignored"]:
                         continue
-                    match field_data.group:
+                    match f__html_attrs["group"]:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
