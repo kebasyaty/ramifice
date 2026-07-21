@@ -100,6 +100,7 @@ async def check_uniqueness(
 ) -> bool:
     """Checking the uniqueness of the value in the collection."""
     q_filter = None
+
     if is_multi_language:
         lang_filter = [{f"{field_name}.{lang}": value} for lang in Translator.LANGUAGES]
         q_filter = {
