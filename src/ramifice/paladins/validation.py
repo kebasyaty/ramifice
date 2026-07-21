@@ -43,11 +43,13 @@ class ValidationMixin:
 
         Convenient to use during development.
         """
+        metadata = self.__class__.META
+        descriptor_fields = metadata["all_descriptor_fields"]
         is_err: bool = False
-        for field_name, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
-            if len(field_data.errors) > 0:
+
+        for f_name in descriptor_fields:
+            f_errors = getattr(self, f"{f_name}_html_attrs")["errors"]
+            if len(f_errors) > 0:
                 # title
                 if not is_err:
                     print(colored("\nERRORS:", "red", attrs=["bold"]))  # ruff:ignore[print]
@@ -56,13 +58,15 @@ class ValidationMixin:
                     is_err = True
                 # field name
                 print(colored("Field: ", "green", attrs=["bold"]), end="")  # ruff:ignore[print]
-                print(colored(f"`{field_name}`:", "green"))  # ruff:ignore[print]
+                print(colored(f"`{f_name}`:", "green"))  # ruff:ignore[print]
                 # error messages
-                print(colored("\n".join(field_data.errors), "red"))  # ruff:ignore[print]
-        if len(self._id.alerts) > 0:
+                print(colored("\n".join(f_errors), "red"))  # ruff:ignore[print]
+
+        f_alerts = self.__dict__["id_html_attrs"]["alerts"]
+        if len(f_alerts) > 0:
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))  # ruff:ignore[print]
             # messages
-            print(colored("\n".join(self._id.alerts), "yellow"), end="\n\n")  # ruff:ignore[print]
+            print(colored("\n".join(f_alerts), "yellow"), end="\n\n")  # ruff:ignore[print]
         else:
             print(end="\n\n")  # ruff:ignore[print]

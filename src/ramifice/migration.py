@@ -19,7 +19,7 @@
 propagating changes you make to
 your models (add or delete a Model, add or delete a field in Model, etc.) into
 your database schema.
-"""  # noqa: D205
+"""  # ruff:ignore[missing-blank-line-after-summary]
 
 from __future__ import annotations
 
@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 class Migration:
     """Migration of models to database."""
 
-    def __init__(self, database_name: str, mongo_client: AsyncMongoClient) -> None:  # noqa: D107
+    def __init__(self, database_name: str, mongo_client: AsyncMongoClient) -> None:  # ruff:ignore[undocumented-public-init]
         db_name_regex = Config.REGEX["database_name"]
         if db_name_regex.match(database_name) is None:
             regex_str: str = "^[a-zA-Z][-_a-zA-Z0-9]{0,59}$"
@@ -114,7 +114,7 @@ class Migration:
     async def napalm(self) -> None:
         """Delete data for non-existent Models from a super collection,
         delete collections associated with those Models.
-        """  # noqa: D205
+        """  # ruff:ignore[missing-blank-line-after-summary]
         # Get access to database.
         database = Config.MONGO_DATABASE
         # Get access to super collection.
@@ -187,7 +187,7 @@ class Migration:
                         is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
-                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # noqa: T201
+                        print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # ruff:ignore[print]
                         inst_model.print_err()
                         err_msg: str = "Migration failed."
                         logger.critical(err_msg)
@@ -211,7 +211,7 @@ class Migration:
             #
             # Refresh the dynamic fields data for the current model.
             for field_name, field_data in metadata["data_dynamic_fields"].items():
-                if model_state["data_dynamic_fields"].get(field_name, False) == False:  # noqa: E712
+                if model_state["data_dynamic_fields"].get(field_name, False) == False:  # ruff:ignore[true-false-comparison]
                     model_state["data_dynamic_fields"][field_name] = field_data
                 else:
                     metadata["data_dynamic_fields"][field_name] = model_state["data_dynamic_fields"][field_name]

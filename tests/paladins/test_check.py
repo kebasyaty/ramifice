@@ -81,7 +81,7 @@ class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_check_method"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)

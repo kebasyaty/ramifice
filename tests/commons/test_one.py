@@ -85,7 +85,7 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_one_mixin_methods"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client: AsyncMongoClient = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
