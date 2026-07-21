@@ -39,6 +39,7 @@ logger = logging.getLogger(__name__)
 def ignored_fields_to_none(instance_model: Any) -> None:
     """Reset the values of ignored fields to None."""
     descriptor_fields = instance_model.__class__.META["all_descriptor_fields"]
+
     for f_name in descriptor_fields:
         f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
         if f__html_attrs["ignored"]:
@@ -48,16 +49,20 @@ def ignored_fields_to_none(instance_model: Any) -> None:
 
 def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
-    lang: str = Translator.CURRENT_LOCALE
-    model_dict = instance_model.__dict__
-    for name, data in mongo_doc.items():
-        field = model_dict[name]
-        if field.field_type == "TextField" and field.multi_language:
-            field.value = data.get(lang, "- -") if data is not None else None
-        elif field.group == "pass":
-            field.value = None
+    lang_code = instance_model._LANG_CODE
+
+    for mongo_f_name, mongo_value in mongo_doc.items():
+        f_name = mongo_f_name if mongo_f_name != "_id" else "id"
+        f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
+        field_type = f__html_attrs["field_type"]
+
+        if field_type == "TextField" and f__html_attrs["multi_language"]:
+            f__html_attrs["value"] = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
+        elif field_type == "PasswordField":
+            f__html_attrs["value"] = None
         else:
-            field.value = data
+            f__html_attrs["value"] = mongo_value
+        setattr(instance_model, f_name, mongo_value)
 
 
 def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
