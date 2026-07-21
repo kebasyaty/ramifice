@@ -195,8 +195,8 @@ async def main():
 
 
     user = User("ru")
-    # user.avatar_funcs["from_path"]("public/media/default/no-photo.png")
-    # user.avatar_funcs["from_base64"]("base64-string")
+    # user.avatar__funcs["from_path"]("public/media/default/no-photo.png")
+    # user.avatar__funcs["from_base64"]("base64-string")
     user.username = "pythondev"
     user.password = "12345678"
     user.сonfirm_password = "12345678"

@@ -87,10 +87,10 @@ def mongo_doc_to_model_dict(
             model_doc[f_name] = None
             continue
 
-        f_html_attrs = getattr(instance_model, f"{f_name}_html_attrs")
-        field_type = f_html_attrs["field_type"]
+        f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
+        field_type = f__html_attrs["field_type"]
 
-        if field_type == "TextField" and f_html_attrs["multi_language"]:
+        if field_type == "TextField" and f__html_attrs["multi_language"]:
             model_doc[f_name] = value.get(lang_code, "- -")
         elif "Date" in field_type:
             if "Time" in field_type:

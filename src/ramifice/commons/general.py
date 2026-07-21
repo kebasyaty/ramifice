@@ -53,8 +53,8 @@ class GeneralMixin:
             if value is None:
                 continue
 
-            f_html_attrs = getattr(instance, f"{f_name}_html_attrs")
-            field_type = f_html_attrs["field_type"]
+            f__html_attrs = getattr(instance, f"{f_name}__html_attrs")
+            field_type = f__html_attrs["field_type"]
 
             if field_type == "TextField":
                 field_type["value"] = value.get(lang_code, "- -") if isinstance(value, dict) else value
