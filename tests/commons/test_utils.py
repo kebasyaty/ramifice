@@ -97,6 +97,21 @@ class TestCommonGeneralMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(filter, correct_fielter)
 
         filter = {
+            "txt2": "John",
+            "num_int": 30,
+            "url": "https://www.google.com",
+            "hash2": id,
+        }
+        correct_fielter = {
+            "txt2.en": "John",
+            "num_int": 30,
+            "url": "https://www.google.com",
+            "hash2": id,
+        }
+        filter = correct_mongo_filter(User, filter, Translator.DEFAULT_LOCALE)
+        self.assertEqual(filter, correct_fielter)
+
+        filter = {
             "$or": [{"txt2": "John"}, {"txt2": "Julia"}],
             "num_int": 30,
             "url": "https://www.google.com",
