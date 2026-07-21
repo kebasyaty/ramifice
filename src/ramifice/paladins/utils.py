@@ -36,17 +36,20 @@ from ramifice.translator import Translator
 logger = logging.getLogger(__name__)
 
 
-def ignored_fields_to_none(inst_model: Any) -> None:
+def ignored_fields_to_none(instance_model: Any) -> None:
     """Reset the values of ignored fields to None."""
-    for _, field_data in inst_model.__dict__.items():
-        if not callable(field_data) and field_data.ignored:
-            field_data.value = None
+    descriptor_fields = instance_model.__class__.META["all_descriptor_fields"]
+    for f_name in descriptor_fields:
+        f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
+        if f__html_attrs["ignored"]:
+            f__html_attrs["value"] = None
+            setattr(instance_model, f_name, None)
 
 
-def refresh_from_mongo_doc(inst_model: Any, mongo_doc: dict[str, Any]) -> None:
+def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> None:
     """Update object instance from Mongo document."""
     lang: str = Translator.CURRENT_LOCALE
-    model_dict = inst_model.__dict__
+    model_dict = instance_model.__dict__
     for name, data in mongo_doc.items():
         field = model_dict[name]
         if field.field_type == "TextField" and field.multi_language:
