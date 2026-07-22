@@ -131,7 +131,7 @@ class TextField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field__funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore(size=self.size)
 
     def __len__(self) -> int:
         """Return length of field `value`."""

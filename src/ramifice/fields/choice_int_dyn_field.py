@@ -113,7 +113,7 @@ class ChoiceIntDynField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field__funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore()
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

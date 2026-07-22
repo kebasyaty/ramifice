@@ -159,7 +159,7 @@ class ImageField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field__funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore()
 
     async def from_base64(
         self,
