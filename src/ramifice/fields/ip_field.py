@@ -26,7 +26,7 @@ import logging
 from typing import Any
 
 from ramifice.config import Config
-from ramifice.fields.field import Field
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
@@ -99,7 +99,7 @@ class IPField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.html_attrs: dict[str, Any] = {
+        self.field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,

@@ -28,7 +28,7 @@ import logging
 from typing import Any
 
 from ramifice.config import Config
-from ramifice.fields.field import Field
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
@@ -90,7 +90,7 @@ class ChoiceFloatMultDynField(Field):
 
         Field.__init__(self, supported_types=(list, type(None)))
 
-        self.html_attrs: dict[str, Any] = {
+        self.field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -114,9 +114,9 @@ class ChoiceFloatMultDynField(Field):
         """Does the field value match the possible options in choices."""
         if is_migrate:
             return True
-        value = self.html_attrs["value"]
+        value = self.field_attrs["value"]
         if value is not None:
-            choices = self.html_attrs["choices"]
+            choices = self.field_attrs["choices"]
             if len(value) == 0 or not bool(choices):
                 return False
             value_list = [item[0] for item in choices]  # type: ignore[union-attr]

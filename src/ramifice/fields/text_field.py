@@ -25,7 +25,7 @@ import logging
 from typing import Any
 
 from ramifice.config import Config
-from ramifice.fields.field import Field, FieldCore
+from ramifice.fields.field import Field, FieldCore, FieldCore
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ class TextField(Field):
 
         Field.__init__(self, supported_types=(str, dict, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs = {
             "id": "",
             "name": "",
             "label": label,
@@ -130,12 +130,12 @@ class TextField(Field):
             "field_type": "TextField",
             "group": "text",
         }
-
+        self.field_attrs = FieldCore(**field_attrs)
         self.field__funcs = FieldCore(size=self.__len__)
 
     def __len__(self) -> int:
         """Return length of field `value`."""
-        value = self.html_attrs["value"]
+        value = self.field_attrs["value"]
         if isinstance(value, str):
             return len(value)
         if isinstance(value, dict):
@@ -149,7 +149,7 @@ class TextField(Field):
 
     def size(self) -> int:
         """Return length of field `value`."""
-        value = self.html_attrs["value"]
+        value = self.field_attrs["value"]
         if isinstance(value, str):
             return len(value)
         if isinstance(value, dict):
