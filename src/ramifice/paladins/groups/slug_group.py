@@ -48,18 +48,18 @@ class SlugGroupMixin:
         if not params["is_save"]:
             return
         #
-        field = params["field_data"]
+        field = params["field_value"]
         field_name = field.name
         raw_str_list: list[str] = []
         slug_sources = field.slug_sources
         #
-        for field_name_, field_data in self.__dict__.items():
-            if callable(field_data):
+        for field_name_, field_value in self.__dict__.items():
+            if callable(field_value):
                 continue
             if field_name_ in slug_sources:
-                value = field_data.value
+                value = field_value.value
                 if value is None:
-                    value = field_data.__dict__.get("default")
+                    value = field_value.__dict__.get("default")
                 if value is not None:
                     raw_str_list.append(value if field_name_ != "_id" else str(value))
                 else:

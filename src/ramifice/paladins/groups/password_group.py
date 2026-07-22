@@ -41,10 +41,10 @@ class PasswordGroupMixin:
     def password_group(self, params: dict[str, Any]) -> None:
         """Checking password fields."""
         _ = params["_"]
-        field = params["field_data"]
+        field = params["field_value"]
         # When updating the document, skip the verification.
         if params["is_update"]:
-            params["field_data"].value = None
+            params["field_value"].value = None
             return
         # Get current value.
         value = field.value or None

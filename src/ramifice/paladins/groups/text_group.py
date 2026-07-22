@@ -58,7 +58,7 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         _ = params["_"]
-        field = params["field_data"]
+        field = params["field_value"]
         field_name = field.name
         field_type: str = field.field_type
         is_multi_language: bool = (field_type == "TextField") and field.multi_language
@@ -104,7 +104,7 @@ class TextGroupMixin:
                     check_deliverability=True,
                 )
                 value = emailinfo.normalized
-                params["field_data"].value = value
+                params["field_value"].value = value
             except EmailNotValidError:
                 err_msg = _("Invalid Email address !")
                 accumulate_error(err_msg, params)

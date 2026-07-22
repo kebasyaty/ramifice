@@ -43,7 +43,7 @@ class FileGroupMixin:
     async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
         _ = params["_"]
-        field = params["field_data"]
+        field = params["field_value"]
         value = field.value or None
 
         if not isinstance(value, (dict, type(None))):
@@ -53,8 +53,8 @@ class FileGroupMixin:
             default = field.default or None
             # If necessary, use the default value.
             if default is not None:
-                params["field_data"].from_path(default)
-                value = params["field_data"].value
+                params["field_value"].from_path(default)
+                value = params["field_value"].value
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if value is None:
@@ -73,8 +73,8 @@ class FileGroupMixin:
                 default = field.default or None
                 # If necessary, use the default value.
                 if default is not None:
-                    params["field_data"].from_path(default)
-                    value = params["field_data"].value
+                    params["field_value"].from_path(default)
+                    value = params["field_value"].value
                 else:
                     if not field.required:
                         if params["is_save"]:

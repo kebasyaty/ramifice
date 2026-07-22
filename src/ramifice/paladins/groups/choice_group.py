@@ -46,7 +46,7 @@ class ChoiceGroupMixin:
     def choice_group(self, params: dict[str, Any]) -> None:
         """Checking choice fields."""
         _ = params["_"]
-        field = params["field_data"]
+        field = params["field_value"]
         is_migrate = params["is_migration_process"]
         # Get current value.
         value = field.value or field.__dict__.get("default") or None

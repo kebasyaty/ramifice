@@ -39,7 +39,7 @@ class BoolGroupMixin:
 
     def bool_group(self, params: dict[str, Any]) -> None:
         """Checking boolean fields."""
-        field = params["field_data"]
+        field = params["field_value"]
         # Get current value.
         value = field.value
 
