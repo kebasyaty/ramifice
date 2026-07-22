@@ -116,7 +116,7 @@ class DateTimeField(Field):
                 logger.critical(str(err))
                 raise err
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -138,6 +138,9 @@ class DateTimeField(Field):
             "field_type": "DateTimeField",
             "group": "date",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
     def correction_datetime(
         self,

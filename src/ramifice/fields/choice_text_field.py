@@ -72,7 +72,7 @@ class ChoiceTextField(Field):
         """
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -92,6 +92,9 @@ class ChoiceTextField(Field):
             "field_type": "ChoiceTextField",
             "group": "choice",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]

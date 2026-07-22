@@ -87,7 +87,7 @@ class PasswordField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -104,3 +104,6 @@ class PasswordField(Field):
             "field_type": "PasswordField",
             "group": "password",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

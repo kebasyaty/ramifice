@@ -90,7 +90,7 @@ class IDField(Field):
 
         Field.__init__(self, supported_types=(ObjectId, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -110,3 +110,6 @@ class IDField(Field):
             "field_type": "IDField",
             "group": "id",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

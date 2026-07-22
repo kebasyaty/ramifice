@@ -90,7 +90,7 @@ class ChoiceIntMultDynField(Field):
 
         Field.__init__(self, supported_types=(list, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -109,6 +109,9 @@ class ChoiceIntMultDynField(Field):
             "field_type": "ChoiceIntMultDynField",
             "group": "choice",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

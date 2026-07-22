@@ -109,7 +109,7 @@ class FileField(Field):
 
         Field.__init__(self, supported_types=(dict, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -130,6 +130,9 @@ class FileField(Field):
             "field_type": "FileField",
             "group": "file",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
     async def from_base64(
         self,

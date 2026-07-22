@@ -48,7 +48,7 @@ class IPField(Field):
         unique: The unique value of a field in a collection.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(  # ruff:ignore[undocumented-public-init]
         self,
         label: str = "",
         placeholder: str = "",
@@ -72,7 +72,7 @@ class IPField(Field):
                     try:
                         ipaddress.ip_address(default)
                     except ValueError:
-                        raise AssertionError("Parameter `default` - Invalid IP address!")  # noqa: B904
+                        raise AssertionError("Parameter `default` - Invalid IP address!")  # ruff:ignore[raise-without-from-inside-except]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
@@ -99,7 +99,7 @@ class IPField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -119,3 +119,6 @@ class IPField(Field):
             "field_type": "IPField",
             "group": "text",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

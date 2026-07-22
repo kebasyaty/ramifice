@@ -118,7 +118,7 @@ class FloatField(Field):
 
         Field.__init__(self, supported_types=(float, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -141,3 +141,6 @@ class FloatField(Field):
             "field_type": "FloatField",
             "group": "number",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

@@ -72,7 +72,7 @@ class ChoiceFloatMultField(Field):
         """
         Field.__init__(self, supported_types=(list, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -92,6 +92,9 @@ class ChoiceFloatMultField(Field):
             "field_type": "ChoiceFloatMultField",
             "group": "choice",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]

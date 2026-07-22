@@ -51,7 +51,7 @@ class IntegerField(Field):
         input_type: Field type - `number` or `range`.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(  # ruff:ignore[undocumented-public-init]
         self,
         label: str = "",
         placeholder: str = "",
@@ -117,7 +117,7 @@ class IntegerField(Field):
 
         Field.__init__(self, supported_types=(int, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -140,3 +140,6 @@ class IntegerField(Field):
             "field_type": "IntegerField",
             "group": "number",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

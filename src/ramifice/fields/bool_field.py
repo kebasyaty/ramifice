@@ -76,7 +76,7 @@ class BooleanField(Field):
 
         Field.__init__(self, supported_types=(bool, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -92,3 +92,6 @@ class BooleanField(Field):
             "field_type": "BooleanField",
             "group": "bool",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

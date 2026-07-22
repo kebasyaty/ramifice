@@ -26,7 +26,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 from ramifice.config import Config
-from ramifice.fields.field import Field, FieldCore, FieldCore
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
@@ -99,7 +99,7 @@ class URLField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -120,5 +120,5 @@ class URLField(Field):
             "group": "text",
         }
 
-        self.field_attrs = FieldCore(**field_attrs)
-        self.field__funcs = FieldCore()
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

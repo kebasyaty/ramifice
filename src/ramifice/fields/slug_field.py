@@ -89,7 +89,7 @@ class SlugField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -109,3 +109,6 @@ class SlugField(Field):
             "field_type": "SlugField",
             "group": "slug",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()

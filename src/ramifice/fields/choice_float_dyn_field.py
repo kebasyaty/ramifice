@@ -92,7 +92,7 @@ class ChoiceFloatDynField(Field):
 
         Field.__init__(self, supported_types=(float, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -111,6 +111,9 @@ class ChoiceFloatDynField(Field):
             "field_type": "ChoiceFloatDynField",
             "group": "choice",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
     def has_value(self, is_migrate: bool = False) -> bool:
         """Does the field value match the possible options in choices."""

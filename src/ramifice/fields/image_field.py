@@ -135,7 +135,7 @@ class ImageField(Field):
 
         Field.__init__(self, supported_types=(dict, type(None)))
 
-        self.field_attrs: dict[str, Any] = {
+        field_attrs: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -157,6 +157,9 @@ class ImageField(Field):
             "field_type": "ImageField",
             "group": "img",
         }
+
+        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
+        self.__dict__["field__funcs"] = FieldCore()
 
     async def from_base64(
         self,
@@ -193,7 +196,7 @@ class ImageField(Field):
             imgs_dir_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.field_attrs["target_dir"],
+                self.field_attrs.target_dir,
                 date_str,
                 general_dir,
             )
@@ -201,7 +204,7 @@ class ImageField(Field):
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)
             # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs['target_dir']}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{general_dir}"
             # Create a new name for the original image.
             new_original_name = f"original{extension}"
             # Create path to main image.
