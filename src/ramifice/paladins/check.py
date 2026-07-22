@@ -22,7 +22,6 @@ from __future__ import annotations
 __all__ = ("CheckMixin",)
 
 import logging
-from copy import deepcopy
 from os import remove
 from shutil import rmtree
 from typing import Any, assert_never
@@ -45,7 +44,6 @@ from ramifice.paladins.groups import (
     SlugGroupMixin,
     TextGroupMixin,
 )
-from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -106,7 +104,7 @@ class CheckMixin(
             "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
-            "LANGUAGES": deepcopy(Translator.LANGUAGES),
+            "LANGUAGES": self._LANGUAGES,
             "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
@@ -114,11 +112,11 @@ class CheckMixin(
         for field_name in descriptor_fields:
             f__attrs = getattr(self, f"{field_name}__attrs")
             # Reset a field errors to exclude duplicates.
-            f__attrs["errors"] = []
+            f__attrs.errors = []
             # Check additional validation.
             err_msg = error_map[field_name]
             if err_msg is not None:
-                f__attrs["errors"].append(err_msg)
+                f__attrs.errors.append(err_msg)
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
@@ -165,16 +163,16 @@ class CheckMixin(
                 for field_name in descriptor_fields:
                     f__attrs = getattr(self, f"{field_name}__attrs")
 
-                    match f__attrs["group"]:
+                    match f__attrs.group:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
                                 if file_data["is_new_file"]:
                                     await to_thread.run_sync(remove, file_data["path"])
-                                f__attrs["value"] = None
+                                f__attrs.value = None
                                 setattr(self, field_name, None)
                             if curr_doc is not None:
-                                f__attrs["value"] = curr_doc[field_name]
+                                f__attrs.value = curr_doc[field_name]
                                 setattr(self, field_name, curr_doc[field_name])
                         case "img":
                             img_data = result_map.get(field_name)
@@ -182,19 +180,19 @@ class CheckMixin(
                                 if img_data["is_new_img"]:
                                     # pyrefly: ignore [incompatible-overload-residual]
                                     await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
-                                f__attrs["value"] = None
+                                f__attrs.value = None
                                 setattr(self, field_name, None)
                             if curr_doc is not None:
-                                f__attrs["value"] = curr_doc[field_name]
+                                f__attrs.value = curr_doc[field_name]
                                 setattr(self, field_name, curr_doc[field_name])
             else:
                 for field_name in descriptor_fields:
                     f__attrs = getattr(self, f"{field_name}__attrs")
 
-                    if f__attrs["ignored"]:
+                    if f__attrs.ignored:
                         continue
 
-                    match f__attrs["group"]:
+                    match f__attrs.group:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
