@@ -121,4 +121,11 @@ class URLField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore(size=self.size)
+
+    def size(self) -> int:
+        """Return length of field `value`."""
+        value = self.field_attrs.value
+        if isinstance(value, str):
+            return len(value)
+        return 0
