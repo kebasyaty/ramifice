@@ -43,6 +43,10 @@ class FieldCore:
         """Blocked Deleter."""
         raise AttributeCannotBeDeleteError(name)
 
+    def get(self, name: str) -> Any | None:
+        """Get the value by attribute name."""
+        return self.__dict__.get(name)
+
 
 class Field:
     """The main descriptor class for all field types."""
@@ -81,18 +85,18 @@ class Field:
 
         if not hasattr(instance, field_name__attrs):
             name = self.name
-            field_attrs["id"] = f"id-{name}"
-            field_attrs["name"] = name
+            field_attrs.id = f"id-{name}"
+            field_attrs.name = name
             self.trans_field_attrs(instance, name)
             setattr(instance, field_name__attrs, field_attrs)
             setattr(instance, self.field_name__funcs, self.field_funcs)
 
         correct_value: Any | None = value
-        if field_attrs["group"] == "date" and correct_value is not None:
+        if field_attrs.group == "date" and correct_value is not None:
             correct_value = self.correction_date_value(instance, field_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
-        getattr(instance, field_name__attrs)["value"] = correct_value
+        getattr(instance, field_name__attrs).value = correct_value
 
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""
@@ -110,18 +114,18 @@ class Field:
         field_attrs = self.field_attrs
 
         label = field_attrs.get("label")
-        field_attrs["label"] = _(label) if bool(label) else ""
+        field_attrs.label = _(label) if bool(label) else ""
 
         placeholder = field_attrs.get("placeholder")
         if placeholder is not None:
-            field_attrs["placeholder"] = _(placeholder) if bool(placeholder) else ""
+            field_attrs.placeholder = _(placeholder) if bool(placeholder) else ""
 
         hint = field_attrs.get("hint")
-        field_attrs["hint"] = _(hint) if bool(hint) else ""
+        field_attrs.hint = _(hint) if bool(hint) else ""
 
         warning_list = field_attrs.get("warning")
         if warning_list is not None:
-            field_attrs["warning"] = [_(item) for item in warning_list]
+            field_attrs.warning = [_(item) for item in warning_list]
 
     def correction_date_value(
         self,
@@ -132,7 +136,7 @@ class Field:
         """Correction of date value."""
         correct_value: datetime | None = None
         if isinstance(value, str):
-            if "Time" in field_attrs["field_type"]:
+            if "Time" in field_attrs.field_type:
                 correct_value = parse(
                     value,
                     settings=instance._DATEPARSER_SETTINGS,
@@ -152,7 +156,7 @@ class Field:
                         microsecond=0,
                     )
         else:
-            if "Time" in field_attrs["field_type"]:
+            if "Time" in field_attrs.field_type:
                 correct_value = value.replace(microsecond=0)
             else:
                 correct_value = value.replace(

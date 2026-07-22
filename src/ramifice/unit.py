@@ -39,7 +39,7 @@ class Unit(JsonMixin):
         is_delete: True - if you need to remove the item of choice.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(  # ruff:ignore[undocumented-public-init]
         self,
         field: str,
         title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
