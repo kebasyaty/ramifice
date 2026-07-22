@@ -46,32 +46,32 @@ class JsonMixin:
         json_dict: dict[str, Any] = {}
 
         for f_name in descriptor_fields:
-            tmp__html_attrs = deepcopy(getattr(self, f"{f_name}__html_attrs"))
-            field_type = tmp__html_attrs["field_type"]
-            value = tmp__html_attrs["value"]
+            tmp__attrs = deepcopy(getattr(self, f"{f_name}__attrs"))
+            field_type = tmp__attrs["field_type"]
+            value = tmp__attrs["value"]
 
             if value is not None:
                 if field_type == "IDField":
-                    tmp__html_attrs["value"] = str(value)
+                    tmp__attrs["value"] = str(value)
                 elif field_type == "PasswordField":
-                    tmp__html_attrs["value"] = None
+                    tmp__attrs["value"] = None
                 elif field_type == "TextField":
-                    tmp__html_attrs["value"] = value.get(LANG_CODE, "- -") if isinstance(value, dict) else value
+                    tmp__attrs["value"] = value.get(LANG_CODE, "- -") if isinstance(value, dict) else value
                 elif "Date" in field_type:
                     if "Time" in field_type:
-                        tmp__html_attrs["value"] = format_datetime(
+                        tmp__attrs["value"] = format_datetime(
                             datetime=value,
                             format="medium",
                             tzinfo=UTC_TIMEZONE,
                             locale=LANG_CODE,
                         )
                     else:
-                        tmp__html_attrs["value"] = format_date(
+                        tmp__attrs["value"] = format_date(
                             date=value.date(),
                             format="medium",
                             locale=LANG_CODE,
                         )
-            json_dict[f_name] = tmp__html_attrs
+            json_dict[f_name] = tmp__attrs
 
         return json_dict
 
@@ -93,23 +93,23 @@ class JsonMixin:
         instance: Any = cls(lang_code)
 
         for f_name in descriptor_fields:
-            tmp__html_attrs = deepcopy(json_dict[f_name])
-            field_type = tmp__html_attrs["field_type"]
-            value = tmp__html_attrs["value"]
+            tmp__attrs = deepcopy(json_dict[f_name])
+            field_type = tmp__attrs["field_type"]
+            value = tmp__attrs["value"]
 
             if value is not None:
                 if field_type == "IDField":
-                    tmp__html_attrs["value"] = ObjectId(value)
+                    tmp__attrs["value"] = ObjectId(value)
                 elif field_type == "PasswordField":
-                    tmp__html_attrs["value"] = value
+                    tmp__attrs["value"] = value
                 elif "Date" in field_type:
                     if "Time" in field_type:
-                        tmp__html_attrs["value"] = parse(
+                        tmp__attrs["value"] = parse(
                             value,
                             settings=DATEPARSER_SETTINGS,
                         ).replace(microsecond=0)
                     else:
-                        tmp__html_attrs["value"] = parse(
+                        tmp__attrs["value"] = parse(
                             value,
                             settings=DATEPARSER_SETTINGS,
                         ).replace(
@@ -119,10 +119,10 @@ class JsonMixin:
                             microsecond=0,
                         )
 
-            setattr(instance, f_name, tmp__html_attrs["value"])
-            f__html_attrs = getattr(instance, f"{f_name}__html_attrs")
-            for key, val in tmp__html_attrs.items():
-                f__html_attrs[key] = val
+            setattr(instance, f_name, tmp__attrs["value"])
+            f__attrs = getattr(instance, f"{f_name}__attrs")
+            for key, val in tmp__attrs.items():
+                f__attrs[key] = val
 
         return instance
 

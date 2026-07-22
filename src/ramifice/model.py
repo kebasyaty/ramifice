@@ -120,15 +120,15 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
     ) -> None:
         """Update the state of dynamic fields from metadata of model."""
         for f_name in descriptor_fields:
-            f__html_attrs = getattr(self, f"{f_name}__html_attrs")
-            if "Dyn" in f__html_attrs["field_type"]:
+            f__attrs = getattr(self, f"{f_name}__attrs")
+            if "Dyn" in f__attrs["field_type"]:
                 dyn_data = data_dynamic_fields.get(f_name)
                 if dyn_data is not None:
-                    f__html_attrs["choices"] = [[item["value"], item["title"][lang_code]] for item in dyn_data]
+                    f__attrs["choices"] = [[item["value"], item["title"][lang_code]] for item in dyn_data]
                 else:
                     # This is necessary for
                     # `paladins > refrash > RefrashMixin > refrash_from_db`.
-                    f__html_attrs["choices"] = None
+                    f__attrs["choices"] = None
 
     def get_error_map(self) -> NamedTuple:
         """Get clean data."""

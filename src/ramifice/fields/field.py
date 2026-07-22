@@ -46,7 +46,7 @@ class Field:
     def __set_name__(self, owner: Any, name: str) -> None:  # ruff:ignore[undocumented-magic-method]
         self.name = name
         self.private_name = f"_{name}"
-        self.field_name__html_attrs = f"{name}__html_attrs"
+        self.field_name__attrs = f"{name}__attrs"
 
     def __get__(self, instance: Any, owner: Any) -> Any | None:
         """Triggered when reading the field."""
@@ -63,22 +63,22 @@ class Field:
             err_msg = f"Value must be an {' | '.join(supported_types_list)}"
             logger.critical(err_msg)
             raise TypeError(err_msg)
-        field_name__html_attrs = self.field_name__html_attrs
+        field_name__attrs = self.field_name__attrs
         html_attrs = self.html_attrs
 
-        if not hasattr(instance, field_name__html_attrs):
+        if not hasattr(instance, field_name__attrs):
             name = self.name
             html_attrs["id"] = f"id-{name}"
             html_attrs["name"] = name
             self.trans_field_attrs(instance, name)
-            setattr(instance, field_name__html_attrs, html_attrs)
+            setattr(instance, field_name__attrs, html_attrs)
 
         correct_value: Any | None = value
         if html_attrs["group"] == "date" and correct_value is not None:
             correct_value = self.correction_date_value(instance, html_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
-        getattr(instance, field_name__html_attrs)["value"] = correct_value
+        getattr(instance, field_name__attrs)["value"] = correct_value
 
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""

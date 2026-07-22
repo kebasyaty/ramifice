@@ -174,12 +174,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(choices["value"], "Some text 2")
         #
         user = User()
-        self.assertEqual(user.choice_float_dyn__html_attrs["choices"], [[1.0, "Title"]])
-        self.assertEqual(user.choice_float_mult_dyn__html_attrs["choices"], [[2.0, "Title"]])
-        self.assertEqual(user.choice_int_dyn__html_attrs["choices"], [[1, "Title"]])
-        self.assertEqual(user.choice_int_mult_dyn__html_attrs["choices"], [[2, "Title"]])
-        self.assertEqual(user.choice_txt_dyn__html_attrs["choices"], [["Some text", "Title"]])
-        self.assertEqual(user.choice_txt_mult_dyn__html_attrs["choices"], [["Some text 2", "Title"]])
+        self.assertEqual(user.choice_float_dyn__attrs["choices"], [[1.0, "Title"]])
+        self.assertEqual(user.choice_float_mult_dyn__attrs["choices"], [[2.0, "Title"]])
+        self.assertEqual(user.choice_int_dyn__attrs["choices"], [[1, "Title"]])
+        self.assertEqual(user.choice_int_mult_dyn__attrs["choices"], [[2, "Title"]])
+        self.assertEqual(user.choice_txt_dyn__attrs["choices"], [["Some text", "Title"]])
+        self.assertEqual(user.choice_txt_mult_dyn__attrs["choices"], [["Some text 2", "Title"]])
         user.choice_float_dyn = 1.0
         user.choice_float_mult_dyn = [2.0]
         user.choice_int_dyn = 1
@@ -277,12 +277,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         #
         await user.refrash_from_db()
-        self.assertIsNone(user.choice_float_dyn__html_attrs["choices"])
-        self.assertIsNone(user.choice_float_mult_dyn__html_attrs["choices"])
-        self.assertIsNone(user.choice_int_dyn__html_attrs["choices"])
-        self.assertIsNone(user.choice_int_mult_dyn__html_attrs["choices"])
-        self.assertIsNone(user.choice_txt_dyn__html_attrs["choices"])
-        self.assertIsNone(user.choice_txt_mult_dyn__html_attrs["choices"])
+        self.assertIsNone(user.choice_float_dyn__attrs["choices"])
+        self.assertIsNone(user.choice_float_mult_dyn__attrs["choices"])
+        self.assertIsNone(user.choice_int_dyn__attrs["choices"])
+        self.assertIsNone(user.choice_int_mult_dyn__attrs["choices"])
+        self.assertIsNone(user.choice_txt_dyn__attrs["choices"])
+        self.assertIsNone(user.choice_txt_mult_dyn__attrs["choices"])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

@@ -99,7 +99,7 @@ class CheckMixin(
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
             "field_value": None,
-            "f__html_attrs": None,
+            "f__attrs": None,
             "f__funcs": None,
             "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
@@ -109,20 +109,20 @@ class CheckMixin(
 
         # Run checking fields.
         for field_name in descriptor_fields:
-            f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+            f__attrs = getattr(self, f"{field_name}__attrs")
             # Reset a field errors to exclude duplicates.
-            f__html_attrs["errors"] = []
+            f__attrs["errors"] = []
             # Check additional validation.
             err_msg = error_map[field_name]
             if err_msg is not None:
-                f__html_attrs["errors"].append(err_msg)
+                f__attrs["errors"].append(err_msg)
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
-            if not f__html_attrs["ignored"]:
+            if not f__attrs["ignored"]:
                 params["field_value"] = getattr(self, field_name)
-                params["f__html_attrs"] = f__html_attrs
-                match f__html_attrs["group"]:
+                params["f__attrs"] = f__attrs
+                match f__attrs["group"]:
                     case "text":
                         await self.text_group(params)
                     case "number":
@@ -159,18 +159,18 @@ class CheckMixin(
                 curr_doc: dict[str, Any] | None = params["curr_doc"]
 
                 for field_name in descriptor_fields:
-                    f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+                    f__attrs = getattr(self, f"{field_name}__attrs")
 
-                    match f__html_attrs["group"]:
+                    match f__attrs["group"]:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
                                 if file_data["is_new_file"]:
                                     await to_thread.run_sync(remove, file_data["path"])
-                                f__html_attrs["value"] = None
+                                f__attrs["value"] = None
                                 setattr(self, field_name, None)
                             if curr_doc is not None:
-                                f__html_attrs["value"] = curr_doc[field_name]
+                                f__attrs["value"] = curr_doc[field_name]
                                 setattr(self, field_name, curr_doc[field_name])
                         case "img":
                             img_data = result_map.get(field_name)
@@ -178,19 +178,19 @@ class CheckMixin(
                                 if img_data["is_new_img"]:
                                     # pyrefly: ignore [incompatible-overload-residual]
                                     await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
-                                f__html_attrs["value"] = None
+                                f__attrs["value"] = None
                                 setattr(self, field_name, None)
                             if curr_doc is not None:
-                                f__html_attrs["value"] = curr_doc[field_name]
+                                f__attrs["value"] = curr_doc[field_name]
                                 setattr(self, field_name, curr_doc[field_name])
             else:
                 for field_name in descriptor_fields:
-                    f__html_attrs = getattr(self, f"{field_name}__html_attrs")
+                    f__attrs = getattr(self, f"{field_name}__attrs")
 
-                    if f__html_attrs["ignored"]:
+                    if f__attrs["ignored"]:
                         continue
 
-                    match f__html_attrs["group"]:
+                    match f__attrs["group"]:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:

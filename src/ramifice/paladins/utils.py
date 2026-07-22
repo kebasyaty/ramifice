@@ -41,9 +41,9 @@ def ignored_fields_to_none(instance_model: Any) -> None:
     descriptor_fields = instance_model.__class__.META["all_descriptor_fields"]
 
     for f_name in descriptor_fields:
-        f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
-        if f__html_attrs["ignored"]:
-            f__html_attrs["value"] = None
+        f__attrs = getattr(instance_model, f"{f_name}__attrs")
+        if f__attrs["ignored"]:
+            f__attrs["value"] = None
             setattr(instance_model, f_name, None)
 
 
@@ -53,15 +53,15 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
     for mongo_f_name, mongo_value in mongo_doc.items():
         f_name = mongo_f_name if mongo_f_name != "_id" else "id"
-        f__html_attrs = getattr(instance_model, f"{f_name}__html_attrs")
-        field_type = f__html_attrs["field_type"]
+        f__attrs = getattr(instance_model, f"{f_name}__attrs")
+        field_type = f__attrs["field_type"]
 
-        if field_type == "TextField" and f__html_attrs["multi_language"]:
-            f__html_attrs["value"] = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
+        if field_type == "TextField" and f__attrs["multi_language"]:
+            f__attrs["value"] = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
         elif field_type == "PasswordField":
-            f__html_attrs["value"] = None
+            f__attrs["value"] = None
         else:
-            f__html_attrs["value"] = mongo_value
+            f__attrs["value"] = mongo_value
         setattr(instance_model, f_name, mongo_value)
 
 

@@ -128,12 +128,12 @@ class TestJsonMixin(unittest.TestCase):
         m2 = User.from_dict(json_dict)
         for f_name in descriptor_fields:
             self.assertEqual(getattr(m2, f_name), None)
-            self.assertTrue(hasattr(m2, f"{f_name}__html_attrs"))
+            self.assertTrue(hasattr(m2, f"{f_name}__attrs"))
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
             self.assertEqual(getattr(m3, f_name), None)
-            self.assertTrue(hasattr(m3, f"{f_name}__html_attrs"))
+            self.assertTrue(hasattr(m3, f"{f_name}__attrs"))
 
     def test_with_custom_values(self) -> None:
         """Testing with custom values."""
@@ -180,21 +180,21 @@ class TestJsonMixin(unittest.TestCase):
         m2 = User.from_dict(json_dict)
 
         for f_name in descriptor_fields:
-            field_type = getattr(m, f"{f_name}__html_attrs")["field_type"]
+            field_type = getattr(m, f"{f_name}__attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m2, f_name))
             else:
                 self.assertEqual(getattr(m2, f_name), getattr(m, f_name))
-            self.assertTrue(hasattr(m2, f"{f_name}__html_attrs"))
+            self.assertTrue(hasattr(m2, f"{f_name}__attrs"))
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
-            field_type = getattr(m, f"{f_name}__html_attrs")["field_type"]
+            field_type = getattr(m, f"{f_name}__attrs")["field_type"]
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m3, f_name))
             else:
                 self.assertEqual(getattr(m3, f_name), getattr(m, f_name))
-            self.assertTrue(hasattr(m3, f"{f_name}__html_attrs"))
+            self.assertTrue(hasattr(m3, f"{f_name}__attrs"))
 
 
 if __name__ == "__main__":

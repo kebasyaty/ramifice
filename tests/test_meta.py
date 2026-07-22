@@ -70,8 +70,8 @@ class TestModel(unittest.TestCase):
         """Testing a instance `User`."""
         m = User()
 
-        self.assertEqual(m.username__html_attrs["id"], "id-username")
-        self.assertEqual(m.username__html_attrs["name"], "username")
+        self.assertEqual(m.username__attrs["id"], "id-username")
+        self.assertEqual(m.username__attrs["name"], "username")
 
         self.assertEqual(m.model_name(), "User")
         self.assertEqual(m.full_model_name(), "tests.test_meta.User")
@@ -94,8 +94,8 @@ class TestModel(unittest.TestCase):
         self.assertEqual(m.model_name(), "UserProfile")
         self.assertEqual(m.full_model_name(), "tests.test_meta.UserProfile")
 
-        self.assertEqual(m.profession__html_attrs["id"], "id-profession")
-        self.assertEqual(m.profession__html_attrs["name"], "profession")
+        self.assertEqual(m.profession__attrs["id"], "id-profession")
+        self.assertEqual(m.profession__attrs["name"], "profession")
 
         self.assertIsNone(m.id)
         self.assertIsNone(m.created_at)
