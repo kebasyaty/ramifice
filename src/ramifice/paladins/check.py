@@ -125,6 +125,7 @@ class CheckMixin(
             if not f__attrs["ignored"]:
                 params["field_value"] = getattr(self, field_name)
                 params["field__attrs"] = f__attrs
+                params["field__funcs"] = getattr(self, f"{field_name}__funcs")
                 match f__attrs["group"]:
                     case "text":
                         await self.text_group(params)

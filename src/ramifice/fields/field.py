@@ -32,6 +32,14 @@ from ramifice.errors import AttributeCannotBeDeleteError
 logger = logging.getLogger(__name__)
 
 
+class FieldCore:
+    """A class for carrying field arguments and methods."""
+
+    def __init__(self, **kwargs: dict[str, Any]) -> None:
+        for key, value in kwargs.items():
+            self.__dict__[key] = value
+
+
 class Field:
     """The main descriptor class for all field types."""
 
@@ -47,6 +55,7 @@ class Field:
         self.name = name
         self.private_name = f"_{name}"
         self.field_name__attrs = f"{name}__attrs"
+        self.field_name__funcs = f"{name}__funcs"
 
     def __get__(self, instance: Any, owner: Any) -> Any | None:
         """Triggered when reading the field."""
@@ -64,18 +73,19 @@ class Field:
             logger.critical(err_msg)
             raise TypeError(err_msg)
         field_name__attrs = self.field_name__attrs
-        html_attrs = self.html_attrs
+        field_attrs = self.field_attrs
 
         if not hasattr(instance, field_name__attrs):
             name = self.name
-            html_attrs["id"] = f"id-{name}"
-            html_attrs["name"] = name
+            field_attrs["id"] = f"id-{name}"
+            field_attrs["name"] = name
             self.trans_field_attrs(instance, name)
-            setattr(instance, field_name__attrs, html_attrs)
+            setattr(instance, field_name__attrs, field_attrs)
+            setattr(instance, self.field_name__funcs, self.field_funcs)
 
         correct_value: Any | None = value
-        if html_attrs["group"] == "date" and correct_value is not None:
-            correct_value = self.correction_date_value(instance, html_attrs, value)
+        if field_attrs["group"] == "date" and correct_value is not None:
+            correct_value = self.correction_date_value(instance, field_attrs, value)
 
         setattr(instance, self.private_name, correct_value)
         getattr(instance, field_name__attrs)["value"] = correct_value
@@ -93,32 +103,32 @@ class Field:
             if field_name not in ["id", "created_at", "updated_at"]
             else instance._RAMIFICE_TRANSLATOR.gettext
         )
-        html_attrs = self.html_attrs
+        field_attrs = self.field_attrs
 
-        label = html_attrs.get("label")
-        html_attrs["label"] = _(label) if bool(label) else ""
+        label = field_attrs.get("label")
+        field_attrs["label"] = _(label) if bool(label) else ""
 
-        placeholder = html_attrs.get("placeholder")
+        placeholder = field_attrs.get("placeholder")
         if placeholder is not None:
-            html_attrs["placeholder"] = _(placeholder) if bool(placeholder) else ""
+            field_attrs["placeholder"] = _(placeholder) if bool(placeholder) else ""
 
-        hint = html_attrs.get("hint")
-        html_attrs["hint"] = _(hint) if bool(hint) else ""
+        hint = field_attrs.get("hint")
+        field_attrs["hint"] = _(hint) if bool(hint) else ""
 
-        warning_list = html_attrs.get("warning")
+        warning_list = field_attrs.get("warning")
         if warning_list is not None:
-            html_attrs["warning"] = [_(item) for item in warning_list]
+            field_attrs["warning"] = [_(item) for item in warning_list]
 
     def correction_date_value(
         self,
         instance: Any,
-        html_attrs: dict[str, Any],
+        field_attrs: dict[str, Any],
         value: Any,
     ) -> datetime | None:
         """Correction of date value."""
         correct_value: datetime | None = None
         if isinstance(value, str):
-            if "Time" in html_attrs["field_type"]:
+            if "Time" in field_attrs["field_type"]:
                 correct_value = parse(
                     value,
                     settings=instance._DATEPARSER_SETTINGS,
@@ -138,7 +148,7 @@ class Field:
                         microsecond=0,
                     )
         else:
-            if "Time" in html_attrs["field_type"]:
+            if "Time" in field_attrs["field_type"]:
                 correct_value = value.replace(microsecond=0)
             else:
                 correct_value = value.replace(

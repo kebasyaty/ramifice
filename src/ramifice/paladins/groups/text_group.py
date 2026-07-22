@@ -60,6 +60,7 @@ class TextGroupMixin:
         _ = params["_"]
         f_value = params["field_value"]
         f__attrs = params["field__attrs"]
+        f__funcs = params["field__funcs"]
         field_name = f__attrs["name"]
         field_type: str = f__attrs["field_type"]
         is_multi_language: bool = (field_type == "TextField") and f__attrs["multi_language"]
@@ -74,15 +75,15 @@ class TextGroupMixin:
                 panic_type_error("str | None", params)
 
         if value is None:
-            if field.required:
+            if f__attrs["required"]:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][field_name] = None
             return
         # Validation the `max_length` field attribute.
-        max_length: int | None = field.__dict__.get("max_length")
-        if max_length is not None and len(field) > max_length:
+        max_length: int | None = f__attrs.get("max_length")
+        if max_length is not None and f__funcs["size"]() > max_length:
             err_msg = _(
                 "The length of the string exceeds max_length={} !",
             ).format(max_length)
