@@ -31,7 +31,6 @@ import logging
 from typing import Any
 
 from ramifice.errors import PanicError
-from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -67,9 +66,11 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
 def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
     """Unacceptable type of value."""
+    f__attrs = params["field__attrs"]
+
     err_msg = (
         f"Model: `{params['full_model_name']}` > "
-        + f"Field: `{params['field_data'].name}` > "
+        + f"Field: `{f__attrs['name']}` > "
         + f"Parameter: `value` => Must be `{value_type}` type!"
     )
     logger.critical(err_msg)
@@ -78,14 +79,16 @@ def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
 
 def accumulate_error(error_message: str, params: dict[str, Any]) -> None:
     """Accumulating errors to ModelName.field_name.errors ."""
-    if not params["field_data"].hide:
-        params["field_data"].errors.append(error_message)
+    f__attrs = params["field__attrs"]
+
+    if not f__attrs["hide"]:
+        f__attrs["errors"].append(error_message)
         if not params["is_error_symptom"]:
             params["is_error_symptom"] = True
     else:
         err_msg = (
             f">>hidden field<< -> Model: `{params['full_model_name']}` > "
-            + f"Field: `{params['field_data'].name}`"
+            + f"Field: `{f__attrs['name']}`"
             + f" => {error_message}"
         )
         logger.critical(err_msg)
@@ -102,7 +105,7 @@ async def check_uniqueness(
     q_filter = None
 
     if is_multi_language:
-        lang_filter = [{f"{field_name}.{lang}": value} for lang in Translator.LANGUAGES]
+        lang_filter = [{f"{field_name}.{lang}": value} for lang in params["LANGUAGES"]]
         q_filter = {
             "$and": [
                 {"_id": {"$ne": params["doc_id"]}},

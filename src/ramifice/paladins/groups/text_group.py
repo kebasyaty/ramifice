@@ -58,12 +58,13 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         _ = params["_"]
-        field = params["field_value"]
-        field_name = field.name
-        field_type: str = field.field_type
-        is_multi_language: bool = (field_type == "TextField") and field.multi_language
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        field_name = f__attrs["name"]
+        field_type: str = f__attrs["field_type"]
+        is_multi_language: bool = (field_type == "TextField") and f__attrs["multi_language"]
         # Get current value.
-        value = field.value or field.__dict__.get("default")
+        value = f_value or f__attrs.get("default")
 
         if is_multi_language:
             if not isinstance(value, (str, dict, type(None))):

@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("CheckMixin",)
 
 import logging
+from copy import deepcopy
 from os import remove
 from shutil import rmtree
 from typing import Any, assert_never
@@ -44,6 +45,7 @@ from ramifice.paladins.groups import (
     SlugGroupMixin,
     TextGroupMixin,
 )
+from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -99,11 +101,12 @@ class CheckMixin(
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
             "field_value": None,
-            "f__attrs": None,
-            "f__funcs": None,
+            "field__attrs": None,
+            "field__funcs": None,
             "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
+            "LANGUAGES": deepcopy(Translator.LANGUAGES),
             "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
@@ -121,7 +124,7 @@ class CheckMixin(
             # Checking the fields by groups.
             if not f__attrs["ignored"]:
                 params["field_value"] = getattr(self, field_name)
-                params["f__attrs"] = f__attrs
+                params["field__attrs"] = f__attrs
                 match f__attrs["group"]:
                     case "text":
                         await self.text_group(params)
