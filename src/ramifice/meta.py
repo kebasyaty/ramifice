@@ -139,16 +139,16 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
                 raise KeyError(err_msg)
         f_cls_name = f_value.__class__.__name__
         if not callable(f_value) and "Field" in f_cls_name:
-            f__attrs: dict[str, Any] = f_value.html_attrs
+            f__attrs: dict[str, Any] = f_value.field_attrs
             all_descriptor_fields.append(f_name)
             #
-            if not f__attrs["ignored"]:
+            if not f__attrs.ignored:
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_cls_name
                 # Add dynamic field.
                 if "Dyn" in f_cls_name:
                     data_dynamic_fields[f_name] = None
-                if f_cls_name == "TextField" and f__attrs["multi_language"]:
+                if f_cls_name == "TextField" and f__attrs.multi_language:
                     multi_lang_text_fields.append(f_name)
 
     metadata["model_name"] = model_name

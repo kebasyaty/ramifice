@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("Field",)
 
 import logging
+from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
@@ -46,6 +47,14 @@ class FieldCore:
     def get(self, name: str) -> Any | None:
         """Get the value by attribute name."""
         return self.__dict__.get(name)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert FieldCore instance to a dictionary."""
+        result: dict[str, Any] = {}
+        for key, value in self.__dict__.items():
+            if not isinstance(value, Callable):
+                result[key] = value
+        return result
 
 
 class Field:
