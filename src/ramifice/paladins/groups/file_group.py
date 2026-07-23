@@ -52,6 +52,7 @@ class FileGroupMixin:
             if default is not None:
                 f__funcs.from_path(default)
                 value = f__attrs.value
+                setattr(self, f_name, value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if value is None:
@@ -72,6 +73,7 @@ class FileGroupMixin:
                 if default is not None:
                     f__funcs.from_path(default)
                     value = f__attrs.value
+                    setattr(self, f_name, value)
                 else:
                     if not f__attrs.required:
                         if params["is_save"]:
