@@ -61,7 +61,7 @@ class DeleteMixin:
             logger.warning(err_msg)
             raise ForbiddenDeleteDocError(err_msg)
         # Get documet ID.
-        doc_id = self._id.value
+        doc_id = self.id
         if doc_id is None:
             err_msg = f"Model: `{metadata['full_model_name']}` > " + "Field: `id` => ID is missing."
             logger.critical(err_msg)
