@@ -54,6 +54,7 @@ class ImgGroupMixin:
             if default is not None:
                 f__funcs.from_path(default)
                 value = f__attrs.value
+                setattr(self, f_name, value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if value is None:
@@ -72,8 +73,9 @@ class ImgGroupMixin:
                 default = f__attrs.default or None
                 # If necessary, use the default value.
                 if default is not None:
-                    params["field_value"].from_path(default)
-                    value = params["field_value"].value
+                    f__funcs.from_path(default)
+                    value = f__attrs.value
+                    setattr(self, f_name, value)
                 else:
                     if not f__attrs.required:
                         if params["is_save"]:
