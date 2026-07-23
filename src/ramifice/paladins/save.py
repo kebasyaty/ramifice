@@ -42,19 +42,19 @@ class SaveMixin:
 
         This method pre-uses the `check` method.
         """
-        cls_model = self.__class__
+        metadata = self.__class__.META
         # Get collection.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)
         # Reset the alerts to exclude duplicates.
         self._id.alerts = []
         # Check the conditions and, if necessary, define a message for the web form.
-        if not result_check["is_update"] and not cls_model.META["is_create_doc"]:
-            self._id.alerts.append("It is forbidden to create new documents !")
+        if not result_check["is_update"] and not metadata["is_create_doc"]:
+            self.id__attrs.alerts.append("It is forbidden to create new documents !")
             result_check["is_valid"] = False
-        if result_check["is_update"] and not cls_model.META["is_update_doc"]:
-            self._id.alerts.append("It is forbidden to update documents !")
+        if result_check["is_update"] and not metadata["is_update_doc"]:
+            self.id__attrs.alerts.append("It is forbidden to update documents !")
             result_check["is_valid"] = False
         # Leave the method if the check fails.
         if not result_check["is_valid"]:
@@ -69,11 +69,11 @@ class SaveMixin:
             # Run hook.
             await self.pre_update()
             # Update doc.
-            await collection.update_one({"_id": checked_data["_id"]}, {"$set": checked_data})
+            await collection.update_one({"_id": checked_data["id"]}, {"$set": checked_data})
             # Run hook.
             await self.post_update()
             # Refresh Model.
-            mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["_id"]})
+            mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["id"]})
             if mongo_doc is None:
                 err_msg = (
                     f"Model: `{self.full_model_name()}` > "
@@ -95,7 +95,7 @@ class SaveMixin:
             # Run hook.
             await self.post_create()
             # Refresh Model.
-            mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
+            mongo_doc = await collection.find_one({"_id": checked_data["id"]})
             if mongo_doc is None:
                 err_msg = (
                     f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."
