@@ -120,11 +120,11 @@ class CheckMixin(
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
-            if not f__attrs["ignored"]:
+            if not f__attrs.ignored:
                 params["field_value"] = getattr(self, f_name)
                 params["field__attrs"] = f__attrs
                 params["field__funcs"] = getattr(self, f"{f_name}__funcs")
-                match f__attrs["group"]:
+                match f__attrs.group:
                     case "text":
                         await self.text_group(params)
                     case "number":
