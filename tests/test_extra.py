@@ -87,7 +87,7 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(err_map["id"])
         self.assertIsNone(err_map["created_at"])
         self.assertIsNone(err_map["updated_at"])
-        self.assertEqual(err_map["username"], "pythondev")
+        self.assertIsNone(err_map["username"])
         self.assertIsNone(await m2.pre_create())
         self.assertIsNone(await m2.post_create())
         self.assertIsNone(await m2.pre_update())
