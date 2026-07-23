@@ -75,7 +75,7 @@ class CheckMixin(
         metadata = self.__class__.META
 
         # Get the document ID.
-        doc_id: ObjectId | None = self.id.value
+        doc_id: ObjectId | None = self.id
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
         # Create an identifier for a new document.
