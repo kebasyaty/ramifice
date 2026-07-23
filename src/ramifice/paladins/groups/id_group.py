@@ -45,6 +45,7 @@ class IDGroupMixin:
         f_value = params["field_value"]
         f__attrs = params["field__attrs"]
         f_name = f__attrs.name
+        f_name = f_name if f_name != "id" else "_id"
 
         if f_value is None:
             if f__attrs.required:
