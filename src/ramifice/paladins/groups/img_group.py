@@ -46,23 +46,22 @@ class ImgGroupMixin:
         f__attrs = params["field__attrs"]
         f__funcs = params["field__funcs"]
         f_name = f__attrs.name
-        f_type = f__attrs.f_type
-        value = field.value or None
+        value = f_value or None
 
         if not params["is_update"] and value is None:
-            default = field.default or None
+            default = f__attrs.default or None
             # If necessary, use the default value.
             if default is not None:
-                params["field_value"].from_path(default)
-                value = params["field_value"].value
+                f__funcs.from_path(default)
+                value = f__attrs.value
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if value is None:
-                if field.required:
+                if f__attrs.required:
                     err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
                 if params["is_save"]:
-                    params["result_map"][field.name] = None
+                    params["result_map"][f_name] = None
                 return
         # Return if the current value is missing
         if value is None:
@@ -70,22 +69,22 @@ class ImgGroupMixin:
         if not value["save_as_is"]:
             # If the file needs to be delete.
             if value["is_delete"] and len(value["path"]) == 0:
-                default = field.default or None
+                default = f__attrs.default or None
                 # If necessary, use the default value.
                 if default is not None:
                     params["field_value"].from_path(default)
                     value = params["field_value"].value
                 else:
-                    if not field.required:
+                    if not f__attrs.required:
                         if params["is_save"]:
-                            params["result_map"][field.name] = None
+                            params["result_map"][f_name] = None
                     else:
                         err_msg = _("Required field !")
                         accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
-            if value["size"] > field.max_size:
-                human_size = to_human_size(field.max_size)
+            if value["size"] > f__attrs.max_size:
+                human_size = to_human_size(f__attrs.max_size)
                 err_msg = _(
                     "Image size exceeds the maximum value {} !",
                 ).format(human_size)
@@ -93,7 +92,7 @@ class ImgGroupMixin:
                 return
             # Create thumbnails.
             if value["is_new_img"]:
-                thumbnails = field.thumbnails
+                thumbnails = f__attrs.thumbnails
                 if thumbnails is not None:
                     path = value["path"]
                     imgs_dir_path = value["imgs_dir_path"]
@@ -149,4 +148,4 @@ class ImgGroupMixin:
         if params["is_save"] and (value["is_new_img"] or value["save_as_is"]):
             value["is_delete"] = False
             value["save_as_is"] = True
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = value
