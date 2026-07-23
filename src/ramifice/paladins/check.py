@@ -73,7 +73,6 @@ class CheckMixin(
         It is also used to verify Models that do not migrate to the database.
         """
         metadata = self.__class__.META
-        descriptor_fields = self.__class__.META["all_descriptor_fields"]
 
         # Get the document ID.
         doc_id: ObjectId | None = self.id.value
@@ -104,12 +103,13 @@ class CheckMixin(
             "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
+            "descriptor_fields": metadata["all_descriptor_fields"],
             "LANGUAGES": self._LANGUAGES,
             "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
         # Run checking fields.
-        for field_name in descriptor_fields:
+        for field_name in params["descriptor_fields"]:
             f__attrs = getattr(self, f"{field_name}__attrs")
             # Reset a field errors to exclude duplicates.
             f__attrs.errors = []
@@ -160,7 +160,7 @@ class CheckMixin(
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = params["curr_doc"]
 
-                for field_name in descriptor_fields:
+                for field_name in params["descriptor_fields"]:
                     f__attrs = getattr(self, f"{field_name}__attrs")
 
                     match f__attrs.group:
@@ -186,7 +186,7 @@ class CheckMixin(
                                 f__attrs.value = curr_doc[field_name]
                                 setattr(self, field_name, curr_doc[field_name])
             else:
-                for field_name in descriptor_fields:
+                for field_name in params["descriptor_fields"]:
                     f__attrs = getattr(self, f"{field_name}__attrs")
 
                     if f__attrs.ignored:

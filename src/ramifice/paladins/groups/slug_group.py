@@ -48,25 +48,23 @@ class SlugGroupMixin:
         if not params["is_save"]:
             return
         #
-        field = params["field_value"]
-        field_name = field.name
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
+        slug_sources = f__attrs.slug_sources
         raw_str_list: list[str] = []
-        slug_sources = field.slug_sources
         #
-        for field_name_, field_value in self.__dict__.items():
-            if callable(field_value):
-                continue
-            if field_name_ in slug_sources:
-                value = field_value.value
+        for f_name_ in params["descriptor_fields"]:
+            if f_name_ in slug_sources:
+                value = getattr(self, f_name_)
                 if value is None:
-                    value = field_value.__dict__.get("default")
+                    value = f__attrs.get("default")
                 if value is not None:
-                    raw_str_list.append(value if field_name_ != "_id" else str(value))
+                    raw_str_list.append(value if f_name_ != "id" else str(value))
                 else:
                     err_msg = (
                         f"Model: `{params['full_model_name']}` > "
-                        + f"Field: `{field_name}` => "
-                        + f"{field_name_} - "
+                        + f"Field: `{f_name}` => "
+                        + f"{f_name_} - "
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
@@ -80,15 +78,15 @@ class SlugGroupMixin:
             if not await check_uniqueness(
                 value,
                 params,
-                field_name,
+                f_name,
             ):
                 err_msg = (
                     f"Model: `{params['full_model_name']}` > "
-                    + f"Field: `{field_name}` > "
+                    + f"Field: `{f_name}` > "
                     + "Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
                 logger.critical(err_msg)
                 raise PanicError(err_msg)
             # Add value to map.
-            params["result_map"][field_name] = value
+            params["result_map"][f_name] = value
