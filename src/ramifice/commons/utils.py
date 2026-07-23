@@ -78,39 +78,39 @@ def mongo_doc_to_model_dict(
     UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
     descriptor_fields = cls_model.META["all_descriptor_fields"]
     instance_model: Any = cls_model(lang_code)
-    model_doc: dict[str, Any] = {}
+    model_dict: dict[str, Any] = {}
 
     for f_name in descriptor_fields:
         value = mongo_doc.get(f_name)
 
         if value is None:
-            model_doc[f_name] = None
+            model_dict[f_name] = None
             continue
 
         f__attrs = getattr(instance_model, f"{f_name}__attrs")
-        field_type = f__attrs["field_type"]
+        field_type = f__attrs.field_type
 
-        if field_type == "TextField" and f__attrs["multi_language"]:
-            model_doc[f_name] = value.get(lang_code, "- -")
+        if field_type == "TextField":
+            model_dict[f_name] = value.get(lang_code, "- -") if isinstance(value, dict) else value
         elif "Date" in field_type:
             if "Time" in field_type:
-                model_doc[f_name] = format_datetime(
+                model_dict[f_name] = format_datetime(
                     datetime=value,
                     format="medium",
                     tzinfo=UTC_TIMEZONE,
                     locale=lang_code,
                 )
             else:
-                model_doc[f_name] = format_date(
+                model_dict[f_name] = format_date(
                     date=value.date(),
                     format="medium",
                     locale=lang_code,
                 )
         elif field_type == "IDField":
-            model_doc["id"] = str(value)
+            model_dict["id"] = str(value)
         elif field_type == "PasswordField":
-            model_doc[f_name] = None
+            model_dict[f_name] = None
         else:
-            model_doc[f_name] = value
+            model_dict[f_name] = value
 
-    return model_doc
+    return model_dict
