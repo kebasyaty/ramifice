@@ -98,7 +98,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_attrs.required)
         self.assertFalse(f.field_attrs.readonly)
         self.assertTrue(f.field_attrs.unique)
-        self.assertEqual(f.field_attrs.slug_sources, "id")
+        self.assertEqual(f.field_attrs.slug_sources, ["id"])
 
     def test_phone_field(self):
         """Testing `PhoneField`."""

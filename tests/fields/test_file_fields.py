@@ -14,7 +14,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         """Set data for testing."""
         self.file_base64_str = "SGVsbG8gV29ybGQhCg=="
-        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"  # noqa: E501
+        self.img_base64_str = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXY9BJbvgPAAPdAg9WzUCeAAAAAElFTkSuQmCC"  # ruff:ignore[line-too-long]
         return super().setUp()
 
     async def test_file_field(self):
@@ -51,22 +51,22 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
             await f.from_path("public/media/default/no_doc")
         # from_base64
         self.assertIsNone(await f.from_base64(self.file_base64_str, "file_name.txt"))
-        self.assertEqual(f.field_attrs.value.name, "file_name.txt")
-        self.assertEqual(f.field_attrs.value.size, 13)
-        self.assertEqual(f.field_attrs.value.human_size, "13 bytes")
-        self.assertTrue(f.field_attrs.value.is_new_file)
-        self.assertEqual(f.field_attrs.value.extension, ".txt")
-        self.assertFalse(f.field_attrs.value.is_delete)
-        self.assertFalse(f.field_attrs.value.save_as_is)
+        self.assertEqual(f.field_attrs.value["name"], "file_name.txt")
+        self.assertEqual(f.field_attrs.value["size"], 13)
+        self.assertEqual(f.field_attrs.value["human_size"], "13 bytes")
+        self.assertTrue(f.field_attrs.value["is_new_file"])
+        self.assertEqual(f.field_attrs.value["extension"], ".txt")
+        self.assertFalse(f.field_attrs.value["is_delete"])
+        self.assertFalse(f.field_attrs.value["save_as_is"])
         # from_path
         self.assertIsNone(await f.from_path("public/media/default/no_doc.odt"))
-        self.assertEqual(f.field_attrs.value.name, "no_doc.odt")
-        self.assertEqual(f.field_attrs.value.size, 9843)
-        self.assertEqual(f.field_attrs.value.human_size, "9.612 KB")
-        self.assertTrue(f.field_attrs.value.is_new_file)
-        self.assertEqual(f.field_attrs.value.extension, ".odt")
-        self.assertFalse(f.field_attrs.value.is_delete)
-        self.assertFalse(f.field_attrs.value.save_as_is)
+        self.assertEqual(f.field_attrs.value["name"], "no_doc.odt")
+        self.assertEqual(f.field_attrs.value["size"], 9843)
+        self.assertEqual(f.field_attrs.value["human_size"], "9.612 KB")
+        self.assertTrue(f.field_attrs.value["is_new_file"])
+        self.assertEqual(f.field_attrs.value["extension"], ".odt")
+        self.assertFalse(f.field_attrs.value["is_delete"])
+        self.assertFalse(f.field_attrs.value["save_as_is"])
 
     async def test_image_field(self):
         """Testing `ImageField`."""
@@ -117,28 +117,28 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
                 filename="image_name.png",
             ),
         )
-        self.assertEqual(f.field_attrs.value.name, "image_name.png")
-        self.assertEqual(f.field_attrs.value.size, 120)
-        self.assertEqual(f.field_attrs.value.human_size, "120 bytes")
-        self.assertTrue(f.field_attrs.value.is_new_img)
-        self.assertEqual(f.field_attrs.value.extension, ".png")
-        self.assertEqual(f.field_attrs.value.ext_upper, "PNG")
-        self.assertFalse(f.field_attrs.value.is_delete)
-        self.assertFalse(f.field_attrs.value.save_as_is)
+        self.assertEqual(f.field_attrs.value["name"], "image_name.png")
+        self.assertEqual(f.field_attrs.value["size"], 120)
+        self.assertEqual(f.field_attrs.value["human_size"], "120 bytes")
+        self.assertTrue(f.field_attrs.value["is_new_img"])
+        self.assertEqual(f.field_attrs.value["extension"], ".png")
+        self.assertEqual(f.field_attrs.value["ext_upper"], "PNG")
+        self.assertFalse(f.field_attrs.value["is_delete"])
+        self.assertFalse(f.field_attrs.value["save_as_is"])
         # from_path
         self.assertIsNone(
             await f.from_path(
                 src_path="public/media/default/no-photo.png",
             ),
         )
-        self.assertEqual(f.field_attrs.value.name, "no-photo.png")
-        self.assertEqual(f.field_attrs.value.size, 41554)
-        self.assertEqual(f.field_attrs.value.human_size, "40.58 KB")
-        self.assertTrue(f.field_attrs.value.is_new_img)
-        self.assertEqual(f.field_attrs.value.extension, ".png")
-        self.assertEqual(f.field_attrs.value.ext_upper, "PNG")
-        self.assertFalse(f.field_attrs.value.is_delete)
-        self.assertFalse(f.field_attrs.value.save_as_is)
+        self.assertEqual(f.field_attrs.value["name"], "no-photo.png")
+        self.assertEqual(f.field_attrs.value["size"], 41554)
+        self.assertEqual(f.field_attrs.value["human_size"], "40.58 KB")
+        self.assertTrue(f.field_attrs.value["is_new_img"])
+        self.assertEqual(f.field_attrs.value["extension"], ".png")
+        self.assertEqual(f.field_attrs.value["ext_upper"], "PNG")
+        self.assertFalse(f.field_attrs.value["is_delete"])
+        self.assertFalse(f.field_attrs.value["save_as_is"])
 
 
 if __name__ == "__main__":
