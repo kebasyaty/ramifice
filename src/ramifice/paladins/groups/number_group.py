@@ -30,7 +30,6 @@ from typing import Any
 from ramifice.paladins.utils import (
     accumulate_error,
     check_uniqueness,
-    panic_type_error,
 )
 
 
@@ -44,45 +43,39 @@ class NumberGroupMixin:
     async def number_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         _ = params["_"]
-        field = params["field_value"]
-        field_name = field.name
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
         # Get current value.
-        value = field.value
+        value = f_value
         if value is None:
-            value = field.default
-
-        if "Float" in field.field_type:
-            if not isinstance(value, (float, type(None))):
-                panic_type_error("float | None", params)
-        else:
-            if not isinstance(value, (int, type(None))):
-                panic_type_error("int | None", params)
+            value = f__attrs.default
 
         if value is None:
-            if field.required:
+            if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field_name] = None
+                params["result_map"][f_name] = None
             return
         # Validation the `max_number` field attribute.
-        max_number = field.max_number
+        max_number = f__attrs.max_number
         if max_number is not None and value > max_number:
             err_msg = _(
                 "The value {} must not be greater than max={} !",
             ).format(value, max_number)
             accumulate_error(err_msg, params)
         # Validation the `min_number` field attribute.
-        min_number = field.min_number
+        min_number = f__attrs.min_number
         if min_number is not None and value < min_number:
             err_msg = _(
                 "The value {} must not be less than min={} !",
             ).format(value, min_number)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if field.unique and not await check_uniqueness(value, params, field_name):
+        if f__attrs.unique and not await check_uniqueness(value, params, f_name):
             err_msg = _("Is not unique !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field_name] = value
+            params["result_map"][f_name] = value
