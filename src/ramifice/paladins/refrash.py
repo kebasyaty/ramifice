@@ -38,9 +38,9 @@ class RefrashMixin:
 
     async def refrash_from_db(self) -> None:
         """Update Model instance from database."""
-        cls_model = self.__class__
+        metadata = self.__class__.META
         # Get collection.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self._id.value})
         if mongo_doc is None:
             err_msg = (
