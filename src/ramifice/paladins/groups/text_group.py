@@ -37,7 +37,6 @@ from email_validator import (
 from ramifice.paladins.utils import (
     accumulate_error,
     check_uniqueness,
-    panic_type_error,
 )
 from ramifice.utils import (
     is_color,
@@ -66,13 +65,6 @@ class TextGroupMixin:
         is_multi_language: bool = (f_type == "TextField") and f__attrs.multi_language
         # Get current value.
         value = f_value or f__attrs.get("default")
-
-        if is_multi_language:
-            if not isinstance(value, (str, dict, type(None))):
-                panic_type_error("str | dict | None", params)
-        else:
-            if not isinstance(value, (str, type(None))):
-                panic_type_error("str | None", params)
 
         if value is None:
             if f__attrs.required:
