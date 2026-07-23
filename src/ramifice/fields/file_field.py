@@ -132,7 +132,10 @@ class FileField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore(
+            from_base64=self.from_base64,
+            from_path=self.from_path,
+        )
 
     async def from_base64(
         self,

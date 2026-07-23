@@ -94,7 +94,7 @@ class ChoiceIntField(Field):
         }
 
         self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore()
+        self.__dict__["field_funcs"] = FieldCore(has_value=self.has_value)
 
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
