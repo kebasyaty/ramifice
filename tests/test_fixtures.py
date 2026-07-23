@@ -6,7 +6,8 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, model
+from ramifice import Migration, Model, meta
+from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -39,8 +40,8 @@ from ramifice.fields import (
 )
 
 
-@model(service_name="Accounts", fixture_name="User")
-class User:
+@meta(service_name="Accounts", fixture_name="User")
+class User(Model):
     """Model for testing."""
 
     url = URLField()
@@ -73,8 +74,8 @@ class User:
     choice_int = ChoiceIntField()
 
 
-@model(service_name="Accounts", fixture_name="User2")
-class User2:
+@meta(service_name="Accounts", fixture_name="User2")
+class User2(Model):
     """Model for testing."""
 
     url = URLField()
