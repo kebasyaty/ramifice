@@ -81,7 +81,7 @@ class CheckMixin(
         # Create an identifier for a new document.
         if is_save and not is_update:
             doc_id = ObjectId()
-            self.id = doc_id
+            self.__dict__["id"] = doc_id
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
