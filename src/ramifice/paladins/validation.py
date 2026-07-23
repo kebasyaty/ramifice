@@ -62,7 +62,7 @@ class ValidationMixin:
                 # error messages
                 print(colored("\n".join(f_errors), "red"))  # ruff:ignore[print]
 
-        f_alerts = self.__dict__["id__attrs"].alerts
+        f_alerts = getattr(self, "id__attrs").alerts  # ruff:ignore[get-attr-with-constant]
         if len(f_alerts) > 0:
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))  # ruff:ignore[print]
