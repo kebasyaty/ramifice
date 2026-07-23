@@ -136,9 +136,9 @@ class TestConfig(unittest.TestCase):
     def test_regex_password(self):
         """Testing a regular expression for `password`."""
         p = Config.REGEX["password"]
-        digits = "0123456789"  # noqa: FURB156
-        ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"  # noqa: FURB156
-        ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # noqa: FURB156
+        digits = "0123456789"  # ruff:ignore[hardcoded-string-charset]
+        ascii_lowercase = "abcdefghijklmnopqrstuvwxyz"  # ruff:ignore[hardcoded-string-charset]
+        ascii_uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # ruff:ignore[hardcoded-string-charset]
         special_symbols = "-._!\"`'#%&,:;<>=@{}~$()*+/\\?[]^|"
         # Negative:
         self.assertIsNone(p.match(""))
