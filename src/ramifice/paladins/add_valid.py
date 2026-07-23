@@ -32,4 +32,4 @@ class AddValidMixin:
     @abstractmethod
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        return NamedTuple()
+        return self.get_error_map()
