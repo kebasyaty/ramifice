@@ -107,12 +107,12 @@ class OneMixin:
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
-        inst_model = None
+        instance_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
-        return inst_model
+            instance_model = cls.from_mongo_doc(mongo_doc)
+        return instance_model
 
     @classmethod
     async def find_one_to_json(
