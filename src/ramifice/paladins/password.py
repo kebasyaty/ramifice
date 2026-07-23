@@ -43,24 +43,24 @@ class PasswordMixin:
         field_name: str = "password",
     ) -> bool:
         """For password verification."""
-        cls_model = self.__class__
+        metadata = self.__class__.META
         # Get documet ID.
-        doc_id = self._id.value
+        doc_id = self.id
         if doc_id is None:
             err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + "Cannot get document ID - ID field is empty."
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
         # Get collection for current Model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": doc_id})
         if mongo_doc is None:
             err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + f"There is no document with ID `{self._id.value}` in the database."
             )
@@ -70,7 +70,7 @@ class PasswordMixin:
         hash: str | None = mongo_doc.get(field_name)
         if hash is None:
             err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "Method: `verify_password` => "
                 + f"The model does not have a field `{field_name}`."
             )
@@ -95,14 +95,14 @@ class PasswordMixin:
         field_name: str = "password",
     ) -> None:
         """For replace or recover password."""
-        cls_model = self.__class__
+        metadata = self.__class__.META
         if not await self.verify_password(old_password, field_name):
             logger.warning("Old password does not match!")
             raise OldPassNotMatchError()
         # Get documet ID.
-        doc_id = self._id.value
+        doc_id = self.id
         # Get collection for current Model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Create hash of new passwor.
         ph = PasswordHasher()
         hash: str = ph.hash(new_password)
