@@ -41,23 +41,25 @@ class PasswordGroupMixin:
     def password_group(self, params: dict[str, Any]) -> None:
         """Checking password fields."""
         _ = params["_"]
-        field = params["field_value"]
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
         # When updating the document, skip the verification.
         if params["is_update"]:
             params["field_value"].value = None
             return
         # Get current value.
-        value = field.value or None
+        value = f_value or None
 
         if not isinstance(value, (str, type(None))):
             panic_type_error("str | None", params)
 
         if value is None:
-            if field.required:
+            if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
         # Validation Passwor.
         if not is_password(value):
@@ -72,4 +74,4 @@ class PasswordGroupMixin:
         if params["is_save"]:
             ph = PasswordHasher()
             hash: str = ph.hash(value)
-            params["result_map"][field.name] = hash
+            params["result_map"][f_name] = hash
