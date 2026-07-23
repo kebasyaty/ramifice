@@ -46,7 +46,7 @@ class PasswordGroupMixin:
         f_name = f__attrs.name
         # When updating the document, skip the verification.
         if params["is_update"]:
-            params["field_value"].value = None
+            setattr(self, f_name, None)
             return
         # Get current value.
         value = f_value or None
