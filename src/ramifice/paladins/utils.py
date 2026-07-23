@@ -22,7 +22,6 @@ from __future__ import annotations
 __all__ = (
     "ignored_fields_to_none",
     "refresh_from_mongo_doc",
-    "panic_type_error",
     "accumulate_error",
     "check_uniqueness",
 )
@@ -62,19 +61,6 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
         else:
             f__attrs.value = mongo_value
         setattr(instance_model, f_name, mongo_value)
-
-
-def panic_type_error(value_type: str, params: dict[str, Any]) -> None:
-    """Unacceptable type of value."""
-    f__attrs = params["field__attrs"]
-
-    err_msg = (
-        f"Model: `{params['full_model_name']}` > "
-        + f"Field: `{f__attrs.name}` > "
-        + f"Parameter: `value` => Must be `{value_type}` type!"
-    )
-    logger.critical(err_msg)
-    raise PanicError(err_msg)
 
 
 def accumulate_error(error_message: str, params: dict[str, Any]) -> None:

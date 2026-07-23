@@ -29,7 +29,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ramifice.paladins.utils import accumulate_error, panic_type_error
+from ramifice.paladins.utils import accumulate_error
 
 
 class IDGroupMixin:
@@ -45,9 +45,6 @@ class IDGroupMixin:
         field = params["field_value"]
         # Get current value.
         value = field.value
-
-        if not isinstance(value, (ObjectId, type(None))):
-            panic_type_error("ObjectId | None", params)
 
         if value is None:
             if field.required:

@@ -27,8 +27,6 @@ __all__ = ("BoolGroupMixin",)
 
 from typing import Any
 
-from ramifice.paladins.utils import panic_type_error
-
 
 class BoolGroupMixin:
     """Group for checking boolean fields.
@@ -42,9 +40,6 @@ class BoolGroupMixin:
         field = params["field_value"]
         # Get current value.
         value = field.value
-
-        if not isinstance(value, (bool, type(None))):
-            panic_type_error("bool | None", params)
 
         if not params["is_update"] and value is None:
             value = field.default

@@ -28,10 +28,7 @@ from typing import Any
 
 from xloft.converters import to_human_size
 
-from ramifice.paladins.utils import (
-    accumulate_error,
-    panic_type_error,
-)
+from ramifice.paladins.utils import accumulate_error
 
 
 class FileGroupMixin:
@@ -45,9 +42,6 @@ class FileGroupMixin:
         _ = params["_"]
         field = params["field_value"]
         value = field.value or None
-
-        if not isinstance(value, (dict, type(None))):
-            panic_type_error("dict | None", params)
 
         if not params["is_update"] and value is None:
             default = field.default or None

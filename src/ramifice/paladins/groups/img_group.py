@@ -30,7 +30,7 @@ from typing import Any
 from PIL import Image
 from xloft.converters import to_human_size
 
-from ramifice.paladins.utils import accumulate_error, panic_type_error
+from ramifice.paladins.utils import accumulate_error
 
 
 class ImgGroupMixin:
@@ -42,11 +42,12 @@ class ImgGroupMixin:
     async def img_group(self, params: dict[str, Any]) -> None:
         """Checking image fields."""
         _ = params["_"]
-        field = params["field_value"]
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f__funcs = params["field__funcs"]
+        f_name = f__attrs.name
+        f_type = f__attrs.f_type
         value = field.value or None
-
-        if not isinstance(value, (dict, type(None))):
-            panic_type_error("dict | None", params)
 
         if not params["is_update"] and value is None:
             default = field.default or None

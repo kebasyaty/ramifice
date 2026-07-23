@@ -25,15 +25,11 @@ from __future__ import annotations
 
 __all__ = ("DateGroupMixin",)
 
-from datetime import datetime
 from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ramifice.paladins.utils import (
-    accumulate_error,
-    panic_type_error,
-)
+from ramifice.paladins.utils import accumulate_error
 
 
 class DateGroupMixin:
@@ -51,9 +47,6 @@ class DateGroupMixin:
         field = params["field_value"]
         # Get current value.
         value = field.value or field.default or None
-
-        if not isinstance(value, (datetime, type(None))):
-            panic_type_error("datetime | None", params)
 
         if value is None:
             if field.required:

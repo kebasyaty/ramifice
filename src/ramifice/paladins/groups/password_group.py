@@ -28,7 +28,7 @@ from typing import Any
 
 from argon2 import PasswordHasher
 
-from ramifice.paladins.utils import accumulate_error, panic_type_error
+from ramifice.paladins.utils import accumulate_error
 from ramifice.utils import is_password
 
 
@@ -50,9 +50,6 @@ class PasswordGroupMixin:
             return
         # Get current value.
         value = f_value or None
-
-        if not isinstance(value, (str, type(None))):
-            panic_type_error("str | None", params)
 
         if value is None:
             if f__attrs.required:
