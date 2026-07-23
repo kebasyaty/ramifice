@@ -119,9 +119,9 @@ class ChoiceTextDynField(Field):
         """Does the field value match the possible options in choices."""
         if is_migrate:
             return True
-        value = self.field_attrs["value"]
+        value = self.field_attrs.value
         if value is not None:
-            choices = self.field_attrs["choices"]
+            choices = self.field_attrs.choices
             if not bool(choices):
                 return False
             if value not in [item[0] for item in choices]:  # type: ignore[union-attr]

@@ -236,7 +236,7 @@ class ImageField(Field):
             img_info["human_size"] = to_human_size(img_info["size"])
         #
         # result to value
-        self.field_attrs["value"] = img_info
+        self.field_attrs.value = img_info
 
     async def from_path(
         self,
@@ -264,12 +264,12 @@ class ImageField(Field):
             imgs_dir_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.field_attrs["target_dir"],
+                self.field_attrs.target_dir,
                 date_str,
                 general_dir,
             )
             # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs['target_dir']}/{date_str}/{general_dir}"
+            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{general_dir}"
             # Create target directory if it does not exist.
             if not await imgs_dir_path.exists():
                 await imgs_dir_path.mkdir(parents=True)
@@ -302,4 +302,4 @@ class ImageField(Field):
             img_info["human_size"] = to_human_size(img_info["size"])
         #
         # result to value
-        self.field_attrs["value"] = img_info
+        self.field_attrs.value = img_info

@@ -169,7 +169,7 @@ class FileField(Field):
             dir_target_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.field_attrs["target_dir"],
+                self.field_attrs.target_dir,
                 date_str,
             )
             # Create target directory if it does not exist.
@@ -183,7 +183,7 @@ class FileField(Field):
                 await open_f.write(f_content)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs['target_dir']}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = filename
             # Add file extension.
@@ -195,7 +195,7 @@ class FileField(Field):
             file_info["human_size"] = to_human_size(file_info["size"])
         #
         # result to value
-        self.field_attrs["value"] = file_info
+        self.field_attrs.value = file_info
 
     async def from_path(
         self,
@@ -223,7 +223,7 @@ class FileField(Field):
             dir_target_path = Path(
                 Config.MEDIA_ROOT,
                 "uploads",
-                self.field_attrs["target_dir"],
+                self.field_attrs.target_dir,
                 date_str,
             )
             # Create target directory if it does not exist.
@@ -235,7 +235,7 @@ class FileField(Field):
             await to_thread.run_sync(copyfile, src_path, f_target_path)
             # Add paths to target file.
             file_info["path"] = f_target_path
-            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs['target_dir']}/{date_str}/{f_uuid_name}"
+            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{f_uuid_name}"
             # Add original file name.
             file_info["name"] = Path(src_path).name
             # Add file extension.
@@ -247,4 +247,4 @@ class FileField(Field):
             file_info["human_size"] = to_human_size(file_info["size"])
         #
         # result to value
-        self.field_attrs["value"] = file_info
+        self.field_attrs.value = file_info
