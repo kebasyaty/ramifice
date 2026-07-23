@@ -73,7 +73,7 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         m: User = User()
         err_map = await m.add_validation()
         self.assertTrue(isinstance(err_map, NamedTuple))
-        self.assertEqual(len(err_map), len(NamedTuple()))
+        self.assertEqual(len(err_map), 4)
         self.assertIsNone(await m.pre_create())
         self.assertIsNone(await m.post_create())
         self.assertIsNone(await m.pre_update())
