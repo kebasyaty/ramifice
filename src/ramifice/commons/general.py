@@ -48,7 +48,7 @@ class GeneralMixin:
         instance: Any = cls(lang_code)
 
         for f_name in descriptor_fields:
-            value = mongo_doc.get(f_name) if f_name != "id" else "_id"
+            value = mongo_doc.get(f_name) if f_name != "id" else mongo_doc["_id"]
 
             if value is None:
                 continue
