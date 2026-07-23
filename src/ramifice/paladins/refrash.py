@@ -50,5 +50,9 @@ class RefrashMixin:
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
-        self.inject()
+        self.inject(
+            self._LANG_CODE,
+            metadata["all_descriptor_fields"],
+            metadata["data_dynamic_fields"],
+        )
         refresh_from_mongo_doc(self, mongo_doc)
