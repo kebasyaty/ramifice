@@ -180,7 +180,7 @@ class TestJsonMixin(unittest.TestCase):
         m2 = User.from_dict(json_dict)
 
         for f_name in descriptor_fields:
-            field_type = getattr(m, f"{f_name}__attrs")["field_type"]
+            field_type = getattr(m, f"{f_name}__attrs").field_type
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m2, f_name))
             else:
@@ -189,7 +189,7 @@ class TestJsonMixin(unittest.TestCase):
 
         m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
-            field_type = getattr(m, f"{f_name}__attrs")["field_type"]
+            field_type = getattr(m, f"{f_name}__attrs").field_type
             if field_type == "PasswordField":
                 self.assertIsNone(getattr(m3, f_name))
             else:
