@@ -48,6 +48,7 @@ class NumberGroupMixin:
         f_name = f__attrs.name
         # Get current value.
         value = f_value
+
         if value is None:
             value = f__attrs.default
 
