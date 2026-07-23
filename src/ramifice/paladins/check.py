@@ -75,7 +75,7 @@ class CheckMixin(
         metadata = self.__class__.META
 
         # Get the document ID.
-        doc_id: ObjectId | None = self.id
+        doc_id: ObjectId | None = self.__dict__["id"]
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
         # Create an identifier for a new document.
@@ -109,21 +109,21 @@ class CheckMixin(
         }
 
         # Run checking fields.
-        for field_name in params["descriptor_fields"]:
-            f__attrs = getattr(self, f"{field_name}__attrs")
+        for f_name in params["descriptor_fields"]:
+            f__attrs = getattr(self, f"{f_name}__attrs")
             # Reset a field errors to exclude duplicates.
             f__attrs.errors = []
             # Check additional validation.
-            err_msg = error_map[field_name]
+            err_msg = error_map[f_name]
             if err_msg is not None:
                 f__attrs.errors.append(err_msg)
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
             if not f__attrs["ignored"]:
-                params["field_value"] = getattr(self, field_name)
+                params["field_value"] = getattr(self, f_name)
                 params["field__attrs"] = f__attrs
-                params["field__funcs"] = getattr(self, f"{field_name}__funcs")
+                params["field__funcs"] = getattr(self, f"{f_name}__funcs")
                 match f__attrs["group"]:
                     case "text":
                         await self.text_group(params)
@@ -156,7 +156,7 @@ class CheckMixin(
                 # Reset the ObjectId for a new document.
                 if not is_update:
                     # pyrefly: ignore [bad-assignment]
-                    self.id = None
+                    self.__dict__["id"] = None
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = params["curr_doc"]
 
