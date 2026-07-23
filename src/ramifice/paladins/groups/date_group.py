@@ -45,7 +45,7 @@ class DateGroupMixin:
         f_value = params["field_value"]
         f__attrs = params["field__attrs"]
         f_name = f__attrs.name
-        f_type = f__attrs.f_type
+        f_type = f__attrs.field_type
         LANG_CODE = self._LANG_CODE
         # Get current value.
         value = f_value or f__attrs.default or None

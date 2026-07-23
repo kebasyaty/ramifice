@@ -61,7 +61,7 @@ class TextGroupMixin:
         f__attrs = params["field__attrs"]
         f__funcs = params["field__funcs"]
         f_name = f__attrs.name
-        f_type = f__attrs.f_type
+        f_type = f__attrs.field_type
         is_multi_language: bool = (f_type == "TextField") and f__attrs.multi_language
         # Get current value.
         value = f_value or f__attrs.get("default")
