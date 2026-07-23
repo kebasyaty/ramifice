@@ -92,6 +92,8 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         for f_name in descriptor_fields:
             setattr(self, f_name, None)
 
+        super().__init__()
+
         self.inject(lang_code, descriptor_fields, data_dynamic_fields)
 
     def __delattr__(self, name: str) -> None:

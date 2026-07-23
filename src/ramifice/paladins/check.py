@@ -75,13 +75,13 @@ class CheckMixin(
         metadata = self.__class__.META
 
         # Get the document ID.
-        doc_id: ObjectId | None = self.__dict__["id"]
+        doc_id: ObjectId | None = getattr(self, "id")  # ruff:ignore[get-attr-with-constant]
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
         # Create an identifier for a new document.
         if is_save and not is_update:
             doc_id = ObjectId()
-            self.__dict__["id"] = doc_id
+            setattr(self, "id", doc_id)  # ruff:ignore[set-attr-with-constant]
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
