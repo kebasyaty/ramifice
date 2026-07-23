@@ -69,11 +69,11 @@ class SaveMixin:
             # Run hook.
             await self.pre_update()
             # Update doc.
-            await collection.update_one({"_id": checked_data["id"]}, {"$set": checked_data})
+            await collection.update_one({"_id": checked_data["_id"]}, {"$set": checked_data})
             # Run hook.
             await self.post_update()
             # Refresh Model.
-            mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["id"]})
+            mongo_doc: dict[str, Any] | None = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
                 err_msg = (
                     f"Model: `{self.full_model_name()}` > "
@@ -95,7 +95,7 @@ class SaveMixin:
             # Run hook.
             await self.post_create()
             # Refresh Model.
-            mongo_doc = await collection.find_one({"_id": checked_data["id"]})
+            mongo_doc = await collection.find_one({"_id": checked_data["_id"]})
             if mongo_doc is None:
                 err_msg = (
                     f"Model: `{self.full_model_name()}` > " + "Method: `save` => " + "The document was not created."
