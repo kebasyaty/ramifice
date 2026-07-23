@@ -49,6 +49,7 @@ async def apply_fixture(
 
     Runs automatically during Model migration.
     """
+    metadata = cls_model.META
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
     DATEPARSER_SETTINGS = Config.DATEPARSER_SETTINGS
@@ -58,7 +59,7 @@ async def apply_fixture(
 
     if not bool(data_yaml):
         err_msg = (
-            f"Model: `{cls_model.META['full_model_name']}` > "
+            f"Model: `{metadata['full_model_name']}` > "
             + f"META param: `fixture_name` ({fixture_name}) => "
             + "It seems that fixture is empty or it has incorrect contents!"
         )
@@ -70,23 +71,23 @@ async def apply_fixture(
             data_yaml = [data_yaml]
 
         for data in data_yaml:
-            inst_model = cls_model()
-            for field_name, field_data in inst_model.__dict__.items():
-                if callable(field_data) or field_data.ignored:
-                    continue
-                group = field_data.group
-                value: Any | None = data.get(field_name)
+            instance_model = cls_model()
+            for f_name in metadata["all_descriptor_fields"]:
+                f__attrs = getattr(instance_model, f"{f_name}__attrs")
+                f__funcs = getattr(instance_model, f"{f_name}__funcs")
+                group = f__attrs.group
+                value: Any | None = data.get(f__attrs.name)
                 if value == "None":
                     value = None
                 if value is not None:
                     if group == "file" or group == "img":
-                        await field_data.from_path(value)
+                        await f__funcs.from_path(value)
                     elif group == "date":
-                        field_data.value = parse(value, settings=DATEPARSER_SETTINGS)
+                        setattr(instance_model, f_name, parse(value, settings=DATEPARSER_SETTINGS))
                     else:
-                        field_data.value = value
+                        setattr(instance_model, f_name, value)
             # Check Model.
-            result_check: dict[str, Any] = await inst_model.check(
+            result_check: dict[str, Any] = await instance_model.check(
                 is_save=True,
                 collection=collection,
             )
@@ -95,7 +96,7 @@ async def apply_fixture(
                 await collection.database.drop_collection(collection.name)
                 print(colored("\nFIXTURE:", "red", attrs=["bold"]))  # ruff:ignore[print]
                 print(colored(fixture_path, "blue", attrs=["bold"]))  # ruff:ignore[print]
-                inst_model.print_err()
+                instance_model.print_err()
                 err_msg = f"Fixture `{fixture_name}` failed."
                 logger.critical(err_msg)
                 raise PanicError(err_msg)
@@ -106,11 +107,11 @@ async def apply_fixture(
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.
-            await inst_model.pre_create()
+            await instance_model.pre_create()
             # Insert doc.
             try:
                 await collection.insert_one(checked_data)
             except:
                 await collection.database.drop_collection(collection.name)
             # Run hook.
-            await inst_model.post_create()
+            await instance_model.post_create()
