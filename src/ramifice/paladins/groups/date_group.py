@@ -42,22 +42,24 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         _ = params["_"]
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
+        f_type = f__attrs.f_type
         LANG_CODE = self._LANG_CODE
-
-        field = params["field_value"]
         # Get current value.
-        value = field.value or field.default or None
+        value = f_value or f__attrs.default or None
 
         if value is None:
-            if field.required:
+            if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
 
         # Validation the `max_date` field attribute.
-        max_date = field.max_date
+        max_date = f__attrs.max_date
         if max_date is not None and value > max_date:
             value_str = (
                 format_date(
@@ -65,7 +67,7 @@ class DateGroupMixin:
                     format="medium",
                     locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="medium",
@@ -78,7 +80,7 @@ class DateGroupMixin:
                     format="medium",
                     locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=max_date,
                     format="medium",
@@ -90,7 +92,7 @@ class DateGroupMixin:
             ).format(value_str, max_date_str)
             accumulate_error(err_msg, params)
         # Validation the `min_date` field attribute.
-        min_date = field.min_date
+        min_date = f__attrs.min_date
         if min_date is not None and value < min_date:
             value_str = (
                 format_date(
@@ -98,7 +100,7 @@ class DateGroupMixin:
                     format="medium",
                     locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=value,
                     format="medium",
@@ -111,7 +113,7 @@ class DateGroupMixin:
                     format="medium",
                     locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=min_date,
                     format="medium",
@@ -124,4 +126,4 @@ class DateGroupMixin:
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = value
