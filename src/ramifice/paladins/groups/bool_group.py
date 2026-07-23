@@ -37,12 +37,13 @@ class BoolGroupMixin:
 
     def bool_group(self, params: dict[str, Any]) -> None:
         """Checking boolean fields."""
-        field = params["field_value"]
-        # Get current value.
-        value = field.value
+        _ = params["_"]
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
 
-        if not params["is_update"] and value is None:
-            value = field.default
+        if not params["is_update"] and f_value is None:
+            f_value = f__attrs.default
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = bool(value)
+            params["result_map"][f_name] = bool(f_value)
