@@ -126,8 +126,8 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Update doc.
         if not await user.save():
             user.print_err()
-
         self.assertEqual(str(user.id), doc_id)
+
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await user.delete()
         self.assertTrue(isinstance(result, dict))
