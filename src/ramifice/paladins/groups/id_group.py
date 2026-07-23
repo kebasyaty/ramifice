@@ -42,21 +42,21 @@ class IDGroupMixin:
     def id_group(self, params: dict[str, Any]) -> None:
         """Checking id fields."""
         _ = params["_"]
-        field = params["field_value"]
-        # Get current value.
-        value = field.value
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f_name = f__attrs.name
 
-        if value is None:
-            if field.required:
+        if f_value is None:
+            if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
         # Validation of the MongoDB identifier in a string form.
-        if not ObjectId.is_valid(value):
+        if not ObjectId.is_valid(f_value):
             err_msg = _("Invalid document ID !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = f_value
