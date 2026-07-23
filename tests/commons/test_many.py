@@ -106,7 +106,7 @@ class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(isinstance(doc_list, list))
         self.assertEqual(len(doc_list), 1)
         self.assertEqual(len(doc_list[0]), 32)
-        doc_list = await User.find_many_to_raw_docs()
+        doc_list = await User.find_many_to_model_dict_list()
         self.assertTrue(isinstance(doc_list, list))
         self.assertEqual(len(doc_list), 1)
         self.assertEqual(len(doc_list[0]), 32)
