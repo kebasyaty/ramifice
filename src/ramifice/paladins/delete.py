@@ -50,11 +50,11 @@ class DeleteMixin:
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
         """Delete document from database."""
-        cls_model = self.__class__
+        metadata = self.__class__.META
         # Raises a panic if the Model cannot be removed.
-        if not cls_model.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
@@ -63,17 +63,13 @@ class DeleteMixin:
         # Get documet ID.
         doc_id = self._id.value
         if doc_id is None:
-            err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
-                + "Field: `_id` > "
-                + "Param: `value` => ID is missing."
-            )
+            err_msg = f"Model: `{metadata['full_model_name']}` > " + "Field: `id` => ID is missing."
             logger.critical(err_msg)
             raise PanicError(err_msg)
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Delete document.
         mongo_doc: dict[str, Any] | None = {}
         mongo_doc = await collection.find_one_and_delete(
@@ -89,7 +85,7 @@ class DeleteMixin:
         # If the document failed to delete.
         if not bool(mongo_doc):
             err_msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
@@ -97,23 +93,22 @@ class DeleteMixin:
             raise PanicError(err_msg)
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None
-        for field_name, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
-            if remove_files and not field_data.ignored:
-                group = field_data.group
+        for f_name in metadata["all_descriptor_fields"]:
+            f_attrs = getattr(self, f"{f_name}__attrs")
+            if remove_files and not f_attrs.ignored:
+                group = f_attrs.group
                 if group == "file":
-                    file_data = mongo_doc[field_name]
-                    if file_data is not None and len(file_data["path"]) > 0:
-                        await to_thread.run_sync(remove, file_data["path"])
+                    file_data = mongo_doc[f_name]
+                    if file_data is not None and len(f_attrs.value["path"]) > 0:
+                        await to_thread.run_sync(remove, f_attrs.value["path"])
                     file_data = None
                 elif group == "img":
-                    file_data = mongo_doc[field_name]
-                    if file_data is not None and len(file_data["imgs_dir_path"]) > 0:
+                    file_data = mongo_doc[f_name]
+                    if file_data is not None and len(f_attrs.value["imgs_dir_path"]) > 0:
                         # pyrefly: ignore [incompatible-overload-residual]
-                        await to_thread.run_sync(rmtree, file_data["imgs_dir_path"])
+                        await to_thread.run_sync(rmtree, f_attrs.value["imgs_dir_path"])
                     file_data = None
-            field_data.value = None
+            setattr(self, f_name, None)
         # Run hook.
         await self.post_delete()
         #
