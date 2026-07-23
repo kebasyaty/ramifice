@@ -46,22 +46,25 @@ class ChoiceGroupMixin:
     def choice_group(self, params: dict[str, Any]) -> None:
         """Checking choice fields."""
         _ = params["_"]
-        field = params["field_value"]
+        f_value = params["field_value"]
+        f__attrs = params["field__attrs"]
+        f__funcs = params["field__funcs"]
+        f_name = f__attrs.name
         is_migrate = params["is_migration_process"]
         # Get current value.
-        value = field.value or field.__dict__.get("default") or None
+        value = f_value or f__attrs.get("default") or None
 
         if value is None:
-            if field.required:
+            if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
         # Does the field value match the possible options in choices.
-        if not field.has_value(is_migrate):
+        if not f__funcs.has_value(is_migrate):
             err_msg = _("Your choice does not match the options offered !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = value
