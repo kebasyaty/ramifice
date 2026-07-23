@@ -41,12 +41,12 @@ class RefrashMixin:
         metadata = self.__class__.META
         # Get collection.
         collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
-        mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self._id.value})
+        mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self.id})
         if mongo_doc is None:
             err_msg = (
                 f"Model: `{self.full_model_name()}` > "
                 + "Method: `refrash_from_db` => "
-                + f"A document with an identifier `{self._id.value}` is not exists in the database!"
+                + f"A document with an identifier `{self.id__attrs.value}` is not exists in the database!"
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
