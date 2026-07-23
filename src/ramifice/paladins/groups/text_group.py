@@ -98,8 +98,7 @@ class TextGroupMixin:
                     check_deliverability=True,
                 )
                 value = emailinfo.normalized
-                f__attrs.value = value
-                setattr(self, f__attrs.name, value)
+                setattr(self, f_name, value)
             except EmailNotValidError:
                 err_msg = _("Invalid Email address !")
                 accumulate_error(err_msg, params)
