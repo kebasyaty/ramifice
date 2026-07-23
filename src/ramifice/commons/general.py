@@ -54,11 +54,11 @@ class GeneralMixin:
                 continue
 
             f__attrs = getattr(instance, f"{f_name}__attrs")
-            field_type = f__attrs.field_type
+            f_type = f__attrs.field_type
 
-            if field_type == "TextField":
+            if f_type == "TextField":
                 f__attrs.value = value.get(lang_code, "- -") if isinstance(value, dict) else value
-            elif field_type == "PasswordField":
+            elif f_type == "PasswordField":
                 f__attrs.value = None
             else:
                 f__attrs.value = value
