@@ -137,6 +137,6 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         error_map: dict[str, Any] = {}
 
         for name in descriptor_fields:
-            error_map[name] = getattr(self, name)
+            error_map[name] = None
 
         return NamedTuple(**error_map)
