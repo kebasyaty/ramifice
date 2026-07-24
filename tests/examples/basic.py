@@ -165,16 +165,43 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user.сonfirm_password = "12345678"
 
         # Create User.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
+
+        user_details = await User.find_one_to_model_dict({"_id": user.id})
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details["created_at"], user.created_a)
+        self.assertEqual(user_details["updated_at"], user.updated_at)
+        self.assertEqual(user_details["username"], "pythondev")
+        self.assertEqual(user_details["first_name"], "John")
+        self.assertEqual(user_details["last_name"], "Smith")
+        self.assertEqual(user_details["email"], "John_Smith@gmail.com")
+        self.assertEqual(user_details["phone"], "+447986123456")
+        self.assertEqual(user_details["birthday"], user.birthday)
+        self.assertEqual(user_details["description"], "I program on Python!")
+        self.assertIsNone(user_details["password"])
 
         # Update User.
         user.username = "pythondev_123"
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
-        
+        self.assertTrue(is_saved)
+
         user_details = await User.find_one_to_model_dict({"_id": user.id})
         self.assertIsNotNone(user_details)
+        self.assertEqual(user_details["created_at"], user.created_at)
+        self.assertEqual(user_details["updated_at"], user.updated_at)
+        self.assertEqual(user_details["username"], "pythondev_123")
+        self.assertEqual(user_details["first_name"], "John")
+        self.assertEqual(user_details["last_name"], "Smith")
+        self.assertEqual(user_details["email"], "John_Smith@gmail.com")
+        self.assertEqual(user_details["phone"], "+447986123456")
+        self.assertEqual(user_details["birthday"], user.birthday)
+        self.assertEqual(user_details["description"], "I program on Python!")
+        self.assertIsNone(user_details["password"])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
