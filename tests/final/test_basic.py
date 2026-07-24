@@ -82,7 +82,7 @@ class User(Model):
         label=_("Password"),
         placeholder=_("Enter your password"),
     )
-    сonfirm_password = fields.PasswordField(
+    confirm_password = fields.PasswordField(
         label=_("Confirm password"),
         placeholder=_("Repeat your password"),
         # If true, the value of this field is not saved in the database.
@@ -124,14 +124,14 @@ class User(Model):
         username = self.username
         id = self.id
         password = self.password
-        сonfirm_password = self.сonfirm_password
+        confirm_password = self.confirm_password
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
             err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
 
         # Check password
-        if id is None and password != сonfirm_password:
+        if id is None and password != confirm_password:
             err_map.update("password", _("Passwords do not match!"))
 
         return err_map
@@ -167,8 +167,8 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user.phone = "+447986123456"
         user.birthday = datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)
         user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
-        user.password = "12345678"
-        user.сonfirm_password = "12345678"
+        user.password = "12345678"  # ruff:ignore[hardcoded-password-string]
+        user.confirm_password = "12345678"  # ruff:ignore[hardcoded-password-string]
 
         # Create User.
         is_saved = await user.save()
