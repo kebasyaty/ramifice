@@ -114,17 +114,23 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
 
         user = User()
         # Create doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         self.assertTrue(isinstance(user.id, ObjectId))
         doc_id = str(user.id)
         # Update doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         self.assertEqual(str(user.id), doc_id)
         # Update doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         self.assertEqual(str(user.id), doc_id)
 
         self.assertEqual(await User.estimated_document_count(), 1)

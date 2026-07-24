@@ -166,7 +166,6 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         # Create User.
         if not await user.save():
-            # Convenient to use during development.
             user.print_err()
 
         # Update User.
