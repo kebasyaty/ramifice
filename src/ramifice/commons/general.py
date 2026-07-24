@@ -58,6 +58,8 @@ class GeneralMixin:
 
             if f_type == "TextField":
                 value = value.get(lang_code, "- -") if isinstance(value, dict) else value
+            elif f_type == "DateField":
+                value = value.date()
             elif f_type == "PasswordField":
                 value = None
 
