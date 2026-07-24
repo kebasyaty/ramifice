@@ -30,11 +30,9 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from dateparser import parse
 from pymongo.asynchronous.collection import AsyncCollection
 from termcolor import colored
 
-from ramifice.config import Config
 from ramifice.errors import PanicError
 
 logger = logging.getLogger(__name__)
@@ -52,7 +50,6 @@ async def apply_fixture(
     metadata = cls_model.META
     fixture_path: str = f"config/fixtures/{fixture_name}.yml"
     data_yaml: dict[str, Any] | list[dict[str, Any]] | None = None
-    DATEPARSER_SETTINGS = Config.DATEPARSER_SETTINGS
 
     with Path.open(Path(fixture_path)) as file:
         data_yaml = yaml.safe_load(file)
@@ -82,8 +79,7 @@ async def apply_fixture(
                 if value is not None:
                     if group == "file" or group == "img":
                         await f__funcs.from_path(value)
-                    elif group == "date":
-                        setattr(instance_model, f_name, parse(value, settings=DATEPARSER_SETTINGS))
+                        setattr(instance_model, f_name, f__attrs.value)
                     else:
                         setattr(instance_model, f_name, value)
             # Check Model.
@@ -103,7 +99,7 @@ async def apply_fixture(
             # Get data for document.
             checked_data: dict[str, Any] = result_check["data"]
             # Add date and time.
-            today = datetime.now(Config.UTC_TIMEZONE)
+            today = datetime.now(instance_model.utc_timezone)
             checked_data["created_at"] = today
             checked_data["updated_at"] = today
             # Run hook.
