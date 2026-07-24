@@ -51,7 +51,7 @@ class ImgGroupMixin:
             default = f__attrs.default or None
             # If necessary, use the default value.
             if default is not None:
-                f__funcs.from_path(default)
+                await f__funcs.from_path(default)
                 f_value = f__attrs.value
                 setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
@@ -72,7 +72,7 @@ class ImgGroupMixin:
                 default = f__attrs.default or None
                 # If necessary, use the default value.
                 if default is not None:
-                    f__funcs.from_path(default)
+                    await f__funcs.from_path(default)
                     f_value = f__attrs.value
                     setattr(self, f_name, f_value)
                 else:
