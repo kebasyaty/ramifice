@@ -54,12 +54,13 @@ class UnitMixin:
 
         Management for `choices` parameter in dynamic field types.
         """
+        metadata = cls.META
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
         super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            filter={"collection_name": cls.META["collection_name"]},
+            filter={"collection_name": metadata["collection_name"]},
         )
         # Check the presence of a Model state.
         if model_state is None:
@@ -123,10 +124,10 @@ class UnitMixin:
             replacement=model_state,
         )
         # Update metadata of current Model.
-        cls.META["data_dynamic_fields"][unit_field] = choices or None
+        metadata["data_dynamic_fields"][unit_field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+            collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:
