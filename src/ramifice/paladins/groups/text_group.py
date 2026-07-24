@@ -57,16 +57,15 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         _ = params["_"]
-        f_value = params["field_value"]
         f__attrs = params["field__attrs"]
         f__funcs = params["field__funcs"]
         f_name = f__attrs.name
         f_type = f__attrs.field_type
         is_multi_language: bool = (f_type == "TextField") and f__attrs.multi_language
         # Get current value.
-        value = f_value or f__attrs.get("default")
+        f_value = params["field_value"] or f__attrs.get("default")
 
-        if value is None:
+        if f_value is None:
             if f__attrs.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
@@ -82,7 +81,7 @@ class TextGroupMixin:
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
         if f__attrs.unique and not await check_uniqueness(
-            value,
+            f_value,
             params,
             f_name,
             is_multi_language,
@@ -94,24 +93,24 @@ class TextGroupMixin:
             try:
                 emailinfo = await asyncio.to_thread(
                     validate_email,
-                    str(value),
+                    str(f_value),
                     check_deliverability=True,
                 )
-                value = emailinfo.normalized
-                setattr(self, f_name, value)
+                f_value = emailinfo.normalized
+                setattr(self, f_name, f_value)
             except EmailNotValidError:
                 err_msg = _("Invalid Email address !")
                 accumulate_error(err_msg, params)
-        elif f_type == "URLField" and not is_url(value):
+        elif f_type == "URLField" and not is_url(f_value):
             err_msg = _("Invalid URL address !")
             accumulate_error(err_msg, params)
-        elif f_type == "IPField" and not is_ip(value):
+        elif f_type == "IPField" and not is_ip(f_value):
             err_msg = _("Invalid IP address !")
             accumulate_error(err_msg, params)
-        elif f_type == "ColorField" and not is_color(value):
+        elif f_type == "ColorField" and not is_color(f_value):
             err_msg = _("Invalid Color code !")
             accumulate_error(err_msg, params)
-        elif f_type == "PhoneField" and not is_phone(value):
+        elif f_type == "PhoneField" and not is_phone(f_value):
             err_msg = _("Invalid Phone number !")
             accumulate_error(err_msg, params)
         # Insert result.
@@ -123,14 +122,14 @@ class TextGroupMixin:
                     if params["is_update"]
                     else (
                         dict.fromkeys(LANGUAGES)
-                        if isinstance(value, str)
-                        else {lang: value.get(lang, "- -") for lang in LANGUAGES}
+                        if isinstance(f_value, str)
+                        else {lang: f_value.get(lang, "- -") for lang in LANGUAGES}
                     )
                 )
-                if isinstance(value, dict):
+                if isinstance(f_value, dict):
                     for lang in LANGUAGES:
-                        mult_lang_text[lang] = value.get(lang, "- -")
+                        mult_lang_text[lang] = f_value.get(lang, "- -")
                 else:
-                    mult_lang_text[self._LANG_CODE] = value
-                value = mult_lang_text
-            params["result_map"][f_name] = value
+                    mult_lang_text[self._LANG_CODE] = f_value
+                f_value = mult_lang_text
+            params["result_map"][f_name] = f_value
