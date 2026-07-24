@@ -25,6 +25,7 @@ from __future__ import annotations
 
 __all__ = ("DateGroupMixin",)
 
+from datetime import datetime
 from typing import Any
 
 from babel.dates import format_date, format_datetime
@@ -125,4 +126,18 @@ class DateGroupMixin:
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][f_name] = f_value if f_type == "DateTimeField" else ""
+            params["result_map"][f_name] = (
+                f_value
+                if f_type == "DateTimeField"
+                else datetime(
+                    year=f_type.year(),
+                    month=f_type.month(),
+                    day=f_type.day(),
+                    tzinfo=self._UTC_TIMEZONE,
+                ).replace(
+                    hour=0,
+                    minute=0,
+                    second=0,
+                    microsecond=0,
+                )
+            )
