@@ -22,7 +22,7 @@ from __future__ import annotations
 __all__ = ("DateField",)
 
 import logging
-from datetime import datetime
+from datetime import date
 from typing import Any
 
 from dateparser import parse
@@ -40,7 +40,7 @@ class DateField(Field):
         self,
         label: str = "",
         placeholder: str = "",
-        default: datetime | str | None = None,
+        default: date | str | None = None,
         hide: bool = False,
         disabled: bool = False,
         ignored: bool = False,
@@ -48,8 +48,8 @@ class DateField(Field):
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
         required: bool = False,
         readonly: bool = False,
-        max_date: datetime | str | None = None,
-        min_date: datetime | str | None = None,
+        max_date: date | str | None = None,
+        min_date: date | str | None = None,
     ) -> None:
         """Field of Model for enter date.
 
@@ -69,12 +69,12 @@ class DateField(Field):
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
-                if not isinstance(max_date, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `max_date` - Not а `datetime|str|None` type!")
-                if not isinstance(min_date, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `min_date` - Not а `datetime|str|None` type!")
-                if not isinstance(default, (datetime, str, type(None))):
-                    raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
+                if not isinstance(max_date, (date, str, type(None))):
+                    raise AssertionError("Parameter `max_date` - Not а `date|str|None` type!")
+                if not isinstance(min_date, (date, str, type(None))):
+                    raise AssertionError("Parameter `min_date` - Not а `date|str|None` type!")
+                if not isinstance(default, (date, str, type(None))):
+                    raise AssertionError("Parameter `default` - Not а `date|str|None` type!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(disabled, bool):
@@ -97,7 +97,7 @@ class DateField(Field):
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(self, supported_types=(datetime, str, type(None)))
+        Field.__init__(self, supported_types=(date, str, type(None)))
 
         default = self.correction_date(default)
         max_date = self.correction_date(max_date)
@@ -145,12 +145,12 @@ class DateField(Field):
     def correction_date(
         self,
         value: Any | None,
-    ) -> datetime | None:
+    ) -> date | None:
         """Correction of date value."""
         if value is None:
             return None
 
-        correct_value: datetime | None = None
+        correct_value: date | None = None
 
         if isinstance(value, str):
             correct_value = parse(
@@ -158,8 +158,6 @@ class DateField(Field):
                 settings=Config.DATEPARSER_SETTINGS,
             )
             if correct_value is not None:
-                correct_value = correct_value.replace(microsecond=0)
-        else:
-            correct_value = value.replace(microsecond=0)
+                correct_value = correct_value.date()
 
         return correct_value
