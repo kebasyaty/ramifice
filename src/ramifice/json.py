@@ -67,7 +67,7 @@ class JsonMixin:
                         )
                     else:
                         tmp__attrs.value = format_date(
-                            date=value.date(),
+                            date=value,
                             format="medium",
                             locale=LANG_CODE,
                         )
@@ -112,12 +112,7 @@ class JsonMixin:
                         tmp__attrs_dict["value"] = parse(
                             value,
                             settings=DATEPARSER_SETTINGS,
-                        ).replace(
-                            hour=0,
-                            minute=0,
-                            second=0,
-                            microsecond=0,
-                        )
+                        ).date()
 
             setattr(instance, f_name, tmp__attrs_dict["value"])
             f__attrs = getattr(instance, f"{f_name}__attrs")
