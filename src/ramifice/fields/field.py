@@ -23,7 +23,7 @@ __all__ = ("Field",)
 
 import logging
 from collections.abc import Callable
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
 from dateparser import parse
@@ -141,9 +141,10 @@ class Field:
         instance: Any,
         field_attrs: dict[str, Any],
         value: Any,
-    ) -> datetime | None:
+    ) -> datetime | date | None:
         """Correction of date value."""
-        correct_value: datetime | None = None
+        correct_value: datetime | date | None = None
+
         if isinstance(value, str):
             if "Time" in field_attrs.field_type:
                 correct_value = parse(
@@ -158,21 +159,9 @@ class Field:
                     settings=instance._DATEPARSER_SETTINGS,
                 )
                 if correct_value is not None:
-                    correct_value = correct_value.replace(microsecond=0).replace(
-                        hour=0,
-                        minute=0,
-                        second=0,
-                        microsecond=0,
-                    )
+                    correct_value = correct_value.date()
         else:
             if "Time" in field_attrs.field_type:
                 correct_value = value.replace(microsecond=0)
-            else:
-                correct_value = value.replace(
-                    hour=0,
-                    minute=0,
-                    second=0,
-                    microsecond=0,
-                )
 
         return correct_value
