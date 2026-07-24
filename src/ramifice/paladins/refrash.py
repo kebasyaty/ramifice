@@ -42,6 +42,7 @@ class RefrashMixin:
         # Get collection.
         collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         mongo_doc: dict[str, Any] | None = await collection.find_one(filter={"_id": self.id})
+
         if mongo_doc is None:
             err_msg = (
                 f"Model: `{self.full_model_name()}` > "
@@ -50,6 +51,7 @@ class RefrashMixin:
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
+
         self.inject(
             self._LANG_CODE,
             metadata["all_descriptor_fields"],
