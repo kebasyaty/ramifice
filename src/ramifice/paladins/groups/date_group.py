@@ -62,7 +62,7 @@ class DateGroupMixin:
         if max_date is not None and f_value > max_date:
             value_str = (
                 format_date(
-                    date=f_value.date(),
+                    date=f_value,
                     format="medium",
                     locale=LANG_CODE,
                 )
@@ -75,7 +75,7 @@ class DateGroupMixin:
             )
             max_date_str = (
                 format_date(
-                    date=max_date.date(),
+                    date=max_date,
                     format="medium",
                     locale=LANG_CODE,
                 )
@@ -108,7 +108,7 @@ class DateGroupMixin:
             )
             min_date_str = (
                 format_date(
-                    date=min_date.date(),
+                    date=min_date,
                     format="medium",
                     locale=LANG_CODE,
                 )
@@ -125,4 +125,4 @@ class DateGroupMixin:
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][f_name] = f_value
+            params["result_map"][f_name] = f_value if f_type == "DateTimeField" else ""

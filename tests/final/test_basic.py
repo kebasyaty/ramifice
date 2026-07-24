@@ -4,12 +4,11 @@ from __future__ import annotations
 
 import re
 import unittest
-from datetime import datetime
+from datetime import date
 
 from pymongo import AsyncMongoClient
 
 from ramifice import (
-    UTC_TIMEZONE,
     Migration,
     Model,
     NamedTuple,
@@ -174,7 +173,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user.last_name = {"en": "Smith", "ru": "Смит"}
         user.email = "John_Smith@gmail.com"
         user.phone = "+447986123456"
-        user.birthday = datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
+        user.birthday = date(2000, 1, 25)
         user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
         user.password = "12345678"  # ruff:ignore[hardcoded-password-string]
         user.confirm_password = "12345678"  # ruff:ignore[hardcoded-password-string]
@@ -194,7 +193,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.last_name, "Smith")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
-        self.assertEqual(user_details.birthday.date(), datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE).date())
+        self.assertEqual(user_details.birthday.date(), date(2000, 1, 25))
         self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
 
@@ -214,7 +213,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.last_name, "Smith")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
-        self.assertEqual(user_details.birthday.date(), datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE).date())
+        self.assertEqual(user_details.birthday.date(), date(2000, 1, 25))
         self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
         # ----------------------------------------------------------------------
