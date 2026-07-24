@@ -51,16 +51,16 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
     for mongo_f_name, mongo_value in mongo_doc.items():
         f_name = mongo_f_name if mongo_f_name != "_id" else "id"
-        f__attrs = getattr(instance_model, f"{f_name}__attrs")
-        field_type = f__attrs.field_type
+        field_type = getattr(instance_model, f"{f_name}__attrs").field_type
+        f_value = None
 
-        if field_type == "TextField" and f__attrs.multi_language:
-            f__attrs.value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
+        if field_type == "TextField":
+            f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
         elif field_type == "PasswordField":
-            f__attrs.value = None
+            f_value = None
         else:
-            f__attrs.value = mongo_value
-        setattr(instance_model, f_name, mongo_value)
+            f_value = mongo_value
+        setattr(instance_model, f_name, f_value)
 
 
 def accumulate_error(error_message: str, params: dict[str, Any]) -> None:
