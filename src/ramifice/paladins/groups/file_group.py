@@ -40,22 +40,21 @@ class FileGroupMixin:
     async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
         _ = params["_"]
-        f_value = params["field_value"]
+        f_value = params["field_value"] or None
         f__attrs = params["field__attrs"]
         f__funcs = params["field__funcs"]
         f_name = f__attrs.name
-        value = f_value or None
 
-        if not params["is_update"] and value is None:
+        if not params["is_update"] and f_value is None:
             default = f__attrs.default or None
             # If necessary, use the default value.
             if default is not None:
                 f__funcs.from_path(default)
-                value = f__attrs.value
-                setattr(self, f_name, value)
+                f_value = f__attrs.value
+                setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
-            if value is None:
+            if f_value is None:
                 if f__attrs.required:
                     err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
@@ -63,17 +62,17 @@ class FileGroupMixin:
                     params["result_map"][f_name] = None
                 return
         # Return if the current value is missing
-        if value is None:
+        if f_value is None:
             return
-        if not value["save_as_is"]:
+        if not f_value["save_as_is"]:
             # If the file needs to be delete.
-            if value["is_delete"] and len(value["path"]) == 0:
+            if f_value["is_delete"] and len(f_value["path"]) == 0:
                 default = f__attrs.default or None
                 # If necessary, use the default value.
                 if default is not None:
                     f__funcs.from_path(default)
-                    value = f__attrs.value
-                    setattr(self, f_name, value)
+                    f_value = f__attrs.value
+                    setattr(self, f_name, f_value)
                 else:
                     if not f__attrs.required:
                         if params["is_save"]:
@@ -83,7 +82,7 @@ class FileGroupMixin:
                         accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
-            if value["size"] > f__attrs.max_size:
+            if f_value["size"] > f__attrs.max_size:
                 human_size = to_human_size(f__attrs.max_size)
                 err_msg = _(
                     "File size exceeds the maximum value {} !",
@@ -91,7 +90,7 @@ class FileGroupMixin:
                 accumulate_error(err_msg, params)
                 return
         # Insert result.
-        if params["is_save"] and (value["is_new_file"] or value["save_as_is"]):
-            value["is_delete"] = False
-            value["save_as_is"] = True
-            params["result_map"][f_name] = value
+        if params["is_save"] and (f_value["is_new_file"] or f_value["save_as_is"]):
+            f_value["is_delete"] = False
+            f_value["save_as_is"] = True
+            params["result_map"][f_name] = f_value
