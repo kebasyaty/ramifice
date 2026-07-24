@@ -58,31 +58,37 @@ class TestDateFields(unittest.TestCase):
             DateField(default=12)
         with self.assertRaises(AssertionError):
             DateField(
-                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
-                max_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS),
+                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                max_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS).date(),
             )
         with self.assertRaises(AssertionError):
             DateField(
-                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
-                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS),
+                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
             )
         with self.assertRaises(AssertionError):
             DateField(
-                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
-                min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
+                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
             )
         with self.assertRaises(AssertionError):
             DateField(
-                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
-                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS),
+                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
             )
-        DateField(max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS))
-        DateField(min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS))
-        DateField(default=parse("20-12-2024", settings=DATEPARSER_SETTINGS))
         DateField(
-            default=parse("20-12-2024", settings=DATEPARSER_SETTINGS),
-            max_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS),
-            min_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS),
+            max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            max_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            min_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS).date(),
         )
 
     def test_date_time_field(self):
