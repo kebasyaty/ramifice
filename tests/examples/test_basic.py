@@ -172,7 +172,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_details = await User.find_one_to_model_dict({"_id": user.id})
         self.assertIsNotNone(user_details)
-        self.assertEqual(user_details["created_at"], user.created_a)
+        self.assertEqual(user_details["created_at"], user.created_at)
         self.assertEqual(user_details["updated_at"], user.updated_at)
         self.assertEqual(user_details["username"], "pythondev")
         self.assertEqual(user_details["first_name"], "John")
