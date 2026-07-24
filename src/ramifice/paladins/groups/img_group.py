@@ -42,22 +42,21 @@ class ImgGroupMixin:
     async def img_group(self, params: dict[str, Any]) -> None:
         """Checking image fields."""
         _ = params["_"]
-        f_value = params["field_value"]
+        f_value = params["field_value"] or None
         f__attrs = params["field__attrs"]
         f__funcs = params["field__funcs"]
         f_name = f__attrs.name
-        value = f_value or None
 
-        if not params["is_update"] and value is None:
+        if not params["is_update"] and f_value is None:
             default = f__attrs.default or None
             # If necessary, use the default value.
             if default is not None:
                 f__funcs.from_path(default)
-                value = f__attrs.value
-                setattr(self, f_name, value)
+                f_value = f__attrs.value
+                setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
-            if value is None:
+            if f_value is None:
                 if f__attrs.required:
                     err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
@@ -65,17 +64,17 @@ class ImgGroupMixin:
                     params["result_map"][f_name] = None
                 return
         # Return if the current value is missing
-        if value is None:
+        if f_value is None:
             return
-        if not value["save_as_is"]:
+        if not f_value["save_as_is"]:
             # If the file needs to be delete.
-            if value["is_delete"] and len(value["path"]) == 0:
+            if f_value["is_delete"] and len(f_value["path"]) == 0:
                 default = f__attrs.default or None
                 # If necessary, use the default value.
                 if default is not None:
                     f__funcs.from_path(default)
-                    value = f__attrs.value
-                    setattr(self, f_name, value)
+                    f_value = f__attrs.value
+                    setattr(self, f_name, f_value)
                 else:
                     if not f__attrs.required:
                         if params["is_save"]:
@@ -85,7 +84,7 @@ class ImgGroupMixin:
                         accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
-            if value["size"] > f__attrs.max_size:
+            if f_value["size"] > f__attrs.max_size:
                 human_size = to_human_size(f__attrs.max_size)
                 err_msg = _(
                     "Image size exceeds the maximum value {} !",
@@ -93,20 +92,20 @@ class ImgGroupMixin:
                 accumulate_error(err_msg, params)
                 return
             # Create thumbnails.
-            if value["is_new_img"]:
+            if f_value["is_new_img"]:
                 thumbnails = f__attrs.thumbnails
                 if thumbnails is not None:
-                    path = value["path"]
-                    imgs_dir_path = value["imgs_dir_path"]
-                    imgs_dir_url = value["imgs_dir_url"]
-                    extension = value["extension"]
+                    path = f_value["path"]
+                    imgs_dir_path = f_value["imgs_dir_path"]
+                    imgs_dir_url = f_value["imgs_dir_url"]
+                    extension = f_value["extension"]
                     # Extension to the upper register and delete the point.
-                    ext_upper = value["ext_upper"]
+                    ext_upper = f_value["ext_upper"]
                     # Get image file.
                     with await to_thread(Image.open, path) as img:
                         width, height = img.size
-                        value["width"] = width
-                        value["height"] = height
+                        f_value["width"] = width
+                        f_value["height"] = height
                         for size_name in ["lg", "md", "sm", "xs"]:
                             max_size = thumbnails.get(size_name)
                             if max_size is None:
@@ -115,39 +114,39 @@ class ImgGroupMixin:
                             img.thumbnail(size=size, resample=Image.Resampling.LANCZOS)
                             match size_name:
                                 case "lg":
-                                    value["path_lg"] = f"{imgs_dir_path}/lg{extension}"
-                                    value["url_lg"] = f"{imgs_dir_url}/lg{extension}"
+                                    f_value["path_lg"] = f"{imgs_dir_path}/lg{extension}"
+                                    f_value["url_lg"] = f"{imgs_dir_url}/lg{extension}"
                                     await to_thread(
                                         img.save,
-                                        fp=value["path_lg"],
+                                        fp=f_value["path_lg"],
                                         format=ext_upper,
                                     )
                                 case "md":
-                                    value["path_md"] = f"{imgs_dir_path}/md{extension}"
-                                    value["url_md"] = f"{imgs_dir_url}/md{extension}"
+                                    f_value["path_md"] = f"{imgs_dir_path}/md{extension}"
+                                    f_value["url_md"] = f"{imgs_dir_url}/md{extension}"
                                     await to_thread(
                                         img.save,
-                                        fp=value["path_md"],
+                                        fp=f_value["path_md"],
                                         format=ext_upper,
                                     )
                                 case "sm":
-                                    value["path_sm"] = f"{imgs_dir_path}/sm{extension}"
-                                    value["url_sm"] = f"{imgs_dir_url}/sm{extension}"
+                                    f_value["path_sm"] = f"{imgs_dir_path}/sm{extension}"
+                                    f_value["url_sm"] = f"{imgs_dir_url}/sm{extension}"
                                     await to_thread(
                                         img.save,
-                                        fp=value["path_sm"],
+                                        fp=f_value["path_sm"],
                                         format=ext_upper,
                                     )
                                 case "xs":
-                                    value["path_xs"] = f"{imgs_dir_path}/xs{extension}"
-                                    value["url_xs"] = f"{imgs_dir_url}/xs{extension}"
+                                    f_value["path_xs"] = f"{imgs_dir_path}/xs{extension}"
+                                    f_value["url_xs"] = f"{imgs_dir_url}/xs{extension}"
                                     await to_thread(
                                         img.save,
-                                        fp=value["path_xs"],
+                                        fp=f_value["path_xs"],
                                         format=ext_upper,
                                     )
         # Insert result.
-        if params["is_save"] and (value["is_new_img"] or value["save_as_is"]):
-            value["is_delete"] = False
-            value["save_as_is"] = True
-            params["result_map"][f_name] = value
+        if params["is_save"] and (f_value["is_new_img"] or f_value["save_as_is"]):
+            f_value["is_delete"] = False
+            f_value["save_as_is"] = True
+            params["result_map"][f_name] = f_value
