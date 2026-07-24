@@ -33,15 +33,14 @@ class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
+        #
+        # ----------------------------------------------------------------------
         client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         m = User()
         password = "12345678"  # ruff:ignore[hardcoded-password-string]
         new_password = "new_12345678"  # ruff:ignore[hardcoded-password-string]

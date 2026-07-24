@@ -91,15 +91,14 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
+        #
+        # ----------------------------------------------------------------------
         client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         m = User()
         m.date = datetime.datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)
         m.date_time = datetime.datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)

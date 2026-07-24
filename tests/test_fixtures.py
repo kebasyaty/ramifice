@@ -123,15 +123,14 @@ class TestFixtures(unittest.IsolatedAsyncioTestCase):
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
+        #
+        # ----------------------------------------------------------------------
         client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         self.assertEqual(await User.estimated_document_count(), 1)
         self.assertEqual(await User2.estimated_document_count(), 2)
 

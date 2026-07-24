@@ -47,15 +47,14 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
+        #
+        # ----------------------------------------------------------------------
         client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(

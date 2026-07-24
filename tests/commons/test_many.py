@@ -89,15 +89,14 @@ class TestCommonManyMixin(unittest.IsolatedAsyncioTestCase):
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
+        #
+        # ----------------------------------------------------------------------
         client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         m = User()
         if not await m.save():
             m.print_err()
