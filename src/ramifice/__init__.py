@@ -41,14 +41,18 @@ __all__ = (
     "Model",
     "Translator",
     "Unit",
+    "UTC_TIMEZONE",
 )
 
 # pyrefly: ignore [missing-import]
 from xloft import NamedTuple
 from xloft.converters import to_human_size
 
+from ramifice.config import Config
 from ramifice.meta import meta
 from ramifice.migration import Migration
 from ramifice.model import Model
 from ramifice.translator import Translator
 from ramifice.unit import Unit
+
+UTC_TIMEZONE = Config.UTC_TIMEZONE  # ruff:ignore[non-empty-init-module]

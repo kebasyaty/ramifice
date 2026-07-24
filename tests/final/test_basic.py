@@ -8,7 +8,16 @@ from datetime import datetime
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, Model, NamedTuple, Translator, fields, meta, to_human_size
+from ramifice import (
+    UTC_TIMEZONE,
+    Migration,
+    Model,
+    NamedTuple,
+    Translator,
+    fields,
+    meta,
+    to_human_size,
+)
 from ramifice.config import Config
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
@@ -165,7 +174,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user.last_name = {"en": "Smith", "ru": "Смит"}
         user.email = "John_Smith@gmail.com"
         user.phone = "+447986123456"
-        user.birthday = datetime(2000, 1, 25, tzinfo=Config.UTC_TIMEZONE)
+        user.birthday = datetime(2000, 1, 25, tzinfo=UTC_TIMEZONE)
         user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
         user.password = "12345678"  # ruff:ignore[hardcoded-password-string]
         user.confirm_password = "12345678"  # ruff:ignore[hardcoded-password-string]
