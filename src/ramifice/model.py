@@ -23,6 +23,7 @@ __all__ = ("Model",)
 
 
 from copy import deepcopy
+from datetime import tzinfo
 from typing import Any, ClassVar
 
 from xloft import NamedTuple
@@ -104,6 +105,11 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
     def lang_code(self) -> str:
         """Language code."""
         return self._LANG_CODE
+
+    @property
+    def utc_timezone(self) -> tzinfo:
+        """UTC timezone object."""
+        return self._UTC_TIMEZONE
 
     def model_name(self) -> str:
         """Get Model name - Class name."""
