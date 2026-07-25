@@ -56,7 +56,7 @@ class GeneralMixin:
             f_value = None
 
             if f_type == "TextField":
-                f_value = mongo_value[lang_code] if isinstance(mongo_value, dict) else mongo_value
+                f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
             elif f_type == "DateField":
                 f_value = mongo_value.date()
             elif f_type == "PasswordField":
