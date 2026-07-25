@@ -159,5 +159,7 @@ class DateField(Field):
             )
             if correct_value is not None:
                 correct_value = correct_value.date()
+        else:
+            correct_value = value
 
         return correct_value
