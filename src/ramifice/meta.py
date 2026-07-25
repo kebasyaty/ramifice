@@ -132,11 +132,10 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     multi_lang_text_fields: list[str] = []
 
     for f_name, f_value in cls.__dict__.items():
-        for item in "__core":
-            if item in f_name:
-                err_msg = f"The field name must not contain `{item}`."
-                logger.critical(err_msg)
-                raise KeyError(err_msg)
+        if "__core" in f_name:
+            err_msg = "The field name must not contain `__core`."
+            logger.critical(err_msg)
+            raise KeyError(err_msg)
         f_cls_name = f_value.__class__.__name__
         if not callable(f_value) and "Field" in f_cls_name:
             f__core: dict[str, Any] = f_value.field_core
