@@ -47,13 +47,13 @@ class GeneralMixin:
         instance: Any = cls(lang_code)
 
         for mongo_key, mongo_value in mongo_doc.items():
+            if mongo_value is None:
+                continue
+
             f_name = mongo_key if mongo_key != "_id" else "id"
             f__attrs = getattr(instance, f"{f_name}__attrs")
             f_type = f__attrs.field_type
             f_value = None
-
-            if mongo_value is None or f__attrs.ignored:
-                continue
 
             if f_type == "TextField":
                 f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
@@ -61,6 +61,8 @@ class GeneralMixin:
                 f_value = mongo_value.date()
             elif f_type == "PasswordField":
                 f_value = None
+            else:
+                f_value = mongo_value
 
             setattr(instance, f_name, f_value)
 
