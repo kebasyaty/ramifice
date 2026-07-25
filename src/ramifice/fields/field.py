@@ -103,7 +103,7 @@ class Field:
             field_core = deepcopy(self.field_core)
             field_core.id = f"id-{name}"
             field_core.name = name
-            self.trans_field_core(instance, name)
+            self.trans_field_core(instance, field_core, name)
             setattr(instance, field_name__core, field_core)
 
         field_core = getattr(instance, field_name__core)
@@ -120,14 +120,18 @@ class Field:
         logger.error(err_msg)
         raise AttributeCannotBeDeleteError(self.name)
 
-    def trans_field_core(self, instance: Any, field_name: str) -> None:
+    def trans_field_core(
+        self,
+        instance: Any,
+        field_core: dict[str, Any],
+        field_name: str,
+    ) -> None:
         """Translate field attributes."""
         _ = (
             instance._CUSTOM_TRANSLATOR.gettext
             if field_name not in ["id", "created_at", "updated_at"]
             else instance._RAMIFICE_TRANSLATOR.gettext
         )
-        field_core = self.field_core
 
         label = field_core.get("label")
         field_core.label = _(label) if bool(label) else ""
@@ -143,8 +147,8 @@ class Field:
         if warning_list is not None:
             field_core.warning = [_(item) for item in warning_list]
 
+    @staticmethod
     def correction_date_value(
-        self,
         instance: Any,
         field_core: dict[str, Any],
         value: Any,
