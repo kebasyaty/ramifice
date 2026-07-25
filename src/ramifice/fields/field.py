@@ -23,6 +23,7 @@ __all__ = ("Field",)
 
 import logging
 from collections.abc import Callable
+from copy import deepcopy
 from datetime import date, datetime
 from typing import Any
 
@@ -96,22 +97,22 @@ class Field:
             logger.critical(err_msg)
             raise TypeError(err_msg)
         field_name__core = self.field_name__core
-        field_core = self.field_core
 
         if not hasattr(instance, field_name__core):
             name = self.name
+            field_core = deepcopy(self.field_core)
             field_core.id = f"id-{name}"
             field_core.name = name
             self.trans_field_core(instance, name)
             setattr(instance, field_name__core, field_core)
-            setattr(instance, self.field_name__funcs, self.field_funcs)
 
+        field_core = getattr(instance, field_name__core)
         correct_value: Any | None = value
         if field_core.group == "date" and correct_value is not None:
             correct_value = self.correction_date_value(instance, field_core, value)
 
         setattr(instance, self.private_name, correct_value)
-        getattr(instance, field_name__core).value = correct_value
+        field_core.value = correct_value
 
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""
