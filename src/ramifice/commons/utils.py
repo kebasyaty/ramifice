@@ -83,12 +83,12 @@ def mongo_doc_to_model_dict(
     for f_name in descriptor_fields:
         value = mongo_doc.get(f_name)
 
-        if value is None:
-            model_dict[f_name] = None
-            continue
-
         f__attrs = getattr(instance_model, f"{f_name}__attrs")
         field_type = f__attrs.field_type
+
+        if value is None or f__attrs.ignored:
+            model_dict[f_name] = None
+            continue
 
         if field_type == "TextField":
             model_dict[f_name] = value.get(lang_code, "- -") if isinstance(value, dict) else value
