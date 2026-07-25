@@ -1,4 +1,4 @@
-"""Testing the `basic` example."""
+"""Testing the `basic_1` example."""
 
 from __future__ import annotations
 
@@ -143,12 +143,12 @@ class User(Model):
 
 
 class TestBasicExample(unittest.IsolatedAsyncioTestCase):
-    """Testing the `basic` example."""
+    """Testing the `basic_1` example."""
 
     async def test_basic_example(self):
-        """Testing the `basic` example."""
+        """Testing the `basic_1` example."""
         # Maximum number of characters 60.
-        database_name = "test_basic_example"
+        database_name = "test_basic_1_example"
 
         client = AsyncMongoClient(host=Config.MONGO_HOST)
 

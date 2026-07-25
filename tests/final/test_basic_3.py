@@ -1,4 +1,4 @@
-"""Testing the `basic` example."""
+"""Testing the `basic_3` example."""
 
 from __future__ import annotations
 
@@ -146,12 +146,12 @@ class User(Model):
 
 
 class TestBasicExample(unittest.IsolatedAsyncioTestCase):
-    """Testing the `basic` example."""
+    """Testing the `basic_3` example."""
 
     async def test_basic_example(self):
-        """Testing the `basic` example."""
+        """Testing the `basic_3` example."""
         # Maximum number of characters 60.
-        database_name = "test_basic_2_example"
+        database_name = "test_basic_3_example"
 
         client = AsyncMongoClient(host=Config.MONGO_HOST)
 
@@ -187,8 +187,10 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         if not is_saved:
             user.print_err()
         self.assertTrue(is_saved)
-
         self.assertEqual(user.lang_code, "ru")
+        self.assertEqual(user.first_name, "Джон")
+        self.assertEqual(user.last_name, "Смит")
+        self.assertEqual(user.description, "Я программирую на Python!")
 
         user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
         self.assertIsNotNone(user_details)
