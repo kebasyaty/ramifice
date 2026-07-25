@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("TextField",)
 
 import logging
+from types import MethodType
 
 from ramifice.config import Config
 from ramifice.fields.field import Field, FieldCore
@@ -106,7 +107,7 @@ class TextField(Field):
 
         Field.__init__(self, supported_types=(str, dict, type(None)))
 
-        field_attrs = {
+        field_core = {
             "id": "",
             "name": "",
             "label": label,
@@ -128,14 +129,16 @@ class TextField(Field):
             "errors": [],
             "field_type": "TextField",
             "group": "text",
+            # funcs
+            "size": self.size,
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(size=self.size)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.size = MethodType(size, self.field_core)
 
     def __len__(self) -> int:
         """Return length of field `value`."""
-        value = self.field_attrs.value
+        value = self.field_core.value
         if isinstance(value, str):
             return len(value)
         if isinstance(value, dict):
@@ -147,16 +150,17 @@ class TextField(Field):
             return count
         return 0
 
-    def size(self) -> int:
-        """Return length of field `value`."""
-        value = self.field_attrs.value
-        if isinstance(value, str):
-            return len(value)
-        if isinstance(value, dict):
-            count = 0
-            for text in value.values():
-                tmp = len(text)
-                if tmp > count:
-                    count = tmp
-            return count
-        return 0
+
+def size(self) -> int:
+    """Return length of field `value`."""
+    value = self.field_core.value
+    if isinstance(value, str):
+        return len(value)
+    if isinstance(value, dict):
+        count = 0
+        for text in value.values():
+            tmp = len(text)
+            if tmp > count:
+                count = tmp
+        return count
+    return 0

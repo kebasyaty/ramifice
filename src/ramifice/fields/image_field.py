@@ -27,6 +27,7 @@ from base64 import b64decode
 from datetime import datetime
 from os.path import getsize
 from shutil import copyfile
+from types import MethodType
 from typing import Any
 
 from anyio import Path, open_file, to_thread
@@ -135,7 +136,7 @@ class ImageField(Field):
 
         Field.__init__(self, supported_types=(dict, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -156,153 +157,156 @@ class ImageField(Field):
             "errors": [],
             "field_type": "ImageField",
             "group": "img",
+            # funcs
+            "from_base64": self.from_base64,
+            "from_path": self.from_path,
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(
-            from_base64=self.from_base64,
-            from_path=self.from_path,
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.from_base64 = MethodType(from_base64, self.field_core)
+        self.field_core.from_path = MethodType(from_path, self.field_core)
+
+
+async def from_base64(
+    self,
+    base64_str: str | None = None,
+    filename: str | None = None,
+    is_delete: bool = False,
+) -> None:
+    """Convert base64 to a image, get image information and save in the target directory."""
+    base64_str = base64_str or None
+    filename = filename or None
+    img_info: dict[str, Any] = {"save_as_is": False}
+    img_info["is_new_img"] = True
+    img_info["is_delete"] = is_delete
+
+    if base64_str is not None and filename is not None:
+        # Get file extension.
+        extension = Path(filename).suffix
+        if len(extension) == 0:
+            msg = f"The image `{filename}` has no extension."
+            logger.error(msg)
+            raise FileHasNoExtensionError(msg)
+        # Prepare Base64 content.
+        for item in enumerate(base64_str):
+            if item[1] == ",":
+                base64_str = base64_str[item[0] + 1 :]
+                break
+            if item[0] == 40:
+                break
+        # Create the current date for the directory name.
+        date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
+        # Directory name for the original image and its thumbnails.
+        general_dir = str(uuid.uuid4())
+        # Create path to target directory with images.
+        imgs_dir_path = Path(
+            Config.MEDIA_ROOT,
+            "uploads",
+            self.field_core.target_dir,
+            date_str,
+            general_dir,
         )
+        # Create target directory if it does not exist.
+        if not await imgs_dir_path.exists():
+            await imgs_dir_path.mkdir(parents=True)
+        # Create url path to target directory with images.
+        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{general_dir}"
+        # Create a new name for the original image.
+        new_original_name = f"original{extension}"
+        # Create path to main image.
+        main_img_path = Path(imgs_dir_path, new_original_name)
+        # Save main image in target directory.
+        async with await open_file(main_img_path, mode="wb") as open_f:
+            f_content = b64decode(base64_str)
+            await open_f.write(f_content)
+        # Add paths for main image.
+        img_info["path"] = main_img_path.as_posix()
+        img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
+        # Add original image name.
+        img_info["name"] = filename
+        # Add image extension.
+        img_info["extension"] = extension
+        # Transform extension to the upper register and delete the point.
+        ext_upper = extension[1:].upper()
+        if ext_upper == "JPG":
+            ext_upper = "JPEG"
+        img_info["ext_upper"] = ext_upper
+        # Add path to target directory with images.
+        img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
+        # Add url path to target directory with images.
+        img_info["imgs_dir_url"] = imgs_dir_url
+        # Add size of main image (in bytes).
+        img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
+        # Convert the number of bytes into a human-readable format.
+        # Examples: 200 bytes | 1 KB | 1.5 MB.
+        img_info["human_size"] = to_human_size(img_info["size"])
+    #
+    # result to value
+    self.field_core.value = img_info
 
-    async def from_base64(
-        self,
-        base64_str: str | None = None,
-        filename: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Convert base64 to a image, get image information and save in the target directory."""
-        base64_str = base64_str or None
-        filename = filename or None
-        img_info: dict[str, Any] = {"save_as_is": False}
-        img_info["is_new_img"] = True
-        img_info["is_delete"] = is_delete
 
-        if base64_str is not None and filename is not None:
-            # Get file extension.
-            extension = Path(filename).suffix
-            if len(extension) == 0:
-                msg = f"The image `{filename}` has no extension."
-                logger.error(msg)
-                raise FileHasNoExtensionError(msg)
-            # Prepare Base64 content.
-            for item in enumerate(base64_str):
-                if item[1] == ",":
-                    base64_str = base64_str[item[0] + 1 :]
-                    break
-                if item[0] == 40:
-                    break
-            # Create the current date for the directory name.
-            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
-            # Directory name for the original image and its thumbnails.
-            general_dir = str(uuid.uuid4())
-            # Create path to target directory with images.
-            imgs_dir_path = Path(
-                Config.MEDIA_ROOT,
-                "uploads",
-                self.field_attrs.target_dir,
-                date_str,
-                general_dir,
-            )
-            # Create target directory if it does not exist.
-            if not await imgs_dir_path.exists():
-                await imgs_dir_path.mkdir(parents=True)
-            # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{general_dir}"
-            # Create a new name for the original image.
-            new_original_name = f"original{extension}"
-            # Create path to main image.
-            main_img_path = Path(imgs_dir_path, new_original_name)
-            # Save main image in target directory.
-            async with await open_file(main_img_path, mode="wb") as open_f:
-                f_content = b64decode(base64_str)
-                await open_f.write(f_content)
-            # Add paths for main image.
-            img_info["path"] = main_img_path.as_posix()
-            img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add original image name.
-            img_info["name"] = filename
-            # Add image extension.
-            img_info["extension"] = extension
-            # Transform extension to the upper register and delete the point.
-            ext_upper = extension[1:].upper()
-            if ext_upper == "JPG":
-                ext_upper = "JPEG"
-            img_info["ext_upper"] = ext_upper
-            # Add path to target directory with images.
-            img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
-            # Add url path to target directory with images.
-            img_info["imgs_dir_url"] = imgs_dir_url
-            # Add size of main image (in bytes).
-            img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
-            # Convert the number of bytes into a human-readable format.
-            # Examples: 200 bytes | 1 KB | 1.5 MB.
-            img_info["human_size"] = to_human_size(img_info["size"])
-        #
-        # result to value
-        self.field_attrs.value = img_info
+async def from_path(
+    self,
+    src_path: str | None = None,
+    is_delete: bool = False,
+) -> None:
+    """Get image information and copy the image to the target directory."""
+    src_path = src_path or None
+    img_info: dict[str, Any] = {"save_as_is": False}
+    img_info["is_new_img"] = True
+    img_info["is_delete"] = is_delete
 
-    async def from_path(
-        self,
-        src_path: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Get image information and copy the image to the target directory."""
-        src_path = src_path or None
-        img_info: dict[str, Any] = {"save_as_is": False}
-        img_info["is_new_img"] = True
-        img_info["is_delete"] = is_delete
-
-        if src_path is not None:
-            # Get file extension.
-            extension = Path(src_path).suffix
-            if len(extension) == 0:
-                msg = f"The image `{src_path}` has no extension."
-                logger.error(msg)
-                raise FileHasNoExtensionError(msg)
-            # Create the current date for the directory name.
-            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
-            # Directory name for the original image and its thumbnails.
-            general_dir = str(uuid.uuid4())
-            # Create path to target directory with images.
-            imgs_dir_path = Path(
-                Config.MEDIA_ROOT,
-                "uploads",
-                self.field_attrs.target_dir,
-                date_str,
-                general_dir,
-            )
-            # Create url path to target directory with images.
-            imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{general_dir}"
-            # Create target directory if it does not exist.
-            if not await imgs_dir_path.exists():
-                await imgs_dir_path.mkdir(parents=True)
-            # Create a new name for the original image.
-            new_original_name = f"original{extension}"
-            # Create path to main image.
-            main_img_path = f"{imgs_dir_path.as_posix()}/{new_original_name}"
-            # Save main image in target directory.
-            await to_thread.run_sync(copyfile, src_path, main_img_path)
-            # Add paths for main image.
-            img_info["path"] = main_img_path
-            img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
-            # Add original image name.
-            img_info["name"] = Path(src_path).name
-            # Add image extension.
-            img_info["extension"] = extension
-            # Transform extension to the upper register and delete the point.
-            ext_upper = extension[1:].upper()
-            if ext_upper == "JPG":
-                ext_upper = "JPEG"
-            img_info["ext_upper"] = ext_upper
-            # Add path to target directory with images.
-            img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
-            # Add url path to target directory with images.
-            img_info["imgs_dir_url"] = imgs_dir_url
-            # Add size of main image (in bytes).
-            img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
-            # Convert the number of bytes into a human-readable format.
-            # Examples: 200 bytes | 1 KB | 1.5 MB.
-            img_info["human_size"] = to_human_size(img_info["size"])
-        #
-        # result to value
-        self.field_attrs.value = img_info
+    if src_path is not None:
+        # Get file extension.
+        extension = Path(src_path).suffix
+        if len(extension) == 0:
+            msg = f"The image `{src_path}` has no extension."
+            logger.error(msg)
+            raise FileHasNoExtensionError(msg)
+        # Create the current date for the directory name.
+        date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
+        # Directory name for the original image and its thumbnails.
+        general_dir = str(uuid.uuid4())
+        # Create path to target directory with images.
+        imgs_dir_path = Path(
+            Config.MEDIA_ROOT,
+            "uploads",
+            self.field_core.target_dir,
+            date_str,
+            general_dir,
+        )
+        # Create url path to target directory with images.
+        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{general_dir}"
+        # Create target directory if it does not exist.
+        if not await imgs_dir_path.exists():
+            await imgs_dir_path.mkdir(parents=True)
+        # Create a new name for the original image.
+        new_original_name = f"original{extension}"
+        # Create path to main image.
+        main_img_path = f"{imgs_dir_path.as_posix()}/{new_original_name}"
+        # Save main image in target directory.
+        await to_thread.run_sync(copyfile, src_path, main_img_path)
+        # Add paths for main image.
+        img_info["path"] = main_img_path
+        img_info["url"] = f"{imgs_dir_url}/{new_original_name}"
+        # Add original image name.
+        img_info["name"] = Path(src_path).name
+        # Add image extension.
+        img_info["extension"] = extension
+        # Transform extension to the upper register and delete the point.
+        ext_upper = extension[1:].upper()
+        if ext_upper == "JPG":
+            ext_upper = "JPEG"
+        img_info["ext_upper"] = ext_upper
+        # Add path to target directory with images.
+        img_info["imgs_dir_path"] = imgs_dir_path.as_posix()
+        # Add url path to target directory with images.
+        img_info["imgs_dir_url"] = imgs_dir_url
+        # Add size of main image (in bytes).
+        img_info["size"] = await to_thread.run_sync(getsize, main_img_path)
+        # Convert the number of bytes into a human-readable format.
+        # Examples: 200 bytes | 1 KB | 1.5 MB.
+        img_info["human_size"] = to_human_size(img_info["size"])
+    #
+    # result to value
+    self.field_core.value = img_info

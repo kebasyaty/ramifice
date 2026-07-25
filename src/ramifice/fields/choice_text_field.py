@@ -25,6 +25,7 @@ from __future__ import annotations
 __all__ = ("ChoiceTextField",)
 
 import logging
+from types import MethodType
 from typing import Any
 
 from ramifice.config import Config
@@ -72,7 +73,7 @@ class ChoiceTextField(Field):
         """
         Field.__init__(self, supported_types=(str, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -93,8 +94,8 @@ class ChoiceTextField(Field):
             "group": "choice",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(has_value=self.has_value)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.has_value = MethodType(has_value, self.field_core)
 
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
@@ -132,15 +133,16 @@ class ChoiceTextField(Field):
                 logger.critical(str(err))
                 raise err
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        value = self.field_attrs.value
-        if value is None:
-            value = self.field_attrs.default
-        if value is not None:
-            choices = self.field_attrs.choices
-            if not bool(choices):
-                return False
-            if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
-                return False
-        return True
+
+def has_value(self, is_migrate: bool = False) -> bool:  # ruff: ignore[unused-function-argument]
+    """Does the field value match the possible options in choices."""
+    value = self.field_core.value
+    if value is None:
+        value = self.field_core.default
+    if value is not None:
+        choices = self.field_core.choices
+        if not bool(choices):
+            return False
+        if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
+            return False
+    return True

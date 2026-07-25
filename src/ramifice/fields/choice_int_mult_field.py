@@ -25,6 +25,7 @@ from __future__ import annotations
 __all__ = ("ChoiceIntMultField",)
 
 import logging
+from types import MethodType
 from typing import Any
 
 from ramifice.config import Config
@@ -72,7 +73,7 @@ class ChoiceIntMultField(Field):
         """
         Field.__init__(self, supported_types=(list, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -93,8 +94,8 @@ class ChoiceIntMultField(Field):
             "group": "choice",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(has_value=self.has_value)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.has_value = MethodType(has_value, self.field_core)
 
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
@@ -132,17 +133,18 @@ class ChoiceIntMultField(Field):
                 logger.critical(str(err))
                 raise err
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        value = self.field_attrs.value
-        if value is None:
-            value = self.field_attrs.default
-        if value is not None:
-            choices = self.field_attrs.choices
-            if len(value) == 0 or not bool(choices):
+
+def has_value(self, is_migrate: bool = False) -> bool:  # ruff: ignore[unused-function-argument]
+    """Does the field value match the possible options in choices."""
+    value = self.field_core.value
+    if value is None:
+        value = self.field_core.default
+    if value is not None:
+        choices = self.field_core.choices
+        if len(value) == 0 or not bool(choices):
+            return False
+        value_list = [item[0] for item in choices]  # type: ignore[union-attr]
+        for item in value:
+            if item not in value_list:
                 return False
-            value_list = [item[0] for item in choices]  # type: ignore[union-attr]
-            for item in value:
-                if item not in value_list:
-                    return False
-        return True
+    return True

@@ -39,11 +39,11 @@ class BoolGroupMixin:
         """Checking boolean fields."""
         _ = params["_"]
         f_value = params["field_value"]
-        f__attrs = params["field__attrs"]
-        f_name = f__attrs.name
+        f__core = params["field__core"]
+        f_name = f__core.name
 
         if not params["is_update"] and f_value is None:
-            f_value = f__attrs.default
+            f_value = f__core.default
         # Insert result.
         if params["is_save"]:
             params["result_map"][f_name] = bool(f_value)

@@ -48,7 +48,7 @@ class ValidationMixin:
         is_err: bool = False
 
         for f_name in descriptor_fields:
-            f_errors = getattr(self, f"{f_name}__attrs").errors
+            f_errors = getattr(self, f"{f_name}__core").errors
             if len(f_errors) > 0:
                 # title
                 if not is_err:
@@ -62,7 +62,7 @@ class ValidationMixin:
                 # error messages
                 print(colored("\n".join(f_errors), "red"))  # ruff:ignore[print]
 
-        f_alerts = getattr(self, "id__attrs").alerts  # ruff:ignore[get-attr-with-constant]
+        f_alerts = getattr(self, "id__core").alerts  # ruff:ignore[get-attr-with-constant]
         if len(f_alerts) > 0:
             # title
             print(colored("AlERTS:", "yellow", attrs=["bold"]))  # ruff:ignore[print]

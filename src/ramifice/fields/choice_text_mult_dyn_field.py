@@ -25,6 +25,7 @@ from __future__ import annotations
 __all__ = ("ChoiceTextMultDynField",)
 
 import logging
+from types import MethodType
 from typing import Any
 
 from ramifice.config import Config
@@ -90,7 +91,7 @@ class ChoiceTextMultDynField(Field):
 
         Field.__init__(self, supported_types=(list, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -110,20 +111,21 @@ class ChoiceTextMultDynField(Field):
             "group": "choice",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(has_value=self.has_value)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.has_value = MethodType(has_value, self.field_core)
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        if is_migrate:
-            return True
-        value = self.field_attrs.value
-        if value is not None:
-            choices = self.field_attrs.choices
-            if len(value) == 0 or not bool(choices):
-                return False
-            value_list = [item[0] for item in choices]  # type: ignore[union-attr]
-            for item in value:
-                if item not in value_list:
-                    return False
+
+def has_value(self, is_migrate: bool = False) -> bool:
+    """Does the field value match the possible options in choices."""
+    if is_migrate:
         return True
+    value = self.field_core.value
+    if value is not None:
+        choices = self.field_core.choices
+        if len(value) == 0 or not bool(choices):
+            return False
+        value_list = [item[0] for item in choices]  # type: ignore[union-attr]
+        for item in value:
+            if item not in value_list:
+                return False
+    return True

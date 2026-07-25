@@ -51,8 +51,8 @@ class GeneralMixin:
                 continue
 
             f_name = mongo_key if mongo_key != "_id" else "id"
-            f__attrs = getattr(instance, f"{f_name}__attrs")
-            f_type = f__attrs.field_type
+            f__core = getattr(instance, f"{f_name}__core")
+            f_type = f__core.field_type
             f_value = None
 
             if f_type == "TextField":

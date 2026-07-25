@@ -43,12 +43,12 @@ class IDGroupMixin:
         """Checking id fields."""
         _ = params["_"]
         f_value = params["field_value"]
-        f__attrs = params["field__attrs"]
-        f_name = f__attrs.name
+        f__core = params["field__core"]
+        f_name = f__core.name
         f_name = f_name if f_name != "id" else "_id"
 
         if f_value is None:
-            if f__attrs.required:
+            if f__core.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:

@@ -117,7 +117,7 @@ class IntegerField(Field):
 
         Field.__init__(self, supported_types=(int, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -141,5 +141,4 @@ class IntegerField(Field):
             "group": "number",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore()
+        self.__dict__["field_core"] = FieldCore(**field_core)

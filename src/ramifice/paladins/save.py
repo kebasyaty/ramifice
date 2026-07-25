@@ -48,13 +48,13 @@ class SaveMixin:
         # Check Model.
         result_check: dict[str, Any] = await self.check(is_save=True, collection=collection)
         # Reset the alerts to exclude duplicates.
-        self.id__attrs.alerts = []
+        self.id__core.alerts = []
         # Check the conditions and, if necessary, define a message for the web form.
         if not result_check["is_update"] and not metadata["is_create_doc"]:
-            self.id__attrs.alerts.append("It is forbidden to create new documents !")
+            self.id__core.alerts.append("It is forbidden to create new documents !")
             result_check["is_valid"] = False
         if result_check["is_update"] and not metadata["is_update_doc"]:
-            self.id__attrs.alerts.append("It is forbidden to update documents !")
+            self.id__core.alerts.append("It is forbidden to update documents !")
             result_check["is_valid"] = False
         # Leave the method if the check fails.
         if not result_check["is_valid"]:

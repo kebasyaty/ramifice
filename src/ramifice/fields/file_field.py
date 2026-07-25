@@ -27,6 +27,7 @@ from base64 import b64decode
 from datetime import datetime
 from os.path import getsize
 from shutil import copyfile
+from types import MethodType
 from typing import Any
 
 from anyio import Path, open_file, to_thread
@@ -109,7 +110,7 @@ class FileField(Field):
 
         Field.__init__(self, supported_types=(dict, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -131,123 +132,123 @@ class FileField(Field):
             "group": "file",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(
-            from_base64=self.from_base64,
-            from_path=self.from_path,
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.from_base64 = MethodType(from_base64, self.field_core)
+        self.field_core.from_path = MethodType(from_path, self.field_core)
+
+
+async def from_base64(
+    self,
+    base64_str: str | None = None,
+    filename: str | None = None,
+    is_delete: bool = False,
+) -> None:
+    """Convert base64 to a file, get file information and save in the target directory."""
+    base64_str = base64_str or None
+    filename = filename or None
+    file_info: dict[str, Any] = {"save_as_is": False}
+    file_info["is_new_file"] = True
+    file_info["is_delete"] = is_delete
+
+    if base64_str is not None and filename is not None:
+        # Get file extension.
+        extension = Path(filename).suffix
+        if len(extension) == 0:
+            msg = f"The file `{filename}` has no extension."
+            logger.error(msg)
+            raise FileHasNoExtensionError(msg)
+        # Prepare Base64 content.
+        for item in enumerate(base64_str):
+            if item[1] == ",":
+                base64_str = base64_str[item[0] + 1 :]
+                break
+            if item[0] == 40:
+                break
+        # Create new (uuid) file name.
+        f_uuid_name = f"{uuid.uuid4()}{extension}"
+        # Create the current date for the directory name.
+        date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
+        # Create path to target directory.
+        dir_target_path = Path(
+            Config.MEDIA_ROOT,
+            "uploads",
+            self.field_core.target_dir,
+            date_str,
         )
+        # Create target directory if it does not exist.
+        if not await dir_target_path.exists():
+            await dir_target_path.mkdir(parents=True)
+        # Create path to target file.
+        f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
+        # Save file in target directory.
+        async with await open_file(f_target_path, mode="wb") as open_f:
+            f_content = b64decode(base64_str)
+            await open_f.write(f_content)
+        # Add paths to target file.
+        file_info["path"] = f_target_path
+        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{f_uuid_name}"
+        # Add original file name.
+        file_info["name"] = filename
+        # Add file extension.
+        file_info["extension"] = extension
+        # Add file size (in bytes).
+        file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+        # Convert the number of bytes into a human-readable format.
+        # Examples: 200 bytes | 1 KB | 1.5 MB.
+        file_info["human_size"] = to_human_size(file_info["size"])
+    #
+    # result to value
+    self.field_core.value = file_info
 
-    async def from_base64(
-        self,
-        base64_str: str | None = None,
-        filename: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Convert base64 to a file, get file information and save in the target directory."""
-        base64_str = base64_str or None
-        filename = filename or None
-        file_info: dict[str, Any] = {"save_as_is": False}
-        file_info["is_new_file"] = True
-        file_info["is_delete"] = is_delete
 
-        if base64_str is not None and filename is not None:
-            # Get file extension.
-            extension = Path(filename).suffix
-            if len(extension) == 0:
-                msg = f"The file `{filename}` has no extension."
-                logger.error(msg)
-                raise FileHasNoExtensionError(msg)
-            # Prepare Base64 content.
-            for item in enumerate(base64_str):
-                if item[1] == ",":
-                    base64_str = base64_str[item[0] + 1 :]
-                    break
-                if item[0] == 40:
-                    break
-            # Create new (uuid) file name.
-            f_uuid_name = f"{uuid.uuid4()}{extension}"
-            # Create the current date for the directory name.
-            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
-            # Create path to target directory.
-            dir_target_path = Path(
-                Config.MEDIA_ROOT,
-                "uploads",
-                self.field_attrs.target_dir,
-                date_str,
-            )
-            # Create target directory if it does not exist.
-            if not await dir_target_path.exists():
-                await dir_target_path.mkdir(parents=True)
-            # Create path to target file.
-            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
-            # Save file in target directory.
-            async with await open_file(f_target_path, mode="wb") as open_f:
-                f_content = b64decode(base64_str)
-                await open_f.write(f_content)
-            # Add paths to target file.
-            file_info["path"] = f_target_path
-            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{f_uuid_name}"
-            # Add original file name.
-            file_info["name"] = filename
-            # Add file extension.
-            file_info["extension"] = extension
-            # Add file size (in bytes).
-            file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
-            # Convert the number of bytes into a human-readable format.
-            # Examples: 200 bytes | 1 KB | 1.5 MB.
-            file_info["human_size"] = to_human_size(file_info["size"])
-        #
-        # result to value
-        self.field_attrs.value = file_info
+async def from_path(
+    self,
+    src_path: str | None = None,
+    is_delete: bool = False,
+) -> None:
+    """Get file information and copy the file to the target directory."""
+    src_path = src_path or None
+    file_info: dict[str, Any] = {"save_as_is": False}
+    file_info["is_new_file"] = True
+    file_info["is_delete"] = is_delete
 
-    async def from_path(
-        self,
-        src_path: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Get file information and copy the file to the target directory."""
-        src_path = src_path or None
-        file_info: dict[str, Any] = {"save_as_is": False}
-        file_info["is_new_file"] = True
-        file_info["is_delete"] = is_delete
-
-        if src_path is not None:
-            # Get file extension.
-            extension = Path(src_path).suffix
-            if len(extension) == 0:
-                msg = f"The file `{src_path}` has no extension."
-                logger.error(msg)
-                raise FileHasNoExtensionError(msg)
-            # Create new (uuid) file name.
-            f_uuid_name = f"{uuid.uuid4()}{extension}"
-            # Create the current date for the directory name.
-            date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
-            # Create path to target directory.
-            dir_target_path = Path(
-                Config.MEDIA_ROOT,
-                "uploads",
-                self.field_attrs.target_dir,
-                date_str,
-            )
-            # Create target directory if it does not exist.
-            if not await dir_target_path.exists():
-                await dir_target_path.mkdir(parents=True)
-            # Create path to target file.
-            f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
-            # Save file in target directory.
-            await to_thread.run_sync(copyfile, src_path, f_target_path)
-            # Add paths to target file.
-            file_info["path"] = f_target_path
-            file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_attrs.target_dir}/{date_str}/{f_uuid_name}"
-            # Add original file name.
-            file_info["name"] = Path(src_path).name
-            # Add file extension.
-            file_info["extension"] = extension
-            # Add file size (in bytes).
-            file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
-            # Convert the number of bytes into a human-readable format.
-            # Examples: 200 bytes | 1 KB | 1.5 MB.
-            file_info["human_size"] = to_human_size(file_info["size"])
-        #
-        # result to value
-        self.field_attrs.value = file_info
+    if src_path is not None:
+        # Get file extension.
+        extension = Path(src_path).suffix
+        if len(extension) == 0:
+            msg = f"The file `{src_path}` has no extension."
+            logger.error(msg)
+            raise FileHasNoExtensionError(msg)
+        # Create new (uuid) file name.
+        f_uuid_name = f"{uuid.uuid4()}{extension}"
+        # Create the current date for the directory name.
+        date_str: str = str(datetime.now(Config.UTC_TIMEZONE).date())
+        # Create path to target directory.
+        dir_target_path = Path(
+            Config.MEDIA_ROOT,
+            "uploads",
+            self.field_core.target_dir,
+            date_str,
+        )
+        # Create target directory if it does not exist.
+        if not await dir_target_path.exists():
+            await dir_target_path.mkdir(parents=True)
+        # Create path to target file.
+        f_target_path = f"{dir_target_path.as_posix()}/{f_uuid_name}"
+        # Save file in target directory.
+        await to_thread.run_sync(copyfile, src_path, f_target_path)
+        # Add paths to target file.
+        file_info["path"] = f_target_path
+        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{f_uuid_name}"
+        # Add original file name.
+        file_info["name"] = Path(src_path).name
+        # Add file extension.
+        file_info["extension"] = extension
+        # Add file size (in bytes).
+        file_info["size"] = await to_thread.run_sync(getsize, f_target_path)
+        # Convert the number of bytes into a human-readable format.
+        # Examples: 200 bytes | 1 KB | 1.5 MB.
+        file_info["human_size"] = to_human_size(file_info["size"])
+    #
+    # result to value
+    self.field_core.value = file_info

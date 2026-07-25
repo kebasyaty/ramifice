@@ -39,9 +39,9 @@ def ignored_fields_to_none(instance_model: Any) -> None:
     descriptor_fields = instance_model.__class__.META["all_descriptor_fields"]
 
     for f_name in descriptor_fields:
-        f__attrs = getattr(instance_model, f"{f_name}__attrs")
-        if f__attrs.ignored:
-            f__attrs.value = None
+        f__core = getattr(instance_model, f"{f_name}__core")
+        if f__core.ignored:
+            f__core.value = None
             setattr(instance_model, f_name, None)
 
 
@@ -51,7 +51,7 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
     for mongo_f_name, mongo_value in mongo_doc.items():
         f_name = mongo_f_name if mongo_f_name != "_id" else "id"
-        field_type = getattr(instance_model, f"{f_name}__attrs").field_type
+        field_type = getattr(instance_model, f"{f_name}__core").field_type
         f_value = None
 
         if mongo_value is not None:
@@ -69,16 +69,16 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
 def accumulate_error(error_message: str, params: dict[str, Any]) -> None:
     """Accumulating errors to ModelName.field_name.errors ."""
-    f__attrs = params["field__attrs"]
+    f__core = params["field__core"]
 
-    if not f__attrs.hide:
-        f__attrs.errors.append(error_message)
+    if not f__core.hide:
+        f__core.errors.append(error_message)
         if not params["is_error_symptom"]:
             params["is_error_symptom"] = True
     else:
         err_msg = (
             f">>hidden field<< -> Model: `{params['full_model_name']}` > "
-            + f"Field: `{f__attrs.name}`"
+            + f"Field: `{f__core.name}`"
             + f" => {error_message}"
         )
         logger.critical(err_msg)

@@ -43,15 +43,15 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         _ = params["_"]
-        f__attrs = params["field__attrs"]
-        f_name = f__attrs.name
-        f_type = f__attrs.field_type
+        f__core = params["field__core"]
+        f_name = f__core.name
+        f_type = f__core.field_type
         LANG_CODE = self._LANG_CODE
         # Get current value.
-        f_value = params["field_value"] or f__attrs.default or None
+        f_value = params["field_value"] or f__core.default or None
 
         if f_value is None:
-            if f__attrs.required:
+            if f__core.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
@@ -59,7 +59,7 @@ class DateGroupMixin:
             return
 
         # Validation the `max_date` field attribute.
-        max_date = f__attrs.max_date
+        max_date = f__core.max_date
         if max_date is not None and f_value > max_date:
             value_str = (
                 format_date(
@@ -92,7 +92,7 @@ class DateGroupMixin:
             ).format(value_str, max_date_str)
             accumulate_error(err_msg, params)
         # Validation the `min_date` field attribute.
-        min_date = f__attrs.min_date
+        min_date = f__core.min_date
         if min_date is not None and f_value < min_date:
             value_str = (
                 format_date(

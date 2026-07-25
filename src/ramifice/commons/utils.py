@@ -83,10 +83,10 @@ def mongo_doc_to_model_dict(
     for f_name in descriptor_fields:
         value = mongo_doc.get(f_name)
 
-        f__attrs = getattr(instance_model, f"{f_name}__attrs")
-        field_type = f__attrs.field_type
+        f__core = getattr(instance_model, f"{f_name}__core")
+        field_type = f__core.field_type
 
-        if value is None or f__attrs.ignored:
+        if value is None or f__core.ignored:
             model_dict[f_name] = None
             continue
 

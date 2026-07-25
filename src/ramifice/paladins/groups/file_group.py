@@ -41,21 +41,21 @@ class FileGroupMixin:
         """Checking file fields."""
         _ = params["_"]
         f_value = params["field_value"] or None
-        f__attrs = params["field__attrs"]
+        f__core = params["field__core"]
         f__funcs = params["field__funcs"]
-        f_name = f__attrs.name
+        f_name = f__core.name
 
         if not params["is_update"] and f_value is None:
-            default = f__attrs.default or None
+            default = f__core.default or None
             # If necessary, use the default value.
             if default is not None:
                 await f__funcs.from_path(default)
-                f_value = f__attrs.value
+                f_value = f__core.value
                 setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if f_value is None:
-                if f__attrs.required:
+                if f__core.required:
                     err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
                 if params["is_save"]:
@@ -67,14 +67,14 @@ class FileGroupMixin:
         if not f_value["save_as_is"]:
             # If the file needs to be delete.
             if f_value["is_delete"] and len(f_value["path"]) == 0:
-                default = f__attrs.default or None
+                default = f__core.default or None
                 # If necessary, use the default value.
                 if default is not None:
                     await f__funcs.from_path(default)
-                    f_value = f__attrs.value
+                    f_value = f__core.value
                     setattr(self, f_name, f_value)
                 else:
-                    if not f__attrs.required:
+                    if not f__core.required:
                         if params["is_save"]:
                             params["result_map"][f_name] = None
                     else:
@@ -82,8 +82,8 @@ class FileGroupMixin:
                         accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
-            if f_value["size"] > f__attrs.max_size:
-                human_size = to_human_size(f__attrs.max_size)
+            if f_value["size"] > f__core.max_size:
+                human_size = to_human_size(f__core.max_size)
                 err_msg = _(
                     "File size exceeds the maximum value {} !",
                 ).format(human_size)

@@ -23,6 +23,7 @@ __all__ = ("IPField",)
 
 import ipaddress
 import logging
+from types import MethodType
 from typing import Any
 
 from ramifice.config import Config
@@ -99,7 +100,7 @@ class IPField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -118,14 +119,17 @@ class IPField(Field):
             "errors": [],
             "field_type": "IPField",
             "group": "text",
+            # funcs
+            "size": self.size,
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(size=self.size)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.size = MethodType(size, self.field_core)
 
-    def size(self) -> int:
-        """Return length of field `value`."""
-        value = self.field_attrs.value
-        if isinstance(value, str):
-            return len(value)
-        return 0
+
+def size(self) -> int:
+    """Return length of field `value`."""
+    value = self.field_core.value
+    if isinstance(value, str):
+        return len(value)
+    return 0

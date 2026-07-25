@@ -25,6 +25,7 @@ from __future__ import annotations
 __all__ = ("ChoiceTextDynField",)
 
 import logging
+from types import MethodType
 from typing import Any
 
 from ramifice.config import Config
@@ -92,7 +93,7 @@ class ChoiceTextDynField(Field):
 
         Field.__init__(self, supported_types=(str, type(None)))
 
-        field_attrs: dict[str, Any] = {
+        field_core: dict[str, Any] = {
             "id": "",
             "name": "",
             "label": label,
@@ -112,18 +113,19 @@ class ChoiceTextDynField(Field):
             "group": "choice",
         }
 
-        self.__dict__["field_attrs"] = FieldCore(**field_attrs)
-        self.__dict__["field_funcs"] = FieldCore(has_value=self.has_value)
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.has_value = MethodType(has_value, self.field_core)
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        if is_migrate:
-            return True
-        value = self.field_attrs.value
-        if value is not None:
-            choices = self.field_attrs.choices
-            if not bool(choices):
-                return False
-            if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
-                return False
+
+def has_value(self, is_migrate: bool = False) -> bool:
+    """Does the field value match the possible options in choices."""
+    if is_migrate:
         return True
+    value = self.field_core.value
+    if value is not None:
+        choices = self.field_core.choices
+        if not bool(choices):
+            return False
+        if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
+            return False
+    return True

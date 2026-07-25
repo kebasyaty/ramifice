@@ -57,30 +57,30 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         _ = params["_"]
-        f__attrs = params["field__attrs"]
+        f__core = params["field__core"]
         f__funcs = params["field__funcs"]
-        f_name = f__attrs.name
-        f_type = f__attrs.field_type
-        is_multi_language: bool = bool(f__attrs.get("multi_language"))
+        f_name = f__core.name
+        f_type = f__core.field_type
+        is_multi_language: bool = bool(f__core.get("multi_language"))
         # Get current value.
-        f_value = params["field_value"] or f__attrs.get("default")
+        f_value = params["field_value"] or f__core.get("default")
 
         if f_value is None:
-            if f__attrs.required:
+            if f__core.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
                 params["result_map"][f_name] = None
             return
         # Validation the `max_length` field attribute.
-        max_length: int | None = f__attrs.get("max_length")
+        max_length: int | None = f__core.get("max_length")
         if max_length is not None and f__funcs.size() > max_length:
             err_msg = _(
                 "The length of the string exceeds max_length={} !",
             ).format(max_length)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if f__attrs.unique and not await check_uniqueness(
+        if f__core.unique and not await check_uniqueness(
             f_value,
             params,
             f_name,

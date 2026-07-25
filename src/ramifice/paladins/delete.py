@@ -94,7 +94,7 @@ class DeleteMixin:
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None
         for f_name in metadata["all_descriptor_fields"]:
-            f_attrs = getattr(self, f"{f_name}__attrs")
+            f_attrs = getattr(self, f"{f_name}__core")
             if remove_files and not f_attrs.ignored:
                 group = f_attrs.group
                 if group == "file":

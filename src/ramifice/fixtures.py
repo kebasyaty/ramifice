@@ -70,16 +70,16 @@ async def apply_fixture(
         for data in data_yaml:
             instance_model = cls_model()
             for f_name in metadata["all_descriptor_fields"]:
-                f__attrs = getattr(instance_model, f"{f_name}__attrs")
+                f__core = getattr(instance_model, f"{f_name}__core")
                 f__funcs = getattr(instance_model, f"{f_name}__funcs")
-                group = f__attrs.group
-                value: Any | None = data.get(f__attrs.name)
+                group = f__core.group
+                value: Any | None = data.get(f__core.name)
                 if value == "None":
                     value = None
                 if value is not None:
                     if group == "file" or group == "img":
                         await f__funcs.from_path(value)
-                        setattr(instance_model, f_name, f__attrs.value)
+                        setattr(instance_model, f_name, f__core.value)
                     else:
                         setattr(instance_model, f_name, value)
             # Check Model.

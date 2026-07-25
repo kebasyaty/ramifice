@@ -48,16 +48,16 @@ class SlugGroupMixin:
         if not params["is_save"]:
             return
         #
-        f__attrs = params["field__attrs"]
-        f_name = f__attrs.name
-        slug_sources = f__attrs.slug_sources
+        f__core = params["field__core"]
+        f_name = f__core.name
+        slug_sources = f__core.slug_sources
         raw_str_list: list[str] = []
         #
         for f_name_ in params["descriptor_fields"]:
             if f_name_ in slug_sources:
                 value = getattr(self, f_name_)
                 if value is None:
-                    value = f__attrs.get("default")
+                    value = f__core.get("default")
                 if value is not None:
                     raw_str_list.append(value if f_name_ != "id" else str(value))
                 else:

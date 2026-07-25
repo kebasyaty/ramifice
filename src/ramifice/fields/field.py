@@ -71,7 +71,7 @@ class Field:
     def __set_name__(self, owner: Any, name: str) -> None:  # ruff:ignore[undocumented-magic-method]
         self.name = name
         self.private_name = f"_{name}"
-        self.field_name__attrs = f"{name}__attrs"
+        self.field_name__core = f"{name}__core"
         self.field_name__funcs = f"{name}__funcs"
 
     def __get__(self, instance: Any, owner: Any) -> Any | None:
@@ -80,8 +80,8 @@ class Field:
             return self
 
         value = getattr(instance, self.private_name)
-        field_attrs = self.field_attrs
-        if field_attrs.field_type == "TextField" and isinstance(value, dict):
+        field_core = self.field_core
+        if field_core.field_type == "TextField" and isinstance(value, dict):
             value = value.get(instance._LANG_CODE, "- -")
 
         return value
@@ -95,23 +95,23 @@ class Field:
             err_msg = f"Value must be an {' | '.join(supported_types_list)}"
             logger.critical(err_msg)
             raise TypeError(err_msg)
-        field_name__attrs = self.field_name__attrs
-        field_attrs = self.field_attrs
+        field_name__core = self.field_name__core
+        field_core = self.field_core
 
-        if not hasattr(instance, field_name__attrs):
+        if not hasattr(instance, field_name__core):
             name = self.name
-            field_attrs.id = f"id-{name}"
-            field_attrs.name = name
-            self.trans_field_attrs(instance, name)
-            setattr(instance, field_name__attrs, field_attrs)
+            field_core.id = f"id-{name}"
+            field_core.name = name
+            self.trans_field_core(instance, name)
+            setattr(instance, field_name__core, field_core)
             setattr(instance, self.field_name__funcs, self.field_funcs)
 
         correct_value: Any | None = value
-        if field_attrs.group == "date" and correct_value is not None:
-            correct_value = self.correction_date_value(instance, field_attrs, value)
+        if field_core.group == "date" and correct_value is not None:
+            correct_value = self.correction_date_value(instance, field_core, value)
 
         setattr(instance, self.private_name, correct_value)
-        getattr(instance, field_name__attrs).value = correct_value
+        getattr(instance, field_name__core).value = correct_value
 
     def __delete__(self, instance) -> None:
         """Triggered when deleting the field."""
@@ -119,40 +119,40 @@ class Field:
         logger.error(err_msg)
         raise AttributeCannotBeDeleteError(self.name)
 
-    def trans_field_attrs(self, instance: Any, field_name: str) -> None:
+    def trans_field_core(self, instance: Any, field_name: str) -> None:
         """Translate field attributes."""
         _ = (
             instance._CUSTOM_TRANSLATOR.gettext
             if field_name not in ["id", "created_at", "updated_at"]
             else instance._RAMIFICE_TRANSLATOR.gettext
         )
-        field_attrs = self.field_attrs
+        field_core = self.field_core
 
-        label = field_attrs.get("label")
-        field_attrs.label = _(label) if bool(label) else ""
+        label = field_core.get("label")
+        field_core.label = _(label) if bool(label) else ""
 
-        placeholder = field_attrs.get("placeholder")
+        placeholder = field_core.get("placeholder")
         if placeholder is not None:
-            field_attrs.placeholder = _(placeholder) if bool(placeholder) else ""
+            field_core.placeholder = _(placeholder) if bool(placeholder) else ""
 
-        hint = field_attrs.get("hint")
-        field_attrs.hint = _(hint) if bool(hint) else ""
+        hint = field_core.get("hint")
+        field_core.hint = _(hint) if bool(hint) else ""
 
-        warning_list = field_attrs.get("warning")
+        warning_list = field_core.get("warning")
         if warning_list is not None:
-            field_attrs.warning = [_(item) for item in warning_list]
+            field_core.warning = [_(item) for item in warning_list]
 
     def correction_date_value(
         self,
         instance: Any,
-        field_attrs: dict[str, Any],
+        field_core: dict[str, Any],
         value: Any,
     ) -> datetime | date | None:
         """Correction of date value."""
         correct_value: datetime | date | None = None
 
         if isinstance(value, str):
-            if "Time" in field_attrs.field_type:
+            if "Time" in field_core.field_type:
                 correct_value = parse(
                     value,
                     settings=instance._DATEPARSER_SETTINGS,
@@ -166,7 +166,7 @@ class Field:
                 )
                 if correct_value is not None:
                     correct_value = correct_value.date()
-        elif "Time" in field_attrs.field_type:
+        elif "Time" in field_core.field_type:
             correct_value = value.replace(microsecond=0)
         else:
             correct_value = value
