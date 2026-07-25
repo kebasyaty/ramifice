@@ -69,7 +69,7 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
 
 def accumulate_error(error_message: str, params: dict[str, Any]) -> None:
     """Accumulating errors to ModelName.field_name.errors ."""
-    f__core = params["field__core"]
+    f__core = params["field_core"]
 
     if not f__core.hide:
         f__core.errors.append(error_message)
