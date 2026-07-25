@@ -160,8 +160,9 @@ class Field:
                 )
                 if correct_value is not None:
                     correct_value = correct_value.date()
+        elif "Time" in field_attrs.field_type:
+            correct_value = value.replace(microsecond=0)
         else:
-            if "Time" in field_attrs.field_type:
-                correct_value = value.replace(microsecond=0)
+            correct_value = value
 
         return correct_value
