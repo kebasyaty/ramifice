@@ -54,14 +54,16 @@ def refresh_from_mongo_doc(instance_model: Any, mongo_doc: dict[str, Any]) -> No
         field_type = getattr(instance_model, f"{f_name}__attrs").field_type
         f_value = None
 
-        if field_type == "TextField":
-            f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
-        elif field_type == "DateField":
-            f_value = mongo_value.date()
-        elif field_type == "PasswordField":
-            f_value = None
-        else:
-            f_value = mongo_value
+        if mongo_value is not None:
+            if field_type == "TextField":
+                f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
+            elif field_type == "DateField":
+                f_value = mongo_value.date()
+            elif field_type == "PasswordField":
+                f_value = None
+            else:
+                f_value = mongo_value
+
         setattr(instance_model, f_name, f_value)
 
 
