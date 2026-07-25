@@ -47,7 +47,7 @@ async def main() -> None:
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_model_dict({"_id": user.id})
+    user_details = await User.find_one_to_model_dict({"_id": user.id}, "ru")
     if user_details is not None:
         pprint.pprint(user_details)
     else:
