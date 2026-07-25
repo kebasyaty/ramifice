@@ -148,7 +148,7 @@ class User(Model):
 class TestBasicExample(unittest.IsolatedAsyncioTestCase):
     """Testing the `basic_3` example."""
 
-    async def test_basic_example(self):
+    async def test_basic_3_example(self):
         """Testing the `basic_3` example."""
         # Maximum number of characters 60.
         database_name = "test_basic_3_example"
