@@ -130,6 +130,6 @@ class TextGroupMixin:
                     for lang in LANGUAGES:
                         mult_lang_text[lang] = f_value.get(lang, "- -")
                 else:
-                    mult_lang_text[self._LANG_CODE] = f_value
+                    mult_lang_text[params["LANG_CODE"]] = f_value
                 f_value = mult_lang_text
             params["result_map"][f_name] = f_value
