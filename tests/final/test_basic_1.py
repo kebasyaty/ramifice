@@ -184,6 +184,10 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         if not is_saved:
             user.print_err()
         self.assertTrue(is_saved)
+        self.assertEqual(user.lang_code, "en")
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Smith")
+        self.assertEqual(user.description, "I program on Python!")
 
         user_details = await User.find_one_to_instance_model({"_id": user.id})
         self.assertIsNotNone(user_details)

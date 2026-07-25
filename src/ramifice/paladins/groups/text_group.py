@@ -126,7 +126,6 @@ class TextGroupMixin:
                         else {lang: f_value.get(lang, "- -") for lang in LANGUAGES}
                     )
                 )
-                print(mult_lang_text)
                 if isinstance(f_value, dict):
                     for lang, value in f_value.items():
                         mult_lang_text[lang] = value
