@@ -105,6 +105,7 @@ class CheckMixin(
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
             "descriptor_fields": metadata["all_descriptor_fields"],
             "LANGUAGES": self._LANGUAGES,
+            "LANG_CODE": self._LANG_CODE,
             "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 

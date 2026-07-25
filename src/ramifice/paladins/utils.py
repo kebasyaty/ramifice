@@ -95,7 +95,7 @@ async def check_uniqueness(
     q_filter = None
 
     if is_multi_language:
-        lang_filter = [{f"{field_name}.{lang}": value} for lang in params["LANGUAGES"]]
+        lang_filter = [{f"{field_name}.{params['LANG_CODE']}": value} for lang in params["LANGUAGES"]]
         q_filter = {
             "$and": [
                 {"_id": {"$ne": params["doc_id"]}},
