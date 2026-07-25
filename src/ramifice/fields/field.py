@@ -82,7 +82,7 @@ class Field:
         value = getattr(instance, self.private_name)
         field_attrs = self.field_attrs
         if field_attrs.field_type == "TextField" and isinstance(value, dict):
-            value = value.get(instance._LANG_CODE, "- -")
+            value = value[instance._LANG_CODE]
 
         return value
 
