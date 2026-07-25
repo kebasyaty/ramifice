@@ -97,9 +97,7 @@ class CheckMixin(
             "is_error_symptom": False,  # Is there any incorrect data?
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
-            "field_value": None,
-            "field__core": None,
-            "field__core": None,
+            "field_core": None,
             "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
@@ -122,9 +120,7 @@ class CheckMixin(
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
             if not f__core.ignored:
-                params["field_value"] = f__core.value
-                params["field__core"] = f__core
-                params["field__core"] = getattr(self, f"{f_name}__core")
+                params["field_core"] = f__core
                 match f__core.group:
                     case "text":
                         await self.text_group(params)
