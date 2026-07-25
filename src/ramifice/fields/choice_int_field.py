@@ -106,7 +106,7 @@ class ChoiceIntField(Field):
                         raise AssertionError("The `choices` parameter should not contain an empty list!")
                 if default is not None and not isinstance(default, int):
                     raise AssertionError("Parameter `default` - Not а `str` type!")
-                if default is not None and choices is not None and not self.field_core.has_value():
+                if default is not None and choices is not None and not self.has_value():
                     raise AssertionError(
                         "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                     )
@@ -129,6 +129,10 @@ class ChoiceIntField(Field):
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
+
+    def has_value(self, is_migrate: bool = False) -> bool:
+        """Does the field value match the possible options in choices."""
+        return has_value(self)
 
 
 def has_value(self, is_migrate: bool = False) -> bool:  # ruff: ignore[unused-function-argument]

@@ -45,15 +45,15 @@ class TestChoiceFloatFields(unittest.TestCase):
             f = ChoiceFloatField(default=3.0, choices=[[1.0, "Title"], [2.0, "Title 2"]])
         # Methods:
         f = ChoiceFloatField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceFloatField(default=2.0, choices=[[1.0, "Title"], [2.0, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceFloatField(choices=[[1.0, "Title"], [2.0, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = 2.0
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = 3.0
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_float_mult_field(self):
         """Testing `ChoiceFloatMultField`."""
@@ -91,17 +91,17 @@ class TestChoiceFloatFields(unittest.TestCase):
             f = ChoiceFloatMultField(default=[2.0, 3.0], choices=[[1.0, "Title"], [2.0, "Title 2"]])
         # Methods:
         f = ChoiceFloatMultField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(default=[2.0], choices=[[1.0, "Title"], [2.0, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceFloatMultField(choices=[[1.0, "Title"], [2.0, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = [2.0]
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = [3.0]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
         f.field_core.value = [2.0, 3.0]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_float_dyn_field(self):
         """Testing `ChoiceFloatDynField`."""

@@ -50,15 +50,15 @@ class TestChoiceTextFields(unittest.TestCase):
             )
         # Methods:
         f = ChoiceTextField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceTextField(default="value 2", choices=[["value", "Title"], ["value 2", "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceTextField(choices=[["value", "Title"], ["value 2", "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = "value 2"
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = "value 3"
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_text_mult_field(self):
         """Testing `ChoiceTextMultField`."""
@@ -102,20 +102,20 @@ class TestChoiceTextFields(unittest.TestCase):
             )
         # Methods:
         f = ChoiceTextMultField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceTextMultField(
             default=["value 2"],
             choices=[["value", "Title"], ["value 2", "Title 2"]],
         )
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceTextMultField(choices=[["value", "Title"], ["value 2", "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = ["value 2"]
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = ["value 3"]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
         f.field_core.value = ["value 2", "value 3"]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_text_dyn_field(self):
         """Testing `ChoiceTextDynField`."""

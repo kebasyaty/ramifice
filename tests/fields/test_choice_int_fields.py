@@ -45,15 +45,15 @@ class TestChoiceIntegerFields(unittest.TestCase):
             f = ChoiceIntField(default=3, choices=[[1, "Title"], [2, "Title 2"]])
         # Methods:
         f = ChoiceIntField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceIntField(default=2, choices=[[1, "Title"], [2, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceIntField(choices=[[1, "Title"], [2, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = 2
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = 3
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_int_mult_field(self):
         """Testing `ChoiceIntMultField`."""
@@ -91,17 +91,17 @@ class TestChoiceIntegerFields(unittest.TestCase):
             f = ChoiceIntMultField(default=[2, 3], choices=[[1, "Title"], [2, "Title 2"]])
         # Methods:
         f = ChoiceIntMultField()
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceIntMultField(default=[2], choices=[[1, "Title"], [2, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f = ChoiceIntMultField(choices=[[1, "Title"], [2, "Title 2"]])
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = [2]
-        self.assertTrue(f.field_core.has_value())
+        self.assertTrue(f.has_value())
         f.field_core.value = [3]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
         f.field_core.value = [2, 3]
-        self.assertFalse(f.field_core.has_value())
+        self.assertFalse(f.has_value())
 
     def test_choice_int_dyn_field(self):
         """Testing `ChoiceIntDynField`."""
