@@ -48,7 +48,7 @@ class ChoiceGroupMixin:
         _ = params["_"]
         f_value = params["field_value"]
         f__core = params["field__core"]
-        f__funcs = params["field__funcs"]
+        f__core = params["field__core"]
         f_name = f__core.name
         is_migrate = params["is_migration_process"]
         # Get current value.
@@ -62,7 +62,7 @@ class ChoiceGroupMixin:
                 params["result_map"][f_name] = None
             return
         # Does the field value match the possible options in choices.
-        if not f__funcs.has_value(is_migrate):
+        if not f__core.has_value(is_migrate):
             err_msg = _("Your choice does not match the options offered !")
             accumulate_error(err_msg, params)
         # Insert result.

@@ -42,14 +42,14 @@ class FileGroupMixin:
         _ = params["_"]
         f_value = params["field_value"] or None
         f__core = params["field__core"]
-        f__funcs = params["field__funcs"]
+        f__core = params["field__core"]
         f_name = f__core.name
 
         if not params["is_update"] and f_value is None:
             default = f__core.default or None
             # If necessary, use the default value.
             if default is not None:
-                await f__funcs.from_path(default)
+                await f__core.from_path(default)
                 f_value = f__core.value
                 setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
@@ -70,7 +70,7 @@ class FileGroupMixin:
                 default = f__core.default or None
                 # If necessary, use the default value.
                 if default is not None:
-                    await f__funcs.from_path(default)
+                    await f__core.from_path(default)
                     f_value = f__core.value
                     setattr(self, f_name, f_value)
                 else:

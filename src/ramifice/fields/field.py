@@ -73,7 +73,7 @@ class Field:
         self.name = name
         self.private_name = f"_{name}"
         self.field_name__core = f"{name}__core"
-        self.field_name__funcs = f"{name}__funcs"
+        self.field_name__core = f"{name}__core"
 
     def __get__(self, instance: Any, owner: Any) -> Any | None:
         """Triggered when reading the field."""

@@ -58,7 +58,7 @@ class TextGroupMixin:
         """Checking text fields."""
         _ = params["_"]
         f__core = params["field__core"]
-        f__funcs = params["field__funcs"]
+        f__core = params["field__core"]
         f_name = f__core.name
         f_type = f__core.field_type
         is_multi_language: bool = bool(f__core.get("multi_language"))
@@ -74,7 +74,7 @@ class TextGroupMixin:
             return
         # Validation the `max_length` field attribute.
         max_length: int | None = f__core.get("max_length")
-        if max_length is not None and f__funcs.size() > max_length:
+        if max_length is not None and f__core.size() > max_length:
             err_msg = _(
                 "The length of the string exceeds max_length={} !",
             ).format(max_length)
