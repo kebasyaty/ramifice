@@ -40,10 +40,9 @@ class FileGroupMixin:
     async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
         _ = params["_"]
-        f_value = params["field_value"] or None
-        f__core = params["field__core"]
-        f__core = params["field__core"]
+        f__core = params["field_core"]
         f_name = f__core.name
+        f_value = f__core.value or None
 
         if not params["is_update"] and f_value is None:
             default = f__core.default or None

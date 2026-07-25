@@ -48,7 +48,7 @@ class SlugGroupMixin:
         if not params["is_save"]:
             return
         #
-        f__core = params["field__core"]
+        f__core = params["field_core"]
         f_name = f__core.name
         slug_sources = f__core.slug_sources
         raw_str_list: list[str] = []

@@ -43,12 +43,12 @@ class DateGroupMixin:
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
         _ = params["_"]
-        f__core = params["field__core"]
+        f__core = params["field_core"]
         f_name = f__core.name
         f_type = f__core.field_type
         LANG_CODE = self._LANG_CODE
         # Get current value.
-        f_value = params["field_value"] or f__core.default or None
+        f_value = f__core.value or f__core.default or None
 
         if f_value is None:
             if f__core.required:

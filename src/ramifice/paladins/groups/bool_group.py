@@ -38,9 +38,9 @@ class BoolGroupMixin:
     def bool_group(self, params: dict[str, Any]) -> None:
         """Checking boolean fields."""
         _ = params["_"]
-        f_value = params["field_value"]
         f__core = params["field__core"]
         f_name = f__core.name
+        f_value = f__core.value
 
         if not params["is_update"] and f_value is None:
             f_value = f__core.default

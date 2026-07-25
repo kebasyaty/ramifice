@@ -57,13 +57,12 @@ class TextGroupMixin:
     async def text_group(self, params: dict[str, Any]) -> None:
         """Checking text fields."""
         _ = params["_"]
-        f__core = params["field__core"]
-        f__core = params["field__core"]
+        f__core = params["field_core"]
         f_name = f__core.name
         f_type = f__core.field_type
         is_multi_language: bool = bool(f__core.get("multi_language"))
         # Get current value.
-        f_value = params["field_value"] or f__core.get("default")
+        f_value = f__core.value or f__core.get("default")
 
         if f_value is None:
             if f__core.required:

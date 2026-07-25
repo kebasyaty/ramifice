@@ -42,10 +42,10 @@ class IDGroupMixin:
     def id_group(self, params: dict[str, Any]) -> None:
         """Checking id fields."""
         _ = params["_"]
-        f_value = params["field_value"]
         f__core = params["field__core"]
         f_name = f__core.name
         f_name = f_name if f_name != "id" else "_id"
+        f_value = f__core.value
 
         if f_value is None:
             if f__core.required:

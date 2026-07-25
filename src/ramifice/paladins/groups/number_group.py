@@ -43,16 +43,15 @@ class NumberGroupMixin:
     async def number_group(self, params: dict[str, Any]) -> None:
         """Checking number fields."""
         _ = params["_"]
-        f_value = params["field_value"]
-        f__core = params["field__core"]
+        f__core = params["field_core"]
         f_name = f__core.name
         # Get current value.
-        value = f_value
+        f_value = f__core.value
 
-        if value is None:
-            value = f__core.default
+        if f_value is None:
+            f_value = f__core.default
 
-        if value is None:
+        if f_value is None:
             if f__core.required:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
@@ -61,22 +60,22 @@ class NumberGroupMixin:
             return
         # Validation the `max_number` field attribute.
         max_number = f__core.max_number
-        if max_number is not None and value > max_number:
+        if max_number is not None and f_value > max_number:
             err_msg = _(
                 "The value {} must not be greater than max={} !",
-            ).format(value, max_number)
+            ).format(f_value, max_number)
             accumulate_error(err_msg, params)
         # Validation the `min_number` field attribute.
         min_number = f__core.min_number
-        if min_number is not None and value < min_number:
+        if min_number is not None and f_value < min_number:
             err_msg = _(
                 "The value {} must not be less than min={} !",
-            ).format(value, min_number)
+            ).format(f_value, min_number)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if f__core.unique and not await check_uniqueness(value, params, f_name):
+        if f__core.unique and not await check_uniqueness(f_value, params, f_name):
             err_msg = _("Is not unique !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][f_name] = value
+            params["result_map"][f_name] = f_value
