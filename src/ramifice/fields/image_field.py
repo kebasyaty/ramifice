@@ -163,6 +163,23 @@ class ImageField(Field):
         self.field_core.from_base64 = MethodType(from_base64, self.field_core)
         self.field_core.from_path = MethodType(from_path, self.field_core)
 
+    async def from_base64(
+        self,
+        base64_str: str | None = None,
+        filename: str | None = None,
+        is_delete: bool = False,
+    ) -> None:
+        """Convert base64 to a image, get image information and save in the target directory."""
+        await from_base64(self, base64_str, filename, is_delete)
+
+    async def from_path(
+        self,
+        src_path: str | None = None,
+        is_delete: bool = False,
+    ) -> None:
+        """Get image information and copy the image to the target directory."""
+        await from_path(self, src_path, is_delete)
+
 
 async def from_base64(
     self,

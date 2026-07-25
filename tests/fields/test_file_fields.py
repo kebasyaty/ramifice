@@ -46,11 +46,11 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
             FileField(default="")
         #
         with self.assertRaises(FileHasNoExtensionError):
-            await f.field_core.from_base64(self.file_base64_str, "file_name")
+            await f.from_base64(self.file_base64_str, "file_name")
         with self.assertRaises(FileHasNoExtensionError):
-            await f.field_core.from_path("public/media/default/no_doc")
+            await f.from_path("public/media/default/no_doc")
         # from_base64
-        self.assertIsNone(await f.field_core.from_base64(self.file_base64_str, "file_name.txt"))
+        self.assertIsNone(await f.from_base64(self.file_base64_str, "file_name.txt"))
         self.assertEqual(f.field_core.value["name"], "file_name.txt")
         self.assertEqual(f.field_core.value["size"], 13)
         self.assertEqual(f.field_core.value["human_size"], "13 bytes")
@@ -59,7 +59,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(f.field_core.value["is_delete"])
         self.assertFalse(f.field_core.value["save_as_is"])
         # from_path
-        self.assertIsNone(await f.field_core.from_path("public/media/default/no_doc.odt"))
+        self.assertIsNone(await f.from_path("public/media/default/no_doc.odt"))
         self.assertEqual(f.field_core.value["name"], "no_doc.odt")
         self.assertEqual(f.field_core.value["size"], 9843)
         self.assertEqual(f.field_core.value["human_size"], "9.612 KB")
@@ -107,12 +107,12 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
             ImageField(thumbnails={"lg": 1200, "md": 600, "sm": 300, "xs": 301})
         #
         with self.assertRaises(FileHasNoExtensionError):
-            await f.field_core.from_base64(self.img_base64_str, "file_name")
+            await f.from_base64(self.img_base64_str, "file_name")
         with self.assertRaises(FileHasNoExtensionError):
-            await f.field_core.from_path("public/media/default/no_doc")
+            await f.from_path("public/media/default/no_doc")
         # from_base64
         self.assertIsNone(
-            await f.field_core.from_base64(
+            await f.from_base64(
                 base64_str=self.img_base64_str,
                 filename="image_name.png",
             ),
@@ -127,7 +127,7 @@ class TestFileFields(unittest.IsolatedAsyncioTestCase):
         self.assertFalse(f.field_core.value["save_as_is"])
         # from_path
         self.assertIsNone(
-            await f.field_core.from_path(
+            await f.from_path(
                 src_path="public/media/default/no-photo.png",
             ),
         )
