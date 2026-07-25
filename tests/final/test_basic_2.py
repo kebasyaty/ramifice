@@ -204,6 +204,40 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "en")
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "en")
+        self.assertEqual(user_details.created_at, user.created_at)
+        self.assertEqual(user_details.updated_at, user.updated_at)
+        self.assertEqual(user_details.username, "pythondev")
+        self.assertEqual(user_details.first_name, "John")
+        self.assertEqual(user_details.last_name, "Smith")
+        self.assertEqual(user_details.email, "John_Smith@gmail.com")
+        self.assertEqual(user_details.phone, "+447986123456")
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
+        self.assertEqual(user_details.description, "I program on Python!")
+        self.assertIsNone(user_details.password)
+
+        # Update User.
+        is_saved = await user.save()
+        if not is_saved:
+            user.print_err()
+        self.assertTrue(is_saved)
+
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "ru")
+        self.assertEqual(user_details.created_at, user.created_at)
+        self.assertEqual(user_details.updated_at, user.updated_at)
+        self.assertEqual(user_details.username, "pythondev")
+        self.assertEqual(user_details.first_name, "Джон")
+        self.assertEqual(user_details.last_name, "Смит")
+        self.assertEqual(user_details.email, "John_Smith@gmail.com")
+        self.assertEqual(user_details.phone, "+447986123456")
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
+        self.assertEqual(user_details.description, "Я программирую на Python!")
+        self.assertIsNone(user_details.password)
+
         # Update User.
         user.username = "pythondev_123"
         is_saved = await user.save()
@@ -223,6 +257,43 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.phone, "+447986123456")
         self.assertEqual(user_details.birthday, date(2000, 1, 25))
         self.assertEqual(user_details.description, "Я программирую на Python!")
+        self.assertIsNone(user_details.password)
+
+        # Update User.
+        user.username = "pythondev"
+        user.first_name = "Геннадий"
+        user.last_name = "Костюнин"
+        is_saved = await user.save()
+        if not is_saved:
+            user.print_err()
+        self.assertTrue(is_saved)
+
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "ru")
+        self.assertEqual(user_details.created_at, user.created_at)
+        self.assertEqual(user_details.updated_at, user.updated_at)
+        self.assertEqual(user_details.username, "pythondev")
+        self.assertEqual(user_details.first_name, "Геннадий")
+        self.assertEqual(user_details.last_name, "Костюнин")
+        self.assertEqual(user_details.email, "John_Smith@gmail.com")
+        self.assertEqual(user_details.phone, "+447986123456")
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
+        self.assertEqual(user_details.description, "Я программирую на Python!")
+        self.assertIsNone(user_details.password)
+
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "en")
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "en")
+        self.assertEqual(user_details.created_at, user.created_at)
+        self.assertEqual(user_details.updated_at, user.updated_at)
+        self.assertEqual(user_details.username, "pythondev")
+        self.assertEqual(user_details.first_name, "John")
+        self.assertEqual(user_details.last_name, "Smith")
+        self.assertEqual(user_details.email, "John_Smith@gmail.com")
+        self.assertEqual(user_details.phone, "+447986123456")
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
+        self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
         # ----------------------------------------------------------------------
         #
