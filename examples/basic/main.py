@@ -2,11 +2,11 @@
 
 import asyncio
 import pprint
-from datetime import datetime
+from datetime import date
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration
 
 from .models import User
 
@@ -20,20 +20,16 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
     user = User()
-    # user.avatar.from_path("public/media/default/no-photo.png")
     user.username = "pythondev"
-    user.first_name = {"en": "John", "ru": "Джон"}
+    user.first_name = {"en": "John", "ru": "Джон"}  # multi_language=True
     # user.first_name = "John"
-    user.last_name = {"en": "Smith", "ru": "Смит"}
+    user.last_name = {"en": "Smith", "ru": "Смит"}  # multi_language=True
     # user.last_name = "Smith"
     user.email = "John_Smith@gmail.com"
     user.phone = "+447986123456"
-    user.birthday = datetime(2000, 1, 25)
+    user.birthday = date(2000, 1, 25)
+    # multi_language=True
     user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
     # user.description = "I program on Python!"
     user.password = "12345678"
@@ -51,7 +47,7 @@ async def main() -> None:
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id})
+    user_details = await User.find_one_to_model_dict({"_id": user.id})
     if user_details is not None:
         pprint.pprint(user_details)
     else:
