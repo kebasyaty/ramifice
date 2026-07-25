@@ -56,14 +56,15 @@ class GeneralMixin:
             f__attrs = getattr(instance, f"{f_name}__attrs")
             f_type = f__attrs.field_type
 
-            if f_type == "TextField":
-                value = value.get(lang_code, "- -") if isinstance(value, dict) else value
-            elif f_type == "DateField":
-                value = value.date()
-            elif f_type == "PasswordField":
-                value = None
+            if not f__attrs.ignored:
+                if f_type == "TextField":
+                    value = value.get(lang_code, "- -") if isinstance(value, dict) else value
+                elif f_type == "DateField":
+                    value = value.date()
+                elif f_type == "PasswordField":
+                    value = None
 
-            setattr(instance, f_name, value)
+                setattr(instance, f_name, value)
 
         return instance
 
