@@ -193,7 +193,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.last_name, "Smith")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
-        self.assertEqual(user_details.birthday.date(), date(2000, 1, 25))
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
         self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
 
@@ -213,7 +213,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.last_name, "Smith")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
-        self.assertEqual(user_details.birthday.date(), date(2000, 1, 25))
+        self.assertEqual(user_details.birthday, date(2000, 1, 25))
         self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
         # ----------------------------------------------------------------------
