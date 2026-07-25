@@ -78,7 +78,13 @@ class Field:
         """Triggered when reading the field."""
         if instance is None:
             return self
-        return getattr(instance, self.private_name, None)
+
+        value = getattr(instance, self.private_name)
+        field_attrs = self.field_attrs
+        if field_attrs.field_type == "TextField" and isinstance(value, dict):
+            value = value.get(instance._LANG_CODE, "- -")
+
+        return value
 
     def __set__(self, instance: Any, value: Any | None) -> None:
         """Triggered when assigning a value to the field."""
