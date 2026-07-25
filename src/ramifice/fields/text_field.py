@@ -99,7 +99,7 @@ class TextField(Field):
                 if not isinstance(max_length, int):
                     raise AssertionError("Parameter `max_length` - Not а `int` type!")
                 if not isinstance(multi_language, bool):
-                    raise AssertionError("Parameter `multi_language` - Not а `int` type!")
+                    raise AssertionError("Parameter `multi_language` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
