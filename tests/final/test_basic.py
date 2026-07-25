@@ -148,7 +148,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
     async def test_basic_example(self):
         """Testing the `basic` example."""
         # Maximum number of characters 60.
-        database_name = "test_save_method"
+        database_name = "test_basic_example"
 
         client = AsyncMongoClient(host=Config.MONGO_HOST)
 
