@@ -76,6 +76,28 @@ class TestDateFields(unittest.TestCase):
                 max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
                 min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
             )
+
+        with self.assertRaises(AssertionError):
+            DateField(
+                default="20-12-2024",
+                max_date="19-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                default="20-12-2024",
+                min_date="21-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                max_date="20-12-2024",
+                min_date="20-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                max_date="20-12-2024",
+                min_date="21-12-2024",
+            )
+
         DateField(
             max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
         )
@@ -89,6 +111,15 @@ class TestDateFields(unittest.TestCase):
             default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
             max_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
             min_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+
+        DateField(max_date="20-12-2024")
+        DateField(min_date="20-12-2024")
+        DateField(default="20-12-2024")
+        DateField(
+            default="20-12-2024",
+            max_date="21-12-2024",
+            min_date="19-12-2024",
         )
 
     def test_date_time_field(self):
@@ -134,6 +165,7 @@ class TestDateFields(unittest.TestCase):
             DateTimeField(min_date=12)
         with self.assertRaises(AssertionError):
             DateTimeField(default=12)
+
         with self.assertRaises(AssertionError):
             DateTimeField(
                 default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
@@ -144,6 +176,18 @@ class TestDateFields(unittest.TestCase):
                 default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
                 min_date=parse("21-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
             )
+
+        with self.assertRaises(AssertionError):
+            DateTimeField(
+                default="20-12-2024 00:00:00",
+                max_date="19-12-2024 00:00:00",
+            )
+        with self.assertRaises(AssertionError):
+            DateTimeField(
+                default="20-12-2024 00:00:00",
+                min_date="21-12-2024 00:00:00",
+            )
+
         DateTimeField(max_date=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
         DateTimeField(min_date=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
         DateTimeField(default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
@@ -151,6 +195,15 @@ class TestDateFields(unittest.TestCase):
             default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
             max_date=parse("21-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
             min_date=parse("19-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+        )
+
+        DateTimeField(max_date="20-12-2024 00:00:00")
+        DateTimeField(min_date="20-12-2024 00:00:00")
+        DateTimeField(default="20-12-2024 00:00:00")
+        DateTimeField(
+            default="20-12-2024 00:00:00",
+            max_date="21-12-2024 00:00:00",
+            min_date="19-12-2024 00:00:00",
         )
 
 
