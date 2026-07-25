@@ -43,15 +43,14 @@ class GeneralMixin:
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> Any:
         """Create a Model instance from a Mongo document."""
-        descriptor_fields = cls.META["all_descriptor_fields"]
         # pyrefly: ignore [bad-argument-count]
         instance: Any = cls(lang_code)
 
-        for f_name in descriptor_fields:
+        for mongo_key, mongo_value in mongo_doc.items():
+            f_name = mongo_key if mongo_key != "_id" else "id"
             f__attrs = getattr(instance, f"{f_name}__attrs")
             f_type = f__attrs.field_type
             f_value = None
-            mongo_value = mongo_doc.get(f_name) if f_name != "id" else mongo_doc["_id"]
 
             if mongo_value is None or f__attrs.ignored:
                 continue

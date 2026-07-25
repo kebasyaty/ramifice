@@ -183,7 +183,6 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         # Create User.
         if not await user.save():
             user.print_err()
-
         self.assertEqual(user.lang_code, "en")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Smith")
@@ -192,7 +191,6 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         # Update User.
         if not await user.save():
             user.print_err()
-
         self.assertEqual(user.lang_code, "en")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Smith")
@@ -200,6 +198,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_details = await User.find_one_to_instance_model({"_id": user.id})
         self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "en")
         self.assertEqual(user_details.created_at, user.created_at)
         self.assertEqual(user_details.updated_at, user.updated_at)
         self.assertEqual(user_details.username, "pythondev")
@@ -218,6 +217,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_details = await User.find_one_to_instance_model({"_id": user.id})
         self.assertIsNotNone(user_details)
+        self.assertEqual(user_details.lang_code, "en")
         self.assertEqual(user_details.created_at, user.created_at)
         self.assertEqual(user_details.updated_at, user.updated_at)
         self.assertEqual(user_details.username, "pythondev_123")
