@@ -180,15 +180,15 @@ class Migration:
                             else:
                                 mongo_doc[field_name] = None
                     #
-                    inst_model = cls_model.from_mongo_doc(mongo_doc)
-                    result_check: dict[str, Any] = await inst_model.check(
+                    instance_model = cls_model.from_mongo_doc(mongo_doc)
+                    result_check: dict[str, Any] = await instance_model.check(
                         is_save=True,
                         collection=model_collection,
                         is_migration_process=True,
                     )
                     if not result_check["is_valid"]:
                         print(colored("\n!!!>>MIGRATION<<!!!", "red", attrs=["bold"]))  # ruff:ignore[print]
-                        inst_model.print_err()
+                        instance_model.print_err()
                         err_msg: str = "Migration failed."
                         logger.critical(err_msg)
                         raise PanicError(err_msg)
