@@ -109,7 +109,7 @@ class ChoiceFloatMultField(Field):
                         raise AssertionError("Parameter `default` - Not а `list` type!")
                     if len(default) == 0:
                         raise AssertionError("The `default` parameter should not contain an empty list!")
-                    if choices is not None and not self.has_value():
+                    if choices is not None and not self.field_core.has_value():
                         raise AssertionError(
                             "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                         )
@@ -133,18 +133,14 @@ class ChoiceFloatMultField(Field):
                 logger.critical(str(err))
                 raise err
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        return has_value(self)
-
 
 def has_value(self, is_migrate: bool = False) -> bool:  # ruff: ignore[unused-function-argument]
     """Does the field value match the possible options in choices."""
-    value = self.field_core.value
+    value = self.value
     if value is None:
-        value = self.field_core.default
+        value = self.default
     if value is not None:
-        choices = self.field_core.choices
+        choices = self.choices
         if len(value) == 0 or not bool(choices):
             return False
         value_list = [item[0] for item in choices]  # type: ignore[union-attr]
