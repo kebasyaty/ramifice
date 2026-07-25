@@ -55,12 +55,14 @@ class User(Model):
     first_name = fields.TextField(
         label=_("First name"),
         placeholder=_("Enter your First name"),
+        multi_language=True,  # Support for several language.
         max_length=150,
         required=True,
     )
     last_name = fields.TextField(
         label=_("Last name"),
         placeholder=_("Enter your Last name"),
+        multi_language=True,  # Support for several language.
         max_length=150,
         required=True,
     )
@@ -82,6 +84,7 @@ class User(Model):
     description = fields.TextField(
         label=_("About yourself"),
         placeholder=_("Tell us a little about yourself ..."),
+        multi_language=True,  # Support for several language.
     )
     password = fields.PasswordField(
         label=_("Password"),
@@ -166,12 +169,12 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user = User()
         user.username = "pythondev"
-        user.first_name = "John"
-        user.last_name = "Smith"
+        user.first_name = {"en": "John", "ru": "Джон"}
+        user.last_name = {"en": "Smith", "ru": "Смит"}
         user.email = "John_Smith@gmail.com"
         user.phone = "+447986123456"
         user.birthday = date(2000, 1, 25)
-        user.description = "I program on Python!"
+        user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
         user.password = "12345678"  # ruff:ignore[hardcoded-password-string]
         user.confirm_password = "12345678"  # ruff:ignore[hardcoded-password-string]
 
