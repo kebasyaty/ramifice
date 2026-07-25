@@ -121,7 +121,7 @@ class TextGroupMixin:
                     params["curr_doc"][f_name]
                     if params["is_update"]
                     else (
-                        dict.fromkeys(LANGUAGES)
+                        dict.fromkeys(LANGUAGES, "- -")
                         if isinstance(f_value, str)
                         else {lang: f_value.get(lang, "- -") for lang in LANGUAGES}
                     )
