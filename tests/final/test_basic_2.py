@@ -167,7 +167,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
-        user = User()
+        user = User("ru")
         user.username = "pythondev"
         user.first_name = {"en": "John", "ru": "Джон"}
         user.last_name = {"en": "Smith", "ru": "Смит"}
@@ -189,12 +189,12 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.created_at, user.created_at)
         self.assertEqual(user_details.updated_at, user.updated_at)
         self.assertEqual(user_details.username, "pythondev")
-        self.assertEqual(user_details.first_name, "John")
-        self.assertEqual(user_details.last_name, "Smith")
+        self.assertEqual(user_details.first_name, "Джон")
+        self.assertEqual(user_details.last_name, "Смит")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
         self.assertEqual(user_details.birthday, date(2000, 1, 25))
-        self.assertEqual(user_details.description, "I program on Python!")
+        self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
         # Update User.
@@ -209,12 +209,12 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.created_at, user.created_at)
         self.assertEqual(user_details.updated_at, user.updated_at)
         self.assertEqual(user_details.username, "pythondev_123")
-        self.assertEqual(user_details.first_name, "John")
-        self.assertEqual(user_details.last_name, "Smith")
+        self.assertEqual(user_details.first_name, "Джон")
+        self.assertEqual(user_details.last_name, "Смит")
         self.assertEqual(user_details.email, "John_Smith@gmail.com")
         self.assertEqual(user_details.phone, "+447986123456")
         self.assertEqual(user_details.birthday, date(2000, 1, 25))
-        self.assertEqual(user_details.description, "I program on Python!")
+        self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
         # ----------------------------------------------------------------------
         #
