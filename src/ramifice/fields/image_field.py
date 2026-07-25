@@ -157,9 +157,6 @@ class ImageField(Field):
             "errors": [],
             "field_type": "ImageField",
             "group": "img",
-            # funcs
-            "from_base64": self.from_base64,
-            "from_path": self.from_path,
         }
 
         self.__dict__["field_core"] = FieldCore(**field_core)

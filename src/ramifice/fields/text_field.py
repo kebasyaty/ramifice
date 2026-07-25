@@ -129,8 +129,6 @@ class TextField(Field):
             "errors": [],
             "field_type": "TextField",
             "group": "text",
-            # funcs
-            "size": self.size,
         }
 
         self.__dict__["field_core"] = FieldCore(**field_core)

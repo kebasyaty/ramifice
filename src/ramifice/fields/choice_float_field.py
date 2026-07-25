@@ -106,7 +106,7 @@ class ChoiceFloatField(Field):
                         raise AssertionError("The `choices` parameter should not contain an empty list!")
                 if default is not None and not isinstance(default, float):
                     raise AssertionError("Parameter `default` - Not а `float` type!")
-                if default is not None and choices is not None and not self.has_value():
+                if default is not None and choices is not None and not self.field_core.has_value():
                     raise AssertionError(
                         "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                     )

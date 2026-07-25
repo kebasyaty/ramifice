@@ -109,7 +109,7 @@ class ChoiceIntMultField(Field):
                         raise AssertionError("Parameter `default` - Not а `list` type!")
                     if len(default) == 0:
                         raise AssertionError("The `default` parameter should not contain an empty list!")
-                    if choices is not None and not self.has_value():
+                    if choices is not None and not self.field_core.has_value():
                         raise AssertionError(
                             "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                         )

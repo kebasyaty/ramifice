@@ -119,8 +119,6 @@ class IPField(Field):
             "errors": [],
             "field_type": "IPField",
             "group": "text",
-            # funcs
-            "size": self.size,
         }
 
         self.__dict__["field_core"] = FieldCore(**field_core)

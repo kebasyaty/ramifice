@@ -132,8 +132,6 @@ class ColorField(Field):
             "errors": [],
             "field_type": "ColorField",
             "group": "text",
-            # funcs
-            "size": self.size,
         }
 
         self.__dict__["field_core"] = FieldCore(**field_core)
