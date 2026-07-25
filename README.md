@@ -123,7 +123,7 @@ from ramifice import (
 )
 from ramifice import Translations as trans
 
-_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
 @model(service_name="Accounts")

@@ -36,7 +36,7 @@ from ramifice.json import JsonMixin
 from ramifice.paladins import QPaladinsMixin
 from ramifice.translator import Translator
 
-_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
 class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):

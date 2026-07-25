@@ -23,7 +23,7 @@ The localization of translations class contains the following parameters:
 - `LANGUAGES` - List of codes supported by languages.
 - `RAMIFICE_TRANSLATIONS` - Translations for Ramifice.
 - `CUSTOM_TRANSLATIONS` - Translations for custom project.
-- `STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS` - Stub translator for attributes of fields.
+- `STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD` - Stub translator for attributes of fields.
 
 The localization of translations class contains the following methods:
 
@@ -89,7 +89,7 @@ class Translator:
         for lang in LANGUAGES
     }
     # Stub translator for attributes of fields
-    STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS: ClassVar[Callable] = lambda message: message
+    STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD: ClassVar[Callable] = lambda message: message
 
     @classmethod
     def add_new_languages(cls, languages: frozenset[str]) -> None:

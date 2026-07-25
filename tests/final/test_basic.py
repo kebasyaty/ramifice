@@ -19,7 +19,7 @@ from ramifice import (
 )
 from ramifice.config import Config
 
-_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELDS
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
 @meta(service_name="Accounts")
