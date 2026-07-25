@@ -190,7 +190,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(user.lang_code, "ru")
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_cod)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.created_at, user.created_at)
         self.assertEqual(user_details.updated_at, user.updated_at)
@@ -210,7 +210,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
             user.print_err()
         self.assertTrue(is_saved)
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_cod)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
         self.assertEqual(user_details.lang_code, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.created_at, user.created_at)
