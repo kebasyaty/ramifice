@@ -229,6 +229,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         # Update User.
         if not await user.save():
             user.print_err()
+
         self.assertEqual(user.lang_code, "ru")
         self.assertEqual(user.created_at, user.created_at)
         self.assertEqual(user.updated_at, user.updated_at)
