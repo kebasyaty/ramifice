@@ -178,6 +178,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user.password = "12345678"  # ruff:ignore[hardcoded-password-string]
         user.confirm_password = "12345678"  # ruff:ignore[hardcoded-password-string]
 
+        self.assertEqual(user.lang_code, "ru")
         self.assertEqual(user.first_name, "Джон")
         self.assertEqual(user.last_name, "Смит")
         self.assertEqual(user.description, "Я программирую на Python!")
