@@ -127,17 +127,5 @@ class DateGroupMixin:
         # Insert result.
         if params["is_save"]:
             params["result_map"][f_name] = (
-                f_value
-                if f_type == "DateTimeField"
-                else datetime(
-                    year=f_type.year(),
-                    month=f_type.month(),
-                    day=f_type.day(),
-                    tzinfo=self._UTC_TIMEZONE,
-                ).replace(
-                    hour=0,
-                    minute=0,
-                    second=0,
-                    microsecond=0,
-                )
+                f_value if f_type == "DateTimeField" else datetime.combine(f_value, datetime.min.time())
             )
