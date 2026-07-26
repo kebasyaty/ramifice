@@ -342,6 +342,19 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.birthday, date(2000, 1, 25))
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
+
+        user_details = await User.find_one_to_model_dict({"_id": user.id}, "ru")
+        self.assertIsNotNone(user_details)
+        self.assertEqual(user_details["created_at"], str(user.created_at))
+        self.assertEqual(user_details["updated_at"], str(user.updated_at))
+        self.assertEqual(user_details["username"], "pythondev")
+        self.assertEqual(user_details["first_name"], "Геннадий")
+        self.assertEqual(user_details["last_name"], "Костюнин")
+        self.assertEqual(user_details["email"], "John_Smith@gmail.com")
+        self.assertEqual(user_details["phone"], "+447986123456")
+        self.assertEqual(user_details["birthday"], str(date(2000, 1, 25)))
+        self.assertEqual(user_details["description"], "Я программирую на Python!")
+        self.assertIsNone(user_details["password"])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

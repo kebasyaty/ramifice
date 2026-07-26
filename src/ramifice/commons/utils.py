@@ -81,36 +81,36 @@ def mongo_doc_to_model_dict(
     model_dict: dict[str, Any] = {}
 
     for f_name in descriptor_fields:
-        value = mongo_doc.get(f_name)
+        mongo_value = mongo_doc.get(f_name)
 
         f__core = getattr(instance_model, f"{f_name}__core")
         field_type = f__core.field_type
 
-        if value is None or f__core.ignored:
+        if mongo_value is None or f__core.ignored:
             model_dict[f_name] = None
             continue
 
         if field_type == "TextField":
-            model_dict[f_name] = value.get(lang_code, "- -") if isinstance(value, dict) else value
+            model_dict[f_name] = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
         elif "Date" in field_type:
             if "Time" in field_type:
                 model_dict[f_name] = format_datetime(
-                    datetime=value,
+                    datetime=mongo_value,
                     format="medium",
                     tzinfo=UTC_TIMEZONE,
                     locale=lang_code,
                 )
             else:
                 model_dict[f_name] = format_date(
-                    date=value.date(),
+                    date=mongo_value.date(),
                     format="medium",
                     locale=lang_code,
                 )
         elif field_type == "IDField":
-            model_dict["id"] = str(value)
+            model_dict["id"] = str(mongo_value)
         elif field_type == "PasswordField":
             model_dict[f_name] = None
         else:
-            model_dict[f_name] = value
+            model_dict[f_name] = mongo_value
 
     return model_dict
