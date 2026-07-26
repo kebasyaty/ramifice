@@ -87,7 +87,7 @@ class ChoiceFloatField(Field):
             "is_require": is_require,
             "is_readonly": is_readonly,
             "unique": False,
-            "multiple": False,
+            "is_multiple": False,
             "choices": choices,
             "errors": [],
             "field_type": "ChoiceFloatField",

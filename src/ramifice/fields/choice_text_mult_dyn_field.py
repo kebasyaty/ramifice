@@ -104,7 +104,7 @@ class ChoiceTextMultDynField(Field):
             "is_require": is_require,
             "is_readonly": is_readonly,
             "unique": False,
-            "multiple": True,
+            "is_multiple": True,
             "choices": None,
             "errors": [],
             "field_type": "ChoiceTextMultDynField",

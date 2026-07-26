@@ -87,7 +87,7 @@ class ChoiceIntMultField(Field):
             "is_require": is_require,
             "is_readonly": is_readonly,
             "unique": False,
-            "multiple": True,
+            "is_multiple": True,
             "choices": choices,
             "errors": [],
             "field_type": "ChoiceIntMultField",

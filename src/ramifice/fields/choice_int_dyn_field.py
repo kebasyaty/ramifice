@@ -106,7 +106,7 @@ class ChoiceIntDynField(Field):
             "is_require": is_require,
             "is_readonly": is_readonly,
             "unique": False,
-            "multiple": False,
+            "is_multiple": False,
             "choices": None,
             "errors": [],
             "field_type": "ChoiceIntDynField",
