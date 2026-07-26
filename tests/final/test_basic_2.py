@@ -390,6 +390,18 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
             User.from_json(user_json)
 
         user = User.from_ajax_json(user_json, "ru")
+        self.assertIsNotNone(user)
+        self.assertEqual(user.lang_code, "ru")
+        self.assertEqual(user.created_at, user.created_at)
+        self.assertEqual(user.updated_at, user.updated_at)
+        self.assertEqual(user.username, "pythondev")
+        self.assertEqual(user.first_name, "Геннадий")
+        self.assertEqual(user.last_name, "Костюнин")
+        self.assertEqual(user.email, "John_Smith@gmail.com")
+        self.assertEqual(user.phone, "+447986123456")
+        self.assertEqual(user.birthday, date(2000, 1, 25))
+        self.assertEqual(user.description, "Я программирую на Python!")
+        self.assertIsNone(user.password)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
