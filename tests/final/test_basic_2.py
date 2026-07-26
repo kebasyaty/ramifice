@@ -348,7 +348,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
-        user_details = await User.find_one_to_model_dict({"_id": user.id}, "ru")
+        user_details: dict | None = await User.find_one_to_model_dict({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(
             user_details["created_at"],
@@ -383,6 +383,10 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(user_details["description"], "Я программирую на Python!")
         self.assertIsNone(user_details["password"])
+
+        user_str: str | None = await User.find_one_to_json({"_id": user.id}, "ru")
+        self.assertIsNotNone(user_details)
+        user = User.from_json(user_str, "ru")
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

@@ -122,7 +122,11 @@ class JsonMixin:
         return instance
 
     @classmethod
-    def from_json(cls, json_str: str) -> Any:
+    def from_json(
+        cls,
+        json_str: str,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
+    ) -> Any:
         """Convert JSON-string to a Model instance."""
         json_dict = orjson.loads(json_str)
-        return cls.from_dict(json_dict)
+        return cls.from_dict(json_dict, lang_code)
