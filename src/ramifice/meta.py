@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 def meta(
     service_name: str,
     fixture_name: str | None = None,
-    db_query_docs_limit: int = 1000,
+    db_query_docs_limit: int = 100,
     is_create_doc: bool = True,
     is_update_doc: bool = True,
     is_delete_doc: bool = True,
