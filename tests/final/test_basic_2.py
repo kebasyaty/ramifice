@@ -386,9 +386,8 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_json: str | None = await User.find_one_to_json({"_id": user.id}, "ru")
         self.assertIsNotNone(user_json)
-
-        with self.assertRaises(ValueError):
-            User.from_json(user_json)
+        user = User.from_json(user_json)
+        self.assertIsNotNone(user)
 
         user = User.from_ajax_json(user_json, "ru")
         self.assertIsNotNone(user)

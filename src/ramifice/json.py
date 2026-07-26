@@ -143,6 +143,8 @@ class JsonMixin:
     def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
         """Convert JSON-string from web request to a Model instance.
 
+        Format JSON-string `{'field_name': value, ...}`.
+
         Hint:
         - `lang_code` - This is necessary for multilingual (is_multilingual=True) text fields.
         """
@@ -154,7 +156,7 @@ class JsonMixin:
         DATEPARSER_SETTINGS = instance_model.dateparser_settings
 
         for f_name in DESCRIPTOR_FIELDS:
-            value = json_dict.get(f_name if f_name != "_id" else "id")
+            value = json_dict.get(f_name if f_name != "id" else "_id")
 
             if value is None:
                 continue
