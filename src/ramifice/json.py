@@ -87,7 +87,7 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
-        current_locale = json_dict.get("current_locale")
+        current_locale = json_dict["id"].get("current_locale")
 
         if current_locale is None:
             err_msg = "{} {}".format(
