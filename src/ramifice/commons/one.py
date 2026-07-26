@@ -107,8 +107,8 @@ class OneMixin:
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
-        instance_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        instance_model = None
         if mongo_doc is not None:
             # Convert document to Model instance.
             instance_model = cls.from_mongo_doc(mongo_doc, lang_code)
@@ -186,7 +186,7 @@ class OneMixin:
         comment: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs: dict[str, Any],
-    ) -> dict[str, Any] | None:
+    ) -> Any | None:
         """Finds a single document and deletes it, returning the document."""
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
@@ -213,9 +213,8 @@ class OneMixin:
             comment=comment,
             **kwargs,
         )
+        instance_model = None
         if mongo_doc is not None:
-            mongo_doc = password_to_none(
-                cls.META["field_name_and_type"],
-                mongo_doc,
-            )
-        return mongo_doc
+            # Convert document to Model instance.
+            instance_model = cls.from_mongo_doc(mongo_doc, lang_code)
+        return instance_model
