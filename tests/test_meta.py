@@ -32,7 +32,7 @@ class TestModel(unittest.TestCase):
         self.user_meta = {
             "service_name": "Accounts",
             "fixture_name": None,
-            "db_query_docs_limit": 1000,
+            "db_query_docs_limit": 100,
             "is_create_doc": True,
             "is_update_doc": True,
             "is_delete_doc": True,
@@ -47,7 +47,7 @@ class TestModel(unittest.TestCase):
         self.user_profile_meta = {
             "service_name": "Profiles",
             "fixture_name": None,
-            "db_query_docs_limit": 1000,
+            "db_query_docs_limit": 100,
             "is_create_doc": True,
             "is_update_doc": True,
             "is_delete_doc": True,
