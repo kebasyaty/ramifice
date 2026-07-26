@@ -6,6 +6,7 @@ import re
 import unittest
 from datetime import date
 
+import orjson
 from babel.dates import format_date, format_datetime
 from pymongo import AsyncMongoClient
 
@@ -389,6 +390,9 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         user = User.from_json(user_json)
         self.assertIsNotNone(user)
 
+        user_dict: dict | None = await User.find_one_to_model_dict({"_id": user.id}, "ru")
+        self.assertIsNotNone(user_dict)
+        user_json = orjson.dumps(user_dict).decode("utf-8")
         user = User.from_ajax_json(user_json, "ru")
         self.assertIsNotNone(user)
         self.assertEqual(user.lang_code, "ru")
