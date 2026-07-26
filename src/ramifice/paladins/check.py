@@ -119,7 +119,7 @@ class CheckMixin(
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
-            if not f__core.ignored:
+            if not f__core.is_ignore:
                 params["field_core"] = f__core
                 match f__core.group:
                     case "text":
@@ -186,7 +186,7 @@ class CheckMixin(
                 for field_name in params["descriptor_fields"]:
                     f__core = getattr(self, f"{field_name}__core")
 
-                    if f__core.ignored:
+                    if f__core.is_ignore:
                         continue
 
                     match f__core.group:

@@ -116,19 +116,19 @@ class ChoiceTextMultField(Field):
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(is_disable, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_disable` - Not а `bool` type!")
                 if not isinstance(is_hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_hide` - Not а `bool` type!")
                 if not isinstance(is_ignore, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_ignore` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
                 if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(is_require, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_require` - Not а `bool` type!")
                 if not isinstance(is_readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_readonly` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err

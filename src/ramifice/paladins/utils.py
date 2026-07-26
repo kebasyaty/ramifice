@@ -40,7 +40,7 @@ def ignored_fields_to_none(instance_model: Any) -> None:
 
     for f_name in descriptor_fields:
         f__core = getattr(instance_model, f"{f_name}__core")
-        if f__core.ignored:
+        if f__core.is_ignore:
             f__core.value = None
             setattr(instance_model, f_name, None)
 
@@ -71,7 +71,7 @@ def accumulate_error(error_message: str, params: dict[str, Any]) -> None:
     """Accumulating errors to ModelName.field_name.errors ."""
     f__core = params["field_core"]
 
-    if not f__core.hide:
+    if not f__core.is_hide:
         f__core.errors.append(error_message)
         if not params["is_error_symptom"]:
             params["is_error_symptom"] = True

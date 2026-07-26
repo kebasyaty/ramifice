@@ -54,7 +54,7 @@ class FileGroupMixin:
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
             if f_value is None:
-                if f__core.required:
+                if f__core.is_require:
                     err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
                 if params["is_save"]:
@@ -73,7 +73,7 @@ class FileGroupMixin:
                     f_value = f__core.value
                     setattr(self, f_name, f_value)
                 else:
-                    if not f__core.required:
+                    if not f__core.is_require:
                         if params["is_save"]:
                             params["result_map"][f_name] = None
                     else:

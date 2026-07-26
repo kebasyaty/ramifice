@@ -70,9 +70,9 @@ class PasswordField(Field):
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
                 if not isinstance(is_hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_hide` - Not а `bool` type!")
                 if not isinstance(is_ignore, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_ignore` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
                 if not isinstance(warning, list):
@@ -80,7 +80,7 @@ class PasswordField(Field):
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
                 if not isinstance(is_require, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                    raise AssertionError("Parameter `is_require` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err

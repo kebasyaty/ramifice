@@ -51,7 +51,7 @@ class PasswordGroupMixin:
         f_value = f__core.value or None
 
         if f_value is None:
-            if f__core.required:
+            if f__core.is_require:
                 err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:

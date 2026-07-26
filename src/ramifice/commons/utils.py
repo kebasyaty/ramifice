@@ -83,7 +83,7 @@ def mongo_doc_to_model_dict(
         f__core = getattr(instance_model, f"{f_name}__core")
         field_type = f__core.field_type
 
-        if mongo_value is None or f__core.ignored:
+        if mongo_value is None or f__core.is_ignore:
             model_dict[f_name] = None
             continue
 

@@ -141,7 +141,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
             f__core: dict[str, Any] = f_value.field_core
             all_descriptor_fields.append(f_name)
             #
-            if not f__core.ignored:
+            if not f__core.is_ignore:
                 # Get a dictionary of field names and types.
                 field_name_and_type[f_name] = f_cls_name
                 # Add dynamic field.
