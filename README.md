@@ -147,8 +147,8 @@ class User:
     username = fields.TextField(
         label=_("Username"),
         max_length=150,
-        required=True,
-        unique=True,
+        is_require=True,
+        is_unique=True,
         warning=[
             _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
             _("Maximum length: {}").format(150),
@@ -164,7 +164,7 @@ class User:
     сonfirm_password = fields.PasswordField(
         label=_("Confirm password"),
         # If true, the value of this field is not saved in the database.
-        ignored=True,
+        is_ignore=True,
     )
 
     # Optional method
@@ -297,8 +297,8 @@ if __name__ == "__main__":
 class User(Model):
   username = TextField(
       label="Username",
-      required=True,
-      unique=True,
+      is_require=True,
+      is_unique=True,
   )
 ```
 

@@ -44,18 +44,18 @@ class Parameters:
         )
         self.brand = TextField(
             label=gettext("Brand Name"),
-            required=True,
+            is_require=True,
         )
         self.slogan = TextField(
             label=gettext("Slogan"),
-            required=True,
+            is_require=True,
         )
         self.about_site = TextField(
             label=gettext("About the site"),
         )
         self.email_feedback = EmailField(
             label=gettext("Email feedback"),
-            required=True,
+            is_require=True,
         )
         self.start_date = DateField(
             label=gettext("Brand foundation date"),

@@ -18,13 +18,13 @@ class User:
 
         self.username = TextField(
             label=gettext("Username"),
-            required=True,
-            unique=True,
+            is_require=True,
+            is_unique=True,
         )
         self.email = EmailField(
             label=gettext("Email"),
-            required=True,
-            unique=True,
+            is_require=True,
+            is_unique=True,
         )
 
     # Optional method.

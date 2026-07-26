@@ -49,8 +49,8 @@ class User:
         self.username = TextField(
             label=gettext("Username"),
             max_length=150,
-            required=True,
-            unique=True,
+            is_require=True,
+            is_unique=True,
             warning=[
                 gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
             ],
@@ -61,7 +61,7 @@ class User:
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
             # If true, the value of this field is not saved in the database.
-            ignored=True,
+            is_ignore=True,
         )
 
     # Optional method

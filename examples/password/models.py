@@ -43,28 +43,28 @@ class User:
         self.username = TextField(
             label=gettext("Username"),
             max_length=150,
-            required=True,
-            unique=True,
+            is_require=True,
+            is_unique=True,
             warning=[
                 gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
             ],
         )
-        self.first_name = TextField(label=gettext("First name"), required=True)
+        self.first_name = TextField(label=gettext("First name"), is_require=True)
         self.last_name = TextField(
             label=gettext("Last name"),
-            required=True,
+            is_require=True,
         )
         self.email = EmailField(
             label=gettext("Email"),
-            required=True,
-            unique=True,
+            is_require=True,
+            is_unique=True,
         )
         self.birthday = DateField(label=gettext("Birthday"))
         self.password = PasswordField(label=gettext("Password"))
         self.сonfirm_password = PasswordField(
             label=gettext("Confirm password"),
             # If true, the value of this field is not saved in the database.
-            ignored=True,
+            is_ignore=True,
         )
         self.is_admin = BooleanField(
             label=gettext("Is Administrator?"),

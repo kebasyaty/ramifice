@@ -48,8 +48,8 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         label=_("Document ID"),
         placeholder=_("It is added automatically"),
         hint=_("It is added automatically"),
-        hide=True,
-        disabled=True,
+        is_hide=True,
+        is_disable=True,
     )
 
     created_at = DateTimeField(
@@ -57,8 +57,8 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         placeholder=_("It is added automatically"),
         hint=_("It is added automatically"),
         warning=[_("When the document was created.")],
-        hide=True,
-        disabled=True,
+        is_hide=True,
+        is_disable=True,
     )
 
     updated_at = DateTimeField(
@@ -66,8 +66,8 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         placeholder=_("It is added automatically"),
         hint=_("It is added automatically"),
         warning=[_("When the document was updated.")],
-        hide=True,
-        disabled=True,
+        is_hide=True,
+        is_disable=True,
     )
 
     def __init__(self, lang_code: str = Translator.DEFAULT_LOCALE) -> None:

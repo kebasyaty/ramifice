@@ -37,8 +37,8 @@ class User(Model):
         label=_("Username"),
         placeholder=_("Enter your username"),
         max_length=150,
-        required=True,
-        unique=True,
+        is_require=True,
+        is_unique=True,
         warning=[
             _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
             _("Maximum length: {}").format(150),
@@ -49,7 +49,7 @@ class User(Model):
         placeholder=_("Enter your First name"),
         is_multilingual=True,  # Support for several language.
         max_length=150,
-        required=True,
+        is_require=True,
         warning=[
             _("Maximum length: {}").format(150),
         ],
@@ -59,7 +59,7 @@ class User(Model):
         placeholder=_("Enter your Last name"),
         is_multilingual=True,  # Support for several language.
         max_length=150,
-        required=True,
+        is_require=True,
         warning=[
             _("Maximum length: {}").format(150),
         ],
@@ -67,13 +67,13 @@ class User(Model):
     email = fields.EmailField(
         label=_("Email"),
         placeholder=_("Enter your email"),
-        required=True,
-        unique=True,
+        is_require=True,
+        is_unique=True,
     )
     phone = fields.PhoneField(
         label=_("Phone number"),
         placeholder=_("Enter your phone number"),
-        unique=True,
+        is_unique=True,
     )
     birthday = fields.DateField(
         label=_("Birthday"),
@@ -92,7 +92,7 @@ class User(Model):
         label=_("Confirm password"),
         placeholder=_("Repeat your password"),
         # If true, the value of this field is not saved in the database.
-        ignored=True,
+        is_ignore=True,
     )
     is_admin = fields.BooleanField(
         label=_("Is Administrator?"),
@@ -109,13 +109,13 @@ class User(Model):
     slug = fields.SlugField(
         label=_("Slug"),
         slug_sources=["username"],
-        disabled=True,
-        hide=True,
+        is_disable=True,
+        is_hide=True,
     )
     last_login = fields.DateTimeField(
         label=_("Last login"),
-        disabled=True,
-        hide=True,
+        is_disable=True,
+        is_hide=True,
         warning=[
             _("Date and time of user last login."),
         ],

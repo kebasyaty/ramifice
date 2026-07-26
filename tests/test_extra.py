@@ -14,7 +14,7 @@ class User(Model):
     """Model for testing."""
 
     username = TextField(
-        required=True,
+        is_require=True,
     )
 
 
@@ -23,7 +23,7 @@ class User2(Model):
     """Model for testing."""
 
     username = TextField(
-        required=True,
+        is_require=True,
     )
 
     # Optional method

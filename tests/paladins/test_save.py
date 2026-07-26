@@ -80,13 +80,13 @@ class UniqueUser(Model):
     """For test the uniqueness of values."""
 
     username = TextField(
-        unique=True,
+        is_unique=True,
     )
     email = EmailField(
-        unique=True,
+        is_unique=True,
     )
     age = IntegerField(
-        unique=True,
+        is_unique=True,
     )
 
 
