@@ -40,12 +40,12 @@ class SlugField(Field):
         self,
         label: str = "",
         placeholder: str = "",
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
-        readonly: bool = False,
+        is_readonly: bool = False,
         slug_sources: list[str] = ["id"],  # ruff:ignore[mutable-argument-default]
     ) -> None:
         """Field of Model for automatic generation of string `slug`.
@@ -67,11 +67,11 @@ class SlugField(Field):
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
+                if not isinstance(is_disable, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -79,7 +79,7 @@ class SlugField(Field):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(readonly, bool):
+                if not isinstance(is_readonly, bool):
                     raise AssertionError("Parameter `readonly` - Not а `bool` type!")
                 if not isinstance(slug_sources, list):
                     raise AssertionError("Parameter `slug_sources` - Not а `list` type!")
@@ -96,13 +96,13 @@ class SlugField(Field):
             "input_type": "text",
             "value": None,
             "placeholder": placeholder,
-            "hide": hide,
-            "disabled": disabled,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
             "hint": hint,
             "warning": warning,
             "required": False,
-            "readonly": readonly,
+            "is_readonly": is_readonly,
             "unique": True,
             "slug_sources": slug_sources,
             "errors": [],

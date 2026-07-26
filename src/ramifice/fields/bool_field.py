@@ -37,9 +37,9 @@ class BooleanField(Field):
         self,
         label: str = "",
         default: bool = False,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
     ) -> None:
@@ -60,11 +60,11 @@ class BooleanField(Field):
                     raise AssertionError("Parameter `default` - Not а `bool` type!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
+                if not isinstance(is_disable, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -83,9 +83,9 @@ class BooleanField(Field):
             "input_type": "checkbox",
             "value": None,
             "default": default,
-            "hide": hide,
-            "disabled": disabled,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
             "hint": hint,
             "warning": warning,
             "errors": [],

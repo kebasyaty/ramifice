@@ -41,13 +41,13 @@ class DateTimeField(Field):
         label: str = "",
         placeholder: str = "",
         default: datetime | str | None = None,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
-        required: bool = False,
-        readonly: bool = False,
+        is_require: bool = False,
+        is_readonly: bool = False,
         max_date: datetime | str | None = None,
         min_date: datetime | str | None = None,
     ) -> None:
@@ -77,11 +77,11 @@ class DateTimeField(Field):
                     raise AssertionError("Parameter `default` - Not а `datetime|str|None` type!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
+                if not isinstance(is_disable, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -89,9 +89,9 @@ class DateTimeField(Field):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
+                if not isinstance(is_require, bool):
                     raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
+                if not isinstance(is_readonly, bool):
                     raise AssertionError("Parameter `readonly` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
@@ -124,13 +124,13 @@ class DateTimeField(Field):
             "value": None,
             "default": default,
             "placeholder": placeholder,
-            "hide": hide,
-            "disabled": disabled,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
             "hint": hint,
             "warning": warning,
-            "required": required,
-            "readonly": readonly,
+            "is_require": is_require,
+            "is_readonly": is_readonly,
             "unique": False,
             "max_date": max_date,
             "min_date": min_date,

@@ -43,11 +43,11 @@ class PasswordField(Field):
         self,
         label: str = "",
         placeholder: str = "",
-        hide: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
-        required: bool = False,
+        is_require: bool = False,
     ) -> None:
         r"""Field of Model for enter password.
 
@@ -69,9 +69,9 @@ class PasswordField(Field):
             try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -79,7 +79,7 @@ class PasswordField(Field):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
+                if not isinstance(is_require, bool):
                     raise AssertionError("Parameter `required` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
@@ -94,12 +94,12 @@ class PasswordField(Field):
             "input_type": "password",
             "value": None,
             "placeholder": placeholder,
-            "hide": hide,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_ignore": is_ignore,
             "hint": hint,
             "disabled": False,
             "warning": warning,
-            "required": required,
+            "is_require": is_require,
             "errors": [],
             "field_type": "PasswordField",
             "group": "password",

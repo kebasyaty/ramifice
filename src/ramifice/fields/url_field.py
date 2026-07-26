@@ -40,14 +40,14 @@ class URLField(Field):
         label: str = "",
         placeholder: str = "",
         default: str | None = None,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
-        required: bool = False,
-        readonly: bool = False,
-        unique: bool = False,
+        is_require: bool = False,
+        is_readonly: bool = False,
+        is_unique: bool = False,
     ) -> None:
         """Field of Model for enter URL address.
 
@@ -76,11 +76,11 @@ class URLField(Field):
                         raise AssertionError("Parameter `default` - Invalid URL address!")
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
+                if not isinstance(is_disable, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -88,11 +88,11 @@ class URLField(Field):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
+                if not isinstance(is_require, bool):
                     raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
+                if not isinstance(is_readonly, bool):
                     raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-                if not isinstance(unique, bool):
+                if not isinstance(is_unique, bool):
                     raise AssertionError("Parameter `unique` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
@@ -108,14 +108,14 @@ class URLField(Field):
             "value": None,
             "placeholder": placeholder,
             "default": default,
-            "hide": hide,
-            "disabled": disabled,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
             "hint": hint,
             "warning": warning,
-            "required": required,
-            "readonly": readonly,
-            "unique": unique,
+            "is_require": is_require,
+            "is_readonly": is_readonly,
+            "is_unique": is_unique,
             "errors": [],
             "field_type": "URLField",
             "group": "text",

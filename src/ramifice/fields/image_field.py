@@ -48,12 +48,12 @@ class ImageField(Field):
         label: str = "",
         placeholder: str = "",
         default: str | None = None,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
         warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
-        required: bool = False,
+        is_require: bool = False,
         # The maximum size of the original image in bytes.
         max_size: int = 2097152,  # 2 MB = 2097152 Bytes (in binary)
         target_dir: str = "images",
@@ -110,11 +110,11 @@ class ImageField(Field):
                             curr_size_thumb = max_size_thumb
                 if not isinstance(label, str):
                     raise AssertionError("Parameter `label` - Not а `str` type!")
-                if not isinstance(disabled, bool):
+                if not isinstance(is_disable, bool):
                     raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
+                if not isinstance(is_hide, bool):
                     raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
+                if not isinstance(is_ignore, bool):
                     raise AssertionError("Parameter `ignored` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
@@ -122,7 +122,7 @@ class ImageField(Field):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
+                if not isinstance(is_require, bool):
                     raise AssertionError("Parameter `required` - Not а `bool` type!")
                 if not isinstance(max_size, int):
                     raise AssertionError("Parameter `max_size` - Not а `int` type!")
@@ -144,12 +144,12 @@ class ImageField(Field):
             "value": None,
             "default": default,
             "placeholder": placeholder,
-            "hide": hide,
-            "disabled": disabled,
-            "ignored": ignored,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
             "hint": hint,
             "warning": warning,
-            "required": required,
+            "is_require": is_require,
             "max_size": max_size,
             "target_dir": target_dir,
             "accept": accept,
