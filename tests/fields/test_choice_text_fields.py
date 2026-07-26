@@ -35,7 +35,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertFalse(f.field_core.multiple)
+        self.assertFalse(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceTextField(choices="not list")
@@ -80,7 +80,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertTrue(f.field_core.multiple)
+        self.assertTrue(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceTextMultField(choices="not list")
@@ -136,7 +136,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertFalse(f.field_core.multiple)
+        self.assertFalse(f.field_core.is_multiple)
 
     def test_choice_text_mult_dyn_field(self):
         """Testing `ChoiceTextMultDynField`."""
@@ -157,7 +157,7 @@ class TestChoiceTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertTrue(f.field_core.multiple)
+        self.assertTrue(f.field_core.is_multiple)
 
 
 if __name__ == "__main__":

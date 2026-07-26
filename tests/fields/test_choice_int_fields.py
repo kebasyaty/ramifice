@@ -35,7 +35,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertFalse(f.field_core.multiple)
+        self.assertFalse(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceIntField(choices="not list")
@@ -75,7 +75,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertTrue(f.field_core.multiple)
+        self.assertTrue(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
             f = ChoiceIntMultField(choices="not list")
@@ -122,7 +122,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertFalse(f.field_core.multiple)
+        self.assertFalse(f.field_core.is_multiple)
 
     def test_choice_int_mult_dyn_field(self):
         """Testing `ChoiceIntMultDynField`."""
@@ -143,7 +143,7 @@ class TestChoiceIntegerFields(unittest.TestCase):
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
         self.assertFalse(f.field_core.is_unique)
-        self.assertTrue(f.field_core.multiple)
+        self.assertTrue(f.field_core.is_multiple)
 
 
 if __name__ == "__main__":
