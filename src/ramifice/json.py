@@ -176,5 +176,7 @@ class JsonMixin:
                             settings=DATEPARSER_SETTINGS,
                         ).date(),
                     )
+            else:
+                setattr(instance_model, f_name, value)
 
         return instance_model
