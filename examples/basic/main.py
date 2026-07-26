@@ -28,22 +28,21 @@ async def main() -> None:
     # user.last_name = "Smith"
     user.email = "John_Smith@gmail.com"
     user.phone = "+447986123456"
-    user.birthday = date(2000, 1, 25)
-    # multi_language=True
-    user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}
+    user.birthday = date(2000, 1, 25)  # "25-01-2000" | "22 Décembre 2010" | "yaklaşık 23 saat önce" | "" == None
+    user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}  # multi_language=True
     # user.description = "I program on Python!"
     user.password = "12345678"
     user.сonfirm_password = "12345678"
 
-    # Create User.
+    # Create User
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
     # Update User.
     user.username = "pythondev_123"
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
     print("User details:")
@@ -53,15 +52,15 @@ async def main() -> None:
     else:
         print("No User!")
 
-    # Remove User.
+    # Remove User
     # (if necessary)
     # await user.delete()
 
-    # Remove collection.
+    # Remove collection
     # (if necessary)
     # await User.collection().drop()
 
-    # Close connection.
+    # Close connection
     await client.close()
 
 

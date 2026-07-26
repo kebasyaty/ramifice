@@ -312,6 +312,7 @@ class TestModel(unittest.TestCase):
         m.updated_at = "Il ya 2 heures"
         m.date_time = "1 anno 2 mesi"
         m.date = "yaklaşık 23 saat önce"
+        m.date = "25-01-2000"
 
         m2 = User("ru")
         self.assertIsNone(m2.created_at)

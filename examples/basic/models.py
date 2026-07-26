@@ -40,7 +40,8 @@ class User(Model):
         required=True,
         unique=True,
         warning=[
-            _("Allowed chars: {}").format("a-z A-Z 0-9 _"),
+            _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
+            _("Maximum length: {}").format(150),
         ],
     )
     first_name = fields.TextField(
@@ -49,6 +50,9 @@ class User(Model):
         multi_language=True,  # Support for several language.
         max_length=150,
         required=True,
+        warning=[
+            _("Maximum length: {}").format(150),
+        ],
     )
     last_name = fields.TextField(
         label=_("Last name"),
@@ -56,6 +60,9 @@ class User(Model):
         multi_language=True,  # Support for several language.
         max_length=150,
         required=True,
+        warning=[
+            _("Maximum length: {}").format(150),
+        ],
     )
     email = fields.EmailField(
         label=_("Email"),
@@ -127,7 +134,7 @@ class User(Model):
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+            err_map.update("username", _("Allowed characters: {}").format("a-z A-Z 0-9 _"))
 
         # Check password
         if id is None and password != confirm_password:
