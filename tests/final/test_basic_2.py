@@ -386,7 +386,8 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_str: str | None = await User.find_one_to_json({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
-        user = User.from_json(user_str)
+        with self.assertRaises(ValueError):
+            User.from_json(user_str)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
