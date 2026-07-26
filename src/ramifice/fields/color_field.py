@@ -140,7 +140,7 @@ class ColorField(Field):
 
 def size(self) -> int:
     """Return length of field `value`."""
-    value = self.field_core.value
+    value = self.value
     if isinstance(value, str):
         return len(value)
     return 0

@@ -121,9 +121,9 @@ def has_value(self, is_migrate: bool = False) -> bool:
     """Does the field value match the possible options in choices."""
     if is_migrate:
         return True
-    value = self.field_core.value
+    value = self.value
     if value is not None:
-        choices = self.field_core.choices
+        choices = self.choices
         if not bool(choices):
             return False
         if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
