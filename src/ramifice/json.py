@@ -31,13 +31,12 @@ from bson.objectid import ObjectId
 from dateparser import parse
 
 from ramifice.config import Config
-from ramifice.translator import Translator
 
 
 class JsonMixin:
     """A mixin for converting Model to a JSON-string and back to a Model."""
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_json_dict(self) -> dict[str, Any]:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
         descriptor_fields = metadata["all_descriptor_fields"]
@@ -77,20 +76,19 @@ class JsonMixin:
 
     def to_json(self) -> str:
         """Convert Model instance to a JSON-string."""
-        return orjson.dumps(self.to_dict()).decode("utf-8")
+        return orjson.dumps(self.to_json_dict()).decode("utf-8")
 
     @classmethod
-    def from_dict(
+    def from_json_dict(
         cls,
         json_dict: dict[str, Any],
-        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> Any:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
         DATEPARSER_SETTINGS = deepcopy(Config.DATEPARSER_SETTINGS)
         # pyrefly: ignore [bad-argument-count]
-        instance: Any = cls(lang_code)
+        instance: Any = cls(json_dict.current_locale)
 
         for f_name in descriptor_fields:
             tmp__core_dict = deepcopy(json_dict[f_name])
@@ -125,8 +123,7 @@ class JsonMixin:
     def from_json(
         cls,
         json_str: str,
-        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> Any:
         """Convert JSON-string to a Model instance."""
         json_dict = orjson.loads(json_str)
-        return cls.from_dict(json_dict, lang_code)
+        return cls.from_json_dict(json_dict)

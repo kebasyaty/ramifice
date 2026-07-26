@@ -106,6 +106,7 @@ class Field:
             field_core = deepcopy(self.field_core)
             field_core.id = f"id-{name}"
             field_core.name = name
+            field_core.current_locale = instance._LANG_CODE
             self.trans_field_core(instance, field_core, name)
             setattr(instance, field_name__core, field_core)
 
