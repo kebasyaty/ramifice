@@ -73,7 +73,7 @@ class NumberGroupMixin:
             ).format(f_value, min_number)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if f__core.unique and not await check_uniqueness(f_value, params, f_name):
+        if f__core.is_unique and not await check_uniqueness(f_value, params, f_name):
             err_msg = _("Is not unique !")
             accumulate_error(err_msg, params)
         # Insert result.

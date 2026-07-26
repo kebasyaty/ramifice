@@ -79,7 +79,7 @@ class TextGroupMixin:
             ).format(max_length)
             accumulate_error(err_msg, params)
         # Validation the `unique` field attribute.
-        if f__core.unique and not await check_uniqueness(
+        if f__core.is_unique and not await check_uniqueness(
             f_value,
             params,
             f_name,

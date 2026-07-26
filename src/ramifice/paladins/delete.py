@@ -95,7 +95,7 @@ class DeleteMixin:
         file_data: dict[str, Any] | None = None
         for f_name in metadata["all_descriptor_fields"]:
             f_attrs = getattr(self, f"{f_name}__core")
-            if remove_files and not f_attrs.ignored:
+            if remove_files and not f_attrs.is_ignore:
                 group = f_attrs.group
                 if group == "file":
                     file_data = mongo_doc[f_name]
