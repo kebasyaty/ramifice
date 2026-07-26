@@ -109,11 +109,11 @@ class TestCommonOneMixin(unittest.IsolatedAsyncioTestCase):
         doc = await User.find_one({"_id": m.id})
         self.assertTrue(isinstance(doc, dict))
         #
-        raw_doc = await User.find_one_to_model_dict({"_id": m.id})
-        self.assertTrue(isinstance(raw_doc, dict))
+        model_dict = await User.find_one_to_model_dict({"_id": m.id})
+        self.assertTrue(isinstance(model_dict, dict))
         #
-        model = await User.find_one_to_instance_model({"_id": m.id})
-        self.assertEqual(model.id, m.id)
+        instance_model = await User.find_one_to_instance_model({"_id": m.id})
+        self.assertEqual(instance_model.id, m.id)
         #
         json_str = await User.find_one_to_json({"_id": m.id})
         self.assertEqual(json_str, m.to_json())
