@@ -57,7 +57,7 @@ class User(Model):
     first_name = fields.TextField(
         label=_("First name"),
         placeholder=_("Enter your First name"),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
         max_length=150,
         required=True,
         warning=[
@@ -67,7 +67,7 @@ class User(Model):
     last_name = fields.TextField(
         label=_("Last name"),
         placeholder=_("Enter your Last name"),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
         max_length=150,
         required=True,
         warning=[
@@ -92,7 +92,7 @@ class User(Model):
     description = fields.TextField(
         label=_("About yourself"),
         placeholder=_("Tell us a little about yourself ..."),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
     )
     password = fields.PasswordField(
         label=_("Password"),
@@ -384,10 +384,12 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details["description"], "Я программирую на Python!")
         self.assertIsNone(user_details["password"])
 
-        user_str: str | None = await User.find_one_to_json({"_id": user.id}, "ru")
+        user_json: str | None = await User.find_one_to_json({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         with self.assertRaises(ValueError):
-            User.from_json(user_str)
+            User.from_json(user_json)
+
+        user = User.from_ajax_json(user_json, "ru")
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

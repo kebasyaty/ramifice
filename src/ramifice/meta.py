@@ -147,7 +147,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
                 # Add dynamic field.
                 if "Dyn" in f_cls_name:
                     data_dynamic_fields[f_name] = None
-                if f_cls_name == "TextField" and f__core.multi_language:
+                if f_cls_name == "TextField" and f__core.is_multilingual:
                     multi_lang_text_fields.append(f_name)
 
     metadata["model_name"] = model_name

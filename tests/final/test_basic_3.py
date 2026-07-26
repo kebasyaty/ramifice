@@ -56,7 +56,7 @@ class User(Model):
     first_name = fields.TextField(
         label=_("First name"),
         placeholder=_("Enter your First name"),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
         max_length=150,
         required=True,
         warning=[
@@ -66,7 +66,7 @@ class User(Model):
     last_name = fields.TextField(
         label=_("Last name"),
         placeholder=_("Enter your Last name"),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
         max_length=150,
         required=True,
         warning=[
@@ -91,7 +91,7 @@ class User(Model):
     description = fields.TextField(
         label=_("About yourself"),
         placeholder=_("Tell us a little about yourself ..."),
-        multi_language=True,  # Support for several language.
+        is_multilingual=True,  # Support for several language.
     )
     password = fields.PasswordField(
         label=_("Password"),

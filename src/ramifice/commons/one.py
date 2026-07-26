@@ -77,7 +77,7 @@ class OneMixin:
         """Find a single document and convert to Model in dictionary format.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
@@ -109,7 +109,7 @@ class OneMixin:
         """Find a single document and convert it to a Model instance.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
@@ -135,7 +135,7 @@ class OneMixin:
         """Find a single document and convert it to a JSON string.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
@@ -165,7 +165,7 @@ class OneMixin:
         """Delete a single document matching the filter.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
@@ -208,7 +208,7 @@ class OneMixin:
         """Finds a single document and deletes it, returning the document.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:

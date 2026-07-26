@@ -89,12 +89,12 @@ async def check_uniqueness(
     value: str | int | float,
     params: dict[str, Any],
     field_name: str | None = None,
-    is_multi_language: bool = False,
+    is_is_multilingual: bool = False,
 ) -> bool:
     """Checking the uniqueness of the value in the collection."""
     q_filter = None
 
-    if is_multi_language:
+    if is_is_multilingual:
         lang_filter = [{f"{field_name}.{params['LANG_CODE']}": value} for lang in params["LANGUAGES"]]
         q_filter = {
             "$and": [

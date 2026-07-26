@@ -138,7 +138,11 @@ class JsonMixin:
 
     @classmethod
     def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
-        """Convert JSON-string from web request to a Model instance."""
+        """Convert JSON-string from web request to a Model instance.
+
+        Hint:
+        - `lang_code` - This is necessary for multilingual (is_multilingual=True) text fields.
+        """
         metadata = cls.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         json_dict = orjson.loads(json_str)

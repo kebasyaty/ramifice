@@ -106,7 +106,7 @@
 
 #### v0.4.12 2025-06-29
 
-- Added param `multi_language` for `TextField`.
+- Added param `is_multilingual` for `TextField`.
 - Updated README.md .
 
 #### v0.4.0 2025-06-25

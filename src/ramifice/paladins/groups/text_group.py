@@ -60,7 +60,7 @@ class TextGroupMixin:
         f__core = params["field_core"]
         f_name = f__core.name
         f_type = f__core.field_type
-        is_multi_language: bool = bool(f__core.get("multi_language"))
+        is_is_multilingual: bool = bool(f__core.get("is_multilingual"))
         # Get current value.
         f_value = f__core.value or f__core.get("default")
 
@@ -83,7 +83,7 @@ class TextGroupMixin:
             f_value,
             params,
             f_name,
-            is_multi_language,
+            is_is_multilingual,
         ):
             err_msg = _("Is not unique !")
             accumulate_error(err_msg, params)
@@ -114,7 +114,7 @@ class TextGroupMixin:
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            if is_multi_language:
+            if is_is_multilingual:
                 LANGUAGES = params["LANGUAGES"]
                 mult_lang_text = (
                     params["curr_doc"][f_name]

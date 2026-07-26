@@ -74,7 +74,7 @@ class ManyMixin:
         """Find documents.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
@@ -146,7 +146,7 @@ class ManyMixin:
             datetime to str
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
@@ -219,7 +219,7 @@ class ManyMixin:
         """Find documents and convert to a json string.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
@@ -277,7 +277,7 @@ class ManyMixin:
         """Delete one or more documents matching the filter.
 
         Hint:
-        - `lang_code` - Required for a text field with `multi_language=True`.
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:

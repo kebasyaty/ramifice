@@ -80,7 +80,7 @@ class User2(Model):
 
     url = URLField()
     txt = TextField()
-    txt2 = TextField(multi_language=True)
+    txt2 = TextField(is_multilingual=True)
     slug = SlugField()
     phone = PhoneField()
     password = PasswordField()

@@ -49,7 +49,7 @@ class TextField(Field):
         unique: bool = False,
         max_length: int = 256,
         # Support for several language.
-        multi_language: bool = False,
+        is_multilingual: bool = False,
     ) -> None:
         """Field of Model for enter text.
 
@@ -67,7 +67,7 @@ class TextField(Field):
             readonly: Specifies that the field cannot be modified by the user.
             unique: The unique value of a field in a collection.
             max_length: The maximum line length.
-            multi_language: Is it need support for several languages.
+            is_multilingual: Is it need support for several languages.
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]
@@ -99,8 +99,8 @@ class TextField(Field):
                     raise AssertionError("Parameter `use_editor` - Not а `bool` type!")
                 if not isinstance(max_length, int):
                     raise AssertionError("Parameter `max_length` - Not а `int` type!")
-                if not isinstance(multi_language, bool):
-                    raise AssertionError("Parameter `multi_language` - Not а `bool` type!")
+                if not isinstance(is_multilingual, bool):
+                    raise AssertionError("Parameter `is_multilingual` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
@@ -125,7 +125,7 @@ class TextField(Field):
             "textarea": textarea,
             "use_editor": use_editor,
             "max_length": max_length,
-            "multi_language": multi_language,
+            "is_multilingual": is_multilingual,
             "errors": [],
             "field_type": "TextField",
             "group": "text",
