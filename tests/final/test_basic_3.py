@@ -192,7 +192,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.last_name, "Смит")
         self.assertEqual(user.description, "Я программирую на Python!")
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.lang_code, "ru")
         self.assertEqual(user_details.created_at, user.created_at)
@@ -211,7 +211,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         if not await user.save():
             user.print_err()
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.lang_code, "ru")
         self.assertEqual(user_details.created_at, user.created_at)
@@ -241,7 +241,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.lang_code, "ru")
         self.assertEqual(user_details.created_at, user.created_at)
@@ -255,7 +255,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
-        user_details = await User.find_one_to_instance_model({"_id": user.id}, user.lang_code)
+        user_details = await User.find_one_to_instance_model({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
         self.assertEqual(user_details.lang_code, "ru")
         user_details.first_name = "Геннадий"
