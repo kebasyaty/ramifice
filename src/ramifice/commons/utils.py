@@ -25,13 +25,10 @@ __all__ = (
     "mongo_doc_to_model_dict",
 )
 
-from copy import deepcopy
 from typing import Any
 
 from babel.dates import format_date, format_datetime
 from bson import json_util
-
-from ramifice.config import Config
 
 
 def correct_mongo_filter(cls_model: Any, filter: Any, lang_code: str) -> Any:
@@ -66,6 +63,7 @@ def mongo_doc_to_model_dict(
     cls_model: Any,
     mongo_doc: dict[str, Any],
     lang_code: str,
+    utc_timezone,
 ) -> dict[str, Any]:
     """Convert Mongo document to Model document.
 
@@ -75,7 +73,6 @@ def mongo_doc_to_model_dict(
         - `date to str`
         - `datetime to str`
     """
-    UTC_TIMEZONE = deepcopy(Config.UTC_TIMEZONE)
     descriptor_fields = cls_model.META["all_descriptor_fields"]
     instance_model: Any = cls_model(lang_code)
     model_dict: dict[str, Any] = {}
@@ -97,7 +94,7 @@ def mongo_doc_to_model_dict(
                 model_dict[f_name] = format_datetime(
                     datetime=mongo_value,
                     format="medium",
-                    tzinfo=UTC_TIMEZONE,
+                    tzinfo=utc_timezone,
                     locale=lang_code,
                 )
             else:

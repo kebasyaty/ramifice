@@ -75,6 +75,7 @@ class OneMixin:
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
         """Find a single document and convert to Model in dictionary format."""
+        utc_timezone = Config.UTC_TIMEZONE
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -89,6 +90,7 @@ class OneMixin:
                 cls,
                 mongo_doc,
                 lang_code,
+                utc_timezone,
             )
         return model_dict
 
