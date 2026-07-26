@@ -163,23 +163,6 @@ class ImageField(Field):
         self.field_core.from_base64 = MethodType(from_base64, self.field_core)
         self.field_core.from_path = MethodType(from_path, self.field_core)
 
-    async def from_base64(
-        self,
-        base64_str: str | None = None,
-        filename: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Convert base64 to a image, get image information and save in the target directory."""
-        await from_base64(self, base64_str, filename, is_delete)
-
-    async def from_path(
-        self,
-        src_path: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Get image information and copy the image to the target directory."""
-        await from_path(self, src_path, is_delete)
-
 
 async def from_base64(
     self,
@@ -216,7 +199,7 @@ async def from_base64(
         imgs_dir_path = Path(
             Config.MEDIA_ROOT,
             "uploads",
-            self.field_core.target_dir,
+            self.target_dir,
             date_str,
             general_dir,
         )
@@ -224,7 +207,7 @@ async def from_base64(
         if not await imgs_dir_path.exists():
             await imgs_dir_path.mkdir(parents=True)
         # Create url path to target directory with images.
-        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{general_dir}"
+        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
         # Create a new name for the original image.
         new_original_name = f"original{extension}"
         # Create path to main image.
@@ -256,7 +239,7 @@ async def from_base64(
         img_info["human_size"] = to_human_size(img_info["size"])
     #
     # result to value
-    self.field_core.value = img_info
+    self.value = img_info
 
 
 async def from_path(
@@ -285,12 +268,12 @@ async def from_path(
         imgs_dir_path = Path(
             Config.MEDIA_ROOT,
             "uploads",
-            self.field_core.target_dir,
+            self.target_dir,
             date_str,
             general_dir,
         )
         # Create url path to target directory with images.
-        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{general_dir}"
+        imgs_dir_url = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{general_dir}"
         # Create target directory if it does not exist.
         if not await imgs_dir_path.exists():
             await imgs_dir_path.mkdir(parents=True)
@@ -323,4 +306,4 @@ async def from_path(
         img_info["human_size"] = to_human_size(img_info["size"])
     #
     # result to value
-    self.field_core.value = img_info
+    self.value = img_info
