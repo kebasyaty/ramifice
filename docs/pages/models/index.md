@@ -1,6 +1,6 @@
 ::: ramifice.models
-    options:
-      members: no
+options:
+members: no
 
 <hr>
 
