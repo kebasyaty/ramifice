@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 class JsonMixin:
     """A mixin for converting Model to a JSON-string and back to a Model."""
 
-    def to_json_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
@@ -77,10 +77,10 @@ class JsonMixin:
 
     def to_json(self) -> str:
         """Convert Model instance to a JSON-string."""
-        return orjson.dumps(self.to_json_dict()).decode("utf-8")
+        return orjson.dumps(self.to_dict()).decode("utf-8")
 
     @classmethod
-    def from_json_dict(
+    def from_dict(
         cls,
         json_dict: dict[str, Any],
     ) -> Any:
@@ -90,7 +90,10 @@ class JsonMixin:
         current_locale = json_dict.get("current_locale")
 
         if current_locale is None:
-            err_msg = "It looks like you are using JSON format for Ajax and not Model."
+            err_msg = "{} {}".format(
+                "It looks like you are using JSON format for Ajax and not Model.",
+                "Use a `from_ajax_json` method.",
+            )
             logger.critical(err_msg)
             raise ValueError(err_msg)
 
@@ -132,9 +135,9 @@ class JsonMixin:
         cls,
         json_str: str,
     ) -> Any:
-        """Convert JSON-string to a Model instance."""
+        """Convert JSON-string of Model to a Model instance."""
         json_dict = orjson.loads(json_str)
-        return cls.from_json_dict(json_dict)
+        return cls.from_dict(json_dict)
 
     @classmethod
     def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
