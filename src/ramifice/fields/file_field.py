@@ -136,23 +136,6 @@ class FileField(Field):
         self.field_core.from_base64 = MethodType(from_base64, self.field_core)
         self.field_core.from_path = MethodType(from_path, self.field_core)
 
-    async def from_base64(
-        self,
-        base64_str: str | None = None,
-        filename: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Convert base64 to a file, get file information and save in the target directory."""
-        await from_base64(self, base64_str, filename, is_delete)
-
-    async def from_path(
-        self,
-        src_path: str | None = None,
-        is_delete: bool = False,
-    ) -> None:
-        """Get file information and copy the file to the target directory."""
-        await from_path(self, src_path, is_delete)
-
 
 async def from_base64(
     self,
@@ -189,7 +172,7 @@ async def from_base64(
         dir_target_path = Path(
             Config.MEDIA_ROOT,
             "uploads",
-            self.field_core.target_dir,
+            self.target_dir,
             date_str,
         )
         # Create target directory if it does not exist.
@@ -203,7 +186,7 @@ async def from_base64(
             await open_f.write(f_content)
         # Add paths to target file.
         file_info["path"] = f_target_path
-        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{f_uuid_name}"
+        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
         # Add original file name.
         file_info["name"] = filename
         # Add file extension.
@@ -215,7 +198,7 @@ async def from_base64(
         file_info["human_size"] = to_human_size(file_info["size"])
     #
     # result to value
-    self.field_core.value = file_info
+    self.value = file_info
 
 
 async def from_path(
@@ -244,7 +227,7 @@ async def from_path(
         dir_target_path = Path(
             Config.MEDIA_ROOT,
             "uploads",
-            self.field_core.target_dir,
+            self.target_dir,
             date_str,
         )
         # Create target directory if it does not exist.
@@ -256,7 +239,7 @@ async def from_path(
         await to_thread.run_sync(copyfile, src_path, f_target_path)
         # Add paths to target file.
         file_info["path"] = f_target_path
-        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.field_core.target_dir}/{date_str}/{f_uuid_name}"
+        file_info["url"] = f"{Config.MEDIA_URL}/uploads/{self.target_dir}/{date_str}/{f_uuid_name}"
         # Add original file name.
         file_info["name"] = Path(src_path).name
         # Add file extension.
@@ -268,4 +251,4 @@ async def from_path(
         file_info["human_size"] = to_human_size(file_info["size"])
     #
     # result to value
-    self.field_core.value = file_info
+    self.value = file_info
