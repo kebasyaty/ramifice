@@ -130,7 +130,7 @@ class TestJsonMixin(unittest.TestCase):
             self.assertEqual(getattr(m2, f_name), None)
             self.assertTrue(hasattr(m2, f"{f_name}__core"))
 
-        m3 = User.from_dict(json_str)
+        m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
             self.assertEqual(getattr(m3, f_name), None)
             self.assertTrue(hasattr(m3, f"{f_name}__core"))
@@ -187,7 +187,7 @@ class TestJsonMixin(unittest.TestCase):
                 self.assertEqual(getattr(m2, f_name), getattr(m, f_name))
             self.assertTrue(hasattr(m2, f"{f_name}__core"))
 
-        m3 = User.from_dict(json_str)
+        m3 = User.from_json(json_str)
         for f_name in descriptor_fields:
             field_type = getattr(m, f"{f_name}__core").field_type
             if field_type == "PasswordField":
