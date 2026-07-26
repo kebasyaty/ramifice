@@ -47,7 +47,7 @@ from ramifice.config import Config
 
 def is_password(password: str | None) -> bool:
     """Validate Password."""
-    return Config.REGEX["password"].match(str(password)) is not None
+    return Config.REGEX["password"].match(password) is not None
 
 
 async def get_file_size(path: str) -> int:

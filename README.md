@@ -116,12 +116,11 @@ from pymongo import AsyncMongoClient
 from ramifice import (
     Migration,
     Model,
-    Translations,
+    ranslator,
     fields,
     meta,
     to_human_size,
 )
-from ramifice import Translations as trans
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
@@ -151,11 +150,16 @@ class User:
         required=True,
         unique=True,
         warning=[
-            _("Allowed chars: {}").format("a-z A-Z 0-9 _"),
+            _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
+            _("Maximum length: {}").format(150),
         ],
     )
     password = fields.PasswordField(
         label=_("Password"),
+        warning=[
+            _("Maximum length: {}").format(256),
+            _("Minimum length: {}").format(8),
+        ],
     )
     сonfirm_password = fields.PasswordField(
         label=_("Confirm password"),
@@ -180,7 +184,7 @@ class User:
 
         # Check username
         if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
-            err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+            err_map.update("username", _("Allowed characters: {}").format("a-z A-Z 0-9 _"))
 
         return err_map
 
@@ -195,8 +199,8 @@ async def main():
 
 
     user = User("ru")
-    # user.avatar__core["from_path"]("public/media/default/no-photo.png")
-    # user.avatar__core["from_base64"]("base64-string")
+    # user.avatar__core.from_path("public/media/default/no-photo.png")
+    # user.avatar__core.from_base64("base64-string")
     user.username = "pythondev"
     user.password = "12345678"
     user.сonfirm_password = "12345678"
@@ -212,11 +216,7 @@ async def main():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc(
-        # filter={"_id": user.id}
-        # or
-        filter={"username": user.username}
-    )
+    user_details = await User.find_one_to_model_dict(filter={"_id": user.id})
     if user_details is not None:
         pp(user_details)
     else:
@@ -257,7 +257,7 @@ if __name__ == "__main__":
      </tr>
      <tr>
        <td align="left">db_query_docs_limit</td>
-       <td align="left">1000</td>
+       <td align="left">100</td>
        <td align="left">Limiting the number of request results.</td>
      </tr>
      <tr>
@@ -289,7 +289,7 @@ if __name__ == "__main__":
 @meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
-    db_query_docs_limit=1000,
+    db_query_docs_limit=100,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,

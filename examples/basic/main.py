@@ -21,6 +21,8 @@ async def main() -> None:
     ).migrate()
 
     user = User("ru")
+    # user.avatar__core.from_path("public/media/default/no-photo.png")
+    # user.avatar__core.from_base64("base64-string")
     user.username = "pythondev"
     user.first_name = {"en": "John", "ru": "Джон"}  # multi_language=True
     # user.first_name = "Джон"

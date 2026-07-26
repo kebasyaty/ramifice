@@ -93,6 +93,10 @@ class User(Model):
     password = fields.PasswordField(
         label=_("Password"),
         placeholder=_("Enter your password"),
+        warning=[
+            _("Maximum length: {}").format(256),
+            _("Minimum length: {}").format(8),
+        ],
     )
     confirm_password = fields.PasswordField(
         label=_("Confirm password"),
