@@ -22,6 +22,7 @@ from __future__ import annotations
 __all__ = ("JsonMixin",)
 
 
+import logging
 from copy import deepcopy
 from typing import Any
 
@@ -30,7 +31,7 @@ from babel.dates import format_date, format_datetime
 from bson.objectid import ObjectId
 from dateparser import parse
 
-from ramifice.config import Config
+logger = logging.getLogger(__name__)
 
 
 class JsonMixin:
@@ -86,9 +87,16 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         descriptor_fields = metadata["all_descriptor_fields"]
-        DATEPARSER_SETTINGS = deepcopy(Config.DATEPARSER_SETTINGS)
+        current_locale = json_dict.get("current_locale")
+
+        if current_locale is None:
+            err_msg = "It looks like you are using JSON format for Ajax and not Model."
+            logger.critical(err_msg)
+            raise ValueError(err_msg)
+
         # pyrefly: ignore [bad-argument-count]
-        instance: Any = cls(json_dict.current_locale)
+        instance: Any = cls(current_locale)
+        DATEPARSER_SETTINGS = instance.dateparser_settings
 
         for f_name in descriptor_fields:
             tmp__core_dict = deepcopy(json_dict[f_name])
