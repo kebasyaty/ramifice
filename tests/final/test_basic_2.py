@@ -6,6 +6,7 @@ import re
 import unittest
 from datetime import date
 
+from babel.dates import format_date, format_datetime
 from pymongo import AsyncMongoClient
 
 from ramifice import (
@@ -345,14 +346,37 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         user_details = await User.find_one_to_model_dict({"_id": user.id}, "ru")
         self.assertIsNotNone(user_details)
-        self.assertEqual(user_details["created_at"], str(user.created_at))
-        self.assertEqual(user_details["updated_at"], str(user.updated_at))
+        self.assertEqual(
+            user_details["created_at"],
+            format_datetime(
+                datetime=user.created_at,
+                format="medium",
+                tzinfo=Config.UTC_TIMEZONE,
+                locale="ru",
+            ),
+        )
+        self.assertEqual(
+            user_details["updated_at"],
+            format_datetime(
+                datetime=user.updated_at,
+                format="medium",
+                tzinfo=Config.UTC_TIMEZONE,
+                locale="ru",
+            ),
+        )
         self.assertEqual(user_details["username"], "pythondev")
         self.assertEqual(user_details["first_name"], "Геннадий")
         self.assertEqual(user_details["last_name"], "Костюнин")
         self.assertEqual(user_details["email"], "John_Smith@gmail.com")
         self.assertEqual(user_details["phone"], "+447986123456")
-        self.assertEqual(user_details["birthday"], str(date(2000, 1, 25)))
+        self.assertEqual(
+            user_details["birthday"],
+            format_date(
+                date=date(2000, 1, 25),
+                format="medium",
+                locale="ru",
+            ),
+        )
         self.assertEqual(user_details["description"], "Я программирую на Python!")
         self.assertIsNone(user_details["password"])
         # ----------------------------------------------------------------------
