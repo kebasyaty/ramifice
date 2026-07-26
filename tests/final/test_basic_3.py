@@ -226,7 +226,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(user_details.password)
 
         user_details.username = "pythondev_456"
-        if not await user.save():
+        if not await user_details.save():
             user.print_err()
 
         self.assertEqual(user_details.lang_code, "ru")
