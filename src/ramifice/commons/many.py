@@ -71,7 +71,11 @@ class ManyMixin:
         allow_disk_use: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
-        """Find documents."""
+        """Find documents.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -140,7 +144,11 @@ class ManyMixin:
             password to None
             date to str
             datetime to str
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
         """
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -177,6 +185,7 @@ class ManyMixin:
                     cls,
                     mongo_doc,
                     lang_code,
+                    utc_timezone,
                 ),
             )
         return doc_list
@@ -207,7 +216,12 @@ class ManyMixin:
         allow_disk_use: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> str | None:
-        """Find documents and convert to a json string."""
+        """Find documents and convert to a json string.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -244,6 +258,7 @@ class ManyMixin:
                     cls,
                     mongo_doc,
                     lang_code,
+                    utc_timezone,
                 ),
             )
         return orjson.dumps(doc_list).decode("utf-8") if len(doc_list) > 0 else None
@@ -259,7 +274,11 @@ class ManyMixin:
         comment: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
-        """Delete one or more documents matching the filter."""
+        """Delete one or more documents matching the filter.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (

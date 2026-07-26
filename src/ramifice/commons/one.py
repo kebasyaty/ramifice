@@ -74,8 +74,12 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and convert to Model in dictionary format."""
-        utc_timezone = Config.UTC_TIMEZONE
+        """Find a single document and convert to Model in dictionary format.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -102,7 +106,11 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> Any | None:
-        """Find a single document and convert it to a Model instance."""
+        """Find a single document and convert it to a Model instance.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -124,7 +132,11 @@ class OneMixin:
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> str | None:
-        """Find a single document and convert it to a JSON string."""
+        """Find a single document and convert it to a JSON string.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Get collection for current model.
         collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
         # Correcting filter.
@@ -150,7 +162,11 @@ class OneMixin:
         comment: Any | None = None,
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
-        """Delete a single document matching the filter."""
+        """Delete a single document matching the filter.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -189,7 +205,11 @@ class OneMixin:
         lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs: dict[str, Any],
     ) -> Any | None:
-        """Finds a single document and deletes it, returning the document."""
+        """Finds a single document and deletes it, returning the document.
+
+        Hint:
+        - `lang_code` - Required for a text field with `multi_language=True`.
+        """
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
