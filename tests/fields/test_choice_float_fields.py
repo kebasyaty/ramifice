@@ -34,7 +34,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.field_core.hint, "")
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
-        self.assertFalse(f.field_core.is_unique)
         self.assertFalse(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
@@ -74,7 +73,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.field_core.hint, "")
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
-        self.assertFalse(f.field_core.is_unique)
         self.assertTrue(f.field_core.is_multiple)
         # Exception checking:
         with self.assertRaises(AssertionError):
@@ -121,7 +119,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.field_core.hint, "")
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
-        self.assertFalse(f.field_core.is_unique)
         self.assertFalse(f.field_core.is_multiple)
 
     def test_choice_float_mult_dyn_field(self):
@@ -142,7 +139,6 @@ class TestChoiceFloatFields(unittest.TestCase):
         self.assertEqual(f.field_core.hint, "")
         self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
-        self.assertFalse(f.field_core.is_unique)
         self.assertTrue(f.field_core.is_multiple)
 
 

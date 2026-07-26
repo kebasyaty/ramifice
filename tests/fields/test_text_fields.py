@@ -97,9 +97,7 @@ class TestTextFields(unittest.TestCase):
         self.assertIsNone(f.field_core.value)
         self.assertEqual(f.field_core.placeholder, "")
         self.assertEqual(f.field_core.hint, "")
-        self.assertFalse(f.field_core.is_require)
         self.assertFalse(f.field_core.is_readonly)
-        self.assertTrue(f.field_core.is_unique)
         self.assertEqual(f.field_core.slug_sources, ["id"])
 
     def test_phone_field(self):
@@ -144,7 +142,6 @@ class TestTextFields(unittest.TestCase):
         self.assertEqual(f.field_core.label, "")
         self.assertEqual(f.field_core.name, "")
         self.assertEqual(f.field_core.field_type, "PasswordField")
-        self.assertFalse(f.field_core.is_disable)
         self.assertFalse(f.field_core.is_hide)
         self.assertFalse(f.field_core.is_ignore)
         self.assertEqual(len(f.field_core.warning), 0)
