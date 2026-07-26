@@ -20,17 +20,17 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    user = User()
+    user = User("ru")
     user.username = "pythondev"
     user.first_name = {"en": "John", "ru": "Джон"}  # multi_language=True
-    # user.first_name = "John"
+    # user.first_name = "Джон"
     user.last_name = {"en": "Smith", "ru": "Смит"}  # multi_language=True
-    # user.last_name = "Smith"
+    # user.last_name = "Смит"
     user.email = "John_Smith@gmail.com"
     user.phone = "+447986123456"
     user.birthday = date(2000, 1, 25)  # "25-01-2000" | "22 Décembre 2010" | "yaklaşık 23 saat önce" | "" == None
     user.description = {"en": "I program on Python!", "ru": "Я программирую на Python!"}  # multi_language=True
-    # user.description = "I program on Python!"
+    # user.description = "Я программирую на Python!"
     user.password = "12345678"
     user.сonfirm_password = "12345678"
 
