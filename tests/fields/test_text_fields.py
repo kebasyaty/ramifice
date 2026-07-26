@@ -43,6 +43,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
         self.assertEqual(f.field_core.max_length, 256)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             TextField(max_length="256")
@@ -70,6 +71,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.required)
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             URLField(default="")
@@ -122,6 +124,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.required)
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             PhoneField(default=12)
@@ -175,6 +178,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.required)
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             IPField(default=12)
@@ -208,6 +212,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.required)
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             EmailField(default=12)
@@ -239,6 +244,7 @@ class TestTextFields(unittest.TestCase):
         self.assertFalse(f.field_core.required)
         self.assertFalse(f.field_core.readonly)
         self.assertFalse(f.field_core.unique)
+        self.assertEqual(f.field_core.size(), 0)
         # Exception checking:
         with self.assertRaises(AssertionError):
             ColorField(default=12)
