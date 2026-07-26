@@ -111,6 +111,11 @@ class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
         """UTC timezone object."""
         return self._UTC_TIMEZONE
 
+    @property
+    def dateparser_settings(self) -> dict[str, Any]:
+        """Settings for `dateparser.parser`."""
+        return self._DATEPARSER_SETTINGS
+
     def model_name(self) -> str:
         """Get Model name - Class name."""
         return self.__class__.__name__

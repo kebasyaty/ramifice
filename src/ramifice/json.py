@@ -40,12 +40,12 @@ class JsonMixin:
     def to_json_dict(self) -> dict[str, Any]:
         """Convert Model instance to a dictionary."""
         metadata = self.__class__.META
-        descriptor_fields = metadata["all_descriptor_fields"]
+        DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         LANG_CODE = self._LANG_CODE
         UTC_TIMEZONE = self._UTC_TIMEZONE
         json_dict: dict[str, Any] = {}
 
-        for f_name in descriptor_fields:
+        for f_name in DESCRIPTOR_FIELDS:
             tmp__core = deepcopy(getattr(self, f"{f_name}__core"))
             field_type = tmp__core.field_type
             value = tmp__core.value
@@ -86,7 +86,7 @@ class JsonMixin:
     ) -> Any:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
-        descriptor_fields = metadata["all_descriptor_fields"]
+        DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         current_locale = json_dict.get("current_locale")
 
         if current_locale is None:
@@ -95,10 +95,10 @@ class JsonMixin:
             raise ValueError(err_msg)
 
         # pyrefly: ignore [bad-argument-count]
-        instance: Any = cls(current_locale)
-        DATEPARSER_SETTINGS = instance.dateparser_settings
+        instance_model: Any = cls(current_locale)
+        DATEPARSER_SETTINGS = instance_model.dateparser_settings
 
-        for f_name in descriptor_fields:
+        for f_name in DESCRIPTOR_FIELDS:
             tmp__core_dict = deepcopy(json_dict[f_name])
             field_type = tmp__core_dict["field_type"]
             value = tmp__core_dict["value"]
@@ -106,8 +106,6 @@ class JsonMixin:
             if value is not None:
                 if field_type == "IDField":
                     tmp__core_dict["value"] = ObjectId(value)
-                elif field_type == "PasswordField":
-                    tmp__core_dict["value"] = value
                 elif "Date" in field_type:
                     if "Time" in field_type:
                         tmp__core_dict["value"] = parse(
@@ -119,19 +117,64 @@ class JsonMixin:
                             value,
                             settings=DATEPARSER_SETTINGS,
                         ).date()
+                else:
+                    tmp__core_dict["value"] = value
 
-            setattr(instance, f_name, tmp__core_dict["value"])
-            f__core = getattr(instance, f"{f_name}__core")
+            setattr(instance_model, f_name, tmp__core_dict["value"])
+            f__core = getattr(instance_model, f"{f_name}__core")
             for key, val in tmp__core_dict.items():
                 f__core.__dict__[key] = val
 
-        return instance
+        return instance_model
 
     @classmethod
     def from_json(
         cls,
         json_str: str,
     ) -> Any:
-        """Convert JSON-string to a Model instance."""
+        """Convert JSON-string from web request to a Model instance."""
         json_dict = orjson.loads(json_str)
         return cls.from_json_dict(json_dict)
+
+    @classmethod
+    def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
+        """Convert JSON-string to a Model instance."""
+        metadata = cls.META
+        DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
+        json_dict = orjson.loads(json_str)
+        # pyrefly: ignore [bad-argument-count]
+        instance_model: Any = cls(lang_code)
+        DATEPARSER_SETTINGS = instance_model.dateparser_settings
+
+        for f_name in DESCRIPTOR_FIELDS:
+            value = json_dict.get(f_name if f_name != "_id" else "id")
+
+            if value is None:
+                continue
+
+            f__core = getattr(instance_model, f"{f_name}__core")
+            field_type = f__core.field_type
+
+            if field_type == "IDField":
+                setattr(instance_model, f_name, ObjectId(value))
+            elif "Date" in field_type:
+                if "Time" in field_type:
+                    setattr(
+                        instance_model,
+                        f_name,
+                        parse(
+                            value,
+                            settings=DATEPARSER_SETTINGS,
+                        ).replace(microsecond=0),
+                    )
+                else:
+                    setattr(
+                        instance_model,
+                        f_name,
+                        parse(
+                            value,
+                            settings=DATEPARSER_SETTINGS,
+                        ).date(),
+                    )
+
+        return instance_model
