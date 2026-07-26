@@ -18,9 +18,9 @@ class TestHashField(unittest.TestCase):
         self.assertEqual(f.field_core.label, "")
         self.assertEqual(f.field_core.name, "")
         self.assertEqual(f.field_core.field_type, "IDField")
-        self.assertFalse(f.field_core.disabled)
-        self.assertFalse(f.field_core.hide)
-        self.assertFalse(f.field_core.ignored)
+        self.assertFalse(f.field_core.is_disable)
+        self.assertFalse(f.field_core.is_hide)
+        self.assertFalse(f.field_core.is_ignore)
         self.assertEqual(len(f.field_core.warning), 0)
         self.assertEqual(f.field_core.errors, [])
         self.assertEqual(f.field_core.alerts, [])
@@ -29,9 +29,9 @@ class TestHashField(unittest.TestCase):
         self.assertIsNone(f.field_core.value)
         self.assertEqual(f.field_core.placeholder, "")
         self.assertEqual(f.field_core.hint, "")
-        self.assertFalse(f.field_core.required)
-        self.assertFalse(f.field_core.readonly)
-        self.assertFalse(f.field_core.unique)
+        self.assertFalse(f.field_core.is_require)
+        self.assertFalse(f.field_core.is_readonly)
+        self.assertFalse(f.field_core.is_unique)
 
 
 if __name__ == "__main__":
