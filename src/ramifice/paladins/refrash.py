@@ -47,7 +47,7 @@ class RefrashMixin:
             err_msg = (
                 f"Model: `{self.full_model_name()}` > "
                 + "Method: `refrash_from_db` => "
-                + f"A document with an identifier `{self.id__core.value}` is not exists in the database!"
+                + f"A document with an identifier `{self.id}` is not exists in the database!"
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
