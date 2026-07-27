@@ -43,7 +43,7 @@ class JsonMixin:
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         LANG_CODE = self._LANG_CODE
         UTC_TIMEZONE = self._UTC_TIMEZONE
-        json_dict: dict[str, Any] = {}
+        json_dict: dict[str, Any] = {"_lang_": LANG_CODE}
 
         for f_name in DESCRIPTOR_FIELDS:
             tmp__core = deepcopy(getattr(self, f"{f_name}__core"))
