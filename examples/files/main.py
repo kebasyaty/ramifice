@@ -19,10 +19,6 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
     user = User()
     user.avatar.from_path("public/media/default/no-photo.png")
     user.resume.from_path("public/media/default/no_doc.odt")
