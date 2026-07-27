@@ -143,7 +143,7 @@ class JsonMixin:
     def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
         """Convert JSON-string from web request to a Model instance.
 
-        Format JSON-string `{'field_name': value, ...}`.
+        If the JSON-string does not contain the field attributes and the `_lang_` language marker.
 
         Hint:
         - `lang_code` - This is necessary for multilingual (is_multilingual=True) text fields.
