@@ -127,7 +127,7 @@ _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 @model(service_name="Accounts")
 class User:
-    """Model of User."""
+    """User Model."""
 
     avatar = fields.ImageField(
         label=_("Avatar"),
