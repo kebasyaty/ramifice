@@ -56,18 +56,23 @@ class Unit:
         """
         # Check the match of types.
         if not isinstance(field, str):
-            err_msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
+            err_msg = "Class: `Unit` > Argument: `field` => Not а `str` type!"
+            logger.critical(err_msg)
             raise PanicError(err_msg)
         if not isinstance(title, dict):
             err_msg = (
-                "Class: `Unit` > Field: `title` => Not а `str` type! " + 'Example: {"en": "Title", "ru": "Заголовок"}'
+                "Class: `Unit` > Argument: `title` => Not а `str` type! "
+                + 'Example: {"en": "Title", "ru": "Заголовок"}'
             )
+            logger.critical(err_msg)
             raise PanicError(err_msg)
         if not isinstance(value, (float, int, str)):
-            err_msg = "Class: `Unit` > Field: `value` => Not a `float | int | str` type!"
+            err_msg = "Class: `Unit` > Argument: `value` => Not a `float | int | str` type!"
+            logger.critical(err_msg)
             raise PanicError(err_msg)
         if not isinstance(is_delete, bool):
-            err_msg = "Class: `Unit` > Field: `is_delete` => Not a `bool` type!"
+            err_msg = "Class: `Unit` > Argument: `is_delete` => Not a `bool` type!"
+            logger.critical(err_msg)
             raise PanicError(err_msg)
 
         self.field = field
