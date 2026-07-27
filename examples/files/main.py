@@ -1,11 +1,11 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration,
 
 from .models import User
 
@@ -20,8 +20,8 @@ async def main() -> None:
     ).migrate()
 
     user = User()
-    user.avatar.from_path("public/media/default/no-photo.png")
-    user.resume.from_path("public/media/default/no_doc.odt")
+    await user.avatar__core.from_path("public/media/default/no-photo.png")
+    await user.resume__core.from_path("public/media/default/no_doc.odt")
 
     if not await user.save():
         # Convenient to use during development.
@@ -29,13 +29,16 @@ async def main() -> None:
 
     print("User details:")
     user_details = await User.find_one_to_model_dict({"_id": user.id})
-    pprint.pprint(user_details)
+    if user_details is not None:
+        pp(user_details)
+    else:
+        print("No User!")
 
     await user.delete(remove_files=False)
 
     # Remove collection.
     # (if necessary)
-    await User.collection().drop()
+    # await User.collection().drop()
 
     # Close connection.
     await client.close()

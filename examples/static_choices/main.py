@@ -1,7 +1,7 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
@@ -42,9 +42,9 @@ async def main() -> None:
         product.print_err()
 
     print("Products:")
-    products = await Product.find_many_to_raw_docs()
+    products = await Product.find_many_to_model_dict()
     if products is not None:
-        pprint.pprint(products)
+        pp(products)
     else:
         print("No Products!")
 

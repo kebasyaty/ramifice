@@ -1,7 +1,7 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 from datetime import date
 
 from pymongo import AsyncMongoClient
@@ -50,7 +50,7 @@ async def main() -> None:
     print("User details:")
     user_details = await User.find_one_to_model_dict({"_id": user.id}, "ru")
     if user_details is not None:
-        pprint.pprint(user_details)
+        pp(user_details)
     else:
         print("No User!")
 

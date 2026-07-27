@@ -1,7 +1,7 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
@@ -23,14 +23,12 @@ async def main() -> None:
     # Hint: For Ramifice by default = "en"
     Translations.change_locale("en")
 
-    params = await SiteParameters.find_one_to_instance({f"brand": "Brand Name"})
+    params = await SiteParameters.find_one_to_instance_model({f"brand": "Brand Name"})
 
     if params is not None:
         print("Details of Parameters:")
-        site_parameters = await SiteParameters.find_one_to_raw_doc({"_id": params.id})
-        pprint.pprint(site_parameters)
-
-        # await params.delete(remove_files=False)
+        site_parameters = await SiteParameters.find_one_to_model_dict({"_id": params.id})
+        pp(site_parameters)
     else:
         print("No parameters!")
 
