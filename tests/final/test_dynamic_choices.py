@@ -121,7 +121,7 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
             )
             await Product.unit_manager(unit)
 
-        product = Product()
+        product = Product("ru")
         product.size_float = 15.6
         product.sizes_float = [25.8, 12.5]
         product.size_int = 25
@@ -136,8 +136,14 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
             product.print_err()
         self.assertTrue(is_saved)
 
-        product_details: dict | None = await Product.find_one_to_model_dict({"_id": product.id}, "ru")
+        product_details: dict | None = await Product.find_one_to_instance_model({"_id": product.id}, "ru")
         self.assertIsNotNone(product_details)
+        self.assertEqual(product_details.size_float, 15.6)
+        self.assertEqual(product_details.sizes_float, [25.8, 12.5])
+        self.assertEqual(product_details.size_int, 25)
+        self.assertEqual(product_details.sizes_int, [15, 12])
+        self.assertEqual(product_details.size_txt, "middle")
+        self.assertEqual(product_details.sizes_txt, ["big", "small"])
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

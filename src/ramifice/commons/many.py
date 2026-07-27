@@ -76,8 +76,9 @@ class ManyMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -87,7 +88,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -106,7 +107,7 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        field_name_and_type = cls.META["field_name_and_type"]
+        field_name_and_type = metadata["field_name_and_type"]
         async for mongo_doc in cursor:
             doc_list.append(password_to_none(field_name_and_type, mongo_doc))
         return doc_list
@@ -148,9 +149,10 @@ class ManyMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -160,7 +162,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -221,9 +223,10 @@ class ManyMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -233,7 +236,7 @@ class ManyMixin:
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -279,6 +282,7 @@ class ManyMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
         if not cls.META["is_delete_doc"]:
             msg = (
@@ -289,7 +293,7 @@ class ManyMixin:
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
