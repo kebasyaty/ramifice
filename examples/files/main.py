@@ -5,7 +5,7 @@ from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration,
+from ramifice import Migration
 
 from .models import User
 
