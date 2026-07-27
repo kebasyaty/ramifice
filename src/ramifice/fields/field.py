@@ -30,7 +30,6 @@ from typing import Any
 from dateparser import parse
 
 from ramifice.errors import AttributeCannotBeDeleteError
-from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +38,6 @@ class FieldCore:
     """A class for carrying field arguments and methods."""
 
     def __init__(self, **kwargs: dict[str, Any]) -> None:
-        self.current_locale = Translator.DEFAULT_LOCALE
-
         for key, value in kwargs.items():
             self.__dict__[key] = value
 
