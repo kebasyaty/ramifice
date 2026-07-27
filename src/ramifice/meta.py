@@ -136,6 +136,10 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
             err_msg = "The field name must not contain `__core`."
             logger.critical(err_msg)
             raise KeyError(err_msg)
+        if f_name == "_lang_":
+            err_msg = "A field named `_lang_` is reserved."
+            logger.critical(err_msg)
+            raise KeyError(err_msg)
         f_cls_name = f_value.__class__.__name__
         if not callable(f_value) and "Field" in f_cls_name:
             f__core: dict[str, Any] = f_value.field_core
