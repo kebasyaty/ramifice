@@ -17,7 +17,7 @@
 # limitations under the License.
 """Units Management.
 
-Management for `choices` parameter in dynamic field types.
+Management for `choices` parameter in dynamic fields.
 """
 
 from __future__ import annotations
@@ -43,16 +43,14 @@ logger = logging.getLogger(__name__)
 
 
 class UnitMixin:
-    """Units Management.
-
-    Management for `choices` parameter in dynamic field types.
-    """
+    """Units Management."""
 
     @classmethod
     async def unit_manager(cls: Any, unit: Unit) -> None:
         """Units Management.
 
-        Management for `choices` parameter in dynamic field types.
+        Unit - A unit of information for fields with a dynamic `choices` attribute.
+        Management for `choices` parameter in dynamic fields.
         """
         metadata = cls.META
         # Get access to super collection.
