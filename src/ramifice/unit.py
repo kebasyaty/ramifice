@@ -121,3 +121,14 @@ class Unit:
     def to_json(self) -> str:
         """Convert Unit instance to a JSON-string."""
         return orjson.dumps(self.to_dict()).decode("utf-8")
+
+    @classmethod
+    def from_dict(cls: Any, unit_dict: dict[str, float | int | str | bool]) -> Any:
+        """Convert Unit-dictionary to a Unit instance."""
+        return cls(**unit_dict)
+
+    @classmethod
+    def from_json(cls: Any, json_str: str) -> Any:
+        """Convert JSON-string to Unit instance."""
+        unit_dict = orjson.loads(json_str)
+        return cls.from_dict(unit_dict)
