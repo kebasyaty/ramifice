@@ -62,8 +62,8 @@ class DateTimeField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            required: Required field.
-            readonly: Specifies that the field cannot be modified by the user.
+            is_require: Required field.
+            is_readonly: Specifies that the field cannot be modified by the user.
             max_date: Maximum allowed date and time.
             min_date: Minimum allowed date and time.
         """

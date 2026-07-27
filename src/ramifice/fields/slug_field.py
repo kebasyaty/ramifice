@@ -60,7 +60,7 @@ class SlugField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            readonly: Specifies that the field cannot be modified by the user.
+            is_readonly: Specifies that the field cannot be modified by the user.
             slug_sources: List of sources fields.
         """
         if Config.DEBUG:

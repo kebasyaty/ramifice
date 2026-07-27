@@ -63,7 +63,7 @@ class PasswordField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            required: Required field.
+            is_require: Required field.
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]

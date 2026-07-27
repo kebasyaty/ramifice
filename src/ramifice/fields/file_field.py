@@ -70,7 +70,7 @@ class FileField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            required: Required field.
+            is_require: Required field.
             max_size: The maximum allowed file size in bytes.
             target_dir: Directory for files inside media directory.
             accept: Describing which file types to allow. Example: ".pdf,.doc,.docx,application/msword".

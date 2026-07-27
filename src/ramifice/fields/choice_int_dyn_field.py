@@ -66,8 +66,8 @@ class ChoiceIntDynField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            required: Required field.
-            readonly: Specifies that the field cannot be modified by the user.
+            is_require: Required field.
+            is_readonly: Specifies that the field cannot be modified by the user.
         """
         if Config.DEBUG:
             try:  # ruff:ignore[too-many-statements-in-try-clause]

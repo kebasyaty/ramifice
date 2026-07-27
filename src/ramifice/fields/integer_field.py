@@ -42,9 +42,9 @@ class IntegerField(Field):
         is_ignore: If true, the value of this field is not saved in the database.
         hint: An alternative for the `placeholder` parameter.
         warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
+        is_require: Required field.
+        is_readonly: Specifies that the field cannot be modified by the user.
+        is_unique: The unique value of a field in a collection.
         max_number: Maximum allowed number.
         min_number: Minimum allowed number.
         step: Increment step for numeric fields.

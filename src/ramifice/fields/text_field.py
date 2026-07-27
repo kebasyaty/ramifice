@@ -61,11 +61,11 @@ class TextField(Field):
             is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
-            textarea: Is it necessary to use the Textarea widget.
-            use_editor: Is it necessary to use the widget of the text editor.
-            required: Required field.
-            readonly: Specifies that the field cannot be modified by the user.
-            unique: The unique value of a field in a collection.
+            is_textarea: Is it necessary to use the Textarea widget.
+            is_use_editor: Is it necessary to use the widget of the text editor.
+            is_require: Required field.
+            is_readonly: Specifies that the field cannot be modified by the user.
+            is_unique: The unique value of a field in a collection.
             max_length: The maximum line length.
             is_multilingual: Is it need support for several languages.
         """
