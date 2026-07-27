@@ -23,7 +23,7 @@ Only `service_name` is a required parameter.
      </tr>
      <tr>
        <td align="left">db_query_docs_limit</td>
-       <td align="left">1000</td>
+       <td align="left">100</td>
        <td align="left">Limiting the number of request results.</td>
      </tr>
      <tr>
@@ -53,7 +53,7 @@ Only `service_name` is a required parameter.
 @model(
     service_name="ServiceName",
     fixture_name="FixtureName",
-    db_query_docs_limit=1000,
+    db_query_docs_limit=100,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,
