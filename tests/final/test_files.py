@@ -76,9 +76,7 @@ class TestFilesExample(unittest.IsolatedAsyncioTestCase):
         self.assertIsNotNone(user_details)
         self.assertTrue(isinstance(user_details, User))
         self.assertTrue(isinstance(user_details.avatar, dict))
-        self.assertEqual(user_details.avatar, {})
         self.assertTrue(isinstance(user_details.resume, dict))
-        self.assertEqual(user_details.resume, {})
 
         # Create User
         # Use custom files
@@ -89,6 +87,26 @@ class TestFilesExample(unittest.IsolatedAsyncioTestCase):
         if not is_saved:
             user2.print_err()
         self.assertTrue(is_saved)
+
+        user2_details: User | None = await User.find_one_to_instance_model({"_id": user2.id})
+        self.assertIsNotNone(user2_details)
+        self.assertTrue(isinstance(user2_details, User))
+        self.assertTrue(isinstance(user2_details.avatar, dict))
+        self.assertTrue(isinstance(user2_details.resume, dict))
+
+        await user.delete()
+        self.assertIsNone(user.id)
+        self.assertIsNone(user.created_at)
+        self.assertIsNone(user.updated_at)
+        self.assertIsNone(user.avatar)
+        self.assertIsNone(user.resume)
+
+        await user2.delete(remove_files=False)
+        self.assertIsNone(user2.id)
+        self.assertIsNone(user2.created_at)
+        self.assertIsNone(user2.updated_at)
+        self.assertIsNone(user2.avatar)
+        self.assertIsNone(user2.resume)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

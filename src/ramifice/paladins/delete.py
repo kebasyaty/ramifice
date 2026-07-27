@@ -94,19 +94,19 @@ class DeleteMixin:
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None
         for f_name in metadata["all_descriptor_fields"]:
-            f_attrs = getattr(self, f"{f_name}__core")
-            if remove_files and not f_attrs.is_ignore:
-                group = f_attrs.group
+            f__core = getattr(self, f"{f_name}__core")
+            if remove_files and not f__core.is_ignore:
+                group = f__core.group
                 if group == "file":
                     file_data = mongo_doc[f_name]
-                    if file_data is not None and len(f_attrs.value["path"]) > 0:
-                        await to_thread.run_sync(remove, f_attrs.value["path"])
+                    if file_data is not None and len(f__core.value["path"]) > 0:
+                        await to_thread.run_sync(remove, f__core.value["path"])
                     file_data = None
                 elif group == "img":
                     file_data = mongo_doc[f_name]
-                    if file_data is not None and len(f_attrs.value["imgs_dir_path"]) > 0:
+                    if file_data is not None and len(f__core.value["imgs_dir_path"]) > 0:
                         # pyrefly: ignore [incompatible-overload-residual]
-                        await to_thread.run_sync(rmtree, f_attrs.value["imgs_dir_path"])
+                        await to_thread.run_sync(rmtree, f__core.value["imgs_dir_path"])
                     file_data = None
             setattr(self, f_name, None)
         # Run hook.
