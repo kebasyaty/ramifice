@@ -144,6 +144,26 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(product_details.sizes_int, [15, 12])
         self.assertEqual(product_details.size_txt, "middle")
         self.assertEqual(product_details.sizes_txt, ["big", "small"])
+
+        # JSON
+        unit_dict = Unit(
+            field="choice_txt_mult_dyn",
+            title={"en": "Title", "ru": "Заголовок"},
+            value="Some text 2",
+            is_delete=True,
+        ).to_dict()
+        self.assertTrue(isinstance(unit_dict, dict))
+        self.assertEqual(unit_dict.get("field"), "choice_txt_mult_dyn")
+        self.assertEqual(unit_dict.get("title"), {"en": "Title", "ru": "Заголовок"})
+        self.assertEqual(unit_dict.get("value"), "Some text 2")
+        #
+        unit_json = Unit(
+            field="choice_txt_mult_dyn",
+            title={"en": "Title", "ru": "Заголовок"},
+            value="Some text 2",
+            is_delete=True,
+        ).to_json()
+        self.assertTrue(isinstance(unit_json, str))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
