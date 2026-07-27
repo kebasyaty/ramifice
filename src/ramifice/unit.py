@@ -33,22 +33,27 @@ logger = logging.getLogger(__name__)
 
 
 class Unit:
-    """Unit of information for `choices` parameter in dynamic field types.
+    """Unit of information for `choices` parameter in dynamic field types."""
 
-    Args:
-        field: The name of the dynamic field.
-        title: The name of the choice item.
-        value: The value of the choice item.
-        is_delete: True - if you need to remove the item of choice.
-    """
-
-    def __init__(  # ruff:ignore[undocumented-public-init]
+    def __init__(
         self,
         field: str,
         title: dict[str, str],  # Example: {"en": "Title", "ru": "Заголовок"}
         value: float | int | str,
         is_delete: bool = False,
     ) -> None:
+        """Unit of information for `choices` parameter in dynamic field types.
+
+        Args:
+            field: The name of the dynamic field.
+            title: The name of the choice item.
+            value: The value of the choice item.
+            is_delete: True - if you need to remove the item of choice.
+
+        Raises:
+            1.A `PanicError` exception if the argument (field|header|value) does not match its type.
+            2.A `PanicError` exception if the argument (field|title|value) is empty.
+        """
         # Check the match of types.
         if not isinstance(field, str):
             err_msg = "Class: `Unit` > Field: `field` => Not а `str` type!"
@@ -79,7 +84,7 @@ class Unit:
             `None`
 
         Raises:
-            Raised exception `PanicError` if argument (field|title|value) of Unit is empty.
+            A `PanicError` exception if the argument (field|title|value) of Unit is empty.
         """
         field_name: str = ""
 
