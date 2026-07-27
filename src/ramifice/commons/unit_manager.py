@@ -49,7 +49,7 @@ class UnitMixin:
     async def unit_manager(cls: Any, unit: Unit) -> None:
         """Units Management.
 
-        Unit - A unit of information for fields with a dynamic `choices` attribute.
+        Unit - A unit of information ([value, "Title"]) for fields with a dynamic `choices` attribute.
         Management for `choices` parameter in dynamic fields.
         """
         metadata = cls.META
