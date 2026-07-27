@@ -5,7 +5,10 @@ import pprint
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, Unit, translations
+from ramifice import (
+    Migration,
+    Unit,
+)
 
 from .models import Product
 
@@ -75,7 +78,7 @@ async def main() -> None:
         )
         await Product.unit_manager(unit)
 
-    product = Product()
+    product = Product("ru")
     product.size_float = 15.6
     product.sizes_float = [25.8, 12.5]
     product.size_int = 25

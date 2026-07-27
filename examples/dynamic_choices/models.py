@@ -1,40 +1,34 @@
 """Models."""
 
-from ramifice.translator import Translator
-from ramifice.fields import (
-    ChoiceFloatDynField,
-    ChoiceFloatMultDynField,
-    ChoiceIntDynField,
-    ChoiceIntMultDynField,
-    ChoiceTextDynField,
-    ChoiceTextMultDynField,
+from ramifice import (
+    Model,
+    Translator,
+    fields,
+    meta,
 )
 
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
-@model(service_name="Goods")
-class Product:
-    """Model of Product."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom Translations.
-        gettext = Translations.gettext
-        ngettext = Translations.ngettext
-        self.size_float = ChoiceFloatDynField(
-            label=gettext("Size in float"),
-        )
-        self.sizes_float = ChoiceFloatMultDynField(
-            label=gettext("Sizes in float"),
-        )
-        self.size_int = ChoiceIntDynField(
-            label=gettext("Size in Int"),
-        )
-        self.sizes_int = ChoiceIntMultDynField(
-            label=gettext("Sizes in Int"),
-        )
-        self.size_txt = ChoiceTextDynField(
-            label=gettext("Size in Text"),
-        )
-        self.sizes_txt = ChoiceTextMultDynField(
-            label=gettext("Sizes in Text"),
-        )
+@meta(service_name="Goods")
+class Product(Model):
+    """Product Model."""
+
+    size_float = fields.ChoiceFloatDynField(
+        label=_("Size in float"),
+    )
+    sizes_float = fields.ChoiceFloatMultDynField(
+        label=_("Sizes in float"),
+    )
+    size_int = fields.ChoiceIntDynField(
+        label=_("Size in Int"),
+    )
+    sizes_int = fields.ChoiceIntMultDynField(
+        label=_("Sizes in Int"),
+    )
+    size_txt = fields.ChoiceTextDynField(
+        label=_("Size in Text"),
+    )
+    sizes_txt = fields.ChoiceTextMultDynField(
+        label=_("Sizes in Text"),
+    )
