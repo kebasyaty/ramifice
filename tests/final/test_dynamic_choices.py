@@ -136,7 +136,7 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
             product.print_err()
         self.assertTrue(is_saved)
 
-        product_details = await Product.find_one_to_model_dict("ru")
+        product_details: dict | None = await Product.find_one_to_model_dict({"_id": product.id}, "ru")
         self.assertIsNotNone(product_details)
         # ----------------------------------------------------------------------
         #
