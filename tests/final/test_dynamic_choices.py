@@ -130,11 +130,11 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
         product.sizes_txt = ["big", "small"]
 
         # Create Product.
-        is_valid = await product.save()
-        if not is_valid:
+        is_saved = await product.save()
+        if not is_saved:
             # Convenient to use during development.
             product.print_err()
-        self.assertTrue(is_valid)
+        self.assertTrue(is_saved)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
