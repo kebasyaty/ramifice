@@ -87,9 +87,9 @@ class JsonMixin:
         """Convert JSON-dictionary to a Model instance."""
         metadata = cls.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
-        current_locale = json_dict["id"].get("current_locale")
+        lang = json_dict.get("_lang_")
 
-        if current_locale is None:
+        if lang is None or (not isinstance(json_dict.get("created_at"), dict)):
             err_msg = "{} {}".format(
                 "It looks like you are using JSON format for Ajax and not Model.",
                 "Use a `from_ajax_json` method.",
@@ -98,7 +98,7 @@ class JsonMixin:
             raise ValueError(err_msg)
 
         # pyrefly: ignore [bad-argument-count]
-        instance_model: Any = cls(current_locale)
+        instance_model: Any = cls(json_dict["_lang_"])
         DATEPARSER_SETTINGS = instance_model.dateparser_settings
 
         for f_name in DESCRIPTOR_FIELDS:
