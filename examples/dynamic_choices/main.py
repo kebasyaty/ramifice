@@ -19,10 +19,6 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
     # Add Units:
     # Hint: Enough once, then you can to comment or delete.
     for item in [

@@ -192,16 +192,20 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.description, "I program on Python!")
 
         # Create User.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         self.assertEqual(user.lang_code, "en")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Smith")
         self.assertEqual(user.description, "I program on Python!")
 
         # Update User.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         self.assertEqual(user.lang_code, "en")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Smith")
@@ -223,8 +227,10 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
         # Update User.
         user.username = "pythondev_123"
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
 
         user_details = await User.find_one_to_instance_model({"_id": user.id})
         self.assertIsNotNone(user_details)

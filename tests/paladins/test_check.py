@@ -97,8 +97,11 @@ class TestPaladinCheckMixin(unittest.IsolatedAsyncioTestCase):
         ).migrate()
 
         user = User()
-        if not await user.is_valid():
+
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
