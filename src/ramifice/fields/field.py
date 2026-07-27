@@ -51,11 +51,11 @@ class FieldCore:
 
     def to_dict(self) -> dict[str, Any]:
         """Convert FieldCore instance to a dictionary."""
-        result: dict[str, Any] = {}
+        field_core_dict: dict[str, Any] = {}
         for key, value in self.__dict__.items():
             if not isinstance(value, Callable):
-                result[key] = value
-        return result
+                field_core_dict[key] = value
+        return field_core_dict
 
 
 class Field:
