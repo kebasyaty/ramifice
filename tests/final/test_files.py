@@ -64,14 +64,30 @@ class TestFilesExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
-        user = User()
-        user.avatar__core.from_path("public/media/default/no-photo.png")
-        user.resume__core.from_path("public/media/default/no_doc.odt")
-
         # Create User
+        # Use defaule values
+        user = User()
         is_saved = await user.save()
         if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
+
+        user_details: User | None = await User.find_one_to_instance_model({"_id": user.id})
+        self.assertIsNotNone(user_details)
+        self.assertTrue(isinstance(user_details, User))
+        self.assertTrue(isinstance(user_details.avatar, dict))
+        self.assertEqual(user_details.avatar, {})
+        self.assertTrue(isinstance(user_details.resume, dict))
+        self.assertEqual(user_details.resume, {})
+
+        # Create User
+        # Use custom files
+        user2 = User()
+        user2.avatar__core.from_path("public/media/default/no-photo.png")
+        user2.resume__core.from_path("public/media/default/no_doc.odt")
+        is_saved = await user2.save()
+        if not is_saved:
+            user2.print_err()
         self.assertTrue(is_saved)
         # ----------------------------------------------------------------------
         #
