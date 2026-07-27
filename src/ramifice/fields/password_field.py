@@ -59,8 +59,8 @@ class PasswordField(Field):
         Agrs:
             label: Text label for a web form field.
             placeholder: Displays prompt text.
-            hide: Hide field from user.
-            ignored: If true, the value of this field is not saved in the database.
+            is_hide: Hide field from user.
+            is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
             required: Required field.

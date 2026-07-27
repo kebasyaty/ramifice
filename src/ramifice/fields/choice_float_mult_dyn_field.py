@@ -59,9 +59,9 @@ class ChoiceFloatMultDynField(Field):
 
         Args:
             label: Text label for a web form field.
-            hide: Hide field from user.
-            disabled: Blocks access and modification of the element.
-            ignored: If true, the value of this field is not saved in the database.
+            is_hide: Hide field from user.
+            is_disable: Blocks access and modification of the element.
+            is_ignore: If true, the value of this field is not saved in the database.
             hint: An alternative for the `placeholder` parameter.
             warning: Warning information.
             required: Required field.
