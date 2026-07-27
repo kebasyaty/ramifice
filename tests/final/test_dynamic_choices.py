@@ -132,7 +132,6 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
         # Create Product.
         is_saved = await product.save()
         if not is_saved:
-            # Convenient to use during development.
             product.print_err()
         self.assertTrue(is_saved)
 
