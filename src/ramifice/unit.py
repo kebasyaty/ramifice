@@ -22,14 +22,15 @@ from __future__ import annotations
 __all__ = ("Unit",)
 
 import logging
+from collections.abc import Callable
+from typing import Any
 
 from ramifice.errors import PanicError
-from ramifice.json import JsonMixin
 
 logger = logging.getLogger(__name__)
 
 
-class Unit(JsonMixin):
+class Unit:
     """Unit of information for `choices` parameter in dynamic field types.
 
     Args:
@@ -62,8 +63,6 @@ class Unit(JsonMixin):
             err_msg = "Class: `Unit` > Field: `is_delete` => Not a `bool` type!"
             raise PanicError(err_msg)
 
-        JsonMixin.__init__(self)
-
         self.field = field
         self.title = title
         self.value = value
@@ -72,10 +71,13 @@ class Unit(JsonMixin):
         self.check_empty_arguments()
 
     def check_empty_arguments(self) -> None:
-        """Check the arguments for empty values.
+        """Check the arguments (field|title|value) for empty values.
 
         Returns:
-            `None` or raised exception `PanicError`.
+            `None`
+
+        Raises:
+            Raised exception `PanicError` if argument (field|title|value) of Unit is empty.
         """
         field_name: str = ""
 
@@ -95,3 +97,11 @@ class Unit(JsonMixin):
             )
             logger.critical(err_msg)
             raise PanicError(err_msg)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert Unit instance to a dictionary."""
+        unit_dict: dict[str, Any] = {}
+        for key, value in self.__dict__.items():
+            if not isinstance(value, Callable):
+                unit_dict[key] = value
+        return unit_dict
