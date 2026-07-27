@@ -89,16 +89,18 @@ class JsonMixin:
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         lang = json_dict.get("_lang_")
 
-        if lang is None or (not isinstance(json_dict.get("created_at"), dict)):
-            err_msg = "{} {}".format(
-                "It looks like you are using JSON format for Ajax and not Model.",
-                "Use a `from_ajax_json` method.",
-            )
+        if lang is None:
+            err_msg = "The JSON-dictionary does not contain the `_lang_` language marker."
+            logger.critical(err_msg)
+            raise ValueError(err_msg)
+
+        if not isinstance(json_dict.get("created_at"), dict):
+            err_msg = "JSON-dictionary does not contain field attributes."
             logger.critical(err_msg)
             raise ValueError(err_msg)
 
         # pyrefly: ignore [bad-argument-count]
-        instance_model: Any = cls(json_dict["_lang_"])
+        instance_model: Any = cls(lang)
         DATEPARSER_SETTINGS = instance_model.dateparser_settings
 
         for f_name in DESCRIPTOR_FIELDS:
