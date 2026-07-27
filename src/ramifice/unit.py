@@ -25,6 +25,8 @@ import logging
 from collections.abc import Callable
 from typing import Any
 
+import orjson
+
 from ramifice.errors import PanicError
 
 logger = logging.getLogger(__name__)
@@ -105,3 +107,7 @@ class Unit:
             if not isinstance(value, Callable):
                 unit_dict[key] = value
         return unit_dict
+
+    def to_json(self) -> str:
+        """Convert Unit instance to a JSON-string."""
+        return orjson.dumps(self.to_dict()).decode("utf-8")
