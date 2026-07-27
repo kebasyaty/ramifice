@@ -81,8 +81,8 @@ class TestFilesExample(unittest.IsolatedAsyncioTestCase):
         # Create User
         # Use custom files
         user2 = User()
-        user2.avatar__core.from_path("public/media/default/no-photo.png")
-        user2.resume__core.from_path("public/media/default/no_doc.odt")
+        await user2.avatar__core.from_path("public/media/default/no-photo.png")
+        await user2.resume__core.from_path("public/media/default/no_doc.odt")
         is_saved = await user2.save()
         if not is_saved:
             user2.print_err()
