@@ -52,8 +52,9 @@ class OneMixin:
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
         """Get a single document from the database."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -61,7 +62,7 @@ class OneMixin:
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             mongo_doc = password_to_none(
-                cls.META["field_name_and_type"],
+                metadata["field_name_and_type"],
                 mongo_doc,
             )
         return mongo_doc
@@ -79,9 +80,10 @@ class OneMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -111,8 +113,9 @@ class OneMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -137,8 +140,9 @@ class OneMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -167,17 +171,18 @@ class OneMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -210,17 +215,18 @@ class OneMixin:
         Hint:
         - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)

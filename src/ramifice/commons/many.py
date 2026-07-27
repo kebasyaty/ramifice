@@ -284,9 +284,9 @@ class ManyMixin:
         """
         metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
