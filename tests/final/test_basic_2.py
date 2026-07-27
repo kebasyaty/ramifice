@@ -273,6 +273,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(user_details.password)
 
         # Update User.
+        user.username = "pythondev_123"
         is_saved = await user.save()
         if not is_saved:
             user.print_err()

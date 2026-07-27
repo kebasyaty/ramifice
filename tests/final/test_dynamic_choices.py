@@ -135,6 +135,9 @@ class TestDynamicChoicesExample(unittest.IsolatedAsyncioTestCase):
             # Convenient to use during development.
             product.print_err()
         self.assertTrue(is_saved)
+
+        product_details = await Product.find_one_to_model_dict("ru")
+        self.assertIsNotNone(product_details)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

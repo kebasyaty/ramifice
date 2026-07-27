@@ -89,9 +89,9 @@ async def main() -> None:
         product.print_err()
 
     print("Products:")
-    products = await Product.find_many_to_raw_docs()
-    if bool(products):
-        pprint.pprint(products)
+    product_details: dict | None = await Product.find_one_to_model_dict()
+    if bool(product_details):
+        pprint.pprint(product_details)
     else:
         print("No Products!")
 
