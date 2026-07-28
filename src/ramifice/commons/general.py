@@ -26,7 +26,6 @@ from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
-from pymongo.asynchronous.database import AsyncDatabase
 
 from ramifice.commons.utils import correct_mongo_filter
 from ramifice.config import Config
@@ -164,38 +163,3 @@ class GeneralMixin:
             hint=hint,
             **kwargs,
         )
-
-    @classmethod
-    def collection_name(cls) -> str:
-        """The name of this AsyncCollection."""
-        metadata = cls.META
-        # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
-        return collection.name
-
-    @classmethod
-    def collection_full_name(cls) -> str:
-        """The full name of this AsyncCollection.
-
-        The full name is of the form database_name.collection_name.
-        """
-        metadata = cls.META
-        # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
-        return collection.full_name
-
-    @classmethod
-    def database(cls) -> AsyncDatabase:
-        """Get AsyncBatabase for the current Model."""
-        metadata = cls.META
-        # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
-        return collection.database
-
-    @classmethod
-    def collection(cls) -> AsyncCollection:
-        """Get AsyncCollection for the current Model."""
-        metadata = cls.META
-        # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
-        return collection

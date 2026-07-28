@@ -58,7 +58,7 @@ async def main() -> None:
 
     # Remove collection.
     # (if necessary)
-    await User.collection().drop()
+    await User.collection.drop()
 
     # Close connection.
     await client.close()

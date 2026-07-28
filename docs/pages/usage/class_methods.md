@@ -22,16 +22,16 @@ q_filter = "key_name"
 values = await User.distinct(q_filter)
 
 # Get collection name.
-name = await User.collection_name()
+name = await User.collection_name
 
 # The full name is of the form database_name.collection_name.
-name = await User.collection_full_name()
+name = await User.collection_full_name
 
 # Get AsyncBatabase for the current Model.
-database = await User.database()
+database = await User.database
 
 # Get AsyncCollection for the current Model.
-collection = await User.collection()
+collection = await User.collection
 
 # Find a single document.
 q_filter = {"email": "John_Smith@gmail.com"}

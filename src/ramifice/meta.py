@@ -100,7 +100,7 @@ def meta(
             "is_delete_doc": is_delete_doc,
         }
 
-        cls.META = {
+        cls._META = {
             **metadata,
             **caching(cls, service_name),
         }

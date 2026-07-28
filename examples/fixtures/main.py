@@ -34,7 +34,7 @@ async def main() -> None:
 
     # Remove collection.
     # (if necessary)
-    # await SiteParameters.collection().drop()
+    # await SiteParameters.collection.drop()
 
     # Close connection.
     await client.close()

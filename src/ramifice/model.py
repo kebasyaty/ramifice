@@ -34,15 +34,16 @@ from ramifice.errors import AttributeCannotBeDeleteError
 from ramifice.fields import DateTimeField, IDField
 from ramifice.json import JsonMixin
 from ramifice.paladins import QPaladinsMixin
+from ramifice.properties import MetaProperties
 from ramifice.translator import Translator
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
-class Model(JsonMixin, QPaladinsMixin, QCommonsMixin):
+class Model(JsonMixin, QPaladinsMixin, QCommonsMixin, metaclass=MetaProperties):
     """Converting Python Class into Ramifice Model."""
 
-    META: ClassVar[dict[str, Any]] = {}
+    _META: ClassVar[dict[str, Any]] = {}
 
     id = IDField(
         label=_("Document ID"),
