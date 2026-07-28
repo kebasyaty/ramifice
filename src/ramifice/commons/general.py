@@ -75,9 +75,10 @@ class GeneralMixin:
         **kwargs,
     ) -> int:
         """Get an estimate of the number of documents in this collection using collection metadata."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
+
         return await collection.estimated_document_count(
             comment=comment,
             **kwargs,
@@ -93,8 +94,9 @@ class GeneralMixin:
         **kwargs,
     ) -> int:
         """Count the number of documents in this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -117,8 +119,9 @@ class GeneralMixin:
         **kwargs,
     ) -> AsyncCommandCursor:
         """Perform an aggregation using the aggregation framework on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if pipeline is not None:
             pipeline = correct_mongo_filter(cls, pipeline, lang_code)
@@ -146,8 +149,9 @@ class GeneralMixin:
 
         Returns an array of unique values for specified field of collection.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
             filter = correct_mongo_filter(cls, filter, lang_code)
@@ -164,9 +168,9 @@ class GeneralMixin:
     @classmethod
     def collection_name(cls) -> str:
         """The name of this AsyncCollection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         return collection.name
 
     @classmethod
@@ -175,23 +179,23 @@ class GeneralMixin:
 
         The full name is of the form database_name.collection_name.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         return collection.full_name
 
     @classmethod
     def database(cls) -> AsyncDatabase:
         """Get AsyncBatabase for the current Model."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         return collection.database
 
     @classmethod
     def collection(cls) -> AsyncCollection:
         """Get AsyncCollection for the current Model."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = Config.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         return collection
