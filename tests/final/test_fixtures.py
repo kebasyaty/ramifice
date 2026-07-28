@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+from datetime import date
 
 from pymongo import AsyncMongoClient
 
@@ -94,6 +95,14 @@ class TestFixturesExample(unittest.IsolatedAsyncioTestCase):
         # Get Site Parameters
         site_params: SiteParameters | None = await SiteParameters.find_one_to_instance_model({"brand": "Brand Name"})
         self.assertIsNotNone(site_params)
+        self.assertTrue(isinstance(site_params.logo, dict))
+        self.assertTrue(isinstance(site_params.copyright, dict))
+        self.assertEqual(site_params.brand, "Brand Name")
+        self.assertEqual(site_params.slogan, "We are the best!")
+        self.assertIsNone(site_params.about_site)
+        self.assertEqual(site_params.email_feedback, "John_Smith@gmail.com")
+        self.assertEqual(site_params.start_date, date(2000, 1, 25))
+        self.assertTrue(site_params.is_active)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
