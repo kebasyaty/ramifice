@@ -92,6 +92,8 @@ class TestFixturesExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
+        self.assertEqual(await SiteParameters.estimated_document_count(), 1)
+
         # Get Site Parameters
         site_params: SiteParameters | None = await SiteParameters.find_one_to_instance_model({"brand": "Brand Name"})
         self.assertIsNotNone(site_params)

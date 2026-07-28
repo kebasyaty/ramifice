@@ -21,8 +21,10 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    site_parameters: dict[str, Any] | None = await SiteParameters.find_one_to_model_dict({"brand": "Brand Name"})
+    count: int = await SiteParameters.estimated_document_count()
+    print(count)  # 1
 
+    site_parameters: dict[str, Any] | None = await SiteParameters.find_one_to_model_dict({"brand": "Brand Name"})
     print("Details of Parameters:")
     if params is not None:
         pp(site_parameters)
