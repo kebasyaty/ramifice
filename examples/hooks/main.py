@@ -1,6 +1,8 @@
 """App."""
 
 import asyncio
+from pprint import pprint as pp
+from typing import Any
 
 from pymongo import AsyncMongoClient
 
@@ -18,33 +20,31 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    # Translations.change_locale("ru")
-
+    # Create User
     user = User()
     user.username = "pythondev"
     user.email = "John_Smith@gmail.com"
 
-    # Create User
+    # Save User
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Update User.
+    # Update User
     user.username = "pythondev-123"
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Remove User.
-    await user.delete()
+    # Remove User
+    user_mongo_doc: dict[str, Any] = await user.delete()
+    pp(user_mongo_doc)
 
-    # Remove collection.
+    # Remove collection
     # (if necessary)
-    await User.collection.drop()
+    # await User.collection.drop()
 
-    # Close connection.
+    # Close connection
     await client.close()
 
 

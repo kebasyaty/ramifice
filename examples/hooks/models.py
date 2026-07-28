@@ -1,58 +1,58 @@
 """Models."""
 
-from ramifice.translator import Translator
-from ramifice.fields import (
-    EmailField,
-    TextField,
+import logging
+
+from ramifice import (
+    Model,
+    Translator,
+    fields,
+    meta,
 )
 
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
-@model(service_name="Accounts")
-class User:
-    """Model of User."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom Translations.
-        gettext = Translations.gettext
+@meta(service_name="Accounts")
+class User(Model):
+    """User Model."""
 
-        self.username = TextField(
-            label=gettext("Username"),
-            is_require=True,
-            is_unique=True,
-        )
-        self.email = EmailField(
-            label=gettext("Email"),
-            is_require=True,
-            is_unique=True,
-        )
+    username = fields.TextField(
+        label=_("Username"),
+        is_require=True,
+        is_unique=True,
+    )
+    email = fields.EmailField(
+        label=_("Email"),
+        is_require=True,
+        is_unique=True,
+    )
 
-    # Optional method.
+    # Optional method
     async def pre_create(self) -> None:
         """Called before a new document is created in the database."""
-        print("!!!-pre_create-!!!")
+        logging.info("!!!-pre_create-!!!")
 
-    # Optional method.
+    # Optional method
     async def post_create(self) -> None:
         """Called after a new document has been created in the database."""
-        print("!!!-post_create-!!!")
+        logging.info("!!!-post_create-!!!")
 
-    # Optional method.
+    # Optional method
     async def pre_update(self) -> None:
         """Called before updating an existing document in the database."""
-        print("!!!-pre_update-!!!")
+        logging.info("!!!-pre_update-!!!")
 
-    # Optional method.
+    # Optional method
     async def post_update(self) -> None:
         """Called after an existing document in the database is updated."""
-        print("!!!-post_update-!!!")
+        logging.info("!!!-post_update-!!!")
 
-    # Optional method.
+    # Optional method
     async def pre_delete(self) -> None:
         """Called before deleting an existing document in the database."""
-        print("!!!-pre_delete-!!!")
+        logging.info("!!!-pre_delete-!!!")
 
-    # Optional method.
+    # Optional method
     async def post_delete(self) -> None:
         """Called after an existing document in the database has been deleted."""
-        print("!!!-post_delete-!!!")
+        logging.info("!!!-post_delete-!!!")
