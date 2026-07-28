@@ -1,12 +1,20 @@
-"""Models."""
+"""Testing the `fixtures` example."""
+
+from __future__ import annotations
+
+import unittest
+
+from pymongo import AsyncMongoClient
 
 from ramifice import (
+    Migration,
     Model,
     Translator,
     fields,
     meta,
     to_human_size,
 )
+from ramifice.config import Config
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
@@ -59,3 +67,39 @@ class SiteParameters(Model):
         label=_("Site is active?"),
         default=True,
     )
+
+
+class TestFixturesExample(unittest.IsolatedAsyncioTestCase):
+    """Testing the `fixtures` example."""
+
+    async def test_fixtures_example(self):
+        """Testing the `fixtures` example."""
+        # Maximum number of characters 60.
+        database_name = "fixtures_example"
+
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+
+        # Delete database before test.
+        # (if the test fails)
+        await client.drop_database(database_name)
+        await client.close()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+        await Migration(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrate()
+
+        # Get Site Parameters
+        site_params: SiteParameters | None = await SiteParameters.find_one_to_instance_model({"brand": "Brand Name"})
+        self.assertIsNotNone(site_params)
+        # ----------------------------------------------------------------------
+        #
+        # Delete database after test.
+        await client.drop_database(database_name)
+        await client.close()
+
+
+if __name__ == "__main__":
+    unittest.main()

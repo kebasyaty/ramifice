@@ -3,9 +3,11 @@
 import asyncio
 from pprint import pprint as pp
 
+from typing import Any
+
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration
 
 from .models import SiteParameters
 
@@ -19,15 +21,10 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
+    site_parameters: dict[str, Any] | None = await SiteParameters.find_one_to_model_dict({"brand": "Brand Name"})
 
-    params = await SiteParameters.find_one_to_instance_model({f"brand": "Brand Name"})
-
+    print("Details of Parameters:")
     if params is not None:
-        print("Details of Parameters:")
-        site_parameters = await SiteParameters.find_one_to_model_dict({"_id": params.id})
         pp(site_parameters)
     else:
         print("No parameters!")
