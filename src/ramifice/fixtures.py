@@ -79,9 +79,8 @@ async def apply_fixture(
                 if value is not None:
                     if group == "file" or group == "img":
                         await f__core.from_path(value)
-                        setattr(instance_model, f_name, f__core.value)
-                    else:
-                        setattr(instance_model, f_name, value)
+                        value = f__core.value
+                    setattr(instance_model, f_name, value)
             # Check Model.
             result_check: dict[str, Any] = await instance_model.check(
                 is_save=True,
