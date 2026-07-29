@@ -49,10 +49,6 @@ class Unit:
             title: The name of the choice item. Example: {"en": "Title", "ru": "Заголовок"}.
             value: The value of the choice item.
             is_delete: True - if you need to remove the item of choice.
-
-        Raises:
-            PanicErro exception if the argument (field|header|value) does not match its type.
-            PanicError exception if the argument (field|title|value) is empty.
         """
         # Check the match of types.
         if not isinstance(field, str):
@@ -87,9 +83,6 @@ class Unit:
 
         Returns:
             `None`
-
-        Raises:
-            PanicError exception if the argument (field|title|value) of Unit is empty.
         """
         field_name: str = ""
 
