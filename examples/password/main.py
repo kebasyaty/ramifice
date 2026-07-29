@@ -1,11 +1,10 @@
 """App."""
 
 import asyncio
-from datetime import datetime
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration
 
 from .models import User
 
@@ -19,21 +18,10 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
     user = User()
     user.username = "pythondev"
-    user.avatar.from_path("public/media/default/no-photo.png")
-    user.resume.from_path("public/media/default/no_doc.odt")
-    user.first_name = "John"
-    user.last_name = "Smith"
-    user.email = "John_Smith@gmail.com"
-    user.birthday = datetime(2000, 1, 25)
     user.password = "12345678"
     user.сonfirm_password = "12345678"
-    user.is_admin = True
 
     if not await user.save():
         # Convenient to use during development.

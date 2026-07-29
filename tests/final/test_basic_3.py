@@ -161,12 +161,12 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
 
     async def test_basic_3_example(self):
         """Testing the `basic_3` example."""
-        # Maximum number of characters 60.
+        # Maximum number of characters 60
         database_name = "test_basic_3_example"
 
         client = AsyncMongoClient(host=Config.MONGO_HOST)
 
-        # Delete database before test.
+        # Delete database before test
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
@@ -178,6 +178,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
+        # Create User
         user = User("ru")
         user.username = "pythondev"
         user.first_name = "Джон"
@@ -194,7 +195,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.last_name, "Смит")
         self.assertEqual(user.description, "Я программирую на Python!")
 
-        # Create User.
+        # Save User
         is_saved = await user.save()
         if not is_saved:
             user.print_err()
@@ -219,7 +220,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "Я программирую на Python!")
         self.assertIsNone(user_details.password)
 
-        # Update User.
+        # Update User
         user.username = "pythondev_123"
         is_saved = await user.save()
         if not is_saved:

@@ -19,10 +19,14 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
+    # Create User
     user = User()
-    await user.avatar__core.from_path("public/media/default/no-photo.png")
-    await user.resume__core.from_path("public/media/default/no_doc.odt")
+    # await user.avatar__core.from_path("public/media/default/no-photo.png")
+    # await user.resume__core.from_path("public/media/default/no_doc.odt")
+    # await user.avatar__core.from_base64("base64-string")
+    # await user.resume__core.from_base64("base64-string")
 
+    # Save User
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
@@ -34,7 +38,8 @@ async def main() -> None:
     else:
         print("No User!")
 
-    await user.delete(remove_files=False)
+    # Delete User
+    await user.delete()
 
     # Remove collection.
     # (if necessary)

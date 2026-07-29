@@ -94,10 +94,18 @@ class TestPasswordExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
+        # Create User
+        user = User()
+
+        # Save User
+        is_saved = await user.save()
+        if not is_saved:
+            user.print_err()
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
         await client.drop_database(database_name)
+        await Config.MONGO_CLIENT.close()
         await client.close()
 
 

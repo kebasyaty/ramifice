@@ -175,6 +175,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
             mongo_client=client,
         ).migrate()
 
+        # Create User
         user = User()
         user.username = "pythondev"
         user.first_name = "John"
@@ -191,7 +192,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.last_name, "Smith")
         self.assertEqual(user.description, "I program on Python!")
 
-        # Create User.
+        # Save User
         is_saved = await user.save()
         if not is_saved:
             user.print_err()
@@ -201,7 +202,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user.last_name, "Smith")
         self.assertEqual(user.description, "I program on Python!")
 
-        # Update User.
+        # Update User
         is_saved = await user.save()
         if not is_saved:
             user.print_err()
@@ -225,7 +226,7 @@ class TestBasicExample(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(user_details.description, "I program on Python!")
         self.assertIsNone(user_details.password)
 
-        # Update User.
+        # Update User
         user.username = "pythondev_123"
         is_saved = await user.save()
         if not is_saved:

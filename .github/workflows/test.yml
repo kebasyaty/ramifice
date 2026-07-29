@@ -76,3 +76,4 @@ jobs:
           uv run python -m unittest tests/final/test_hooks.py
           uv run python -m unittest tests/final/test_indexing.py
           uv run python -m unittest tests/final/test_multi_fixture.py
+          uv run python -m unittest tests/final/test_password.py
