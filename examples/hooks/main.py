@@ -37,8 +37,8 @@ async def main() -> None:
         user.print_err()
 
     # Remove User
-    user_mongo_doc: dict[str, Any] = await user.delete()
-    pp(user_mongo_doc)
+    deleted_user: dict[str, Any] = await user.delete()
+    pp(deleted_user)
 
     # Remove collection
     # (if necessary)

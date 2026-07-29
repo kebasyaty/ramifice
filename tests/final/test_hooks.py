@@ -104,8 +104,8 @@ class TestHooksExample(unittest.IsolatedAsyncioTestCase):
             user.print_err()
 
         # Delete User
-        user_mongo_doc: dict[str, Any] = await user.delete()
-        self.assertTrue(isinstance(user_mongo_doc, dict))
+        deleted_user: dict[str, Any] = await user.delete()
+        self.assertTrue(isinstance(deleted_user, dict))
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
