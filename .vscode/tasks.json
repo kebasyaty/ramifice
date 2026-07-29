@@ -75,20 +75,16 @@
         "uv run python -m unittest tests/test_json.py;",
         "uv run python -m unittest tests/test_mongo.py;",
         "uv run python -m unittest tests/test_migration.py;",
-        // paladins
         "uv run python -m unittest tests/paladins/test_check.py;",
         "uv run python -m unittest tests/paladins/test_save.py;",
         "uv run python -m unittest tests/paladins/test_password.py;",
-        // commons
         "uv run python -m unittest tests/commons/test_utils.py;",
         "uv run python -m unittest tests/commons/test_general.py;",
         "uv run python -m unittest tests/commons/test_indexes.py;",
         "uv run python -m unittest tests/commons/test_many.py;",
         "uv run python -m unittest tests/commons/test_one.py;",
         "uv run python -m unittest tests/commons/test_unit.py;",
-        // fixtures
         "uv run python -m unittest tests/test_fixtures.py;",
-        // final
         "uv run python -m unittest tests/final/test_basic_1.py;",
         "uv run python -m unittest tests/final/test_basic_2.py;",
         "uv run python -m unittest tests/final/test_basic_3.py;",
