@@ -148,8 +148,11 @@ nav:
   - Config: pages/config.md
   - Errors: pages/errors.md
   - Fixtures: pages/fixtures.md
+  - JSON: pages/json.md
+  - Meta: pages/meta.md
   - Migration: pages/migration.md
-  - Mixins: pages/mixins.md
-  - Utils: pages/utils.md
-  - Translations: pages/translations.md
+  - Model: pages/model.md
+  - Properties: pages/properties.md
+  - Translator: pages/translator.md
   - Unit: pages/unit.md
+  - Utils: pages/utils.md
