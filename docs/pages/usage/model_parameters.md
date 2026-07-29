@@ -50,7 +50,13 @@ Only `service_name` is a required parameter.
 #### Example
 
 ```py title="main.py" linenums="1"
-@model(
+from ramifice import (
+    Model,
+    fields,
+    meta,
+)
+
+@meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
     db_query_docs_limit=100,
@@ -58,11 +64,10 @@ Only `service_name` is a required parameter.
     is_update_doc = True,
     is_delete_doc = True,
 )
-class User:
-    def fields(self):
-        self.username = TextField(
-            label=gettext("Username"),
-            is_require=True,
-            is_unique=True,
-        )
+class User(Model):
+  username = fields.TextField(
+      label="Username",
+      is_require=True,
+      is_unique=True,
+  )
 ```

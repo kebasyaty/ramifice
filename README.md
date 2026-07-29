@@ -275,6 +275,12 @@ if __name__ == "__main__":
 **Example:**
 
 ```python
+from ramifice import (
+    Model,
+    fields,
+    meta,
+)
+
 @meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
@@ -284,7 +290,7 @@ if __name__ == "__main__":
     is_delete_doc = True,
 )
 class User(Model):
-  username = TextField(
+  username = fields.TextField(
       label="Username",
       is_require=True,
       is_unique=True,

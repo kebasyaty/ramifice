@@ -44,7 +44,7 @@ user = User.from_mongo_doc(mongo_doc)
 
 # Find a single document and converting to raw document.
 q_filter = {"email": "John_Smith@gmail.com"}
-raw_doc = await User.find_one_to_raw_doc(q_filter)
+raw_doc = await User.find_one_to_model_dict(q_filter)
 
 # Find a single document and convert it to a Model instance.
 q_filter = {"email": "John_Smith@gmail.com"}
@@ -68,7 +68,7 @@ mongo_docs = await User.find_many(q_filter)
 
 # Find documents and convert to a raw documents.
 q_filter = {"first_name": "John"}
-raw_docs = await User.find_many_to_raw_docs(q_filter)
+raw_docs = await User.find_many_to_model_dict(q_filter)
 
 # Find documents and convert to a json string.
 q_filter = {"email": "John_Smith@gmail.com"}
