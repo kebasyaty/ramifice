@@ -1,5 +1,3 @@
-# This fixture is for testing only, delete it if not needed.
-#
 - url: None
   txt: None
   txt2: None
@@ -29,7 +27,7 @@
   choice_txt_mult_dyn: None
   choice_txt_mult: None
   choice_int: None
-# ------------------------------------------------------------------------------
+
 - url: None
   txt: None
   txt2: None
