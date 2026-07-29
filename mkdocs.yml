@@ -130,11 +130,10 @@ nav:
       - Delete: pages/paladins/delete.md
       - Add Validation: pages/paladins/add_valid.md
       - Hooks: pages/paladins/hooks.md
-      - Indexing: pages/paladins/indexing.md
       - Password: pages/paladins/password.md
       - Refrash: pages/paladins/refrash.md
       - Validation: pages/paladins/validation.md
-      - Tools: pages/paladins/tools.md
+      - Utils: pages/paladins/utils.md
   - Commons:
       - Commons: pages/commons/index.md
       - General: pages/commons/general.md
