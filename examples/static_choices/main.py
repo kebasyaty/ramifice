@@ -5,8 +5,7 @@ from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
-
+from ramifice import Migration
 from .models import Product
 
 
@@ -19,10 +18,7 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
+    # Create Product
     product = Product()
     product.size_float = 15.6
     product.sizes_float = [25.8, 12.5]
@@ -31,12 +27,12 @@ async def main() -> None:
     product.size_txt = "middle"
     product.sizes_txt = ["big", "small"]
 
-    # Create Product.
+    # Save Product
     if not await product.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         product.print_err()
 
-    # Update Product.
+    # Update Product
     product.size_txt = "big"
     if not await product.save():
         product.print_err()
@@ -48,12 +44,7 @@ async def main() -> None:
     else:
         print("No Products!")
 
-    # Remove Product.
-    # (if necessary)
-    # if product_details is not None:
-    #     await product.delete(remove_files=False)
-
-    # Remove collection.
+    # Remove collection
     # (if necessary)
     # await Product.collection.drop()
 

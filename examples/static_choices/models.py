@@ -1,70 +1,64 @@
 """Models."""
 
-from ramifice.translator import Translator
-from ramifice.fields import (
-    ChoiceFloatField,
-    ChoiceFloatMultField,
-    ChoiceIntField,
-    ChoiceIntMultField,
-    ChoiceTextField,
-    ChoiceTextMultField,
+from ramifice import (
+    Model,
+    Translator,
+    fields,
+    meta,
 )
 
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
-@model(service_name="Goods")
-class Product:
-    """Model of Product."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom Translations.
-        gettext = Translations.gettext
-        ngettext = Translations.ngettext
-        self.size_float = ChoiceFloatField(
-            label=gettext("Size in float"),
-            choices=[
-                [25.8, gettext("Big")],
-                [15.6, gettext("Middle")],
-                [12.5, gettext("Small")],
-            ],
-        )
-        self.sizes_float = ChoiceFloatMultField(
-            label=gettext("Sizes in float"),
-            choices=[
-                [25.8, gettext("Big")],
-                [15.6, gettext("Middle")],
-                [12.5, gettext("Small")],
-            ],
-        )
-        self.size_int = ChoiceIntField(
-            label=gettext("Size in Int"),
-            choices=[
-                [25, gettext("Big")],
-                [15, gettext("Middle")],
-                [12, gettext("Small")],
-            ],
-        )
-        self.sizes_int = ChoiceIntMultField(
-            label=gettext("Sizes in Int"),
-            choices=[
-                [25, gettext("Big")],
-                [15, gettext("Middle")],
-                [12, gettext("Small")],
-            ],
-        )
-        self.size_txt = ChoiceTextField(
-            label=gettext("Size in Text"),
-            choices=[
-                ["big", gettext("Big")],
-                ["middle", gettext("Middle")],
-                ["small", gettext("Small")],
-            ],
-        )
-        self.sizes_txt = ChoiceTextMultField(
-            label=gettext("Sizes in Text"),
-            choices=[
-                ["big", gettext("Big")],
-                ["middle", gettext("Middle")],
-                ["small", gettext("Small")],
-            ],
-        )
+@meta(service_name="Goods")
+class Product(Model):
+    """Product Model."""
+
+    size_float = fields.ChoiceFloatField(
+        label=_("Size in float"),
+        choices=[
+            [25.8, _("Big")],
+            [15.6, _("Middle")],
+            [12.5, _("Small")],
+        ],
+    )
+    sizes_float = fields.ChoiceFloatMultField(
+        label=_("Sizes in float"),
+        choices=[
+            [25.8, _("Big")],
+            [15.6, _("Middle")],
+            [12.5, _("Small")],
+        ],
+    )
+    size_int = fields.ChoiceIntField(
+        label=_("Size in Int"),
+        choices=[
+            [25, _("Big")],
+            [15, _("Middle")],
+            [12, _("Small")],
+        ],
+    )
+    sizes_int = fields.ChoiceIntMultField(
+        label=_("Sizes in Int"),
+        choices=[
+            [25, _("Big")],
+            [15, _("Middle")],
+            [12, _("Small")],
+        ],
+    )
+    size_txt = fields.ChoiceTextField(
+        label=_("Size in Text"),
+        choices=[
+            ["big", _("Big")],
+            ["middle", _("Middle")],
+            ["small", _("Small")],
+        ],
+    )
+    sizes_txt = fields.ChoiceTextMultField(
+        label=_("Sizes in Text"),
+        choices=[
+            ["big", _("Big")],
+            ["middle", _("Middle")],
+            ["small", _("Small")],
+        ],
+    )
