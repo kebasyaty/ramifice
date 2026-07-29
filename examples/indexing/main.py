@@ -58,10 +58,9 @@ async def main() -> None:
     print("\n\nRemove indexes:")
     await User.drop_index("username_Idx")
     await User.drop_index("email_Idx")
-     # remove all indexes
+    # or
     # await User.drop_indexes()
-    #
-    print("Index information:")
+    print("\nIndex information:")
     pp(await User.index_information())
 
     # Remove collection
