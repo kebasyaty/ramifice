@@ -1,0 +1,17 @@
+- logo: "public/media/default/no-photo.png"
+  copyright: "public/media/default/no_doc.odt"
+  brand: "Brand Name"
+  slogan: "We are the best!"
+  about_site: None
+  email_feedback: "John_Smith@gmail.com"
+  start_date: "2000-01-25"
+  is_active: True
+
+- logo: "public/media/default/no-photo.png"
+  copyright: "public/media/default/no_doc.odt"
+  brand: "Brand Name 2"
+  slogan: "We are the best!"
+  about_site: None
+  email_feedback: "John_Smith@gmail.com"
+  start_date: "2000-01-25"
+  is_active: True
