@@ -8,7 +8,9 @@ from typing import Any
 from pymongo import AsyncMongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice import Migration, Unit, model
+from ramifice import Migration, Model, Unit, meta
+from ramifice.config import Config
+from ramifice.errors import PanicError
 from ramifice.fields import (
     ChoiceFloatDynField,
     ChoiceFloatMultDynField,
@@ -17,22 +19,18 @@ from ramifice.fields import (
     ChoiceTextDynField,
     ChoiceTextMultDynField,
 )
-from ramifice.utils import constants
-from ramifice.utils.errors import PanicError
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.choice_float_dyn = ChoiceFloatDynField()
-        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
-        self.choice_int_dyn = ChoiceIntDynField()
-        self.choice_int_mult_dyn = ChoiceIntMultDynField()
-        self.choice_txt_dyn = ChoiceTextDynField()
-        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
+    choice_float_dyn = ChoiceFloatDynField()
+    choice_float_mult_dyn = ChoiceFloatMultDynField()
+    choice_int_dyn = ChoiceIntDynField()
+    choice_int_mult_dyn = ChoiceIntMultDynField()
+    choice_txt_dyn = ChoiceTextDynField()
+    choice_txt_mult_dyn = ChoiceTextMultDynField()
 
 
 class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
@@ -43,22 +41,21 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_unit_mixin_methods"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
-        client = AsyncMongoClient()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         #
         model_state: dict[str, Any] | None = await super_collection.find_one(
             {"collection_name": User.META["collection_name"]},
@@ -176,28 +173,29 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(choices["value"], "Some text 2")
         #
         user = User()
-        self.assertEqual(user.choice_float_dyn.choices, [[1.0, "Title"]])
-        self.assertEqual(user.choice_float_mult_dyn.choices, [[2.0, "Title"]])
-        self.assertEqual(user.choice_int_dyn.choices, [[1, "Title"]])
-        self.assertEqual(user.choice_int_mult_dyn.choices, [[2, "Title"]])
-        self.assertEqual(user.choice_txt_dyn.choices, [["Some text", "Title"]])
-        self.assertEqual(user.choice_txt_mult_dyn.choices, [["Some text 2", "Title"]])
-        user.choice_float_dyn.value = 1.0
-        user.choice_float_mult_dyn.value = [2.0]
-        user.choice_int_dyn.value = 1
-        user.choice_int_mult_dyn.value = [2]
-        user.choice_txt_dyn.value = "Some text"
-        user.choice_txt_mult_dyn.value = ["Some text 2"]
+        self.assertEqual(user.choice_float_dyn__core.choices, [[1.0, "Title"]])
+        self.assertEqual(user.choice_float_mult_dyn__core.choices, [[2.0, "Title"]])
+        self.assertEqual(user.choice_int_dyn__core.choices, [[1, "Title"]])
+        self.assertEqual(user.choice_int_mult_dyn__core.choices, [[2, "Title"]])
+        self.assertEqual(user.choice_txt_dyn__core.choices, [["Some text", "Title"]])
+        self.assertEqual(user.choice_txt_mult_dyn__core.choices, [["Some text 2", "Title"]])
+        user.choice_float_dyn = 1.0
+        user.choice_float_mult_dyn = [2.0]
+        user.choice_int_dyn = 1
+        user.choice_int_mult_dyn = [2]
+        user.choice_txt_dyn = "Some text"
+        user.choice_txt_mult_dyn = ["Some text 2"]
         #
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
-        #
-        self.assertEqual(user.choice_float_dyn.value, 1.0)
-        self.assertEqual(user.choice_float_mult_dyn.value, [2.0])
-        self.assertEqual(user.choice_int_dyn.value, 1)
-        self.assertEqual(user.choice_int_mult_dyn.value, [2])
-        self.assertEqual(user.choice_txt_dyn.value, "Some text")
-        self.assertEqual(user.choice_txt_mult_dyn.value, ["Some text 2"])
+        self.assertTrue(is_saved)
+        self.assertEqual(user.choice_float_dyn, 1.0)
+        self.assertEqual(user.choice_float_mult_dyn, [2.0])
+        self.assertEqual(user.choice_int_dyn, 1)
+        self.assertEqual(user.choice_int_mult_dyn, [2])
+        self.assertEqual(user.choice_txt_dyn, "Some text")
+        self.assertEqual(user.choice_txt_mult_dyn, ["Some text 2"])
         #
         # Delete Units:
         # ------------
@@ -279,12 +277,12 @@ class TestCommonUnitMixin(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(choices)
         #
         await user.refrash_from_db()
-        self.assertIsNone(user.choice_float_dyn.choices)
-        self.assertIsNone(user.choice_float_mult_dyn.choices)
-        self.assertIsNone(user.choice_int_dyn.choices)
-        self.assertIsNone(user.choice_int_mult_dyn.choices)
-        self.assertIsNone(user.choice_txt_dyn.choices)
-        self.assertIsNone(user.choice_txt_mult_dyn.choices)
+        self.assertIsNone(user.choice_float_dyn__core.choices)
+        self.assertIsNone(user.choice_float_mult_dyn__core.choices)
+        self.assertIsNone(user.choice_int_dyn__core.choices)
+        self.assertIsNone(user.choice_int_mult_dyn__core.choices)
+        self.assertIsNone(user.choice_txt_dyn__core.choices)
+        self.assertIsNone(user.choice_txt_mult_dyn__core.choices)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.

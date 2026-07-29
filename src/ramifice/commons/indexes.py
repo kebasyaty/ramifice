@@ -1,21 +1,41 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Indexation documents of collection."""
 
 from __future__ import annotations
 
 __all__ = ("IndexMixin",)
 
+from abc import abstractmethod
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants
+from ramifice.config import Config
 
 
 class IndexMixin:
-    """Indexation documents of collection."""
+    """Indexation documents in collection."""
+
+    @classmethod
+    @abstractmethod
+    async def indexing(cls) -> None:
+        """To set up and start indexing."""
 
     @classmethod
     async def create_index(  # type: ignore[no-untyped-def]
@@ -26,8 +46,9 @@ class IndexMixin:
         **kwargs,
     ) -> str:
         """Creates an index on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Create index.
         result: str = await collection.create_index(
             keys=keys,
@@ -46,8 +67,9 @@ class IndexMixin:
         **kwargs,
     ) -> None:
         """Drops the specified index on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Delete index.
         await collection.drop_index(
             index_or_name=index_or_name,
@@ -65,8 +87,9 @@ class IndexMixin:
         **kwargs,
     ) -> list[str]:
         """Create one or more indexes on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Create indexes.
         result: list[str] = await collection.create_indexes(
             indexes=indexes,
@@ -84,8 +107,9 @@ class IndexMixin:
         **kwargs,
     ) -> None:
         """Drops all indexes on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Delete indexes.
         await collection.drop_indexes(session=session, comment=comment, **kwargs)
 
@@ -96,8 +120,9 @@ class IndexMixin:
         comment: Any | None = None,
     ) -> Any:
         """Get information on this collection’s indexes."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         #
         return await collection.index_information(session=session, comment=comment)
 
@@ -108,7 +133,8 @@ class IndexMixin:
         comment: Any | None = None,
     ) -> Any:
         """Get a cursor over the index documents for this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         #
         return await collection.list_indexes(session=session, comment=comment)

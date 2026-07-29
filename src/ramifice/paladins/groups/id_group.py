@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Group for checking id fields.
 
 Supported fields:
@@ -15,8 +29,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 
-from ramifice.paladins.tools import accumulate_error, panic_type_error
-from ramifice.utils import translations
+from ramifice.paladins.utils import accumulate_error
 
 
 class IDGroupMixin:
@@ -28,24 +41,23 @@ class IDGroupMixin:
 
     def id_group(self, params: dict[str, Any]) -> None:
         """Checking id fields."""
-        field = params["field_data"]
-        # Get current value.
-        value = field.value
+        _ = params["_"]
+        f__core = params["field_core"]
+        f_name = f__core.name
+        f_name = f_name if f_name != "id" else "_id"
+        f_value = f__core.value
 
-        if not isinstance(value, (ObjectId, type(None))):
-            panic_type_error("ObjectId | None", params)
-
-        if value is None:
-            if field.required:
-                err_msg = translations._("Required field !")
+        if f_value is None:
+            if f__core.is_require:
+                err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
         # Validation of the MongoDB identifier in a string form.
-        if not ObjectId.is_valid(value):
-            err_msg = translations._("Invalid document ID !")
+        if not ObjectId.is_valid(f_value):
+            err_msg = _("Invalid document ID !")
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = f_value

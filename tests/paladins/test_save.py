@@ -7,7 +7,8 @@ import unittest
 from bson.objectid import ObjectId
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, model
+from ramifice import Migration, Model, meta
+from ramifice.config import Config
 from ramifice.fields import (
     BooleanField,
     ChoiceFloatDynField,
@@ -40,57 +41,53 @@ from ramifice.fields import (
 )
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.url = URLField()
-        self.txt = TextField()
-        self.slug = SlugField()
-        self.phone = PhoneField()
-        self.password = PasswordField()
-        self.ip = IPField()
-        self.num_int = IntegerField()
-        self.num_float = FloatField()
-        self.img = ImageField()
-        self.hash2 = IDField()
-        self.file = FileField()
-        self.email = EmailField()
-        self.date_time = DateTimeField()
-        self.date = DateField()
-        self.color = ColorField()
-        self.bool = BooleanField()
-        self.choice_float_dyn = ChoiceFloatDynField()
-        self.choice_float = ChoiceFloatField()
-        self.choice_float_mult_dyn = ChoiceFloatMultDynField()
-        self.choice_float_mult = ChoiceFloatMultField()
-        self.choice_int_dyn = ChoiceIntDynField()
-        self.choice_int_mult_dyn = ChoiceIntMultDynField()
-        self.choice_int_mult = ChoiceIntMultField()
-        self.choice_txt_dyn = ChoiceTextDynField()
-        self.choice_txt = ChoiceTextField()
-        self.choice_txt_mult_dyn = ChoiceTextMultDynField()
-        self.choice_txt_mult = ChoiceTextMultField()
-        self.choice_int = ChoiceIntField()
+    url = URLField()
+    txt = TextField()
+    slug = SlugField()
+    phone = PhoneField()
+    password = PasswordField()
+    ip = IPField()
+    num_int = IntegerField()
+    num_float = FloatField()
+    img = ImageField()
+    hash2 = IDField()
+    file = FileField()
+    email = EmailField()
+    date_time = DateTimeField()
+    date = DateField()
+    color = ColorField()
+    bool = BooleanField()
+    choice_float_dyn = ChoiceFloatDynField()
+    choice_float = ChoiceFloatField()
+    choice_float_mult_dyn = ChoiceFloatMultDynField()
+    choice_float_mult = ChoiceFloatMultField()
+    choice_int_dyn = ChoiceIntDynField()
+    choice_int_mult_dyn = ChoiceIntMultDynField()
+    choice_int_mult = ChoiceIntMultField()
+    choice_txt_dyn = ChoiceTextDynField()
+    choice_txt = ChoiceTextField()
+    choice_txt_mult_dyn = ChoiceTextMultDynField()
+    choice_txt_mult = ChoiceTextMultField()
+    choice_int = ChoiceIntField()
 
 
-@model(service_name="Accounts")
-class UniqueUser:
+@meta(service_name="Accounts")
+class UniqueUser(Model):
     """For test the uniqueness of values."""
 
-    def fields(self):
-        """Adding fields."""
-        self.username = TextField(
-            unique=True,
-        )
-        self.email = EmailField(
-            unique=True,
-        )
-        self.age = IntegerField(
-            unique=True,
-        )
+    username = TextField(
+        is_unique=True,
+    )
+    email = EmailField(
+        is_unique=True,
+    )
+    age = IntegerField(
+        is_unique=True,
+    )
 
 
 class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
@@ -101,36 +98,41 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_save_method"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
-        client = AsyncMongoClient()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         user = User()
         # Create doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
-        self.assertTrue(isinstance(user.id.value, ObjectId))
-        doc_id = str(user.id.value)
+        self.assertTrue(is_saved)
+        self.assertTrue(isinstance(user.id, ObjectId))
+        doc_id = str(user.id)
         # Update doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
-        self.assertEqual(str(user.id.value), doc_id)
+        self.assertTrue(is_saved)
+        self.assertEqual(str(user.id), doc_id)
         # Update doc.
-        if not await user.save():
+        is_saved = await user.save()
+        if not is_saved:
             user.print_err()
+        self.assertTrue(is_saved)
+        self.assertEqual(str(user.id), doc_id)
 
-        self.assertEqual(str(user.id.value), doc_id)
         self.assertEqual(await User.estimated_document_count(), 1)
         result = await user.delete()
         self.assertTrue(isinstance(result, dict))
@@ -140,21 +142,21 @@ class TestPaladinSaveMixin(unittest.IsolatedAsyncioTestCase):
         # Check Unique.
         # positive
         unique_user = UniqueUser()
-        unique_user.username.value = "pythondev"
-        unique_user.email.value = "John_Smith@gmail.com"
-        unique_user.age.value = 32
+        unique_user.username = "pythondev"
+        unique_user.email = "John_Smith@gmail.com"
+        unique_user.age = 32
         self.assertTrue(await unique_user.save())
         unique_user = UniqueUser()
         self.assertTrue(await unique_user.save())
         # negative
         unique_user = UniqueUser()
-        unique_user.username.value = "pythondev"
+        unique_user.username = "pythondev"
         self.assertFalse(await unique_user.save())
         unique_user = UniqueUser()
-        unique_user.email.value = "John_Smith@gmail.com"
+        unique_user.email = "John_Smith@gmail.com"
         self.assertFalse(await unique_user.save())
         unique_user = UniqueUser()
-        unique_user.age.value = 32
+        unique_user.age = 32
         self.assertFalse(await unique_user.save())
         # ----------------------------------------------------------------------
         #

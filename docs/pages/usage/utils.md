@@ -3,7 +3,7 @@ General auxiliary methods:
 ```python
 from xloft.converters import to_human_size
 from xloft.itis import is_number
-from ramifice.utils.tools import (
+from ramifice.utils import (
     get_file_size,
     hash_to_obj_id,
     is_color,

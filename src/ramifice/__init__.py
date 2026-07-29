@@ -9,7 +9,7 @@
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
 #
-# Copyright 2022-present MongoDB, Inc.
+# Copyright 2024-present MongoDB, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,19 +36,23 @@ from __future__ import annotations
 __all__ = (
     "NamedTuple",
     "to_human_size",
-    "model",
-    "translations",
+    "meta",
     "Migration",
+    "Model",
+    "Translator",
     "Unit",
+    "UTC_TIMEZONE",
 )
 
 # pyrefly: ignore [missing-import]
 from xloft import NamedTuple
-
-# pyrefly: ignore [missing-import]
 from xloft.converters import to_human_size
 
-from ramifice.models.decorator import model
-from ramifice.utils import translations
-from ramifice.utils.migration import Migration
-from ramifice.utils.unit import Unit
+from ramifice.config import Config
+from ramifice.meta import meta
+from ramifice.migration import Migration
+from ramifice.model import Model
+from ramifice.translator import Translator
+from ramifice.unit import Unit
+
+UTC_TIMEZONE = Config.UTC_TIMEZONE  # ruff:ignore[non-empty-init-module]

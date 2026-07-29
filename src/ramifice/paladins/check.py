@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Validation of Model data before saving to the database."""
 
 from __future__ import annotations
@@ -15,7 +29,9 @@ from typing import Any, assert_never
 from anyio import to_thread
 from bson.objectid import ObjectId
 from pymongo.asynchronous.collection import AsyncCollection
+from xloft import NamedTuple
 
+from ramifice.config import Config
 from ramifice.paladins.groups import (
     BoolGroupMixin,
     ChoiceGroupMixin,
@@ -23,12 +39,11 @@ from ramifice.paladins.groups import (
     FileGroupMixin,
     IDGroupMixin,
     ImgGroupMixin,
-    NumGroupMixin,
-    PassGroupMixin,
+    NumberGroupMixin,
+    PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
 )
-from ramifice.utils import constants
 
 logger = logging.getLogger(__name__)
 
@@ -40,8 +55,8 @@ class CheckMixin(
     FileGroupMixin,
     IDGroupMixin,
     ImgGroupMixin,
-    NumGroupMixin,
-    PassGroupMixin,
+    NumberGroupMixin,
+    PasswordGroupMixin,
     SlugGroupMixin,
     TextGroupMixin,
 ):
@@ -57,23 +72,23 @@ class CheckMixin(
 
         It is also used to verify Models that do not migrate to the database.
         """
-        cls_model = self.__class__
+        metadata = self.__class__.META
 
         # Get the document ID.
-        doc_id: ObjectId | None = self._id.value
+        doc_id: ObjectId | None = self.id
         # Does the document exist in the database?
         is_update: bool = doc_id is not None
         # Create an identifier for a new document.
         if is_save and not is_update:
             doc_id = ObjectId()
-            self._id.value = doc_id
+            setattr(self, "id", doc_id)  # ruff:ignore[set-attr-with-constant]
 
         result_map: dict[str, Any] = {}
         # Errors from additional validation of fields.
-        error_map: dict[str, str] = await self.add_validation()
+        error_map: NamedTuple = await self.add_validation()
         # Get Model collection.
         if collection is None:
-            collection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+            collection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Create params for *_group methods.
         params: dict[str, Any] = {
             "doc_id": doc_id,
@@ -82,32 +97,35 @@ class CheckMixin(
             "is_error_symptom": False,  # Is there any incorrect data?
             "result_map": result_map,  # Data to save or update to the database.
             "collection": collection,
-            "field_data": None,
-            "full_model_name": cls_model.META["full_model_name"],
+            "field_core": None,
+            "full_model_name": metadata["full_model_name"],
             "is_migration_process": is_migration_process,
             "curr_doc": (await collection.find_one({"_id": doc_id}) if is_save and is_update else None),
+            "descriptor_fields": metadata["all_descriptor_fields"],
+            "LANGUAGES": self._LANGUAGES,
+            "LANG_CODE": self._LANG_CODE,
+            "_": self._RAMIFICE_TRANSLATOR.gettext,
         }
 
         # Run checking fields.
-        for field_name, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
+        for f_name in params["descriptor_fields"]:
+            f__core = getattr(self, f"{f_name}__core")
             # Reset a field errors to exclude duplicates.
-            field_data.errors = []
+            f__core.errors = []
             # Check additional validation.
-            err_msg = error_map.get(field_name)
-            if bool(err_msg):
-                field_data.errors.append(err_msg)
+            err_msg = error_map[f_name]
+            if err_msg is not None:
+                f__core.errors.append(err_msg)
                 if not params["is_error_symptom"]:
                     params["is_error_symptom"] = True
             # Checking the fields by groups.
-            if not field_data.ignored:
-                params["field_data"] = field_data
-                match field_data.group:
+            if not f__core.is_ignore:
+                params["field_core"] = f__core
+                match f__core.group:
                     case "text":
                         await self.text_group(params)
-                    case "num":
-                        await self.num_group(params)
+                    case "number":
+                        await self.number_group(params)
                     case "date":
                         self.date_group(params)
                     case "img":
@@ -122,11 +140,11 @@ class CheckMixin(
                         self.id_group(params)
                     case "slug":
                         await self.slug_group(params)
-                    case "pass":
-                        self.pass_group(params)
+                    case "password":
+                        self.password_group(params)
                     case _ as unreachable:
-                        msg: str = f"Unacceptable group `{unreachable}`!"
-                        logger.critical(msg)
+                        err_msg: str = f"Unacceptable group `{unreachable}`!"
+                        logger.critical(err_msg)
                         assert_never(unreachable)
 
         # Actions in case of error.
@@ -134,35 +152,44 @@ class CheckMixin(
             if params["is_error_symptom"]:
                 # Reset the ObjectId for a new document.
                 if not is_update:
-                    self._id.value = None
+                    # pyrefly: ignore [bad-assignment]
+                    self.__dict__["id"] = None
                 # Delete orphaned files.
                 curr_doc: dict[str, Any] | None = params["curr_doc"]
-                for field_name, field_data in self.__dict__.items():
-                    if callable(field_data) or field_data.ignored:
-                        continue
-                    match field_data.group:
+
+                for field_name in params["descriptor_fields"]:
+                    f__core = getattr(self, f"{field_name}__core")
+
+                    match f__core.group:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:
                                 if file_data["is_new_file"]:
                                     await to_thread.run_sync(remove, file_data["path"])
-                                field_data.value = None
+                                f__core.value = None
+                                setattr(self, field_name, None)
                             if curr_doc is not None:
-                                field_data.value = curr_doc[field_name]
+                                f__core.value = curr_doc[field_name]
+                                setattr(self, field_name, curr_doc[field_name])
                         case "img":
                             img_data = result_map.get(field_name)
                             if img_data is not None:
                                 if img_data["is_new_img"]:
                                     # pyrefly: ignore [incompatible-overload-residual]
                                     await to_thread.run_sync(rmtree, img_data["imgs_dir_path"])
-                                field_data.value = None
+                                f__core.value = None
+                                setattr(self, field_name, None)
                             if curr_doc is not None:
-                                field_data.value = curr_doc[field_name]
+                                f__core.value = curr_doc[field_name]
+                                setattr(self, field_name, curr_doc[field_name])
             else:
-                for field_name, field_data in self.__dict__.items():
-                    if callable(field_data) or field_data.ignored:
+                for field_name in params["descriptor_fields"]:
+                    f__core = getattr(self, f"{field_name}__core")
+
+                    if f__core.is_ignore:
                         continue
-                    match field_data.group:
+
+                    match f__core.group:
                         case "file":
                             file_data = result_map.get(field_name)
                             if file_data is not None:

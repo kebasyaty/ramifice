@@ -1,9 +1,23 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Units Management.
 
-Management for `choices` parameter in dynamic field types.
+Management for `choices` parameter in dynamic fields.
 """
 
 from __future__ import annotations
@@ -11,39 +25,40 @@ from __future__ import annotations
 __all__ = ("UnitMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants, translations
-from ramifice.utils.errors import (
+from ramifice.config import Config
+from ramifice.errors import (
     NotPossibleAddUnitError,
     NotPossibleDeleteUnitError,
     PanicError,
 )
-from ramifice.utils.unit import Unit
+from ramifice.translator import Translator
+from ramifice.unit import Unit
 
 logger = logging.getLogger(__name__)
 
 
 class UnitMixin:
-    """Units Management.
-
-    Management for `choices` parameter in dynamic field types.
-    """
+    """Units Management."""
 
     @classmethod
     async def unit_manager(cls: Any, unit: Unit) -> None:
         """Units Management.
 
-        Management for `choices` parameter in dynamic field types.
+        Unit - A unit of information ([value, "Title"]) for fields with a dynamic `choices` attribute.
+        Management for `choices` parameter in dynamic fields.
         """
+        metadata = cls.META
         # Get access to super collection.
         # (Contains Model state and dynamic field data.)
-        super_collection: AsyncCollection = constants.MONGO_DATABASE[constants.SUPER_COLLECTION_NAME]
+        super_collection: AsyncCollection = Config.MONGO_DATABASE[Config.SUPER_COLLECTION_NAME]
         # Get Model state.
         model_state: dict[str, Any] | None = await super_collection.find_one(
-            filter={"collection_name": cls.META["collection_name"]},
+            filter={"collection_name": metadata["collection_name"]},
         )
         # Check the presence of a Model state.
         if model_state is None:
@@ -51,7 +66,7 @@ class UnitMixin:
             logger.critical(msg)
             raise PanicError(msg)
         # Get language list.
-        lang_list = translations.LANGUAGES
+        lang_list = deepcopy(Translator.LANGUAGES)
         # Get clean fields of Unit.
         unit_field: str = unit.field
         title = unit.title
@@ -74,7 +89,7 @@ class UnitMixin:
         if not unit.is_delete:
             if choices is not None:
                 if is_unit_exists:
-                    main_lang = translations.DEFAULT_LOCALE
+                    main_lang = Translator.DEFAULT_LOCALE
                     msg = (
                         "Error: It is not possible to add Unit - "
                         + f"Unit `{title[main_lang]}: {target_value}` is exists!"
@@ -92,7 +107,7 @@ class UnitMixin:
                 logger.error(msg)
                 raise NotPossibleDeleteUnitError(msg)
             if not is_unit_exists:
-                main_lang = translations.DEFAULT_LOCALE
+                main_lang = Translator.DEFAULT_LOCALE
                 msg = (
                     "Error: It is not possible to delete Unit."
                     + f"Unit `{title[main_lang]}: {target_value}` is not exists!"
@@ -107,10 +122,10 @@ class UnitMixin:
             replacement=model_state,
         )
         # Update metadata of current Model.
-        cls.META["data_dynamic_fields"][unit_field] = choices or None
+        metadata["data_dynamic_fields"][unit_field] = choices or None
         # Update documents in the collection of the current Model.
         if unit.is_delete:
-            collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+            collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
             async for mongo_doc in collection.find():
                 field_value = mongo_doc[unit_field]
                 if field_value is not None:

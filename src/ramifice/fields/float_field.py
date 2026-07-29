@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Field of Model for enter (float) number."""
 
 from __future__ import annotations
@@ -8,57 +22,56 @@ from __future__ import annotations
 __all__ = ("FloatField",)
 
 import logging
-from typing import Literal
+from typing import Any, Literal
 
-from ramifice.fields.general.field import Field
-from ramifice.fields.general.number_group import NumberGroup
-from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
+from ramifice.config import Config
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
 
-class FloatField(Field, NumberGroup, JsonMixin):
-    """Field of Model for enter (float) number.
+class FloatField(Field):
+    """Field of Model for enter (float) number."""
 
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        default: Value by default.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        unique: The unique value of a field in a collection.
-        max_number: Maximum allowed number.
-        min_number: Minimum allowed number.
-        step: Increment step for numeric fields.
-        input_type: Field type - `number` or `range`.
-    """
-
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
         default: float | None = None,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
-        required: bool = False,
-        readonly: bool = False,
-        unique: bool = False,
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
+        is_require: bool = False,
+        is_readonly: bool = False,
+        is_unique: bool = False,
         max_number: float | None = None,
         min_number: float | None = None,
         step: float = 1.0,
         input_type: Literal["number", "range"] = "number",
     ) -> None:
-        if constants.DEBUG:
-            try:  # noqa: PLW0717
+        """Field of Model for enter (float) number.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            default: Value by default.
+            is_hide: Hide field from user.
+            is_disable: Blocks access and modification of the element.
+            is_ignore: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            is_require: Required field.
+            is_readonly: Specifies that the field cannot be modified by the user.
+            is_unique: The unique value of a field in a collection.
+            max_number: Maximum allowed number.
+            min_number: Minimum allowed number.
+            step: Increment step for numeric fields.
+            input_type: Field type - `number` or `range`.
+        """
+        if Config.DEBUG:
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if input_type not in ["number", "range"]:
                     raise AssertionError(
                         "Parameter `input_type` - Invalid input type! "
@@ -80,54 +93,54 @@ class FloatField(Field, NumberGroup, JsonMixin):
                     if max_number is not None and default < min_number:
                         raise AssertionError("Parameter `default` is less `min_number`!")
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if not isinstance(disabled, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
+                if not isinstance(is_disable, bool):
+                    raise AssertionError("Parameter `is_disable` - Not а `bool` type!")
+                if not isinstance(is_hide, bool):
+                    raise AssertionError("Parameter `is_hide` - Not а `bool` type!")
+                if not isinstance(is_ignore, bool):
+                    raise AssertionError("Parameter `is_ignore` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
-                if not isinstance(unique, bool):
+                if not isinstance(is_require, bool):
+                    raise AssertionError("Parameter `is_require` - Not а `bool` type!")
+                if not isinstance(is_readonly, bool):
+                    raise AssertionError("Parameter `is_readonly` - Not а `bool` type!")
+                if not isinstance(is_unique, bool):
                     raise AssertionError("Parameter `unique` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="FloatField",
-            group="num",
-        )
-        NumberGroup.__init__(
-            self,
-            placeholder=placeholder,
-            required=required,
-            readonly=readonly,
-            unique=unique,
-        )
-        JsonMixin.__init__(self)
+        Field.__init__(self, supported_types=(float, type(None)))
 
-        self.input_type: str = input_type
-        self.value: float | None = None
-        self.default = default
-        self.max_number = max_number
-        self.min_number = min_number
-        self.step = step
+        field_core: dict[str, Any] = {
+            "id": "",
+            "name": "",
+            "label": label,
+            "input_type": input_type,
+            "value": None,
+            "default": default,
+            "placeholder": placeholder,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
+            "hint": hint,
+            "warning": warning,
+            "is_require": is_require,
+            "is_readonly": is_readonly,
+            "is_unique": is_unique,
+            "max_number": max_number,
+            "min_number": min_number,
+            "step": step,
+            "errors": [],
+            "field_type": "FloatField",
+            "group": "number",
+        }
+
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.__dict__["field_funcs"] = FieldCore()

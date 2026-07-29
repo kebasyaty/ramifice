@@ -1,1 +1,0 @@
-::: ramifice.models.decorator

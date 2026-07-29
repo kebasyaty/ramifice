@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Paladins - Model instance methods.
 
 This module provides:
@@ -9,7 +23,6 @@ This module provides:
 - `check`: Validation of Model data before saving to the database.
 - `delete`: Delete document from database.
 - `Hooks`: A set of abstract methods for creating hooks.
-- `indexing`: Contains the method for indexing the model in the database.
 - `password`: Verification, replacement and recoverang of password.
 - `refrash_from_db`: Update Model instance from database.
 - `save`: Create or update document in database.
@@ -26,14 +39,13 @@ from ramifice.paladins.add_valid import AddValidMixin
 from ramifice.paladins.check import CheckMixin
 from ramifice.paladins.delete import DeleteMixin
 from ramifice.paladins.hooks import HooksMixin
-from ramifice.paladins.indexing import IndexMixin
 from ramifice.paladins.password import PasswordMixin
 from ramifice.paladins.refrash import RefrashMixin
 from ramifice.paladins.save import SaveMixin
 from ramifice.paladins.validation import ValidationMixin
 
 
-class QPaladinsMixin(  # noqa: RUF067
+class QPaladinsMixin(  # ruff:ignore[non-empty-init-module]
     CheckMixin,
     SaveMixin,
     PasswordMixin,
@@ -42,9 +54,8 @@ class QPaladinsMixin(  # noqa: RUF067
     ValidationMixin,
     AddValidMixin,
     HooksMixin,
-    IndexMixin,
 ):
     """Paladins - Model instance methods."""
 
-    def __init__(self) -> None:  # noqa: D107
+    def __init__(self) -> None:  # ruff:ignore[undocumented-public-init]
         super().__init__()

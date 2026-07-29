@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Field of Model for enter password."""
 
 from __future__ import annotations
@@ -10,10 +24,8 @@ __all__ = ("PasswordField",)
 import logging
 from typing import Any
 
-import orjson
-
-from ramifice.fields.general.field import Field
-from ramifice.utils import constants
+from ramifice.config import Config
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
@@ -25,88 +37,72 @@ class PasswordField(Field):
         - `Regular expression:` ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
         - `Valid characters:` a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
         - `Number of characters:` from 8 to 256.
-
-    Agrs:
-        label: Text label for a web form field.
-        placeholder: Displays prompt text.
-        hide: Hide field from user.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        required: Required field.
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         placeholder: str = "",
-        hide: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
-        required: bool = False,
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
+        is_require: bool = False,
     ) -> None:
-        if constants.DEBUG:
-            try:  # noqa: PLW0717
+        r"""Field of Model for enter password.
+
+        Attention:
+            - `Regular expression:` ^[-._!"`'#%&,:;<>=@{}~$()*+/\\?[]^|a-zA-Z0-9]{8,256}$
+            - `Valid characters:` a-z A-Z 0-9 - . _ ! " ` ' # % & , : ; < > = @ { } ~ $ ( ) * + / \\ ? [ ] ^ |
+            - `Number of characters:` from 8 to 256.
+
+        Agrs:
+            label: Text label for a web form field.
+            placeholder: Displays prompt text.
+            is_hide: Hide field from user.
+            is_ignore: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            is_require: Required field.
+        """
+        if Config.DEBUG:
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
+                if not isinstance(is_hide, bool):
+                    raise AssertionError("Parameter `is_hide` - Not а `bool` type!")
+                if not isinstance(is_ignore, bool):
+                    raise AssertionError("Parameter `is_ignore` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
                 if not isinstance(placeholder, str):
                     raise AssertionError("Parameter `placeholder` - Not а `str` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
+                if not isinstance(is_require, bool):
+                    raise AssertionError("Parameter `is_require` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
 
-        Field.__init__(
-            self,
-            label=label,
-            disabled=False,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="PasswordField",
-            group="pass",
-        )
+        Field.__init__(self, supported_types=(str, type(None)))
 
-        self.input_type = "password"
-        self.value: str | None = None
-        self.placeholder = placeholder
-        self.required = required
+        field_core: dict[str, Any] = {
+            "id": "",
+            "name": "",
+            "label": label,
+            "input_type": "password",
+            "value": None,
+            "placeholder": placeholder,
+            "is_hide": is_hide,
+            "is_ignore": is_ignore,
+            "hint": hint,
+            "disabled": False,
+            "warning": warning,
+            "is_require": is_require,
+            "errors": [],
+            "field_type": "PasswordField",
+            "group": "password",
+        }
 
-    def to_dict(self) -> dict[str, Any]:
-        """Convert object instance to a dictionary."""
-        json_dict: dict[str, Any] = {}
-        for name, data in self.__dict__.items():
-            if not callable(data):
-                json_dict[name] = data if name != "value" else None
-        return json_dict
-
-    def to_json(self) -> str:
-        """Convert object instance to a JSON string."""
-        return orjson.dumps(self.to_dict()).decode("utf-8")
-
-    @classmethod
-    def from_dict(cls, json_dict: dict[str, Any]) -> Any:
-        """Convert JSON string to a object instance."""
-        obj = cls()
-        for name, data in json_dict.items():
-            obj.__dict__[name] = data
-        return obj
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Any:
-        """Convert JSON string to a object instance."""
-        json_dict = orjson.loads(json_str)
-        return cls.from_dict(json_dict)
+        self.__dict__["field_core"] = FieldCore(**field_core)

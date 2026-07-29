@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Group for checking date fields.
 
 Supported fields:
@@ -16,11 +30,7 @@ from typing import Any
 
 from babel.dates import format_date, format_datetime
 
-from ramifice.paladins.tools import (
-    accumulate_error,
-    panic_type_error,
-)
-from ramifice.utils import translations
+from ramifice.paladins.utils import accumulate_error
 
 
 class DateGroupMixin:
@@ -32,87 +42,90 @@ class DateGroupMixin:
 
     def date_group(self, params: dict[str, Any]) -> None:
         """Checking date fields."""
-        field = params["field_data"]
+        _ = params["_"]
+        f__core = params["field_core"]
+        f_name = f__core.name
+        f_type = f__core.field_type
+        LANG_CODE = self._LANG_CODE
         # Get current value.
-        value = field.value or field.default or None
+        f_value = f__core.value or f__core.default or None
 
-        if not isinstance(value, (datetime, type(None))):
-            panic_type_error("datetime | None", params)
-
-        if value is None:
-            if field.required:
-                err_msg = translations._("Required field !")
+        if f_value is None:
+            if f__core.is_require:
+                err_msg = _("Required field !")
                 accumulate_error(err_msg, params)
             if params["is_save"]:
-                params["result_map"][field.name] = None
+                params["result_map"][f_name] = None
             return
 
         # Validation the `max_date` field attribute.
-        max_date = field.max_date
-        if max_date is not None and value > max_date:
+        max_date = f__core.max_date
+        if max_date is not None and f_value > max_date:
             value_str = (
                 format_date(
-                    date=value.date(),
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    date=f_value,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
-                    datetime=value,
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    datetime=f_value,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             max_date_str = (
                 format_date(
-                    date=max_date.date(),
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    date=max_date,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=max_date,
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
-            err_msg = translations._(
+            err_msg = _(
                 "The date {} must not be greater than max={} !",
             ).format(value_str, max_date_str)
             accumulate_error(err_msg, params)
         # Validation the `min_date` field attribute.
-        min_date = field.min_date
-        if min_date is not None and value < min_date:
+        min_date = f__core.min_date
+        if min_date is not None and f_value < min_date:
             value_str = (
                 format_date(
-                    date=value.date(),
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    date=f_value.date(),
+                    format="medium",
+                    locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
-                    datetime=value,
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    datetime=f_value,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
             min_date_str = (
                 format_date(
-                    date=min_date.date(),
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    date=min_date,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
-                if field.field_type == "DateField"
+                if f_type == "DateField"
                 else format_datetime(
                     datetime=min_date,
-                    format="short",
-                    locale=translations.CURRENT_LOCALE,
+                    format="medium",
+                    locale=LANG_CODE,
                 )
             )
-            err_msg = translations._(
+            err_msg = _(
                 "The date {} must not be less than min={} !",
             ).format(value_str, min_date_str)
             accumulate_error(err_msg, params)
         # Insert result.
         if params["is_save"]:
-            params["result_map"][field.name] = value
+            params["result_map"][f_name] = (
+                f_value if f_type == "DateTimeField" else datetime.combine(f_value, datetime.min.time())
+            )

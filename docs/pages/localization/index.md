@@ -5,7 +5,7 @@
 ```python
 from ramifice import translations
 
-translations.add_languages(
+Translations.add_languages(
     default_locale="en",  # For Ramifice by default = "en"
     languages=frozenset(("en", "ru")),  # For Ramifice by default = ["en", "ru"]
 )
@@ -33,7 +33,7 @@ uv run pybabel compile -d config/translations/custom
 ```python
 from ramifice import translations
 
-translations.add_languages(
+Translations.add_languages(
     default_locale="en",  # For Ramifice by default = "en"
     languages=frozenset(("en", "ru", "de", "de_ch")),  # For Ramifice by default = ["en", "ru"]
 )

@@ -4,7 +4,7 @@
       <img
         height="100"
         alt="Logo"
-        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/logo.svg">
+        src="https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/logo.svg">
     </a>
   </p>
   <p>
@@ -21,7 +21,7 @@
       <a href="https://docs.astral.sh/ruff/" alt="Code style: Ruff"><img src="https://img.shields.io/badge/code%20style-Ruff-FDD835.svg" alt="Code style: Ruff"></a>
       <a href="https://pypi.org/project/ramifice"><img src="https://img.shields.io/pypi/format/ramifice" alt="Format"></a>
       <a href="https://pepy.tech/projects/ramifice"><img src="https://static.pepy.tech/badge/ramifice" alt="PyPI Downloads"></a>
-      <a href="https://github.com/kebasyaty/ramifice/blob/main/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
+      <a href="https://github.com/kebasyaty/ramifice/blob/v2/LICENSE" alt="GitHub license"><img src="https://img.shields.io/github/license/kebasyaty/ramifice" alt="GitHub license"></a>
     </p>
     <p align="center">
       Ramifice is built around <a href="https://pypi.org/project/pymongo/" alt="PyMongo">PyMongo</a>.
@@ -37,6 +37,8 @@
 
 ##
 
+<br>
+
 [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 <br>
 _Supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, 6.0, 7.0, and 8.0._
@@ -45,18 +47,18 @@ _For more information see [PyMongo](https://pypi.org/project/pymongo/ "PyMongo")
 
 <br>
 
-[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
+[![Documentation](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/documentation.svg "Documentation")](https://kebasyaty.github.io/ramifice/ "Documentation")
 
-[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v1/REQUIREMENTS.md "Requirements")
+[![Requirements](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/requirements.svg "Requirements")](https://github.com/kebasyaty/ramifice/blob/v2/REQUIREMENTS.md "Requirements")
 
 ## Installation
 
 1. Install MongoDB (if not installed):<br>
-   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v1/assets/FEDORA_INSTALL_MONGODB.md)
-   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v1/assets/UBUNTU_INSTALL_MONGODB.md)
+   [![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v2/assets/FEDORA_INSTALL_MONGODB.md)
+   [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/kebasyaty/ramifice/blob/v2/assets/UBUNTU_INSTALL_MONGODB.md)
    [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.mongodb.com/try/download/community)
 
-2. Run:
+2. Install system dependencies:
 
 ```shell
 # Fedora:
@@ -68,98 +70,112 @@ brew install gettext
 brew link gettext --force
 # Windows:
 https://mlocati.github.io/articles/gettext-iconv-windows.html
+```
 
-cd project_name
+3. Install Ramifice in your project:
+
+```shell
 uv add ramifice
 ```
 
-3. Add `config` and `public` directories in root of your project:<br>
-   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/config "Download config directory")
-   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/main/public "Download public directory")
+4. Add `config` and `public` directories in root of your project:<br>
+   [Download config directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/v2/config "Download config directory")<br>
+   [Download public directory](https://downgit.github.io/#/home?url=https://github.com/kebasyaty/ramifice/tree/v2/public "Download public directory")
+
+5. Run
+
+```shell
+# Run Development:
+uv run python main.py
+# Run Production:
+uv run python -OOP main.py
+```
 
 ## Usage
 
-[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/main/examples "Examples")
+[![Examples](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/more-examples.svg "Examples")](https://github.com/kebasyaty/ramifice/tree/v2/examples "Examples")
 
 ```python
 import re
 import asyncio
-from typing import Any
-from datetime import datetime
 from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
+
 from ramifice import (
-    NamedTuple,
-    model,
-    translations,
     Migration,
+    Model,
+    Translator,
+    fields,
+    meta,
     to_human_size,
 )
-from ramifice.fields import (
-    ImageField,
-    PasswordField,
-    TextField,
-)
+
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
 @model(service_name="Accounts")
 class User:
-    """Model of User."""
+    """User Model."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        # ngettext = translations.ngettext
-        self.avatar = ImageField(
-            label=gettext("Avatar"),
-            default="public/media/default/no-photo.png",
-            # Directory for images inside media directory.
-            target_dir="users/avatars",
-            # Available 4 sizes from lg to xs or None.
-            # Hint: By default = None
-            thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
-            # The maximum size of the original image in bytes.
-            # Hint: By default = 2 MB
-            max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
-            warning=[
-                gettext("Maximum size: {}").format(to_human_size(524288)),
-            ],
-        )
-        self.username = TextField(
-            label=gettext("Username"),
-            maxlength=150,
-            required=True,
-            unique=True,
-            warning=[
-                gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
-            ],
-        )
-        self.password = PasswordField(
-            label=gettext("Password"),
-        )
-        self.сonfirm_password = PasswordField(
-            label=gettext("Confirm password"),
-            # If true, the value of this field is not saved in the database.
-            ignored=True,
-        )
+    avatar = fields.ImageField(
+        label=_("Avatar"),
+        default="public/media/default/no-photo.png",
+        # Directory for images inside media directory.
+        target_dir="users/avatars",
+        # Available 4 sizes from lg to xs or None.
+        # Hint: Default = None
+        thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
+        # The maximum size of the original image in bytes.
+        # Hint: Default = 2 MB
+        max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
+        warning=[
+            _("Maximum size: {}").format(to_human_size(524288)),
+        ],
+    )
+    username = fields.TextField(
+        label=_("Username"),
+        max_length=150,
+        is_require=True,
+        is_unique=True,
+        warning=[
+            _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
+            _("Maximum length: {}").format(150),
+        ],
+    )
+    password = fields.PasswordField(
+        label=_("Password"),
+        warning=[
+            _("Maximum length: {}").format(256),  # this is an immutable size
+            _("Minimum length: {}").format(8),  # this is an immutable size
+        ],
+    )
+    сonfirm_password = fields.PasswordField(
+        label=_("Confirm password"),
+        # If true, the value of this field is not saved in the database.
+        is_ignore=True,
+    )
 
     # Optional method
-    async def add_validation(self) -> NamedTuple:
+    async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
-        gettext = translations.gettext
-        cd, err = self.get_clean_data()
+        _ = self._CUSTOM_TRANSLATOR.gettext
+        err_map = self.get_error_map()
 
-        # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+        _id = self.id
+        password = self.password
+        сonfirm_password = self.сonfirm_password
+        username = self.username
 
         # Check password
-        if cd._id is None and (cd.password != cd.сonfirm_password):
-            err.update("password", gettext("Passwords do not match!"))
+        if _id is None and password != сonfirm_password:
+            err_map.update("password", _("Passwords do not match!"))
 
-        return err
+        # Check username
+        if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+            err_map.update("username", _("Allowed characters: {}").format("a-z A-Z 0-9 _"))
+
+        return err_map
 
 
 async def main():
@@ -170,37 +186,32 @@ async def main():
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
+    # Create User
+    user = User("ru")
+    # user.avatar__core.from_path("public/media/default/no-photo.png")
+    # user.avatar__core.from_base64("base64-string")
+    user.username = "pythondev"
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
 
-    user = User()
-    # user.avatar.from_path("public/media/default/no-photo.png")
-    user.username.value = "pythondev"
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
-
-    # Create User.
+    # Save User
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Update User.
-    user.username.value = "pythondev_123"
+    # Update User
+    user.username = "pythondev_123"
     if not await user.save():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc(
-        # filter={"_id": user.id.value}
-        filter={"username": user.username.value}
-    )
+    user_details: dict | None = await User.find_one_to_model_dict(filter={"_id": user.id})
     if user_details is not None:
         pp(user_details)
     else:
         print("No User!")
 
-    # Close connection.
+    # Close connection
     await client.close()
 
 
@@ -235,7 +246,7 @@ if __name__ == "__main__":
      </tr>
      <tr>
        <td align="left">db_query_docs_limit</td>
-       <td align="left">1000</td>
+       <td align="left">100</td>
        <td align="left">Limiting the number of request results.</td>
      </tr>
      <tr>
@@ -264,264 +275,32 @@ if __name__ == "__main__":
 **Example:**
 
 ```python
-@model(
+from ramifice import (
+    Model,
+    fields,
+    meta,
+)
+
+@meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
-    db_query_docs_limit=1000,
+    db_query_docs_limit=100,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,
 )
-class User:
-    def fields(self):
-        self.username = TextField(
-            label=gettext("Username"),
-            required=True,
-            unique=True,
-        )
-```
-
-## Class Methods
-
-_Examples of frequently used methods:_
-
-```python
-# Gets an estimate of the count of documents in a collection using collection metadata.
-count: int = await User.estimated_document_count()
-
-# Gets an estimate of the count of documents in a collection using collection metadata.
-q_filter = {"first_name": "John"}
-count: int = await User.count_documents(q_filter)
-
-# Runs an aggregation framework pipeline.
-from bson.bson import BSON
-pipeline = [
-    {"$unwind": "$tags"},
-    {"$group": {"_id": "$tags", "count": {"$sum": 1}}},
-    {"$sort": BSON([("count", -1), ("_id", -1)])},
-]
-docs = await User.aggregate(pipeline)
-
-# Finds the distinct values for a specified field across a single collection.
-q_filter = "key_name"
-values = await User.distinct(q_filter)
-
-# Get collection name.
-name = await User.collection_name()
-
-# The full name is of the form database_name.collection_name.
-name = await User.collection_full_name()
-
-# Get AsyncBatabase for the current Model.
-database = await User.database()
-
-# Get AsyncCollection for the current Model.
-collection = await User.collection()
-
-# Find a single document.
-q_filter = {"email": "John_Smith@gmail.com"}
-mongo_doc = await User.find_one(q_filter)
-
-# Create object instance from Mongo document.
-q_filter = {"email": "John_Smith@gmail.com"}
-mongo_doc = await User.find_one(q_filter)
-user = User.from_mongo_doc(mongo_doc)
-
-# Find a single document and converting to raw document.
-q_filter = {"email": "John_Smith@gmail.com"}
-raw_doc = await User.find_one_to_raw_doc(q_filter)
-
-# Find a single document and convert it to a Model instance.
-q_filter = {"email": "John_Smith@gmail.com"}
-user = await User.find_one_to_instance(q_filter)
-
-# Find a single document and convert it to a JSON string.
-q_filter = {"email": "John_Smith@gmail.com"}
-json = await User.find_one_to_json(q_filter)
-
-# Find a single document and delete it.
-q_filter = {"email": "John_Smith@gmail.com"}
-delete_result = await User.delete_one(q_filter)
-
-# Find a single document and delete it, return original.
-q_filter = {"email": "John_Smith@gmail.com"}
-mongo_doc = await User.find_one_and_delete(q_filter)
-
-# Find documents.
-q_filter = {"first_name": "John"}
-mongo_docs = await User.find_many(q_filter)
-
-# Find documents and convert to a raw documents.
-q_filter = {"first_name": "John"}
-raw_docs = await User.find_many_to_raw_docs(q_filter)
-
-# Find documents and convert to a json string.
-q_filter = {"email": "John_Smith@gmail.com"}
-json = await User.find_many_to_json(q_filter)
-
-# Find documents matching with Model.
-q_filter = {"email": "John_Smith@gmail.com"}
-delete_result = await User.delete_many(q_filter)
-
-# Creates an index on this collection.
-from pymongo import ASCENDING
-keys = [("email", ASCENDING)]
-result: str = await User.create_index(keys, name="idx_email")
-
-# Drops the specified index on this collection.
-User.drop_index("idx_email")
-
-# Create one or more indexes on this collection.
-from pymongo import ASCENDING, DESCENDING
-index_1 = IndexModel([("username", DESCENDING), ("email", ASCENDING)], name="idx_username_email")
-index_2 = IndexModel([("first_name", DESCENDING)], name="idx_first_name")
-result: list[str] = await User.create_indexes([index_1, index_2])
-
-# Drops all indexes on this collection.
-User.drop_index()
-
-# Get information on this collection’s indexes.
-result = await User.index_information()
-
-# Get a cursor over the index documents for this collection.
-async for index in await User.list_indexes():
-    print(index)
-
-# Units Management.
-# Management for `choices` parameter in dynamic field types.
-# Units are stored in a separate collection.
-from ramifice import Unit
-unit = Unit(
-  field="field_name",  # The name of the dynamic field.
-  title={"en": "Title", "ru": "Заголовок"},  # The name of the choice item.
-  value="Some text ...",  # The value of the choice item.
-                          # Hint: float | int | str
-  is_delete=False, # True - if you need to remove the item of choice.
-                   # by default = False (add item to choice)
-)
-await User.unit_manager(unit)
-```
-
-## Instance Methods
-
-_Examples of frequently used methods:_
-
-```python
-# Check data validity.
-# The main use is to check data from web forms.
-# It is also used to verify Models that do not migrate to the database.
-user = User()
-if not await user.is_valid():
-    user.print_err()  # Convenient to use during development.
-
-# Create or update document in database.
-# This method pre-uses the `check` method.
-user = User()
-if not await user.save():
-    user.print_err()  # Convenient to use during development.
-
-# Delete document from database.
-user = User()
-await user.delete()
-# or
-await user.delete(remove_files=False)
-
-# Verification, replacement and recoverang of password.
-user = User()
-await user.verify_password(password="12345678")
-await user.update_password(  # + verify_password
-  old_password="12345678",
-  new_password="O2eA4GIr38KGGlS",
-)
-```
-
-## General auxiliary methods
-
-```python
-from xloft.converters import (
-    to_human_size,
-    int_to_roman,
-    roman_to_int,
-    is_palindrome,
-)
-from xloft.itis import is_number
-from ramifice.utils.tools import (
-    get_file_size,
-    hash_to_obj_id,
-    is_color,
-    is_email,
-    is_ip,
-    is_mongo_id,
-    is_password,
-    is_phone,
-    is_url,
-    normal_email,
-)
-
-
-# Convert the number of bytes into a human-readable format.
-size: str = to_human_size(2097152)
-print(size)  # => 2 MB
-
-# Check if a string is a number.
-if is_number("5"):
-    ...
-
-# Roman.
-int_to_roman(1994)  # => MCMXCIV
-roman_to_int("MCMXCIV")  # => 1994
-
-# Palindrome.
-is_palindrome("Go hang a salami, I'm a lasagna hog") # True
-is_palindrome("123")  # False
-is_palindrome(123)  # TypeError
-is_palindrome("")  # ValueError
-
-# Validate Password.
-if is_password("12345678"):
-    ...
-
-# Validate Email address.
-if await is_email("kebasyaty@gmail.com"):
-    ...
-
-# Normalizing email address.
-# Use this before requeste to a database.
-# For example, on the login page.
-email: str | None = normal_email("kebasyaty@gmail.com")  # None, if not valid
-
-# Validate URL address.
-if is_url("https://www.google.com"):
-    ...
-
-# Validate IP address.
-if is_ip("127.0.0.1"):
-    ...
-
-# Validate Color code.
-if is_color("#000"):
-    ...
-
-# Validate Phone number.
-if is_phone("+447986123456"):
-    ...
-
-# Validation of the Mongodb identifier.
-if is_mongo_id("666f6f2d6261722d71757578"):
-    ...
-
-# Get ObjectId from hash string.
-from bson.objectid import ObjectId
-_id: ObjectId | None = hash_to_obj_id("666f6f2d6261722d71757578")
-
-# Get file size in bytes.
-path = "public/media/default/no_doc.odt"
-size: int = get_file_size(path)
-print(size)  # => 9843
+class User(Model):
+  username = fields.TextField(
+      label="Username",
+      is_require=True,
+      is_unique=True,
+  )
 ```
 
 <br>
 
-[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v1/CHANGELOG.md "Changelog")
+[![Changelog](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/changelog.svg "Changelog")](https://github.com/kebasyaty/ramifice/blob/v2/CHANGELOG.md "Changelog")
 
-[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v1/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/main/LICENSE "MIT")
+[![MIT](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/mit.svg "MIT")](https://github.com/kebasyaty/ramifice/blob/v2/MIT-LICENSE "MIT")
+
+[![APACHE-2.0](https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/links/apache-2.0.svg "GPL-3.0")](https://github.com/kebasyaty/ramifice/blob/v2/APACHE-2.0-LICENSE "APACHE-2.0")

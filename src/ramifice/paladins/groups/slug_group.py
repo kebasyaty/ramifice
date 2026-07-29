@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Group for checking slug fields.
 
 Supported fields:
@@ -16,8 +30,8 @@ from typing import Any
 
 from slugify import slugify
 
-from ramifice.paladins.tools import check_uniqueness
-from ramifice.utils.errors import PanicError
+from ramifice.errors import PanicError
+from ramifice.paladins.utils import check_uniqueness
 
 logger = logging.getLogger(__name__)
 
@@ -34,25 +48,23 @@ class SlugGroupMixin:
         if not params["is_save"]:
             return
         #
-        field = params["field_data"]
-        field_name = field.name
+        f__core = params["field_core"]
+        f_name = f__core.name
+        slug_sources = f__core.slug_sources
         raw_str_list: list[str] = []
-        slug_sources = field.slug_sources
         #
-        for field_name_, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
-            if field_name_ in slug_sources:
-                value = field_data.value
+        for f_name_ in params["descriptor_fields"]:
+            if f_name_ in slug_sources:
+                value = getattr(self, f_name_)
                 if value is None:
-                    value = field_data.__dict__.get("default")
+                    value = f__core.get("default")
                 if value is not None:
-                    raw_str_list.append(value if field_name_ != "_id" else str(value))
+                    raw_str_list.append(value if f_name_ != "id" else str(value))
                 else:
                     err_msg = (
                         f"Model: `{params['full_model_name']}` > "
-                        + f"Field: `{field_name}` => "
-                        + f"{field_name_} - "
+                        + f"Field: `{f_name}` => "
+                        + f"{f_name_} - "
                         + "This field is specified in slug_sources. "
                         + "This field should be mandatory or assign a default value."
                     )
@@ -66,15 +78,15 @@ class SlugGroupMixin:
             if not await check_uniqueness(
                 value,
                 params,
-                field_name,
+                f_name,
             ):
                 err_msg = (
                     f"Model: `{params['full_model_name']}` > "
-                    + f"Field: `{field_name}` > "
+                    + f"Field: `{f_name}` > "
                     + "Parameter: `slug_sources` => "
                     + "At least one field should be unique!"
                 )
                 logger.critical(err_msg)
                 raise PanicError(err_msg)
             # Add value to map.
-            params["result_map"][field_name] = value
+            params["result_map"][f_name] = value

@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Group for checking file fields.
 
 Supported fields: FileField
@@ -14,11 +28,7 @@ from typing import Any
 
 from xloft.converters import to_human_size
 
-from ramifice.paladins.tools import (
-    accumulate_error,
-    panic_type_error,
-)
-from ramifice.utils import translations
+from ramifice.paladins.utils import accumulate_error
 
 
 class FileGroupMixin:
@@ -29,56 +39,57 @@ class FileGroupMixin:
 
     async def file_group(self, params: dict[str, Any]) -> None:
         """Checking file fields."""
-        field = params["field_data"]
-        value = field.value or None
+        _ = params["_"]
+        f__core = params["field_core"]
+        f_name = f__core.name
+        f_value = f__core.value or None
 
-        if not isinstance(value, (dict, type(None))):
-            panic_type_error("dict | None", params)
-
-        if not params["is_update"] and value is None:
-            default = field.default or None
+        if not params["is_update"] and f_value is None:
+            default = f__core.default or None
             # If necessary, use the default value.
             if default is not None:
-                params["field_data"].from_path(default)
-                value = params["field_data"].value
+                await f__core.from_path(default)
+                f_value = f__core.value
+                setattr(self, f_name, f_value)
             # Validation, if the field is required and empty, accumulate the error.
             # ( the default value is used whenever possible )
-            if value is None:
-                if field.required:
-                    err_msg = translations._("Required field !")
+            if f_value is None:
+                if f__core.is_require:
+                    err_msg = _("Required field !")
                     accumulate_error(err_msg, params)
                 if params["is_save"]:
-                    params["result_map"][field.name] = None
+                    params["result_map"][f_name] = None
                 return
         # Return if the current value is missing
-        if value is None:
+        if f_value is None:
             return
-        if not value["save_as_is"]:
+        if not f_value["save_as_is"]:
             # If the file needs to be delete.
-            if value["is_delete"] and len(value["path"]) == 0:
-                default = field.default or None
+            if f_value["is_delete"] and len(f_value["path"]) == 0:
+                default = f__core.default or None
                 # If necessary, use the default value.
                 if default is not None:
-                    params["field_data"].from_path(default)
-                    value = params["field_data"].value
+                    await f__core.from_path(default)
+                    f_value = f__core.value
+                    setattr(self, f_name, f_value)
                 else:
-                    if not field.required:
+                    if not f__core.is_require:
                         if params["is_save"]:
-                            params["result_map"][field.name] = None
+                            params["result_map"][f_name] = None
                     else:
-                        err_msg = translations._("Required field !")
+                        err_msg = _("Required field !")
                         accumulate_error(err_msg, params)
                     return
             # Accumulate an error if the file size exceeds the maximum value.
-            if value["size"] > field.max_size:
-                human_size = to_human_size(field.max_size)
-                err_msg = translations._(
+            if f_value["size"] > f__core.max_size:
+                human_size = to_human_size(f__core.max_size)
+                err_msg = _(
                     "File size exceeds the maximum value {} !",
                 ).format(human_size)
                 accumulate_error(err_msg, params)
                 return
         # Insert result.
-        if params["is_save"] and (value["is_new_file"] or value["save_as_is"]):
-            value["is_delete"] = False
-            value["save_as_is"] = True
-            params["result_map"][field.name] = value
+        if params["is_save"] and (f_value["is_new_file"] or f_value["save_as_is"]):
+            f_value["is_delete"] = False
+            f_value["save_as_is"] = True
+            params["result_map"][f_name] = f_value

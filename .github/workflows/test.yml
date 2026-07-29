@@ -46,16 +46,35 @@ jobs:
 
       - name: Run unittest
         run: |
-          uv run python -m unittest tests/test_mongo.py
-          uv run python -m unittest tests/test_mixins.py
-          uv run python -m unittest tests/test_constants.py
-          uv run python -m unittest tests/test_tools.py
-          uv run python -m unittest tests/test_types.py
+          uv run python -m unittest tests/test_translator.py
+          uv run python -m unittest tests/test_config.py
+          uv run python -m unittest tests/test_utils.py
+          uv run python -m unittest tests/test_unit.py
           uv run python -m unittest discover -s tests/fields
+          uv run python -m unittest tests/test_meta.py
+          uv run python -m unittest tests/test_model.py
           uv run python -m unittest tests/test_extra.py
+          uv run python -m unittest tests/test_json.py
+          uv run python -m unittest tests/test_mongo.py
           uv run python -m unittest tests/test_migration.py
+          uv run python -m unittest tests/paladins/test_check.py
+          uv run python -m unittest tests/paladins/test_save.py
+          uv run python -m unittest tests/paladins/test_password.py
+          uv run python -m unittest tests/commons/test_utils.py
+          uv run python -m unittest tests/commons/test_general.py
+          uv run python -m unittest tests/commons/test_indexes.py
+          uv run python -m unittest tests/commons/test_many.py
+          uv run python -m unittest tests/commons/test_one.py
+          uv run python -m unittest tests/commons/test_unit.py
           uv run python -m unittest tests/test_fixtures.py
-          uv run python -m unittest discover -s tests/paladins
-          uv run python -m unittest discover -s tests/commons
-          uv run python -m unittest discover -s tests/models
-          uv run python -m unittest tests/test_translations.py
+          uv run python -m unittest tests/final/test_basic_1.py
+          uv run python -m unittest tests/final/test_basic_2.py
+          uv run python -m unittest tests/final/test_basic_3.py
+          uv run python -m unittest tests/final/test_dynamic_choices.py
+          uv run python -m unittest tests/final/test_files.py
+          uv run python -m unittest tests/final/test_fixtures.py
+          uv run python -m unittest tests/final/test_hooks.py
+          uv run python -m unittest tests/final/test_indexing.py
+          uv run python -m unittest tests/final/test_multi_fixture.py
+          uv run python -m unittest tests/final/test_password.py
+          uv run python -m unittest tests/final/test_static_choices.py

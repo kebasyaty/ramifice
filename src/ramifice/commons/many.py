@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Queries like `find many`."""
 
 from __future__ import annotations
@@ -8,6 +22,7 @@ from __future__ import annotations
 __all__ = ("ManyMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 import orjson
@@ -15,13 +30,14 @@ from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.cursor import AsyncCursor, CursorType
 from pymongo.results import DeleteResult
 
-from ramifice.commons.tools import (
+from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_raw_doc,
+    mongo_doc_to_model_dict,
     password_to_none,
 )
-from ramifice.utils import constants, translations
-from ramifice.utils.errors import ForbiddenDeleteDocError
+from ramifice.config import Config
+from ramifice.errors import ForbiddenDeleteDocError
+from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -53,20 +69,26 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
-        """Find documents."""
+        """Find documents.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -85,13 +107,13 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        field_name_and_type = cls.META["field_name_and_type"]
+        field_name_and_type = metadata["field_name_and_type"]
         async for mongo_doc in cursor:
             doc_list.append(password_to_none(field_name_and_type, mongo_doc))
         return doc_list
 
     @classmethod
-    async def find_many_to_raw_docs(
+    async def find_many_to_model_dict_list(
         cls,
         filter: Any | None = None,
         projection: Any | None = None,
@@ -114,27 +136,33 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> list[dict[str, Any]]:
-        """Find documents and convert to a raw documents.
+        """Find documents and convert to list of models in dictionary format.
 
         Special changes:
-            _id to str
+            _id to id (str)
             password to None
             date to str
             datetime to str
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
         """
+        metadata = cls.META
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -153,14 +181,13 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
-        lang = translations.CURRENT_LOCALE
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_raw_doc(
-                    inst_model_dict,
+                mongo_doc_to_model_dict(
+                    cls,
                     mongo_doc,
-                    lang,
+                    lang_code,
+                    utc_timezone,
                 ),
             )
         return doc_list
@@ -189,20 +216,27 @@ class ManyMixin:
         comment: Any | None = None,
         session: Any | None = None,
         allow_disk_use: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> str | None:
-        """Find documents and convert to a json string."""
+        """Find documents and convert to a json string.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get documents.
         doc_list: list[dict[str, Any]] = []
         cursor: AsyncCursor = collection.find(
             filter=filter,
             projection=projection,
             skip=skip,
-            limit=limit or cls.META["db_query_docs_limit"],
+            limit=limit or metadata["db_query_docs_limit"],
             no_cursor_timeout=no_cursor_timeout,
             cursor_type=cursor_type,
             sort=sort,
@@ -221,14 +255,13 @@ class ManyMixin:
             session=session,
             allow_disk_use=allow_disk_use,
         )
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
-        lang = translations.CURRENT_LOCALE
         async for mongo_doc in cursor:
             doc_list.append(
-                mongo_doc_to_raw_doc(
-                    inst_model_dict,
+                mongo_doc_to_model_dict(
+                    cls,
                     mongo_doc,
-                    lang,
+                    lang_code,
+                    utc_timezone,
                 ),
             )
         return orjson.dumps(doc_list).decode("utf-8") if len(doc_list) > 0 else None
@@ -242,22 +275,28 @@ class ManyMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
-        """Delete one or more documents matching the filter."""
+        """Delete one or more documents matching the filter.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Delete documents.
         result: DeleteResult = await collection.delete_many(
             filter=filter,

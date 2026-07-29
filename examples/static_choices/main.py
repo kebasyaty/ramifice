@@ -1,12 +1,11 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
-
+from ramifice import Migration
 from .models import Product
 
 
@@ -19,43 +18,35 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
-
+    # Create Product
     product = Product()
-    product.size_float.value = 15.6
-    product.sizes_float.value = [25.8, 12.5]
-    product.size_int.value = 25
-    product.sizes_int.value = [15, 12]
-    product.size_txt.value = "middle"
-    product.sizes_txt.value = ["big", "small"]
+    product.size_float = 15.6
+    product.sizes_float = [25.8, 12.5]
+    product.size_int = 25
+    product.sizes_int = [15, 12]
+    product.size_txt = "middle"
+    product.sizes_txt = ["big", "small"]
 
-    # Create Product.
+    # Save Product
     if not await product.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         product.print_err()
 
-    # Update Product.
-    product.size_txt.value = "big"
+    # Update Product
+    product.size_txt = "big"
     if not await product.save():
         product.print_err()
 
     print("Products:")
-    products = await Product.find_many_to_raw_docs()
+    products = await Product.find_many_to_model_dict()
     if products is not None:
-        pprint.pprint(products)
+        pp(products)
     else:
         print("No Products!")
 
-    # Remove Product.
+    # Remove collection
     # (if necessary)
-    # if product_details is not None:
-    #     await product.delete(remove_files=False)
-
-    # Remove collection.
-    # (if necessary)
-    # await Product.collection().drop()
+    # await Product.collection.drop()
 
     # Close connection.
     await client.close()

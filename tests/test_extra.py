@@ -5,42 +5,40 @@ from __future__ import annotations
 import re
 import unittest
 
-from ramifice import NamedTuple, model, translations
+from ramifice import Model, NamedTuple, meta
 from ramifice.fields import TextField
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.username = TextField(
-            required=True,
-        )
+    username = TextField(
+        is_require=True,
+    )
 
 
-@model(service_name="Accounts")
-class User2:
+@meta(service_name="Accounts")
+class User2(Model):
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.username = TextField(
-            required=True,
-        )
+    username = TextField(
+        is_require=True,
+    )
 
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = translations.gettext
-        cd, err = self.get_clean_data()
+        _ = self._CUSTOM_TRANSLATOR.gettext
+        err_map = self.get_error_map()
+
+        username = self.username
 
         # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: %s") % "a-z A-Z 0-9 _")
+        if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+            err_map.update("username", _("Allowed chars: {}").format("a-z A-Z 0-9 _"))
 
-        return err
+        return err_map
 
     @classmethod
     async def indexing(cls) -> None:
@@ -70,12 +68,12 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
 
     async def test_extra_methods(self):
         """Testing a `Model` and extra methods."""
-        self.assertIsNone(await User.indexing())
         self.assertIsNone(await User2.indexing())
 
         m: User = User()
         err_map = await m.add_validation()
-        self.assertEqual(err_map.to_dict(), {})
+        self.assertTrue(isinstance(err_map, NamedTuple))
+        self.assertEqual(len(err_map), 4)
         self.assertIsNone(await m.pre_create())
         self.assertIsNone(await m.post_create())
         self.assertIsNone(await m.pre_update())
@@ -84,9 +82,12 @@ class TestExtra(unittest.IsolatedAsyncioTestCase):
         self.assertIsNone(await m.post_delete())
 
         m2 = User2()
-        m2.username.value = "pythondev"
+        m2.username = "pythondev"
         err_map = await m2.add_validation()
-        self.assertIsNone(err_map.username)
+        self.assertIsNone(err_map["id"])
+        self.assertIsNone(err_map["created_at"])
+        self.assertIsNone(err_map["updated_at"])
+        self.assertIsNone(err_map["username"])
         self.assertIsNone(await m2.pre_create())
         self.assertIsNone(await m2.post_create())
         self.assertIsNone(await m2.pre_update())

@@ -1,84 +1,86 @@
-[It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v1/examples "It is recommended to look at examples here.")
+[It is recommended to look at examples here.](https://github.com/kebasyaty/ramifice/tree/v2/examples "It is recommended to look at examples here.")
 
 ```py title="main.py" linenums="1"
 import re
 import asyncio
-from typing import Any
-from datetime import datetime
 from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
+
 from ramifice import (
-    NamedTuple,
-    model,
-    translations,
     Migration,
+    Model,
+    Translator,
+    fields,
+    meta,
     to_human_size,
 )
-from ramifice.fields import (
-    ImageField,
-    PasswordField,
-    TextField,
-)
+
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
 @model(service_name="Accounts")
 class User:
-    """Model of User."""
+    """User Model."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        # ngettext = translations.ngettext
-        self.avatar = ImageField(
-            label=gettext("Avatar"),
-            default="public/media/default/no-photo.png",
-            # Directory for images inside media directory.
-            target_dir="users/avatars",
-            # Available 4 sizes from lg to xs or None.
-            # Hint: By default = None
-            thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
-            # The maximum size of the original image in bytes.
-            # Hint: By default = 2 MB
-            max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
-            warning=[
-                gettext("Maximum size: {}").format(to_human_size(524288)),
-            ],
-        )
-        self.username = TextField(
-            label=gettext("Username"),
-            maxlength=150,
-            required=True,
-            unique=True,
-            warning=[
-                gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
-            ],
-        )
-        self.password = PasswordField(
-            label=gettext("Password"),
-        )
-        self.сonfirm_password = PasswordField(
-            label=gettext("Confirm password"),
-            # If true, the value of this field is not saved in the database.
-            ignored=True,
-        )
+    avatar = fields.ImageField(
+        label=_("Avatar"),
+        default="public/media/default/no-photo.png",
+        # Directory for images inside media directory.
+        target_dir="users/avatars",
+        # Available 4 sizes from lg to xs or None.
+        # Hint: Default = None
+        thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
+        # The maximum size of the original image in bytes.
+        # Hint: Default = 2 MB
+        max_size=524288,  # 0.5 MB = 512 KB = 524288 Bytes (in binary)
+        warning=[
+            _("Maximum size: {}").format(to_human_size(524288)),
+        ],
+    )
+    username = fields.TextField(
+        label=_("Username"),
+        max_length=150,
+        is_require=True,
+        is_unique=True,
+        warning=[
+            _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
+            _("Maximum length: {}").format(150),
+        ],
+    )
+    password = fields.PasswordField(
+        label=_("Password"),
+        warning=[
+            _("Maximum length: {}").format(256),  # this is an immutable size
+            _("Minimum length: {}").format(8),  # this is an immutable size
+        ],
+    )
+    сonfirm_password = fields.PasswordField(
+        label=_("Confirm password"),
+        # If true, the value of this field is not saved in the database.
+        is_ignore=True,
+    )
 
     # Optional method
-    async def add_validation(self) -> NamedTuple:
+    async def add_validation(self) -> dict[str, Any]:
         """Additional validation of fields."""
-        gettext = translations.gettext
-        cd, err = self.get_clean_data()
+        _ = self._CUSTOM_TRANSLATOR.gettext
+        err_map = self.get_error_map()
 
-        # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+        _id = self.id
+        password = self.password
+        сonfirm_password = self.сonfirm_password
+        username = self.username
 
         # Check password
-        if cd._id is None and (cd.password != cd.сonfirm_password):
-            err.update("password", gettext("Passwords do not match!"))
+        if _id is None and password != сonfirm_password:
+            err_map.update("password", _("Passwords do not match!"))
 
-        return err
+        # Check username
+        if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+            err_map.update("username", _("Allowed characters: {}").format("a-z A-Z 0-9 _"))
+
+        return err_map
 
 
 async def main():
@@ -89,46 +91,32 @@ async def main():
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
+    # Create User
+    user = User("ru")
+    # user.avatar__core.from_path("public/media/default/no-photo.png")
+    # user.avatar__core.from_base64("base64-string")
+    user.username = "pythondev"
+    user.password = "12345678"
+    user.сonfirm_password = "12345678"
 
-    user = User()
-    # user.avatar.from_path("public/media/default/no-photo.png")
-    user.username.value = "pythondev"
-    user.password.value = "12345678"
-    user.сonfirm_password.value = "12345678"
-
-    # Create User.
+    # Save User
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Update User.
-    user.username.value = "pythondev_123"
+    # Update User
+    user.username = "pythondev_123"
     if not await user.save():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc(
-        # filter={"_id": user.id.value}
-        filter={"username": user.username.value}
-    )
+    user_details: dict | None = await User.find_one_to_model_dict(filter={"_id": user.id})
     if user_details is not None:
         pp(user_details)
     else:
         print("No User!")
 
-    # Remove User.
-    # (if necessary)
-    # await user.delete()
-    # await user.delete(remove_files=False)
-
-    # Remove collection.
-    # (if necessary)
-    # await User.collection().drop()
-
-    # Close connection.
+    # Close connection
     await client.close()
 
 

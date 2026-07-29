@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Field of Model.
 
 Type of selective text field with static of elements.
@@ -11,71 +25,80 @@ from __future__ import annotations
 __all__ = ("ChoiceTextField",)
 
 import logging
+from types import MethodType
+from typing import Any
 
-from ramifice.fields.general.choice_group import ChoiceGroup
-from ramifice.fields.general.field import Field
-from ramifice.utils import constants
-from ramifice.utils.mixins import JsonMixin
+from ramifice.config import Config
+from ramifice.fields.field import Field, FieldCore
 
 logger = logging.getLogger(__name__)
 
 
-class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
+class ChoiceTextField(Field):
     """Field of Model.
 
     Type of selective text field with static of elements.
     With a single choice.
-
-    Args:
-        label: Text label for a web form field.
-        default: Default value.
-        hide: Hide field from user.
-        disabled: Blocks access and modification of the element.
-        required: Required field.
-        readonly: Specifies that the field cannot be modified by the user.
-        ignored: If true, the value of this field is not saved in the database.
-        hint: An alternative for the `placeholder` parameter.
-        warning: Warning information.
-        choices: For a predefined set of options - [[value, Title], ...].
     """
 
-    def __init__(  # noqa: D107
+    def __init__(
         self,
         label: str = "",
         default: str | None = None,
-        hide: bool = False,
-        disabled: bool = False,
-        ignored: bool = False,
+        is_hide: bool = False,
+        is_disable: bool = False,
+        is_ignore: bool = False,
         hint: str = "",
-        warning: list[str] | None = None,
-        required: bool = False,
-        readonly: bool = False,
+        warning: list[str] = [],  # ruff:ignore[mutable-argument-default]
+        is_require: bool = False,
+        is_readonly: bool = False,
         choices: list[list[str]] | None = None,  # [[value, Title], ...]
     ) -> None:
-        Field.__init__(
-            self,
-            label=label,
-            disabled=disabled,
-            hide=hide,
-            ignored=ignored,
-            hint=hint,
-            warning=warning,
-            field_type="ChoiceTextField",
-            group="choice",
-        )
-        ChoiceGroup.__init__(
-            self,
-            required=required,
-            readonly=readonly,
-        )
-        JsonMixin.__init__(self)
+        """Field of Model.
 
-        self.value: str | None = None
-        self.default = default
-        self.choices = choices
+        Type of selective text field with static of elements.
+        With a single choice.
 
-        if constants.DEBUG:
-            try:  # noqa: PLW0717
+        Args:
+            label: Text label for a web form field.
+            default: Default value.
+            is_hide: Hide field from user.
+            is_disable: Blocks access and modification of the element.
+            is_require: Required field.
+            is_readonly: Specifies that the field cannot be modified by the user.
+            is_ignore: If true, the value of this field is not saved in the database.
+            hint: An alternative for the `placeholder` parameter.
+            warning: Warning information.
+            choices: For a predefined set of options - [[value, Title], ...].
+        """
+        Field.__init__(self, supported_types=(str, type(None)))
+
+        field_core: dict[str, Any] = {
+            "id": "",
+            "name": "",
+            "label": label,
+            "value": None,
+            "default": default,
+            "is_hide": is_hide,
+            "is_disable": is_disable,
+            "is_ignore": is_ignore,
+            "hint": hint,
+            "warning": warning,
+            "is_require": is_require,
+            "is_readonly": is_readonly,
+            "unique": False,
+            "is_multiple": False,
+            "choices": choices,
+            "errors": [],
+            "field_type": "ChoiceTextField",
+            "group": "choice",
+        }
+
+        self.__dict__["field_core"] = FieldCore(**field_core)
+        self.field_core.has_value = MethodType(has_value, self.field_core)
+
+        if Config.DEBUG:
+            try:  # ruff:ignore[too-many-statements-in-try-clause]
                 if choices is not None:
                     if not isinstance(choices, list):
                         raise AssertionError("Parameter `choices` - Not а `list` type!")
@@ -86,41 +109,40 @@ class ChoiceTextField(Field, ChoiceGroup, JsonMixin):
                         raise AssertionError("Parameter `default` - Not а `str` type!")
                     if len(default) == 0:
                         raise AssertionError("The `default` parameter should not contain an empty string!")
-                    if choices is not None and not self.has_value():
+                    if choices is not None and not self.field_core.has_value():
                         raise AssertionError(
                             "Parameter `default` does not coincide with " + "list of permissive values in `choicees`.",
                         )
                 if not isinstance(label, str):
-                    raise AssertionError("Parameter `default` - Not а `str` type!")
-                if not isinstance(disabled, bool):
-                    raise AssertionError("Parameter `disabled` - Not а `bool` type!")
-                if not isinstance(hide, bool):
-                    raise AssertionError("Parameter `hide` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
-                if not isinstance(ignored, bool):
-                    raise AssertionError("Parameter `ignored` - Not а `bool` type!")
+                    raise AssertionError("Parameter `label` - Not а `str` type!")
+                if not isinstance(is_disable, bool):
+                    raise AssertionError("Parameter `is_disable` - Not а `bool` type!")
+                if not isinstance(is_hide, bool):
+                    raise AssertionError("Parameter `is_hide` - Not а `bool` type!")
+                if not isinstance(is_ignore, bool):
+                    raise AssertionError("Parameter `is_ignore` - Not а `bool` type!")
                 if not isinstance(hint, str):
                     raise AssertionError("Parameter `hint` - Not а `str` type!")
-                if warning is not None and not isinstance(warning, list):
+                if not isinstance(warning, list):
                     raise AssertionError("Parameter `warning` - Not а `list` type!")
-                if not isinstance(required, bool):
-                    raise AssertionError("Parameter `required` - Not а `bool` type!")
-                if not isinstance(readonly, bool):
-                    raise AssertionError("Parameter `readonly` - Not а `bool` type!")
+                if not isinstance(is_require, bool):
+                    raise AssertionError("Parameter `is_require` - Not а `bool` type!")
+                if not isinstance(is_readonly, bool):
+                    raise AssertionError("Parameter `is_readonly` - Not а `bool` type!")
             except AssertionError as err:
                 logger.critical(str(err))
                 raise err
 
-    def has_value(self, is_migrate: bool = False) -> bool:
-        """Does the field value match the possible options in choices."""
-        value = self.value
-        if value is None:
-            value = self.default
-        if value is not None:
-            choices = self.choices
-            if not bool(choices):
-                return False
-            if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
-                return False
-        return True
+
+def has_value(self, is_migrate: bool = False) -> bool:  # ruff: ignore[unused-function-argument]
+    """Does the field value match the possible options in choices."""
+    value = self.value
+    if value is None:
+        value = self.default
+    if value is not None:
+        choices = self.choices
+        if not bool(choices):
+            return False
+        if value not in [item[0] for item in choices]:  # type: ignore[union-attr]
+            return False
+    return True

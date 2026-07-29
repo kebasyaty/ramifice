@@ -4,93 +4,75 @@ import re
 
 from pymongo import ASCENDING
 
-from ramifice import NamedTuple, model, translations, to_human_size
-from ramifice.fields import (
-    BooleanField,
-    DateField,
-    EmailField,
-    FileField,
-    ImageField,
-    PasswordField,
-    TextField,
+from ramifice import (
+    Model,
+    NamedTuple,
+    Translator,
+    fields,
+    meta,
 )
 
+_ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
-@model(service_name="Accounts")
-class User:
-    """Model of User."""
 
-    def fields(self) -> None:
-        """Adding fields."""
-        # For custom translations.
-        gettext = translations.gettext
-        ngettext = translations.ngettext
-        self.avatar = ImageField(
-            label=gettext("Avatar"),
-            default="public/media/default/no-photo.png",
-            # Available 4 sizes from lg to xs or None.
-            # Hint: By default = None
-            thumbnails={"lg": 512, "md": 256, "sm": 128, "xs": 64},
-            # The maximum size of the original image in bytes.
-            # Hint: By default = 2 MB
-            max_size=524288,  # 0.5 MB = 524288 Bytes (in binary)
-            warning=[
-                gettext("Maximum size: {}").format(to_human_size(524288)),
-            ],
-        )
-        self.resume = FileField(
-            label=gettext("Resume"),
-            default="public/media/default/no_doc.odt",
-        )
-        self.username = TextField(
-            label=gettext("Username"),
-            maxlength=150,
-            required=True,
-            unique=True,
-            warning=[
-                gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"),
-            ],
-        )
-        self.first_name = TextField(label=gettext("First name"), required=True)
-        self.last_name = TextField(
-            label=gettext("Last name"),
-            required=True,
-        )
-        self.email = EmailField(
-            label=gettext("Email"),
-            required=True,
-            unique=True,
-        )
-        self.birthday = DateField(label=gettext("Birthday"))
-        self.password = PasswordField(label=gettext("Password"))
-        self.сonfirm_password = PasswordField(
-            label=gettext("Confirm password"),
-            # If true, the value of this field is not saved in the database.
-            ignored=True,
-        )
-        self.is_admin = BooleanField(
-            label=gettext("Is Administrator?"),
-        )
+@meta(service_name="Accounts")
+class User(Model):
+    """User Model."""
+
+    username = fields.TextField(
+        label=_("Username"),
+        placeholder=_("Enter your username"),
+        max_length=150,
+        is_require=True,
+        is_unique=True,
+        warning=[
+            _("Allowed characters: {}").format("a-z A-Z 0-9 _"),
+            _("Maximum length: {}").format(150),
+        ],
+    )
+    first_name = fields.TextField(
+        label=_("First name"),
+        placeholder=_("Enter your First name"),
+        is_multilingual=True,  # Support for several language.
+        max_length=150,
+        is_require=True,
+        warning=[
+            _("Maximum length: {}").format(150),
+        ],
+    )
+    last_name = fields.TextField(
+        label=_("Last name"),
+        placeholder=_("Enter your Last name"),
+        is_multilingual=True,  # Support for several language.
+        max_length=150,
+        is_require=True,
+        warning=[
+            _("Maximum length: {}").format(150),
+        ],
+    )
+    email = fields.EmailField(
+        label=_("Email"),
+        placeholder=_("Enter your email"),
+        is_require=True,
+        is_unique=True,
+    )
 
     # Optional method
     async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
-        gettext = translations.gettext
-        cd, err = self.get_clean_data()
-
+        _ = self._CUSTOM_TRANSLATOR.gettext
+        err_map = self.get_error_map()
+        username = self.username
         # Check username
-        if re.match(r"^[a-zA-Z0-9_]+$", cd.username) is None:
-            err.update("username", gettext("Allowed chars: {}").format("a-z A-Z 0-9 _"))
+        if username is not None and re.match(r"^[a-zA-Z0-9_]+$", username) is None:
+            err_map.update("username", _("Allowed characters: {}").format("a-z A-Z 0-9 _"))
 
-        # Check password
-        if cd._id is None and (cd.password != cd.сonfirm_password):
-            err.update("password", gettext("Passwords do not match!"))
+        return err_map
 
-        return err
-
+    # Optional method
     @classmethod
     async def indexing(cls) -> None:
-        """For set up and start indexing."""
+        """To set up and start indexing."""
         await cls.create_index(
             [("username", ASCENDING)],
             name="username_Idx",

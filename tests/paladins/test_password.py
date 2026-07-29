@@ -6,18 +6,17 @@ import unittest
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, model
+from ramifice import Migration, Model, meta
+from ramifice.config import Config
 from ramifice.fields import PasswordField
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """Model for testing."""
 
-    def fields(self):
-        """Adding fields."""
-        self.password = PasswordField()
-        self.password_2 = PasswordField()
+    password = PasswordField()
+    password_2 = PasswordField()
 
 
 class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
@@ -28,28 +27,27 @@ class TestPaladinPasswordMixin(unittest.IsolatedAsyncioTestCase):
         # Maximum number of characters 60.
         database_name = "test_pssword_methods"
 
-        client: AsyncMongoClient = AsyncMongoClient()
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
 
         # Delete database before test.
         # (if the test fails)
         await client.drop_database(database_name)
         await client.close()
-
-        client = AsyncMongoClient()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
         await Migration(
             database_name=database_name,
             mongo_client=client,
         ).migrate()
-        #
-        # HELLISH BURN
-        # ----------------------------------------------------------------------
+
         m = User()
-        password = "12345678"  # noqa: S105
-        new_password = "new_12345678"  # noqa: S105
-        password_2 = "123456789"  # noqa: S105
-        new_password_2 = "new_123456789"  # noqa: S105
-        m.password.value = password
-        m.password_2.value = password_2
+        password = "12345678"  # ruff:ignore[hardcoded-password-string]
+        new_password = "new_12345678"  # ruff:ignore[hardcoded-password-string]
+        password_2 = "123456789"  # ruff:ignore[hardcoded-password-string]
+        new_password_2 = "new_123456789"  # ruff:ignore[hardcoded-password-string]
+        m.password = password
+        m.password_2 = password_2
         if not await m.save():
             m.print_err()
         self.assertEqual(await User.estimated_document_count(), 1)

@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Requests like `find one`."""
 
 from __future__ import annotations
@@ -8,18 +22,20 @@ from __future__ import annotations
 __all__ = ("OneMixin",)
 
 import logging
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.results import DeleteResult
 
-from ramifice.commons.tools import (
+from ramifice.commons.utils import (
     correct_mongo_filter,
-    mongo_doc_to_raw_doc,
+    mongo_doc_to_model_dict,
     password_to_none,
 )
-from ramifice.utils import constants, translations
-from ramifice.utils.errors import ForbiddenDeleteDocError
+from ramifice.config import Config
+from ramifice.errors import ForbiddenDeleteDocError
+from ramifice.translator import Translator
 
 logger = logging.getLogger(__name__)
 
@@ -31,90 +47,112 @@ class OneMixin:
     async def find_one(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
         """Get a single document from the database."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             mongo_doc = password_to_none(
-                cls.META["field_name_and_type"],
+                metadata["field_name_and_type"],
                 mongo_doc,
             )
         return mongo_doc
 
     @classmethod
-    async def find_one_to_raw_doc(
+    async def find_one_to_model_dict(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any] | None:
-        """Find a single document and converting to raw document."""
+        """Find a single document and convert to Model in dictionary format.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
+        utc_timezone = deepcopy(Config.UTC_TIMEZONE)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
-        raw_doc = None
+        model_dict = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
-        inst_model_dict = {key: val for key, val in cls().__dict__.items() if not callable(val) and not val.ignored}
+
         if mongo_doc is not None:
-            raw_doc = mongo_doc_to_raw_doc(
-                inst_model_dict,
+            model_dict = mongo_doc_to_model_dict(
+                cls,
                 mongo_doc,
-                translations.CURRENT_LOCALE,
+                lang_code,
+                utc_timezone,
             )
-        return raw_doc
+        return model_dict
 
     @classmethod
-    async def find_one_to_instance(
+    async def find_one_to_instance_model(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> Any | None:
-        """Find a single document and convert it to a Model instance."""
+        """Find a single document and convert it to a Model instance.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
-        inst_model = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
+        instance_model = None
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
-        return inst_model
+            instance_model = cls.from_mongo_doc(mongo_doc, lang_code)
+        return instance_model
 
     @classmethod
     async def find_one_to_json(
         cls: Any,
         filter: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         *args: tuple,
         **kwargs: dict[str, Any],
     ) -> str | None:
-        """Find a single document and convert it to a JSON string."""
+        """Find a single document and convert it to a JSON string.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         json_str: str | None = None
         mongo_doc = await collection.find_one(filter, *args, **kwargs)
         if mongo_doc is not None:
             # Convert document to Model instance.
-            inst_model = cls.from_mongo_doc(mongo_doc)
-            json_str = inst_model.to_json()
+            instance_model = cls.from_mongo_doc(mongo_doc, lang_code)
+            json_str = instance_model.to_json()
         return json_str
 
     @classmethod
@@ -126,22 +164,28 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> DeleteResult:
-        """Delete a single document matching the filter."""
+        """Delete a single document matching the filter.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         result: DeleteResult = await collection.delete_one(
             filter=filter,
@@ -163,23 +207,29 @@ class OneMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs: dict[str, Any],
-    ) -> dict[str, Any] | None:
-        """Finds a single document and deletes it, returning the document."""
+    ) -> Any | None:
+        """Finds a single document and deletes it, returning the document.
+
+        Hint:
+        - `lang_code` - Required for a text field with `is_multilingual=True`.
+        """
+        metadata = cls.META
         # Raises a panic if the Model cannot be removed.
-        if not cls.META["is_delete_doc"]:
+        if not metadata["is_delete_doc"]:
             msg = (
-                f"Model: `{cls.META['full_model_name']}` > "
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
             logger.error(msg)
             raise ForbiddenDeleteDocError(msg)
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
         # Get document.
         mongo_doc: dict[str, Any] | None = await collection.find_one_and_delete(
             filter=filter,
@@ -191,9 +241,8 @@ class OneMixin:
             comment=comment,
             **kwargs,
         )
+        instance_model = None
         if mongo_doc is not None:
-            mongo_doc = password_to_none(
-                cls.META["field_name_and_type"],
-                mongo_doc,
-            )
-        return mongo_doc
+            # Convert document to Model instance.
+            instance_model = cls.from_mongo_doc(mongo_doc, lang_code)
+        return instance_model

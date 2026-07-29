@@ -1,20 +1,35 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """General purpose query methods."""
 
 from __future__ import annotations
 
 __all__ = ("GeneralMixin",)
 
+from copy import deepcopy
 from typing import Any
 
 from pymongo.asynchronous.collection import AsyncCollection
 from pymongo.asynchronous.command_cursor import AsyncCommandCursor
-from pymongo.asynchronous.database import AsyncDatabase
 
-from ramifice.commons.tools import correct_mongo_filter
-from ramifice.utils import constants, translations
+from ramifice.commons.utils import correct_mongo_filter
+from ramifice.config import Config
+from ramifice.translator import Translator
 
 
 class GeneralMixin:
@@ -24,21 +39,33 @@ class GeneralMixin:
     def from_mongo_doc(
         cls,
         mongo_doc: dict[str, Any],
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
     ) -> Any:
-        """Create object instance from Mongo document."""
-        obj: Any = cls()
-        lang: str = translations.CURRENT_LOCALE
-        for name, data in mongo_doc.items():
-            field = obj.__dict__.get(name)
-            if field is None:
+        """Create a Model instance from a Mongo document."""
+        # pyrefly: ignore [bad-argument-count]
+        instance: Any = cls(lang_code)
+
+        for mongo_key, mongo_value in mongo_doc.items():
+            if mongo_value is None:
                 continue
-            if field.field_type == "TextField":
-                field.value = data.get(lang, "- -") if data is not None else None
-            elif field.group == "pass":
-                field.value = None
+
+            f_name = mongo_key if mongo_key != "_id" else "id"
+            f__core = getattr(instance, f"{f_name}__core")
+            f_type = f__core.field_type
+            f_value = None
+
+            if f_type == "TextField":
+                f_value = mongo_value.get(lang_code, "- -") if isinstance(mongo_value, dict) else mongo_value
+            elif f_type == "DateField":
+                f_value = mongo_value.date()
+            elif f_type == "PasswordField":
+                f_value = None
             else:
-                field.value = data
-        return obj
+                f_value = mongo_value
+
+            setattr(instance, f_name, f_value)
+
+        return instance
 
     @classmethod
     async def estimated_document_count(  # type: ignore[no-untyped-def]
@@ -47,9 +74,10 @@ class GeneralMixin:
         **kwargs,
     ) -> int:
         """Get an estimate of the number of documents in this collection using collection metadata."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        #
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
+
         return await collection.estimated_document_count(
             comment=comment,
             **kwargs,
@@ -61,14 +89,16 @@ class GeneralMixin:
         filter: Any,
         session: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> int:
         """Count the number of documents in this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
 
         return await collection.count_documents(
             filter=filter,
@@ -84,14 +114,16 @@ class GeneralMixin:
         session: Any | None = None,
         let: Any | None = None,
         comment: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> AsyncCommandCursor:
         """Perform an aggregation using the aggregation framework on this collection."""
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if pipeline is not None:
-            pipeline = correct_mongo_filter(cls, pipeline)
+            pipeline = correct_mongo_filter(cls, pipeline, lang_code)
 
         return await collection.aggregate(
             pipeline=pipeline,
@@ -109,17 +141,19 @@ class GeneralMixin:
         session: Any | None = None,
         comment: Any | None = None,
         hint: Any | None = None,
+        lang_code: str = deepcopy(Translator.DEFAULT_LOCALE),
         **kwargs,
     ) -> list[Any]:
         """Get a list of distinct values for key among all documents in this collection.
 
         Returns an array of unique values for specified field of collection.
         """
+        metadata = cls.META
         # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Correcting filter.
         if filter is not None:
-            filter = correct_mongo_filter(cls, filter)
+            filter = correct_mongo_filter(cls, filter, lang_code)
 
         return await collection.distinct(
             key=key,
@@ -129,38 +163,3 @@ class GeneralMixin:
             hint=hint,
             **kwargs,
         )
-
-    @classmethod
-    def collection_name(cls) -> str:
-        """The name of this AsyncCollection."""
-        # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        #
-        return collection.name
-
-    @classmethod
-    def collection_full_name(cls) -> str:
-        """The full name of this AsyncCollection.
-
-        The full name is of the form database_name.collection_name.
-        """
-        # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        #
-        return collection.full_name
-
-    @classmethod
-    def database(cls) -> AsyncDatabase:
-        """Get AsyncBatabase for the current Model."""
-        # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        #
-        return collection.database
-
-    @classmethod
-    def collection(cls) -> AsyncCollection:
-        """Get AsyncCollection for the current Model."""
-        # Get collection for current model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls.META["collection_name"]]
-        #
-        return collection

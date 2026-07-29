@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import unittest
 
-from dateutil.parser import parse
+from dateparser import parse
 
+from ramifice.config import Config
 from ramifice.fields import DateField, DateTimeField
 
 
@@ -14,110 +15,195 @@ class TestDateFields(unittest.TestCase):
 
     def test_date_field(self):
         """Testing `DateField`."""
+        DATEPARSER_SETTINGS = Config.DATEPARSER_SETTINGS
+
         # Parameters by default:
         f = DateField()
-        self.assertEqual(f.id, "")
-        self.assertEqual(f.label, "")
-        self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, "DateField")
-        self.assertFalse(f.disabled)
-        self.assertFalse(f.hide)
-        self.assertFalse(f.ignored)
-        self.assertIsNone(f.warning)
-        self.assertEqual(f.errors, [])
-        self.assertEqual(f.group, "date")
-        self.assertEqual(f.input_type, "date")
-        self.assertIsNone(f.value)
-        self.assertIsNone(f.default)
-        self.assertEqual(f.placeholder, "")
-        self.assertEqual(f.hint, "")
-        self.assertFalse(f.required)
-        self.assertFalse(f.readonly)
-        self.assertIsNone(f.max_date)
-        self.assertIsNone(f.min_date)
+        self.assertEqual(f.field_core.id, "")
+        self.assertEqual(f.field_core.label, "")
+        self.assertEqual(f.field_core.name, "")
+        self.assertEqual(f.field_core.field_type, "DateField")
+        self.assertFalse(f.field_core.is_disable)
+        self.assertFalse(f.field_core.is_hide)
+        self.assertFalse(f.field_core.is_ignore)
+        self.assertEqual(len(f.field_core.warning), 0)
+        self.assertEqual(f.field_core.errors, [])
+        self.assertEqual(f.field_core.group, "date")
+        self.assertEqual(f.field_core.input_type, "date")
+        self.assertIsNone(f.field_core.value)
+        self.assertIsNone(f.field_core.default)
+        self.assertEqual(f.field_core.placeholder, "")
+        self.assertEqual(f.field_core.hint, "")
+        self.assertFalse(f.field_core.is_require)
+        self.assertFalse(f.field_core.is_readonly)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
+        DateField(default="", max_date="", min_date="")
+        self.assertIsNone(f.field_core.default)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
+        DateField(default="???", max_date="???", min_date="???")
+        self.assertIsNone(f.field_core.default)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
         # Exception checking:
         with self.assertRaises(AssertionError):
             DateField(max_date=12)
         with self.assertRaises(AssertionError):
-            DateField(max_date="")
-        with self.assertRaises(AssertionError):
             DateField(min_date=12)
-        with self.assertRaises(AssertionError):
-            DateField(min_date="")
         with self.assertRaises(AssertionError):
             DateField(default=12)
         with self.assertRaises(AssertionError):
-            DateField(default="")
+            DateField(
+                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                max_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            )
         with self.assertRaises(AssertionError):
-            DateField(default=parse("20-12-2024"), max_date=parse("19-12-2024"))
+            DateField(
+                default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            )
         with self.assertRaises(AssertionError):
-            DateField(default=parse("20-12-2024"), min_date=parse("21-12-2024"))
+            DateField(
+                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            )
         with self.assertRaises(AssertionError):
-            DateField(max_date=parse("20-12-2024"), min_date=parse("20-12-2024"))
+            DateField(
+                max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+                min_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            )
+
         with self.assertRaises(AssertionError):
-            DateField(max_date=parse("20-12-2024"), min_date=parse("21-12-2024"))
-        DateField(max_date=parse("20-12-2024"))
-        DateField(min_date=parse("20-12-2024"))
-        DateField(default=parse("20-12-2024"))
+            DateField(
+                default="20-12-2024",
+                max_date="19-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                default="20-12-2024",
+                min_date="21-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                max_date="20-12-2024",
+                min_date="20-12-2024",
+            )
+        with self.assertRaises(AssertionError):
+            DateField(
+                max_date="20-12-2024",
+                min_date="21-12-2024",
+            )
+
         DateField(
-            default=parse("20-12-2024"),
-            max_date=parse("21-12-2024"),
-            min_date=parse("19-12-2024"),
+            max_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            min_date=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+        DateField(
+            default=parse("20-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            max_date=parse("21-12-2024", settings=DATEPARSER_SETTINGS).date(),
+            min_date=parse("19-12-2024", settings=DATEPARSER_SETTINGS).date(),
+        )
+
+        DateField(max_date="20-12-2024")
+        DateField(min_date="20-12-2024")
+        DateField(default="20-12-2024")
+        DateField(
+            default="20-12-2024",
+            max_date="21-12-2024",
+            min_date="19-12-2024",
         )
 
     def test_date_time_field(self):
         """Testing `DateTimeField`."""
+        DATEPARSER_SETTINGS = Config.DATEPARSER_SETTINGS
+
         # Parameters by default:
         f = DateTimeField()
-        self.assertEqual(f.id, "")
-        self.assertEqual(f.label, "")
-        self.assertEqual(f.name, "")
-        self.assertEqual(f.field_type, "DateTimeField")
-        self.assertFalse(f.disabled)
-        self.assertFalse(f.hide)
-        self.assertFalse(f.ignored)
-        self.assertIsNone(f.warning)
-        self.assertEqual(f.errors, [])
-        self.assertEqual(f.group, "date")
-        self.assertEqual(f.input_type, "datetime")
-        self.assertIsNone(f.value)
-        self.assertIsNone(f.default)
-        self.assertEqual(f.placeholder, "")
-        self.assertEqual(f.hint, "")
-        self.assertFalse(f.required)
-        self.assertFalse(f.readonly)
-        self.assertIsNone(f.max_date)
-        self.assertIsNone(f.min_date)
+        self.assertEqual(f.field_core.id, "")
+        self.assertEqual(f.field_core.label, "")
+        self.assertEqual(f.field_core.name, "")
+        self.assertEqual(f.field_core.field_type, "DateTimeField")
+        self.assertFalse(f.field_core.is_disable)
+        self.assertFalse(f.field_core.is_hide)
+        self.assertFalse(f.field_core.is_ignore)
+        self.assertEqual(len(f.field_core.warning), 0)
+        self.assertEqual(f.field_core.errors, [])
+        self.assertEqual(f.field_core.group, "date")
+        self.assertEqual(f.field_core.input_type, "datetime")
+        self.assertIsNone(f.field_core.value)
+        self.assertIsNone(f.field_core.default)
+        self.assertEqual(f.field_core.placeholder, "")
+        self.assertEqual(f.field_core.hint, "")
+        self.assertFalse(f.field_core.is_require)
+        self.assertFalse(f.field_core.is_readonly)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
+        DateTimeField(default="", max_date="", min_date="")
+        self.assertIsNone(f.field_core.default)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
+        DateTimeField(default="???", max_date="???", min_date="???")
+        self.assertIsNone(f.field_core.default)
+        self.assertIsNone(f.field_core.max_date)
+        self.assertIsNone(f.field_core.min_date)
+
         # Exception checking:
         with self.assertRaises(AssertionError):
             DateTimeField(max_date=12)
         with self.assertRaises(AssertionError):
-            DateTimeField(max_date="")
-        with self.assertRaises(AssertionError):
             DateTimeField(min_date=12)
         with self.assertRaises(AssertionError):
-            DateTimeField(min_date="")
-        with self.assertRaises(AssertionError):
             DateTimeField(default=12)
-        with self.assertRaises(AssertionError):
-            DateTimeField(default="")
+
         with self.assertRaises(AssertionError):
             DateTimeField(
-                default=parse("20-12-2024 00:00:00"),
-                max_date=parse("19-12-2024 00:00:00"),
+                default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+                max_date=parse("19-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
             )
         with self.assertRaises(AssertionError):
             DateTimeField(
-                default=parse("20-12-2024 00:00:00"),
-                min_date=parse("21-12-2024 00:00:00"),
+                default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+                min_date=parse("21-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
             )
-        DateTimeField(max_date=parse("20-12-2024 00:00:00"))
-        DateTimeField(min_date=parse("20-12-2024 00:00:00"))
-        DateTimeField(default=parse("20-12-2024 00:00:00"))
+
+        with self.assertRaises(AssertionError):
+            DateTimeField(
+                default="20-12-2024 00:00:00",
+                max_date="19-12-2024 00:00:00",
+            )
+        with self.assertRaises(AssertionError):
+            DateTimeField(
+                default="20-12-2024 00:00:00",
+                min_date="21-12-2024 00:00:00",
+            )
+
+        DateTimeField(max_date=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
+        DateTimeField(min_date=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
+        DateTimeField(default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS))
         DateTimeField(
-            default=parse("20-12-2024 00:00:00"),
-            max_date=parse("21-12-2024 00:00:00"),
-            min_date=parse("19-12-2024 00:00:00"),
+            default=parse("20-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+            max_date=parse("21-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+            min_date=parse("19-12-2024 00:00:00", settings=DATEPARSER_SETTINGS),
+        )
+
+        DateTimeField(max_date="20-12-2024 00:00:00")
+        DateTimeField(min_date="20-12-2024 00:00:00")
+        DateTimeField(default="20-12-2024 00:00:00")
+        DateTimeField(
+            default="20-12-2024 00:00:00",
+            max_date="21-12-2024 00:00:00",
+            min_date="19-12-2024 00:00:00",
         )
 
 

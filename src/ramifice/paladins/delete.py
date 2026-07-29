@@ -1,6 +1,20 @@
 # Ramifice - ORM-pseudo-like API MongoDB for Python language.
 # Copyright (c) 2024 Gennady Kostyunin
 # SPDX-License-Identifier: MIT
+#
+# Copyright 2024-present MongoDB, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """Delete document from database."""
 
 from __future__ import annotations
@@ -15,8 +29,8 @@ from typing import Any
 from anyio import to_thread
 from pymongo.asynchronous.collection import AsyncCollection
 
-from ramifice.utils import constants
-from ramifice.utils.errors import ForbiddenDeleteDocError, PanicError
+from ramifice.config import Config
+from ramifice.errors import ForbiddenDeleteDocError, PanicError
 
 logger = logging.getLogger(__name__)
 
@@ -36,30 +50,26 @@ class DeleteMixin:
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
         """Delete document from database."""
-        cls_model = self.__class__
+        metadata = self.__class__.META
         # Raises a panic if the Model cannot be removed.
-        if not cls_model.META["is_delete_doc"]:
-            msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+        if not metadata["is_delete_doc"]:
+            err_msg = (
+                f"Model: `{metadata['full_model_name']}` > "
                 + "META param: `is_delete_doc` (False) => "
                 + "Documents of this Model cannot be removed from the database!"
             )
-            logger.warning(msg)
-            raise ForbiddenDeleteDocError(msg)
+            logger.warning(err_msg)
+            raise ForbiddenDeleteDocError(err_msg)
         # Get documet ID.
-        doc_id = self._id.value
+        doc_id = self.id
         if doc_id is None:
-            msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
-                + "Field: `_id` > "
-                + "Param: `value` => ID is missing."
-            )
-            logger.critical(msg)
-            raise PanicError(msg)
+            err_msg = f"Model: `{metadata['full_model_name']}` > " + "Field: `id` => ID is missing."
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Run hook.
         await self.pre_delete()
         # Get collection for current Model.
-        collection: AsyncCollection = constants.MONGO_DATABASE[cls_model.META["collection_name"]]
+        collection: AsyncCollection = Config.MONGO_DATABASE[metadata["collection_name"]]
         # Delete document.
         mongo_doc: dict[str, Any] | None = {}
         mongo_doc = await collection.find_one_and_delete(
@@ -74,32 +84,31 @@ class DeleteMixin:
         )
         # If the document failed to delete.
         if not bool(mongo_doc):
-            msg = (
-                f"Model: `{cls_model.META['full_model_name']}` > "
+            err_msg = (
+                f"Model: `{metadata['full_model_name']}` > "
                 + "Method: `delete` => "
                 + "The document was not deleted, the document is absent in the database."
             )
-            logger.critical(msg)
-            raise PanicError(msg)
+            logger.critical(err_msg)
+            raise PanicError(err_msg)
         # Delete orphaned files and add None to field.value.
         file_data: dict[str, Any] | None = None
-        for field_name, field_data in self.__dict__.items():
-            if callable(field_data):
-                continue
-            if remove_files and not field_data.ignored:
-                group = field_data.group
+        for f_name in metadata["all_descriptor_fields"]:
+            f__core = getattr(self, f"{f_name}__core")
+            if remove_files and not f__core.is_ignore:
+                group = f__core.group
                 if group == "file":
-                    file_data = mongo_doc[field_name]
-                    if file_data is not None and len(file_data["path"]) > 0:
-                        await to_thread.run_sync(remove, file_data["path"])
+                    file_data = mongo_doc[f_name]
+                    if file_data is not None and len(f__core.value["path"]) > 0:
+                        await to_thread.run_sync(remove, f__core.value["path"])
                     file_data = None
                 elif group == "img":
-                    file_data = mongo_doc[field_name]
-                    if file_data is not None and len(file_data["imgs_dir_path"]) > 0:
+                    file_data = mongo_doc[f_name]
+                    if file_data is not None and len(f__core.value["imgs_dir_path"]) > 0:
                         # pyrefly: ignore [incompatible-overload-residual]
-                        await to_thread.run_sync(rmtree, file_data["imgs_dir_path"])
+                        await to_thread.run_sync(rmtree, f__core.value["imgs_dir_path"])
                     file_data = None
-            field_data.value = None
+            setattr(self, f_name, None)
         # Run hook.
         await self.post_delete()
         #

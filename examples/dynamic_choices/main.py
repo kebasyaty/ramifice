@@ -1,11 +1,14 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, Unit, translations
+from ramifice import (
+    Migration,
+    Unit,
+)
 
 from .models import Product
 
@@ -18,10 +21,6 @@ async def main() -> None:
         database_name="test_dynamic_choices",
         mongo_client=client,
     ).migrate()
-
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
 
     # Add Units:
     # Hint: Enough once, then you can to comment or delete.
@@ -79,13 +78,13 @@ async def main() -> None:
         )
         await Product.unit_manager(unit)
 
-    product = Product()
-    product.size_float.value = 15.6
-    product.sizes_float.value = [25.8, 12.5]
-    product.size_int.value = 25
-    product.sizes_int.value = [15, 12]
-    product.size_txt.value = "middle"
-    product.sizes_txt.value = ["big", "small"]
+    product = Product("ru")
+    product.size_float = 15.6
+    product.sizes_float = [25.8, 12.5]
+    product.size_int = 25
+    product.sizes_int = [15, 12]
+    product.size_txt = "middle"
+    product.sizes_txt = ["big", "small"]
 
     # Create Product.
     if not await product.save():
@@ -93,9 +92,9 @@ async def main() -> None:
         product.print_err()
 
     print("Products:")
-    products = await Product.find_many_to_raw_docs()
-    if bool(products):
-        pprint.pprint(products)
+    product_details: dict | None = await Product.find_one_to_model_dict({"_id": product.id}, "ru")
+    if bool(product_details):
+        pp(product_details)
     else:
         print("No Products!")
 

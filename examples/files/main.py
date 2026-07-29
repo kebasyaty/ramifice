@@ -1,11 +1,11 @@
 """App."""
 
 import asyncio
-import pprint
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration
 
 from .models import User
 
@@ -19,27 +19,31 @@ async def main() -> None:
         mongo_client=client,
     ).migrate()
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    translations.change_locale("en")
-
+    # Create User
     user = User()
-    user.avatar.from_path("public/media/default/no-photo.png")
-    user.resume.from_path("public/media/default/no_doc.odt")
+    # await user.avatar__core.from_path("public/media/default/no-photo.png")
+    # await user.resume__core.from_path("public/media/default/no_doc.odt")
+    # await user.avatar__core.from_base64("base64-string")
+    # await user.resume__core.from_base64("base64-string")
 
+    # Save User
     if not await user.save():
         # Convenient to use during development.
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_raw_doc({"_id": user.id.value})
-    pprint.pprint(user_details)
+    user_details = await User.find_one_to_model_dict({"_id": user.id})
+    if user_details is not None:
+        pp(user_details)
+    else:
+        print("No User!")
 
-    await user.delete(remove_files=False)
+    # Delete User
+    await user.delete()
 
     # Remove collection.
     # (if necessary)
-    await User.collection().drop()
+    # await User.collection.drop()
 
     # Close connection.
     await client.close()
