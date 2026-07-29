@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 import re
 import unittest
 from typing import Any
@@ -131,10 +130,6 @@ class TestIndexingExample(unittest.IsolatedAsyncioTestCase):
         # Remove indexes
         await User.drop_index("username_Idx")
         await User.drop_index("email_Idx")
-
-        # Index information
-        index_info = await User.index_information()
-        logging.critical(index_info)
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
