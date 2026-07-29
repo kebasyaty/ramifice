@@ -1,14 +1,4 @@
-::: ramifice.models
-    options:
-      members: no
-
-<hr>
-
-#### Model Parameters
-
-[See the documentation.](https://kebasyaty.github.io/ramifice/ "See the documentation.")
-
-( only `service_name` is a required parameter )
+Only `service_name` is a required parameter.
 
 <div>
    <table>
@@ -33,8 +23,8 @@
      </tr>
      <tr>
        <td align="left">db_query_docs_limit</td>
-       <td align="left">1000</td>
-       <td align="left">limiting query results.</td>
+       <td align="left">100</td>
+       <td align="left">Limiting the number of request results.</td>
      </tr>
      <tr>
        <td align="left">is_create_doc</td>
@@ -57,24 +47,27 @@
    </table>
 </div>
 
-<br>
+#### Example
 
-**Example:**
+```py title="main.py" linenums="1"
+from ramifice import (
+    Model,
+    fields,
+    meta,
+)
 
-```python
-@model(
+@meta(
     service_name="ServiceName",
     fixture_name="FixtureName",
-    db_query_docs_limit=1000,
+    db_query_docs_limit=100,
     is_create_doc = True,
     is_update_doc = True,
     is_delete_doc = True,
 )
-class User:
-    def fields(self):
-        self.username = TextField(
-            label=gettext("Username"),
-            is_require=True,
-            is_unique=True,
-        )
+class User(Model):
+  username = fields.TextField(
+      label="Username",
+      is_require=True,
+      is_unique=True,
+  )
 ```

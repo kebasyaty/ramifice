@@ -91,10 +91,7 @@ nav:
       - Instance Methods: pages/usage/instance_methods.md
       - Utils: pages/usage/utils.md
   - Localization: pages/localization/index.md
-  - Models:
-      - Models: pages/models/index.md
-      - Model: pages/models/model.md
-      - Decorator: pages/models/decorator.md
+  - Model Parameters: pages/model_parameters.md
   - Fields:
       - Fields: pages/fields/index.md
       - TextField: pages/fields/text_field.md
@@ -144,7 +141,7 @@ nav:
       - Indexes: pages/commons/indexes.md
       - Many: pages/commons/many.md
       - One: pages/commons/one.md
-      - Tools: pages/commons/tools.md
+      - Utils: pages/commons/utils.md
       - Unit Manager: pages/commons/unit_manager.md
   - Config: pages/config.md
   - Errors: pages/errors.md

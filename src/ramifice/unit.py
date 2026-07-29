@@ -51,8 +51,8 @@ class Unit:
             is_delete: True - if you need to remove the item of choice.
 
         Raises:
-            1.A `PanicError` exception if the argument (field|header|value) does not match its type.
-            2.A `PanicError` exception if the argument (field|title|value) is empty.
+            PanicErro exception if the argument (field|header|value) does not match its type.
+            PanicError exception if the argument (field|title|value) is empty.
         """
         # Check the match of types.
         if not isinstance(field, str):
@@ -89,7 +89,7 @@ class Unit:
             `None`
 
         Raises:
-            A `PanicError` exception if the argument (field|title|value) of Unit is empty.
+            PanicError exception if the argument (field|title|value) of Unit is empty.
         """
         field_name: str = ""
 
