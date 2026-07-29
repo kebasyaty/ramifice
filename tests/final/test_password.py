@@ -113,7 +113,7 @@ class TestPasswordExample(unittest.IsolatedAsyncioTestCase):
             await user.update_password(
                 old_password="12345678",  # ruff: ignore[hardcoded-password-func-arg]
                 new_password="O2eA4GIr38KGGlS",  # ruff: ignore[hardcoded-password-func-arg]
-            )
+            ),
         )
         # Verification of new password
         self.assertTrue(await user.verify_password(password="O2eA4GIr38KGGlS"))  # ruff: ignore[hardcoded-password-func-arg]
