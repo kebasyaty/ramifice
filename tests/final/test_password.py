@@ -96,16 +96,31 @@ class TestPasswordExample(unittest.IsolatedAsyncioTestCase):
 
         # Create User
         user = User()
+        user.username = "pythondev"
+        user.password = "12345678"  # ruff: ignore[hardcoded-password-string]
+        user.сonfirm_password = "12345678"  # ruff: ignore[hardcoded-password-string]
 
         # Save User
         is_saved = await user.save()
         if not is_saved:
             user.print_err()
+
+        # Verification of password
+        self.assertTrue(await user.verify_password(password="12345678"))  # ruff: ignore[hardcoded-password-func-arg]
+
+        # Replacement of password
+        self.assertIsNone(
+            await user.update_password(
+                old_password="12345678",  # ruff: ignore[hardcoded-password-func-arg]
+                new_password="O2eA4GIr38KGGlS",  # ruff: ignore[hardcoded-password-func-arg]
+            )
+        )
+        # Verification of new password
+        self.assertTrue(await user.verify_password(password="O2eA4GIr38KGGlS"))  # ruff: ignore[hardcoded-password-func-arg]
         # ----------------------------------------------------------------------
         #
         # Delete database after test.
         await client.drop_database(database_name)
-        await Config.MONGO_CLIENT.close()
         await client.close()
 
 

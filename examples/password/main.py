@@ -24,31 +24,30 @@ async def main() -> None:
     user.сonfirm_password = "12345678"
 
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Verification of password.
+    # Verification of password
     if await user.verify_password(password="12345678"):
         print("12345678 - The password is valid")
 
-    # Replacement of password.
+    # Replacement of password
     print("Replacement of password from `12345678` to `O2eA4GIr38KGGlS`")
     await user.update_password(
         old_password="12345678",
         new_password="O2eA4GIr38KGGlS",
     )
-
-    # Verification of new password.
+    # Verification of new password
     if await user.verify_password(password="O2eA4GIr38KGGlS"):
         print("O2eA4GIr38KGGlS - The password is valid")
 
-    await user.delete(remove_files=False)
+    await user.delete()
 
-    # Remove collection.
+    # Remove collection
     # (if necessary)
-    await User.collection.drop()
+    # await User.collection.drop()
 
-    # Close connection.
+    # Close connection
     await client.close()
 
 
