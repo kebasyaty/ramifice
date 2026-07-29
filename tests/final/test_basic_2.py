@@ -99,8 +99,8 @@ class User(Model):
         label=_("Password"),
         placeholder=_("Enter your password"),
         warning=[
-            _("Maximum length: {}").format(256),
-            _("Minimum length: {}").format(8),
+            _("Maximum length: {}").format(256),  # this is an immutable size
+            _("Minimum length: {}").format(8),  # this is an immutable size
         ],
     )
     confirm_password = fields.PasswordField(

@@ -1,14 +1,21 @@
-"""Models."""
+"""Testing the `password` example."""
+
+from __future__ import annotations
 
 import re
+import unittest
+
+from pymongo import AsyncMongoClient
 
 from ramifice import (
+    Migration,
     Model,
     NamedTuple,
     Translator,
     fields,
     meta,
 )
+from ramifice.config import Config
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
@@ -63,3 +70,36 @@ class User(Model):
             err_map.update("password", _("Passwords do not match!"))
 
         return err_map
+
+
+class TestPasswordExample(unittest.IsolatedAsyncioTestCase):
+    """Testing the `password` example."""
+
+    async def test_password_example(self):
+        """Testing the `password` example."""
+        # Maximum number of characters 60.
+        database_name = "password_example"
+
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+
+        # Delete database before test.
+        # (if the test fails)
+        await client.drop_database(database_name)
+        await client.close()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+        await Migration(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrate()
+
+        # ----------------------------------------------------------------------
+        #
+        # Delete database after test.
+        await client.drop_database(database_name)
+        await client.close()
+
+
+if __name__ == "__main__":
+    unittest.main()
