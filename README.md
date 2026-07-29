@@ -37,16 +37,6 @@
 
 ##
 
-<p>
-  <b>Version 2.0</b>
-  <br>
-  <a href="https://github.com/kebasyaty/ramifice" alt="Project Status">
-    <img src="https://raw.githubusercontent.com/kebasyaty/ramifice/v2/assets/project_status/pre-alpha.svg"
-      alt="Project Status">
-  </a>
-</p>
-
-<br>
 <br>
 
 [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
@@ -108,15 +98,14 @@ uv run python -OOP main.py
 ```python
 import re
 import asyncio
-from typing import Any
-from datetime import datetime
 from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
+
 from ramifice import (
     Migration,
     Model,
-    ranslator,
+    Translator,
     fields,
     meta,
     to_human_size,
@@ -157,8 +146,8 @@ class User:
     password = fields.PasswordField(
         label=_("Password"),
         warning=[
-            _("Maximum length: {}").format(256),
-            _("Minimum length: {}").format(8),
+            _("Maximum length: {}").format(256),  # this is an immutable size
+            _("Minimum length: {}").format(8),  # this is an immutable size
         ],
     )
     сonfirm_password = fields.PasswordField(
@@ -197,7 +186,7 @@ async def main():
         mongo_client=client,
     ).migrate()
 
-
+    # Create User
     user = User("ru")
     # user.avatar__core.from_path("public/media/default/no-photo.png")
     # user.avatar__core.from_base64("base64-string")
@@ -205,24 +194,24 @@ async def main():
     user.password = "12345678"
     user.сonfirm_password = "12345678"
 
-    # Create User.
+    # Save User
     if not await user.save():
-        # Convenient to use during development.
+        # Convenient to use during development
         user.print_err()
 
-    # Update User.
+    # Update User
     user.username = "pythondev_123"
     if not await user.save():
         user.print_err()
 
     print("User details:")
-    user_details = await User.find_one_to_model_dict(filter={"_id": user.id})
+    user_details: dict | None = await User.find_one_to_model_dict(filter={"_id": user.id})
     if user_details is not None:
         pp(user_details)
     else:
         print("No User!")
 
-    # Close connection.
+    # Close connection
     await client.close()
 
 
