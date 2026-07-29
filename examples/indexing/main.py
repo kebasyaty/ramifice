@@ -1,12 +1,11 @@
 """App."""
 
 import asyncio
-import pprint
-from datetime import datetime
+from pprint import pprint as pp
 
 from pymongo import AsyncMongoClient
 
-from ramifice import Migration, translations
+from ramifice import Migration
 
 from .models import User
 
@@ -21,12 +20,9 @@ async def main() -> None:
     ).migrate()
 
     print("Index information:")
-    pprint.pprint(await User.index_information())
+    pp(await User.index_information())
 
-    # If you need to change the language of translation.
-    # Hint: For Ramifice by default = "en"
-    Translations.change_locale("en")
-
+    # Create User
     user = User()
     user.username = "pythondev"
     user.avatar.from_path("public/media/default/no-photo.png")
@@ -39,41 +35,38 @@ async def main() -> None:
     user.сonfirm_password = "12345678"
     user.is_admin = True
 
-    # Create User.
+    # Save User
     if not await user.save():
-        # Convenient to use during development.
-        user.print_err()
-
-    # Update User.
-    user.username = "pythondev-123"
-    if not await user.save():
+        # Convenient to use during development
         user.print_err()
 
     print("\n\nUser details:")
-    user_details = await User.find_one_to_raw_doc(
-        # {"_id": user.id}
-        {f"username": user.username},
-    )
+    user_details = await User.find_one_to_model_dict({"_id": user.id})
     if user_details is not None:
-        pprint.pprint(user_details)
+        pp(user_details)
     else:
         print("No User!")
 
-    # Remove User.
-    if user_details is not None:
-        await user.delete(remove_files=False)
+    # Remove User
+    # await user.delete()
+    # or
+    deleted_user: dict[str, Any] = await user.delete()
+    print("\n\nInformation about the user who was deleted:")
+    pp(deleted_user)
 
-    # Remove indexes:
+    # Remove indexes
     print("\n\nRemove indexes:")
     await User.drop_index("username_Idx")
     await User.drop_index("email_Idx")
-    # await User.drop_indexes()  # remove all indexes.
+     # remove all indexes
+    # await User.drop_indexes()
+    #
     print("Index information:")
-    pprint.pprint(await User.index_information())
+    pp(await User.index_information())
 
-    # Remove collection.
+    # Remove collection
     # (if necessary)
-    await User.collection.drop()
+    # await User.collection.drop()
 
     # Close connection.
     await client.close()

@@ -1,16 +1,23 @@
-"""Models."""
+"""Testing the `indexing` example."""
 
+from __future__ import annotations
+
+import logging
 import re
+import unittest
+from typing import Any
 
-from pymongo import ASCENDING
+from pymongo import ASCENDING, AsyncMongoClient
 
 from ramifice import (
+    Migration,
     Model,
     NamedTuple,
     Translator,
     fields,
     meta,
 )
+from ramifice.config import Config
 
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
@@ -81,3 +88,59 @@ class User(Model):
             [("email", ASCENDING)],
             name="email_Idx",
         )
+
+
+class TestIndexingExample(unittest.IsolatedAsyncioTestCase):
+    """Testing the `indexing` example."""
+
+    async def test_indexing_example(self):
+        """Testing the `indexing` example."""
+        # Maximum number of characters 60
+        database_name = "indexing_example"
+
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+
+        # Delete database before test
+        # (if the test fails)
+        await client.drop_database(database_name)
+        await client.close()
+        #
+        # ----------------------------------------------------------------------
+        client = AsyncMongoClient(host=Config.MONGO_HOST)
+        await Migration(
+            database_name=database_name,
+            mongo_client=client,
+        ).migrate()
+
+        # Create User
+        user = User()
+        user.username = "pythondev"
+        user.first_name = "John"
+        user.last_name = "Smith"
+        user.email = "John_Smith@gmail.com"
+
+        # Save User
+        is_saved = await user.save()
+        if not is_saved:
+            user.print_err()
+
+        # Delete User
+        deleted_user: dict[str, Any] = await user.delete()
+        self.assertTrue(isinstance(deleted_user, dict))
+
+        # Remove indexes
+        await User.drop_index("username_Idx")
+        await User.drop_index("email_Idx")
+
+        # Index information
+        index_info = await User.index_information()
+        logging.critical(index_info)
+        # ----------------------------------------------------------------------
+        #
+        # Delete database after test.
+        await client.drop_database(database_name)
+        await client.close()
+
+
+if __name__ == "__main__":
+    unittest.main()
