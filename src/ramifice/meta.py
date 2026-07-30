@@ -129,7 +129,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     data_dynamic_fields: dict[str, dict[str, str | int | float] | None] = {}
     # List of text fields that support localization.
     # Hint: Only `TextField`
-    multi_lang_text_fields: list[str] = []
+    multilingual_text_fields: list[str] = []
 
     for f_name, f_value in cls.__dict__.items():
         if "__core" in f_name:
@@ -152,7 +152,7 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
                 if "Dyn" in f_cls_name:
                     data_dynamic_fields[f_name] = None
                 if f_cls_name == "TextField" and f__core.is_multilingual:
-                    multi_lang_text_fields.append(f_name)
+                    multilingual_text_fields.append(f_name)
 
     metadata["model_name"] = model_name
     metadata["full_model_name"] = f"{cls.__module__}.{model_name}"
@@ -160,6 +160,6 @@ def caching(cls: Any, service_name: str) -> dict[str, Any]:
     metadata["all_descriptor_fields"] = all_descriptor_fields
     metadata["field_name_and_type"] = field_name_and_type
     metadata["data_dynamic_fields"] = data_dynamic_fields
-    metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(multi_lang_text_fields)})":)')
+    metadata["regex_mongo_filter"] = re.compile(rf'(?P<field>"(?:{"|".join(multilingual_text_fields)})":)')
 
     return metadata
