@@ -106,9 +106,7 @@ class JsonMixin:
 
         # If fields not contain attributes
         if not isinstance(json_dict.get("created_at"), dict):
-            err_msg = "Fields should contain attributes."
-            logger.critical(err_msg)
-            raise ValueError(err_msg)
+            return cls.from_ajax_json(json_dict, lang)
 
         # pyrefly: ignore [bad-argument-count]
         instance_model: Any = cls(lang)
@@ -153,12 +151,12 @@ class JsonMixin:
         lang = json_dict.get("_lang_")
         # If there is no `_lang_` language marker in the JSON-dictionary
         if lang is None:
-            return cls.from_ajax_json(json_str, lang)
+            return cls.from_ajax_json(json_dict, lang)
         # If fields contain attributes
         return cls.from_dict(json_dict)
 
     @classmethod
-    def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
+    def from_ajax_json(cls, json_str_or_dict: dict[str, Any] | str, lang_code: str) -> Any:
         """Convert JSON-string from web request to a Model instance.
 
         If the JSON-string does not contain the field attributes and the `_lang_` language marker.
@@ -168,7 +166,9 @@ class JsonMixin:
         """
         metadata = cls.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
-        json_dict = orjson.loads(json_str)
+        json_dict: dict[str, Any] = (
+            orjson.loads(json_str_or_dict) if isinstance(json_str_or_dict, str) else json_str_or_dict
+        )
 
         # If fields contain attributes
         if isinstance(json_dict.get("created_at"), dict):

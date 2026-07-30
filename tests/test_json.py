@@ -122,6 +122,7 @@ class TestJsonMixin(unittest.TestCase):
         descriptor_fields = metadata["all_descriptor_fields"]
 
         m = User()
+
         json_dict = m.to_dict()
         json_str = m.to_json()
 
@@ -173,6 +174,18 @@ class TestJsonMixin(unittest.TestCase):
         m.choice_txt_mult_dyn = ["Hello World!", "Hello World!"]
         m.choice_txt_mult = ["Hello World!", "Hello World!"]
         m.choice_int = 12
+
+        json_dict = m.to_dict(only_value=True)
+        self.assertTrue(isinstance(json_dict["created_at"], str))
+        json_str = m.to_json(only_value=True)
+        user = User.from_dict(json_dict)
+        self.assertTrue(isinstance(user, User))
+        user = User.from_json(json_str)
+        self.assertTrue(isinstance(user, User))
+        user = User.from_ajax_json(json_dict, "en")
+        self.assertTrue(isinstance(user, User))
+        user = User.from_ajax_json(json_str, "en")
+        self.assertTrue(isinstance(user, User))
 
         json_dict = m.to_dict()
         json_str = m.to_json()
