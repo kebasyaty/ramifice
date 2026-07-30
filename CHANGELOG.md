@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### v2.0.0 2026-07-29
+
+- See README.md and documentation.
+
 #### v0.9.15 2026-01-24
 
 - Upgrade dependencies.

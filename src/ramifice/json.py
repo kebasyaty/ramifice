@@ -37,8 +37,12 @@ logger = logging.getLogger(__name__)
 class JsonMixin:
     """A mixin for converting Model to a JSON-string and back to a Model."""
 
-    def to_dict(self) -> dict[str, Any]:
-        """Convert Model instance to a dictionary."""
+    def to_dict(self, only_value: bool = False) -> dict[str, Any]:
+        """Convert Model instance to a dictionary.
+
+        Agrs:
+            only_value (bool): True if need without field attributes.
+        """
         metadata = self.__class__.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         LANG_CODE = self._LANG_CODE
@@ -71,13 +75,17 @@ class JsonMixin:
                             format="medium",
                             locale=LANG_CODE,
                         )
-            json_dict[f_name] = tmp__core.to_dict()
+            json_dict[f_name] = tmp__core.to_dict() if not only_value else tmp__core.value
 
         return json_dict
 
-    def to_json(self) -> str:
-        """Convert Model instance to a JSON-string."""
-        return orjson.dumps(self.to_dict()).decode("utf-8")
+    def to_json(self, only_value: bool = False) -> str:
+        """Convert Model instance to a JSON-string.
+
+        Agrs:
+            only_value (bool): True if need without field attributes.
+        """
+        return orjson.dumps(self.to_dict(only_value)).decode("utf-8")
 
     @classmethod
     def from_dict(
@@ -89,15 +97,16 @@ class JsonMixin:
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
         lang = json_dict.get("_lang_")
 
+        # If there is no `_lang_` language marker in the JSON-dictionary
+        lang = json_dict.get("_lang_")
         if lang is None:
-            err_msg = "The JSON-dictionary does not contain the `_lang_` language marker."
+            err_msg = "The JSON-dictionary does not contain the `_lang_` marker."
             logger.critical(err_msg)
             raise ValueError(err_msg)
 
+        # If fields not contain attributes
         if not isinstance(json_dict.get("created_at"), dict):
-            err_msg = "JSON-dictionary does not contain field attributes."
-            logger.critical(err_msg)
-            raise ValueError(err_msg)
+            return cls.from_ajax_json(json_dict, lang)
 
         # pyrefly: ignore [bad-argument-count]
         instance_model: Any = cls(lang)
@@ -139,10 +148,15 @@ class JsonMixin:
     ) -> Any:
         """Convert JSON-string of Model to a Model instance."""
         json_dict = orjson.loads(json_str)
+        lang = json_dict.get("_lang_")
+        # If there is no `_lang_` language marker in the JSON-dictionary
+        if lang is None:
+            return cls.from_ajax_json(json_dict, lang)
+        # If fields contain attributes
         return cls.from_dict(json_dict)
 
     @classmethod
-    def from_ajax_json(cls, json_str: str, lang_code: str) -> Any:
+    def from_ajax_json(cls, json_str_or_dict: dict[str, Any] | str, lang_code: str) -> Any:
         """Convert JSON-string from web request to a Model instance.
 
         If the JSON-string does not contain the field attributes and the `_lang_` language marker.
@@ -152,7 +166,16 @@ class JsonMixin:
         """
         metadata = cls.META
         DESCRIPTOR_FIELDS = metadata["all_descriptor_fields"]
-        json_dict = orjson.loads(json_str)
+        json_dict: dict[str, Any] = (
+            orjson.loads(json_str_or_dict) if isinstance(json_str_or_dict, str) else json_str_or_dict
+        )
+
+        # If fields contain attributes
+        if isinstance(json_dict.get("created_at"), dict):
+            err_msg = "Fields should not contain attributes, only values."
+            logger.critical(err_msg)
+            raise ValueError(err_msg)
+
         # pyrefly: ignore [bad-argument-count]
         instance_model: Any = cls(lang_code)
         DATEPARSER_SETTINGS = instance_model.dateparser_settings
