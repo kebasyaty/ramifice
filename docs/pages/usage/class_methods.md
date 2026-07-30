@@ -48,7 +48,7 @@ raw_doc = await User.find_one_to_model_dict(q_filter)
 
 # Find a single document and convert it to a Model instance.
 q_filter = {"email": "John_Smith@gmail.com"}
-user = await User.find_one_to_instance(q_filter)
+user = await User.find_one_to_instance_model(q_filter)
 
 # Find a single document and convert it to a JSON string.
 q_filter = {"email": "John_Smith@gmail.com"}
