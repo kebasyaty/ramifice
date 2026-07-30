@@ -49,7 +49,30 @@ class DeleteMixin:
         comment: Any | None = None,
         **kwargs: dict[str, Any],
     ) -> dict[str, Any]:
-        """Delete document from database."""
+        """Delete document from database.
+
+        Agrs:
+            remove_files: True, if need to delete files and images in the `public/media/uploads` directory.
+            projection: A  list of field names that should be
+                            returned in the result document or a mapping specifying the fields
+                            to include or exclude. If projection is a list "_id" will
+                            always be returned. Use a mapping to exclude fields from
+                            the result (e.g. projection={'_id': False}).
+            sort: A  list of (key, direction) pairs
+                    specifying the sort order for the query. If multiple documents
+                    match the query, they are sorted and the first is deleted.
+            hint: An index to use to support the query predicate
+                    specified either by its string name, or in the same format as
+                    passed to ~pymongo.asynchronous.collection.AsyncCollection.create_index
+                    (e.g. [('field', ASCENDING)]). This option is only supported
+                    on MongoDB 4.4 and above.
+            session: A ~pymongo.asynchronous.client_session.AsyncClientSession.
+            let: Map of parameter names and values. Values must be
+                    constant or closed expressions that do not reference document
+                    fields. Parameters can then be accessed as variables in an
+                    aggregate expression context (e.g. "$$var").
+            comment: A user-provided comment to attach to this command.
+        """
         metadata = self.__class__.META
         # Raises a panic if the Model cannot be removed.
         if not metadata["is_delete_doc"]:
