@@ -10,6 +10,7 @@ from pymongo import AsyncMongoClient
 from ramifice import (
     Migration,
     Model,
+    NamedTuple,
     Translator,
     fields,
     meta,
@@ -19,8 +20,8 @@ from ramifice import (
 _ = Translator.STUB_TRANSLATOR_FOR_ATTRIBUTES_OF_FIELD
 
 
-@model(service_name="Accounts")
-class User:
+@meta(service_name="Accounts")
+class User(Model):
     """User Model."""
 
     avatar = fields.ImageField(
@@ -62,7 +63,7 @@ class User:
     )
 
     # Optional method
-    async def add_validation(self) -> dict[str, Any]:
+    async def add_validation(self) -> NamedTuple:
         """Additional validation of fields."""
         _ = self._CUSTOM_TRANSLATOR.gettext
         err_map = self.get_error_map()
