@@ -56,9 +56,7 @@ class Config:
     # For block the verification code, at the end of the migration to the database.
     DEBUG: ClassVar[bool] = True
     # Mongo host.
-    MONGO_HOST: ClassVar[str | None] = (
-        "mongodb+srv://kebasyaty:pV89ZXdJ9V7mhobD@cluster0.fc2sa1h.mongodb.net/?appName=Cluster0"
-    )
+    MONGO_HOST: ClassVar[str | None] = None
     # Mongo client.
     MONGO_CLIENT: ClassVar[AsyncMongoClient | None] = None
     # Mongo database.
