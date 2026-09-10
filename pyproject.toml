@@ -138,6 +138,7 @@ missing-attribute = false
 unsupported-operation = false
 bad-argument-type = false
 bad-assignment = false
+missing-module-attribute = false
 
 [[tool.pyrefly.sub-config]]
 matches = "examples/**"
@@ -254,6 +255,8 @@ ignore = [
   "raw-string-in-exception",  # Exception must not use a string literal, assign to variable first
   "f-string-in-exception",  # Exception must not use an f-string literal, assign to variable first
   "unused-method-argument",
+  "pytest-unittest-assertion",
+  "pytest-unittest-raises-assertion",
 ]
 fixable = ["I"]
 unfixable = [
