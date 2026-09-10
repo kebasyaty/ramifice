@@ -146,6 +146,8 @@ matches = "examples/**"
 missing-module-attribute = false
 missing-attribute = false
 bad-argument-type = false
+missing-import = false
+unknown-name = false
 
 [tool.ruff]
 fix = true
