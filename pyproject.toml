@@ -80,6 +80,7 @@ project-excludes = [
   "**/node_modules",
   "**/__pycache__",
   "**/.[!/.]*/**",
+  "*.py[cod]",
   ".bzr",
   ".direnv",
   ".eggs",
@@ -93,19 +94,30 @@ project-excludes = [
   ".pytest_cache",
   ".pytype",
   ".ruff_cache",
+  ".mypy_cache",
   ".svn",
   ".tox",
   ".venv",
+  "venv",
+  "env",
+  ".env",
+  ".idea",
   ".vscode",
+  ".zed",
   "__pypackages__",
   "_build",
   "buck-out",
   "build",
   "dist",
+  ".flet",
+  "storage",
   "site-packages",
   "examples",
   ".github",
   "assets",
+  "config",
+  "public",
+  "templates",
   "docs",
   "site",
 ]
@@ -149,6 +161,7 @@ exclude = [
   "**/node_modules",
   "**/__pycache__",
   "**/.[!/.]*/**",
+  "*.py[cod]",
   ".bzr",
   ".direnv",
   ".eggs",
@@ -162,19 +175,30 @@ exclude = [
   ".pytest_cache",
   ".pytype",
   ".ruff_cache",
+  ".mypy_cache",
   ".svn",
   ".tox",
   ".venv",
+  "venv",
+  "env",
+  ".env",
+  ".idea",
   ".vscode",
+  ".zed",
   "__pypackages__",
   "_build",
   "buck-out",
   "build",
   "dist",
+  ".flet",
+  "storage",
   "site-packages",
   "examples",
   ".github",
   "assets",
+  "config",
+  "public",
+  "templates",
   "docs",
   "site",
 ]
@@ -193,6 +217,7 @@ select = [
   "BLE",  # flake8-blind-except
   "T20",  # flake8-print
   "T10",  # flake8-debugger
+  "PT",  # flake8-pytest-style
   "RUF",  # Ruff-specific
   "DTZ",  # flake8-datetimez
   "ERA",  # eradicate
@@ -213,26 +238,26 @@ select = [
   "ASYNC",  # flake8-async
 ]
 ignore = [
-  "D417",  # Missing argument descriptions in the docstring
-  "D206",  # Docstring should be indented with spaces, not tabs
-  "C408",  # Unnecessary `dict` call (rewrite as a literal)
-  "RUF001",  # ambiguous-unicode-character-docstring
-  "RUF002",  # ambiguous-unicode-character-docstring
-  "RUF003",  # ambiguous-unicode-character-docstring
-  "RUF022",  # unsorted-dunder-all
-  "E722",  # Do not use bare except
-  "S110",  # try-except-pass detected, consider logging the exception
-  "S101",  # Use of `assert` detected
+  "undocumented-param",  # Missing argument descriptions in the docstring
+  "docstring-tab-indentation",  # Docstring should be indented with spaces, not tabs
+  "unnecessary-collection-call",  # Unnecessary `dict` call (rewrite as a literal)
+  "ambiguous-unicode-character-string",  # ambiguous-unicode-character-docstring
+  "ambiguous-unicode-character-docstring",  # ambiguous-unicode-character-docstring
+  "ambiguous-unicode-character-comment",  # ambiguous-unicode-character-docstring
+  "unsorted-dunder-all",
+  "bare-except",  # Do not use bare except
+  "try-except-pass",  # try-except-pass detected, consider logging the exception
+  "assert",  # Use of `assert` detected
   "PLR",  # Design related pylint codes
-  "EM101",  # Exception must not use a string literal, assign to variable first
-  "EM102",  # Exception must not use an f-string literal, assign to variable first
-  "ARG002",  # Unused method argument
+  "raw-string-in-exception",  # Exception must not use a string literal, assign to variable first
+  "f-string-in-exception",  # Exception must not use an f-string literal, assign to variable first
+  "unused-method-argument",
 ]
 fixable = ["I"]
 unfixable = [
-  "RUF100",  # Unused noqa
+  "unused-noqa",
   "T20",  # Removes print statements
-  "F841",  # Removes unused variables
+  "unused-variable",
 ]
 flake8-unused-arguments.ignore-variadic-names = true
 isort.required-imports = ["from __future__ import annotations"]

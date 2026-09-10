@@ -28,7 +28,6 @@ The localization of translations class contains the following parameters:
 The localization of translations class contains the following methods:
 
 - `add_new_languages` - Add new languages.
-- `change_locale` - Globally change the localization of translations.
 - `ramifice_translator` - Get translator for Ramifice.
 - `custom_translator` - Get translator for custom project.
 
